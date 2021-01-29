@@ -1,8 +1,8 @@
 {
-  "name": "number-drive",
-  "version": "3.0.0",
+  "name": "number-cruncher",
+  "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
+  "main": "build/main.js",
   "scripts": {
     "build": "webpack"
   },
