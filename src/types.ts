@@ -27,7 +27,7 @@ export interface Boolean extends AbstractSyntaxTreeNode {
     value: boolean
 }
 
-export interface Vector extends AbstractUnaryOperatorNode {
+export interface Vector extends AbstractSyntaxTreeNode {
     type: "Vector",
     children: SyntaxTreeNode[]
 }
