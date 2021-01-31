@@ -12,7 +12,9 @@ module.exports = {
     // output bundles (location)
     output: {
         path: path.resolve( __dirname, 'build' ),
-        filename: 'main.js',
+        filename: '[name].js',
+        library: "number-cruncher",
+        libraryTarget: "commonjs"
     },
 
     // file resolutions
