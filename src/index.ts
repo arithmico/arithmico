@@ -1,5 +1,5 @@
 import {Number} from "types";
-import { createNumber } from "./create";
+import { createNumber } from "./create/create";
 
 const foo: Number = {
     type: "Number",
