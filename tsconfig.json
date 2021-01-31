@@ -7,6 +7,7 @@
         "allowJs": true,
         "outDir": "lib",
         "rootDir": "src",
+        "sourceMap": true,
         "moduleResolution": "Node"
     },
     "exclude": [
