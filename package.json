@@ -6,7 +6,8 @@
   "types": "lib/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "webpack"
+    "build-parser": "node parser/build.js",
+    "build": "npm run build-parser && tsc"
   },
   "author": "Lennard Behrens",
   "license": "MIT",
