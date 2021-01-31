@@ -3,7 +3,7 @@ interface AbstractSyntaxTreeNode {
     type: string
 }
 
-interface AbstractBinaryOperatorNode extends AbstractSyntaxTreeNode{
+interface AbstractBinaryOperatorNode extends AbstractSyntaxTreeNode {
     children: [SyntaxTreeNode, SyntaxTreeNode]
 }
 
@@ -95,8 +95,8 @@ export type SyntaxTreeNode = DatastructureNode
     | UnaryOperatorNode
     | FunctionCall;
 
-export type DatastructureNode = Symbol 
-    | Number 
+export type DatastructureNode = Symbol
+    | Number
     | Boolean
     | Vector;
 

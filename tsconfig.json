@@ -7,10 +7,11 @@
         "declaration": true,
         "allowJs": true,
         "outDir": "lib",
-        "rootDir": "src"
+        "rootDir": "src",
+        "moduleResolution": "Node"
     },
     "exclude": [
-        "webpack.config.js",
+        "node_modules",
         "lib"
     ]
 }

@@ -17,7 +17,7 @@ import {
     Symbol,
     SyntaxTreeNode,
     Vector
-} from "src/types";
+} from "../types.js";
 
 // data structures
 export const createNumber = (value: number): Number => {
