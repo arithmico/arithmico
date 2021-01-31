@@ -1,0 +1,4 @@
+src
+tsconfig.json
+.idea
+lib/**/*.js.map
