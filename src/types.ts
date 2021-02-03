@@ -33,6 +33,14 @@ export interface Vector extends AbstractSyntaxTreeNode {
 }
 
 // non terminal nodes
+export interface And extends AbstractBinaryOperatorNode {
+    type: "And"
+}
+
+export interface Or extends AbstractBinaryOperatorNode {
+    type: "Or"
+}
+
 export interface Add extends AbstractBinaryOperatorNode {
     type: "Add"
 }

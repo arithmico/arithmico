@@ -1,5 +1,6 @@
 import {
     Add,
+    And,
     Boolean,
     Definition,
     Div,
@@ -12,6 +13,7 @@ import {
     Mul,
     Not,
     Number,
+    Or,
     Pow,
     Sub,
     Symbol,
@@ -130,6 +132,20 @@ export const createLessThan = (left: SyntaxTreeNode, right: SyntaxTreeNode): Les
 export const createLessThanOrEqual = (left: SyntaxTreeNode, right: SyntaxTreeNode): LessThanOrEqual => {
     return {
         type: "LessThanOrEqual",
+        children: [left, right]
+    };
+};
+
+export const createAnd = (left: SyntaxTreeNode, right: SyntaxTreeNode): And => {
+    return {
+        type: "And",
+        children: [left, right]
+    };
+};
+
+export const createOr = (left: SyntaxTreeNode, right: SyntaxTreeNode): Or => {
+    return {
+        type: "Or",
         children: [left, right]
     };
 };
