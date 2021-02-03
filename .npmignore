@@ -3,3 +3,4 @@ tsconfig.json
 .idea
 lib/**/*.js.map
 parser/**/*
+coverage

@@ -8,7 +8,7 @@
   "scripts": {
     "build-parser": "node parser/build.js",
     "build": "npm run build-parser && tsc",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "author": "Lennard Behrens",
   "license": "MIT",
