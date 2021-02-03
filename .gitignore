@@ -1,5 +1,5 @@
 node_modules
 lib
 .idea
-src/parser.js
+src/parse/parser.js
 coverage
