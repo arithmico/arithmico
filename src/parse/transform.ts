@@ -1,7 +1,7 @@
-import { createAnd, createBoolean, createDefinition, createEqual, createFunctionCall, createGreaterThan, createGreaterThanOrEqual, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createSymbol, createVector } from "../create/create.js";
+import { createAdd, createAnd, createBoolean, createDefinition, createEqual, createFunctionCall, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSymbol, createVector } from "../create/create.js";
 import { Add, Sub, SyntaxTreeNode } from "../types.js";
 
-const transform = (node: any): SyntaxTreeNode => {
+export const transform = (node: any): SyntaxTreeNode => {
     if (typeof node !== "object")
         throw `expected object got ${typeof node}`;
 
@@ -45,36 +45,6 @@ const transform = (node: any): SyntaxTreeNode => {
                 transform(node.items[1])
             );
 
-        case "Equal":
-            return createEqual(
-                transform(node.items[0]),
-                transform(node.items[1])
-            );
-
-        case "LessThan":
-            return createLessThanOrEqual(
-                transform(node.items[0]),
-                transform(node.items[1])
-            );
-
-        case "LessThanOrEqual":
-            return createLessThanOrEqual(
-                transform(node.items[0]),
-                transform(node.items[1])
-            );
-
-        case "GreaterThan":
-            return createGreaterThan(
-                transform(node.items[0]),
-                transform(node.items[1])
-            );
-
-        case "GreaterThanOrEqual":
-            return createGreaterThanOrEqual(
-                transform(node.items[0]),
-                transform(node.items[1])
-            );
-
         case "Sum":
             const transformedSum = transformSum(node.items);
             if (node.items[0].operator === "-") {
@@ -88,47 +58,106 @@ const transform = (node: any): SyntaxTreeNode => {
         case "Product":
             return transformProduct(node.items);
 
+        case "Power":
+            return {
+                type: "Pow",
+                children: [
+                    transform(node.items[0]),
+                    transform(node.items[1])
+                ]
+            };
+
+        case "Relation":
+            return transformRelation(
+                node.values as any[],
+                node.operators as string[]
+            );
+
         default:
             throw `unkown node type "${node.type}"`;
     }
 }
 
 const transformSum = (items: any[]): SyntaxTreeNode => {
-    if (items.length < 1)
-        throw "invalid parameter expected non empty items array";
+    const transformedItems = items.map(
+        item => item.operator === "+"
+            ? transform(item.value)
+            : createMul(createNumber(-1), transform(item.value))
+    );
 
-    const last = transform(items[items.length - 1].value);
-    if (items.length === 1)
-        return last;
+    if (transformedItems.length === 1) 
+        return transformedItems[0];
 
-    const operator = items[items.length - 2].operator;
-    const previousItems = items.slice(items.length - 1);
-
-    return {
-        type: operator === "-" ? "Sub" : "Add",
-        children: [
-            transformSum(previousItems),
-            last
-        ]
-    };
-};
+    return transformedItems.reduce(
+        (acc, val) => createAdd(acc, val)
+    );
+}
 
 const transformProduct = (items: any[]): SyntaxTreeNode => {
-    if (items.length < 1)
-        throw "invalid parameter expected non empty items array";
+    const transformedItems = items.map(
+        item => item.operator === "*"
+            ? transform(item.value)
+            : createPow(transform(item.value), createNumber(-1))
+    );
 
-    const last = transform(items[items.length - 1].value);
-    if (items.length === 1)
-        return last;
+    if (transformedItems.length === 1) 
+        return transformedItems[0];
 
-    const operator = items[items.length - 2].operator;
-    const previousItems = items.slice(items.length - 1);
+    return transformedItems.reduce(
+        (acc, val) => createMul(acc, val)
+    );
+}
 
-    return {
-        type: operator === "/" ? "Div" : "Mul",
-        children: [
-            transformSum(previousItems),
-            last
-        ]
-    };
+const transformRelation = (items: any[], operators: string[]) => {
+    if (items.length - 1 !== operators.length)
+        throw "invalid operator count";
+    
+    const components: SyntaxTreeNode[] = [];
+    for (let i = 1; i < items.length; i++) {
+        let component: SyntaxTreeNode;
+        switch (operators[i - 1]) {
+            case "Equal":
+                component = createEqual(
+                    transform(items[i - 1]),
+                    transform(items[i])
+                );
+                break;
+
+            case "GreaterThan":
+                component = createGreaterThan(
+                    transform(items[i - 1]),
+                    transform(items[i])
+                );
+                break;
+
+            case "GreaterThanOrEqual":
+                component = createGreaterThanOrEqual(
+                    transform(items[i - 1]),
+                    transform(items[i])
+                );
+                break;
+
+            case "LessThan":
+                component = createLessThan(
+                    transform(items[i - 1]),
+                    transform(items[i])
+                );
+                break;
+
+            case "LessThanOrEqual":
+                component = createLessThanOrEqual(
+                    transform(items[i - 1]),
+                    transform(items[i])
+                );
+                break;
+
+            default:
+                throw `unknown relation type "${operators[i - 1]}"`;
+        }
+        components.push(component);
+    }
+
+    return components.reduce(
+        (acc, val) => createAnd(acc, val)
+    );
 }
