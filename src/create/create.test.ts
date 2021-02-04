@@ -1,4 +1,4 @@
-import { createAdd, createAnd, createBoolean, createDefinition, createEqual, createFunctionCall, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSymbol, createVector } from "./create.js"
+import { createAdd, createAnd, createBoolean, createDefinition, createEqual, createFunctionCall, createFunctionSignature, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSymbol, createVector } from "./create.js"
 
 const compareNodes = (node1: any, node2: any) => {
     return () => expect(node1).toStrictEqual(node2);
@@ -139,4 +139,12 @@ describe("create-misc", () => {
             children: [childA, childB]
         }
     ));
-})
+
+    test("create-function-signature", compareNodes(
+        createFunctionSignature("f", [{name: "x", type: "number"}]), {
+            type: "FunctionSignature",
+            name: "f",
+            parameters: [{name: "x", type: "number"}]
+        }
+    ));
+});

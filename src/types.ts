@@ -89,7 +89,7 @@ export interface FunctionCall extends AbstractSyntaxTreeNode {
     children: SyntaxTreeNode[]
 }
 
-interface FunctionParameter {
+export interface FunctionParameter {
     name: string,
     type: string
 }

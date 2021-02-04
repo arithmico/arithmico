@@ -16,7 +16,9 @@ import {
     Pow,
     Symbol,
     SyntaxTreeNode,
-    Vector
+    Vector,
+    FunctionParameter,
+    FunctionSignature
 } from "../types.js";
 
 // data structures
@@ -140,5 +142,13 @@ export const createFunctionCall = (name: string, children: SyntaxTreeNode[]): Fu
         type: "FunctionCall",
         name,
         children
+    };
+};
+
+export const createFunctionSignature = (name: string, parameters: FunctionParameter[]): FunctionSignature => {
+    return {
+        type: "FunctionSignature",
+        name,
+        parameters
     };
 };

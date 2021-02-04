@@ -1,4 +1,4 @@
-import { createAdd, createAnd, createBoolean, createDefinition, createEqual, createFunctionCall, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSymbol, createVector } from "../create/create.js";
+import { createAdd, createAnd, createBoolean, createDefinition, createEqual, createFunctionCall, createFunctionSignature, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSymbol, createVector } from "../create/create.js";
 import { SyntaxTreeNode } from "../types.js";
 
 export const transform = (node: any): SyntaxTreeNode => {
@@ -22,6 +22,12 @@ export const transform = (node: any): SyntaxTreeNode => {
             return createFunctionCall(
                 node.name, 
                 node.parameters.map(transform)
+            );
+
+        case "FunctionSignature":
+            return createFunctionSignature(
+                node.name,
+                node.parameters
             );
 
         case "Definition":

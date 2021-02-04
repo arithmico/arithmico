@@ -30,6 +30,7 @@ FListItem = ArgumentSeperator value:TypedSymbol { return value; }
 FList = first:TypedSymbol rest:FListItem* { return [first].concat(rest); }
 FunctionSignature = symbol:Symbol OpeningParenthesis parameters:FList? ClosingParenthesis {
     return {
+        name: symbol.name,
         type: "FunctionSignature",
         parameters: parameters ? parameters : []
     };
