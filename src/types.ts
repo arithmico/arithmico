@@ -113,6 +113,8 @@ export type BinaryOperatorNode = Add
     | Mul
     | Div
     | Pow
+    | And
+    | Or
     | Equal
     | LessThan
     | GreaterThan
