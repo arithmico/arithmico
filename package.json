@@ -25,6 +25,7 @@
     "url": "https://github.com/AuroraMoonshots/number-cruncher.git"
   },
   "jest": {
+    "verbose": true,
     "testMatch": [
       "<rootDir>/lib/**/*.test.js"
     ]
