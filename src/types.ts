@@ -89,10 +89,22 @@ export interface FunctionCall extends AbstractSyntaxTreeNode {
     children: SyntaxTreeNode[]
 }
 
+interface FunctionParameter {
+    name: string,
+    type: string
+}
+
+export interface FunctionSignature extends AbstractSyntaxTreeNode {
+    type: "FunctionSignature",
+    name: string,
+    parameters: FunctionParameter[]
+}
+
 // node categories
 export type SyntaxTreeNode = DatastructureNode
     | BinaryOperatorNode
     | UnaryOperatorNode
+    | FunctionSignature
     | FunctionCall;
 
 export type DatastructureNode = Symbol
