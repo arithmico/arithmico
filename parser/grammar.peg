@@ -137,11 +137,11 @@ RelationOperator
     / LessThanOperator
     / GreaterThanOperator
 
-EqualOperator = _ "=" _ { return "EqualOperator"; }
-LessThanOperator = _ "<" _ { return "LessThanOperator"; }
-LessThanOrEqualOperator = _ "<=" _ { return "LessThanOrEqualOperator"; }
-GreaterThanOperator = _ ">" _ { return "GreaterThanOperator"; }
-GreaterThanOrEqualOperator = _ ">=" _  { return "GreaterThanOrEqualOperator"; }
+EqualOperator = _ "=" _ { return "Equal"; }
+LessThanOperator = _ "<" _ { return "LessThan"; }
+LessThanOrEqualOperator = _ "<=" _ { return "LessThanOrEqual"; }
+GreaterThanOperator = _ ">" _ { return "GreaterThan"; }
+GreaterThanOrEqualOperator = _ ">=" _  { return "GreaterThanOrEqual"; }
 
 // other tokens
 ArgumentSeperator = _ "," _
