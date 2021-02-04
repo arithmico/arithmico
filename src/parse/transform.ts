@@ -1,5 +1,5 @@
 import { createAdd, createAnd, createBoolean, createDefinition, createEqual, createFunctionCall, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSymbol, createVector } from "../create/create.js";
-import { Add, Sub, SyntaxTreeNode } from "../types.js";
+import { SyntaxTreeNode } from "../types.js";
 
 export const transform = (node: any): SyntaxTreeNode => {
     if (typeof node !== "object")
@@ -21,7 +21,7 @@ export const transform = (node: any): SyntaxTreeNode => {
         case "FunctionCall":
             return createFunctionCall(
                 node.name, 
-                node.items.map(transform)
+                node.parameters.map(transform)
             );
 
         case "Definition":

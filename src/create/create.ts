@@ -3,7 +3,6 @@ import {
     And,
     Boolean,
     Definition,
-    Div,
     Equal,
     FunctionCall,
     GreaterThan,
@@ -15,7 +14,6 @@ import {
     Number,
     Or,
     Pow,
-    Sub,
     Symbol,
     SyntaxTreeNode,
     Vector
@@ -66,23 +64,9 @@ export const createAdd = (left: SyntaxTreeNode, right: SyntaxTreeNode): Add => {
     };
 };
 
-export const createSub = (left: SyntaxTreeNode, right: SyntaxTreeNode): Sub => {
-    return {
-        type: "Sub",
-        children: [left, right]
-    };
-};
-
 export const createMul = (left: SyntaxTreeNode, right: SyntaxTreeNode): Mul => {
     return {
         type: "Mul",
-        children: [left, right]
-    };
-};
-
-export const createDiv = (left: SyntaxTreeNode, right: SyntaxTreeNode): Div => {
-    return {
-        type: "Div",
         children: [left, right]
     };
 };

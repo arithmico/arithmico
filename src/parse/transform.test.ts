@@ -1,4 +1,4 @@
-import { createAdd, createAnd, createBoolean, createDefinition, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSub, createSymbol, createVector } from "../create/create.js";
+import { createAdd, createAnd, createBoolean, createDefinition, createFunctionCall, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSymbol, createVector } from "../create/create.js";
 import { SyntaxTreeNode } from "../types.js";
 import {parse} from "./parser.js";
 import {transform} from "./transform.js";
@@ -193,5 +193,12 @@ describe("transform-miscellaneous", () => {
                 createNumber(4),
             ])
         ])
+    ));
+
+    test("transform-function-call", transformTest(
+        "f(x,y)", createFunctionCall(
+            "f", 
+            [createSymbol("x"), createSymbol("y")]
+        )
     ));
 });

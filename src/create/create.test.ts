@@ -1,4 +1,4 @@
-import { createAdd, createAnd, createBoolean, createDefinition, createDiv, createEqual, createFunctionCall, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSub, createSymbol, createVector } from "./create.js"
+import { createAdd, createAnd, createBoolean, createDefinition, createEqual, createFunctionCall, createGreaterThan, createGreaterThanOrEqual, createLessThan, createLessThanOrEqual, createMul, createNot, createNumber, createOr, createPow, createSymbol, createVector } from "./create.js"
 
 const compareNodes = (node1: any, node2: any) => {
     return () => expect(node1).toStrictEqual(node2);
@@ -38,23 +38,9 @@ describe("create-numeric-operation", () => {
         }
     ));
 
-    test("create-sub", compareNodes(
-        createSub(childA, childB), {
-            type: "Sub", 
-            children: [childA, childB]
-        }
-    ));
-
     test("create-mul", compareNodes(
         createMul(childA, childB), {
             type: "Mul", 
-            children: [childA, childB]
-        }
-    ));
-
-    test("create-div", compareNodes(
-        createDiv(childA, childB), {
-            type: "Div", 
             children: [childA, childB]
         }
     ));

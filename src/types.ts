@@ -45,16 +45,8 @@ export interface Add extends AbstractBinaryOperatorNode {
     type: "Add"
 }
 
-export interface Sub extends AbstractBinaryOperatorNode {
-    type: "Sub"
-}
-
 export interface Mul extends AbstractBinaryOperatorNode {
     type: "Mul"
-}
-
-export interface Div extends AbstractBinaryOperatorNode {
-    type: "Div"
 }
 
 export interface Pow extends AbstractBinaryOperatorNode {
@@ -109,9 +101,7 @@ export type DatastructureNode = Symbol
     | Vector;
 
 export type BinaryOperatorNode = Add
-    | Sub
     | Mul
-    | Div
     | Pow
     | And
     | Or
