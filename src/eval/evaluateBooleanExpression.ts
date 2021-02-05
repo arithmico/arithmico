@@ -14,8 +14,8 @@ import {
     Relation,
     SyntaxTreeNode
 } from "../types.js";
-import {evaluateChildren} from "./evalUtils.js";
-import {isBoolean, isNumber} from "../typeUtils.js";
+import {evaluateChildren} from "../utils/evalUtils.js";
+import {isBoolean, isNumber} from "../utils/typeUtils.js";
 import {createBoolean} from "../create/create.js";
 import evaluate from "./evaluate.js";
 

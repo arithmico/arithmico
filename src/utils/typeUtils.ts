@@ -1,4 +1,4 @@
-import { SyntaxTreeNode } from "./types"
+import { SyntaxTreeNode } from "../types.js"
 
 const checkNodeType = (node: SyntaxTreeNode, type: string) => node.type === type;
 
