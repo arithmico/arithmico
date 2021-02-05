@@ -1,5 +1,14 @@
 import {SyntaxTreeNode} from "../types";
-import {evaluateAnd, evaluateEqual, evaluateNot, evaluateOr} from "./evaluateBooleanExpression";
+import {
+    evaluateAnd,
+    evaluateEqual,
+    evaluateGreaterThan,
+    evaluateGreaterThanOrEqual,
+    evaluateLessThan,
+    evaluateLessThanOrEqual,
+    evaluateNot,
+    evaluateOr
+} from "./evaluateBooleanExpression";
 import {evaluateBoolean, evaluateNumber, evaluateSymbol} from "./evaluatePrimitives.js";
 
 const evaluate = (node: SyntaxTreeNode): SyntaxTreeNode => {
@@ -19,6 +28,14 @@ const evaluate = (node: SyntaxTreeNode): SyntaxTreeNode => {
             return evaluateNot(node);
         case "Equal":
             return evaluateEqual(node);
+        case "LessThan":
+            return evaluateLessThan(node);
+        case "LessThanOrEqual":
+            return evaluateLessThanOrEqual(node);
+        case "GreaterThan":
+            return evaluateGreaterThan(node);
+        case "GreaterThanOrEqual":
+            return evaluateGreaterThanOrEqual(node);
 
         default:
             throw `unknown node type "${node.type}"`;

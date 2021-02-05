@@ -124,4 +124,7 @@ export type BinaryOperatorNode = Add
     | GreaterThanOrEqual
     | Definition;
 
+export type PartialOrder = LessThan | GreaterThan | LessThanOrEqual | GreaterThanOrEqual;
+export type Relation = Equal | PartialOrder
+
 export type UnaryOperatorNode = Not;
