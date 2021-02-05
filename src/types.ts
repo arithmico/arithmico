@@ -124,3 +124,25 @@ export type PartialOrder = LessThan | GreaterThan | LessThanOrEqual | GreaterTha
 export type Relation = Equal | PartialOrder
 
 export type UnaryOperatorNode = Not;
+
+// evaluation context
+export interface Options {
+    decimalPlaces: number,
+    decimalSeparator: "." | ","
+}
+
+export interface ValueStackObject {
+    type: "value",
+    value: SyntaxTreeNode
+}
+
+export type StackObject = ValueStackObject; // todo FunctionStackObject
+
+export interface StackFrame {
+    [key: string]: StackObject
+}
+
+export interface Context {
+    options: Options,
+    stack: StackFrame[]
+}

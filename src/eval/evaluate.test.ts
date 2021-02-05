@@ -1,10 +1,18 @@
-import {SyntaxTreeNode} from "../types.js";
+import {Context, SyntaxTreeNode} from "../types.js";
 import evaluate from "./evaluate.js";
 import {parse} from "../parse/parser.js";
 import {transform} from "../parse/transform.js";
 import {createBoolean, createNumber} from "../create/create.js";
 
-const evalTest = (input: string, expected: SyntaxTreeNode) => () => expect(evaluate(transform(parse(input)))).toStrictEqual(expected);
+const emptyContext: Context = {
+    options: {
+        decimalSeparator: ".",
+        decimalPlaces: 10,
+    },
+    stack: []
+};
+
+const evalTest = (input: string, expected: SyntaxTreeNode, context: Context = emptyContext) => () => expect(evaluate(transform(parse(input)), context)).toStrictEqual(expected);
 
 describe("evaluate-primitives", () => {
     test("evaluate-boolean", evalTest(

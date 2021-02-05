@@ -1,7 +1,7 @@
 import {isEqual} from "lodash";
 import {
     And,
-    Boolean, BooleanBinaryOperator,
+    Boolean, BooleanBinaryOperator, Context,
     Equal,
     GreaterThan,
     GreaterThanOrEqual,
@@ -23,8 +23,8 @@ type BooleanOperationEvaluator = (childA: Boolean, childB: Boolean) => boolean;
 type RelationEvaluator = (leftChild: SyntaxTreeNode, rightChild: SyntaxTreeNode) => boolean;
 type PartialOrderEvaluator = (leftChild: Number, rightChild: Number) => boolean;
 
-const evaluateBooleanOperation = (node: BooleanBinaryOperator, func: BooleanOperationEvaluator) => {
-    const [childA, childB] = evaluateChildren(node.children);
+const evaluateBooleanOperation = (node: BooleanBinaryOperator, func: BooleanOperationEvaluator, context: Context) => {
+    const [childA, childB] = evaluateChildren(node.children, context);
 
     if (!isBoolean(childA) || !isBoolean(childB))
         throw `undefined operation BooleanBinaryOperator(${childA.type}, ${childB.type})`;
@@ -32,13 +32,13 @@ const evaluateBooleanOperation = (node: BooleanBinaryOperator, func: BooleanOper
     return createBoolean(func(childA as Boolean, childB as Boolean));
 }
 
-const evaluateRelation = (node: Relation, func: RelationEvaluator) => {
-    const [childA, childB] = evaluateChildren(node.children);
+const evaluateRelation = (node: Relation, func: RelationEvaluator, context: Context) => {
+    const [childA, childB] = evaluateChildren(node.children, context);
     return createBoolean(func(childA, childB));
 }
 
-const evaluatePartialOrder = (node: PartialOrder, func: PartialOrderEvaluator) => {
-    const [childA, childB] = evaluateChildren(node.children);
+const evaluatePartialOrder = (node: PartialOrder, func: PartialOrderEvaluator, context: Context) => {
+    const [childA, childB] = evaluateChildren(node.children, context);
     if (!isNumber(childA) || !isNumber(childB))
         throw `undefined operation PartialOrder(${childA.type}, ${childB.type})`;
 
@@ -46,16 +46,16 @@ const evaluatePartialOrder = (node: PartialOrder, func: PartialOrderEvaluator) =
 };
 
 // operators
-export const evaluateAnd = (node: And) => evaluateBooleanOperation(
-    node, (childA, childB) => childA.value && childB.value
+export const evaluateAnd = (node: And, context: Context) => evaluateBooleanOperation(
+    node, (childA, childB) => childA.value && childB.value, context
 );
 
-export const evaluateOr = (node: Or) => evaluateBooleanOperation(
-    node, (childA, childB) => childA.value || childB.value
+export const evaluateOr = (node: Or, context: Context) => evaluateBooleanOperation(
+    node, (childA, childB) => childA.value || childB.value, context
 );
 
-export const evaluateNot = (node: Not): Boolean => {
-    const evaluatedNode = evaluate(node);
+export const evaluateNot = (node: Not, context: Context): Boolean => {
+    const evaluatedNode = evaluate(node, context);
 
     if (isBoolean(evaluatedNode))
         return createBoolean(!(evaluatedNode as Boolean).value);
@@ -64,22 +64,22 @@ export const evaluateNot = (node: Not): Boolean => {
 };
 
 // relations
-export const evaluateEqual = (node: Equal) => evaluateRelation(
-    node, (childA, childB) => isEqual(childA, childB)
+export const evaluateEqual = (node: Equal, context: Context) => evaluateRelation(
+    node, (childA, childB) => isEqual(childA, childB), context
 );
 
-export const evaluateLessThan = (node: LessThan) => evaluatePartialOrder(
-    node, (childA, childB) => childA.value < childB.value
+export const evaluateLessThan = (node: LessThan, context: Context) => evaluatePartialOrder(
+    node, (childA, childB) => childA.value < childB.value, context
 );
 
-export const evaluateLessThanOrEqual = (node: LessThanOrEqual) => evaluatePartialOrder(
-    node, (childA, childB) => childA.value <= childB.value
+export const evaluateLessThanOrEqual = (node: LessThanOrEqual, context: Context) => evaluatePartialOrder(
+    node, (childA, childB) => childA.value <= childB.value, context
 );
 
-export const evaluateGreaterThan = (node: GreaterThan) => evaluatePartialOrder(
-    node, (childA, childB) => childA.value > childB.value
+export const evaluateGreaterThan = (node: GreaterThan, context: Context) => evaluatePartialOrder(
+    node, (childA, childB) => childA.value > childB.value, context
 );
 
-export const evaluateGreaterThanOrEqual = (node: GreaterThanOrEqual) => evaluatePartialOrder(
-    node, (childA, childB) => childA.value >= childB.value
+export const evaluateGreaterThanOrEqual = (node: GreaterThanOrEqual, context: Context) => evaluatePartialOrder(
+    node, (childA, childB) => childA.value >= childB.value, context
 );
