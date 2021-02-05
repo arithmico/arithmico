@@ -12,6 +12,8 @@ const emptyContext: Context = {
     stack: []
 };
 
+const defaultContext: Context = {...emptyContext, stack: [{a: {type: "value", value: createNumber(5)}}]};
+
 const evalTest = (input: string, expected: SyntaxTreeNode, context: Context = emptyContext) => () => expect(evaluate(transform(parse(input)), context)).toStrictEqual(expected);
 
 describe("evaluate-primitives", () => {
@@ -21,6 +23,10 @@ describe("evaluate-primitives", () => {
 
     test("evaluate-number", evalTest(
         "1.2", createNumber(1.2)
+    ));
+
+    test("evaluate-symbol", evalTest(
+        "a", createNumber(5), defaultContext
     ));
 });
 
@@ -47,7 +53,7 @@ describe("evaluate-boolean-expression", () => {
         ));
 
         test("evaluate-equal-2", evalTest(
-            "a = a", createBoolean(true)
+            "a = a", createBoolean(true), defaultContext
         ));
 
         test("evaluate-equal-3", evalTest(

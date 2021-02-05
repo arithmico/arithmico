@@ -5,7 +5,7 @@ export const getDecimalPlaces = (context: Context) => context.options.decimalPla
 export const getDecimalSeparator = (context: Context) => context.options.decimalSeparator;
 
 export const getValueFromContext = (name: string, context: Context) => {
-    for (let i = context.stack.length - 1; i <= 0; i--) {
+    for (let i = context.stack.length - 1; i >= 0; i--) {
         if (context.stack[i][name]) {
             if (context.stack[i][name].type === "value")
                 return context.stack[i][name].value;
