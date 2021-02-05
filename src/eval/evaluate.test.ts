@@ -6,7 +6,7 @@ import { createBoolean, createNumber } from "../create/create.js";
 
 const evalTest = (input: string, expected: SyntaxTreeNode) => () => expect(evaluate(transform(parse(input)))).toStrictEqual(expected);
 
-describe("evaluate-primitves", () => {
+describe("evaluate-primitives", () => {
     test("evaluate-boolean", evalTest(
         "true", createBoolean(true)
     ));
