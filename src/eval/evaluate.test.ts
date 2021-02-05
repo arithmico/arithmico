@@ -32,4 +32,18 @@ describe("evaluate-boolean-expression", () => {
     test("evaluate-and-4", evalTest(
         "false & false", createBoolean(false)
     ));
+
+    describe("evaluate-relation", () => {
+        test("evaluate-equal-1", evalTest(
+            "true = false", createBoolean(false)
+        ));
+
+        test("evaluate-equal-2", evalTest(
+            "a = a", createBoolean(true)
+        ));
+
+        test("evaluate-equal-3", evalTest(
+            "true & true = false | true", createBoolean(true)
+        ));
+    });
 });

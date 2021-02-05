@@ -1,7 +1,8 @@
-import { And, Boolean, Not, Or } from "../types.js";
-import { evaluateChildren } from "./evalUtils.js";
-import { isBoolean } from "../typeUtils.js";
-import { createBoolean } from "../create/create.js";
+import {isEqual} from "lodash";
+import {And, Boolean, Equal, Not, Or} from "../types.js";
+import {evaluateChildren} from "./evalUtils.js";
+import {isBoolean} from "../typeUtils.js";
+import {createBoolean} from "../create/create.js";
 import evaluate from "./evaluate.js";
 
 export const evaluateAnd = (node: And): Boolean => {
@@ -30,3 +31,9 @@ export const evaluateNot = (node: Not): Boolean => {
 
     throw "undefined operation";
 };
+
+export const evaluateEqual = (node: Equal): Boolean => {
+    const [childA, childB] = evaluateChildren(node.children);
+
+    return createBoolean(isEqual(childA, childB));
+}
