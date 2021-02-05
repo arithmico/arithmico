@@ -1,7 +1,7 @@
 import {isEqual} from "lodash";
 import {
     And,
-    Boolean,
+    Boolean, BooleanBinaryOperator,
     Equal,
     GreaterThan,
     GreaterThanOrEqual,
@@ -19,40 +19,21 @@ import {isBoolean, isNumber} from "../typeUtils.js";
 import {createBoolean} from "../create/create.js";
 import evaluate from "./evaluate.js";
 
-export const evaluateAnd = (node: And): Boolean => {
-    const [childA, childB] = evaluateChildren(node.children);
-
-    if (isBoolean(childA) && isBoolean(childB))
-        return createBoolean((childA as Boolean).value && (childB as Boolean).value);
-
-    throw "undefined operation";
-}
-
-export const evaluateOr = (node: Or): Boolean => {
-    const [childA, childB] = evaluateChildren(node.children);
-
-    if (isBoolean(childA) && isBoolean(childB))
-        return createBoolean((childA as Boolean).value || (childB as Boolean).value);
-
-    throw "undefined operation";
-}
-
-export const evaluateNot = (node: Not): Boolean => {
-    const evaluatedNode = evaluate(node);
-
-    if (isBoolean(evaluatedNode))
-        return createBoolean(!(evaluatedNode as Boolean).value);
-
-    throw "undefined operation";
-};
-
-// relations
-type RelationFunction = (leftChild: SyntaxTreeNode, rightChild: SyntaxTreeNode) => boolean;
+type BooleanOperationEvaluator = (childA: Boolean, childB: Boolean) => boolean;
+type RelationEvaluator = (leftChild: SyntaxTreeNode, rightChild: SyntaxTreeNode) => boolean;
 type PartialOrderEvaluator = (leftChild: Number, rightChild: Number) => boolean;
 
-const evaluateRelation = (node: Relation, func: RelationFunction) => {
+const evaluateBooleanOperation = (node: BooleanBinaryOperator, func: BooleanOperationEvaluator) => {
     const [childA, childB] = evaluateChildren(node.children);
 
+    if (!isBoolean(childA) || !isBoolean(childB))
+        throw `undefined operation BooleanBinaryOperator(${childA.type}, ${childB.type})`;
+
+    return createBoolean(func(childA as Boolean, childB as Boolean));
+}
+
+const evaluateRelation = (node: Relation, func: RelationEvaluator) => {
+    const [childA, childB] = evaluateChildren(node.children);
     return createBoolean(func(childA, childB));
 }
 
@@ -64,6 +45,25 @@ const evaluatePartialOrder = (node: PartialOrder, func: PartialOrderEvaluator) =
     return createBoolean(func(childA as Number, childB as Number));
 };
 
+// operators
+export const evaluateAnd = (node: And) => evaluateBooleanOperation(
+    node, (childA, childB) => childA.value && childB.value
+);
+
+export const evaluateOr = (node: Or) => evaluateBooleanOperation(
+    node, (childA, childB) => childA.value || childB.value
+);
+
+export const evaluateNot = (node: Not): Boolean => {
+    const evaluatedNode = evaluate(node);
+
+    if (isBoolean(evaluatedNode))
+        return createBoolean(!(evaluatedNode as Boolean).value);
+
+    throw "undefined operation";
+};
+
+// relations
 export const evaluateEqual = (node: Equal) => evaluateRelation(
     node, (childA, childB) => isEqual(childA, childB)
 );

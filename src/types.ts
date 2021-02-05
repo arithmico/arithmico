@@ -115,15 +115,11 @@ export type DatastructureNode = Symbol
 export type BinaryOperatorNode = Add
     | Mul
     | Pow
-    | And
-    | Or
-    | Equal
-    | LessThan
-    | GreaterThan
-    | LessThanOrEqual
-    | GreaterThanOrEqual
+    | BooleanBinaryOperator
+    | Relation
     | Definition;
 
+export type BooleanBinaryOperator = And | Or;
 export type PartialOrder = LessThan | GreaterThan | LessThanOrEqual | GreaterThanOrEqual;
 export type Relation = Equal | PartialOrder
 
