@@ -29,5 +29,9 @@
     "testMatch": [
       "<rootDir>/lib/**/*.test.js"
     ]
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.168",
+    "lodash.isequal": "^4.5.0"
   }
 }
