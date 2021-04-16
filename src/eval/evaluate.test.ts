@@ -1,4 +1,4 @@
-import {Context, SyntaxTreeNode} from "../types.js";
+import {Context, SyntaxTreeNode, Number} from "../types.js";
 import evaluate from "./evaluate.js";
 import {parse} from "../parse/parser.js";
 import {transform} from "../parse/transform.js";
@@ -12,9 +12,26 @@ const emptyContext: Context = {
     stack: []
 };
 
-const defaultContext: Context = {...emptyContext, stack: [{a: {type: "value", value: createNumber(5)}}]};
+const defaultContext: Context = {
+    ...emptyContext, stack: [{
+        a: {
+            type: "value",
+            value: createNumber(5)
+        },
+        f: {
+            type: "function",
+            evaluator: parameters => createNumber((parameters[0] as Number).value + (parameters[1] as Number).value)
+        }
+    }]
+};
 
 const evalTest = (input: string, expected: SyntaxTreeNode, context: Context = emptyContext) => () => expect(evaluate(transform(parse(input)), context)).toStrictEqual(expected);
+
+describe("evaluate-functions", () => {
+    test("evaluate-generic-function", evalTest(
+        "f(6,2)", createNumber(8), defaultContext
+    ));
+});
 
 describe("evaluate-primitives", () => {
     test("evaluate-boolean", evalTest(

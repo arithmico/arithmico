@@ -10,6 +10,7 @@ import {
     evaluateOr
 } from "./evaluateBooleanExpression";
 import {evaluateBoolean, evaluateNumber, evaluateSymbol} from "./evaluatePrimitives.js";
+import {evaluateFunctionCall} from "./evaluateFunctionCall";
 
 const evaluate = (node: SyntaxTreeNode, context: Context): SyntaxTreeNode => {
     switch (node.type) {
@@ -36,6 +37,9 @@ const evaluate = (node: SyntaxTreeNode, context: Context): SyntaxTreeNode => {
             return evaluateGreaterThan(node, context);
         case "GreaterThanOrEqual":
             return evaluateGreaterThanOrEqual(node, context);
+
+        case "FunctionCall":
+            return evaluateFunctionCall(node, context);
 
         default:
             throw `unknown node type "${node.type}"`;

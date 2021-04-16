@@ -136,7 +136,12 @@ export interface ValueStackObject {
     value: SyntaxTreeNode
 }
 
-export type StackObject = ValueStackObject; // todo FunctionStackObject
+export interface FunctionStackObject {
+    type: "function",
+    evaluator: (parameters: SyntaxTreeNode[]) => SyntaxTreeNode
+}
+
+export type StackObject = ValueStackObject | FunctionStackObject;
 
 export interface StackFrame {
     [key: string]: StackObject
