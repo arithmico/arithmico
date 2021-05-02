@@ -12,17 +12,17 @@ export enum OperatorType {
 export type UnaryOperator = {
     type: OperatorType.Unary,
     overloads: {
-        [itemType in SyntaxTreeNode["type"]]: UnaryOperationEvaluator<any>
-    } | {}
+        [itemType: string]: UnaryOperationEvaluator<any>
+    }
 };
 
 export type BinaryOperator = {
-    type: OperatorType.Unary,
+    type: OperatorType.Binary,
     overloads: {
-        [leftItemType in SyntaxTreeNode["type"]]: {
-            [rightItemType in SyntaxTreeNode["type"]]: BinaryOperationEvaluator<any, any>
+        [leftItemType: string]: {
+            [rightItemType: string]: BinaryOperationEvaluator<any, any>
         }
-    } | {}
+    }
 };
 
 export type Operator = UnaryOperator | BinaryOperator;
