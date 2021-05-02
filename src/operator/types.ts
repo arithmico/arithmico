@@ -13,7 +13,7 @@ export type UnaryOperator = {
     type: OperatorType.Unary,
     overloads: {
         [itemType in SyntaxTreeNode["type"]]: UnaryOperationEvaluator
-    }
+    } | {}
 };
 
 export type BinaryOperator = {
@@ -22,7 +22,7 @@ export type BinaryOperator = {
         [leftItemType in SyntaxTreeNode["type"]]: {
             [rightItemType in SyntaxTreeNode["type"]]: BinaryOperationEvaluator
         }
-    }
+    } | {}
 };
 
 export type Operator = UnaryOperator | BinaryOperator;
