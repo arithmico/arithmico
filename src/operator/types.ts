@@ -3,10 +3,12 @@ import {SyntaxTreeNode} from "../types.js"
 export type UnaryOperationEvaluator<ItemType extends SyntaxTreeNode> = (item: ItemType) => SyntaxTreeNode;
 export type BinaryOperationEvaluator<LeftItemType extends SyntaxTreeNode,
     RightItemType extends SyntaxTreeNode> = (leftItem: LeftItemType, rightItem: RightItemType) => SyntaxTreeNode;
+export type GenericOperationEvaluator = (item: SyntaxTreeNode) => SyntaxTreeNode;
 
 export enum OperatorType {
     Unary,
-    Binary
+    Binary,
+    Generic
 }
 
 export type UnaryOperator = {
@@ -25,7 +27,12 @@ export type BinaryOperator = {
     }
 };
 
-export type Operator = UnaryOperator | BinaryOperator;
+export type GenericOperator = {
+    type: OperatorType.Generic,
+    evaluator: GenericOperationEvaluator
+}
+
+export type Operator = UnaryOperator | BinaryOperator | GenericOperator;
 export type OperatorSet = {
     [operatorName: string]: Operator
 }

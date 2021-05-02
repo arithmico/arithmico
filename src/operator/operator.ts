@@ -1,6 +1,8 @@
 import {
     BinaryOperationEvaluator,
     BinaryOperator,
+    GenericOperationEvaluator,
+    GenericOperator,
     OperatorType,
     UnaryOperationEvaluator,
     UnaryOperator
@@ -15,6 +17,11 @@ export const createUnaryOperator = (): UnaryOperator => ({
 export const createBinaryOperator = (): BinaryOperator => ({
     type: OperatorType.Binary,
     overloads: {}
+});
+
+export const createGenericOperator = (evaluator: GenericOperationEvaluator): GenericOperator => ({
+    type: OperatorType.Generic,
+    evaluator
 });
 
 export const addUnaryOperatorOverload = <ItemType extends SyntaxTreeNode>(
