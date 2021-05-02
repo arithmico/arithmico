@@ -3,11 +3,11 @@ interface AbstractSyntaxTreeNode {
     type: string
 }
 
-interface AbstractBinaryOperatorNode extends AbstractSyntaxTreeNode {
+export interface AbstractBinaryOperatorNode extends AbstractSyntaxTreeNode {
     children: [SyntaxTreeNode, SyntaxTreeNode]
 }
 
-interface AbstractUnaryOperatorNode extends AbstractSyntaxTreeNode {
+export interface AbstractUnaryOperatorNode extends AbstractSyntaxTreeNode {
     child: SyntaxTreeNode
 }
 
