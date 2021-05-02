@@ -1,9 +1,9 @@
-import {SyntaxTreeNode} from "../types.js"
+import {Context, SyntaxTreeNode} from "../types.js"
 
 export type UnaryOperationEvaluator<ItemType extends SyntaxTreeNode> = (item: ItemType) => SyntaxTreeNode;
 export type BinaryOperationEvaluator<LeftItemType extends SyntaxTreeNode,
     RightItemType extends SyntaxTreeNode> = (leftItem: LeftItemType, rightItem: RightItemType) => SyntaxTreeNode;
-export type GenericOperationEvaluator = (item: SyntaxTreeNode) => SyntaxTreeNode;
+export type GenericOperationEvaluator = (item: SyntaxTreeNode, context: Context) => SyntaxTreeNode;
 
 export enum OperatorType {
     Unary,
