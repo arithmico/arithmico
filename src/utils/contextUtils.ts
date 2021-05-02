@@ -1,6 +1,5 @@
 import {Context, FunctionStackObject, ValueStackObject} from "../types.js";
 
-
 export const getDecimalPlaces = (context: Context) => context.options.decimalPlaces;
 export const getDecimalSeparator = (context: Context) => context.options.decimalSeparator;
 

@@ -1,8 +1,8 @@
 import {Operator, OperatorSet, OperatorType} from "../operator/types.js";
 import {AbstractBinaryOperatorNode, AbstractUnaryOperatorNode, Context, SyntaxTreeNode} from "../types.js";
+import operatorInit from "./operators/index.js";
 
 let operatorSet: OperatorSet = {};
-
 export const registerOperator = (operatorNodeType: string, operator: Operator) => {
     if (operatorSet[operatorNodeType])
         throw `an operator of type ${operatorNodeType} has already been registered`;
@@ -39,4 +39,5 @@ const evaluate = (node: SyntaxTreeNode, context: Context): SyntaxTreeNode => {
     }
 };
 
+operatorInit();
 export default evaluate;
