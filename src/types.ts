@@ -138,6 +138,7 @@ export interface ValueStackObject {
 
 export interface FunctionStackObject {
     type: "function",
+    rawChildren: boolean,
     evaluator: (parameters: SyntaxTreeNode[]) => SyntaxTreeNode
 }
 
