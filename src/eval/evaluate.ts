@@ -1,49 +1,43 @@
-import {Context, SyntaxTreeNode} from "../types";
-import {
-    evaluateAnd,
-    evaluateEqual,
-    evaluateGreaterThan,
-    evaluateGreaterThanOrEqual,
-    evaluateLessThan,
-    evaluateLessThanOrEqual,
-    evaluateNot,
-    evaluateOr
-} from "./evaluateBooleanExpression";
-import {evaluateBoolean, evaluateNumber, evaluateSymbol} from "./evaluatePrimitives.js";
-import {evaluateFunctionCall} from "./evaluateFunctionCall";
+import {Operator, OperatorSet, OperatorType} from "../operator/types.js";
+import {AbstractBinaryOperatorNode, AbstractUnaryOperatorNode, Context, SyntaxTreeNode} from "../types.js";
+import operatorInit from "./operators/index.js";
+
+let operatorSet: OperatorSet = {};
+export const registerOperator = (operatorNodeType: string, operator: Operator) => {
+    if (operatorSet[operatorNodeType])
+        throw `an operator of type ${operatorNodeType} has already been registered`;
+
+    operatorSet[operatorNodeType] = operator;
+};
 
 const evaluate = (node: SyntaxTreeNode, context: Context): SyntaxTreeNode => {
-    switch (node.type) {
-        case "Number":
-            return evaluateNumber(node);
-        case "Symbol":
-            return evaluateSymbol(node, context);
-        case "Boolean":
-            return evaluateBoolean(node);
+    const operator = operatorSet[node.type];
 
-        case "And":
-            return evaluateAnd(node, context);
-        case "Or":
-            return evaluateOr(node, context);
-        case "Not":
-            return evaluateNot(node, context);
-        case "Equal":
-            return evaluateEqual(node, context);
-        case "LessThan":
-            return evaluateLessThan(node, context);
-        case "LessThanOrEqual":
-            return evaluateLessThanOrEqual(node, context);
-        case "GreaterThan":
-            return evaluateGreaterThan(node, context);
-        case "GreaterThanOrEqual":
-            return evaluateGreaterThanOrEqual(node, context);
+    if (!operator)
+        throw `no operator available for node type "${node.type}"`;
 
-        case "FunctionCall":
-            return evaluateFunctionCall(node, context);
+    switch (operator.type) {
+        case OperatorType.Generic:
+            return operator.evaluator(node, context);
 
-        default:
-            throw `unknown node type "${node.type}"`;
+        case OperatorType.Unary:
+            const child = evaluate((node as AbstractUnaryOperatorNode).child, context);
+
+            if (operator.overloads[child.type])
+                return operator.overloads[child.type](child);
+
+            throw `${node.type}: undefined operation for type "${child.type}"`;
+
+        case OperatorType.Binary:
+            const leftChild = evaluate((node as AbstractBinaryOperatorNode).children[0], context);
+            const rightChild = evaluate((node as AbstractBinaryOperatorNode).children[1], context);
+
+            if (operator.overloads[leftChild.type]?.[rightChild.type])
+                return operator.overloads[leftChild.type][rightChild.type](leftChild, rightChild);
+
+            throw `${node.type}: undefined operation for types "${leftChild.type}", "${rightChild.type}"`;
     }
-}
+};
 
+operatorInit();
 export default evaluate;

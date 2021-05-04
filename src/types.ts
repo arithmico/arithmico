@@ -3,11 +3,11 @@ interface AbstractSyntaxTreeNode {
     type: string
 }
 
-interface AbstractBinaryOperatorNode extends AbstractSyntaxTreeNode {
+export interface AbstractBinaryOperatorNode extends AbstractSyntaxTreeNode {
     children: [SyntaxTreeNode, SyntaxTreeNode]
 }
 
-interface AbstractUnaryOperatorNode extends AbstractSyntaxTreeNode {
+export interface AbstractUnaryOperatorNode extends AbstractSyntaxTreeNode {
     child: SyntaxTreeNode
 }
 
@@ -45,8 +45,16 @@ export interface Add extends AbstractBinaryOperatorNode {
     type: "Add"
 }
 
+export interface Sub extends AbstractBinaryOperatorNode {
+    type: "Sub"
+}
+
 export interface Mul extends AbstractBinaryOperatorNode {
     type: "Mul"
+}
+
+export interface Div extends AbstractBinaryOperatorNode {
+    type: "Div"
 }
 
 export interface Pow extends AbstractBinaryOperatorNode {
@@ -138,6 +146,7 @@ export interface ValueStackObject {
 
 export interface FunctionStackObject {
     type: "function",
+    rawChildren: boolean,
     evaluator: (parameters: SyntaxTreeNode[]) => SyntaxTreeNode
 }
 

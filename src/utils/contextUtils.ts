@@ -1,6 +1,5 @@
 import {Context, FunctionStackObject, ValueStackObject} from "../types.js";
 
-
 export const getDecimalPlaces = (context: Context) => context.options.decimalPlaces;
 export const getDecimalSeparator = (context: Context) => context.options.decimalSeparator;
 
@@ -20,7 +19,7 @@ export const getFunctionFromContext = (name: string, context: Context) => {
     for (let i = context.stack.length - 1; i >= 0; i--) {
         if (context.stack[i][name]) {
             if (context.stack[i][name].type === "function")
-                return (context.stack[i][name] as FunctionStackObject).evaluator;
+                return (context.stack[i][name] as FunctionStackObject);
 
             throw `${name} is not a function`;
         }

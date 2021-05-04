@@ -20,6 +20,7 @@ const defaultContext: Context = {
         },
         f: {
             type: "function",
+            rawChildren: false,
             evaluator: parameters => createNumber((parameters[0] as Number).value + (parameters[1] as Number).value)
         }
     }]
@@ -127,4 +128,16 @@ describe("evaluate-boolean-expression", () => {
             ));
         });
     });
+});
+
+describe("evaluate-numeric-expression", () => {
+    test("evaluate-add", evalTest("2+8", createNumber(10)));
+    test("evaluate-sub-1", evalTest("22-18", createNumber(4)));
+    test("evaluate-sub-2", evalTest("15-28", createNumber(-13)));
+    test("evaluate-mul-1", evalTest("10*3", createNumber(30)));
+    test("evaluate-mul-2", evalTest("10*(-3)", createNumber(-30)));
+    test("evaluate-div-1", evalTest("10/5", createNumber(2)));
+    test("evaluate-div-2", evalTest("2/3", createNumber(2/3)));
+    test("evaluate-pow-1", evalTest("2^3", createNumber(8)));
+    test("evaluate-pow-2", evalTest("4^(-2)", createNumber(Math.pow(4, -2))));
 });

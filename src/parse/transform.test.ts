@@ -22,6 +22,15 @@ describe("transform-primitive", () => {
 });
 
 describe("transform-numeric-expression", () => {
+    console.log(transform(parse("-2")));
+
+    test("transform-negative-number", transformTest(
+        "-2", createMul(
+            createNumber(-1),
+            createNumber(2)
+        )
+    ));
+
     test("transform-sum", transformTest(
         "1+2-3", createAdd(
             createAdd(
