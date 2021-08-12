@@ -140,4 +140,5 @@ describe("evaluate-numeric-expression", () => {
     test("evaluate-div-2", evalTest("2/3", createNumber(2/3)));
     test("evaluate-pow-1", evalTest("2^3", createNumber(8)));
     test("evaluate-pow-2", evalTest("4^(-2)", createNumber(Math.pow(4, -2))));
+    test("evaluate-misc-1", evalTest("-2/3", createNumber(- 2/3)));
 });
