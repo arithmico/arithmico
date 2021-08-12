@@ -99,7 +99,7 @@ export interface FunctionCall extends AbstractSyntaxTreeNode {
 
 export interface FunctionParameter {
     name: string,
-    type: string
+    type: "number" | "boolean" | "vector" | "any"
 }
 
 export interface FunctionSignature extends AbstractSyntaxTreeNode {
@@ -147,7 +147,7 @@ export interface ValueStackObject {
 export interface FunctionStackObject {
     type: "function",
     nonRecursiveEvaluation: boolean,
-    evaluator: (parameters: SyntaxTreeNode[]) => SyntaxTreeNode
+    evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode
 }
 
 export type StackObject = ValueStackObject | FunctionStackObject;

@@ -8,9 +8,9 @@ export default () => {
         const functionStackObject = getFunctionFromContext(node.name, context);
 
         if (functionStackObject.nonRecursiveEvaluation)
-            return functionStackObject.evaluator(node.children);
+            return functionStackObject.evaluator(node.children, context);
 
-        return functionStackObject.evaluator(node.children.map(child => evaluate(child, context)));
+        return functionStackObject.evaluator(node.children.map(child => evaluate(child, context)), context);
     });
     registerOperator("FunctionCall", functionOperator);
 };

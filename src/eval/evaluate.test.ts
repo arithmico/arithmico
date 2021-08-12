@@ -2,7 +2,8 @@ import {Context, SyntaxTreeNode, Number} from "../types.js";
 import evaluate from "./evaluate.js";
 import {parse} from "../parse/parser.js";
 import {transform} from "../parse/transform.js";
-import {createBoolean, createNumber} from "../create/create.js";
+import {createAdd, createBoolean, createNumber, createSymbol} from "../create/create.js";
+import {createValueStackObject} from "../utils/contextUtils.js";
 
 const emptyContext: Context = {
     options: {
@@ -27,6 +28,26 @@ const defaultContext: Context = {
 };
 
 const evalTest = (input: string, expected: SyntaxTreeNode, context: Context = emptyContext) => () => expect(evaluate(transform(parse(input)), context)).toStrictEqual(expected);
+
+describe("evaluate-definition", () => {
+    test("evaluate-definition-value", evalTest("x:=2+2", createNumber(4)));
+    test("evaluate-definition-function", evalTest("f(x):=x", createSymbol("x")));
+    test("evaluate-definition-context-value", () => {
+        let testContext = {options: emptyContext.options, stack: [{}]};
+        evaluate(transform(parse("x:=2+3")), testContext);
+        return expect(testContext).toStrictEqual({
+            ...emptyContext,
+            stack: [{
+                x: createValueStackObject(createNumber(5))
+            }]
+        });
+    });
+    test("evaluate-definition-context-function-result", () => {
+        let testContext = {options: emptyContext.options, stack: [{}]};
+        evaluate(transform(parse("f(x):=x^2")), testContext);
+        evalTest("f(2)", createNumber(4), testContext);
+    });
+});
 
 describe("evaluate-functions", () => {
     test("evaluate-generic-function", evalTest(
