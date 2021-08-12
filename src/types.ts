@@ -146,7 +146,7 @@ export interface ValueStackObject {
 
 export interface FunctionStackObject {
     type: "function",
-    rawChildren: boolean,
+    nonRecursiveEvaluation: boolean,
     evaluator: (parameters: SyntaxTreeNode[]) => SyntaxTreeNode
 }
 

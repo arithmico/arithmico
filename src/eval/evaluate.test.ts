@@ -20,7 +20,7 @@ const defaultContext: Context = {
         },
         f: {
             type: "function",
-            rawChildren: false,
+            nonRecursiveEvaluation: false,
             evaluator: parameters => createNumber((parameters[0] as Number).value + (parameters[1] as Number).value)
         }
     }]
