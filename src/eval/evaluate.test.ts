@@ -9,6 +9,7 @@ const emptyContext: Context = {
     options: {
         decimalSeparator: ".",
         decimalPlaces: 10,
+        magnitudeThresholdForScientificNotation: 4
     },
     stack: []
 };

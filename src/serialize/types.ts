@@ -1,7 +1,7 @@
-import {Context, SyntaxTreeNode} from "../types.js";
+import {Context, SyntaxTreeNode, SyntaxTreeNodeOfType} from "../types.js";
 
 export type SerializerSet = {
-    [key in SyntaxTreeNode["type"]]?: Serializer;
-};
+    [Type in SyntaxTreeNode["type"]]?: Serializer<SyntaxTreeNodeOfType<Type>>;
+}
 
-export type Serializer = (node: SyntaxTreeNode, options: Context["options"]) => string;
+export type Serializer<T extends SyntaxTreeNode> = (node: T, options: Context["options"]) => string;

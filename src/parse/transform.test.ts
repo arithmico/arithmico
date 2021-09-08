@@ -22,8 +22,6 @@ describe("transform-primitive", () => {
 });
 
 describe("transform-numeric-expression", () => {
-    console.log(transform(parse("-2")));
-
     test("transform-negative-number", transformTest(
         "-2", createMul(
             createNumber(-1),
