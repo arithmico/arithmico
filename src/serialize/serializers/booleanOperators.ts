@@ -1,5 +1,5 @@
 import {Serializer} from "../types.js";
-import {And, BinaryOperatorNode, BooleanBinaryOperator, Options, SyntaxTreeNode} from "../../types.js";
+import {And, BinaryOperatorNode, Options, SyntaxTreeNode} from "../../types.js";
 import {registerSerializer, serialize} from "../index.js";
 
 const atomics: SyntaxTreeNode["type"][] = ["Number", "Boolean", "Vector", "Symbol"];
