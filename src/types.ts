@@ -99,7 +99,7 @@ export interface FunctionCall extends AbstractSyntaxTreeNode {
 
 export interface FunctionParameter {
     name: string,
-    type: string
+    type: "number" | "boolean" | "vector" | "any"
 }
 
 export interface FunctionSignature extends AbstractSyntaxTreeNode {
@@ -109,13 +109,15 @@ export interface FunctionSignature extends AbstractSyntaxTreeNode {
 }
 
 // node categories
-export type SyntaxTreeNode = DatastructureNode
+export type SyntaxTreeNode = DatastructuresNode
     | BinaryOperatorNode
     | UnaryOperatorNode
     | FunctionSignature
     | FunctionCall;
 
-export type DatastructureNode = Symbol
+export type SyntaxTreeNodeOfType<Type extends string> = SyntaxTreeNode & {type: Type};
+
+export type DatastructuresNode = Symbol
     | Number
     | Boolean
     | Vector;
@@ -136,7 +138,8 @@ export type UnaryOperatorNode = Not;
 // evaluation context
 export interface Options {
     decimalPlaces: number,
-    decimalSeparator: "." | ","
+    decimalSeparator: "." | ",",
+    magnitudeThresholdForScientificNotation: number
 }
 
 export interface ValueStackObject {
@@ -146,8 +149,8 @@ export interface ValueStackObject {
 
 export interface FunctionStackObject {
     type: "function",
-    rawChildren: boolean,
-    evaluator: (parameters: SyntaxTreeNode[]) => SyntaxTreeNode
+    nonRecursiveEvaluation: boolean,
+    evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode
 }
 
 export type StackObject = ValueStackObject | FunctionStackObject;
