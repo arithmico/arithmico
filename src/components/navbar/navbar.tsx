@@ -18,6 +18,7 @@ const Superscript = styled.sup`
   padding: 0 10px;
   font-size: 24px;
   font-weight: 100;
+  font-style: italic;
 `;
 
 const Navigation = styled.nav`
