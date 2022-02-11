@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import CalculatorTextfields from '../../calculator-textfields/calculator-textfields';
-import CalculatorToolbar from '../../calculator-toolbar/calculator-toolbar';
+import CalculatorTextfields from '../../components/calculator-textfields/calculator-textfields';
+import CalculatorToolbar from '../../components/calculator-toolbar/calculator-toolbar';
 
 const Container = styled.div`
   display: flex;
