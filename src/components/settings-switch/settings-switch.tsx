@@ -10,6 +10,7 @@ interface SettingsSwitchProps {
 
 const Container = styled.div`
   display: flex;
+  align-items: center;
   height: 70px;
   padding: 10px 80px;
 `;
