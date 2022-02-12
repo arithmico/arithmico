@@ -2,7 +2,6 @@ import React from 'react';
 import { Listbox } from '@headlessui/react';
 import styled from 'styled-components';
 import codeIconSource from '../../icons/code_white_24dp.svg';
-import doneIconSource from '../../icons/done_white_24dp.svg';
 
 const Container = styled.li`
   display: flex;
@@ -34,33 +33,42 @@ const Button = styled(Listbox.Button)`
 const Options = styled(Listbox.Options)`
   position: absolute;
   z-index: 20;
+  width: 200px;
+  height: calc(200px / 5 * 3);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
   padding: 0;
   margin-top: 10px;
 `;
 
-const Option = styled(Listbox.Option)`
+const Option = styled(Listbox.Option)<{ active: boolean }>`
   font-size: 24px;
-  background-color: #313131;
-  width: 200px;
-  height: 50px;
+  background-color: ${({ selected }) => (selected ? '#505050' : '#313131')};
   list-style: none;
-  padding: 0 10px 0 20px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #101010;
+  justify-content: center;
   cursor: default;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: #505050;
   }
 
   &:first-child {
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px 0 0 0;
+  }
+
+  &:nth-child(5) {
+    border-radius: 0 10px 0 0;
   }
 
   &:last-child {
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 0px;
+  }
+
+  &:nth-child(11) {
+    border-radius: 0 0 0 10px;
   }
 `;
 
@@ -71,12 +79,7 @@ const ColumnLayout = styled.div`
 `;
 
 const CodeIcon = styled.img`
-  transform: rotateZ(90deg);
-  margin-left: auto;
-  opacity: 0.5;
-`;
-
-const DoneIcon = styled.img`
+  transform: rotate(90deg);
   margin-left: auto;
   opacity: 0.5;
 `;
@@ -88,7 +91,12 @@ interface SettingsListboxProps {
   onChange: ((value: number) => void) | ((value: string) => void);
 }
 
-export default function SettingsListbox({ label, value, options, onChange }: SettingsListboxProps) {
+export default function SettingsDecimalPlacesListbox({
+  label,
+  value,
+  options,
+  onChange
+}: SettingsListboxProps) {
   return (
     <Container>
       <Listbox value={value} onChange={onChange}>
@@ -100,9 +108,8 @@ export default function SettingsListbox({ label, value, options, onChange }: Set
           </Button>
           <Options>
             {options.map((option, index) => (
-              <Option key={index} value={option.value}>
+              <Option key={index} value={option.value} selected={option.value === value}>
                 {option.label}
-                {option.value === value ? <DoneIcon src={doneIconSource} /> : null}
               </Option>
             ))}
           </Options>

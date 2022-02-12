@@ -12,7 +12,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   height: 70px;
-  padding: 10px 80px;
+  padding: 10px 0;
 `;
 
 const SwitchLabel = styled(Switch.Label)`
