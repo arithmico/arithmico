@@ -25,8 +25,8 @@ const StyledSwitch = styled(Switch)<{ checked: boolean }>`
   align-items: center;
   padding: 4px 2px;
   margin-left: auto;
-  background-color: ${({ checked }) => (checked ? '#008871' : 'transparent')};
-  border: 2px solid white;
+  background-color: ${({ checked }) => (checked ? '#f66b00' : '#313131')};
+  border: none;
   width: 70px;
   height: 35px;
   border-radius: calc(35px / 2);
@@ -37,7 +37,7 @@ const SwitchIndicator = styled.div<{ enabled: boolean }>`
   width: 27px;
   height: 27px;
   border-radius: 14px;
-  margin-left: ${({ enabled }) => (enabled ? '35px' : '0')};
+  margin-left: ${({ enabled }) => (enabled ? '35px' : '2px')};
   background-color: white;
   transition: margin 0.25s;
 `;
