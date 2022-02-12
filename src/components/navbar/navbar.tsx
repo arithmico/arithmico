@@ -40,7 +40,7 @@ const StyledLi = styled.li`
   height: 100%;
 `;
 
-const StyledLink = styled(Link)<{ active: boolean }>`
+const StyledLink = styled(Link)<{ selected: boolean }>`
   width: 210px;
   display: flex;
   justify-content: center;
@@ -49,8 +49,8 @@ const StyledLink = styled(Link)<{ active: boolean }>`
   text-decoration: none;
   height: 100%;
   border-radius: 0 0 10px 10px;
-  color: ${({ active }) => (active ? 'white' : 'rgba(255, 255, 255, 0.8)')};
-  background-color: ${({ active }) => (active ? 'rgba(255, 255, 255, 0.15)' : 'inherit')};
+  color: ${({ selected }) => (selected ? 'white' : 'rgba(255, 255, 255, 0.8)')};
+  background-color: ${({ selected }) => (selected ? 'rgba(255, 255, 255, 0.15)' : 'inherit')};
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.15);
@@ -63,7 +63,7 @@ function NavigationListItem({ name, to, hover }: { name: string; to: string; hov
 
   return (
     <StyledLi>
-      <StyledLink to={to} active={location.pathname === to && !hover}>
+      <StyledLink to={to} selected={location.pathname === to && !hover}>
         {name}
       </StyledLink>
     </StyledLi>
