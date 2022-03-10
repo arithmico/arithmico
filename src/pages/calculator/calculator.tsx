@@ -5,15 +5,18 @@ import CalculatorToolbar from '../../components/calculator-toolbar/calculator-to
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  padding: 0 20%;
 `;
 
 export default function Calculator() {
   return (
     <Container>
-      <CalculatorToolbar />
       <CalculatorTextfields />
+      <CalculatorToolbar />
     </Container>
   );
 }

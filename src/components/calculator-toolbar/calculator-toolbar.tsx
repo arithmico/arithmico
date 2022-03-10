@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ToolbarContainer = styled.aside`
-  padding: 30px 10px 10px 10px;
-  display: flex;
-  flex-direction: column;
-  margin-right: 100px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  margin-top: auto;
+  margin-bottom: 30px;
 `;
 
 const Button = styled.button`
@@ -14,9 +16,8 @@ const Button = styled.button`
   border-radius: 10px;
   border: none;
   outline: none;
-  width: 235px;
+  flex: 1;
   height: 70px;
-  margin: 10px;
   font-size: 24px;
   text-align: left;
   padding: 0 20px;
@@ -33,6 +34,10 @@ export default function CalculatorToolbar() {
       <Button>Clear Input</Button>
       <Button>Clear Output</Button>
       <Button>Clear Definitions</Button>
+      <Button>Show Protocol</Button>
+      <Button>Clear Protocol</Button>
+      <Button>Show Definitions</Button>
+      <Button>Toggle Zen Mode</Button>
     </ToolbarContainer>
   );
 }

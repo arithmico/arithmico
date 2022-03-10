@@ -4,6 +4,8 @@ import styled from 'styled-components';
 const TextfieldsContainer = styled.main`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-top: 150px;
 `;
 
 const Textfield = styled.input.attrs({ type: 'text' })`
@@ -12,7 +14,7 @@ const Textfield = styled.input.attrs({ type: 'text' })`
   border: 1px solid white;
   border-radius: 10px;
   height: 100px;
-  width: 1000px;
+  width: 100%;
   min-width: 100px;
   font-size: 34px;
   font-weight: 300;
@@ -23,6 +25,7 @@ const Textfield = styled.input.attrs({ type: 'text' })`
 const LabelContainer = styled.label`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   &:last-child {
     margin-top: 80px;
