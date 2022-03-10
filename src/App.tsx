@@ -4,6 +4,7 @@ import Calculator from './pages/calculator/calculator';
 import Navbar from './components/navbar/navbar';
 import Settings from './pages/settings/settings';
 import Manual from './pages/manual/manual';
+import About from './pages/about/about';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Calculator />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/manual" element={<Manual />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   );
