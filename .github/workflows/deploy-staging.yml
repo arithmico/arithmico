@@ -3,7 +3,7 @@ name: Deploy staging
 on:
   workflow_dispatch:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   run:
