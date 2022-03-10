@@ -23,8 +23,18 @@ export default function Manual() {
   return (
     <Container>
       <SearchField placeholder="Search" />
-      <ManualSection heading="Hotkeys"></ManualSection>
-      <ManualSectionItem synopsis="ALT + I" description="Focus input field" />
+      <ManualSection heading="Hotkeys">
+        <ManualSectionItem synopsis="ALT + I" description="Focus input field" />
+      </ManualSection>
+      <ManualSection heading="Constants">
+        <ManualSectionItem synopsis="e" description="Euler's Number" />
+      </ManualSection>
+      <ManualSection heading="Functions">
+        <ManualSectionItem
+          synopsis="sin(x)"
+          description="Calculates the sine of a given value x."
+        />
+      </ManualSection>
     </Container>
   );
 }
