@@ -60,6 +60,35 @@
     }
 }}
 
+Start = _ v:(Define / Expression) _ {
+    return v;
+}
+
+Define = DefineFunction / DefineVariable
+
+DefineVariable = symbol:Symbol _ ":=" _ expr:Expression {
+    return {
+        type: "defineVariable",
+        name: symbol.name,
+        value: expr
+    };
+}
+
+SymbolListItem = _ "," _ symbol:Symbol {
+    return symbol.name;
+}
+SymbolList = first:Symbol _ rest:SymbolListItem* {
+    return [first.name, ...rest];
+}
+DefineFunction = symbol:Symbol _ "(" _ parameters:SymbolList _ ")" _ ":=" _ expr:Expression {
+    return {
+        type: "defineFunction",
+        name: symbol.name,
+        parameters: parameters ? parameters : [],
+        value: expr
+    };
+}
+
 Expression = Or
 
 // logic
@@ -151,7 +180,7 @@ Power = left:Value _ "^" _ right:Value {
 } / Value
 
 // values
-Value = Boolean / Symbol / Number / Vector / "(" _ expr:Expression _ ")" {
+Value = Boolean / FunctionCall / Symbol / Number / Vector / "(" _ expr:Expression _ ")" {
     return expr;
 }
 
@@ -159,15 +188,23 @@ ListElement = _ "," _ item:Expression {
     return item;
 }
 
-List = first:Expression rest:ListElement* {
+List = _ first:Expression rest:ListElement* _ {
     return [first, ...rest];
 }
 
-Vector = "[" _ list:List? _ "]" {
+Vector = "[" list:List? "]" {
     return {
         type: "vector",
         values: list ? list : []
     };
+}
+
+FunctionCall = symbol:Symbol _ "(" parameters:List? ")" {
+    return {
+        type: "functionCall",
+        name: symbol.name,
+        parameters: parameters ? parameters : []
+    }
 }
 
 Boolean "boolean" = v:("true" / "false") { 
