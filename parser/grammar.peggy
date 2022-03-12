@@ -29,7 +29,7 @@
 
                 case "<=":
                     relations.push({
-                        type: "lessOrEqual",
+                        type: "lessOrEquals",
                         left: terms[index],
                         right: terms[index + 1]
                     })
@@ -37,7 +37,7 @@
 
                 case ">=":
                     relations.push({
-                        type: "greaterOrEqual",
+                        type: "greaterOrEquals",
                         left: terms[index],
                         right: terms[index + 1]
                     })
@@ -100,18 +100,11 @@ Or = left:And _ "|" _ right:Or {
     };
 } / And
 
-And = left:Not _ "&" _ right:And {
+And = left:RelationChain _ "&" _ right:And {
     return {
         type: "and",
         left, 
         right
-    };
-} / Not
-
-Not = "!" _ value:RelationChain {
-    return {
-        type: "not",
-        value
     };
 } / RelationChain
 
