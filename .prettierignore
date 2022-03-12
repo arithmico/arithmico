@@ -1,4 +1,1 @@
-node_modules
-parser
-lib
-.husky
+src/parse/parser.js
