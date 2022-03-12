@@ -1,28 +1,28 @@
-import { SyntaxTreeNode } from "./SyntaxTreeNodes"
+import { SyntaxTreeNode } from '../types';
 
 export interface Options {
-    decimalPlaces: number,
-    decimalSeparator: "." | ",",
-    magnitudeThresholdForScientificNotation: number
+    decimalPlaces: number;
+    decimalSeparator: '.' | ',';
+    magnitudeThresholdForScientificNotation: number;
 }
 
 export type StackObject = ValueStackObject | FunctionStackObject;
 export interface ValueStackObject {
-    type: "value",
-    value: SyntaxTreeNode
+    type: 'value';
+    value: SyntaxTreeNode;
 }
 
 export interface FunctionStackObject {
-    type: "function",
-    evaluateParametersBefore: boolean,
-    evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode
+    type: 'function';
+    evaluateParametersBefore: boolean;
+    evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode;
 }
 
 export interface StackFrame {
-    [key: string]: StackObject
+    [key: string]: StackObject;
 }
 
 export interface Context {
-    options: Options,
-    stack: StackFrame[]
+    options: Options;
+    stack: StackFrame[];
 }

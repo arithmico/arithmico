@@ -1,4 +1,6 @@
-export type SyntaxTreeNode = DefineVariable
+/* eslint-disable @typescript-eslint/ban-types */
+export type SyntaxTreeNode =
+    | DefineVariable
     | DefineFunction
     | Or
     | And
@@ -13,129 +15,129 @@ export type SyntaxTreeNode = DefineVariable
     | Times
     | Divided
     | Power
-    | FunctionCall 
-    | Vector 
-    | Number 
-    | Boolean 
+    | FunctionCall
+    | Vector
+    | Number
+    | Boolean
     | Symbol;
 
 export interface DefineVariable {
-    type: "defineVariable";
+    type: 'defineVariable';
     name: string;
     value: SyntaxTreeNode;
 }
 
 interface DefineFunctionParameter {
     name: string;
-    type: "number" | "boolean" | "vector" | "any"
+    type: 'number' | 'boolean' | 'vector' | 'any';
 }
 export interface DefineFunction {
-    type: "defineFunction";
+    type: 'defineFunction';
     name: string;
     parameters: DefineFunctionParameter[];
     value: SyntaxTreeNode;
 }
 
 export interface Or {
-    type: "or";
+    type: 'or';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface And {
-    type: "and";
+    type: 'and';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface Equals {
-    type: "equals";
+    type: 'equals';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface Less {
-    type: "less";
+    type: 'less';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface Greater {
-    type: "greater";
+    type: 'greater';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface LessOrEquals {
-    type: "lessOrEquals";
+    type: 'lessOrEquals';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface GreaterOrEquals {
-    type: "greaterOrEquals";
+    type: 'greaterOrEquals';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface Plus {
-    type: "plus";
+    type: 'plus';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface Minus {
-    type: "minus";
+    type: 'minus';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
-    
+
 export interface Negate {
-    type: "negate";
+    type: 'negate';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface Times {
-    type: "times";
+    type: 'times';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface Divided {
-    type: "divided";
+    type: 'divided';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface Power {
-    type: "power";
+    type: 'power';
     left: SyntaxTreeNode;
     right: SyntaxTreeNode;
 }
 
 export interface FunctionCall {
-    type: "functionCall";
+    type: 'functionCall';
     name: string;
     parameters: SyntaxTreeNode[];
 }
 
 export interface Vector {
-    type: "vector";
+    type: 'vector';
     values: SyntaxTreeNode[];
 }
 
 export interface Number {
-    type: "number";
+    type: 'number';
     value: number;
-};
+}
 
 export interface Boolean {
-    type: "boolean";
+    type: 'boolean';
     value: number;
-};
+}
 
 export interface Symbol {
-    type: "symbol";
+    type: 'symbol';
     name: string;
 }
