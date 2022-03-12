@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export type SyntaxTreeNode =
     | DefineVariable
     | DefineFunction
@@ -17,9 +16,9 @@ export type SyntaxTreeNode =
     | Power
     | FunctionCall
     | Vector
-    | Number
-    | Boolean
-    | Symbol;
+    | NumberNode
+    | BooleanNode
+    | SymbolNode;
 
 export interface DefineVariable {
     type: 'defineVariable';
@@ -27,9 +26,15 @@ export interface DefineVariable {
     value: SyntaxTreeNode;
 }
 
-interface DefineFunctionParameter {
+export enum DefineFunctionParameterType {
+    Number = 'number',
+    Boolean = 'boolean',
+    Vector = 'vector',
+    Any = 'any',
+}
+export interface DefineFunctionParameter {
     name: string;
-    type: 'number' | 'boolean' | 'vector' | 'any';
+    type: DefineFunctionParameterType;
 }
 export interface DefineFunction {
     type: 'defineFunction';
@@ -94,8 +99,7 @@ export interface Minus {
 
 export interface Negate {
     type: 'negate';
-    left: SyntaxTreeNode;
-    right: SyntaxTreeNode;
+    value: SyntaxTreeNode;
 }
 
 export interface Times {
@@ -127,17 +131,17 @@ export interface Vector {
     values: SyntaxTreeNode[];
 }
 
-export interface Number {
+export interface NumberNode {
     type: 'number';
     value: number;
 }
 
-export interface Boolean {
+export interface BooleanNode {
     type: 'boolean';
-    value: number;
+    value: boolean;
 }
 
-export interface Symbol {
+export interface SymbolNode {
     type: 'symbol';
     name: string;
 }

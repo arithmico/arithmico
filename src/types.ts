@@ -2,6 +2,8 @@ export {
     SyntaxTreeNode,
     DefineVariable,
     DefineFunction,
+    DefineFunctionParameter,
+    DefineFunctionParameterType,
     Or,
     And,
     Equals,
@@ -17,9 +19,9 @@ export {
     Power,
     FunctionCall,
     Vector,
-    Number,
-    Boolean,
-    Symbol,
+    NumberNode,
+    BooleanNode,
+    SymbolNode,
 } from './types/SyntaxTreeNodes';
 
 export { Context, Options, StackFrame, StackObject, FunctionStackObject, ValueStackObject } from './types/Context';
