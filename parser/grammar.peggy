@@ -74,11 +74,20 @@ DefineVariable = symbol:Symbol _ ":=" _ expr:Expression {
     };
 }
 
-SymbolListItem = _ "," _ symbol:Symbol {
-    return symbol.name;
+SymbolType = _ ":" _ type:("number" / "boolean" / "vector" / "any") {
+    return type;
 }
-SymbolList = first:Symbol _ rest:SymbolListItem* {
-    return [first.name, ...rest];
+TypedSymbol = symbol:Symbol type:SymbolType? {
+    return {
+        name: symbol.name,
+        type: type ? type : "any"
+    };
+}
+SymbolListItem = _ "," _ symbol:TypedSymbol {
+    return symbol;
+}
+SymbolList = first:TypedSymbol _ rest:SymbolListItem* {
+    return [first, ...rest];
 }
 DefineFunction = symbol:Symbol _ "(" _ parameters:SymbolList _ ")" _ ":=" _ expr:Expression {
     return {

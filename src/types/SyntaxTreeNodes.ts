@@ -25,10 +25,14 @@ export interface DefineVariable {
     value: SyntaxTreeNode;
 }
 
+interface DefineFunctionParameter {
+    name: string;
+    type: "number" | "boolean" | "vector" | "any"
+}
 export interface DefineFunction {
     type: "defineFunction";
     name: string;
-    parameters: Symbol[];
+    parameters: DefineFunctionParameter[];
     value: SyntaxTreeNode;
 }
 
