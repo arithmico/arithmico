@@ -9,7 +9,7 @@
     "build-parser": "node parser/build.js",
     "build": "npm run build-parser && tsc",
     "test": "jest --coverage",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
     "prepare": "husky install"
   },
   "author": "Lennard Behrens",
@@ -42,16 +42,5 @@
     "lodash.isequal": "^4.5.0",
     "peggy": "^1.2.0",
     "prettier": "^2.5.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.ts": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }
