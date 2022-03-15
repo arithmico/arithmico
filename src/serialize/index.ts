@@ -19,26 +19,26 @@ import serializeTimes from './nodes/Times';
 import serializeVector from './nodes/Vector';
 
 const serializePrecedents: SyntaxTreeNode['type'][] = [
-    'defineVariable', //
-    'defineFunction', //
-    'or', //
-    'and', //
-    'equals', //
-    'less', //
-    'greater', //
-    'lessOrEquals', //
-    'greaterOrEquals', //
-    'plus', //
-    'minus', //
+    'defineVariable',
+    'defineFunction',
+    'or',
+    'and',
+    'equals',
+    'less',
+    'greater',
+    'lessOrEquals',
+    'greaterOrEquals',
+    'plus',
+    'minus',
     'negate',
     'times',
     'divided',
     'power',
-    'functionCall', //
-    'vector', //
-    'symbol', //
-    'boolean', //
-    'number', //
+    'functionCall',
+    'vector',
+    'symbol',
+    'boolean',
+    'number',
 ];
 
 export function needsBrackets(parentType: SyntaxTreeNode['type'], childType: SyntaxTreeNode['type']): boolean {
