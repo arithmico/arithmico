@@ -292,6 +292,10 @@ describe('evaluate arithmetic nodes', () => {
         test('evaluate divided - throw', () => {
             expect(() => evaluate(createDivided(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
         });
+
+        test('evaluate divided - throw (divide by zero)', () => {
+            expect(() => evaluate(createDivided(createNumberNode(1), createNumberNode(0)), testContext)).toThrow();
+        });
     });
 
     describe('evaluate power node', () => {
@@ -303,6 +307,10 @@ describe('evaluate arithmetic nodes', () => {
 
         test('evaluate power - throw', () => {
             expect(() => evaluate(createPower(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
+        });
+
+        test('evaluate power - throw (zero base, negative exp)', () => {
+            expect(() => evaluate(createPower(createNumberNode(0), createNumberNode(-1)), testContext)).toThrow();
         });
     });
 });
