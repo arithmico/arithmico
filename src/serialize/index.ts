@@ -1,20 +1,119 @@
-import {Serializer, SerializerSet} from "./types.js";
-import {Context, SyntaxTreeNode} from "../types.js";
-import initSerializers from "./serializers/index.js"
+import { SyntaxTreeNode, Options } from '../types';
+import serializeAnd from './nodes/And';
+import serializeDefineFunction from './nodes/DefineFunction';
+import serializeDefineVariable from './nodes/DefineVariable';
+import serializeDivided from './nodes/Divided';
+import serializeEquals from './nodes/Equals';
+import serializeFunctionCall from './nodes/FunctionCall';
+import serializeGreater from './nodes/Greater';
+import serializeGreaterOrEquals from './nodes/GreaterOrEquals';
+import serializeLess from './nodes/Less';
+import serializeLessOrEquals from './nodes/LessOrEqual';
+import serializeMinus from './nodes/Minus';
+import serializeNegate from './nodes/Negate';
+import serializeNumber from './nodes/Number';
+import serializeOr from './nodes/Or';
+import serializePlus from './nodes/Plus';
+import serializePower from './nodes/Power';
+import serializeTimes from './nodes/Times';
+import serializeVector from './nodes/Vector';
 
-const serializerSet: SerializerSet = {};
+const serializePrecedents: SyntaxTreeNode['type'][] = [
+    'defineVariable',
+    'defineFunction',
+    'or',
+    'and',
+    'equals',
+    'less',
+    'greater',
+    'lessOrEquals',
+    'greaterOrEquals',
+    'plus',
+    'minus',
+    'negate',
+    'times',
+    'divided',
+    'power',
+    'functionCall',
+    'vector',
+    'symbol',
+    'boolean',
+    'number',
+];
 
-export const registerSerializer = <T extends SyntaxTreeNode>(target: T["type"], serializer: Serializer<T>) => {
-    // @ts-ignore
-    serializerSet[target] = serializer;
-};
+export function needsBrackets(
+    parentType: SyntaxTreeNode['type'],
+    childType: SyntaxTreeNode['type'],
+    bracketsOnEqualPrecedence = false,
+): boolean {
+    return bracketsOnEqualPrecedence
+        ? serializePrecedents.indexOf(childType) <= serializePrecedents.indexOf(parentType)
+        : serializePrecedents.indexOf(childType) < serializePrecedents.indexOf(parentType);
+}
 
-export const serialize = (node: SyntaxTreeNode, options: Context["options"]): string => {
-    if (!serializerSet[node.type])
-        throw `no serializer available for type "${node.type}"`;
+export default function serialize(node: SyntaxTreeNode, options: Options): string {
+    switch (node.type) {
+        case 'defineVariable':
+            return serializeDefineVariable(node, options);
 
-    // @ts-ignore
-    return serializerSet[node.type](node, options);
-};
+        case 'defineFunction':
+            return serializeDefineFunction(node, options);
 
-initSerializers();
+        case 'or':
+            return serializeOr(node, options);
+
+        case 'and':
+            return serializeAnd(node, options);
+
+        case 'equals':
+            return serializeEquals(node, options);
+
+        case 'less':
+            return serializeLess(node, options);
+
+        case 'greater':
+            return serializeGreater(node, options);
+
+        case 'lessOrEquals':
+            return serializeLessOrEquals(node, options);
+
+        case 'greaterOrEquals':
+            return serializeGreaterOrEquals(node, options);
+
+        case 'plus':
+            return serializePlus(node, options);
+
+        case 'minus':
+            return serializeMinus(node, options);
+
+        case 'negate':
+            return serializeNegate(node, options);
+
+        case 'times':
+            return serializeTimes(node, options);
+
+        case 'divided':
+            return serializeDivided(node, options);
+
+        case 'power':
+            return serializePower(node, options);
+
+        case 'functionCall':
+            return serializeFunctionCall(node, options);
+
+        case 'vector':
+            return serializeVector(node, options);
+
+        case 'number':
+            return serializeNumber(node, options);
+
+        case 'boolean':
+            return node.value ? 'true' : 'false';
+
+        case 'symbol':
+            return node.name;
+
+        default:
+            throw 'SerializationError: Unknown node type';
+    }
+}

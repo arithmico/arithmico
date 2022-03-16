@@ -1,26 +1,25 @@
-import {Context} from "./types.js";
-import evaluateRaw from "./eval/evaluate.js";
-import {serialize as serializeNode} from "./serialize";
-import {parse as parseAndTransform} from "./parse/index.js";
+import { parse } from './parse/parser';
+import evaluateNode from './eval';
+import serialize from './serialize';
+import { Context } from './types';
 
 const defaultContext: Context = {
     options: {
-        decimalSeparator: ".",
         decimalPlaces: 6,
-        magnitudeThresholdForScientificNotation: 4
+        decimalSeparator: '.',
+        magnitudeThresholdForScientificNotation: 6,
     },
-    stack: []
+    stack: [{}],
 };
 
-export const parse = parseAndTransform;
+export default function evaluate(input: string, context: Context = defaultContext): string {
+    let nodeTree;
 
-export const serialize = serializeNode;
+    try {
+        nodeTree = parse(input);
+    } catch (syntaxError) {
+        throw syntaxError.message;
+    }
 
-export const evaluateWithoutSerializing = (input: string, context: Context = defaultContext) => evaluateRaw(
-    parseAndTransform(input), context
-);
-
-export const evaluateNode = evaluateRaw;
-export const evaluate = (input: string, context: Context = defaultContext) => serializeNode(
-    evaluateWithoutSerializing(input, context), context.options
-);
+    return serialize(evaluateNode(nodeTree, context), context.options);
+}
