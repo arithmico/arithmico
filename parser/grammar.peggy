@@ -117,13 +117,13 @@ And = left:RelationChain _ "&" _ right:And {
     };
 } / RelationChain
 
-RelationChain = startTerm:Term _ chainElements:RelationChainElement+ {
+RelationChain = startTerm:Term chainElements:RelationChainElement+ {
     const terms = [startTerm, ...chainElements.map(chainElement => chainElement.term)];
     const relationSymbols = chainElements.map(chainElement => chainElement.relationSymbol);
     return transformRelationChain(terms, relationSymbols);
 } / Term
 
-RelationChainElement = relationSymbol:("=" / "<" / ">" / "<=" / ">=") _ term:Term _ {
+RelationChainElement = _ relationSymbol:("=" / "<=" / ">=" / "<" / ">") _ term:Term _ {
     return {
         relationSymbol, 
         term
