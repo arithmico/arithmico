@@ -32,6 +32,12 @@ integrationTest('1 < 2 <= 2 = 2 >= 2 > 1', 'true');
 integrationTest('2 + 3 * 4 ^ 5 / 32 = 98', 'true');
 integrationTest('10 / 2 / 5', '1');
 integrationTest('10 - 5 - 3 - 2', '0');
+integrationTest('[[1, 2], 3] + [[3, 2], 1]', '[4, 4, 4]');
+
+test('foo', () => {
+    console.log('foo');
+    expect(evaluate('[[1, 2], 3] + [[3, 2], 1]')).toBe('[4, 4, 4]');
+}, 500);
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

@@ -253,8 +253,32 @@ describe('evaluate arithmetic nodes', () => {
             );
         });
 
+        test('evaluate plus - vectors', () => {
+            expect(
+                evaluate(
+                    createPlus(
+                        createVector([createNumberNode(1), createNumberNode(2)]),
+                        createVector([createNumberNode(3), createNumberNode(4)]),
+                    ),
+                    testContext,
+                ),
+            ).toStrictEqual(createVector([createNumberNode(4), createNumberNode(6)]));
+        });
+
         test('evaluate plus - throw', () => {
             expect(() => evaluate(createPlus(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
+        });
+
+        test('evaluate plus - throw incompatible shapes', () => {
+            expect(() =>
+                evaluate(
+                    createPlus(
+                        createVector([createNumberNode(1), createNumberNode(2)]),
+                        createVector([createNumberNode(3), createNumberNode(4), createNumberNode(5)]),
+                    ),
+                    testContext,
+                ),
+            ).toThrow();
         });
     });
 
