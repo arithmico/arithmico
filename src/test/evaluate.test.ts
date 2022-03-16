@@ -245,7 +245,7 @@ describe('evaluate define nodes', () => {
     });
 });
 
-describe('evaluate create arithmetic nodes', () => {
+describe('evaluate arithmetic nodes', () => {
     describe('evaluate plus node', () => {
         test('evaluate plus', () => {
             expect(evaluate(createPlus(createNumberNode(1), createNumberNode(2)), testContext)).toStrictEqual(
