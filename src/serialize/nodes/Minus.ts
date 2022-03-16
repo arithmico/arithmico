@@ -6,7 +6,7 @@ export default function serializeMinus(node: Minus, options: Options): string {
         ? `(${serialize(node.left, options)})`
         : serialize(node.left, options);
 
-    const rightChild = needsBrackets(node.type, node.right.type)
+    const rightChild = needsBrackets(node.type, node.right.type, true)
         ? `(${serialize(node.right, options)})`
         : serialize(node.right, options);
 

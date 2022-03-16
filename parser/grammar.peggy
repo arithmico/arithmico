@@ -142,12 +142,17 @@ Plus = left:Minus _ "+" _ right:Plus {
     };
 } / Minus
 
-Minus = left:Times _ "-" _ right:Minus {
-    return {
+// the ugly way to eliminate left recursion 
+MinusItem = _ "-" _ item:Times {
+    return item;
+}
+Minus = first:Times rest:MinusItem+ {
+    const items = [first, ...rest];
+    return items.reduce((left, right) => ({
         type: "minus",
         left, 
         right
-    };
+    }));
 } / Negate
 
 Negate = _ "-" _ value:Negate {
@@ -165,12 +170,17 @@ Times = left:Divided _ "*" _ right:Times {
     };
 } / Divided
 
-Divided = left:Power _ "/" _ right:Divided {
-    return {
-        type: "devided",
+// the ugly way to eliminate left recursion 
+DividedItem = _ "/" _ item:Power {
+    return item;
+}
+Divided = first:Power rest:DividedItem+ {
+    const items = [first, ...rest];
+    return items.reduce((left, right) => ({
+        type: "divided",
         left, 
         right
-    };
+    }));
 } / Power
 
 Power = left:Value _ "^" _ right:Value {

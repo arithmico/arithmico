@@ -8,7 +8,7 @@
   "scripts": {
     "build-parser": "node parser/build.js",
     "build": "rm -rf lib && npm run build-parser && tsc",
-    "test": "jest --coverage",
+    "test": "npm run build && jest --coverage",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
     "pretty": "prettier 'src/**/*' --check",
     "prepare": "husky install"

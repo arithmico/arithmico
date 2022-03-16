@@ -41,8 +41,14 @@ const serializePrecedents: SyntaxTreeNode['type'][] = [
     'number',
 ];
 
-export function needsBrackets(parentType: SyntaxTreeNode['type'], childType: SyntaxTreeNode['type']): boolean {
-    return serializePrecedents.indexOf(childType) < serializePrecedents.indexOf(parentType);
+export function needsBrackets(
+    parentType: SyntaxTreeNode['type'],
+    childType: SyntaxTreeNode['type'],
+    bracketsOnEqualPrecedence = false,
+): boolean {
+    return bracketsOnEqualPrecedence
+        ? serializePrecedents.indexOf(childType) <= serializePrecedents.indexOf(parentType)
+        : serializePrecedents.indexOf(childType) < serializePrecedents.indexOf(parentType);
 }
 
 export default function serialize(node: SyntaxTreeNode, options: Options): string {

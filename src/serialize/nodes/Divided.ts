@@ -8,7 +8,7 @@ export default function serializeDivided(node: Divided, options: Options): strin
             : serialize(node.left, options);
 
     const rightChild =
-        needsBrackets(node.type, node.right.type) || (node.right.type === 'number' && node.right.value < 0)
+        needsBrackets(node.type, node.right.type, true) || (node.right.type === 'number' && node.right.value < 0)
             ? `(${serialize(node.right, options)})`
             : serialize(node.right, options);
 

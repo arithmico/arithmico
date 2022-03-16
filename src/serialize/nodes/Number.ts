@@ -12,11 +12,11 @@ export default function serializeNumber(node: NumberNode, options: Options): str
         const mantisseStr = Number(mantisse.toFixed(options.decimalPlaces)).toString();
 
         if (magnitude < 0) {
-            return `${mantisseStr} * 10^(-${magnitude.toString()})`;
+            return `${mantisseStr} * 10^(${magnitude.toString()})`;
         }
 
         return `${mantisseStr} * 10^${magnitude.toString()}`;
     }
 
-    return node.value.toString();
+    return Number(node.value.toFixed(options.decimalPlaces)).toString();
 }
