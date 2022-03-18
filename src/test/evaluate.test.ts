@@ -301,6 +301,38 @@ describe('evaluate arithmetic nodes', () => {
             );
         });
 
+        test('evaluate times (vector * number)', () => {
+            expect(
+                evaluate(
+                    createTimes(createVector([createNumberNode(1), createNumberNode(2)]), createNumberNode(3)),
+                    testContext,
+                ),
+            ).toStrictEqual(createVector([createNumberNode(3), createNumberNode(6)]));
+        });
+
+        test('evaluate times (number * vector)', () => {
+            expect(
+                evaluate(
+                    createTimes(createNumberNode(3), createVector([createNumberNode(1), createNumberNode(2)])),
+                    testContext,
+                ),
+            ).toStrictEqual(createVector([createNumberNode(3), createNumberNode(6)]));
+        });
+
+        test('evaluate times (number * nested vector)', () => {
+            expect(
+                evaluate(
+                    createTimes(
+                        createNumberNode(2),
+                        createVector([createNumberNode(1), createVector([createNumberNode(2), createNumberNode(3)])]),
+                    ),
+                    testContext,
+                ),
+            ).toStrictEqual(
+                createVector([createNumberNode(2), createVector([createNumberNode(4), createNumberNode(6)])]),
+            );
+        });
+
         test('evaluate times - throw', () => {
             expect(() => evaluate(createTimes(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
         });
