@@ -3,7 +3,6 @@ import { Vector } from '../types';
 type VectorShape = number | (number | VectorShape)[];
 
 export function getShape(vector: Vector): VectorShape {
-    console.log('get shape');
     const containsVectors = vector.values.reduce((acc, value) => acc || value.type === 'vector', false);
 
     if (!containsVectors) {
@@ -14,7 +13,6 @@ export function getShape(vector: Vector): VectorShape {
 }
 
 function compareShapes(shapeA: VectorShape, shapeB: VectorShape): boolean {
-    console.log('compare');
     if (typeof shapeA === 'number' && typeof shapeB === 'number') {
         return shapeA === shapeB;
     }

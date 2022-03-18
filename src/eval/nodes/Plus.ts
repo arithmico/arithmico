@@ -8,7 +8,6 @@ import { compareShapesOfVectors } from '../../utils/vector-utils';
 export default function evaluatePlus(node: Plus, context: Context): SyntaxTreeNode {
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
-    console.log('plus');
 
     if (leftChild.type === 'number' && rightChild.type === 'number') {
         return createNumberNode(leftChild.value + rightChild.value);
