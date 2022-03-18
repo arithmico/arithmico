@@ -27,3 +27,62 @@ function compareShapes(shapeA: VectorShape, shapeB: VectorShape): boolean {
 export function compareShapesOfVectors(vectorA: Vector, vectorB: Vector): boolean {
     return compareShapes(getShape(vectorA), getShape(vectorB));
 }
+
+function isShapeHomogeneous(shape: VectorShape): boolean {
+    if (typeof shape === 'number') {
+        return true;
+    }
+
+    const childShapesHomogeneous = shape.every(isShapeHomogeneous);
+    if (!childShapesHomogeneous) {
+        return false;
+    }
+
+    for (let i = 1; i < shape.length; i++) {
+        if (!compareShapes(shape[i], shape[0])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function getShapeRank(shape: VectorShape): number {
+    if (typeof shape === 'number') {
+        return 1;
+    }
+
+    return getShapeRank(shape[0]) + 1;
+}
+
+export function isVectorHomogeneous(vector: Vector): boolean {
+    return isShapeHomogeneous(getShape(vector));
+}
+
+export function getVectorRank(vector: Vector): number {
+    const shape = getShape(vector);
+
+    if (!isShapeHomogeneous(shape)) {
+        throw `TypeError: can not get rank of inhomogeneous vector`;
+    }
+
+    return getShapeRank(shape);
+}
+
+function getShapeDimensions(shape: VectorShape): number[] {
+    if (typeof shape === 'number') {
+        return [shape];
+    }
+
+    return [shape.length, ...getShapeDimensions(shape[0])];
+}
+
+export function getVectorDimensions(vector: Vector): number[] {
+    const shape = getShape(vector);
+
+    if (!isShapeHomogeneous(shape)) {
+        throw `TypeError: can not get dimensions of inhomogeneous vector`;
+    }
+
+    return getShapeDimensions(shape);
+}
