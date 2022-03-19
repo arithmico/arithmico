@@ -333,8 +333,34 @@ describe('evaluate arithmetic nodes', () => {
             );
         });
 
+        test('evaluate times - vector1d * vector1d', () => {
+            const vectorA = createVector([createNumberNode(1), createNumberNode(2), createNumberNode(3)]);
+            const vectorB = createVector([createNumberNode(4), createNumberNode(5), createNumberNode(6)]);
+            const result = createNumberNode(1 * 4 + 2 * 5 + 3 * 6);
+            expect(evaluate(createTimes(vectorA, vectorB), testContext)).toStrictEqual(result);
+        });
+
+        test('evaluate times - vector1d (1 element) * vector1d (1 element)', () => {
+            const vectorA = createVector([createNumberNode(1)]);
+            const vectorB = createVector([createNumberNode(4)]);
+            const result = createNumberNode(1 * 4);
+            expect(evaluate(createTimes(vectorA, vectorB), testContext)).toStrictEqual(result);
+        });
+
         test('evaluate times - throw', () => {
             expect(() => evaluate(createTimes(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
+        });
+
+        test('evaluate times - throw (incompatible shapes)', () => {
+            const vectorA = createVector([createNumberNode(1), createNumberNode(2)]);
+            const vectorB = createVector([createNumberNode(4), createNumberNode(5), createNumberNode(6)]);
+            expect(() => evaluate(createTimes(vectorA, vectorB), testContext)).toThrow();
+        });
+
+        test('evaluate times - throw (empty vector)', () => {
+            const vectorA = createVector([]);
+            const vectorB = createVector([]);
+            expect(() => evaluate(createTimes(vectorA, vectorB), testContext)).toThrow();
         });
     });
 
