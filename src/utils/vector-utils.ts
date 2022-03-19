@@ -1,3 +1,4 @@
+import { SyntaxTreeNode } from './../types/SyntaxTreeNodes';
 import { Vector } from '../types';
 
 type VectorShape = number | (number | VectorShape)[];
@@ -85,4 +86,24 @@ export function getVectorDimensions(vector: Vector): number[] {
     }
 
     return getShapeDimensions(shape);
+}
+
+export function getVectorElement(vector: Vector, index: number[]): SyntaxTreeNode {
+    if (index.length === 0) {
+        throw 'RuntimeError: empty vector index';
+    }
+
+    if (vector.values.length <= index[0]) {
+        throw `RuntimeError: vector index out of bounds`;
+    }
+
+    if (index.length === 1) {
+        return vector.values[index[0]];
+    } else {
+        const value = vector.values[index[0]];
+        if (value.type !== 'vector') {
+            throw 'RuntimeError: incompatible vector index';
+        }
+        return getVectorElement(value, index.slice(1));
+    }
 }
