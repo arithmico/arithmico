@@ -12,36 +12,36 @@ export function createPlugin(name: string): Plugin {
     };
 }
 
-export function addPluginAuthor(plugin: Plugin, author: string): Plugin {
-    return {
+export function addPluginAuthor(plugin: Plugin, author: string) {
+    plugin = {
         ...plugin,
         author,
     };
 }
 
-export function addPluginDescription(plugin: Plugin, description: string): Plugin {
-    return {
+export function addPluginDescription(plugin: Plugin, description: string) {
+    plugin = {
         ...plugin,
         description,
     };
 }
 
-export function addPluginConstant(plugin: Plugin, constant: PluginConstant): Plugin {
-    return {
+export function addPluginConstant(plugin: Plugin, constant: PluginConstant) {
+    plugin = {
         ...plugin,
         constants: [...plugin.constants, constant],
     };
 }
 
-export function addPluginFunction(plugin: Plugin, func: PluginFunction): Plugin {
-    return {
+export function addPluginFunction(plugin: Plugin, func: PluginFunction) {
+    plugin = {
         ...plugin,
         functions: [...plugin.functions, func],
     };
 }
 
-export function addPluginInlineDefinition(plugin: Plugin, inlineDefinition: string): Plugin {
-    return {
+export function addPluginInlineDefinition(plugin: Plugin, inlineDefinition: string) {
+    plugin = {
         ...plugin,
         inlineDefinitions: [...plugin.inlineDefinitions, inlineDefinition],
     };
