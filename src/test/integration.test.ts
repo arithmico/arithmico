@@ -62,6 +62,7 @@ integrationTest(
         },
     ]),
 );
+integrationTest('[[3,2,1],[1,0,2]]*[[1,2],[0,1],[4,0]]', '[[7, 8], [9, 2]]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

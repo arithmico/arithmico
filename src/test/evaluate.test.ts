@@ -347,13 +347,34 @@ describe('evaluate arithmetic nodes', () => {
             expect(evaluate(createTimes(vectorA, vectorB), testContext)).toStrictEqual(result);
         });
 
+        test('evaluate times - vector2d * vector2d', () => {
+            const vectorA = createVector([createVector([createNumberNode(3), createNumberNode(4)])]);
+            const vectorB = createVector([createVector([createNumberNode(1)]), createVector([createNumberNode(2)])]);
+            const result = createVector([createVector([createNumberNode(1 * 3 + 4 * 2)])]);
+            expect(evaluate(createTimes(vectorA, vectorB), testContext)).toStrictEqual(result);
+        });
+
         test('evaluate times - throw', () => {
             expect(() => evaluate(createTimes(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
         });
 
-        test('evaluate times - throw (incompatible shapes)', () => {
+        test('evaluate times - throw (incompatible shapes 1d)', () => {
             const vectorA = createVector([createNumberNode(1), createNumberNode(2)]);
             const vectorB = createVector([createNumberNode(4), createNumberNode(5), createNumberNode(6)]);
+            expect(() => evaluate(createTimes(vectorA, vectorB), testContext)).toThrow();
+        });
+
+        test('evaluate times - throw (incompatible shapes 2d)', () => {
+            const vectorA = createVector([
+                createVector([createNumberNode(3), createNumberNode(4), createNumberNode(5)]),
+            ]);
+            const vectorB = createVector([createVector([createNumberNode(1)]), createVector([createNumberNode(2)])]);
+            expect(() => evaluate(createTimes(vectorA, vectorB), testContext)).toThrow();
+        });
+
+        test('evaluate times - throw (dimension > 2)', () => {
+            const vectorA = createVector([createVector([createVector([createNumberNode(1)])])]);
+            const vectorB = createVector([createVector([createNumberNode(1)]), createVector([createNumberNode(2)])]);
             expect(() => evaluate(createTimes(vectorA, vectorB), testContext)).toThrow();
         });
 
