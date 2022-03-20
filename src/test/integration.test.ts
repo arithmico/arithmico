@@ -50,6 +50,10 @@ integrationTest('2 + 3 * 4 ^ 5 / 32 = 98', 'true');
 integrationTest('10 / 2 / 5', '1');
 integrationTest('10 - 5 - 3 - 2', '0');
 integrationTest('[[1, 2], 3] + [[3, 2], 1]', '[[4, 4], 4]');
+integrationTest('[[3,2,1],[1,0,2]]*[[1,2],[0,1],[4,0]]', '[[7, 8], [9, 2]]');
+integrationTest('[1,2,3]*[3,2,1]', '10');
+integrationTest('[[1,0],[0,1]]*[4,5]', '[4, 5]');
+integrationTest('[4,5]*[[1,0],[0,1]]', '[4, 5]');
 integrationTest(
     'a + 1',
     '42',
@@ -62,7 +66,6 @@ integrationTest(
         },
     ]),
 );
-integrationTest('[[3,2,1],[1,0,2]]*[[1,2],[0,1],[4,0]]', '[[7, 8], [9, 2]]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
