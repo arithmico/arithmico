@@ -12,6 +12,7 @@ export interface PluginFunction {
     name: string;
     parameterValidator: (parameters: SyntaxTreeNode[]) => void;
     evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode;
+    evaluateParametersBefore: boolean;
     documentation: {
         [key in Language]?: Documentation;
     };
