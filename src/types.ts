@@ -25,3 +25,4 @@ export {
 } from './types/SyntaxTreeNodes';
 
 export { Context, Options, StackFrame, StackObject, FunctionStackObject, ValueStackObject } from './types/Context';
+export { Plugin, PluginFunction, PluginConstant } from './types/Plugin';
