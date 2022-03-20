@@ -86,6 +86,12 @@ export default function evaluateTimes(node: Times, context: Context): SyntaxTree
             ) as Vector;
 
             return createVector(result.values.map((vector: Vector) => vector.values[0]));
+        } else if (leftRank === 1 && rightRank === 2) {
+            if (leftDims[0] !== rightDims[0]) {
+                throw 'ShapeError: incompatible vector shapes';
+            }
+
+            return (evaluate(createTimes(createVector([leftChild]), rightChild), context) as Vector).values[0];
         }
 
         throw 'ShapeError: incompatible vector shapes';
