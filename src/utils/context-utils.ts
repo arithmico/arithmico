@@ -14,7 +14,18 @@ export function useStrictContextValidator(name: string, context: Context) {
     }
 }
 
-export function insertStackObject(name: string, stackObject: StackObject, context: Context) {
+export function insertStackObject(name: string, stackObject: StackObject, context: Context): Context {
     useStrictContextValidator(name, context);
-    context.stack[context.stack.length - 1][name] = stackObject;
+    const stackFrameIndex = context.stack.length - 1;
+    return {
+        ...context,
+        stack: context.stack.map((stackFrame, index) =>
+            index === stackFrameIndex
+                ? {
+                      ...context.stack[stackFrameIndex],
+                      [name]: stackObject,
+                  }
+                : stackFrame,
+        ),
+    };
 }

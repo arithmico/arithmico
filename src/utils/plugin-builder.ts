@@ -13,36 +13,21 @@ export function createPlugin(name: string): Plugin {
 }
 
 export function addPluginAuthor(plugin: Plugin, author: string) {
-    plugin = {
-        ...plugin,
-        author,
-    };
+    plugin.author = author;
 }
 
 export function addPluginDescription(plugin: Plugin, description: string) {
-    plugin = {
-        ...plugin,
-        description,
-    };
+    plugin.description = description;
 }
 
 export function addPluginConstant(plugin: Plugin, constant: PluginConstant) {
-    plugin = {
-        ...plugin,
-        constants: [...plugin.constants, constant],
-    };
+    plugin.constants = [...plugin.constants, constant];
 }
 
 export function addPluginFunction(plugin: Plugin, func: PluginFunction) {
-    plugin = {
-        ...plugin,
-        functions: [...plugin.functions, func],
-    };
+    plugin.functions = [...plugin.functions, func];
 }
 
 export function addPluginInlineDefinition(plugin: Plugin, inlineDefinition: string) {
-    plugin = {
-        ...plugin,
-        inlineDefinitions: [...plugin.inlineDefinitions, inlineDefinition],
-    };
+    plugin.inlineDefinitions = [...plugin.inlineDefinitions, inlineDefinition];
 }

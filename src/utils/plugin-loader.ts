@@ -3,8 +3,8 @@ import { insertStackObject, useStrictContextValidator } from './context-utils';
 import { parse } from '../parse/parser';
 import evaluate from '../eval';
 
-function loadPluginFunction(pluginFunction: PluginFunction, context: Context) {
-    insertStackObject(
+function loadPluginFunction(pluginFunction: PluginFunction, context: Context): Context {
+    return insertStackObject(
         pluginFunction.name,
         {
             type: 'function',
@@ -18,8 +18,8 @@ function loadPluginFunction(pluginFunction: PluginFunction, context: Context) {
     );
 }
 
-function loadPluginConstant(pluginConstant: PluginConstant, context: Context) {
-    insertStackObject(
+function loadPluginConstant(pluginConstant: PluginConstant, context: Context): Context {
+    return insertStackObject(
         pluginConstant.name,
         {
             type: 'value',
@@ -29,6 +29,7 @@ function loadPluginConstant(pluginConstant: PluginConstant, context: Context) {
     );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function loadPluginInlineDefinition(pluginInlineDefinition: string, context: Context) {
     let node: SyntaxTreeNode;
     try {
@@ -43,10 +44,16 @@ function loadPluginInlineDefinition(pluginInlineDefinition: string, context: Con
     evaluate(node, context);
 }
 
-function loadPlugin(plugin: Plugin, context: Context) {
-    plugin.functions.forEach((func) => loadPluginFunction(func, context));
-    plugin.constants.forEach((constant) => loadPluginConstant(constant, context));
-    plugin.inlineDefinitions.forEach((inlineDefinition) => loadPluginInlineDefinition(inlineDefinition, context));
+function loadPlugin(plugin: Plugin, context: Context): Context {
+    const contextWithFunctions = plugin.functions.reduce((context, func) => loadPluginFunction(func, context), context);
+    const contextWithConstants = plugin.constants.reduce(
+        (context, constant) => loadPluginConstant(constant, context),
+        contextWithFunctions,
+    );
+
+    return contextWithConstants;
+
+    //plugin.inlineDefinitions.forEach((inlineDefinition) => loadPluginInlineDefinition(inlineDefinition, context));
 }
 
 interface LoadPluginsResult {
@@ -61,6 +68,7 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
     let context: Context;
 
     while (loadingErrorOccured) {
+        log.push(excludedPlugins.length === 0 ? 'initialize empty stack' : 'reset stack');
         loadingErrorOccured = false;
         context = {
             options,
@@ -71,7 +79,7 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
             .filter((plugin) => !excludedPlugins.includes(plugin.name))
             .forEach((plugin) => {
                 try {
-                    loadPlugin(plugin, context);
+                    context = loadPlugin(plugin, context);
                 } catch (loadingError) {
                     loadingErrorOccured = true;
                     excludedPlugins.push(plugin.name);
@@ -79,6 +87,6 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
                 }
             });
     }
-
+    log.push(`loading completed excluded plugins: [${excludedPlugins.join(', ')}]`);
     return { context, log };
 }
