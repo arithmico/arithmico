@@ -1,5 +1,5 @@
 {
-  "name": "number-cruncher",
+  "name": "@behrenle/number-cruncher",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
