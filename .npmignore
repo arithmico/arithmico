@@ -1,6 +1,8 @@
 src
 tsconfig.json
 .idea
+.vscode
+.husky
 lib/**/*.js.map
 parser/**/*
 coverage
