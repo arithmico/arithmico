@@ -44,10 +44,8 @@
     ]
   },
   "dependencies": {
-    "@types/lodash": "^4.14.168",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "lodash.isequal": "^4.5.0",
     "peggy": "^1.2.0",
     "prettier": "^2.5.1"
   }
