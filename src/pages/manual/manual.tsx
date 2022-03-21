@@ -8,14 +8,14 @@ import PageContainer from '../../components/page-container/page-container';
 const SearchField = styled.input.attrs({ type: 'text' })`
   background-color: rgba(255, 255, 255, 0.05);
   height: 100px;
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 10px;
   width: 100%;
   outline: none;
-  //background-color: transparent;
   color: white;
   font-size: 24px;
   padding: 20px;
+  margin-bottom: 2em;
 `;
 
 export default function Manual() {
