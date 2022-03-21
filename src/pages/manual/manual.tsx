@@ -1,4 +1,5 @@
 import { getDocumentation } from '@behrenle/number-cruncher';
+import { GlobalDocumentationItem } from '@behrenle/number-cruncher/lib/types/Plugin';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ManualSectionItem from '../../components/manual-section-item/manual-section-item';
@@ -18,18 +19,30 @@ const SearchField = styled.input.attrs({ type: 'text' })`
   margin-bottom: 2em;
 `;
 
+function matchDocumentation(doc: GlobalDocumentationItem, searchStr: string) {
+  return (
+    doc.documentation.en?.synopsis.includes(searchStr) ||
+    doc.documentation.en?.description.includes(searchStr)
+  );
+}
+
 export default function Manual() {
   const [documentation] = useState(() => getDocumentation());
+  const [searchStr, setSearchStr] = useState('');
 
   return (
     <PageContainer>
-      <SearchField placeholder="Search" />
+      <SearchField
+        placeholder="Search"
+        value={searchStr}
+        onChange={(e) => setSearchStr(e.target.value)}
+      />
       <ManualSection heading="Hotkeys">
         <ManualSectionItem synopsis="ALT + I" description="Focus input field" />
       </ManualSection>
       <ManualSection heading="Constants">
         {documentation
-          .filter((item) => item.type === 'constant')
+          .filter((item) => item.type === 'constant' && matchDocumentation(item, searchStr))
           .map((item) => (
             <ManualSectionItem
               key={item.documentation.en?.synopsis}
@@ -40,7 +53,7 @@ export default function Manual() {
       </ManualSection>
       <ManualSection heading="Functions">
         {documentation
-          .filter((item) => item.type === 'function')
+          .filter((item) => item.type === 'function' && matchDocumentation(item, searchStr))
           .map((item) => (
             <ManualSectionItem
               key={item.documentation.en?.synopsis}
