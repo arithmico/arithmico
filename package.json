@@ -1,6 +1,10 @@
 {
   "name": "me-neo",
   "version": "0.5.0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/behrenle/math-explorer-neo/issues"
+  },
   "author": {
     "name": "Lennard Behrens",
     "email": "dev.behrenle@posteo.de",
