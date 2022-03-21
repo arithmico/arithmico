@@ -1,6 +1,8 @@
-import evaluate from '..';
+import evaluate, { init } from '..';
 import createNumberNode from '../create/NumberNode';
 import { Context, Options } from '../types';
+
+init();
 
 const testOptions: Options = {
     decimalPlaces: 6,
