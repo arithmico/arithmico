@@ -11,6 +11,8 @@ const ManaulSectionHeading = styled.h1`
 const StyledDl = styled.dl`
   display: grid;
   grid-template-columns: 1fr 3fr;
+  grid-row-gap: 2em;
+  grid-column-gap: 1em;
   padding: 10px 80px;
 `;
 
