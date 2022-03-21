@@ -40,7 +40,14 @@ export default function About() {
         <dd>Contributors</dd>
         {packageJson.contributors.map((contributor) => (
           <dt key={contributor.name}>
-            <AboutContact name={contributor.name} email={contributor.email} />
+            <AboutContact
+              name={contributor.name}
+              email={
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                contributor?.email
+              }
+            />
           </dt>
         ))}
       </StyledDl>
