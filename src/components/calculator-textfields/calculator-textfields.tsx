@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import useSessionStore from '../../stores/useSessionStore';
 
 const TextfieldsContainer = styled.main`
   display: flex;
@@ -40,15 +41,29 @@ const LabelText = styled.span`
 `;
 
 export default function CalculatorTextfields() {
+  const [input, setInput] = useState('');
+  const evaluate = useSessionStore((state) => state.evaluate);
+  const lastOutput = useSessionStore((state) => state.lastOutput);
+
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      evaluate(input);
+    }
+  };
+
   return (
     <TextfieldsContainer>
       <LabelContainer>
         <LabelText>Input</LabelText>
-        <Textfield placeholder="Input" />
+        <Textfield
+          placeholder="Input"
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={onKeyPress}
+        />
       </LabelContainer>
       <LabelContainer>
         <LabelText>Output</LabelText>
-        <Textfield placeholder="Output" />
+        <Textfield placeholder="Output" readOnly value={lastOutput} />
       </LabelContainer>
     </TextfieldsContainer>
   );
