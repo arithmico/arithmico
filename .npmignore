@@ -3,6 +3,7 @@ tsconfig.json
 .idea
 .vscode
 .husky
+lib/test
 lib/**/*.js.map
 parser/**/*
 coverage
