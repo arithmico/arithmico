@@ -90,6 +90,7 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
     let context: Context;
     let documentation: GlobalDocumentationItem[];
 
+    log.push('Loading plugins...');
     while (loadingErrorOccured) {
         log.push(excludedPlugins.length === 0 ? 'initialize empty stack' : 'reset stack');
         loadingErrorOccured = false;
@@ -105,6 +106,7 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
                 try {
                     context = loadPlugin(plugin, context);
                     documentation = [...documentation, ...loadPluginDocumentation(plugin)];
+                    log.push(`Successfully loaded plugin ${plugin.name}`);
                 } catch (loadingError) {
                     loadingErrorOccured = true;
                     excludedPlugins.push(plugin.name);
@@ -112,6 +114,6 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
                 }
             });
     }
-    log.push(`loading completed excluded plugins: [${excludedPlugins.join(', ')}]`);
+    log.push(`Loading completed excluded plugins: [${excludedPlugins.join(', ')}]`);
     return { context, log, documentation };
 }
