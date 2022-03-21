@@ -2,10 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import packageJson from '../../../package.json';
 import AboutContact from '../../components/about-contact/about-contact';
-
-const AboutContainer = styled.div`
-  padding: 50px 20%;
-`;
+import PageContainer from '../../components/page-container/page-container';
 
 const StyledDl = styled.dl`
   font-size: 24px;
@@ -25,7 +22,7 @@ const StyledDl = styled.dl`
 
 export default function About() {
   return (
-    <AboutContainer>
+    <PageContainer>
       <StyledDl>
         <dd>Version</dd>
         <dt>{packageJson.version}</dt>
@@ -51,6 +48,6 @@ export default function About() {
           </dt>
         ))}
       </StyledDl>
-    </AboutContainer>
+    </PageContainer>
   );
 }

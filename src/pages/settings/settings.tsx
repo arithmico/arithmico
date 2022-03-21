@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import PageContainer from '../../components/page-container/page-container';
 import SettingsDecimalPlacesListbox from '../../components/settings-decimal-places-listbox/settings-decimal-places-listbox';
 import SettingsListbox from '../../components/settings-listbox/settings-listbox';
 import SettingsSection from '../../components/settings-section/settings-section';
 import SettingsSwitch from '../../components/settings-switch/settings-switch';
-
-const Container = styled.main`
-  margin: 50px 20%;
-`;
 
 export default function Settings() {
   const [language, setLanguage] = useState('english');
@@ -19,7 +15,7 @@ export default function Settings() {
   const [enableAnalytics, setEnableAnalytics] = useState(true);
 
   return (
-    <Container>
+    <PageContainer>
       <SettingsSection heading="Interface">
         <SettingsListbox
           onChange={setLanguage}
@@ -85,6 +81,6 @@ export default function Settings() {
           onChange={setEnableAnalytics}
         />
       </SettingsSection>
-    </Container>
+    </PageContainer>
   );
 }

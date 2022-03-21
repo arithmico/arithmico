@@ -3,10 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ManualSectionItem from '../../components/manual-section-item/manual-section-item';
 import ManualSection from '../../components/manual-section/manual-section';
-
-const Container = styled.div`
-  margin: 50px 20%;
-`;
+import PageContainer from '../../components/page-container/page-container';
 
 const SearchField = styled.input.attrs({ type: 'text' })`
   background-color: rgba(255, 255, 255, 0.05);
@@ -25,7 +22,7 @@ export default function Manual() {
   const [documentation] = useState(() => getDocumentation());
 
   return (
-    <Container>
+    <PageContainer>
       <SearchField placeholder="Search" />
       <ManualSection heading="Hotkeys">
         <ManualSectionItem synopsis="ALT + I" description="Focus input field" />
@@ -52,6 +49,6 @@ export default function Manual() {
             />
           ))}
       </ManualSection>
-    </Container>
+    </PageContainer>
   );
 }
