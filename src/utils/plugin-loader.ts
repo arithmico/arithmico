@@ -1,3 +1,4 @@
+import { GlobalDocumentationItem } from './../types/Plugin';
 import { Context, Plugin, SyntaxTreeNode, PluginFunction, PluginConstant, Options } from '../types';
 import { insertStackObject, useStrictContextValidator } from './context-utils';
 import { parse } from '../parse/parser';
@@ -56,9 +57,30 @@ function loadPlugin(plugin: Plugin, context: Context): Context {
     //plugin.inlineDefinitions.forEach((inlineDefinition) => loadPluginInlineDefinition(inlineDefinition, context));
 }
 
+function loadPluginDocumentation(plugin: Plugin): GlobalDocumentationItem[] {
+    const docs: GlobalDocumentationItem[] = [];
+    plugin.functions.forEach((func) =>
+        docs.push({
+            plugin: plugin.name,
+            type: 'function',
+            documentation: func.documentation,
+        }),
+    );
+    plugin.constants.forEach((constant) =>
+        docs.push({
+            plugin: plugin.name,
+            type: 'constant',
+            documentation: constant.documentation,
+        }),
+    );
+    // todo inline definitions
+    return docs;
+}
+
 interface LoadPluginsResult {
-    context: Context;
     log: string[];
+    context: Context;
+    documentation: GlobalDocumentationItem[];
 }
 
 export default function loadPlugins(plugins: Plugin[], options: Options): LoadPluginsResult {
@@ -66,6 +88,7 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
     const excludedPlugins: string[] = [];
     let loadingErrorOccured = true;
     let context: Context;
+    let documentation: GlobalDocumentationItem[];
 
     while (loadingErrorOccured) {
         log.push(excludedPlugins.length === 0 ? 'initialize empty stack' : 'reset stack');
@@ -74,12 +97,14 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
             options,
             stack: [{}],
         };
+        documentation = [];
 
         plugins
             .filter((plugin) => !excludedPlugins.includes(plugin.name))
             .forEach((plugin) => {
                 try {
                     context = loadPlugin(plugin, context);
+                    documentation = [...documentation, ...loadPluginDocumentation(plugin)];
                 } catch (loadingError) {
                     loadingErrorOccured = true;
                     excludedPlugins.push(plugin.name);
@@ -88,5 +113,5 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
             });
     }
     log.push(`loading completed excluded plugins: [${excludedPlugins.join(', ')}]`);
-    return { context, log };
+    return { context, log, documentation };
 }

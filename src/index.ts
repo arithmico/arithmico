@@ -1,3 +1,4 @@
+import { GlobalDocumentationItem } from './types/Plugin';
 import { parse } from './parse/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
@@ -13,11 +14,17 @@ const defaultOptions: Options = {
 
 let defaultContext: Context;
 let loadingLog: string[] = [];
+let documentation: GlobalDocumentationItem[];
 
-export function loadDefaultContext() {
+export function init() {
     const loadingResult = loadPlugins([trigonometryPlugin], defaultOptions);
     defaultContext = loadingResult.context;
     loadingLog = loadingResult.log;
+    documentation = loadingResult.documentation;
+}
+
+export function getDocumentation() {
+    return documentation;
 }
 
 export function getLoadingLog() {
@@ -27,7 +34,7 @@ export function getLoadingLog() {
 export default function evaluate(input: string, context: Context = defaultContext): string {
     if (!context) {
         if (!defaultContext) {
-            loadDefaultContext();
+            throw 'InitializationError: NumberCruncher was not initialized';
         }
         context = defaultContext;
     }

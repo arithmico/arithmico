@@ -1,6 +1,13 @@
 import { Context } from './Context';
 import { SyntaxTreeNode } from './SyntaxTreeNodes';
 
+export interface GlobalDocumentationItem {
+    type: 'constant' | 'function';
+    plugin: string;
+    documentation: {
+        [key in Language]?: Documentation;
+    };
+}
 interface Documentation {
     synopsis: string;
     description: string;
