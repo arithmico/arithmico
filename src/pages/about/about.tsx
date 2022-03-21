@@ -47,6 +47,8 @@ export default function About() {
             />
           </dt>
         ))}
+        <dd>number-cruncher version</dd>
+        <dt>{packageJson.dependencies['@behrenle/number-cruncher'].slice(1)}</dt>
       </StyledDl>
     </PageContainer>
   );
