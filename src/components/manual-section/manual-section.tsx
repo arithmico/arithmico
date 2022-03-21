@@ -18,10 +18,14 @@ const StyledDl = styled.dl`
 
 interface ManualSectionProps {
   heading: string;
-  children: React.ReactNode;
+  children: React.ReactChild | React.ReactChild[];
 }
 
 export default function ManualSection({ heading, children }: ManualSectionProps) {
+  if (!children || (children instanceof Array && children.length === 0)) {
+    return null;
+  }
+
   return (
     <Container>
       <ManaulSectionHeading>{heading}</ManaulSectionHeading>
