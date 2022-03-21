@@ -8,15 +8,15 @@
   },
   "contributors": [
     {
-      "name": "Knut Büttner",
-      "email": "n. a."
+      "name": "Knut Büttner"
     },
     {
-      "name": "n. a."
+      "name": "Urlich Kalina"
     }
   ],
   "private": true,
   "dependencies": {
+    "@behrenle/number-cruncher": "^1.0.1",
     "@headlessui/react": "^1.4.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
