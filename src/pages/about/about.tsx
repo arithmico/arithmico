@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import packageJson from '../../../package.json';
 import AboutContact from '../../components/about-contact/about-contact';
+import ExternalLink from '../../components/external-link/external-link';
 import PageContainer from '../../components/page-container/page-container';
 
 const StyledDl = styled.dl`
@@ -26,6 +27,7 @@ export default function About() {
       <StyledDl>
         <dd>Version</dd>
         <dt>{packageJson.version}</dt>
+
         <dd>Author</dd>
         <dt>
           <AboutContact
@@ -34,6 +36,10 @@ export default function About() {
             url={packageJson.author.url}
           />
         </dt>
+
+        <dd>License</dd>
+        <dt>{packageJson.license}</dt>
+
         <dd>Contributors</dd>
         {packageJson.contributors.map((contributor) => (
           <dt key={contributor.name}>
@@ -47,8 +53,14 @@ export default function About() {
             />
           </dt>
         ))}
+
         <dd>number-cruncher version</dd>
         <dt>{packageJson.dependencies['@behrenle/number-cruncher'].slice(1)}</dt>
+
+        <dd>Report bugs</dd>
+        <dt>
+          <ExternalLink href={packageJson.bugs.url}>{packageJson.bugs.url}</ExternalLink>
+        </dt>
       </StyledDl>
     </PageContainer>
   );
