@@ -18,7 +18,12 @@ const useSessionStore = create<SessionState>((set) => ({
   history: [],
   lastOutput: '',
   evaluate: (input) => {
-    const output = evaluate(input);
+    let output: string;
+    try {
+      output = evaluate(input);
+    } catch (error) {
+      output = error as string;
+    }
     return set((state) => ({
       history: [...state.history, { input, output }],
       lastOutput: output
