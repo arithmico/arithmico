@@ -13,7 +13,7 @@ const HistoryContainer = styled.ul`
 `;
 
 export default function Protocol() {
-  const history = useSessionStore((state) => state.history);
+  const history = useSessionStore((state) => state.protocol);
   const containerRef = useRef<HTMLUListElement>(null);
   useEffect(() => {
     if (!containerRef.current) {

@@ -20,19 +20,20 @@ type History = (MathItem | InfoItem)[];
 interface SessionState {
   input: string;
   outputResetted: boolean;
-  history: History;
+  protocol: History;
   context: Context;
   evaluate: () => void;
   resetDefinitions: () => void;
   setInput: (input: string) => void;
   resetInput: () => void;
   resetOutput: () => void;
+  resetProtocol: () => void;
 }
 
 const useSessionStore = create<SessionState>((set) => ({
   input: '',
   outputResetted: false,
-  history: [],
+  protocol: [],
   context: getDefaultContext(),
   evaluate: () =>
     set((state) => {
@@ -45,8 +46,8 @@ const useSessionStore = create<SessionState>((set) => ({
         return {
           ...state,
           outputResetted: false,
-          history: [
-            ...state.history,
+          protocol: [
+            ...state.protocol,
             {
               type: 'math',
               error: false,
@@ -60,8 +61,8 @@ const useSessionStore = create<SessionState>((set) => ({
         return {
           ...state,
           outputResetted: false,
-          history: [
-            ...state.history,
+          protocol: [
+            ...state.protocol,
             {
               type: 'math',
               error: true,
@@ -75,11 +76,12 @@ const useSessionStore = create<SessionState>((set) => ({
   resetDefinitions: () =>
     set((state) => ({
       context: getDefaultContext(),
-      history: [...state.history, { type: 'info', info: 'reset definitions' }]
+      protocol: [...state.protocol, { type: 'info', info: 'reset definitions' }]
     })),
   setInput: (input: string) => set(() => ({ input })),
   resetInput: () => set(() => ({ input: '' })),
-  resetOutput: () => set(() => ({ outputResetted: true }))
+  resetOutput: () => set(() => ({ outputResetted: true })),
+  resetProtocol: () => set(() => ({ protocol: [] }))
 }));
 
 export default useSessionStore;

@@ -50,7 +50,7 @@ export default function CalculatorTextfields() {
   const outputResetted = useSessionStore((state) => state.outputResetted);
   const evaluate = useSessionStore((state) => state.evaluate);
   const mathItems = useSessionStore((state) =>
-    state.history.filter((hItem) => hItem.type === 'math')
+    state.protocol.filter((hItem) => hItem.type === 'math')
   ) as MathItem[];
   const lastOutput =
     !outputResetted && mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
