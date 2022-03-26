@@ -21,13 +21,14 @@ interface SessionState {
   history: History;
   context: Context;
   evaluate: (input: string) => void;
-  clearDefinitions: () => void;
+  resetDefinitions: () => void;
 }
 
 const useSessionStore = create<SessionState>((set) => ({
   history: [],
   context: getDefaultContext(),
   evaluate: (input) =>
+    input !== '' &&
     set((state) => {
       try {
         const result = evaluate(input, state.context);
@@ -40,7 +41,8 @@ const useSessionStore = create<SessionState>((set) => ({
               input,
               output: result.result
             }
-          ]
+          ],
+          context: result.context
         };
       } catch (error) {
         return {
@@ -52,13 +54,15 @@ const useSessionStore = create<SessionState>((set) => ({
               input,
               output: error as string
             }
-          ]
+          ],
+          context: state.context
         };
       }
     }),
-  clearDefinitions: () =>
-    set(() => ({
-      context: getDefaultContext()
+  resetDefinitions: () =>
+    set((state) => ({
+      context: getDefaultContext(),
+      history: [...state.history, { type: 'info', info: 'reset definitions' }]
     }))
 }));
 
