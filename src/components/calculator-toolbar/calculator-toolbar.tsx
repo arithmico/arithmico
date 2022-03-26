@@ -6,8 +6,10 @@ import useSessionStore from '../../stores/useSessionStore';
 const ToolbarContainer = styled.aside`
   display: grid;
   width: 100%;
+  grid-template-rows: 1fr 1fr;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
+  grid-auto-flow: column;
   margin-top: auto;
   margin-bottom: 30px;
 `;
@@ -42,13 +44,16 @@ export default function CalculatorToolbar() {
 
   return (
     <ToolbarContainer>
-      <Button disabled>Clear All</Button>
       <Button onClick={resetInput}>Reset Input</Button>
       <Button onClick={resetOutput}>Reset Output</Button>
+
+      <Button disabled>Show Definitions</Button>
       <Button onClick={resetDefinitions}>Reset Definitions</Button>
+
       <Button onClick={() => navigate('/protocol')}>Show Protocol</Button>
       <Button onClick={resetProtocol}>Reset Protocol</Button>
-      <Button disabled>Show Definitions</Button>
+
+      <Button disabled>Clear All</Button>
       <Button disabled>Toggle Zen Mode</Button>
     </ToolbarContainer>
   );
