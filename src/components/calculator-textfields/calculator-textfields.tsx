@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import useSessionStore, { MathItem } from '../../stores/useSessionStore';
 
@@ -45,7 +45,8 @@ const LabelText = styled.span`
 `;
 
 export default function CalculatorTextfields() {
-  const [input, setInput] = useState('');
+  const input = useSessionStore((state) => state.input);
+  const setInput = useSessionStore((state) => state.setInput);
   const evaluate = useSessionStore((state) => state.evaluate);
   const mathItems = useSessionStore((state) =>
     state.history.filter((hItem) => hItem.type === 'math')
@@ -55,7 +56,7 @@ export default function CalculatorTextfields() {
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      evaluate(input);
+      evaluate();
     }
   };
 
@@ -65,6 +66,7 @@ export default function CalculatorTextfields() {
         <LabelText>Input</LabelText>
         <Textfield
           placeholder="Input"
+          value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={onKeyPress}
         />

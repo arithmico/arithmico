@@ -18,27 +18,35 @@ export interface InfoItem {
 type History = (MathItem | InfoItem)[];
 
 interface SessionState {
+  input: string;
   history: History;
   context: Context;
-  evaluate: (input: string) => void;
+  evaluate: () => void;
   resetDefinitions: () => void;
+  setInput: (input: string) => void;
+  resetInput: () => void;
 }
 
 const useSessionStore = create<SessionState>((set) => ({
+  input: '',
   history: [],
   context: getDefaultContext(),
-  evaluate: (input) =>
-    input !== '' &&
+  evaluate: () =>
     set((state) => {
+      if (state.input === '') {
+        return { ...state };
+      }
+
       try {
-        const result = evaluate(input, state.context);
+        const result = evaluate(state.input, state.context);
         return {
+          ...state,
           history: [
             ...state.history,
             {
               type: 'math',
               error: false,
-              input,
+              input: state.input,
               output: result.result
             }
           ],
@@ -46,16 +54,16 @@ const useSessionStore = create<SessionState>((set) => ({
         };
       } catch (error) {
         return {
+          ...state,
           history: [
             ...state.history,
             {
               type: 'math',
               error: true,
-              input,
+              input: state.input,
               output: error as string
             }
-          ],
-          context: state.context
+          ]
         };
       }
     }),
@@ -63,7 +71,9 @@ const useSessionStore = create<SessionState>((set) => ({
     set((state) => ({
       context: getDefaultContext(),
       history: [...state.history, { type: 'info', info: 'reset definitions' }]
-    }))
+    })),
+  setInput: (input: string) => set(() => ({ input })),
+  resetInput: () => set(() => ({ input: '' }))
 }));
 
 export default useSessionStore;
