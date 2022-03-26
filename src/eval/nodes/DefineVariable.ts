@@ -1,4 +1,5 @@
 import evaluate from '..';
+import createDefine from '../../create/Define';
 import { DefineVariable, Context, SyntaxTreeNode } from '../../types';
 
 export default function evaluateDefineVariable(node: DefineVariable, context: Context): SyntaxTreeNode {
@@ -8,10 +9,5 @@ export default function evaluateDefineVariable(node: DefineVariable, context: Co
         throw 'ContextError: No stackframes available';
     }
 
-    context.stack[context.stack.length - 1][node.name] = {
-        type: 'value',
-        value,
-    };
-
-    return node;
+    return createDefine(node.name, value);
 }

@@ -20,14 +20,7 @@ function loadPluginFunction(pluginFunction: PluginFunction, context: Context): C
 }
 
 function loadPluginConstant(pluginConstant: PluginConstant, context: Context): Context {
-    return insertStackObject(
-        pluginConstant.name,
-        {
-            type: 'value',
-            value: pluginConstant.value,
-        },
-        context,
-    );
+    return insertStackObject(pluginConstant.name, pluginConstant.value, context);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

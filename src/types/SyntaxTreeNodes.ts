@@ -1,3 +1,5 @@
+import { Context } from './Context';
+
 export type SyntaxTreeNode =
     | DefineVariable
     | DefineFunction
@@ -18,7 +20,20 @@ export type SyntaxTreeNode =
     | Vector
     | NumberNode
     | BooleanNode
-    | SymbolNode;
+    | SymbolNode
+    | FunctionNode
+    | Define;
+
+export interface Define {
+    type: 'define';
+    name: string;
+    value: SyntaxTreeNode;
+}
+export interface FunctionNode {
+    type: 'function';
+    evaluateParametersBefore: boolean;
+    evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode;
+}
 
 export interface DefineVariable {
     type: 'defineVariable';

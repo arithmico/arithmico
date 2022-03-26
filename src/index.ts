@@ -5,6 +5,7 @@ import serialize from './serialize';
 import { Context, Options } from './types';
 import loadPlugins from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry';
+import { insertStackObject } from './utils/context-utils';
 
 const defaultOptions: Options = {
     decimalPlaces: 6,
@@ -31,7 +32,12 @@ export function getLoadingLog() {
     return loadingLog;
 }
 
-export default function evaluate(input: string, context: Context = defaultContext): string {
+export interface EvaluateResult {
+    result: string;
+    context: Context;
+}
+
+export default function evaluate(input: string, context: Context = defaultContext): EvaluateResult {
     if (!context) {
         if (!defaultContext) {
             throw 'InitializationError: NumberCruncher was not initialized';
@@ -47,5 +53,19 @@ export default function evaluate(input: string, context: Context = defaultContex
         throw syntaxError.message;
     }
 
-    return serialize(evaluateNode(nodeTree, context), context.options);
+    const result = evaluateNode(nodeTree, context);
+    const resultString = serialize(result, context.options);
+
+    if (result.type === 'define') {
+        const value = result.value;
+        return {
+            result: resultString,
+            context: insertStackObject(result.name, value, context),
+        };
+    }
+
+    return {
+        result: resultString,
+        context,
+    };
 }

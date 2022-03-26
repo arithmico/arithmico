@@ -22,7 +22,9 @@ export {
     NumberNode,
     BooleanNode,
     SymbolNode,
+    FunctionNode,
+    Define,
 } from './types/SyntaxTreeNodes';
 
-export { Context, Options, StackFrame, StackObject, FunctionStackObject, ValueStackObject } from './types/Context';
+export { Context, Options, StackFrame } from './types/Context';
 export { Plugin, PluginFunction, PluginConstant } from './types/Plugin';

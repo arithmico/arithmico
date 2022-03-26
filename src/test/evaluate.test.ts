@@ -1,3 +1,4 @@
+import { Define, FunctionNode } from './../types/SyntaxTreeNodes';
 import { Context } from '../types';
 import createAnd from '../create/And';
 import createBooleanNode from '../create/BooleanNode';
@@ -30,7 +31,7 @@ const testContext: Context = {
     },
     stack: [
         {
-            a: { type: 'value', value: createNumberNode(42) },
+            a: createNumberNode(42),
             g: {
                 type: 'function',
                 evaluateParametersBefore: true,
@@ -52,10 +53,6 @@ describe('evaluate primitive nodes', () => {
 
     test('evaluate symbol', () => {
         expect(evaluate(createSymbolNode('a'), testContext)).toStrictEqual(createNumberNode(42));
-    });
-
-    test('evaluate symbol - throw (function)', () => {
-        expect(() => evaluate(createSymbolNode('g'), testContext)).toThrow();
     });
 
     test('evaluate symbol - throw (not found)', () => {
@@ -230,8 +227,13 @@ describe('evaluate define nodes', () => {
 
     test('evaluate define variable', () => {
         const context: Context = { ...testContext, stack: [{}] };
-        evaluate(createDefineVariable('a', createNumberNode(42)), context);
-        expect(context.stack[0]['a']).not.toBeUndefined();
+        const result = evaluate(createDefineVariable('a', createNumberNode(42)), context);
+        expect(
+            result.type === 'define' &&
+                result.name === 'a' &&
+                result.value.type === 'number' &&
+                result.value.value === 42,
+        ).toBeTruthy();
     });
 
     test('evaluate deinfe function - throw', () => {
@@ -240,8 +242,14 @@ describe('evaluate define nodes', () => {
 
     test('evaluate define function', () => {
         const context: Context = { ...testContext, stack: [{}] };
-        evaluate(createDefineFunction('f', [], createNumberNode(42)), context);
-        expect(context.stack[0]['f']).not.toBeUndefined();
+        const result = evaluate(createDefineFunction('f', [], createNumberNode(42)), context);
+        expect(
+            result.type === 'define' &&
+                result.name === 'f' &&
+                result.value.type === 'function' &&
+                result.value.evaluateParametersBefore === true &&
+                typeof result.value.evaluator === 'function',
+        ).toBeTruthy();
     });
 });
 
@@ -456,28 +464,46 @@ describe('evaluate arithmetic nodes', () => {
 
 describe('evaluate miscellaneous nodes', () => {
     test('evaluate function call', () => {
-        const context: Context = { ...testContext, stack: [{}] };
-        evaluate(
-            createDefineFunction(
-                'f',
-                [{ name: 'x', type: DefineFunctionParameterType.Number }],
-                createPlus(createSymbolNode('x'), createNumberNode(1)),
-            ),
-            context,
-        );
+        const func = (
+            evaluate(
+                createDefineFunction(
+                    'f',
+                    [{ name: 'x', type: DefineFunctionParameterType.Number }],
+                    createPlus(createSymbolNode('x'), createNumberNode(1)),
+                ),
+                testContext,
+            ) as Define
+        ).value as FunctionNode;
+        const context: Context = {
+            ...testContext,
+            stack: [
+                {
+                    f: func,
+                },
+            ],
+        };
         expect(evaluate(createFunctionCall('f', [createNumberNode(41)]), context)).toStrictEqual(createNumberNode(42));
     });
 
     test('evaluate function call (type=any)', () => {
-        const context: Context = { ...testContext, stack: [{}] };
-        evaluate(
-            createDefineFunction(
-                'f',
-                [{ name: 'x', type: DefineFunctionParameterType.Any }],
-                createPlus(createSymbolNode('x'), createNumberNode(1)),
-            ),
-            context,
-        );
+        const func = (
+            evaluate(
+                createDefineFunction(
+                    'f',
+                    [{ name: 'x', type: DefineFunctionParameterType.Any }],
+                    createPlus(createSymbolNode('x'), createNumberNode(1)),
+                ),
+                testContext,
+            ) as Define
+        ).value as FunctionNode;
+        const context: Context = {
+            ...testContext,
+            stack: [
+                {
+                    f: func,
+                },
+            ],
+        };
         expect(evaluate(createFunctionCall('f', [createNumberNode(41)]), context)).toStrictEqual(createNumberNode(42));
     });
 
@@ -510,56 +536,88 @@ describe('evaluate miscellaneous nodes', () => {
     });
 
     test('evaluate function call - throw (invalid number of arguments)', () => {
-        const context: Context = { ...testContext, stack: [{}] };
-        evaluate(
-            createDefineFunction(
-                'f',
-                [{ name: 'x', type: DefineFunctionParameterType.Number }],
-                createPlus(createSymbolNode('x'), createNumberNode(1)),
-            ),
-            context,
-        );
+        const context: Context = {
+            ...testContext,
+            stack: [
+                {
+                    f: (
+                        evaluate(
+                            createDefineFunction(
+                                'f',
+                                [{ name: 'x', type: DefineFunctionParameterType.Number }],
+                                createPlus(createSymbolNode('x'), createNumberNode(1)),
+                            ),
+                            testContext,
+                        ) as Define
+                    ).value as FunctionNode,
+                },
+            ],
+        };
         expect(() =>
             evaluate(createFunctionCall('f', [createNumberNode(41), createNumberNode(12)]), context),
         ).toThrow();
     });
 
     test('evaluate function call - throw (invalid type) (number)', () => {
-        const context: Context = { ...testContext, stack: [{}] };
-        evaluate(
-            createDefineFunction(
-                'f',
-                [{ name: 'x', type: DefineFunctionParameterType.Number }],
-                createPlus(createSymbolNode('x'), createNumberNode(1)),
-            ),
-            context,
-        );
+        const context: Context = {
+            ...testContext,
+            stack: [
+                {
+                    f: (
+                        evaluate(
+                            createDefineFunction(
+                                'f',
+                                [{ name: 'x', type: DefineFunctionParameterType.Number }],
+                                createPlus(createSymbolNode('x'), createNumberNode(1)),
+                            ),
+                            testContext,
+                        ) as Define
+                    ).value as FunctionNode,
+                },
+            ],
+        };
         expect(() => evaluate(createFunctionCall('f', [createBooleanNode(true)]), context)).toThrow();
     });
 
     test('evaluate function call - throw (invalid type) (boolean)', () => {
-        const context: Context = { ...testContext, stack: [{}] };
-        evaluate(
-            createDefineFunction(
-                'f',
-                [{ name: 'x', type: DefineFunctionParameterType.Boolean }],
-                createAnd(createSymbolNode('x'), createBooleanNode(true)),
-            ),
-            context,
-        );
+        const context: Context = {
+            ...testContext,
+            stack: [
+                {
+                    f: (
+                        evaluate(
+                            createDefineFunction(
+                                'f',
+                                [{ name: 'x', type: DefineFunctionParameterType.Boolean }],
+                                createAnd(createSymbolNode('x'), createBooleanNode(true)),
+                            ),
+                            testContext,
+                        ) as Define
+                    ).value as FunctionNode,
+                },
+            ],
+        };
         expect(() => evaluate(createFunctionCall('f', [createNumberNode(42)]), context)).toThrow();
     });
 
     test('evaluate function call - throw (invalid type) (vector)', () => {
-        const context: Context = { ...testContext, stack: [{}] };
-        evaluate(
-            createDefineFunction(
-                'f',
-                [{ name: 'x', type: DefineFunctionParameterType.Vector }],
-                createTimes(createSymbolNode('x'), createNumberNode(12)),
-            ),
-            context,
-        );
+        const context: Context = {
+            ...testContext,
+            stack: [
+                {
+                    f: (
+                        evaluate(
+                            createDefineFunction(
+                                'f',
+                                [{ name: 'x', type: DefineFunctionParameterType.Vector }],
+                                createPlus(createSymbolNode('x'), createNumberNode(1)),
+                            ),
+                            testContext,
+                        ) as Define
+                    ).value as FunctionNode,
+                },
+            ],
+        };
         expect(() => evaluate(createFunctionCall('f', [createNumberNode(42)]), context)).toThrow();
     });
 

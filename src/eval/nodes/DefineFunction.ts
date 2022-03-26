@@ -1,6 +1,8 @@
 import { StackFrame } from './../../types/Context';
 import evaluate from '..';
 import { DefineFunction, Context, SyntaxTreeNode } from '../../types';
+import createDefine from '../../create/Define';
+import createFunction from '../../create/Function';
 
 export default function evaluateDefineFunction(node: DefineFunction, context: Context): SyntaxTreeNode {
     if (context.stack.length === 0) {
@@ -40,13 +42,7 @@ export default function evaluateDefineFunction(node: DefineFunction, context: Co
             });
 
         const localStackFrame: StackFrame = Object.fromEntries(
-            node.parameters.map((parameter, index) => [
-                parameter.name,
-                {
-                    type: 'value',
-                    value: parameters[index],
-                },
-            ]),
+            node.parameters.map((parameter, index) => [parameter.name, parameters[index]]),
         );
 
         const localContext = {
@@ -57,11 +53,5 @@ export default function evaluateDefineFunction(node: DefineFunction, context: Co
         return evaluate(node.value, localContext);
     };
 
-    context.stack[context.stack.length - 1][node.name] = {
-        type: 'function',
-        evaluateParametersBefore: true,
-        evaluator,
-    };
-
-    return node;
+    return createDefine(node.name, createFunction(true, evaluator));
 }

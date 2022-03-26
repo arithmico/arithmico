@@ -21,7 +21,7 @@ let lastId = 0;
 
 function integrationTest(input: string, expectedOutput: string, context?: Context) {
     test(`integration test #${++lastId}`, () => {
-        expect(evaluate(input, context)).toBe(expectedOutput);
+        expect(evaluate(input, context).result).toBe(expectedOutput);
     });
 }
 
@@ -61,10 +61,7 @@ integrationTest(
     '42',
     createTestContext([
         {
-            a: {
-                type: 'value',
-                value: createNumberNode(41),
-            },
+            a: createNumberNode(41),
         },
     ]),
 );

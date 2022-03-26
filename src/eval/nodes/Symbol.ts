@@ -7,13 +7,7 @@ export default function evaluateSymbol(node: SymbolNode, context: Context): Synt
         const stackFrame = context.stack[i];
 
         if (stackFrame[name]) {
-            const stackObject = stackFrame[name];
-
-            if (stackObject.type === 'value') {
-                return stackObject.value;
-            } else {
-                throw `TypeError: ${name} is a function`;
-            }
+            return stackFrame[name];
         }
     }
 

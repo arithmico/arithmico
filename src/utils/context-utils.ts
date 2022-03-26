@@ -1,4 +1,4 @@
-import { Context, StackObject } from '../types';
+import { Context, SyntaxTreeNode } from '../types';
 
 function isNameAlreadyTaken(name: string, context: Context) {
     return context.stack.some((stackFrame) => !!stackFrame[name]);
@@ -14,7 +14,7 @@ export function useStrictContextValidator(name: string, context: Context) {
     }
 }
 
-export function insertStackObject(name: string, stackObject: StackObject, context: Context): Context {
+export function insertStackObject(name: string, stackObject: SyntaxTreeNode, context: Context): Context {
     useStrictContextValidator(name, context);
     const stackFrameIndex = context.stack.length - 1;
     return {
