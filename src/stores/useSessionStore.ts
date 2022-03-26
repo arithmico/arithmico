@@ -1,41 +1,65 @@
-import evaluate, { EvaluateResult, init, getDefaultContext } from '@behrenle/number-cruncher';
+import evaluate, { init, getDefaultContext } from '@behrenle/number-cruncher';
 import { Context } from '@behrenle/number-cruncher/lib/types';
 import create from 'zustand';
 
 init();
-interface HistoryItem {
+export interface MathItem {
+  type: 'math';
+  error: boolean;
   input: string;
   output: string;
 }
 
+export interface InfoItem {
+  type: 'info';
+  info: string;
+}
+
+type History = (MathItem | InfoItem)[];
+
 interface SessionState {
-  history: HistoryItem[];
+  history: History;
   context: Context;
   evaluate: (input: string) => void;
+  clearDefinitions: () => void;
 }
 
 const useSessionStore = create<SessionState>((set) => ({
   history: [],
   context: getDefaultContext(),
-  evaluate: (input) => {
-    const evaluateInput = (context: Context): EvaluateResult => {
+  evaluate: (input) =>
+    set((state) => {
       try {
-        return evaluate(input, context);
+        const result = evaluate(input, state.context);
+        return {
+          history: [
+            ...state.history,
+            {
+              type: 'math',
+              error: false,
+              input,
+              output: result.result
+            }
+          ]
+        };
       } catch (error) {
         return {
-          context,
-          result: error as string
+          history: [
+            ...state.history,
+            {
+              type: 'math',
+              error: true,
+              input,
+              output: error as string
+            }
+          ]
         };
       }
-    };
-    return set((state) => {
-      const result = evaluateInput(state.context);
-      return {
-        history: [...state.history, { input, output: result.result }],
-        context: result.context
-      };
-    });
-  }
+    }),
+  clearDefinitions: () =>
+    set(() => ({
+      context: getDefaultContext()
+    }))
 }));
 
 export default useSessionStore;

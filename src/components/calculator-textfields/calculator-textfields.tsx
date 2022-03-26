@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useSessionStore from '../../stores/useSessionStore';
+import useSessionStore, { MathItem } from '../../stores/useSessionStore';
 
 const TextfieldsContainer = styled.main`
   display: flex;
@@ -23,6 +23,10 @@ const Textfield = styled.input.attrs({ type: 'text' })`
   padding: 0 20px;
 `;
 
+const ErrorTextfield = styled(Textfield)`
+  color: #fd7c7c;
+`;
+
 const LabelContainer = styled.label`
   display: flex;
   flex-direction: column;
@@ -43,9 +47,11 @@ const LabelText = styled.span`
 export default function CalculatorTextfields() {
   const [input, setInput] = useState('');
   const evaluate = useSessionStore((state) => state.evaluate);
-  const lastOutput = useSessionStore((state) =>
-    state.history.length > 0 ? state.history[state.history.length - 1].output : ''
-  );
+  const mathItems = useSessionStore((state) =>
+    state.history.filter((hItem) => hItem.type === 'math')
+  ) as MathItem[];
+  const lastOutput = mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
+  const isError = mathItems.length > 0 ? mathItems[mathItems.length - 1].error : false;
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -65,7 +71,11 @@ export default function CalculatorTextfields() {
       </LabelContainer>
       <LabelContainer>
         <LabelText>Output</LabelText>
-        <Textfield placeholder="Output" readOnly value={lastOutput} />
+        {isError ? (
+          <ErrorTextfield placeholder="Output" readOnly value={lastOutput} />
+        ) : (
+          <Textfield placeholder="Output" readOnly value={lastOutput} />
+        )}
       </LabelContainer>
     </TextfieldsContainer>
   );
