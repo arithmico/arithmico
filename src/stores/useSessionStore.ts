@@ -19,16 +19,19 @@ type History = (MathItem | InfoItem)[];
 
 interface SessionState {
   input: string;
+  outputResetted: boolean;
   history: History;
   context: Context;
   evaluate: () => void;
   resetDefinitions: () => void;
   setInput: (input: string) => void;
   resetInput: () => void;
+  resetOutput: () => void;
 }
 
 const useSessionStore = create<SessionState>((set) => ({
   input: '',
+  outputResetted: false,
   history: [],
   context: getDefaultContext(),
   evaluate: () =>
@@ -41,6 +44,7 @@ const useSessionStore = create<SessionState>((set) => ({
         const result = evaluate(state.input, state.context);
         return {
           ...state,
+          outputResetted: false,
           history: [
             ...state.history,
             {
@@ -55,6 +59,7 @@ const useSessionStore = create<SessionState>((set) => ({
       } catch (error) {
         return {
           ...state,
+          outputResetted: false,
           history: [
             ...state.history,
             {
@@ -73,7 +78,8 @@ const useSessionStore = create<SessionState>((set) => ({
       history: [...state.history, { type: 'info', info: 'reset definitions' }]
     })),
   setInput: (input: string) => set(() => ({ input })),
-  resetInput: () => set(() => ({ input: '' }))
+  resetInput: () => set(() => ({ input: '' })),
+  resetOutput: () => set(() => ({ outputResetted: true }))
 }));
 
 export default useSessionStore;

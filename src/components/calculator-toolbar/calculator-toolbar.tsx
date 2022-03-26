@@ -35,12 +35,13 @@ const Button = styled.button`
 export default function CalculatorToolbar() {
   const resetDefinitions = useSessionStore((state) => state.resetDefinitions);
   const resetInput = useSessionStore((state) => state.resetInput);
+  const resetOutput = useSessionStore((state) => state.resetOutput);
 
   return (
     <ToolbarContainer>
       <Button disabled>Clear All</Button>
       <Button onClick={resetInput}>Reset Input</Button>
-      <Button disabled>Clear Output</Button>
+      <Button onClick={resetOutput}>Reset Output</Button>
       <Button onClick={resetDefinitions}>Reset Definitions</Button>
       <Button disabled>Show Protocol</Button>
       <Button disabled>Clear Protocol</Button>

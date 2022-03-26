@@ -47,11 +47,13 @@ const LabelText = styled.span`
 export default function CalculatorTextfields() {
   const input = useSessionStore((state) => state.input);
   const setInput = useSessionStore((state) => state.setInput);
+  const outputResetted = useSessionStore((state) => state.outputResetted);
   const evaluate = useSessionStore((state) => state.evaluate);
   const mathItems = useSessionStore((state) =>
     state.history.filter((hItem) => hItem.type === 'math')
   ) as MathItem[];
-  const lastOutput = mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
+  const lastOutput =
+    !outputResetted && mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
   const isError = mathItems.length > 0 ? mathItems[mathItems.length - 1].error : false;
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
