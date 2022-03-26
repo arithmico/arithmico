@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import useSessionStore from '../../stores/useSessionStore';
 
 const ToolbarContainer = styled.aside`
   display: grid;
@@ -32,12 +33,14 @@ const Button = styled.button`
 `;
 
 export default function CalculatorToolbar() {
+  const resetDefinitions = useSessionStore((state) => state.resetDefinitions);
+
   return (
     <ToolbarContainer>
       <Button disabled>Clear All</Button>
       <Button disabled>Clear Input</Button>
       <Button disabled>Clear Output</Button>
-      <Button disabled>Clear Definitions</Button>
+      <Button onClick={resetDefinitions}>Reset Definitions</Button>
       <Button disabled>Show Protocol</Button>
       <Button disabled>Clear Protocol</Button>
       <Button disabled>Show Definitions</Button>
