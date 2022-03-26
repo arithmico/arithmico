@@ -117,6 +117,9 @@ export default function serialize(node: SyntaxTreeNode, options: Options): strin
         case 'function':
             return serializeFunction(node);
 
+        case 'define':
+            return serialize(node.value, options);
+
         default:
             throw 'SerializationError: Unknown node type';
     }
