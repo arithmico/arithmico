@@ -1,8 +1,8 @@
-import evaluate, { init } from '@behrenle/number-cruncher';
+import evaluate, { EvaluateResult, init, getDefaultContext } from '@behrenle/number-cruncher';
+import { Context } from '@behrenle/number-cruncher/lib/types';
 import create from 'zustand';
 
 init();
-
 interface HistoryItem {
   input: string;
   output: string;
@@ -10,24 +10,31 @@ interface HistoryItem {
 
 interface SessionState {
   history: HistoryItem[];
-  lastOutput: string;
+  context: Context;
   evaluate: (input: string) => void;
 }
 
 const useSessionStore = create<SessionState>((set) => ({
   history: [],
-  lastOutput: '',
+  context: getDefaultContext(),
   evaluate: (input) => {
-    let output: string;
-    try {
-      output = evaluate(input);
-    } catch (error) {
-      output = error as string;
-    }
-    return set((state) => ({
-      history: [...state.history, { input, output }],
-      lastOutput: output
-    }));
+    const evaluateInput = (context: Context): EvaluateResult => {
+      try {
+        return evaluate(input, context);
+      } catch (error) {
+        return {
+          context,
+          result: error as string
+        };
+      }
+    };
+    return set((state) => {
+      const result = evaluateInput(state.context);
+      return {
+        history: [...state.history, { input, output: result.result }],
+        context: result.context
+      };
+    });
   }
 }));
 

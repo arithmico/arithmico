@@ -43,7 +43,9 @@ const LabelText = styled.span`
 export default function CalculatorTextfields() {
   const [input, setInput] = useState('');
   const evaluate = useSessionStore((state) => state.evaluate);
-  const lastOutput = useSessionStore((state) => state.lastOutput);
+  const lastOutput = useSessionStore((state) =>
+    state.history.length > 0 ? state.history[state.history.length - 1].output : ''
+  );
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
