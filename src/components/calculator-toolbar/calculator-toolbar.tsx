@@ -15,7 +15,7 @@ const ToolbarContainer = styled.aside`
 const Button = styled.button`
   background-color: rgba(255, 255, 255, 0.05);
   color: white;
-  border-radius: 10px;
+  border-radius: 0.25em;
   border: none;
   outline: none;
   flex: 1;
