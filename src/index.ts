@@ -32,6 +32,14 @@ export function getLoadingLog() {
     return loadingLog;
 }
 
+export function getDefaultContext() {
+    if (!defaultContext) {
+        throw 'InitializationError: NumberCruncher was not initialized';
+    }
+
+    return defaultContext;
+}
+
 export interface EvaluateResult {
     result: string;
     context: Context;
