@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useSessionStore from '../../stores/useSessionStore';
 
@@ -33,6 +34,7 @@ const Button = styled.button`
 `;
 
 export default function CalculatorToolbar() {
+  const navigate = useNavigate();
   const resetDefinitions = useSessionStore((state) => state.resetDefinitions);
   const resetInput = useSessionStore((state) => state.resetInput);
   const resetOutput = useSessionStore((state) => state.resetOutput);
@@ -43,7 +45,7 @@ export default function CalculatorToolbar() {
       <Button onClick={resetInput}>Reset Input</Button>
       <Button onClick={resetOutput}>Reset Output</Button>
       <Button onClick={resetDefinitions}>Reset Definitions</Button>
-      <Button disabled>Show Protocol</Button>
+      <Button onClick={() => navigate('/protocol')}>Show Protocol</Button>
       <Button disabled>Clear Protocol</Button>
       <Button disabled>Show Definitions</Button>
       <Button disabled>Toggle Zen Mode</Button>
