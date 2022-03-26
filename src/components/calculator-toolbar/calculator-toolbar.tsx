@@ -22,7 +22,11 @@ const Button = styled.button`
   text-align: left;
   padding: 0 20px;
 
-  &:hover {
+  &:disabled {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:enabled:hover {
     background-color: rgba(255, 255, 255, 0.15);
   }
 `;
@@ -30,14 +34,14 @@ const Button = styled.button`
 export default function CalculatorToolbar() {
   return (
     <ToolbarContainer>
-      <Button>Clear All</Button>
-      <Button>Clear Input</Button>
-      <Button>Clear Output</Button>
-      <Button>Clear Definitions</Button>
-      <Button>Show Protocol</Button>
-      <Button>Clear Protocol</Button>
-      <Button>Show Definitions</Button>
-      <Button>Toggle Zen Mode</Button>
+      <Button disabled>Clear All</Button>
+      <Button disabled>Clear Input</Button>
+      <Button disabled>Clear Output</Button>
+      <Button disabled>Clear Definitions</Button>
+      <Button disabled>Show Protocol</Button>
+      <Button disabled>Clear Protocol</Button>
+      <Button disabled>Show Definitions</Button>
+      <Button disabled>Toggle Zen Mode</Button>
     </ToolbarContainer>
   );
 }
