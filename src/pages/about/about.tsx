@@ -10,6 +10,7 @@ const StyledDl = styled.dl`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
+  font-size: 2em;
 
   & > dd {
     text-align: right;

@@ -20,7 +20,7 @@ const Button = styled.button`
   outline: none;
   flex: 1;
   height: 70px;
-  font-size: 24px;
+  font-size: 1.5em;
   text-align: left;
   padding: 0 20px;
 

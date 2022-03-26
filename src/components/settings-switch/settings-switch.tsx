@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const SwitchLabel = styled(Switch.Label)`
-  font-size: 24px;
+  font-size: 2em;
   font-weight: 300;
 `;
 

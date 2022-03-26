@@ -7,11 +7,11 @@ interface ManualSectionItemProps {
 }
 
 const StyledDt = styled.dt`
-  font-size: 24px;
+  font-size: 2em;
 `;
 
 const StyledDd = styled.dd`
-  font-size: 24px;
+  font-size: 2em;
 `;
 
 export default function ManualSectionItem({ synopsis, description }: ManualSectionItemProps) {

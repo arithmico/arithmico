@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Container = styled.section``;
 
 const ManaulSectionHeading = styled.h1`
-  font-size: 38px;
+  font-size: 2.5em;
   font-weight: 300;
 `;
 

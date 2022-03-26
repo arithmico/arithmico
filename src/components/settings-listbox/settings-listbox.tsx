@@ -12,7 +12,7 @@ const Container = styled.li`
 `;
 
 const Label = styled(Listbox.Label)`
-  font-size: 24px;
+  font-size: 2em;
   font-weight: 300;
 `;
 
@@ -25,7 +25,7 @@ const Button = styled(Listbox.Button)`
   border-radius: 10px;
   width: 200px;
   height: 50px;
-  font-size: 24px;
+  font-size: 2em;
   color: white;
   text-align: left;
   padding: 0 10px 0 20px;
@@ -39,7 +39,7 @@ const Options = styled(Listbox.Options)`
 `;
 
 const Option = styled(Listbox.Option)`
-  font-size: 24px;
+  font-size: 2em;
   background-color: #313131;
   width: 200px;
   height: 50px;
