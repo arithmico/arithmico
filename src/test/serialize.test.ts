@@ -21,6 +21,7 @@ import createDivided from '../create/Divided';
 import createTimes from '../create/Times';
 import createPower from '../create/Power';
 import createNegate from '../create/Negate';
+import createFunction from '../create/Function';
 
 const testOptions: Options = {
     decimalPlaces: 4,
@@ -551,6 +552,16 @@ describe('serialize miscellaneous nodes', () => {
                 testOptions,
             ),
         ).toBe('foo(bar: number, x: boolean) := 1');
+    });
+
+    test('serialize function', () => {
+        expect(
+            serialize(
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                createFunction(false, (_p) => createNumberNode(42)),
+                testOptions,
+            ),
+        ).toBe('(function)');
     });
 
     test('serialize vector - empty', () => {

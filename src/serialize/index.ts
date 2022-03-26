@@ -4,6 +4,7 @@ import serializeDefineFunction from './nodes/DefineFunction';
 import serializeDefineVariable from './nodes/DefineVariable';
 import serializeDivided from './nodes/Divided';
 import serializeEquals from './nodes/Equals';
+import serializeFunction from './nodes/Function';
 import serializeFunctionCall from './nodes/FunctionCall';
 import serializeGreater from './nodes/Greater';
 import serializeGreaterOrEquals from './nodes/GreaterOrEquals';
@@ -112,6 +113,9 @@ export default function serialize(node: SyntaxTreeNode, options: Options): strin
 
         case 'symbol':
             return node.name;
+
+        case 'function':
+            return serializeFunction(node);
 
         default:
             throw 'SerializationError: Unknown node type';
