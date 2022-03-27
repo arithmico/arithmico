@@ -74,7 +74,8 @@ DefineVariable = symbol:Symbol _ ":=" _ expr:Expression {
     };
 }
 
-SymbolType = _ ":" _ type:("number" / "boolean" / "vector" / "any") {
+// define function with name
+SymbolType = _ ":" _ type:("number" / "boolean" / "vector" / "function" / "any") {
     return type;
 }
 TypedSymbol = symbol:Symbol type:SymbolType? {
@@ -93,6 +94,15 @@ DefineFunction = symbol:Symbol _ "(" _ parameters:SymbolList _ ")" _ ":=" _ expr
     return {
         type: "defineFunction",
         name: symbol.name,
+        parameters: parameters ? parameters : [],
+        value: expr
+    };
+}
+
+// define lambda function
+DefineLambdaFunction = "(" _ parameters:SymbolList _ ")" _ ("->" / "→") _ expr:Expression {
+    return {
+        type: "defineLambdaFunction",
         parameters: parameters ? parameters : [],
         value: expr
     };
@@ -192,7 +202,13 @@ Power = left:Value _ "^" _ right:Value {
 } / Value
 
 // values
-Value = Boolean / FunctionCall / Symbol / Number / Vector / "(" _ expr:Expression _ ")" {
+Value = Boolean 
+/ FunctionCall 
+/ Symbol 
+/ Number
+/ Vector 
+/ DefineLambdaFunction
+/ "(" _ expr:Expression _ ")" {
     return expr;
 }
 

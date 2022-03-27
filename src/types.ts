@@ -24,6 +24,7 @@ export {
     SymbolNode,
     FunctionNode,
     Define,
+    DefineLambdaFunction,
 } from './types/SyntaxTreeNodes';
 
 export { Context, Options, StackFrame } from './types/Context';

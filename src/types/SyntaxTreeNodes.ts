@@ -3,6 +3,7 @@ import { Context } from './Context';
 export type SyntaxTreeNode =
     | DefineVariable
     | DefineFunction
+    | DefineLambdaFunction
     | Or
     | And
     | Equals
@@ -45,6 +46,7 @@ export enum DefineFunctionParameterType {
     Number = 'number',
     Boolean = 'boolean',
     Vector = 'vector',
+    Function = 'function',
     Any = 'any',
 }
 export interface DefineFunctionParameter {
@@ -54,6 +56,12 @@ export interface DefineFunctionParameter {
 export interface DefineFunction {
     type: 'defineFunction';
     name: string;
+    parameters: DefineFunctionParameter[];
+    value: SyntaxTreeNode;
+}
+
+export interface DefineLambdaFunction {
+    type: 'defineLambdaFunction';
     parameters: DefineFunctionParameter[];
     value: SyntaxTreeNode;
 }
