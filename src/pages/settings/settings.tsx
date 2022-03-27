@@ -4,13 +4,17 @@ import SettingsDecimalPlacesListbox from '../../components/settings-decimal-plac
 import SettingsListbox from '../../components/settings-listbox/settings-listbox';
 import SettingsSection from '../../components/settings-section/settings-section';
 import SettingsSwitch from '../../components/settings-switch/settings-switch';
+import useSessionStore from '../../stores/session-store/use-session-store';
 
 export default function Settings() {
   const [language, setLanguage] = useState('english');
   const [copyMaualContentByClicking, setCopyMaualContentByClicking] = useState(true);
   const [theme, setTheme] = useState('dark');
   const [fontSize, setFontSize] = useState('medium');
-  const [significantDecimalPlaces, setSignificantDecimalPlaces] = useState(5);
+  const [significantDecimalPlaces, setSignificantDecimalPlaces] = useSessionStore((state) => [
+    state.decimalPlaces,
+    state.setDecimalPlaces
+  ]);
   const [numberFormat, setNumberFormat] = useState('default');
   const [enableAnalytics, setEnableAnalytics] = useState(true);
 

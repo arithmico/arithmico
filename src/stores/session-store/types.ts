@@ -18,7 +18,8 @@ export interface SessionState {
   input: string;
   outputResetted: boolean;
   protocol: History;
-  context: Context;
+  stack: Context['stack'];
+  decimalPlaces: number;
 
   evaluate: () => void;
   resetDefinitions: () => void;
@@ -26,4 +27,5 @@ export interface SessionState {
   resetInput: () => void;
   resetOutput: () => void;
   resetProtocol: () => void;
+  setDecimalPlaces: (n: number) => void;
 }
