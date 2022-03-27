@@ -6,19 +6,19 @@ import ExternalLink from '../../components/external-link/external-link';
 import PageContainer from '../../components/page-container/page-container';
 
 const StyledDl = styled.dl`
-  font-size: 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
-  font-size: 2em;
 
   & > dd {
+    font-size: 1.5em;
     text-align: right;
   }
 
   & > dt {
     grid-column-start: 2;
     font-weight: 300;
+    font-size: 1.5em;
   }
 `;
 

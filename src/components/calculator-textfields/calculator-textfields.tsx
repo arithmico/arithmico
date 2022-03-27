@@ -18,7 +18,7 @@ const Textfield = styled.input.attrs({ type: 'text' })`
   height: 100px;
   width: 100%;
   min-width: 100px;
-  font-size: 34px;
+  font-size: 2.5em;
   font-weight: 300;
   color: white;
   padding: 0 20px;

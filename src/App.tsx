@@ -6,10 +6,12 @@ import Settings from './pages/settings/settings';
 import Manual from './pages/manual/manual';
 import About from './pages/about/about';
 import Protocol from './pages/protocol/protocol';
+import GlobalStyle from './globalStyles';
 
 function App() {
   return (
     <BrowserRouter>
+      <GlobalStyle fontSize={'normal'} />
       <Navbar />
       <Routes>
         <Route path="/" element={<Calculator />} />

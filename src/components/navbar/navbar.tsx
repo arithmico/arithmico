@@ -10,13 +10,13 @@ const Header = styled.header`
 
 const Title = styled.h1`
   display: flex;
-  font-size: 38px;
+  font-size: 2.5em;
   font-weight: 100;
 `;
 
 const Superscript = styled.sup`
   padding: 0 10px;
-  font-size: 24px;
+  font-size: 0.75em;
   font-weight: 100;
   font-style: italic;
 `;
@@ -36,7 +36,6 @@ const NavigationList = styled.ul`
 const StyledLi = styled.li`
   display: flex;
   flex-grow: 1;
-  font-size: 24px;
   height: 100%;
 `;
 
@@ -46,6 +45,8 @@ const StyledLink = styled(Link)<{ selected: boolean }>`
   justify-content: center;
   align-items: center;
   color: white;
+  font-size: inherit;
+  font-size: 1.5em;
   text-decoration: none;
   height: 100%;
   border-radius: 0 0 10px 10px;

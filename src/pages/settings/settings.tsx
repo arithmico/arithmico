@@ -80,7 +80,7 @@ export default function Settings() {
 
       <SettingsSection heading="Miscellaneous">
         <SettingsSwitch
-          label="Google Analytics"
+          label="Use Analytics"
           enabled={enableAnalytics}
           onChange={setEnableAnalytics}
         />

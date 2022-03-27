@@ -15,7 +15,8 @@ const SearchField = styled.input.attrs({ type: 'text' })`
   width: 100%;
   outline: none;
   color: white;
-  font-size: 24px;
+  font-size: 2.5em;
+  font-weight: 300;
   padding: 20px;
   margin-bottom: 2em;
 `;

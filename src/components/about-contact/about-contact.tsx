@@ -6,6 +6,10 @@ const StyledAddress = styled.address`
   display: flex;
   flex-direction: column;
   font-style: normal;
+  & > span,
+  a {
+    font-size: 1.5em;
+  }
 `;
 
 interface AboutContactProps {
