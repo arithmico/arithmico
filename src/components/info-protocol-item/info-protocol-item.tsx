@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { InfoItem } from '../../stores/useSessionStore';
+import { InfoItem } from '../../stores/session-store/types';
 
 const Container = styled.li`
   display: grid;

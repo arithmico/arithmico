@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import useSessionStore from '../../stores/useSessionStore';
+import useSessionStore from '../../stores/session-store/use-session-store';
 
 const ToolbarContainer = styled.aside`
   display: grid;

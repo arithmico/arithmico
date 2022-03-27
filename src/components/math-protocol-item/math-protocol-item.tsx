@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MathItem } from '../../stores/useSessionStore';
+import { MathItem } from '../../stores/session-store/types';
 
 const Container = styled.li<{ isError: boolean }>`
   display: grid;

@@ -1,40 +1,15 @@
 import evaluate, { init, getDefaultContext } from '@behrenle/number-cruncher';
-import { Context } from '@behrenle/number-cruncher/lib/types';
 import create from 'zustand';
+import { SessionState } from './types';
 
 init();
-export interface MathItem {
-  type: 'math';
-  error: boolean;
-  input: string;
-  output: string;
-}
-
-export interface InfoItem {
-  type: 'info';
-  info: string;
-}
-
-type History = (MathItem | InfoItem)[];
-
-interface SessionState {
-  input: string;
-  outputResetted: boolean;
-  protocol: History;
-  context: Context;
-  evaluate: () => void;
-  resetDefinitions: () => void;
-  setInput: (input: string) => void;
-  resetInput: () => void;
-  resetOutput: () => void;
-  resetProtocol: () => void;
-}
 
 const useSessionStore = create<SessionState>((set) => ({
   input: '',
   outputResetted: false,
   protocol: [],
   context: getDefaultContext(),
+
   evaluate: () =>
     set((state) => {
       if (state.input === '') {
@@ -73,14 +48,19 @@ const useSessionStore = create<SessionState>((set) => ({
         };
       }
     }),
+
   resetDefinitions: () =>
     set((state) => ({
       context: getDefaultContext(),
       protocol: [...state.protocol, { type: 'info', info: 'reset definitions' }]
     })),
+
   setInput: (input: string) => set(() => ({ input })),
+
   resetInput: () => set(() => ({ input: '' })),
+
   resetOutput: () => set(() => ({ outputResetted: true })),
+
   resetProtocol: () => set(() => ({ protocol: [] }))
 }));
 

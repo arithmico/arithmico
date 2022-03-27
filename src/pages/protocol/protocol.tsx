@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import InfoProtocolItem from '../../components/info-protocol-item/info-protocol-item';
 import MathProtocolItem from '../../components/math-protocol-item/math-protocol-item';
 import PageContainer from '../../components/page-container/page-container';
-import useSessionStore from '../../stores/useSessionStore';
+import useSessionStore from '../../stores/session-store/use-session-store';
 
 const Container = styled(PageContainer)`
   display: grid;

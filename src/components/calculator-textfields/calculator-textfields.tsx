@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import useSessionStore, { MathItem } from '../../stores/useSessionStore';
+import useSessionStore from '../../stores/session-store/use-session-store';
+import { MathItem } from '../../stores/session-store/types';
 
 const TextfieldsContainer = styled.main`
   display: flex;
