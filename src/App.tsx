@@ -7,11 +7,14 @@ import Manual from './pages/manual/manual';
 import About from './pages/about/about';
 import Protocol from './pages/protocol/protocol';
 import GlobalStyle from './globalStyles';
+import useSessionStore from './stores/session-store/use-session-store';
 
 function App() {
+  const fontSize = useSessionStore((state) => state.interfaceFontSize);
+
   return (
     <BrowserRouter>
-      <GlobalStyle fontSize={'normal'} />
+      <GlobalStyle fontSize={fontSize} />
       <Navbar />
       <Routes>
         <Route path="/" element={<Calculator />} />

@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 interface GlobalStyleProps {
-  fontSize: 'small' | 'normal' | 'large';
+  fontSize: string;
 }
 
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
             case 'small':
               return '12px';
 
-            case 'normal':
+            case 'medium':
               return '16px';
 
             case 'large':

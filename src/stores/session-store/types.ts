@@ -20,6 +20,7 @@ export interface SessionState {
   protocol: History;
   stack: Context['stack'];
   decimalPlaces: number;
+  interfaceFontSize: string;
 
   evaluate: () => void;
   resetDefinitions: () => void;
@@ -28,4 +29,5 @@ export interface SessionState {
   resetOutput: () => void;
   resetProtocol: () => void;
   setDecimalPlaces: (n: number) => void;
+  setInterfaceFontSize: (size: SessionState['interfaceFontSize']) => void;
 }

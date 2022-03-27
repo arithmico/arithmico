@@ -10,7 +10,10 @@ export default function Settings() {
   const [language, setLanguage] = useState('english');
   const [copyMaualContentByClicking, setCopyMaualContentByClicking] = useState(true);
   const [theme, setTheme] = useState('dark');
-  const [fontSize, setFontSize] = useState('medium');
+  const [fontSize, setFontSize] = useSessionStore((state) => [
+    state.interfaceFontSize,
+    state.setInterfaceFontSize
+  ]);
   const [significantDecimalPlaces, setSignificantDecimalPlaces] = useSessionStore((state) => [
     state.decimalPlaces,
     state.setDecimalPlaces
@@ -48,7 +51,7 @@ export default function Settings() {
           value={theme}
         />
         <SettingsListbox
-          onChange={setFontSize}
+          onChange={(v: string) => setFontSize(v)}
           label="Font size"
           options={[
             { label: 'Small', value: 'small' },
