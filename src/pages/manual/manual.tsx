@@ -1,10 +1,11 @@
+import React, { useState } from 'react';
 import { getDocumentation } from '@behrenle/number-cruncher';
 import { GlobalDocumentationItem } from '@behrenle/number-cruncher/lib/types/Plugin';
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import ManualSectionItem from '../../components/manual-section-item/manual-section-item';
 import ManualSection from '../../components/manual-section/manual-section';
 import PageContainer from '../../components/page-container/page-container';
+import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
 
 const SearchField = styled.input.attrs({ type: 'text' })`
   background-color: rgba(255, 255, 255, 0.05);
@@ -31,37 +32,39 @@ export default function Manual() {
   const [searchStr, setSearchStr] = useState('');
 
   return (
-    <PageContainer>
-      <SearchField
-        placeholder="Search"
-        value={searchStr}
-        onChange={(e) => setSearchStr(e.target.value)}
-      />
-      <ManualSection heading="Hotkeys">
-        <ManualSectionItem synopsis="ALT + I" description="Focus input field" />
-      </ManualSection>
-      <ManualSection heading="Constants">
-        {documentation
-          .filter((item) => item.type === 'constant' && matchDocumentation(item, searchStr))
-          .map((item) => (
-            <ManualSectionItem
-              key={item.documentation.en?.synopsis}
-              synopsis={item.documentation.en?.synopsis || ''}
-              description={item.documentation.en?.description || ''}
-            />
-          ))}
-      </ManualSection>
-      <ManualSection heading="Functions">
-        {documentation
-          .filter((item) => item.type === 'function' && matchDocumentation(item, searchStr))
-          .map((item) => (
-            <ManualSectionItem
-              key={item.documentation.en?.synopsis}
-              synopsis={item.documentation.en?.synopsis || ''}
-              description={item.documentation.en?.description || ''}
-            />
-          ))}
-      </ManualSection>
-    </PageContainer>
+    <WithScrollbars>
+      <PageContainer>
+        <SearchField
+          placeholder="Search"
+          value={searchStr}
+          onChange={(e) => setSearchStr(e.target.value)}
+        />
+        <ManualSection heading="Hotkeys">
+          <ManualSectionItem synopsis="ALT + I" description="Focus input field" />
+        </ManualSection>
+        <ManualSection heading="Constants">
+          {documentation
+            .filter((item) => item.type === 'constant' && matchDocumentation(item, searchStr))
+            .map((item) => (
+              <ManualSectionItem
+                key={item.documentation.en?.synopsis}
+                synopsis={item.documentation.en?.synopsis || ''}
+                description={item.documentation.en?.description || ''}
+              />
+            ))}
+        </ManualSection>
+        <ManualSection heading="Functions">
+          {documentation
+            .filter((item) => item.type === 'function' && matchDocumentation(item, searchStr))
+            .map((item) => (
+              <ManualSectionItem
+                key={item.documentation.en?.synopsis}
+                synopsis={item.documentation.en?.synopsis || ''}
+                description={item.documentation.en?.description || ''}
+              />
+            ))}
+        </ManualSection>
+      </PageContainer>
+    </WithScrollbars>
   );
 }
