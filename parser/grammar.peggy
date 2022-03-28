@@ -243,6 +243,10 @@ Boolean "boolean" = v:("true" / "false") {
 }
 
 Symbol "symbol" = ([a-z] / [A-Z] / "_")+ { 
+    if (text() === "__proto__") {
+        error("SyntaxError: illegal symbol name '__proto__'")
+    }
+
     return {
         type: "symbol", 
         name: text()
