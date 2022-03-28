@@ -1,5 +1,4 @@
-import { DefaultTheme } from './styled.d';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, DefaultTheme } from 'styled-components';
 
 interface GlobalStyleProps {
   fontSize: string;
