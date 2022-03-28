@@ -2,11 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 interface GlobalStyleProps {
   fontSize: string;
-  theme: string;
 }
 
 function theme(light: string, dark: string) {
-  return ({ theme }: GlobalStyleProps) => (theme === 'light' ? light : dark);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return ({ theme }: GlobalStyleProps) => (theme.type === 'light' ? light : dark);
 }
 
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
