@@ -11,6 +11,10 @@ const Textfield = styled.input.attrs({ type: 'text' })`
   font-weight: 300;
   color: var(--me-text-400);
   padding: 0.6em 0.75em;
+
+  &::placeholder {
+    color: var(--me-text-100);
+  }
 `;
 
 export default Textfield;
