@@ -5,18 +5,18 @@ import styled from 'styled-components';
 const Header = styled.header`
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 0.75rem;
 `;
 
 const Title = styled.h1`
   display: flex;
-  font-size: 2.5em;
+  font-size: 2.5rem;
   font-weight: 100;
 `;
 
 const Superscript = styled.sup`
   padding: 0 10px;
-  font-size: 0.75em;
+  font-size: 0.75rem;
   font-weight: 100;
   font-style: italic;
 `;
@@ -45,10 +45,10 @@ const StyledLink = styled(Link)<{ selected: boolean }>`
   justify-content: center;
   align-items: center;
   font-size: inherit;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   text-decoration: none;
   height: 100%;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 0.5rem 0.5rem;
   color: ${({ selected }) => (selected ? 'var(--me-text-400)' : 'var(--me-text-200)')};
   background-color: ${({ selected }) => (selected ? 'var(--me-background-300)' : 'inherit')};
 

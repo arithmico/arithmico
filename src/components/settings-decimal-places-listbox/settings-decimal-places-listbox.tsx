@@ -6,44 +6,45 @@ import CodeIcon from '../../icons/code-icon';
 const Container = styled.li`
   display: flex;
   align-items: center;
-  height: 70px;
-  padding: 10px 0;
+  height: 3rem;
+  margin: 1rem 0;
 `;
 
 const Label = styled(Listbox.Label)`
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 300;
 `;
 
 const Button = styled(Listbox.Button)`
+  position: relative;
   display: flex;
   align-items: center;
   background-color: var(--me-background-300);
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: 0.25rem;
   width: 200px;
-  height: 50px;
-  font-size: 2em;
+  height: 100%;
+  font-size: 2rem;
   color: var(--me-text-400);
   text-align: left;
-  padding: 0 10px 0 20px;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 `;
 
 const Options = styled(Listbox.Options)`
   position: absolute;
   z-index: 20;
   width: 200px;
-  height: calc(200px / 5 * 3);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 40px);
   position: relative;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 0.25rem;
 `;
 
 const Option = styled(Listbox.Option)<{ active: boolean }>`
-  font-size: 1.5em;
+  font-size: 1.5rem;
   background-color: ${({ selected }) =>
     selected ? 'var(--me-background-400)' : 'var(--me-background-300)'};
   list-style: none;
@@ -57,26 +58,26 @@ const Option = styled(Listbox.Option)<{ active: boolean }>`
   }
 
   &:first-child {
-    border-radius: 10px 0 0 0;
+    border-radius: 0.25rem 0 0 0;
   }
 
   &:nth-child(5) {
-    border-radius: 0 10px 0 0;
+    border-radius: 0 0.25rem 0 0;
   }
 
   &:last-child {
-    border-radius: 0 0 10px 0px;
+    border-radius: 0 0 0.25rem 0;
   }
 
   &:nth-child(11) {
-    border-radius: 0 0 0 10px;
+    border-radius: 0 0 0 0.25rem;
   }
 `;
 
 const ColumnLayout = styled.div`
   margin-left: auto;
   width: 200px;
-  height: 50px;
+  height: 3rem;
 `;
 
 const StyledCodeIcon = styled(CodeIcon)`

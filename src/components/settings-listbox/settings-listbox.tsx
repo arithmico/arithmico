@@ -7,12 +7,12 @@ import CodeIcon from '../../icons/code-icon';
 const Container = styled.li`
   display: flex;
   align-items: center;
-  height: 70px;
-  padding: 10px 0;
+  height: 3rem;
+  margin: 1rem 0;
 `;
 
 const Label = styled(Listbox.Label)`
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 300;
 `;
 
@@ -22,29 +22,28 @@ const Button = styled(Listbox.Button)`
   background-color: var(--me-background-300);
   outline: none;
   border: none;
-  border-radius: 0.25em;
+  border-radius: 0.25rem;
   width: 200px;
-  height: 50px;
-  font-size: 2em;
+  height: 100%;
+  font-size: 2rem;
   color: var(--me-text-400);
   text-align: left;
-  padding: 0 10px 0 20px;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 `;
 
 const Options = styled(Listbox.Options)`
   position: absolute;
   z-index: 20;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 0.25rem;
 `;
 
 const Option = styled(Listbox.Option)`
-  font-size: 2em;
+  font-size: 2rem;
   background-color: var(--me-background-300);
   width: 200px;
-  height: 50px;
   list-style: none;
-  padding: 0 10px 0 20px;
+  padding: 0.15rem 0.25rem 0.15rem 0.5rem;
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--me-text-100);
@@ -56,19 +55,21 @@ const Option = styled(Listbox.Option)`
   }
 
   &:first-child {
-    border-radius: 0.25em 0.25em 0 0;
+    padding-top: 0.25rem;
+    border-radius: 0.25rem 0.25rem 0 0;
   }
 
   &:last-child {
     border: none;
-    border-radius: 0 0 10px 10px;
+    padding-bottom: 0.25rem;
+    border-radius: 0 0 0.25rem 0.25rem;
   }
 `;
 
 const ColumnLayout = styled.div`
   margin-left: auto;
   width: 200px;
-  height: 50px;
+  height: 3rem;
 `;
 
 const StyledCodeIcon = styled(CodeIcon)`

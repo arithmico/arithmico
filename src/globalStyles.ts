@@ -10,24 +10,6 @@ function theme(light: string, dark: string) {
 }
 
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
-    * {
-        font-size: ${({ fontSize }) => {
-          switch (fontSize) {
-            case 'small':
-              return '12px';
-
-            case 'medium':
-              return '16px';
-
-            case 'large':
-              return '20px';
-
-            default:
-              return '16px';
-          }
-        }}
-    }
-
   .os-theme-dark.os-theme-custom > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
     background-color: var(--me-background-300);
   }
@@ -39,6 +21,21 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   :root {
     background-color: ${theme('rgb(255, 255, 255)', '#101010')};
     color: ${theme('black', 'white')};
+    font-size: ${({ fontSize }) => {
+      switch (fontSize) {
+        case 'small':
+          return '12px';
+
+        case 'medium':
+          return '16px';
+
+        case 'large':
+          return '20px';
+
+        default:
+          return '16px';
+      }
+    }};
 
     --me-background-100: ${theme('#EBEBEB', '#1C1C1C')};
     --me-background-200: ${theme('#D6D6D6', '#282828')};
