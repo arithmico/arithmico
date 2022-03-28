@@ -11,10 +11,11 @@ import useSessionStore from './stores/session-store/use-session-store';
 
 function App() {
   const fontSize = useSessionStore((state) => state.interfaceFontSize);
+  const theme = useSessionStore((state) => state.theme);
 
   return (
     <BrowserRouter>
-      <GlobalStyle fontSize={fontSize} theme="light" />
+      <GlobalStyle fontSize={fontSize} theme={theme} />
       <Navbar />
       <Routes>
         <Route path="/" element={<Calculator />} />

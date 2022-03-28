@@ -16,23 +16,26 @@ const useSessionStore = create<SessionState>(
       stack: getDefaultContext().stack,
       decimalPlaces: getDefaultContext().options.decimalPlaces,
       interfaceFontSize: 'medium',
+      theme: 'light',
 
       evaluate: () => set(evaluateInput),
       resetDefinitions: () => set(resetDefinitions),
-      setInput: (input: string) => set(() => ({ input })),
+      setInput: (input) => set(() => ({ input })),
       resetInput: () => set(() => ({ input: '' })),
       resetOutput: () => set(() => ({ outputResetted: true })),
       resetProtocol: () => set(() => ({ protocol: [] })),
-      setDecimalPlaces: (n: number) => set(() => ({ decimalPlaces: n })),
+      setDecimalPlaces: (n) => set(() => ({ decimalPlaces: n })),
       setInterfaceFontSize: (interfaceFontSize: SessionState['interfaceFontSize']) =>
-        set(() => ({ interfaceFontSize }))
+        set(() => ({ interfaceFontSize })),
+      setTheme: (theme) => set(() => ({ theme }))
     }),
     {
       name: 'settings',
       version: 2,
       partialize: (state) => ({
         decimalPlaces: state.decimalPlaces,
-        interfaceFontSize: state.interfaceFontSize
+        interfaceFontSize: state.interfaceFontSize,
+        theme: state.theme
       })
     }
   )

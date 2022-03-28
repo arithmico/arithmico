@@ -9,7 +9,7 @@ import useSessionStore from '../../stores/session-store/use-session-store';
 export default function Settings() {
   const [language, setLanguage] = useState('english');
   const [copyMaualContentByClicking, setCopyMaualContentByClicking] = useState(true);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useSessionStore((state) => [state.theme, state.setTheme]);
   const [fontSize, setFontSize] = useSessionStore((state) => [
     state.interfaceFontSize,
     state.setInterfaceFontSize
