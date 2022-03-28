@@ -1,12 +1,12 @@
+import { DefaultTheme } from './styled.d';
 import { createGlobalStyle } from 'styled-components';
 
 interface GlobalStyleProps {
   fontSize: string;
+  theme: DefaultTheme;
 }
 
 function theme(light: string, dark: string) {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   return ({ theme }: GlobalStyleProps) => (theme.type === 'light' ? light : dark);
 }
 
