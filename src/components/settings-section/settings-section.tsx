@@ -11,6 +11,7 @@ const SettingsSectionHeading = styled.h1`
   font-weight: 300;
   margin-bottom: 10px;
   margin-top: 40px;
+  color: var(--me-text-400);
 `;
 
 const SettingsList = styled.ul`

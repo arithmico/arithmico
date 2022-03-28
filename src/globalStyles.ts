@@ -2,6 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 interface GlobalStyleProps {
   fontSize: string;
+  theme: string;
+}
+
+function theme(light: string, dark: string) {
+  return ({ theme }: GlobalStyleProps) => (theme === 'light' ? light : dark);
 }
 
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
@@ -32,21 +37,22 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   }
 
   :root {
-    background-color: #101010;
-    color: white;
+    background-color: ${theme('rgb(255, 255, 255)', '#101010')};
+    color: ${theme('black', 'white')};
 
-    --me-background-100: #1C1C1C;
-    --me-background-200: #282828;
-    --me-background-300: #343434;
-    --me-background-400: #404040;
+    --me-background-100: ${theme('#EBEBEB', '#1C1C1C')};
+    --me-background-200: ${theme('#D6D6D6', '#282828')};
+    --me-background-300: ${theme('#C2C2C2', '#343434')}; 
+    --me-background-400: ${theme('#ADADAD', '#404040')};
 
-    --me-text-100: #707070;
-    --me-text-200: #9F9F9F;
-    --me-text-300: #CFCFCF;
-    --me-text-400: #FFFFFF;
+    --me-text-100: ${theme('#999999', '#707070')};
+    --me-text-200: ${theme('#666666', '#9F9F9F')};
+    --me-text-300: ${theme('#333333', '#CFCFCF')};
+    --me-text-400: ${theme('#000000', '#FFFFFF')};
 
     --me-error: #fd7c7c;
     --me-enabled: #f66b00;
+    --me-switch-handle: #FFFFFF;
   }
 `;
 

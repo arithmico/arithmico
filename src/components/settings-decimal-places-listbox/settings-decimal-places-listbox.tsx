@@ -25,7 +25,7 @@ const Button = styled(Listbox.Button)`
   width: 200px;
   height: 50px;
   font-size: 2em;
-  color: white;
+  color: var(--me-text-400);
   text-align: left;
   padding: 0 10px 0 20px;
 `;
@@ -53,7 +53,7 @@ const Option = styled(Listbox.Option)<{ active: boolean }>`
   cursor: default;
 
   &:hover {
-    background-color: #505050;
+    background-color: var(--me-background-400);
   }
 
   &:first-child {

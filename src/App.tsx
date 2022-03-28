@@ -14,7 +14,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GlobalStyle fontSize={fontSize} />
+      <GlobalStyle fontSize={fontSize} theme="light" />
       <Navbar />
       <Routes>
         <Route path="/" element={<Calculator />} />

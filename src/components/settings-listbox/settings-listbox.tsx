@@ -19,14 +19,14 @@ const Label = styled(Listbox.Label)`
 const Button = styled(Listbox.Button)`
   display: flex;
   align-items: center;
-  background-color: #313131;
+  background-color: var(--me-background-300);
   outline: none;
   border: none;
   border-radius: 10px;
   width: 200px;
   height: 50px;
   font-size: 2em;
-  color: white;
+  color: var(--me-text-400);
   text-align: left;
   padding: 0 10px 0 20px;
 `;
@@ -40,14 +40,14 @@ const Options = styled(Listbox.Options)`
 
 const Option = styled(Listbox.Option)`
   font-size: 2em;
-  background-color: #313131;
+  background-color: var(--me-background-300);
   width: 200px;
   height: 50px;
   list-style: none;
   padding: 0 10px 0 20px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #101010;
+  border-bottom: 1px solid var(--me-background-200);
   cursor: default;
 
   &:hover,
@@ -60,6 +60,7 @@ const Option = styled(Listbox.Option)`
   }
 
   &:last-child {
+    border: none;
     border-radius: 0 0 10px 10px;
   }
 `;

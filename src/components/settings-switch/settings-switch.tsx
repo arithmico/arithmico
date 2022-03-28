@@ -39,7 +39,7 @@ const SwitchIndicator = styled.div<{ enabled: boolean }>`
   height: 27px;
   border-radius: 14px;
   margin-left: ${({ enabled }) => (enabled ? '35px' : '2px')};
-  background-color: var(--me-text-400);
+  background-color: var(--me-switch-handle);
   transition: margin 0.25s;
 `;
 
