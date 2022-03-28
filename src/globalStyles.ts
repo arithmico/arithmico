@@ -46,8 +46,7 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     --me-text-200: ${theme('#666666', '#9F9F9F')};
     --me-text-300: ${theme('#333333', '#CFCFCF')};
     --me-text-400: ${theme('#000000', '#FFFFFF')};
-
-    --me-error: #fd7c7c;
+    --me-error: ${theme('#ff0000', '#fd7c7c')};
     --me-enabled: #f66b00;
     --me-switch-handle: #FFFFFF;
   }
