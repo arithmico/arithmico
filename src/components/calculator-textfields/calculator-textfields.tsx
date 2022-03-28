@@ -2,26 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import useSessionStore from '../../stores/session-store/use-session-store';
 import { MathItem } from '../../stores/session-store/types';
+import Textfield from '../textfield/textfield';
 
 const TextfieldsContainer = styled.main`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 150px;
-`;
-
-const Textfield = styled.input.attrs({ type: 'text' })`
-  background-color: var(--me-background-100);
-  outline: none;
-  border: 1px solid var(--me-text-400);
-  border-radius: 10px;
-  height: 100px;
-  width: 100%;
-  min-width: 100px;
-  font-size: 2.5em;
-  font-weight: 300;
-  color: var(--me-text-400);
-  padding: 0 20px;
+  height: 100%;
+  padding-bottom: 200px;
+  justify-content: center;
 `;
 
 const ErrorTextfield = styled(Textfield)`

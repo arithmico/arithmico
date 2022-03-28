@@ -9,8 +9,8 @@ interface SettingsSectionProps {
 const SettingsSectionHeading = styled.h1`
   font-size: 2.5em;
   font-weight: 300;
-  margin-bottom: 10px;
-  margin-top: 40px;
+  margin-bottom: 0.5em;
+  margin-top: 2em;
   color: var(--me-text-400);
 `;
 

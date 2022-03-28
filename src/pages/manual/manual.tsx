@@ -6,19 +6,11 @@ import ManualSectionItem from '../../components/manual-section-item/manual-secti
 import ManualSection from '../../components/manual-section/manual-section';
 import PageContainer from '../../components/page-container/page-container';
 import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
+import Textfield from '../../components/textfield/textfield';
 
-const SearchField = styled.input.attrs({ type: 'text' })`
-  background-color: var(--me-background-100);
-  height: 100px;
-  border: 1px solid var(--me-text-400);
-  border-radius: 10px;
-  width: 100%;
-  outline: none;
-  color: var(--me-text-400);
-  font-size: 2.5em;
-  font-weight: 300;
-  padding: 20px;
-  margin-bottom: 2em;
+const SearchField = styled(Textfield)`
+  margin-top: 2em;
+  margin-bottom: 1em;
 `;
 
 function matchDocumentation(doc: GlobalDocumentationItem, searchStr: string) {

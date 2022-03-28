@@ -1,8 +1,8 @@
 import React from 'react';
 import { Listbox } from '@headlessui/react';
 import styled from 'styled-components';
-import codeIconSource from '../../icons/code_white_24dp.svg';
-import doneIconSource from '../../icons/done_white_24dp.svg';
+import DoneIcon from '../../icons/done-icon';
+import CodeIcon from '../../icons/code-icon';
 
 const Container = styled.li`
   display: flex;
@@ -22,7 +22,7 @@ const Button = styled(Listbox.Button)`
   background-color: var(--me-background-300);
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: 0.25em;
   width: 200px;
   height: 50px;
   font-size: 2em;
@@ -47,16 +47,16 @@ const Option = styled(Listbox.Option)`
   padding: 0 10px 0 20px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--me-background-200);
+  border-bottom: 1px solid var(--me-text-100);
   cursor: default;
 
   &:hover,
   &:focus {
-    background-color: #505050;
+    background-color: var(--me-background-400);
   }
 
   &:first-child {
-    border-radius: 10px 10px 0 0;
+    border-radius: 0.25em 0.25em 0 0;
   }
 
   &:last-child {
@@ -71,15 +71,15 @@ const ColumnLayout = styled.div`
   height: 50px;
 `;
 
-const CodeIcon = styled.img`
+const StyledCodeIcon = styled(CodeIcon)`
   transform: rotateZ(90deg);
   margin-left: auto;
-  opacity: 0.5;
+  fill: var(--me-text-200);
 `;
 
-const DoneIcon = styled.img`
+const StyledDoneIcon = styled(DoneIcon)`
   margin-left: auto;
-  opacity: 0.5;
+  fill: var(--me-text-200);
 `;
 
 interface SettingsListboxProps {
@@ -97,13 +97,13 @@ export default function SettingsListbox({ label, value, options, onChange }: Set
         <ColumnLayout>
           <Button>
             {options.find((option) => option.value === value)?.label}
-            <CodeIcon src={codeIconSource} />
+            <StyledCodeIcon />
           </Button>
           <Options>
             {options.map((option, index) => (
               <Option key={index} value={option.value}>
                 {option.label}
-                {option.value === value ? <DoneIcon src={doneIconSource} /> : null}
+                {option.value === value ? <StyledDoneIcon /> : null}
               </Option>
             ))}
           </Options>

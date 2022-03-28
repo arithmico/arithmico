@@ -1,7 +1,7 @@
 import React from 'react';
 import { Listbox } from '@headlessui/react';
 import styled from 'styled-components';
-import codeIconSource from '../../icons/code_white_24dp.svg';
+import CodeIcon from '../../icons/code-icon';
 
 const Container = styled.li`
   display: flex;
@@ -79,10 +79,10 @@ const ColumnLayout = styled.div`
   height: 50px;
 `;
 
-const CodeIcon = styled.img`
+const StyledCodeIcon = styled(CodeIcon)`
   transform: rotate(90deg);
   margin-left: auto;
-  opacity: 0.5;
+  fill: var(--me-text-200);
 `;
 
 interface SettingsListboxProps {
@@ -105,7 +105,7 @@ export default function SettingsDecimalPlacesListbox({
         <ColumnLayout>
           <Button>
             {options.find((option) => option.value === value)?.label}
-            <CodeIcon src={codeIconSource} />
+            <StyledCodeIcon />
           </Button>
           <Options>
             {options.map((option, index) => (
