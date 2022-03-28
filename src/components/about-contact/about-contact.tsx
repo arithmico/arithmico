@@ -8,7 +8,7 @@ const StyledAddress = styled.address`
   font-style: normal;
   & > span,
   a {
-    font-size: 1.5em;
+    font-size: 1.5rem;
   }
 `;
 
