@@ -8,13 +8,13 @@ import PageContainer from '../../components/page-container/page-container';
 import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
 
 const SearchField = styled.input.attrs({ type: 'text' })`
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--me-background-100);
   height: 100px;
-  border: 1px solid white;
+  border: 1px solid var(--me-text-400);
   border-radius: 10px;
   width: 100%;
   outline: none;
-  color: white;
+  color: var(--me-text-400);
   font-size: 2.5em;
   font-weight: 300;
   padding: 20px;

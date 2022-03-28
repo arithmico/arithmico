@@ -10,8 +10,8 @@ const Container = styled.li`
   padding: 20px;
   border-radius: 0.25em;
   list-style: none;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--me-text-100);
+  color: var(--me-text-200);
 `;
 
 export default function InfoProtocolItem({ item }: { item: InfoItem }) {

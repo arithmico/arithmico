@@ -8,11 +8,11 @@ const Container = styled.li<{ isError: boolean }>`
   grid-gap: 1em;
   font-size: 2em;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--me-background-100);
   border-radius: 0.25em;
   list-style: none;
-  ${({ isError }) => isError && 'border: 1px solid #fd7c7c;'}
-  color: ${({ isError }) => (isError ? '#fd7c7c' : 'white')};
+  ${({ isError }) => isError && 'border: 1px solid var(--me-error);'}
+  color: ${({ isError }) => (isError ? 'var(--me-error)' : 'var(--me-text-400)')};
 `;
 
 export default function MathProtocolItem({ item }: { item: MathItem }) {

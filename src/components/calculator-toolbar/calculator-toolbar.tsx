@@ -15,8 +15,8 @@ const ToolbarContainer = styled.aside`
 `;
 
 const Button = styled.button`
-  background-color: rgba(255, 255, 255, 0.05);
-  color: white;
+  background-color: var(--me-background-100);
+  color: var(--me-text-400);
   border-radius: 0.25em;
   border: none;
   outline: none;
@@ -27,11 +27,11 @@ const Button = styled.button`
   padding: 0 20px;
 
   &:disabled {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--me-text-200);
   }
 
   &:enabled:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--me-background-300);
   }
 `;
 

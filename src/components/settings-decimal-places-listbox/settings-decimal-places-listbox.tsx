@@ -18,7 +18,7 @@ const Label = styled(Listbox.Label)`
 const Button = styled(Listbox.Button)`
   display: flex;
   align-items: center;
-  background-color: #313131;
+  background-color: var(--me-background-300);
   outline: none;
   border: none;
   border-radius: 10px;
@@ -44,7 +44,8 @@ const Options = styled(Listbox.Options)`
 
 const Option = styled(Listbox.Option)<{ active: boolean }>`
   font-size: 1.5em;
-  background-color: ${({ selected }) => (selected ? '#505050' : '#313131')};
+  background-color: ${({ selected }) =>
+    selected ? 'var(--me-background-400)' : 'var(--me-background-300)'};
   list-style: none;
   display: flex;
   align-items: center;

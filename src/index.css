@@ -15,11 +15,6 @@
   grid-template-rows: 80px 1fr;
 }
 
-html {
-  background-color: #101010;
-  color: white;
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
@@ -30,12 +25,4 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-.os-theme-dark.os-theme-custom > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.os-theme-dark.os-theme-custom > .os-scrollbar > .os-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.05);
 }

@@ -27,7 +27,7 @@ const Title = styled.h1`
 const BackButton = styled.button`
   margin-left: auto;
   color: inherit;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--me-background-100);
   outline: none;
   border: none;
   font-size: 1.5em;
@@ -35,11 +35,11 @@ const BackButton = styled.button`
   border-radius: 0.25em;
 
   &:disabled {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--me-text-200);
   }
 
   &:enabled:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--me-background-300);
   }
 `;
 

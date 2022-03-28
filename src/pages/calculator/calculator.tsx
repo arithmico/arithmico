@@ -14,6 +14,12 @@ const Container = styled(PageContainer)`
 export default function Calculator() {
   return (
     <Container>
+      <div>
+        <div style={{ width: '100px', height: '100px', backgroundColor: 'var(--me-text-100)' }} />
+        <div style={{ width: '100px', height: '100px', backgroundColor: 'var(--me-text-200)' }} />
+        <div style={{ width: '100px', height: '100px', backgroundColor: 'var(--me-text-300)' }} />
+        <div style={{ width: '100px', height: '100px', backgroundColor: 'var(--me-text-400)' }} />
+      </div>
       <CalculatorTextfields />
       <CalculatorToolbar />
     </Container>

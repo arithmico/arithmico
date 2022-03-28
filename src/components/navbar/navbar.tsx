@@ -44,18 +44,17 @@ const StyledLink = styled(Link)<{ selected: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   font-size: inherit;
   font-size: 1.5em;
   text-decoration: none;
   height: 100%;
   border-radius: 0 0 10px 10px;
-  color: ${({ selected }) => (selected ? 'white' : 'rgba(255, 255, 255, 0.8)')};
-  background-color: ${({ selected }) => (selected ? 'rgba(255, 255, 255, 0.15)' : 'inherit')};
+  color: ${({ selected }) => (selected ? 'var(--me-text-400)' : 'var(--me-text-200)')};
+  background-color: ${({ selected }) => (selected ? 'var(--me-background-300)' : 'inherit')};
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: white;
+    background-color: var(--me-background-300);
+    color: var(--me-text-400);
   }
 `;
 
