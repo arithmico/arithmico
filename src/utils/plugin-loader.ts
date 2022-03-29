@@ -78,5 +78,6 @@ export default function loadPlugins(plugins: Plugin[], options: Options): LoadPl
             });
     }
     log.push(`Loading completed excluded plugins: [${excludedPlugins.join(', ')}]`);
+    context.stack.push({});
     return { context, log, documentation };
 }
