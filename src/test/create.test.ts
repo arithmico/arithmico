@@ -1,9 +1,5 @@
-import { DefineFunctionParameterType } from '../types/SyntaxTreeNodes';
 import createAnd from '../create/And';
 import createBooleanNode from '../create/BooleanNode';
-import createDefineFunction from '../create/DefineFunction';
-import createDefineFunctionParameter from '../create/DefineFunctionParameter';
-import createDefineVariable from '../create/DefineVariable';
 import createDivided from '../create/Divided';
 import createEquals from '../create/Equals';
 import createFunctionCall from '../create/FunctionCall';
@@ -138,59 +134,6 @@ describe('create arithmetic nodes', () => {
             type: 'power',
             left: createNumberNode(12),
             right: createNumberNode(42),
-        });
-    });
-});
-
-describe('create define nodes', () => {
-    test('create define variable', () => {
-        expect(createDefineVariable('foo', createNumberNode(42))).toEqual({
-            type: 'defineVariable',
-            name: 'foo',
-            value: createNumberNode(42),
-        });
-    });
-
-    test('create define function parameter number', () => {
-        expect(createDefineFunctionParameter('foo', DefineFunctionParameterType.Number)).toEqual({
-            name: 'foo',
-            type: DefineFunctionParameterType.Number,
-        });
-    });
-
-    test('create define function parameter boolean', () => {
-        expect(createDefineFunctionParameter('foo', DefineFunctionParameterType.Boolean)).toEqual({
-            name: 'foo',
-            type: DefineFunctionParameterType.Boolean,
-        });
-    });
-
-    test('create define function parameter vector', () => {
-        expect(createDefineFunctionParameter('foo', DefineFunctionParameterType.Vector)).toEqual({
-            name: 'foo',
-            type: DefineFunctionParameterType.Vector,
-        });
-    });
-
-    test('create define function parameter any', () => {
-        expect(createDefineFunctionParameter('foo', DefineFunctionParameterType.Any)).toEqual({
-            name: 'foo',
-            type: DefineFunctionParameterType.Any,
-        });
-    });
-
-    test('create define function', () => {
-        expect(
-            createDefineFunction(
-                'foo',
-                [createDefineFunctionParameter('bar', DefineFunctionParameterType.Number)],
-                createNumberNode(42),
-            ),
-        ).toEqual({
-            type: 'defineFunction',
-            name: 'foo',
-            parameters: [createDefineFunctionParameter('bar', DefineFunctionParameterType.Number)],
-            value: createNumberNode(42),
         });
     });
 });

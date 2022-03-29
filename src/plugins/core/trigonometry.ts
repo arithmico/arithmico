@@ -1,7 +1,6 @@
-import { NumberNode } from './../../types/SyntaxTreeNodes';
+import { NumberNode, FunctionHeaderItem } from './../../types/SyntaxTreeNodes';
 import { SyntaxTreeNode, Context } from '../../types';
 import createNumberNode from '../../create/NumberNode';
-import { createParameterValidator } from '../../utils/parameter-validator';
 import {
     addPluginAuthor,
     addPluginConstant,
@@ -10,6 +9,7 @@ import {
     createPlugin,
 } from '../../utils/plugin-builder';
 import { closeTo } from '../../utils/float-utils';
+import { mapParametersToStackFrame } from '../../utils/parameter-utils';
 
 const trigonometryPlugin = createPlugin('core/trigonometry');
 
@@ -32,23 +32,31 @@ addPluginConstant(trigonometryPlugin, {
 });
 
 function addTrigonometryFunction(name: string, func: (v: number) => number, enName: string, deName: string) {
+    const header: FunctionHeaderItem[] = [{ type: 'number', name: 'x' }];
+
     addPluginFunction(trigonometryPlugin, {
         name: name,
-        evaluateParametersBefore: true,
-        parameterValidator: createParameterValidator(name, ['number']),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        evaluator: (parameters: SyntaxTreeNode[], _context: Context) => {
-            const value = func((parameters[0] as NumberNode).value);
+        function: {
+            type: 'function',
+            header,
+            serialized: `(x: number) -> ${name}(x)`,
+            evaluateParametersBefore: true,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            evaluator: (parameters: SyntaxTreeNode[], _context: Context): SyntaxTreeNode => {
+                mapParametersToStackFrame(name, parameters, header);
 
-            if (closeTo(value, 0)) {
-                return createNumberNode(0);
-            }
+                const value = func((parameters[0] as NumberNode).value);
 
-            if (closeTo(value, 1e15) || !Number.isFinite(value)) {
-                throw `RuntimeError: ${name}: undefined`;
-            }
+                if (closeTo(value, 0)) {
+                    return createNumberNode(0);
+                }
 
-            return createNumberNode(value);
+                if (closeTo(value, 1e15) || !Number.isFinite(value)) {
+                    throw `RuntimeError: ${name}: undefined`;
+                }
+
+                return createNumberNode(value);
+            },
         },
         documentation: {
             en: {

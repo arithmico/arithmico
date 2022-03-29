@@ -68,7 +68,7 @@ Define = DefineFunction / DefineVariable
 
 DefineVariable = symbol:Symbol _ ":=" _ expr:Expression {
     return {
-        type: "defineVariable",
+        type: "define",
         name: symbol.name,
         value: expr
     };
@@ -92,18 +92,23 @@ SymbolList = first:TypedSymbol _ rest:SymbolListItem* {
 }
 DefineFunction = symbol:Symbol _ "(" _ parameters:SymbolList _ ")" _ ":=" _ expr:Expression {
     return {
-        type: "defineFunction",
+        type: "define",
         name: symbol.name,
-        parameters: parameters ? parameters : [],
-        value: expr
+        value: {
+            type: "lambda",
+            name: symbol.name,
+            header: parameters ? parameters : [],
+            value: expr
+        }
     };
 }
 
 // define lambda function
 DefineLambdaFunction = "(" _ parameters:SymbolList _ ")" _ ("->" / "→") _ expr:Expression {
     return {
-        type: "defineLambdaFunction",
-        parameters: parameters ? parameters : [],
+        type: "lambda",
+        name: "lambda",
+        header: parameters ? parameters : [],
         value: expr
     };
 }
@@ -208,7 +213,9 @@ Value = Boolean
 / Number
 / Vector 
 / DefineLambdaFunction
-/ "(" _ expr:Expression _ ")" {
+/ SubExpression
+
+SubExpression = "(" _ expr:Expression _ ")" {
     return expr;
 }
 
@@ -227,10 +234,10 @@ Vector = "[" list:List? "]" {
     };
 }
 
-FunctionCall = symbol:Symbol _ "(" parameters:List? ")" {
+FunctionCall = func:(Symbol / SubExpression) _ "(" parameters:List? ")" {
     return {
         type: "functionCall",
-        name: symbol.name,
+        function: func,
         parameters: parameters ? parameters : []
     }
 }

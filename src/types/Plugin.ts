@@ -1,5 +1,4 @@
-import { Context } from './Context';
-import { SyntaxTreeNode } from './SyntaxTreeNodes';
+import { SyntaxTreeNode, FunctionNode } from './SyntaxTreeNodes';
 
 export interface GlobalDocumentationItem {
     type: 'constant' | 'function';
@@ -17,9 +16,7 @@ type Language = 'en' | 'de';
 
 export interface PluginFunction {
     name: string;
-    parameterValidator: (parameters: SyntaxTreeNode[]) => void;
-    evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode;
-    evaluateParametersBefore: boolean;
+    function: FunctionNode;
     documentation: {
         [key in Language]?: Documentation;
     };
@@ -27,7 +24,7 @@ export interface PluginFunction {
 
 export interface PluginConstant {
     name: string;
-    value: SyntaxTreeNode;
+    value: Exclude<SyntaxTreeNode, FunctionNode>;
     documentation: {
         [key in Language]?: Documentation;
     };

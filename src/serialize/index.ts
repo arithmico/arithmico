@@ -1,7 +1,5 @@
 import { SyntaxTreeNode, Options } from '../types';
 import serializeAnd from './nodes/And';
-import serializeDefineFunction from './nodes/DefineFunction';
-import serializeDefineVariable from './nodes/DefineVariable';
 import serializeDivided from './nodes/Divided';
 import serializeEquals from './nodes/Equals';
 import serializeFunction from './nodes/Function';
@@ -20,8 +18,7 @@ import serializeTimes from './nodes/Times';
 import serializeVector from './nodes/Vector';
 
 const serializePrecedents: SyntaxTreeNode['type'][] = [
-    'defineVariable',
-    'defineFunction',
+    'define',
     'or',
     'and',
     'equals',
@@ -54,12 +51,6 @@ export function needsBrackets(
 
 export default function serialize(node: SyntaxTreeNode, options: Options): string {
     switch (node.type) {
-        case 'defineVariable':
-            return serializeDefineVariable(node, options);
-
-        case 'defineFunction':
-            return serializeDefineFunction(node, options);
-
         case 'or':
             return serializeOr(node, options);
 

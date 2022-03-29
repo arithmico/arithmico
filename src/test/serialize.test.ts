@@ -10,9 +10,6 @@ import createLess from '../create/Less';
 import createGreater from '../create/Greater';
 import createLessOrEquals from '../create/LessOrEquals';
 import createGreaterOrEquals from '../create/GreaterOrEquals';
-import createDefineFunction from '../create/DefineFunction';
-import { DefineFunctionParameterType } from '../types/SyntaxTreeNodes';
-import createDefineVariable from '../create/DefineVariable';
 import createVector from '../create/Vector';
 import createFunctionCall from '../create/FunctionCall';
 import createPlus from '../create/Plus';
@@ -21,7 +18,6 @@ import createDivided from '../create/Divided';
 import createTimes from '../create/Times';
 import createPower from '../create/Power';
 import createNegate from '../create/Negate';
-import createFunction from '../create/Function';
 
 const testOptions: Options = {
     decimalPlaces: 4,
@@ -530,40 +526,6 @@ describe('serialze arithmetic nodes', () => {
 });
 
 describe('serialize miscellaneous nodes', () => {
-    test('serialize define variable', () => {
-        expect(serialize(createDefineVariable('x', createNumberNode(1)), testOptions)).toBe('x := 1');
-    });
-
-    test('serialize define function - no parameters', () => {
-        expect(serialize(createDefineFunction('foo', [], createNumberNode(1)), testOptions)).toBe('foo() := 1');
-    });
-
-    test('serialize define function - parameters', () => {
-        expect(
-            serialize(
-                createDefineFunction(
-                    'foo',
-                    [
-                        { type: DefineFunctionParameterType.Number, name: 'bar' },
-                        { type: DefineFunctionParameterType.Boolean, name: 'x' },
-                    ],
-                    createNumberNode(1),
-                ),
-                testOptions,
-            ),
-        ).toBe('foo(bar: number, x: boolean) := 1');
-    });
-
-    test('serialize function', () => {
-        expect(
-            serialize(
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                createFunction(false, (_p) => createNumberNode(42)),
-                testOptions,
-            ),
-        ).toBe('(function)');
-    });
-
     test('serialize vector - empty', () => {
         expect(serialize(createVector([]), testOptions)).toBe('[]');
     });

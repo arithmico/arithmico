@@ -1,9 +1,5 @@
 export {
     SyntaxTreeNode,
-    DefineVariable,
-    DefineFunction,
-    DefineFunctionParameter,
-    DefineFunctionParameterType,
     Or,
     And,
     Equals,
@@ -24,7 +20,7 @@ export {
     SymbolNode,
     FunctionNode,
     Define,
-    DefineLambdaFunction,
+    Lambda,
 } from './types/SyntaxTreeNodes';
 
 export { Context, Options, StackFrame } from './types/Context';

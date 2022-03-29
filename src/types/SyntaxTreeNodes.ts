@@ -1,9 +1,6 @@
 import { Context } from './Context';
 
 export type SyntaxTreeNode =
-    | DefineVariable
-    | DefineFunction
-    | DefineLambdaFunction
     | Or
     | And
     | Equals
@@ -23,6 +20,7 @@ export type SyntaxTreeNode =
     | BooleanNode
     | SymbolNode
     | FunctionNode
+    | Lambda
     | Define;
 
 export interface Define {
@@ -32,37 +30,22 @@ export interface Define {
 }
 export interface FunctionNode {
     type: 'function';
+    header: FunctionHeaderItem[];
     evaluateParametersBefore: boolean;
+    serialized: string;
     evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode;
 }
 
-export interface DefineVariable {
-    type: 'defineVariable';
+export interface FunctionHeaderItem {
     name: string;
-    value: SyntaxTreeNode;
+    type: SyntaxTreeNode['type'] | 'any';
+    repeat?: boolean;
+    optional?: boolean;
 }
 
-export enum DefineFunctionParameterType {
-    Number = 'number',
-    Boolean = 'boolean',
-    Vector = 'vector',
-    Function = 'function',
-    Any = 'any',
-}
-export interface DefineFunctionParameter {
-    name: string;
-    type: DefineFunctionParameterType;
-}
-export interface DefineFunction {
-    type: 'defineFunction';
-    name: string;
-    parameters: DefineFunctionParameter[];
-    value: SyntaxTreeNode;
-}
-
-export interface DefineLambdaFunction {
-    type: 'defineLambdaFunction';
-    parameters: DefineFunctionParameter[];
+export interface Lambda {
+    type: 'lambda';
+    header: FunctionHeaderItem[];
     value: SyntaxTreeNode;
 }
 

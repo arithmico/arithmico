@@ -1,9 +1,7 @@
 import { Context, SyntaxTreeNode } from '../types';
 import evaluateAnd from './nodes/And';
 import evaluateBoolean from './nodes/Boolean';
-import evaluateDefineFunction from './nodes/DefineFunction';
-import evaluateDefineLambdaFunction from './nodes/DefineLambdaFunction';
-import evaluateDefineVariable from './nodes/DefineVariable';
+import evaluateLambda from './nodes/Lambda';
 import evaluateDivided from './nodes/Divided';
 import evaluateEquals from './nodes/Equals';
 import evaluateFunctionCall from './nodes/FunctionCall';
@@ -20,6 +18,7 @@ import evaluatePower from './nodes/Power';
 import evaluateSymbol from './nodes/Symbol';
 import evaluateTimes from './nodes/Times';
 import evaluateVector from './nodes/Vector';
+import evaluateDefine from './nodes/Define';
 
 export default function evaluate(node: SyntaxTreeNode, context: Context) {
     switch (node.type) {
@@ -77,14 +76,11 @@ export default function evaluate(node: SyntaxTreeNode, context: Context) {
         case 'functionCall':
             return evaluateFunctionCall(node, context);
 
-        case 'defineVariable':
-            return evaluateDefineVariable(node, context);
+        case 'lambda':
+            return evaluateLambda(node, context);
 
-        case 'defineFunction':
-            return evaluateDefineFunction(node, context);
-
-        case 'defineLambdaFunction':
-            return evaluateDefineLambdaFunction(node, context);
+        case 'define':
+            return evaluateDefine(node, context);
 
         default:
             throw `EvaluationError: unknown node type`;
