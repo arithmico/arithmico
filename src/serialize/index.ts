@@ -112,6 +112,6 @@ export default function serialize(node: SyntaxTreeNode, options: Options): strin
             return serialize(node.value, options);
 
         default:
-            throw 'SerializationError: Unknown node type';
+            throw `SerializationError: Unknown node type ${node.type}`;
     }
 }
