@@ -20,7 +20,7 @@ export function mapParametersToStackFrame(
         }
 
         for (const parameter of parameters.slice(parameterIndex)) {
-            if (parameter.type === headerItem.type) {
+            if (parameter.type === headerItem.type || headerItem.type === 'any') {
                 parameterIndex++;
                 if (headerItem.repeat) {
                     stackFrame[`${headerItem.name}_${matched}`] = parameter;
@@ -36,7 +36,7 @@ export function mapParametersToStackFrame(
                 if (headerItem.optional) {
                     break;
                 }
-                throw `TypeError: ${name}: argument ${parameterIndex + 1}: expected ${headerItem.type} got ${
+                throw `TypeError: ${name}: argument #${parameterIndex + 1}: expected ${headerItem.type} got ${
                     parameter.type
                 }`;
             }
