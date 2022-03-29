@@ -47,7 +47,7 @@ export default function CalculatorToolbar() {
       <Button onClick={resetInput}>Reset Input</Button>
       <Button onClick={resetOutput}>Reset Output</Button>
 
-      <Button disabled>Show Definitions</Button>
+      <Button onClick={() => navigate('/definitions')}>Show Definitions</Button>
       <Button onClick={resetDefinitions}>Reset Definitions</Button>
 
       <Button onClick={() => navigate('/protocol')}>Show Protocol</Button>

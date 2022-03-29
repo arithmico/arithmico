@@ -16,7 +16,7 @@ const SettingsSectionHeading = styled.h1`
 
 const SettingsList = styled.ul`
   list-style: none;
-  padding: 0 80px;
+  padding: 0 5rem;
   margin: 0;
 `;
 
