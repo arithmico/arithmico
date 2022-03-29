@@ -1,3 +1,4 @@
+import { SyntaxTreeNode } from './../types/SyntaxTreeNodes';
 import createAnd from '../create/And';
 import createBooleanNode from '../create/BooleanNode';
 import createDivided from '../create/Divided';
@@ -16,6 +17,9 @@ import createPower from '../create/Power';
 import createSymbolNode from '../create/SymbolNode';
 import createTimes from '../create/Times';
 import createVector from '../create/Vector';
+import createFunction from '../create/Function';
+import createDefine from '../create/Define';
+import createLambda from '../create/Lambda';
 
 describe('create primitives nodes', () => {
     test('create number', () => {
@@ -144,6 +148,34 @@ describe('create miscellaneous nodes', () => {
             type: 'functionCall',
             function: createSymbolNode('foo'),
             parameters: [createNumberNode(42)],
+        });
+    });
+
+    test('create function', () => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const evaluator = (_params: SyntaxTreeNode[]) => createNumberNode(42);
+        expect(createFunction(true, evaluator, [{ type: 'number', name: 'x' }], 'foo')).toStrictEqual({
+            type: 'function',
+            evaluateParametersBefore: true,
+            evaluator,
+            header: [{ type: 'number', name: 'x' }],
+            serialized: 'foo',
+        });
+    });
+
+    test('create define', () => {
+        expect(createDefine('foo', createNumberNode(42))).toStrictEqual({
+            type: 'define',
+            name: 'foo',
+            value: createNumberNode(42),
+        });
+    });
+
+    test('create lambda', () => {
+        expect(createLambda([{ type: 'number', name: 'x' }], createNumberNode(42))).toStrictEqual({
+            type: 'lambda',
+            header: [{ type: 'number', name: 'x' }],
+            value: createNumberNode(42),
         });
     });
 
