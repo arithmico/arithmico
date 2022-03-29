@@ -18,6 +18,7 @@ import createDivided from '../create/Divided';
 import createTimes from '../create/Times';
 import createPower from '../create/Power';
 import createNegate from '../create/Negate';
+import createFunction from '../create/Function';
 
 const testOptions: Options = {
     decimalPlaces: 4,
@@ -559,6 +560,16 @@ describe('serialize miscellaneous nodes', () => {
         expect(serialize(createNegate(createPlus(createSymbolNode('a'), createSymbolNode('b'))), testOptions)).toBe(
             '-(a + b)',
         );
+    });
+
+    test('serialize function', () => {
+        expect(
+            serialize(
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                createFunction(true, (_params) => createNumberNode(42), [], 'test'),
+                testOptions,
+            ),
+        ).toBe('test');
     });
 });
 
