@@ -128,7 +128,7 @@ export interface Power {
 
 export interface FunctionCall {
     type: 'functionCall';
-    name: string;
+    function: SyntaxTreeNode;
     parameters: SyntaxTreeNode[];
 }
 

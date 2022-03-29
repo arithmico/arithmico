@@ -537,13 +537,16 @@ describe('serialize miscellaneous nodes', () => {
     });
 
     test('serialize function call - empty', () => {
-        expect(serialize(createFunctionCall('bar', []), testOptions)).toBe('bar()');
+        expect(serialize(createFunctionCall(createSymbolNode('bar'), []), testOptions)).toBe('bar()');
     });
 
     test('serialize function call - empty', () => {
-        expect(serialize(createFunctionCall('foo', [createNumberNode(42), createSymbolNode('x')]), testOptions)).toBe(
-            'foo(42, x)',
-        );
+        expect(
+            serialize(
+                createFunctionCall(createSymbolNode('foo'), [createNumberNode(42), createSymbolNode('x')]),
+                testOptions,
+            ),
+        ).toBe('foo(42, x)');
     });
 
     test('serialize negate - no brackets', () => {

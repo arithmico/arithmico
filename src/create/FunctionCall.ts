@@ -1,9 +1,9 @@
 import { SyntaxTreeNode, FunctionCall } from '../types';
 
-export default function createFunctionCall(name: string, parameters: SyntaxTreeNode[]): FunctionCall {
+export default function createFunctionCall(func: SyntaxTreeNode, parameters: SyntaxTreeNode[]): FunctionCall {
     return {
         type: 'functionCall',
-        name,
+        function: func,
         parameters,
     };
 }

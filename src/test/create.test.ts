@@ -140,9 +140,9 @@ describe('create arithmetic nodes', () => {
 
 describe('create miscellaneous nodes', () => {
     test('create function call', () => {
-        expect(createFunctionCall('foo', [createNumberNode(42)])).toEqual({
+        expect(createFunctionCall(createSymbolNode('foo'), [createNumberNode(42)])).toEqual({
             type: 'functionCall',
-            name: 'foo',
+            function: createSymbolNode('foo'),
             parameters: [createNumberNode(42)],
         });
     });
