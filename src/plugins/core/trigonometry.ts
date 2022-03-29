@@ -39,7 +39,7 @@ function addTrigonometryFunction(name: string, func: (v: number) => number, enNa
         function: {
             type: 'function',
             header,
-            serialized: `(x: number) -> ${name}(x)`,
+            serialized: `(x: number) → ${name}(x)`,
             evaluateParametersBefore: true,
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             evaluator: (parameters: SyntaxTreeNode[], _context: Context): SyntaxTreeNode => {
