@@ -20,7 +20,7 @@ const useSessionStore = create<SessionState>(
 
       evaluate: () => set(evaluateInput),
       resetDefinitions: () => set(resetDefinitions),
-      setInput: (input) => set(() => ({ input })),
+      setInput: (input) => set(() => ({ input: input.replace('->', '→') })),
       resetInput: () => set(() => ({ input: '' })),
       resetOutput: () => set(() => ({ outputResetted: true })),
       resetProtocol: () => set(() => ({ protocol: [] })),
