@@ -1,16 +1,9 @@
+import serialize from '../serialize';
 import { Context, SyntaxTreeNode } from '../types';
-
-function isNameAlreadyTaken(name: string, context: Context) {
-    return context.stack.some((stackFrame) => !!stackFrame[name]);
-}
 
 export function useStrictContextValidator(name: string, context: Context) {
     if (context.stack.length === 0) {
         throw 'ContextError: no stackframes available';
-    }
-
-    if (isNameAlreadyTaken(name, context)) {
-        throw `ContextError: ${name} is already defined`;
     }
 }
 
@@ -28,4 +21,17 @@ export function insertStackObject(name: string, stackObject: SyntaxTreeNode, con
                 : stackFrame,
         ),
     };
+}
+
+export function serializeStack(context: Context): Record<string, string> {
+    if (context.stack.length === 0) {
+        return {};
+    }
+
+    return Object.fromEntries(
+        Object.entries(context.stack[context.stack.length - 1]).map(([name, node]) => [
+            name,
+            serialize(node, context.options),
+        ]),
+    );
 }
