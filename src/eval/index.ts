@@ -79,6 +79,9 @@ export default function evaluate(node: SyntaxTreeNode, context: Context) {
         case 'lambda':
             return evaluateLambda(node, context);
 
+        case 'function':
+            return node;
+
         case 'define':
             return evaluateDefine(node, context);
 
