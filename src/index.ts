@@ -7,6 +7,8 @@ import loadPlugins from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry';
 import { insertStackObject } from './utils/context-utils';
 
+export { serializeStack } from './utils/context-utils';
+
 const defaultOptions: Options = {
     decimalPlaces: 6,
     decimalSeparator: '.',
