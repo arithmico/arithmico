@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Textfield = styled.input.attrs({ type: 'text' })`
   background-color: var(--me-background-100);
   outline: none;
-  border: 1px solid var(--me-text-400);
+  border: thin solid var(--me-text-400);
   border-radius: 10px;
   width: 100%;
   min-width: 100px;

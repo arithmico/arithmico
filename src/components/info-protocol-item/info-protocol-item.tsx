@@ -9,7 +9,7 @@ const Container = styled.li`
   padding: 20px;
   border-radius: 0.25em;
   list-style: none;
-  border: 1px solid var(--me-text-100);
+  border: thin solid var(--me-text-100);
   color: var(--me-text-200);
 
   & > span {

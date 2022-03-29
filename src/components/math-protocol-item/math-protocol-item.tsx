@@ -10,7 +10,7 @@ const Container = styled.li<{ isError: boolean }>`
   background-color: var(--me-background-100);
   border-radius: 0.25em;
   list-style: none;
-  ${({ isError }) => isError && 'border: 1px solid var(--me-error);'}
+  ${({ isError }) => isError && 'border: thin solid var(--me-error);'}
   color: ${({ isError }) => (isError ? 'var(--me-error)' : 'var(--me-text-400)')};
 
   & > span {
