@@ -4,7 +4,7 @@ import { MathItem } from '../../stores/session-store/types';
 
 const Container = styled.li<{ isError: boolean }>`
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 2fr;
   grid-gap: 1em;
   padding: 20px;
   background-color: var(--me-background-100);
@@ -15,6 +15,7 @@ const Container = styled.li<{ isError: boolean }>`
 
   & > span {
     font-size: 2em;
+    font-family: 'Source Code Pro', monospace;
   }
 `;
 

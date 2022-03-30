@@ -23,6 +23,7 @@ const DefinitionList = styled.dl`
   dd {
     font-size: 2rem;
     font-weight: 300;
+    font-family: 'Source Code Pro', monospace;
     padding-left: 5rem;
   }
 
@@ -35,6 +36,7 @@ const DefinitionList = styled.dl`
 
   & > dd::before {
     content: ':=';
+    font-family: 'Source Code Pro', monospace;
     padding-right: 2rem;
   }
 `;

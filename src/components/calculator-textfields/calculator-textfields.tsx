@@ -13,7 +13,11 @@ const TextfieldsContainer = styled.main`
   justify-content: center;
 `;
 
-const ErrorTextfield = styled(Textfield)`
+const MathTextfield = styled(Textfield)`
+  font-family: 'Source Code Pro', monospace;
+`;
+
+const ErrorTextfield = styled(MathTextfield)`
   color: var(--me-error);
 `;
 
@@ -56,7 +60,7 @@ export default function CalculatorTextfields() {
     <TextfieldsContainer>
       <LabelContainer>
         <LabelText>Input</LabelText>
-        <Textfield
+        <MathTextfield
           placeholder="Input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -68,7 +72,7 @@ export default function CalculatorTextfields() {
         {isError ? (
           <ErrorTextfield placeholder="Output" readOnly value={lastOutput} />
         ) : (
-          <Textfield placeholder="Output" readOnly value={lastOutput} />
+          <MathTextfield placeholder="Output" readOnly value={lastOutput} />
         )}
       </LabelContainer>
     </TextfieldsContainer>
