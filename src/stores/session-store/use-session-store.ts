@@ -17,6 +17,7 @@ const useSessionStore = create<SessionState>(
       decimalPlaces: getDefaultContext().options.decimalPlaces,
       interfaceFontSize: 'medium',
       theme: 'light',
+      excludeInfoInProtocol: true as boolean,
 
       evaluate: () => set(evaluateInput),
       resetDefinitions: () => set(resetDefinitions),
@@ -27,15 +28,17 @@ const useSessionStore = create<SessionState>(
       setDecimalPlaces: (n) => set(() => ({ decimalPlaces: n })),
       setInterfaceFontSize: (interfaceFontSize: SessionState['interfaceFontSize']) =>
         set(() => ({ interfaceFontSize })),
-      setTheme: (theme) => set(() => ({ theme }))
+      setTheme: (theme) => set(() => ({ theme })),
+      setExcludeInfoInProtocol: (value: boolean) => set(() => ({ excludeInfoInProtocol: value }))
     }),
     {
       name: 'settings',
-      version: 2,
+      version: 3,
       partialize: (state) => ({
         decimalPlaces: state.decimalPlaces,
         interfaceFontSize: state.interfaceFontSize,
-        theme: state.theme
+        theme: state.theme,
+        excludeInfoInProtocol: state.excludeInfoInProtocol
       })
     }
   )

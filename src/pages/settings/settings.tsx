@@ -20,6 +20,10 @@ export default function Settings() {
   ]);
   const [numberFormat, setNumberFormat] = useState('default');
   const [enableAnalytics, setEnableAnalytics] = useState(true);
+  const [excludeInfo, setExcludeInfo] = useSessionStore((state) => [
+    state.excludeInfoInProtocol,
+    state.setExcludeInfoInProtocol
+  ]);
 
   return (
     <PageContainer>
@@ -37,6 +41,11 @@ export default function Settings() {
           label="Copy manual content by clicking"
           enabled={copyMaualContentByClicking}
           onChange={setCopyMaualContentByClicking}
+        />
+        <SettingsSwitch
+          label="Exclude info in protocol"
+          enabled={excludeInfo}
+          onChange={setExcludeInfo}
         />
       </SettingsSection>
 

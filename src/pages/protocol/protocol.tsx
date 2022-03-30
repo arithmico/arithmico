@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import InfoProtocolItem from '../../components/info-protocol-item/info-protocol-item';
 import MathProtocolItem from '../../components/math-protocol-item/math-protocol-item';
 import PageContainer from '../../components/page-container/page-container';
+import { InfoItem, MathItem } from '../../stores/session-store/types';
 import useSessionStore from '../../stores/session-store/use-session-store';
 
 const Container = styled(PageContainer)`
@@ -69,9 +70,14 @@ const HistoryContainer = styled.ul`
 export default function Protocol() {
   const navigate = useNavigate();
   const history = useSessionStore((state) => state.protocol);
+  const excludeInfo = useSessionStore((state) => state.excludeInfoInProtocol);
   const containerRef = useRef<HTMLUListElement>(null);
   useEffect(() => {
     if (!containerRef.current) {
+      return;
+    }
+
+    if (containerRef.current.children.length === 0) {
       return;
     }
 
@@ -80,6 +86,12 @@ export default function Protocol() {
     });
   }, [history, containerRef]);
 
+  const protocolItems: (MathItem | InfoItem)[] = [
+    ...getLoadingLog().map((value) => ({ type: 'info', info: value } as InfoItem)),
+    ...history
+  ].filter((item) => item.type === 'math' || !excludeInfo);
+  console.log(protocolItems);
+
   return (
     <Container>
       <Header>
@@ -87,10 +99,7 @@ export default function Protocol() {
         <BackButton onClick={() => navigate('/')}>back</BackButton>
       </Header>
       <HistoryContainer ref={containerRef}>
-        {getLoadingLog().map((value, index) => (
-          <InfoProtocolItem key={index} item={{ type: 'info', info: value }} />
-        ))}
-        {history.map((historyItem, index) =>
+        {protocolItems.map((historyItem, index) =>
           historyItem.type === 'math' ? (
             <MathProtocolItem item={historyItem} key={index} />
           ) : (

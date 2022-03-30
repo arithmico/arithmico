@@ -22,6 +22,7 @@ export interface SessionState {
   decimalPlaces: number;
   interfaceFontSize: string;
   theme: string;
+  excludeInfoInProtocol: boolean;
 
   evaluate: () => void;
   resetDefinitions: () => void;
@@ -32,4 +33,5 @@ export interface SessionState {
   setDecimalPlaces: (n: number) => void;
   setInterfaceFontSize: (size: string) => void;
   setTheme: (theme: string) => void;
+  setExcludeInfoInProtocol: (value: boolean) => void;
 }
