@@ -1,6 +1,8 @@
 import evaluate from '..';
+import createDivided from '../../create/Divided';
 import createNumberNode from '../../create/NumberNode';
 import { Divided, Context, SyntaxTreeNode } from '../../types';
+import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 
 export default function evaluateDivided(node: Divided, context: Context): SyntaxTreeNode {
     const leftChild = evaluate(node.left, context);
@@ -12,6 +14,8 @@ export default function evaluateDivided(node: Divided, context: Context): Syntax
         }
 
         return createNumberNode(leftChild.value / rightChild.value);
+    } else if (leftChild.type === 'function' && rightChild.type === 'function') {
+        return createBinaryOperatorFunctionComposition(leftChild, rightChild, createDivided, context);
     }
 
     throw `TypeError: <${leftChild.type}> / <${rightChild.type}> is not defined`;

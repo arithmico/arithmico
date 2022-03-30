@@ -3,6 +3,7 @@ import createMinus from '../../create/Minus';
 import createNumberNode from '../../create/NumberNode';
 import createVector from '../../create/Vector';
 import { Minus, Context, SyntaxTreeNode } from '../../types';
+import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 import { compareShapesOfVectors } from '../../utils/vector-utils';
 
 export default function evaluateMinus(node: Minus, context: Context): SyntaxTreeNode {
@@ -22,6 +23,8 @@ export default function evaluateMinus(node: Minus, context: Context): SyntaxTree
             ),
             context,
         );
+    } else if (leftChild.type === 'function' && rightChild.type === 'function') {
+        return createBinaryOperatorFunctionComposition(leftChild, rightChild, createMinus, context);
     }
 
     throw `TypeError: <${leftChild.type}> - <${rightChild.type}> is not defined`;

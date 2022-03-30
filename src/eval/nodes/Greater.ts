@@ -1,6 +1,8 @@
 import evaluate from '..';
 import createBooleanNode from '../../create/BooleanNode';
+import createGreater from '../../create/Greater';
 import { Greater, Context, SyntaxTreeNode } from '../../types';
+import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 
 export default function evaluateGreater(node: Greater, context: Context): SyntaxTreeNode {
     const leftChild = evaluate(node.left, context);
@@ -8,6 +10,8 @@ export default function evaluateGreater(node: Greater, context: Context): Syntax
 
     if (leftChild.type === 'number' && rightChild.type === 'number') {
         return createBooleanNode(leftChild.value > rightChild.value);
+    } else if (leftChild.type === 'function' && rightChild.type === 'function') {
+        return createBinaryOperatorFunctionComposition(leftChild, rightChild, createGreater, context);
     }
 
     throw `TypeError: <${leftChild.type}> > <${rightChild.type}> is not defined`;

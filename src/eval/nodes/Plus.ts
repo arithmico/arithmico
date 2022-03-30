@@ -1,12 +1,9 @@
 import evaluate from '..';
-import createFunctionCall from '../../create/FunctionCall';
-import createLambda from '../../create/Lambda';
 import createNumberNode from '../../create/NumberNode';
 import createPlus from '../../create/Plus';
-import createSymbolNode from '../../create/SymbolNode';
 import createVector from '../../create/Vector';
 import { Plus, Context, SyntaxTreeNode } from '../../types';
-import { compareFunctionHeaders } from '../../utils/parameter-utils';
+import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 import { compareShapesOfVectors } from '../../utils/vector-utils';
 
 export default function evaluatePlus(node: Plus, context: Context): SyntaxTreeNode {
@@ -27,26 +24,7 @@ export default function evaluatePlus(node: Plus, context: Context): SyntaxTreeNo
             context,
         );
     } else if (leftChild.type === 'function' && rightChild.type === 'function') {
-        if (!compareFunctionHeaders(leftChild.header, rightChild.header)) {
-            throw `TypeError: incompatible function signatures`;
-        }
-
-        return evaluate(
-            createLambda(
-                leftChild.header,
-                createPlus(
-                    createFunctionCall(
-                        leftChild,
-                        leftChild.header.map((headerItem) => createSymbolNode(headerItem.name)),
-                    ),
-                    createFunctionCall(
-                        rightChild,
-                        leftChild.header.map((headerItem) => createSymbolNode(headerItem.name)),
-                    ),
-                ),
-            ),
-            context,
-        );
+        return createBinaryOperatorFunctionComposition(leftChild, rightChild, createPlus, context);
     }
 
     throw `TypeError: <${leftChild.type}> + <${rightChild.type}> is not defined`;

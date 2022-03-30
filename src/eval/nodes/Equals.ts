@@ -1,6 +1,8 @@
 import evaluate from '..';
 import createBooleanNode from '../../create/BooleanNode';
+import createEquals from '../../create/Equals';
 import { Equals, Context, SyntaxTreeNode } from '../../types';
+import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 
 export default function evaluateEquals(node: Equals, context: Context): SyntaxTreeNode {
     const leftChild = evaluate(node.left, context);
@@ -11,6 +13,8 @@ export default function evaluateEquals(node: Equals, context: Context): SyntaxTr
         (leftChild.type === 'number' && rightChild.type === 'number')
     ) {
         return createBooleanNode(leftChild.value === rightChild.value);
+    } else if (leftChild.type === 'function' && rightChild.type === 'function') {
+        return createBinaryOperatorFunctionComposition(leftChild, rightChild, createEquals, context);
     }
 
     throw `TypeError: <${leftChild.type}> & <${rightChild.type}> is not defined`;

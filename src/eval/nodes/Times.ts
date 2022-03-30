@@ -4,6 +4,7 @@ import createPlus from '../../create/Plus';
 import createTimes from '../../create/Times';
 import createVector from '../../create/Vector';
 import { Times, Context, SyntaxTreeNode, Vector } from '../../types';
+import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 import { getVectorDimensions, getVectorElement } from '../../utils/vector-utils';
 
 function matrixTimesMatrixItem(leftMatrix: Vector, rightMatrix: Vector, x: number, y: number): SyntaxTreeNode {
@@ -95,6 +96,8 @@ export default function evaluateTimes(node: Times, context: Context): SyntaxTree
         }
 
         throw 'ShapeError: incompatible vector shapes';
+    } else if (leftChild.type === 'function' && rightChild.type === 'function') {
+        return createBinaryOperatorFunctionComposition(leftChild, rightChild, createTimes, context);
     }
 
     throw `TypeError: <${leftChild.type}> * <${rightChild.type}> is not defined`;
