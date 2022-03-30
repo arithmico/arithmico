@@ -30,11 +30,10 @@ export default function evaluateLambda(node: Lambda, context: Context): SyntaxTr
         return evaluate(node.value, localContext);
     };
 
-    const serialized = `(${node.header.map(serializeHeaderItem).join(', ')}) → ${
-        node.value.type === 'lambda' || node.value.type === 'function'
-            ? `(${serialize(node.value, context.options)})`
-            : serialize(node.value, context.options)
-    }`;
+    const serialized = `((${node.header.map(serializeHeaderItem).join(', ')}) → ${serialize(
+        node.value,
+        context.options,
+    )})`;
 
     return createFunction(true, evaluator, node.header, serialized);
 }
