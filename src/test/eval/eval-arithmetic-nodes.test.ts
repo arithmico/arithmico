@@ -65,8 +65,32 @@ describe('evaluate minus node', () => {
         );
     });
 
+    test('evaluate plus - vectors', () => {
+        expect(
+            evaluate(
+                createMinus(
+                    createVector([createNumberNode(1), createNumberNode(2)]),
+                    createVector([createNumberNode(3), createNumberNode(4)]),
+                ),
+                testContext,
+            ),
+        ).toStrictEqual(createVector([createNumberNode(-2), createNumberNode(-2)]));
+    });
+
     test('evaluate minus - throw', () => {
         expect(() => evaluate(createMinus(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
+    });
+
+    test('evaluate plus - throw incompatible shapes', () => {
+        expect(() =>
+            evaluate(
+                createMinus(
+                    createVector([createNumberNode(1), createNumberNode(2)]),
+                    createVector([createNumberNode(3), createNumberNode(4), createNumberNode(5)]),
+                ),
+                testContext,
+            ),
+        ).toThrow();
     });
 });
 
