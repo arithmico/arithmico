@@ -41,6 +41,11 @@ export default function CalculatorToolbar() {
   const resetInput = useSessionStore((state) => state.resetInput);
   const resetOutput = useSessionStore((state) => state.resetOutput);
   const resetProtocol = useSessionStore((store) => store.resetProtocol);
+  const resetAll = () => {
+    resetInput();
+    resetProtocol();
+    resetDefinitions();
+  };
 
   return (
     <ToolbarContainer>
@@ -53,8 +58,8 @@ export default function CalculatorToolbar() {
       <Button onClick={() => navigate('/protocol')}>Show Protocol</Button>
       <Button onClick={resetProtocol}>Reset Protocol</Button>
 
-      <Button disabled>Clear All</Button>
       <Button disabled>Toggle Zen Mode</Button>
+      <Button onClick={resetAll}>Reset All</Button>
     </ToolbarContainer>
   );
 }
