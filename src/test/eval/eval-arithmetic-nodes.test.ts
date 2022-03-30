@@ -1,9 +1,12 @@
 import createBooleanNode from '../../create/BooleanNode';
 import createDivided from '../../create/Divided';
+import createFunctionCall from '../../create/FunctionCall';
+import createLambda from '../../create/Lambda';
 import createMinus from '../../create/Minus';
 import createNumberNode from '../../create/NumberNode';
 import createPlus from '../../create/Plus';
 import createPower from '../../create/Power';
+import createSymbolNode from '../../create/SymbolNode';
 import createTimes from '../../create/Times';
 import createVector from '../../create/Vector';
 import evaluate from '../../eval';
@@ -41,11 +44,20 @@ describe('evaluate plus node', () => {
         ).toStrictEqual(createVector([createNumberNode(4), createNumberNode(6)]));
     });
 
+    test('evaluate plus - functions', () => {
+        const funcA = evaluate(createLambda([{ name: 'x', type: 'number' }], createSymbolNode('x')), testContext);
+        const funcB = evaluate(createLambda([{ name: 'y', type: 'number' }], createSymbolNode('y')), testContext);
+        const combinedFunc = evaluate(createPlus(funcA, funcB), testContext);
+        expect(evaluate(createFunctionCall(combinedFunc, [createNumberNode(2)]), testContext)).toStrictEqual(
+            createNumberNode(4),
+        );
+    });
+
     test('evaluate plus - throw', () => {
         expect(() => evaluate(createPlus(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
     });
 
-    test('evaluate plus - throw incompatible shapes', () => {
+    test('evaluate plus - throw incompatible vector shapes', () => {
         expect(() =>
             evaluate(
                 createPlus(
@@ -55,6 +67,21 @@ describe('evaluate plus node', () => {
                 testContext,
             ),
         ).toThrow();
+    });
+
+    test('evaluate plus - throw incompatible function headers', () => {
+        const funcA = evaluate(createLambda([{ name: 'x', type: 'number' }], createSymbolNode('x')), testContext);
+        const funcB = evaluate(
+            createLambda(
+                [
+                    { name: 'y', type: 'number' },
+                    { name: 'z', type: 'number' },
+                ],
+                createSymbolNode('y'),
+            ),
+            testContext,
+        );
+        expect(() => evaluate(createPlus(funcA, funcB), testContext)).toThrow();
     });
 });
 

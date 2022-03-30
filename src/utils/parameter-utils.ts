@@ -51,3 +51,14 @@ export function mapParametersToStackFrame(
 
     return stackFrame;
 }
+
+export function compareFunctionHeaders(headerA: FunctionHeaderItem[], headerB: FunctionHeaderItem[]): boolean {
+    if (headerA.length !== headerB.length) return false;
+
+    return headerA.every(
+        (_, index) =>
+            headerA[index].type === headerB[index].type &&
+            headerA[index].repeat === headerB[index].repeat &&
+            headerA[index].optional === headerB[index].optional,
+    );
+}
