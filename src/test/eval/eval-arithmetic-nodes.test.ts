@@ -69,7 +69,7 @@ describe('evaluate plus node', () => {
         ).toThrow();
     });
 
-    test('evaluate plus - throw incompatible function headers', () => {
+    test('evaluate plus - throw incompatible function headers (length)', () => {
         const funcA = evaluate(createLambda([{ name: 'x', type: 'number' }], createSymbolNode('x')), testContext);
         const funcB = evaluate(
             createLambda(
@@ -81,6 +81,12 @@ describe('evaluate plus node', () => {
             ),
             testContext,
         );
+        expect(() => evaluate(createPlus(funcA, funcB), testContext)).toThrow();
+    });
+
+    test('evaluate plus - throw incompatible function headers (type)', () => {
+        const funcA = evaluate(createLambda([{ name: 'x', type: 'number' }], createSymbolNode('x')), testContext);
+        const funcB = evaluate(createLambda([{ name: 'y', type: 'boolean' }], createSymbolNode('y')), testContext);
         expect(() => evaluate(createPlus(funcA, funcB), testContext)).toThrow();
     });
 });
