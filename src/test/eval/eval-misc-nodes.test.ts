@@ -58,7 +58,7 @@ describe('evaluate lambda', () => {
         expect(lambda.type).toBe('function');
         expect(lambda.evaluateParametersBefore).toBe(true);
         expect(lambda.header).toStrictEqual([{ type: 'number', name: 'x' }]);
-        expect(lambda.serialized).toBe('(x: number) → x');
+        expect(lambda.serialized).toBe('((x: number) → x)');
         expect(typeof lambda.evaluator).toBe('function');
     });
 
