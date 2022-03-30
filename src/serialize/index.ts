@@ -19,6 +19,7 @@ import serializeVector from './nodes/Vector';
 
 const serializePrecedents: SyntaxTreeNode['type'][] = [
     'define',
+    'function',
     'or',
     'and',
     'equals',
