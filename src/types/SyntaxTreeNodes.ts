@@ -23,6 +23,20 @@ export type SyntaxTreeNode =
     | Lambda
     | Define;
 
+export type BinarySyntaxTreeNode =
+    | Or
+    | And
+    | Equals
+    | Less
+    | Greater
+    | LessOrEquals
+    | GreaterOrEquals
+    | Plus
+    | Minus
+    | Times
+    | Divided
+    | Power;
+
 export interface Define {
     type: 'define';
     name: string;
