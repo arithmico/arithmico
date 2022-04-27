@@ -16,7 +16,9 @@ export function createBinaryOperatorFunctionComposition(
     }
 
     const rightExpression = leftFunc.header.reduce((expr, headerItem, index) => {
-        const exprWithoutNameConflicts = resolveNameConflicts(expr, headerItem.name);
+        const exprWithoutNameConflicts =
+            headerItem.name !== rightFunc.header[index].name ? resolveNameConflicts(expr, headerItem.name) : expr;
+
         return replace(
             exprWithoutNameConflicts,
             (node: SyntaxTreeNode) => node.type === 'symbol' && node.name === rightFunc.header[index].name,

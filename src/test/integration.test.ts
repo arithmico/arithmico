@@ -70,6 +70,7 @@ integrationTest('sin(pi/2)', '1');
 integrationTest('((x)->x^2)(2)', '4');
 integrationTest('((x: number) -> x+1)(3)', '4');
 integrationTest('((x: number) -> x) + ((y: number) -> y^2)', '(x: number) → x + x^2');
+integrationTest('((x: number) -> x) + ((x: number) -> x^2)', '(x: number) → x + x^2');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
