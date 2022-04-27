@@ -129,7 +129,7 @@ describe('evaluate minus node', () => {
         expect(() => evaluate(createMinus(createNumberNode(1), createBooleanNode(true)), testContext)).toThrow();
     });
 
-    test('evaluate plus - throw incompatible shapes', () => {
+    test('evaluate minus - throw incompatible shapes', () => {
         expect(() =>
             evaluate(
                 createMinus(
