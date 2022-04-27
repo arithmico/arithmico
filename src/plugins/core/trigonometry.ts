@@ -10,6 +10,8 @@ import {
 } from '../../utils/plugin-builder';
 import { closeTo } from '../../utils/float-utils';
 import { mapParametersToStackFrame } from '../../utils/parameter-utils';
+import createFunctionCall from '../../create/FunctionCall';
+import createSymbolNode from '../../create/SymbolNode';
 
 const trigonometryPlugin = createPlugin('core/trigonometry');
 
@@ -32,20 +34,17 @@ addPluginConstant(trigonometryPlugin, {
 });
 
 function addTrigonometryFunction(name: string, func: (v: number) => number, enName: string, deName: string) {
-    const header: FunctionHeaderItem[] = [{ type: 'number', name: 'x' }];
+    const header: FunctionHeaderItem[] = [{ type: 'number', name: 'x', evaluate: true }];
 
     addPluginFunction(trigonometryPlugin, {
         name: name,
         function: {
             type: 'function',
             header,
-            serialized: `(x: number) → ${name}(x)`,
-            evaluateParametersBefore: true,
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            evaluator: (parameters: SyntaxTreeNode[], _context: Context): SyntaxTreeNode => {
-                mapParametersToStackFrame(name, parameters, header);
-
-                const value = func((parameters[0] as NumberNode).value);
+            expression: createFunctionCall(createSymbolNode(name), [createSymbolNode('x')]),
+            evaluator: (parameters: SyntaxTreeNode[], context: Context): SyntaxTreeNode => {
+                const stackFrame = mapParametersToStackFrame(name, parameters, header, context);
+                const value = func((stackFrame.x as NumberNode).value);
 
                 if (closeTo(value, 0)) {
                     return createNumberNode(0);

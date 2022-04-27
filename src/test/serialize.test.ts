@@ -566,10 +566,10 @@ describe('serialize miscellaneous nodes', () => {
         expect(
             serialize(
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                createFunction(true, (_params) => createNumberNode(42), [], 'test'),
+                createFunction((_params) => createNumberNode(42), [], createNumberNode(42)),
                 testOptions,
             ),
-        ).toBe('test');
+        ).toBe('() → 42');
     });
 });
 

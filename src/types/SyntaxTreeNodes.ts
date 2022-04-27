@@ -45,14 +45,14 @@ export interface Define {
 export interface FunctionNode {
     type: 'function';
     header: FunctionHeaderItem[];
-    evaluateParametersBefore: boolean;
-    serialized: string;
+    expression: SyntaxTreeNode;
     evaluator: (parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode;
 }
 
 export interface FunctionHeaderItem {
-    name: string;
     type: SyntaxTreeNode['type'] | 'any';
+    name: string;
+    evaluate: boolean;
     repeat?: boolean;
     optional?: boolean;
 }
@@ -60,7 +60,7 @@ export interface FunctionHeaderItem {
 export interface Lambda {
     type: 'lambda';
     header: FunctionHeaderItem[];
-    value: SyntaxTreeNode;
+    expression: SyntaxTreeNode;
 }
 
 export interface Or {

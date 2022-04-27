@@ -81,7 +81,8 @@ SymbolType = _ ":" _ type:("number" / "boolean" / "vector" / "function" / "any")
 TypedSymbol = symbol:Symbol type:SymbolType? {
     return {
         name: symbol.name,
-        type: type ? type : "any"
+        type: type ? type : "any",
+        evaluate: true
     };
 }
 SymbolListItem = _ "," _ symbol:TypedSymbol {
@@ -98,7 +99,7 @@ DefineFunction = symbol:Symbol _ "(" _ parameters:SymbolList _ ")" _ ":=" _ expr
             type: "lambda",
             name: symbol.name,
             header: parameters ? parameters : [],
-            value: expr
+            expression: expr
         }
     };
 }
@@ -109,7 +110,7 @@ DefineLambdaFunction = "(" _ parameters:SymbolList _ ")" _ ("->" / "→") _ expr
         type: "lambda",
         name: "lambda",
         header: parameters ? parameters : [],
-        value: expr
+        expression: expr
     };
 }
 

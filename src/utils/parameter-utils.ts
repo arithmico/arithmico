@@ -1,10 +1,12 @@
-import { StackFrame } from './../types/Context';
+import { Context, StackFrame } from './../types/Context';
 import { SyntaxTreeNode, FunctionHeaderItem } from '../types/SyntaxTreeNodes';
+import evaluate from '../eval';
 
 export function mapParametersToStackFrame(
     name: string,
     parameters: SyntaxTreeNode[],
     header: FunctionHeaderItem[],
+    context: Context,
 ): StackFrame {
     const stackFrame: StackFrame = {};
     let parameterIndex = 0;
@@ -20,13 +22,22 @@ export function mapParametersToStackFrame(
         }
 
         for (const parameter of parameters.slice(parameterIndex)) {
-            if (parameter.type === headerItem.type || headerItem.type === 'any') {
+            let evaluatedParameter;
+            if (headerItem.evaluate) {
+                evaluatedParameter = evaluate(parameter, context);
+            }
+
+            if (
+                (!headerItem.evaluate && parameter.type === headerItem.type) ||
+                (headerItem.evaluate && evaluatedParameter.type === headerItem.type) ||
+                headerItem.type === 'any'
+            ) {
                 parameterIndex++;
                 if (headerItem.repeat) {
-                    stackFrame[`${headerItem.name}_${matched}`] = parameter;
+                    stackFrame[`${headerItem.name}_${matched}`] = headerItem.evaluate ? evaluatedParameter : parameter;
                     matched++;
                 } else {
-                    stackFrame[headerItem.name] = parameter;
+                    stackFrame[headerItem.name] = headerItem.evaluate ? evaluatedParameter : parameter;
                     break;
                 }
             } else {

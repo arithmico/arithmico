@@ -154,12 +154,13 @@ describe('create miscellaneous nodes', () => {
     test('create function', () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const evaluator = (_params: SyntaxTreeNode[]) => createNumberNode(42);
-        expect(createFunction(true, evaluator, [{ type: 'number', name: 'x' }], 'foo')).toStrictEqual({
+        expect(
+            createFunction(evaluator, [{ type: 'number', name: 'x', evaluate: true }], createNumberNode(42)),
+        ).toStrictEqual({
             type: 'function',
-            evaluateParametersBefore: true,
             evaluator,
-            header: [{ type: 'number', name: 'x' }],
-            serialized: 'foo',
+            header: [{ type: 'number', name: 'x', evaluate: true }],
+            expression: createNumberNode(42),
         });
     });
 
@@ -172,10 +173,10 @@ describe('create miscellaneous nodes', () => {
     });
 
     test('create lambda', () => {
-        expect(createLambda([{ type: 'number', name: 'x' }], createNumberNode(42))).toStrictEqual({
+        expect(createLambda([{ type: 'number', name: 'x', evaluate: true }], createNumberNode(42))).toStrictEqual({
             type: 'lambda',
-            header: [{ type: 'number', name: 'x' }],
-            value: createNumberNode(42),
+            header: [{ type: 'number', name: 'x', evaluate: true }],
+            expression: createNumberNode(42),
         });
     });
 

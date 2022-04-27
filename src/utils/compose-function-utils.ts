@@ -1,9 +1,9 @@
-import createFunctionCall from '../create/FunctionCall';
 import createLambda from '../create/Lambda';
 import createSymbolNode from '../create/SymbolNode';
 import evaluate from '../eval';
 import { Context, FunctionNode, SyntaxTreeNode } from '../types';
 import { compareFunctionHeaders } from './parameter-utils';
+import { replace, resolveNameConflicts } from './symbolic-utils';
 
 export function createBinaryOperatorFunctionComposition(
     leftFunc: FunctionNode,
@@ -15,20 +15,18 @@ export function createBinaryOperatorFunctionComposition(
         throw `TypeError: incompatible function signatures`;
     }
 
+    const rightExpression = leftFunc.header.reduce((expr, headerItem, index) => {
+        const exprWithoutNameConflicts = resolveNameConflicts(expr, headerItem.name);
+        return replace(
+            exprWithoutNameConflicts,
+            (node: SyntaxTreeNode) => node.type === 'symbol' && node.name === rightFunc.header[index].name,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            (_node: SyntaxTreeNode) => createSymbolNode(headerItem.name),
+        );
+    }, rightFunc.expression);
+
     return evaluate(
-        createLambda(
-            leftFunc.header,
-            binaryOperatorCreator(
-                createFunctionCall(
-                    leftFunc,
-                    leftFunc.header.map((headerItem) => createSymbolNode(headerItem.name)),
-                ),
-                createFunctionCall(
-                    rightFunc,
-                    leftFunc.header.map((headerItem) => createSymbolNode(headerItem.name)),
-                ),
-            ),
-        ),
+        createLambda(leftFunc.header, binaryOperatorCreator(leftFunc.expression, rightExpression)),
         context,
     );
 }

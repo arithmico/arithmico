@@ -107,7 +107,7 @@ export default function serialize(node: SyntaxTreeNode, options: Options): strin
             return node.name;
 
         case 'function':
-            return serializeFunction(node);
+            return serializeFunction(node, options);
 
         case 'define':
             return serialize(node.value, options);

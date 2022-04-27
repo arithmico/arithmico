@@ -20,11 +20,10 @@ const testContext: Context = {
             a: createNumberNode(42),
             g: {
                 type: 'function',
-                evaluateParametersBefore: true,
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 evaluator: (_params, _context) => createNumberNode(42),
-                serialized: 'foo',
-                header: [{ type: 'number', name: 'x' }],
+                expression: createNumberNode(42),
+                header: [{ type: 'number', name: 'x', evaluate: true }],
             },
         },
     ],
@@ -53,18 +52,17 @@ describe('evaluate negate', () => {
 describe('evaluate lambda', () => {
     test('evaluate lambda', () => {
         const lambda = <FunctionNode>(
-            evaluate(createLambda([{ type: 'number', name: 'x' }], createSymbolNode('x')), testContext)
+            evaluate(createLambda([{ type: 'number', name: 'x', evaluate: true }], createSymbolNode('x')), testContext)
         );
         expect(lambda.type).toBe('function');
-        expect(lambda.evaluateParametersBefore).toBe(true);
-        expect(lambda.header).toStrictEqual([{ type: 'number', name: 'x' }]);
-        expect(lambda.serialized).toBe('((x: number) → x)');
+        expect(lambda.header).toStrictEqual([{ type: 'number', name: 'x', evaluate: true }]);
+        expect(lambda.expression).toStrictEqual(createSymbolNode('x'));
         expect(typeof lambda.evaluator).toBe('function');
     });
 
     test('evaluate lambda call', () => {
         const lambda = <FunctionNode>(
-            evaluate(createLambda([{ type: 'number', name: 'x' }], createSymbolNode('x')), testContext)
+            evaluate(createLambda([{ type: 'number', name: 'x', evaluate: true }], createSymbolNode('x')), testContext)
         );
         expect(evaluate(createFunctionCall(lambda, [createNumberNode(42)]), testContext)).toStrictEqual(
             createNumberNode(42),

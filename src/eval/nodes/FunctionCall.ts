@@ -9,10 +9,5 @@ export default function evaluateFunctionCall(node: FunctionCall, context: Contex
         throw `TypeError: ${serialize(node.function, context.options)} is not a function`;
     }
 
-    return func.evaluator(
-        func.evaluateParametersBefore
-            ? node.parameters.map((parameter) => evaluate(parameter, context))
-            : node.parameters,
-        context,
-    );
+    return func.evaluator(node.parameters, context);
 }
