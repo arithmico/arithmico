@@ -71,6 +71,7 @@ integrationTest('((x)->x^2)(2)', '4');
 integrationTest('((x: number) -> x+1)(3)', '4');
 integrationTest('((x: number) -> x) + ((y: number) -> y^2)', '(x: number) → x + x^2');
 integrationTest('((x: number) -> x) + ((x: number) -> x^2)', '(x: number) → x + x^2');
+integrationTest('nsolve(sin(x)=0) * 1/ pi', '[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

@@ -1,8 +1,9 @@
 import { BinarySyntaxTreeNode, SymbolNode } from './../types/SyntaxTreeNodes';
-import { SyntaxTreeNode } from '../types';
+import { Context, SyntaxTreeNode } from '../types';
 import createNegate from '../create/Negate';
 import createVector from '../create/Vector';
 import createSymbolNode from '../create/SymbolNode';
+import { existsOnStack } from './context-utils';
 
 const binaryNodeTypes: BinarySyntaxTreeNode['type'][] = [
     'and',
@@ -42,6 +43,11 @@ export function find(node: SyntaxTreeNode, matcher: Matcher): SyntaxTreeNode[] {
         node.values.forEach((value) => find(value, matcher).forEach((item) => results.push(item)));
     }
 
+    if (node.type === 'functionCall') {
+        find(node.function, matcher).forEach((item) => results.push(item));
+        node.parameters.forEach((parameter) => find(parameter, matcher).forEach((item) => results.push(item)));
+    }
+
     return results;
 }
 
@@ -74,6 +80,11 @@ export function getSymbolNames(node: SyntaxTreeNode): Set<string> {
     const symbols = <SymbolNode[]>find(node, (node) => node.type === 'symbol');
     symbols.forEach((symbol) => result.add(symbol.name));
     return result;
+}
+
+export function getVariableNames(node: SyntaxTreeNode, context: Context): string[] {
+    const symbols = getSymbolNames(node);
+    return [...symbols.values()].filter((symbol) => !existsOnStack(symbol, context));
 }
 
 export function containsSymbols(node: SyntaxTreeNode): boolean {

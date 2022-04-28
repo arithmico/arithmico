@@ -6,6 +6,7 @@ import { Context, Options } from './types';
 import loadPlugins from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry';
 import { insertStackObject } from './utils/context-utils';
+import nsolvePlugin from './plugins/core/nsolve/nsolve';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -20,7 +21,7 @@ let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
 export function init() {
-    const loadingResult = loadPlugins([trigonometryPlugin], defaultOptions);
+    const loadingResult = loadPlugins([trigonometryPlugin, nsolvePlugin], defaultOptions);
     defaultContext = loadingResult.context;
     loadingLog = loadingResult.log;
     documentation = loadingResult.documentation;
