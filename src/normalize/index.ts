@@ -1,5 +1,7 @@
 import { Context, SyntaxTreeNode } from '../types';
 import normalizeBoolean from './nodes/normalize-boolean';
+import normalizeMinus from './nodes/normalize-minus';
+import normalizeNegate from './nodes/normalize-negate';
 import normalizeNumber from './nodes/normalize-number';
 import normalizePlus from './nodes/normalize-plus';
 import normalizeSymbol from './nodes/normalize-symbol';
@@ -17,6 +19,12 @@ export default function normalize(node: SyntaxTreeNode, context: Context): Synta
 
         case 'plus':
             return normalizePlus(node, context);
+
+        case 'minus':
+            return normalizeMinus(node, context);
+
+        case 'negate':
+            return normalizeNegate(node, context);
 
         default:
             throw `NormalizationError: unsupported node type "${node.type}"`;
