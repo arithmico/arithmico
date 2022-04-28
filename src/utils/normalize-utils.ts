@@ -1,12 +1,12 @@
-import { SyntaxTreeNode } from '../types';
+import { Context, SyntaxTreeNode } from '../types';
 
-export type NormalizeResult = [SyntaxTreeNode, boolean];
+export type Normalizer = (node: SyntaxTreeNode, context: Context) => SyntaxTreeNode;
+export type PartialNormalizer = (node: SyntaxTreeNode, context: Context) => SyntaxTreeNode | void;
 
-export type Normalizer = (node: SyntaxTreeNode) => SyntaxTreeNode | null;
-
-export function normalize(node: SyntaxTreeNode, normalizers: Normalizer[]): SyntaxTreeNode {
-    return normalizers.reduce((currentNode, normalizer) => {
-        const normalizedNode = normalizer(currentNode);
-        return normalizedNode ? normalizedNode : currentNode;
-    }, node);
+export function combineNormalizers(normalizers: PartialNormalizer[]): Normalizer {
+    return (node: SyntaxTreeNode, context: Context) =>
+        normalizers.reduce((currentNode, normalizer) => {
+            const normalizedNode = normalizer(currentNode, context);
+            return normalizedNode ? normalizedNode : currentNode;
+        }, node);
 }

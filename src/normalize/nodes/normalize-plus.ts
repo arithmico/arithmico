@@ -1,17 +1,33 @@
-import normalize, { createNormalizeResult } from '..';
+import { combineNormalizers, PartialNormalizer } from './../../utils/normalize-utils';
+import normalize from '..';
 import evaluate from '../../eval';
-import { Context, Plus } from '../../types';
-import { containsSymbols } from '../../utils/symbolic-utils';
+import createPlus from '../../create/Plus';
+import { containsVariables } from '../../utils/symbolic-utils';
 
-export default function normalizePlus(node: Plus, context: Context) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [leftNode, leftChanged] = normalize(node.left, context);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [rightNode, rightChanged] = normalize(node.right, context);
+const evaluateIfPossible: PartialNormalizer = (node, context) => {
+    if (!containsVariables(node, context)) {
+        return evaluate(node, context);
+    }
+};
 
-    if (!containsSymbols(leftNode) && !containsSymbols(rightNode)) {
-        return createNormalizeResult(evaluate(node, context), true);
+const normalizeChildren: PartialNormalizer = (node, context) => {
+    if (node.type !== 'plus') {
+        return;
     }
 
-    return createNormalizeResult(node, false);
-}
+    return createPlus(normalize(node.left, context), normalize(node.right, context));
+};
+
+const moveVariablesRight: PartialNormalizer = (node, context) => {
+    if (node.type !== 'plus') {
+        return;
+    }
+
+    if (containsVariables(node.left, context) && !containsVariables(node.right, context)) {
+        return createPlus(node.right, node.left);
+    }
+};
+
+const normalizePlus = combineNormalizers([evaluateIfPossible, normalizeChildren, moveVariablesRight]);
+
+export default normalizePlus;

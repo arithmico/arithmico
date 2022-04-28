@@ -91,6 +91,10 @@ export function containsSymbols(node: SyntaxTreeNode): boolean {
     return getSymbolNames(node).size > 0;
 }
 
+export function containsVariables(node: SyntaxTreeNode, context: Context): boolean {
+    return getVariableNames(node, context).length > 0;
+}
+
 export function resolveNameConflicts(node: SyntaxTreeNode, name: string): SyntaxTreeNode {
     const newName = name + "'";
     const matcher: Matcher = (node: SyntaxTreeNode) => node.type === 'symbol' && node.name === name;
