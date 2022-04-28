@@ -1,17 +1,17 @@
-import { NumberNode, FunctionHeaderItem } from './../../types/SyntaxTreeNodes';
-import { SyntaxTreeNode, Context } from '../../types';
-import createNumberNode from '../../create/NumberNode';
+import { NumberNode, FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
+import { SyntaxTreeNode, Context } from '../../../types';
+import createNumberNode from '../../../create/NumberNode';
 import {
     addPluginAuthor,
     addPluginConstant,
     addPluginDescription,
     addPluginFunction,
     createPlugin,
-} from '../../utils/plugin-builder';
-import { closeTo } from '../../utils/float-utils';
-import { mapParametersToStackFrame } from '../../utils/parameter-utils';
-import createFunctionCall from '../../create/FunctionCall';
-import createSymbolNode from '../../create/SymbolNode';
+} from '../../../utils/plugin-builder';
+import { closeTo } from '../../../utils/float-utils';
+import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
+import createFunctionCall from '../../../create/FunctionCall';
+import createSymbolNode from '../../../create/SymbolNode';
 
 const trigonometryPlugin = createPlugin('core/trigonometry');
 
