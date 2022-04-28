@@ -562,6 +562,12 @@ describe('serialize miscellaneous nodes', () => {
         );
     });
 
+    test('serialize negate in plus', () => {
+        expect(serialize(createPlus(createNumberNode(42), createNegate(createNumberNode(12))), testOptions)).toBe(
+            '42 + (-12)',
+        );
+    });
+
     test('serialize function', () => {
         expect(
             serialize(
