@@ -5,6 +5,7 @@ import normalizeNegate from './nodes/normalize-negate';
 import normalizeNumber from './nodes/normalize-number';
 import normalizePlus from './nodes/normalize-plus';
 import normalizeSymbol from './nodes/normalize-symbol';
+import normalizeTimes from './nodes/normalize-times';
 
 export default function normalize(node: SyntaxTreeNode, context: Context): SyntaxTreeNode {
     switch (node.type) {
@@ -25,6 +26,9 @@ export default function normalize(node: SyntaxTreeNode, context: Context): Synta
 
         case 'negate':
             return normalizeNegate(node, context);
+
+        case 'times':
+            return normalizeTimes(node, context);
 
         default:
             throw `NormalizationError: unsupported node type "${node.type}"`;

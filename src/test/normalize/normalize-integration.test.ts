@@ -30,3 +30,5 @@ normalizeTest('x', 'x');
 normalizeTest('x + 2', '2 + x');
 normalizeTest('2 + 2', '4');
 normalizeTest('2 - x + 3', '5 + (-x)');
+normalizeTest('(a + b) * c', 'a * c + b * c');
+normalizeTest('a * (b + c)', 'a * b + a * c');
