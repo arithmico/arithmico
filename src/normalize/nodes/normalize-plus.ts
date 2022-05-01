@@ -28,7 +28,7 @@ const rotateIfLeftChildPlus: PartialNormalizer = (node, context) => {
     return normalize(rotatedNode, context);
 };
 
-const evaluateIfRightChildPlusLeftNotVariable: PartialNormalizer = (node, context) => {
+const combineLeftChildWithRightChildLeftChild: PartialNormalizer = (node, context) => {
     if (
         !(
             node.type === 'plus' &&
@@ -50,7 +50,7 @@ const moveVariablesRight: PartialNormalizer = (node, context) => {
     }
 
     if (containsVariables(node.left, context) && !containsVariables(node.right, context)) {
-        return createPlus(node.right, node.left);
+        return normalize(createPlus(node.right, node.left), context);
     }
 };
 
@@ -58,7 +58,7 @@ const normalizePlus = combineNormalizers([
     evaluateIfPossible,
     normalizeChildren,
     rotateIfLeftChildPlus,
-    evaluateIfRightChildPlusLeftNotVariable,
+    combineLeftChildWithRightChildLeftChild,
     moveVariablesRight,
 ]);
 

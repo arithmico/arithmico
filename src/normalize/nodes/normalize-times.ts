@@ -20,6 +20,42 @@ const normalizeChildren: PartialNormalizer = (node, context) => {
     return createTimes(normalize(node.left, context), normalize(node.right, context));
 };
 
+const moveVariablesRight: PartialNormalizer = (node, context) => {
+    if (node.type !== 'times') {
+        return;
+    }
+
+    if (containsVariables(node.left, context) && !containsVariables(node.right, context)) {
+        return normalize(createTimes(node.right, node.left), context);
+    }
+};
+
+const rotateIfLeftChildTimes: PartialNormalizer = (node, context) => {
+    if (!(node.type === 'times' && node.left.type === 'times')) {
+        return;
+    }
+
+    const rotatedNode = createTimes(node.left.left, createTimes(node.left.right, node.right));
+
+    return normalize(rotatedNode, context);
+};
+
+const combineLeftChildWithRightChildLeftChild: PartialNormalizer = (node, context) => {
+    if (
+        !(
+            node.type === 'times' &&
+            !containsVariables(node.left, context) &&
+            node.right.type === 'times' &&
+            !containsVariables(node.right.left, context)
+        )
+    ) {
+        return;
+    }
+
+    const normalizedNode = createTimes(evaluate(createTimes(node.left, node.right.left), context), node.right.right);
+    return normalize(normalizedNode, context);
+};
+
 const distributeLeftChildPlus: PartialNormalizer = (node, context) => {
     if (node.type !== 'times' || node.left.type !== 'plus') {
         return;
@@ -61,6 +97,9 @@ const moveRightNegateOut: PartialNormalizer = (node, context) => {
 const normalizeTimes = combineNormalizers([
     evaluateIfPossible,
     normalizeChildren,
+    moveVariablesRight,
+    rotateIfLeftChildTimes,
+    combineLeftChildWithRightChildLeftChild,
     distributeLeftChildPlus,
     distributeRightChildPlus,
     moveLeftNegateOut,
