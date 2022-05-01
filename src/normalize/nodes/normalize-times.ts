@@ -1,4 +1,5 @@
 import normalize from '..';
+import createNegate from '../../create/Negate';
 import createPlus from '../../create/Plus';
 import createTimes from '../../create/Times';
 import evaluate from '../../eval';
@@ -19,7 +20,7 @@ const normalizeChildren: PartialNormalizer = (node, context) => {
     return createTimes(normalize(node.left, context), normalize(node.right, context));
 };
 
-const distributeLeftChild: PartialNormalizer = (node, context) => {
+const distributeLeftChildPlus: PartialNormalizer = (node, context) => {
     if (node.type !== 'times' || node.left.type !== 'plus') {
         return;
     }
@@ -30,7 +31,7 @@ const distributeLeftChild: PartialNormalizer = (node, context) => {
     );
 };
 
-const distributeRightChild: PartialNormalizer = (node, context) => {
+const distributeRightChildPlus: PartialNormalizer = (node, context) => {
     if (node.type !== 'times' || node.right.type !== 'plus') {
         return;
     }
@@ -41,11 +42,29 @@ const distributeRightChild: PartialNormalizer = (node, context) => {
     );
 };
 
+const moveLeftNegateOut: PartialNormalizer = (node, context) => {
+    if (node.type !== 'times' || node.left.type !== 'negate') {
+        return;
+    }
+
+    return normalize(createNegate(createTimes(node.left.value, node.right)), context);
+};
+
+const moveRightNegateOut: PartialNormalizer = (node, context) => {
+    if (node.type !== 'times' || node.right.type !== 'negate') {
+        return;
+    }
+
+    return normalize(createNegate(createTimes(node.left, node.right.value)), context);
+};
+
 const normalizeTimes = combineNormalizers([
     evaluateIfPossible,
     normalizeChildren,
-    distributeLeftChild,
-    distributeRightChild,
+    distributeLeftChildPlus,
+    distributeRightChildPlus,
+    moveLeftNegateOut,
+    moveRightNegateOut,
 ]);
 
 export default normalizeTimes;
