@@ -18,6 +18,14 @@ const normalizeChild: PartialNormalizer = (node, context) => {
     return createNegate(normalize(node.value, context));
 };
 
-const normalizeNegate = combineNormalizers([evaluateIfPossible, normalizeChild]);
+const removeDoubleNegate: PartialNormalizer = (node) => {
+    if (node.type !== 'negate' || node.value.type !== 'negate') {
+        return;
+    }
+
+    return node.value.value;
+};
+
+const normalizeNegate = combineNormalizers([evaluateIfPossible, normalizeChild, removeDoubleNegate]);
 
 export default normalizeNegate;
