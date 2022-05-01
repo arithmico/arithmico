@@ -40,3 +40,8 @@ normalizeTest('x * x^2', 'x^3');
 normalizeTest('x*y*x*y', 'x^2 * y^2');
 normalizeTest('x * x', 'x^2');
 normalizeTest('x^2 * x^3', 'x^5');
+normalizeTest('x^n * x^m', 'x^(n + m)');
+normalizeTest('2 + 3', '5');
+normalizeTest('2 * 3', '6');
+normalizeTest('2 / 4', '0.5');
+normalizeTest('(x*x)/(y*y)', 'x^2 / y^2');

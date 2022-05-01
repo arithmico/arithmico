@@ -1,5 +1,6 @@
 import { Context, SyntaxTreeNode } from '../types';
 import normalizeBoolean from './nodes/normalize-boolean';
+import normalizeDivided from './nodes/normalize-divided';
 import normalizeMinus from './nodes/normalize-minus';
 import normalizeNegate from './nodes/normalize-negate';
 import normalizeNumber from './nodes/normalize-number';
@@ -29,6 +30,9 @@ export default function normalize(node: SyntaxTreeNode, context: Context): Synta
 
         case 'times':
             return normalizeTimes(node, context);
+
+        case 'divided':
+            return normalizeDivided(node, context);
 
         case 'power':
             return node;
