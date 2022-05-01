@@ -108,3 +108,36 @@ export function resolveNameConflicts(node: SyntaxTreeNode, name: string): Syntax
 
     return node;
 }
+
+export function convertOperatorChainToList(type: BinarySyntaxTreeNode['type'], node: SyntaxTreeNode): SyntaxTreeNode[] {
+    if (node.type !== type) {
+        return [node];
+    }
+
+    return [node.left, ...convertOperatorChainToList(type, node.right)];
+}
+
+export function convertListToOperatorChain(
+    type: BinarySyntaxTreeNode['type'],
+    nodes: SyntaxTreeNode[],
+): SyntaxTreeNode {
+    if (nodes.length === 0) {
+        throw 'ConversionError: empty list';
+    }
+
+    if (nodes.length === 1) {
+        return nodes[0];
+    }
+
+    const nodesToBeJoined = nodes.slice(0, nodes.length - 2);
+    const startValue: BinarySyntaxTreeNode = { type, left: nodes[nodes.length - 2], right: nodes[nodes.length - 1] };
+
+    return nodesToBeJoined.reduceRight(
+        (right, left) => ({
+            type,
+            left,
+            right,
+        }),
+        startValue,
+    );
+}

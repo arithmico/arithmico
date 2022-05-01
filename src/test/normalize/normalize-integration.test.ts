@@ -35,3 +35,8 @@ normalizeTest('a * (b + c)', 'a * b + a * c');
 normalizeTest('(a - b) * c', 'a * c + (-b * c)');
 normalizeTest('a * (b - c)', 'a * b + (-a * c)');
 normalizeTest('2 * a * 4', '8 * a');
+normalizeTest('x^2 * x', 'x^3');
+normalizeTest('x * x^2', 'x^3');
+normalizeTest('x*y*x*y', 'x^2 * y^2');
+normalizeTest('x * x', 'x^2');
+normalizeTest('x^2 * x^3', 'x^5');

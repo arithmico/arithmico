@@ -30,6 +30,9 @@ export default function normalize(node: SyntaxTreeNode, context: Context): Synta
         case 'times':
             return normalizeTimes(node, context);
 
+        case 'power':
+            return node;
+
         default:
             throw `NormalizationError: unsupported node type "${node.type}"`;
     }
