@@ -44,8 +44,14 @@ normalizeTest('x^n * x^m', 'x^(n + m)');
 normalizeTest('2 + 3', '5');
 normalizeTest('2 * 3', '6');
 normalizeTest('2 / 4', '0.5');
-normalizeTest('(x*x)/(y*y)', 'x^2 / y^2');
-normalizeTest('(a + b) / c', 'a / c + b / c');
-normalizeTest('(a - b) / c', 'a / c + (-b / c)');
+normalizeTest('(x*x)/(y*y)', 'x^2 * y^(-2)');
+normalizeTest('(a + b) / c', 'a * c^(-1) + b * c^(-1)');
+normalizeTest('(a - b) / c', 'a * c^(-1) + (-b * c^(-1))');
 normalizeTest('(-(-a))', 'a');
-normalizeTest('a / (c / b)', 'a * b / c');
+normalizeTest('a / (c / b)', 'a * b * c^(-1)');
+// todo
+normalizeTest('1 * x^2', 'x^2');
+normalizeTest('x^2 * 1', 'x^2');
+normalizeTest('1 / x^2', 'x^(-2)');
+normalizeTest('1 / (x*y*z)', 'x^(-1) * y^(-1) * z^(-1)');
+normalizeTest('1 / (x^2*y^3*z^4)', 'x^(-2) * y^(-3) * z^(-4)');
