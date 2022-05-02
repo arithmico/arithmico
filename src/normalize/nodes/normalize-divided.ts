@@ -3,6 +3,7 @@ import createDivided from '../../create/Divided';
 import createNegate from '../../create/Negate';
 import createNumberNode from '../../create/NumberNode';
 import createPlus from '../../create/Plus';
+import createPower from '../../create/Power';
 import createTimes from '../../create/Times';
 import evaluate from '../../eval';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
@@ -63,19 +64,37 @@ const splitTimesDenominator: PartialNormalizer = (node, context) => {
     }
 
     return normalize(
-        createTimes(createDivided(createNumberNode(1), node.right.left), createDivided(node.left, node.right.right)),
+        createTimes(createDivided(node.left, node.right.left), createDivided(createNumberNode(1), node.right.right)),
         context,
     );
 };
 
+const convertSymbolDenominatorToPower: PartialNormalizer = (node, context) => {
+    if (node.type !== 'divided' || node.right.type !== 'symbol') {
+        return;
+    }
+
+    return normalize(createTimes(node.left, createPower(node.right, createNumberNode(-1))), context);
+};
+
+const negatePowerDenominatorAndMoveToNumerator: PartialNormalizer = (node, context) => {
+    if (node.type !== 'divided' || node.right.type !== 'power') {
+        return;
+    }
+
+    return normalize(createTimes(node.left, createPower(node.right.left, createNegate(node.right.right))), context);
+};
+
 const normalizeDivided = combineNormalizers([
     evaluateIfPossible,
+    flipRightChildDivided,
     normalizeChildren,
     distributeLeftChildPlus,
-    flipRightChildDivided,
     moveLeftNegateOut,
     moveRightNegateOut,
     splitTimesDenominator,
+    convertSymbolDenominatorToPower,
+    negatePowerDenominatorAndMoveToNumerator,
 ]);
 
 export default normalizeDivided;
