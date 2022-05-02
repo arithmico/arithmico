@@ -48,3 +48,4 @@ normalizeTest('(x*x)/(y*y)', 'x^2 / y^2');
 normalizeTest('(a + b) / c', 'a / c + b / c');
 normalizeTest('(a - b) / c', 'a / c + (-b / c)');
 normalizeTest('(-(-a))', 'a');
+normalizeTest('a / (c / b)', 'a * b / c');
