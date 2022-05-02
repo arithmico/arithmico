@@ -1,7 +1,6 @@
 import { Context } from './../../types/Context';
 import { SyntaxTreeNode } from './../../types/SyntaxTreeNodes';
 import normalize from '..';
-import createNegate from '../../create/Negate';
 import createPlus from '../../create/Plus';
 import createTimes from '../../create/Times';
 import evaluate from '../../eval';
@@ -93,7 +92,7 @@ const moveLeftNegateOut: PartialNormalizer = (node, context) => {
         return;
     }
 
-    return normalize(createNegate(createTimes(node.left.value, node.right)), context);
+    return normalize(createTimes(createNumberNode(-1), createTimes(node.left.value, node.right)), context);
 };
 
 const moveRightNegateOut: PartialNormalizer = (node, context) => {
@@ -101,7 +100,7 @@ const moveRightNegateOut: PartialNormalizer = (node, context) => {
         return;
     }
 
-    return normalize(createNegate(createTimes(node.left, node.right.value)), context);
+    return normalize(createTimes(createNumberNode(-1), createTimes(node.left, node.right.value)), context);
 };
 
 const combinePowersNormalizer: PartialNormalizer = (node, context) => {
