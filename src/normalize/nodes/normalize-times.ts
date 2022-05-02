@@ -173,6 +173,14 @@ function combinePowers(nodes: SyntaxTreeNode[], context: Context): SyntaxTreeNod
     return result;
 }
 
+const removeNeutralElement: PartialNormalizer = (node, context) => {
+    if (node.type !== 'times' || node.left.type !== 'number' || node.left.value !== 1) {
+        return;
+    }
+
+    return normalize(node.right, context);
+};
+
 const normalizeTimes = combineNormalizers([
     evaluateIfPossible,
     normalizeChildren,
@@ -184,6 +192,7 @@ const normalizeTimes = combineNormalizers([
     moveLeftNegateOut,
     moveRightNegateOut,
     combinePowersNormalizer,
+    removeNeutralElement,
 ]);
 
 export default normalizeTimes;
