@@ -1,4 +1,5 @@
 import normalize from '..';
+import createNumberNode from '../../create/NumberNode';
 import createPower from '../../create/Power';
 import evaluate from '../../eval';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
@@ -27,6 +28,20 @@ const removeOneExponent: PartialNormalizer = (node, _context) => {
     return node.left;
 };
 
-const normalizePower = combineNormalizers([evaluateIfPossible, normalizeChildren, removeOneExponent]);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const removeZeroExponent: PartialNormalizer = (node, _context) => {
+    if (node.type !== 'power' || node.right.type !== 'number' || node.right.value !== 0) {
+        return;
+    }
+
+    return createNumberNode(1);
+};
+
+const normalizePower = combineNormalizers([
+    evaluateIfPossible,
+    normalizeChildren,
+    removeOneExponent,
+    removeZeroExponent,
+]);
 
 export default normalizePower;

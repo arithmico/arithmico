@@ -3,6 +3,10 @@ import { parse } from '../../parse/parser';
 import normalize from '../../normalize';
 import serialize from '../../serialize';
 
+beforeEach(() => {
+    global.console = require('console');
+});
+
 const testOptions: Options = {
     decimalPlaces: 6,
     decimalSeparator: '.',
@@ -29,6 +33,9 @@ normalizeTest('true', 'true');
 normalizeTest('x', 'x');
 normalizeTest('x + 2', '2 + x');
 normalizeTest('2 + 2', '4');
+normalizeTest('a + b + c', 'a + b + c');
+normalizeTest('a + b + c + 1', '1 + a + b + c');
+normalizeTest('a * b * c * 2', '2 * a * b * c');
 normalizeTest('2 - x + 3', '5 + (-x)');
 normalizeTest('(a + b) * c', 'a * c + b * c');
 normalizeTest('a * (b + c)', 'a * b + a * c');
@@ -49,9 +56,9 @@ normalizeTest('(a + b) / c', 'a * c^(-1) + b * c^(-1)');
 normalizeTest('(a - b) / c', 'a * c^(-1) + (-b * c^(-1))');
 normalizeTest('(-(-a))', 'a');
 normalizeTest('a / (c / b)', 'a * b * c^(-1)');
-// todo
 normalizeTest('1 * x^2', 'x^2');
 normalizeTest('x^2 * 1', 'x^2');
 normalizeTest('1 / x^2', 'x^(-2)');
 normalizeTest('1 / (x*y*z)', 'x^(-1) * y^(-1) * z^(-1)');
 normalizeTest('1 / (x^2*y^3*z^4)', 'x^(-2) * y^(-3) * z^(-4)');
+normalizeTest('(x^2 / x^3 + x + x^2)/x^2', '1 + x^(-3) + x^(-1)');

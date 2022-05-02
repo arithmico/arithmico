@@ -49,8 +49,14 @@ const moveVariablesRight: PartialNormalizer = (node, context) => {
         return;
     }
 
-    if (containsVariables(node.left, context) && !containsVariables(node.right, context)) {
-        return normalize(createPlus(node.right, node.left), context);
+    if (node.right.type === 'plus') {
+        if (containsVariables(node.left, context) && !containsVariables(node.right.left, context)) {
+            return normalize(createPlus(node.right.left, createPlus(node.left, node.right.right)), context);
+        }
+    } else {
+        if (containsVariables(node.left, context) && !containsVariables(node.right, context)) {
+            return normalize(createPlus(node.right, node.left), context);
+        }
     }
 };
 

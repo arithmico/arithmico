@@ -29,8 +29,14 @@ const moveVariablesRight: PartialNormalizer = (node, context) => {
         return;
     }
 
-    if (containsVariables(node.left, context) && !containsVariables(node.right, context)) {
-        return normalize(createTimes(node.right, node.left), context);
+    if (node.right.type === 'times') {
+        if (containsVariables(node.left, context) && !containsVariables(node.right.left, context)) {
+            return normalize(createTimes(node.right.left, createTimes(node.left, node.right.right)), context);
+        }
+    } else {
+        if (containsVariables(node.left, context) && !containsVariables(node.right, context)) {
+            return normalize(createTimes(node.right, node.left), context);
+        }
     }
 };
 
@@ -170,7 +176,7 @@ function combinePowers(nodes: SyntaxTreeNode[], context: Context): SyntaxTreeNod
         }
     }
 
-    return result;
+    return result.map((node) => normalize(node, context));
 }
 
 const removeNeutralElement: PartialNormalizer = (node, context) => {
