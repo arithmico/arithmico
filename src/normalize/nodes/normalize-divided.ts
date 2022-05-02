@@ -1,6 +1,7 @@
 import normalize from '..';
 import createDivided from '../../create/Divided';
 import createNegate from '../../create/Negate';
+import createNumberNode from '../../create/NumberNode';
 import createPlus from '../../create/Plus';
 import createTimes from '../../create/Times';
 import evaluate from '../../eval';
@@ -56,6 +57,17 @@ const moveRightNegateOut: PartialNormalizer = (node, context) => {
     return normalize(createNegate(createDivided(node.left, node.right.value)), context);
 };
 
+const splitTimesDenominator: PartialNormalizer = (node, context) => {
+    if (node.type !== 'divided' || node.right.type !== 'times') {
+        return;
+    }
+
+    return normalize(
+        createTimes(createDivided(createNumberNode(1), node.right.left), createDivided(node.left, node.right.right)),
+        context,
+    );
+};
+
 const normalizeDivided = combineNormalizers([
     evaluateIfPossible,
     normalizeChildren,
@@ -63,6 +75,7 @@ const normalizeDivided = combineNormalizers([
     flipRightChildDivided,
     moveLeftNegateOut,
     moveRightNegateOut,
+    splitTimesDenominator,
 ]);
 
 export default normalizeDivided;
