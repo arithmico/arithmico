@@ -5,7 +5,7 @@ import createVector from '../create/Vector';
 import createSymbolNode from '../create/SymbolNode';
 import { existsOnStack } from './context-utils';
 
-const binaryNodeTypes: BinarySyntaxTreeNode['type'][] = [
+export const binaryNodeTypes: BinarySyntaxTreeNode['type'][] = [
     'and',
     'or',
     'greater',
@@ -19,6 +19,8 @@ const binaryNodeTypes: BinarySyntaxTreeNode['type'][] = [
     'divided',
     'power',
 ];
+
+export const associativeBinaryNodeTypes: BinarySyntaxTreeNode['type'][] = ['and', 'or', 'equals', 'plus', 'times'];
 
 type Matcher = (node: SyntaxTreeNode) => boolean;
 type Replacer = (node: SyntaxTreeNode) => SyntaxTreeNode;
