@@ -67,3 +67,5 @@ normalizeTest('x^2 - x^2', '0');
 normalizeTest('x^2 + 2 * x^2', '3 * x^2');
 normalizeTest('2 * x^2 + 3 * x^2', '5 * x^2');
 normalizeTest('x^2 * y - 3 * y * x^2', '(-2) * y * x^2');
+normalizeTest('x^2 = x', 'x^2 + (-1) * x = 0');
+normalizeTest('x = 0', 'x = 0');
