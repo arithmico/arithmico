@@ -81,3 +81,4 @@ integrationTestThrow('4 * true');
 integrationTestThrow('2 * -2');
 integrationTestThrow('[[1,2],3]+[1,2,3]');
 integrationTestThrow('[1,2]+[1,2,3]');
+integrationTestThrow('(-1)^2.1');
