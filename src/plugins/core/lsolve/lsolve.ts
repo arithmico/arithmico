@@ -2,8 +2,10 @@ import createFunctionCall from '../../../create/FunctionCall';
 import createNumberNode from '../../../create/NumberNode';
 import createSymbolNode from '../../../create/SymbolNode';
 import normalize from '../../../normalize';
-import { FunctionHeaderItem, SyntaxTreeNode } from '../../../types/SyntaxTreeNodes';
+import serialize from '../../../serialize';
+import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../types/SyntaxTreeNodes';
 import { addPluginAuthor, addPluginDescription, addPluginFunction, createPlugin } from '../../../utils/plugin-builder';
+import { isEquationLinear } from './utils/check-linear';
 
 const lsolvePlugin = createPlugin('lsolve');
 
@@ -26,7 +28,7 @@ addPluginFunction(lsolvePlugin, {
         expression: createFunctionCall(createSymbolNode('lsolve'), [createSymbolNode('equation+')]),
         evaluator: (parameters, context) => {
             // validate parameters
-            const equations: SyntaxTreeNode[] = [];
+            const equations: Equals[] = [];
             try {
                 parameters
                     .map((parameter) => normalize(parameter, context))
@@ -39,6 +41,12 @@ addPluginFunction(lsolvePlugin, {
             } catch (_error) {
                 throw 'lsolve: invalid equation(s)';
             }
+
+            equations.forEach(equation => {
+                if (!isEquationLinear(equation, context)) {
+                    throw `lsolve: "${serialize(equation, context.options)}" is not linear`
+                }
+            })
 
             return createNumberNode(0);
         },
