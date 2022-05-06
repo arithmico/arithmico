@@ -1,9 +1,6 @@
 import { Context, Equals, SyntaxTreeNode } from "../../../../types";
 import { containsVariables, convertOperatorChainToList, getVariableNames } from "../../../../utils/symbolic-utils";
-
-function getSummands(equation: Equals): SyntaxTreeNode[] {
-  return convertOperatorChainToList("plus", equation.left);
-}
+import { getSummands } from "./get-summands";
 
 function isSummandLinear(summand: SyntaxTreeNode, context: Context): boolean {
   const factors = convertOperatorChainToList("times", summand);
