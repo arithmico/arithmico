@@ -162,7 +162,7 @@ Plus = left:Minus _ "+" _ right:Plus {
 MinusItem = _ "-" _ item:Times {
     return item;
 }
-Minus = first:Times rest:MinusItem+ {
+Minus = first:(Times / Negate) rest:MinusItem+ {
     const items = [first, ...rest];
     return items.reduce((left, right) => ({
         type: "minus",
