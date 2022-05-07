@@ -73,6 +73,8 @@ integrationTest('((x: number) -> x) + ((y: number) -> y^2)', '(x: number) → x 
 integrationTest('((x: number) -> x) + ((x: number) -> x^2)', '(x: number) → x + x^2');
 integrationTest('nsolve(sin(x)=0) * 1/ pi', '[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6]');
 integrationTest('nsolve(1/x=0)', '[]');
+integrationTest('lsolve(2*x+3*y=-6, -3*x-4*y=7)', '[x = 3, y = -4]');
+integrationTest('lsolve(x=2, x=3-y)', '[x = 2, y = 1]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -82,3 +84,4 @@ integrationTestThrow('2 * -2');
 integrationTestThrow('[[1,2],3]+[1,2,3]');
 integrationTestThrow('[1,2]+[1,2,3]');
 integrationTestThrow('(-1)^2.1');
+integrationTestThrow('lsolve(x+y=1,2*x+2*y=1)');
