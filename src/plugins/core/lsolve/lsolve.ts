@@ -24,7 +24,7 @@ addPluginFunction(lsolvePlugin, {
     documentation: {
         en: {
             synopsis: 'lsolve(equation, ...)',
-            description: 'If possible, solve the set of equations.',
+            description: 'If possible, solve the set of linear equations.',
         },
     },
     function: {
