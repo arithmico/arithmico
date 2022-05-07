@@ -17,6 +17,7 @@ const Label = styled(Listbox.Label)`
 `;
 
 const Button = styled(Listbox.Button)`
+  position: relative;
   display: flex;
   align-items: center;
   background-color: var(--me-background-300);
@@ -67,6 +68,7 @@ const Option = styled(Listbox.Option)`
 `;
 
 const ColumnLayout = styled.div`
+  position: relative;
   margin-left: auto;
   width: 200px;
   height: 3rem;
