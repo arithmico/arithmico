@@ -23,7 +23,7 @@ addPluginFunction(lsolvePlugin, {
     name: 'lsolve',
     documentation: {
         en: {
-            synopsis: 'lsolve(equation+)',
+            synopsis: 'lsolve(equation, ...)',
             description: 'If possible, solve the set of equations.',
         },
     },
