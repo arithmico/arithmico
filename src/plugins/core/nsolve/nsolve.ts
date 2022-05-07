@@ -70,7 +70,7 @@ addPluginFunction(nsolvePlugin, {
     },
     documentation: {
         en: {
-            synopsis: 'nsolve(equation, start?, stop?)',
+            synopsis: 'nsolve(equation, start=-20, stop=20)',
             description: 'If possible, solve the equation within the limits.',
         },
     },
