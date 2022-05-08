@@ -20,7 +20,7 @@
   ],
   "private": true,
   "dependencies": {
-    "@behrenle/number-cruncher": "^1.14.0",
+    "@behrenle/number-cruncher": "^1.17.1",
     "@headlessui/react": "^1.4.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
