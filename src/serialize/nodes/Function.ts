@@ -3,7 +3,7 @@ import serialize, { needsBrackets } from '..';
 import { FunctionNode } from '../../types';
 import { FunctionHeaderItem } from '../../types/SyntaxTreeNodes';
 
-function serializeHeaderItem(item: FunctionHeaderItem) {
+export function serializeHeaderItem(item: FunctionHeaderItem) {
     const suffix = ((optional: boolean, repeat: boolean) => {
         if (optional && repeat) return '*';
         if (!optional && repeat) return '+';
