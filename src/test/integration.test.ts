@@ -77,6 +77,9 @@ integrationTest('nsolve(x^3 -4*x^2 +3=0)', '[-0.791288, 1, 3.791288]');
 integrationTest('nsolve(x^(34)-1234.32323=0)', '[-1.23289, 1.23289]');
 integrationTest('lsolve(2*x+3*y=-6, -3*x-4*y=7)', '[x = 3, y = -4]');
 integrationTest('lsolve(x=2, x=3-y)', '[x = 2, y = 1]');
+integrationTest('nintegrate((x)->x^2,0,1)', '0.333333');
+integrationTest('nintegrate((x)->2*x^2,0,1)', '0.666667');
+integrationTest('nintegrate((x)->1/x, -1, 1)', '0');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -87,3 +90,4 @@ integrationTestThrow('[[1,2],3]+[1,2,3]');
 integrationTestThrow('[1,2]+[1,2,3]');
 integrationTestThrow('(-1)^2.1');
 integrationTestThrow('lsolve(x+y=1,2*x+2*y=1)');
+integrationTestThrow('nintegrate((x)->x&true, -1, 1)');
