@@ -1,5 +1,8 @@
 import { PluginConstant, PluginFunction } from './../types/Plugin';
 import { Plugin } from '../types/Plugin';
+import { FunctionHeaderItem, FunctionNode, SymbolNode } from '../types/SyntaxTreeNodes';
+import createFunctionCall from '../create/FunctionCall';
+import createSymbolNode from '../create/SymbolNode';
 
 export function createPlugin(name: string): Plugin {
     return {
@@ -9,6 +12,51 @@ export function createPlugin(name: string): Plugin {
         constants: [],
         functions: [],
         inlineDefinitions: [],
+    };
+}
+
+function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
+    const result: SymbolNode[] = [];
+
+    header.forEach((item) => {
+        if (item.optional) {
+            result.push(createSymbolNode(item.name + '?'));
+        } else {
+            result.push(createSymbolNode(item.name));
+        }
+
+        if (item.repeat) {
+            result.push(createSymbolNode('...'));
+        }
+    });
+
+    return result;
+}
+
+export function createPluginFunction(
+    name: string,
+    header: FunctionHeaderItem[],
+    description: string,
+    evaluator: FunctionNode['evaluator'],
+): PluginFunction {
+    const headerSymbols = convertHeaderToSymbolList(header);
+    const synopsis = `${name}(${headerSymbols.map((symbol) => symbol.name).join(', ')})`;
+    const expression = createFunctionCall(createSymbolNode(name), headerSymbols);
+
+    return {
+        name,
+        documentation: {
+            en: {
+                synopsis,
+                description,
+            },
+        },
+        function: {
+            type: 'function',
+            header,
+            expression,
+            evaluator,
+        },
     };
 }
 
