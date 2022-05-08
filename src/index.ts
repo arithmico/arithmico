@@ -9,6 +9,7 @@ import { insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
+import nderivePlugin from './plugins/core/nderive/nderive';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -24,7 +25,7 @@ let documentation: GlobalDocumentationItem[];
 
 export function init() {
     const loadingResult = loadPlugins(
-        [trigonometryPlugin, nsolvePlugin, lsolvePlugin, nintegratePlugin],
+        [trigonometryPlugin, nsolvePlugin, lsolvePlugin, nintegratePlugin, nderivePlugin],
         defaultOptions,
     );
     defaultContext = loadingResult.context;

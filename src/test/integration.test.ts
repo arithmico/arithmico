@@ -26,7 +26,7 @@ function integrationTest(input: string, expectedOutput: string, context?: Contex
 }
 
 function integrationTestThrow(input: string) {
-    test(`integration test #${++lastId}`, () => {
+    test(`integration test (throw) #${++lastId}`, () => {
         expect(() => evaluate(input)).toThrow();
     });
 }
@@ -80,6 +80,10 @@ integrationTest('lsolve(x=2, x=3-y)', '[x = 2, y = 1]');
 integrationTest('nintegrate((x)->x^2,0,1)', '0.333333');
 integrationTest('nintegrate((x)->2*x^2,0,1)', '0.666667');
 integrationTest('nintegrate((x)->1/x, -1, 1)', '0');
+integrationTest('nderive((x) -> x^2, 2)', '4');
+integrationTest('nderive((x) -> x^2, 2, 1)', '4');
+integrationTest('nderive((x) -> x^2, 3, 2)', '2');
+integrationTest('nderive((x) -> x^2, pi^2, 2)', '2');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
