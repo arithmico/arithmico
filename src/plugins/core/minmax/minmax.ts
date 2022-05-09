@@ -1,0 +1,36 @@
+import createNumberNode from '../../../create/NumberNode';
+import { FunctionHeaderItem, NumberNode } from '../../../types/SyntaxTreeNodes';
+import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
+import {
+    addPluginAuthor,
+    addPluginDescription,
+    addPluginFunction,
+    createPlugin,
+    createPluginFunction,
+} from '../../../utils/plugin-builder';
+
+const minmaxPlugin = createPlugin('minmax');
+addPluginAuthor(minmaxPlugin, 'core');
+addPluginDescription(minmaxPlugin, 'adds min and max functions');
+
+const header: FunctionHeaderItem[] = [{ name: 'v', type: 'number', evaluate: true, repeat: true }];
+
+addPluginFunction(
+    minmaxPlugin,
+    createPluginFunction('min', header, 'returns the minimum of all passed parameters', (parameters, context) => {
+        const parameterStackFrame = mapParametersToStackFrame('exp', parameters, header, context);
+        const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
+        return createNumberNode(Math.min(...values));
+    }),
+);
+
+addPluginFunction(
+    minmaxPlugin,
+    createPluginFunction('max', header, 'returns the maximum of all passed parameters', (parameters, context) => {
+        const parameterStackFrame = mapParametersToStackFrame('exp', parameters, header, context);
+        const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
+        return createNumberNode(Math.max(...values));
+    }),
+);
+
+export default minmaxPlugin;

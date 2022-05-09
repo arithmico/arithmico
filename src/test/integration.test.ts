@@ -89,6 +89,8 @@ integrationTest('exp(2)', '7.389056');
 integrationTest('ln(exp(2))', '2');
 integrationTest('lg(1000)', '3');
 integrationTest('e', '2.718282');
+integrationTest('min(-1,1,2,3)', '-1');
+integrationTest('max(-1,1,2,3,2,1)', '3');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

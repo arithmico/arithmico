@@ -11,6 +11,7 @@ import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
 import nderivePlugin from './plugins/core/nderive/nderive';
 import expPlugin from './plugins/core/exp/exp';
+import minmaxPlugin from './plugins/core/minmax/minmax';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -20,15 +21,22 @@ const defaultOptions: Options = {
     magnitudeThresholdForScientificNotation: 6,
 };
 
+const plugins = [
+    trigonometryPlugin,
+    expPlugin,
+    nsolvePlugin,
+    lsolvePlugin,
+    nintegratePlugin,
+    nderivePlugin,
+    minmaxPlugin,
+];
+
 let defaultContext: Context;
 let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
 export function init() {
-    const loadingResult = loadPlugins(
-        [trigonometryPlugin, expPlugin, nsolvePlugin, lsolvePlugin, nintegratePlugin, nderivePlugin],
-        defaultOptions,
-    );
+    const loadingResult = loadPlugins(plugins, defaultOptions);
     defaultContext = loadingResult.context;
     loadingLog = loadingResult.log;
     documentation = loadingResult.documentation;
