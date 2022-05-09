@@ -94,6 +94,9 @@ integrationTest('max(-1,1,2,3,2,1)', '3');
 integrationTest('abs(-7)', '7');
 integrationTest('abs(7)', '7');
 integrationTest('length([1,2,2])', '3');
+integrationTest('fraction(1/3)', '1 / 3');
+integrationTest('fraction(1/3+1/3)', '2 / 3');
+integrationTest('fraction(1/3-1/3)', '0');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

@@ -13,6 +13,7 @@ import nderivePlugin from './plugins/core/nderive/nderive';
 import expPlugin from './plugins/core/exp/exp';
 import minmaxPlugin from './plugins/core/minmax/minmax';
 import absPlugin from './plugins/core/abs/abs';
+import fractionPlugin from './plugins/core/fraction/fraction';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -31,6 +32,7 @@ const plugins = [
     nderivePlugin,
     minmaxPlugin,
     absPlugin,
+    fractionPlugin,
 ];
 
 let defaultContext: Context;
