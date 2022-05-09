@@ -18,7 +18,7 @@ const header: FunctionHeaderItem[] = [{ name: 'v', type: 'number', evaluate: tru
 addPluginFunction(
     minmaxPlugin,
     createPluginFunction('min', header, 'returns the minimum of all passed parameters', (parameters, context) => {
-        const parameterStackFrame = mapParametersToStackFrame('exp', parameters, header, context);
+        const parameterStackFrame = mapParametersToStackFrame('min', parameters, header, context);
         const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
         return createNumberNode(Math.min(...values));
     }),
@@ -27,7 +27,7 @@ addPluginFunction(
 addPluginFunction(
     minmaxPlugin,
     createPluginFunction('max', header, 'returns the maximum of all passed parameters', (parameters, context) => {
-        const parameterStackFrame = mapParametersToStackFrame('exp', parameters, header, context);
+        const parameterStackFrame = mapParametersToStackFrame('max', parameters, header, context);
         const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
         return createNumberNode(Math.max(...values));
     }),
