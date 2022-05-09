@@ -91,6 +91,9 @@ integrationTest('lg(1000)', '3');
 integrationTest('e', '2.718282');
 integrationTest('min(-1,1,2,3)', '-1');
 integrationTest('max(-1,1,2,3,2,1)', '3');
+integrationTest('abs(-7)', '7');
+integrationTest('abs(7)', '7');
+integrationTest('length([1,2,2])', '3');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

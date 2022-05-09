@@ -12,6 +12,7 @@ import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
 import nderivePlugin from './plugins/core/nderive/nderive';
 import expPlugin from './plugins/core/exp/exp';
 import minmaxPlugin from './plugins/core/minmax/minmax';
+import absPlugin from './plugins/core/abs/abs';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -29,6 +30,7 @@ const plugins = [
     nintegratePlugin,
     nderivePlugin,
     minmaxPlugin,
+    absPlugin,
 ];
 
 let defaultContext: Context;
