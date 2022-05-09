@@ -13,5 +13,7 @@ const parserSource = peggy.generate(grammarSource, {
     cache: true,
 });
 
-fs.mkdirSync(outputDir);
+if (fs.existsSync(!outputDir)) {
+    fs.mkdirSync(outputDir);
+}
 fs.writeFileSync(outputPath, parserSource);
