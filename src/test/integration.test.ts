@@ -97,6 +97,8 @@ integrationTest('length([1,2,2])', '3');
 integrationTest('fraction(1/3)', '1 / 3');
 integrationTest('fraction(1/3+1/3)', '2 / 3');
 integrationTest('fraction(1/3-1/3)', '0');
+integrationTest('cross([1,2,3],[-7,8,9])', '[-6, -30, 22]');
+integrationTest('cross([1,0,0],[0,1,0])', '[0, 0, 1]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

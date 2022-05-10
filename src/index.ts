@@ -14,6 +14,7 @@ import expPlugin from './plugins/core/exp/exp';
 import minmaxPlugin from './plugins/core/minmax/minmax';
 import absPlugin from './plugins/core/abs/abs';
 import fractionPlugin from './plugins/core/fraction/fraction';
+import crossPlugin from './plugins/core/cross/cross';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -33,6 +34,7 @@ const plugins = [
     minmaxPlugin,
     absPlugin,
     fractionPlugin,
+    crossPlugin,
 ];
 
 let defaultContext: Context;
