@@ -19,7 +19,7 @@ export default function Settings() {
     state.setDecimalPlaces
   ]);
   const [numberFormat, setNumberFormat] = useState('default');
-  const [enableAnalytics, setEnableAnalytics] = useState(true);
+  //const [enableAnalytics, setEnableAnalytics] = useState(true);
   const [excludeInfo, setExcludeInfo] = useSessionStore((state) => [
     state.excludeInfoInProtocol,
     state.setExcludeInfoInProtocol
