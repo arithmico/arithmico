@@ -5,10 +5,10 @@ import { MathItem } from '../../stores/session-store/types';
 const Container = styled.li<{ isError: boolean }>`
   display: grid;
   grid-template-columns: 1fr auto 2fr;
-  grid-gap: 1em;
+  grid-gap: 1rem;
   padding: 20px;
   background-color: var(--me-background-100);
-  border-radius: 0.25em;
+  border-radius: 0.25rem;
   list-style: none;
   ${({ isError }) => isError && 'border: thin solid var(--me-error);'}
   color: ${({ isError }) => (isError ? 'var(--me-error)' : 'var(--me-text-400)')};

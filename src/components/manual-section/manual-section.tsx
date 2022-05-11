@@ -1,19 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Container = styled.section``;
+const Container = styled.section`
+  margin-top: 3rem;
+`;
 
 const ManaulSectionHeading = styled.h1`
-  font-size: 2.5em;
+  font-size: 2.5rem;
   font-weight: 300;
 `;
 
 const StyledDl = styled.dl`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-row-gap: 2em;
-  grid-column-gap: 1em;
-  padding: 10px 80px;
+  grid-row-gap: 1rem;
+  grid-column-gap: 0;
+  padding: 0;
 `;
 
 interface ManualSectionProps {

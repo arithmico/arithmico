@@ -11,7 +11,6 @@ import hotkeys from '../../hotkeys.json';
 
 const SearchField = styled(Textfield)`
   margin-top: 2em;
-  margin-bottom: 1em;
 `;
 
 function matchDocumentation(doc: GlobalDocumentationItem, searchStr: string) {
@@ -34,13 +33,19 @@ export default function Manual() {
           onChange={(e) => setSearchStr(e.target.value)}
         />
         <ManualSection heading="Hotkeys">
-          {Object.keys(hotkeys).map((hotkey) => (
-            <ManualSectionItem
-              key={hotkey}
-              synopsis={(hotkey as string).toUpperCase()}
-              description={(hotkeys as Record<string, string>)[hotkey] as string}
-            />
-          ))}
+          {Object.keys(hotkeys)
+            .filter(
+              (hotkey) =>
+                hotkey.includes(searchStr) ||
+                ((hotkeys as Record<string, string>)[hotkey] as string).includes(searchStr)
+            )
+            .map((hotkey) => (
+              <ManualSectionItem
+                key={hotkey}
+                synopsis={(hotkey as string).toUpperCase()}
+                description={(hotkeys as Record<string, string>)[hotkey] as string}
+              />
+            ))}
         </ManualSection>
         <ManualSection heading="Constants">
           {documentation
