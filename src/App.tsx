@@ -11,6 +11,7 @@ import useSessionStore from './stores/session-store/use-session-store';
 import { ThemeProvider } from 'styled-components';
 import Definitions from './pages/definitions/definitions';
 import TermsOfService from './pages/terms-of-service/terms-of-service';
+import PrivacyPolicy from './pages/privacy-policy/privacy-policy';
 
 function App() {
   const fontSize = useSessionStore((state) => state.interfaceFontSize);
@@ -29,6 +30,7 @@ function App() {
           <Route path="/protocol" element={<Protocol />} />
           <Route path="/definitions" element={<Definitions />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
