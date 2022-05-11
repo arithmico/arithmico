@@ -10,6 +10,7 @@ import GlobalStyle from './globalStyles';
 import useSessionStore from './stores/session-store/use-session-store';
 import { ThemeProvider } from 'styled-components';
 import Definitions from './pages/definitions/definitions';
+import TermsOfService from './pages/terms-of-service/terms-of-service';
 
 function App() {
   const fontSize = useSessionStore((state) => state.interfaceFontSize);
@@ -27,6 +28,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/protocol" element={<Protocol />} />
           <Route path="/definitions" element={<Definitions />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
