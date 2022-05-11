@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import useSessionStore from '../../stores/session-store/use-session-store';
 import { MathItem } from '../../stores/session-store/types';
@@ -54,6 +54,12 @@ export default function CalculatorTextfields() {
   const isError = mathItems.length > 0 ? mathItems[mathItems.length - 1].error : false;
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [inputRef]);
 
   useHotkeys(
     'alt + i',
