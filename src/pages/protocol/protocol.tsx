@@ -1,5 +1,6 @@
 import { getLoadingLog } from '@behrenle/number-cruncher';
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InfoProtocolItem from '../../components/info-protocol-item/info-protocol-item';
@@ -72,6 +73,7 @@ export default function Protocol() {
   const history = useSessionStore((state) => state.protocol);
   const excludeInfo = useSessionStore((state) => state.excludeInfoInProtocol);
   const containerRef = useRef<HTMLUListElement>(null);
+  const [t] = useTranslation();
   useEffect(() => {
     if (!containerRef.current) {
       return;
@@ -94,8 +96,8 @@ export default function Protocol() {
   return (
     <Container>
       <Header>
-        <Title>Protocol</Title>
-        <BackButton onClick={() => navigate('/')}>back</BackButton>
+        <Title>{t('protocol')}</Title>
+        <BackButton onClick={() => navigate('/')}>{t('common.back')}</BackButton>
       </Header>
       <HistoryContainer ref={containerRef}>
         {protocolItems.map((historyItem, index) =>

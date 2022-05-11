@@ -8,6 +8,7 @@ import PageContainer from '../../components/page-container/page-container';
 import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
 import Textfield from '../../components/textfield/textfield';
 import hotkeys from '../../hotkeys.json';
+import { useTranslation } from 'react-i18next';
 
 const SearchField = styled(Textfield)`
   margin-top: 2em;
@@ -23,16 +24,17 @@ function matchDocumentation(doc: GlobalDocumentationItem, searchStr: string) {
 export default function Manual() {
   const [documentation] = useState(() => getDocumentation());
   const [searchStr, setSearchStr] = useState('');
+  const [t] = useTranslation();
 
   return (
     <WithScrollbars>
       <PageContainer>
         <SearchField
-          placeholder="Search"
+          placeholder={t('manual.search')}
           value={searchStr}
           onChange={(e) => setSearchStr(e.target.value)}
         />
-        <ManualSection heading="Hotkeys">
+        <ManualSection heading={t('manual.hotkeys')}>
           {Object.keys(hotkeys)
             .filter(
               (hotkey) =>
@@ -43,11 +45,11 @@ export default function Manual() {
               <ManualSectionItem
                 key={hotkey}
                 synopsis={(hotkey as string).toUpperCase()}
-                description={(hotkeys as Record<string, string>)[hotkey] as string}
+                description={t((hotkeys as Record<string, string>)[hotkey] as string)}
               />
             ))}
         </ManualSection>
-        <ManualSection heading="Constants">
+        <ManualSection heading={t('manual.constants')}>
           {documentation
             .filter((item) => item.type === 'constant' && matchDocumentation(item, searchStr))
             .map((item) => (
@@ -58,7 +60,7 @@ export default function Manual() {
               />
             ))}
         </ManualSection>
-        <ManualSection heading="Functions">
+        <ManualSection heading={t('manual.functions')}>
           {documentation
             .filter((item) => item.type === 'function' && matchDocumentation(item, searchStr))
             .map((item) => (

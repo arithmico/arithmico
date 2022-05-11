@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import packageJson from '../../../package.json';
@@ -53,16 +54,18 @@ const StyledLink = styled(Link)`
 `;
 
 export default function About() {
+  const [t] = useTranslation();
+
   return (
     <Container>
-      <h1>General</h1>
+      <h1>{t('about.general')}</h1>
       <StyledDl>
-        <dd>Version</dd>
+        <dd>{t('about.version')}</dd>
         <dt>{packageJson.version}</dt>
-        <dd>License</dd>
+        <dd>{t('about.license')}</dd>
         <dt>{packageJson.license}</dt>
 
-        <dd>Author</dd>
+        <dd>{t('about.author')}</dd>
         <dt>
           <AboutContact
             name={packageJson.author.name}
@@ -71,7 +74,7 @@ export default function About() {
           />
         </dt>
 
-        <dd>Contributors</dd>
+        <dd>{t('about.contributors')}</dd>
         {packageJson.contributors.map((contributor) => (
           <dt key={contributor.name}>
             <AboutContact
@@ -85,15 +88,15 @@ export default function About() {
           </dt>
         ))}
 
-        <dd>number-cruncher version</dd>
+        <dd>{t('about.numberCruncherVersion')}</dd>
         <dt>{packageJson.dependencies['@behrenle/number-cruncher'].slice(1)}</dt>
 
-        <dd>Report bugs</dd>
+        <dd>{t('about.reportBugs')}</dd>
         <dt>
           <ExternalLink href={packageJson.bugs.url}>{packageJson.bugs.url}</ExternalLink>
         </dt>
       </StyledDl>
-      <h1>Further Information</h1>
+      <h1>{t('about.furtherInformation')}</h1>
       <ul>
         <li>
           <StyledLink to="/terms-of-service">Terms of Service</StyledLink>

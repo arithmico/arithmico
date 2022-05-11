@@ -1,6 +1,11 @@
 {
     "common.input": "Input",
     "common.output": "Output",
+    "common.back": "Back",
+
+    "protocol": "Protocol",
+
+    "definitions": "Definitions",
 
     "nav.calculator": "Calculator",
     "nav.settings": "Settings",
@@ -14,5 +19,46 @@
     "toolbar.resetAll": "Reset All",
     "toolbar.showDefinitions": "Show Definitions",
     "toolbar.showProtocol": "Show Protocol",
-    "toolbar.toggleZenMode": "Toggle Zen Mode"
+    "toolbar.toggleZenMode": "Toggle Zen Mode",
+
+    "settings.interface": "Interface",
+    "settings.appearance": "Appearance",
+    "settings.calculator": "Calculator",
+    "settings.language": "Language",
+    "settings.copyManualContentByClicking": "Copy manual content by clicking",
+    "settings.excludeInfoInProtocol": "Exclude info in protocol",
+    "settings.theme": "Theme",
+    "settings.fontSize": "Font size",
+    "settings.significantDecimalPlaces": "Significant decimal places",
+    "settings.numberFormat": "Number format",
+    "settings.language.english": "English",
+    "settings.language.german": "German",
+    "settings.numberFormat.default": "Default",
+    "settings.theme.dark": "Dark",
+    "settings.theme.light": "Light",
+    "settings.fontSize.small": "Small",
+    "settings.fontSize.medium": "Medium",
+    "settings.fontSize.large": "Large",
+
+    "manual.hotkeys": "Hotkeys",
+    "manual.functions": "Functions",
+    "manual.constants": "Constants",
+    "manual.search": "serach",
+
+    "about.general": "General",
+    "about.furtherInformation": "Further Information",
+    "about.version": "Version",
+    "about.license": "License",
+    "about.author": "Author",
+    "about.contributors": "Contributors",
+    "about.numberCruncherVersion": "Version of number-cruncher",
+    "about.reportBugs": "Report bugs",
+
+    "hotkeys.focusInput": "Focus input field",
+    "hotkeys.focusOutput": "Focus output field",
+    "hotkeys.resetInput": "Reset input field",
+    "hotkeys.resetOutput": "Reset output field",
+    "hotkeys.resetDefinitions": "Reset input field",
+    "hotkeys.resetAll": "Reset all",
+    "hotkeys.copyInputAndOutput": "Copy current input and output"
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageContainer from '../../components/page-container/page-container';
 import SettingsDecimalPlacesListbox from '../../components/settings-decimal-places-listbox/settings-decimal-places-listbox';
 import SettingsListbox from '../../components/settings-listbox/settings-listbox';
@@ -24,67 +25,68 @@ export default function Settings() {
     state.excludeInfoInProtocol,
     state.setExcludeInfoInProtocol
   ]);
+  const [t] = useTranslation();
 
   return (
     <PageContainer>
-      <SettingsSection heading="Interface">
+      <SettingsSection heading={t('settings.interface')}>
         <SettingsListbox
           onChange={setLanguage}
-          label="Language"
+          label={t('settings.language')}
           options={[
-            { label: 'English', value: 'en' },
-            { label: 'German', value: 'de' }
+            { label: t('settings.language.english'), value: 'en' },
+            { label: t('settings.language.german'), value: 'de' }
           ]}
           value={language}
         />
         <SettingsSwitch
-          label="Copy manual content by clicking"
+          label={t('settings.copyManualContentByClicking')}
           enabled={copyMaualContentByClicking}
           onChange={setCopyMaualContentByClicking}
         />
         <SettingsSwitch
-          label="Exclude info in protocol"
+          label={t('settings.excludeInfoInProtocol')}
           enabled={excludeInfo}
           onChange={setExcludeInfo}
         />
       </SettingsSection>
 
-      <SettingsSection heading="Appearance">
+      <SettingsSection heading={t('settings.appearance')}>
         <SettingsListbox
           onChange={setTheme}
-          label="Theme"
+          label={t('settings.theme')}
           options={[
-            { label: 'Light', value: 'light' },
-            { label: 'Dark', value: 'dark' }
+            { label: t('settings.theme.light'), value: 'light' },
+            { label: t('settings.theme.dark'), value: 'dark' }
           ]}
           value={theme}
         />
         <SettingsListbox
           onChange={(v: string) => setFontSize(v)}
-          label="Font size"
+          label={t('settings.fontSize')}
           options={[
-            { label: 'Small', value: 'small' },
-            { label: 'Medium', value: 'medium' },
-            { label: 'Large', value: 'large' }
+            { label: t('settings.fontSize.small'), value: 'small' },
+            { label: t('settings.fontSize.medium'), value: 'medium' },
+            { label: t('settings.fontSize.large'), value: 'large' }
           ]}
           value={fontSize}
         />
       </SettingsSection>
 
-      <SettingsSection heading="Calculator">
+      <SettingsSection heading={t('settings.calculator')}>
         <SettingsDecimalPlacesListbox
           onChange={setSignificantDecimalPlaces}
-          label="Significant decimal places"
+          label={t('settings.significantDecimalPlaces')}
           options={new Array(15).fill(0).map((_, index) => ({ label: index + '', value: index }))}
           value={significantDecimalPlaces}
         />
         <SettingsListbox
           onChange={setNumberFormat}
-          label="Number format"
+          label={t('settings.numberFormat')}
           options={[
-            { label: 'Default', value: 'default' },
-            { label: 'English', value: 'english' },
-            { label: 'German', value: 'german' }
+            { label: t('settings.numberFormat.default'), value: 'default' },
+            { label: t('settings.language.english'), value: 'en' },
+            { label: t('settings.language.german'), value: 'de' }
           ]}
           value={numberFormat}
         />
