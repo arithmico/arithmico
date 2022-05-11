@@ -136,7 +136,7 @@ export default function CalculatorTextfields() {
         ) : (
           <MathTextfield
             ref={outputRef}
-            placeholder="Output"
+            placeholder={t('common.output')}
             readOnly
             value={lastOutput}
             onKeyPress={onOutputKeyPress}
