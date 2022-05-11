@@ -43,6 +43,8 @@ export default function CalculatorTextfields() {
   const setInput = useSessionStore((state) => state.setInput);
   const outputResetted = useSessionStore((state) => state.outputResetted);
   const evaluate = useSessionStore((state) => state.evaluate);
+  const goBackInHistory = useSessionStore((state) => state.goBackInInputHistory);
+  const goForwardInHistory = useSessionStore((state) => state.goForwardInInputHistory);
   const mathItems = useSessionStore((state) =>
     state.protocol.filter((hItem) => hItem.type === 'math')
   ) as MathItem[];
@@ -51,8 +53,18 @@ export default function CalculatorTextfields() {
   const isError = mathItems.length > 0 ? mathItems[mathItems.length - 1].error : false;
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && input.length > 0) {
       evaluate();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowUp') {
+      goBackInHistory();
+      e.preventDefault();
+    } else if (e.key === 'ArrowDown') {
+      goForwardInHistory();
+      e.preventDefault();
     }
   };
 
@@ -65,6 +77,7 @@ export default function CalculatorTextfields() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={onKeyPress}
+          onKeyDown={(e) => handleKeyDown(e)}
         />
       </LabelContainer>
       <LabelContainer>

@@ -94,16 +94,14 @@ export default function About() {
         </dt>
       </StyledDl>
       <h1>Further Information</h1>
-      <p>
-        <ul>
-          <li>
-            <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
-          </li>
-        </ul>
-      </p>
+      <ul>
+        <li>
+          <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
+        </li>
+        <li>
+          <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
+        </li>
+      </ul>
     </Container>
   );
 }

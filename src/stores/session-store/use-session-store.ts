@@ -1,7 +1,12 @@
 import { init, getDefaultContext } from '@behrenle/number-cruncher';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
-import { evaluateInput, resetDefinitions } from './actions';
+import {
+  evaluateInput,
+  goBackInInputHistory,
+  goForwardInInputHistory,
+  resetDefinitions
+} from './actions';
 import { SessionState } from './types';
 
 init();
@@ -11,6 +16,7 @@ const useSessionStore = create<SessionState>(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (set, _get) => ({
       input: '',
+      historyIndex: 0,
       outputResetted: false,
       protocol: [],
       stack: getDefaultContext().stack,
@@ -29,7 +35,9 @@ const useSessionStore = create<SessionState>(
       setInterfaceFontSize: (interfaceFontSize: SessionState['interfaceFontSize']) =>
         set(() => ({ interfaceFontSize })),
       setTheme: (theme) => set(() => ({ theme })),
-      setExcludeInfoInProtocol: (value: boolean) => set(() => ({ excludeInfoInProtocol: value }))
+      setExcludeInfoInProtocol: (value: boolean) => set(() => ({ excludeInfoInProtocol: value })),
+      goBackInInputHistory: () => set(goBackInInputHistory),
+      goForwardInInputHistory: () => set(goForwardInInputHistory)
     }),
     {
       name: 'settings',

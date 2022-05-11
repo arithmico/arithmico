@@ -16,6 +16,7 @@ type History = (MathItem | InfoItem)[];
 
 export interface SessionState {
   input: string;
+  historyIndex: number;
   outputResetted: boolean;
   protocol: History;
   stack: Context['stack'];
@@ -25,6 +26,8 @@ export interface SessionState {
   excludeInfoInProtocol: boolean;
 
   evaluate: () => void;
+  goBackInInputHistory: () => void;
+  goForwardInInputHistory: () => void;
   resetDefinitions: () => void;
   setInput: (input: string) => void;
   resetInput: () => void;
