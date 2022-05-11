@@ -89,14 +89,13 @@ export default function Settings() {
           value={numberFormat}
         />
       </SettingsSection>
-
-      <SettingsSection heading="Miscellaneous">
+      {/*<SettingsSection heading="Miscellaneous">
         <SettingsSwitch
           label="Use Analytics"
           enabled={enableAnalytics}
           onChange={setEnableAnalytics}
-        />
-      </SettingsSection>
+          />
+      </SettingsSection>*/}
     </PageContainer>
   );
 }
