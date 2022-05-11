@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import useSessionStore from '../../stores/session-store/use-session-store';
 import { MathItem } from '../../stores/session-store/types';
 import Textfield from '../textfield/textfield';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 const TextfieldsContainer = styled.main`
   display: flex;
@@ -51,10 +52,43 @@ export default function CalculatorTextfields() {
   const lastOutput =
     !outputResetted && mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
   const isError = mathItems.length > 0 ? mathItems[mathItems.length - 1].error : false;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const outputRef = useRef<HTMLInputElement>(null);
 
-  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  useHotkeys(
+    'alt + i',
+    () => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    },
+    { enableOnTags: ['INPUT'] }
+  );
+
+  useHotkeys(
+    'alt + o',
+    () => {
+      if (outputRef.current) {
+        outputRef.current.focus();
+      }
+    },
+    { enableOnTags: ['INPUT'] }
+  );
+
+  const onInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && input.length > 0) {
       evaluate();
+      if (outputRef.current) {
+        outputRef.current.focus();
+      }
+    }
+  };
+
+  const onOutputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     }
   };
 
@@ -73,19 +107,32 @@ export default function CalculatorTextfields() {
       <LabelContainer>
         <LabelText>Input</LabelText>
         <MathTextfield
+          ref={inputRef}
           placeholder="Input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={onKeyPress}
+          onKeyPress={onInputKeyPress}
           onKeyDown={(e) => handleKeyDown(e)}
         />
       </LabelContainer>
       <LabelContainer>
         <LabelText>Output</LabelText>
         {isError ? (
-          <ErrorTextfield placeholder="Output" readOnly value={lastOutput} />
+          <ErrorTextfield
+            ref={outputRef}
+            placeholder="Output"
+            readOnly
+            value={lastOutput}
+            onKeyPress={onOutputKeyPress}
+          />
         ) : (
-          <MathTextfield placeholder="Output" readOnly value={lastOutput} />
+          <MathTextfield
+            ref={outputRef}
+            placeholder="Output"
+            readOnly
+            value={lastOutput}
+            onKeyPress={onOutputKeyPress}
+          />
         )}
       </LabelContainer>
     </TextfieldsContainer>
