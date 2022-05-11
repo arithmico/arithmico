@@ -22,6 +22,7 @@ export interface SessionState {
   stack: Context['stack'];
   decimalPlaces: number;
   interfaceFontSize: string;
+  language: string;
   theme: string;
   excludeInfoInProtocol: boolean;
 
@@ -37,4 +38,5 @@ export interface SessionState {
   setInterfaceFontSize: (size: string) => void;
   setTheme: (theme: string) => void;
   setExcludeInfoInProtocol: (value: boolean) => void;
+  setLanguage: (language: string) => void;
 }

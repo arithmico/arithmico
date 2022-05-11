@@ -4,6 +4,7 @@ import useSessionStore from '../../stores/session-store/use-session-store';
 import { MathItem } from '../../stores/session-store/types';
 import Textfield from '../textfield/textfield';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { useTranslation } from 'react-i18next';
 
 const TextfieldsContainer = styled.main`
   display: flex;
@@ -54,6 +55,7 @@ export default function CalculatorTextfields() {
   const isError = mathItems.length > 0 ? mathItems[mathItems.length - 1].error : false;
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLInputElement>(null);
+  const [t] = useTranslation();
 
   useEffect(() => {
     if (inputRef.current) {
@@ -111,10 +113,10 @@ export default function CalculatorTextfields() {
   return (
     <TextfieldsContainer>
       <LabelContainer>
-        <LabelText>Input</LabelText>
+        <LabelText>{t('common.input')}</LabelText>
         <MathTextfield
           ref={inputRef}
-          placeholder="Input"
+          placeholder={t('common.input')}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={onInputKeyPress}
@@ -122,11 +124,11 @@ export default function CalculatorTextfields() {
         />
       </LabelContainer>
       <LabelContainer>
-        <LabelText>Output</LabelText>
+        <LabelText>{t('common.output')}</LabelText>
         {isError ? (
           <ErrorTextfield
             ref={outputRef}
-            placeholder="Output"
+            placeholder={t('common.output')}
             readOnly
             value={lastOutput}
             onKeyPress={onOutputKeyPress}

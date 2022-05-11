@@ -1,0 +1,18 @@
+{
+    "common.input": "Input",
+    "common.output": "Output",
+
+    "nav.calculator": "Calculator",
+    "nav.settings": "Settings",
+    "nav.manual": "Manual",
+    "nav.about": "About",
+
+    "toolbar.resetInput": "Reset Input",
+    "toolbar.resetOuput": "Reset Output",
+    "toolbar.resetDefinitions": "Reset Definitions",
+    "toolbar.resetProtocol": "Reset Protocol",
+    "toolbar.resetAll": "Reset All",
+    "toolbar.showDefinitions": "Show Definitions",
+    "toolbar.showProtocol": "Show Protocol",
+    "toolbar.toggleZenMode": "Toggle Zen Mode"
+}

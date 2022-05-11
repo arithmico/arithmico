@@ -7,7 +7,7 @@ import SettingsSwitch from '../../components/settings-switch/settings-switch';
 import useSessionStore from '../../stores/session-store/use-session-store';
 
 export default function Settings() {
-  const [language, setLanguage] = useState('english');
+  const [language, setLanguage] = useSessionStore((state) => [state.language, state.setLanguage]);
   const [copyMaualContentByClicking, setCopyMaualContentByClicking] = useState(true);
   const [theme, setTheme] = useSessionStore((state) => [state.theme, state.setTheme]);
   const [fontSize, setFontSize] = useSessionStore((state) => [
@@ -32,8 +32,8 @@ export default function Settings() {
           onChange={setLanguage}
           label="Language"
           options={[
-            { label: 'English', value: 'english' },
-            { label: 'German', value: 'german' }
+            { label: 'English', value: 'en' },
+            { label: 'German', value: 'de' }
           ]}
           value={language}
         />

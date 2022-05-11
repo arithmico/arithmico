@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -72,6 +73,7 @@ function NavigationListItem({ name, to, hover }: { name: string; to: string; hov
 
 export default function Navbar() {
   const [hover, setHover] = useState(false);
+  const [t] = useTranslation();
 
   return (
     <Header>
@@ -80,10 +82,10 @@ export default function Navbar() {
       </Title>
       <Navigation onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
         <NavigationList>
-          <NavigationListItem hover={hover} name="Calculator" to="/" />
-          <NavigationListItem hover={hover} name="Settings" to="/settings" />
-          <NavigationListItem hover={hover} name="Manual" to="/manual" />
-          <NavigationListItem hover={hover} name="About" to="/about" />
+          <NavigationListItem hover={hover} name={t('nav.calculator')} to="/" />
+          <NavigationListItem hover={hover} name={t('nav.settings')} to="/settings" />
+          <NavigationListItem hover={hover} name={t('nav.manual')} to="/manual" />
+          <NavigationListItem hover={hover} name={t('nav.about')} to="/about" />
         </NavigationList>
       </Navigation>
     </Header>

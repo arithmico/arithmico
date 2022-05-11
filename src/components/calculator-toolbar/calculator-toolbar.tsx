@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MathItem } from '../../stores/session-store/types';
@@ -55,6 +56,7 @@ export default function CalculatorToolbar() {
     resetProtocol();
     resetDefinitions();
   };
+  const [t] = useTranslation();
 
   useHotkeys(
     'ctrl + alt + i',
@@ -98,17 +100,17 @@ export default function CalculatorToolbar() {
 
   return (
     <ToolbarContainer>
-      <Button onClick={resetInput}>Reset Input</Button>
-      <Button onClick={resetOutput}>Reset Output</Button>
+      <Button onClick={resetInput}>{t('toolbar.resetInput')}</Button>
+      <Button onClick={resetOutput}>{t('toolbar.resetOutput')}</Button>
 
-      <Button onClick={() => navigate('/definitions')}>Show Definitions</Button>
-      <Button onClick={resetDefinitions}>Reset Definitions</Button>
+      <Button onClick={() => navigate('/definitions')}>{t('toolbar.showDefinitions')}</Button>
+      <Button onClick={resetDefinitions}>{t('toolbar.resetDefinitions')}</Button>
 
-      <Button onClick={() => navigate('/protocol')}>Show Protocol</Button>
-      <Button onClick={resetProtocol}>Reset Protocol</Button>
+      <Button onClick={() => navigate('/protocol')}>{t('toolbar.showProtocol')}</Button>
+      <Button onClick={resetProtocol}>{t('toolbar.resetProtocol')}</Button>
 
-      <Button disabled>Toggle Zen Mode</Button>
-      <Button onClick={resetAll}>Reset All</Button>
+      <Button disabled>{t('toolbar.toggleZenMode')}</Button>
+      <Button onClick={resetAll}>{t('toolbar.resetAll')}</Button>
     </ToolbarContainer>
   );
 }

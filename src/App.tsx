@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import i18n from './i18n/index';
 import Calculator from './pages/calculator/calculator';
 import Navbar from './components/navbar/navbar';
 import Settings from './pages/settings/settings';
@@ -16,6 +17,13 @@ import PrivacyPolicy from './pages/privacy-policy/privacy-policy';
 function App() {
   const fontSize = useSessionStore((state) => state.interfaceFontSize);
   const theme = useSessionStore((state) => state.theme);
+  const language = useSessionStore((state) => state.language);
+
+  useEffect(() => {
+    if (language && i18n.language !== language) {
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
 
   return (
     <ThemeProvider theme={{ type: theme }}>
