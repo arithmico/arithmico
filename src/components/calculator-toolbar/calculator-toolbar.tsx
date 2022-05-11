@@ -1,6 +1,8 @@
 import React from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { MathItem } from '../../stores/session-store/types';
 import useSessionStore from '../../stores/session-store/use-session-store';
 
 const ToolbarContainer = styled.aside`
@@ -37,6 +39,13 @@ const Button = styled.button`
 
 export default function CalculatorToolbar() {
   const navigate = useNavigate();
+  const outputResetted = useSessionStore((state) => state.outputResetted);
+  const mathItems = useSessionStore((state) =>
+    state.protocol.filter((hItem) => hItem.type === 'math')
+  ) as MathItem[];
+  const currentOutput =
+    !outputResetted && mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
+  const currentInput = useSessionStore((state) => state.input);
   const resetDefinitions = useSessionStore((state) => state.resetDefinitions);
   const resetInput = useSessionStore((state) => state.resetInput);
   const resetOutput = useSessionStore((state) => state.resetOutput);
@@ -46,6 +55,46 @@ export default function CalculatorToolbar() {
     resetProtocol();
     resetDefinitions();
   };
+
+  useHotkeys(
+    'ctrl + alt + i',
+    () => {
+      resetInput();
+    },
+    { enableOnTags: ['INPUT'] }
+  );
+
+  useHotkeys(
+    'ctrl + alt + o',
+    () => {
+      resetOutput();
+    },
+    { enableOnTags: ['INPUT'] }
+  );
+
+  useHotkeys(
+    'ctrl + alt + m',
+    () => {
+      resetDefinitions();
+    },
+    { enableOnTags: ['INPUT'] }
+  );
+
+  useHotkeys(
+    'ctrl + alt + a',
+    () => {
+      resetAll();
+    },
+    { enableOnTags: ['INPUT'] }
+  );
+
+  useHotkeys(
+    'alt + p',
+    () => {
+      navigator.clipboard.writeText(currentInput + '\n' + currentOutput);
+    },
+    { enableOnTags: ['INPUT'] }
+  );
 
   return (
     <ToolbarContainer>

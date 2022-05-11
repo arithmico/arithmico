@@ -90,7 +90,6 @@ export default function Protocol() {
     ...getLoadingLog().map((value) => ({ type: 'info', info: value } as InfoItem)),
     ...history
   ].filter((item) => item.type === 'math' || !excludeInfo);
-  console.log(protocolItems);
 
   return (
     <Container>
