@@ -7,6 +7,7 @@ import ManualSection from '../../components/manual-section/manual-section';
 import PageContainer from '../../components/page-container/page-container';
 import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
 import Textfield from '../../components/textfield/textfield';
+import hotkeys from '../../hotkeys.json';
 
 const SearchField = styled(Textfield)`
   margin-top: 2em;
@@ -33,7 +34,13 @@ export default function Manual() {
           onChange={(e) => setSearchStr(e.target.value)}
         />
         <ManualSection heading="Hotkeys">
-          <ManualSectionItem synopsis="ALT + I" description="Focus input field" />
+          {Object.keys(hotkeys).map((hotkey) => (
+            <ManualSectionItem
+              key={hotkey}
+              synopsis={(hotkey as string).toUpperCase()}
+              description={(hotkeys as Record<string, string>)[hotkey] as string}
+            />
+          ))}
         </ManualSection>
         <ManualSection heading="Constants">
           {documentation
