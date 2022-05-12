@@ -45,6 +45,8 @@ export default function CalculatorTextfields() {
   const setInput = useSessionStore((state) => state.setInput);
   const outputResetted = useSessionStore((state) => state.outputResetted);
   const evaluate = useSessionStore((state) => state.evaluate);
+  const resetInput = useSessionStore((state) => state.resetInput);
+  const resetOutput = useSessionStore((state) => state.resetOutput);
   const goBackInHistory = useSessionStore((state) => state.goBackInInputHistory);
   const goForwardInHistory = useSessionStore((state) => state.goForwardInInputHistory);
   const mathItems = useSessionStore((state) =>
@@ -79,6 +81,25 @@ export default function CalculatorTextfields() {
       if (outputRef.current) {
         outputRef.current.focus();
       }
+    },
+    { enableOnTags: ['INPUT'] }
+  );
+
+  useHotkeys(
+    'ctrl + alt + i',
+    () => {
+      resetInput();
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    },
+    { enableOnTags: ['INPUT'] }
+  );
+
+  useHotkeys(
+    'ctrl + alt + o',
+    () => {
+      resetOutput();
     },
     { enableOnTags: ['INPUT'] }
   );

@@ -58,22 +58,6 @@ export default function CalculatorToolbar() {
   const [t] = useTranslation();
 
   useHotkeys(
-    'ctrl + alt + i',
-    () => {
-      resetInput();
-    },
-    { enableOnTags: ['INPUT'] }
-  );
-
-  useHotkeys(
-    'ctrl + alt + o',
-    () => {
-      resetOutput();
-    },
-    { enableOnTags: ['INPUT'] }
-  );
-
-  useHotkeys(
     'ctrl + alt + m',
     () => {
       resetDefinitions();
