@@ -111,6 +111,9 @@ integrationTest('cross([1,2,3],[-7,8,9])', '[-6, -30, 22]');
 integrationTest('cross([1,0,0],[0,1,0])', '[0, 0, 1]');
 integrationTest('sqrt(4)', '2');
 integrationTest('root(8,3)', '2');
+integrationTest('fact(0)', '1');
+integrationTest('fact(1)', '1');
+integrationTest('fact(7)', '5040');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

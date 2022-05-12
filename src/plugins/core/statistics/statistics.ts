@@ -12,6 +12,7 @@ import {
 import { calculateAvg } from './utils/avg';
 import { calculateBinom, calculateCBinom, checkNK } from './utils/binomial';
 import { calculateErf } from './utils/erf';
+import { calculateFact } from './utils/fact';
 import { calculateCNormal, calculateNormal } from './utils/normal';
 import { calculateSd } from './utils/sd';
 import { calculateVar } from './utils/var';
@@ -20,15 +21,18 @@ addPluginDescription(statisticsPlugin, 'adds erf, normal, cnormal, binco, binom,
 addPluginAuthor(statisticsPlugin, 'core');
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 const numberSeriesHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true, repeat: true }];
+
 const bincoHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
     { name: 'k', type: 'number', evaluate: true },
 ];
+
 const binomHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
     { name: 'p', type: 'number', evaluate: true },
     { name: 'k', type: 'number', evaluate: true },
 ];
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('erf', singleNumberHeader, 'Gaussian error function', (parameters, context) => {
@@ -37,6 +41,16 @@ addPluginFunction(
         return createNumberNode(calculateErf(x));
     }),
 );
+
+addPluginFunction(
+    statisticsPlugin,
+    createPluginFunction('fact', singleNumberHeader, 'Calculates the factorial of x', (parameters, context) => {
+        const parameterStackFrame = mapParametersToStackFrame('fact', parameters, singleNumberHeader, context);
+        const x = (<NumberNode>parameterStackFrame['x']).value;
+        return createNumberNode(calculateFact(x));
+    }),
+);
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('normal', singleNumberHeader, 'Gaussian distribution', (parameters, context) => {
@@ -45,6 +59,7 @@ addPluginFunction(
         return createNumberNode(calculateNormal(x));
     }),
 );
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('cnormal', singleNumberHeader, 'Cumulative Gaussian distribution', (parameters, context) => {
@@ -53,6 +68,7 @@ addPluginFunction(
         return createNumberNode(calculateCNormal(x));
     }),
 );
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('binco', bincoHeader, 'Computes n over k (binomial coefficient)', (parameters, context) => {
@@ -63,6 +79,7 @@ addPluginFunction(
         return createNumberNode(binco(n, k));
     }),
 );
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('binom', binomHeader, 'Binomial distribution', (parameters, context) => {
@@ -73,6 +90,7 @@ addPluginFunction(
         return createNumberNode(calculateBinom(n, p, k));
     }),
 );
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('cbinom', binomHeader, 'Cumulative binomial distribution', (parameters, context) => {
@@ -83,6 +101,7 @@ addPluginFunction(
         return createNumberNode(calculateCBinom(n, p, k));
     }),
 );
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('avg', numberSeriesHeader, 'Calculates the arithmetic mean', (parameters, context) => {
@@ -91,6 +110,7 @@ addPluginFunction(
         return createNumberNode(calculateAvg(xs));
     }),
 );
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('var', numberSeriesHeader, 'Calculates the variance', (parameters, context) => {
@@ -99,6 +119,7 @@ addPluginFunction(
         return createNumberNode(calculateVar(xs));
     }),
 );
+
 addPluginFunction(
     statisticsPlugin,
     createPluginFunction('sd', numberSeriesHeader, 'Calculates the standard deviation', (parameters, context) => {
@@ -107,4 +128,5 @@ addPluginFunction(
         return createNumberNode(calculateSd(xs));
     }),
 );
+
 export default statisticsPlugin;
