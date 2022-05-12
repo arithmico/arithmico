@@ -13,7 +13,7 @@
     "nav.about": "Über",
 
     "toolbar.resetInput": "Eingabe löschen",
-    "toolbar.resetOuput": "Ausgabe löschen",
+    "toolbar.resetOutput": "Ausgabe löschen",
     "toolbar.resetDefinitions": "Definitionen löschen",
     "toolbar.resetProtocol": "Protokoll löschen",
     "toolbar.resetAll": "Alles löschen",

@@ -13,7 +13,7 @@
     "nav.about": "About",
 
     "toolbar.resetInput": "Reset Input",
-    "toolbar.resetOuput": "Reset Output",
+    "toolbar.resetOutput": "Reset Output",
     "toolbar.resetDefinitions": "Reset Definitions",
     "toolbar.resetProtocol": "Reset Protocol",
     "toolbar.resetAll": "Reset All",
