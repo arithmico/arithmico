@@ -15,13 +15,6 @@ const Title = styled.h1`
   font-weight: 100;
 `;
 
-const Superscript = styled.sup`
-  padding: 0 10px;
-  font-size: 0.75rem;
-  font-weight: 100;
-  font-style: italic;
-`;
-
 const Navigation = styled.nav`
   margin-left: auto;
   height: 100%;
@@ -77,9 +70,7 @@ export default function Navbar() {
 
   return (
     <Header>
-      <Title>
-        Math Explorer <Superscript>neo</Superscript>
-      </Title>
+      <Title>Math Explorer</Title>
       <Navigation onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
         <NavigationList>
           <NavigationListItem hover={hover} name={t('nav.calculator')} to="/" />
