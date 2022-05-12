@@ -24,6 +24,7 @@ const useSessionStore = create<SessionState>(
       interfaceFontSize: 'medium',
       theme: 'light',
       language: 'en',
+      numberFormat: 'default',
       excludeInfoInProtocol: true as boolean,
 
       evaluate: () => set(evaluateInput),
@@ -36,6 +37,7 @@ const useSessionStore = create<SessionState>(
       setLanguage: (language) => set(() => ({ language: language === 'de' ? 'de' : 'en' })),
       setInterfaceFontSize: (interfaceFontSize: SessionState['interfaceFontSize']) =>
         set(() => ({ interfaceFontSize })),
+      setNumberFormat: (numberFormat) => set(() => ({ numberFormat })),
       setTheme: (theme) => set(() => ({ theme })),
       setExcludeInfoInProtocol: (value: boolean) => set(() => ({ excludeInfoInProtocol: value })),
       goBackInInputHistory: () => set(goBackInInputHistory),
@@ -48,7 +50,9 @@ const useSessionStore = create<SessionState>(
         decimalPlaces: state.decimalPlaces,
         interfaceFontSize: state.interfaceFontSize,
         theme: state.theme,
-        excludeInfoInProtocol: state.excludeInfoInProtocol
+        excludeInfoInProtocol: state.excludeInfoInProtocol,
+        numberFormat: state.numberFormat,
+        language: state.language
       })
     }
   )
