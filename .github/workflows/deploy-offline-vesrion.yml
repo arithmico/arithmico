@@ -27,16 +27,24 @@ jobs:
       run: |
         mkdir deploy
         zip -r deploy/$(node -pe "require('./package.json')['version']").zip build
+    
+    - name: Setup Vars
+      id: vars
+      run: |
+        VERSION_TAG=v$(node -pe "require('./package.json')
+        echo ::set-output name=release_tag::v$(VERSION_TAG)
+        echo ::set-output name=release_name::Math Explorer v$(VERSION_TAG)
+        echo ::set-output name=release_text::"Download offline version [here]($(VERSION_TAG))"
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: $(node -pe "require('./package.json')
-        release_name: Math Explorer $(node -pe "require('./package.json')
-        body: |
-          Download offline version [here](https://blob.behrenle.io/me/$(node -pe "require('./package.json')['version']").zip)
+        tag_name: ${{ steps.vars.outputs.release_tag }}
+        release_name: ${{ steps.vars.outputs.release_name }}
+        body: ${{ steps.vars.outputs.release_text }}
         draft: false
         prerelease: false
 
