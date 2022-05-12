@@ -26,7 +26,7 @@ jobs:
     - name: Zip
       run: |
         mkdir deploy
-        git log
+        echo $(git describe)
         zip deploy/$(git describe).zip build
 
     - name: Configure AWS Credentials
