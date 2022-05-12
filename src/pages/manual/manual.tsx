@@ -9,6 +9,7 @@ import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
 import Textfield from '../../components/textfield/textfield';
 import hotkeys from '../../hotkeys.json';
 import { useTranslation } from 'react-i18next';
+import useSessionStore from '../../stores/session-store/use-session-store';
 
 const SearchField = styled(Textfield)`
   margin-top: 2em;
@@ -22,6 +23,7 @@ function matchDocumentation(doc: GlobalDocumentationItem, searchStr: string) {
 }
 
 export default function Manual() {
+  const language = useSessionStore((state) => state.language);
   const [documentation] = useState(() => getDocumentation());
   const [searchStr, setSearchStr] = useState('');
   const [t] = useTranslation();
@@ -64,7 +66,11 @@ export default function Manual() {
               <ManualSectionItem
                 key={item.documentation.en?.synopsis}
                 synopsis={item.documentation.en?.synopsis || ''}
-                description={item.documentation.en?.description || ''}
+                description={
+                  (language === 'de'
+                    ? item.documentation.de?.description
+                    : item.documentation.en?.description) || ''
+                }
               />
             ))}
         </ManualSection>
@@ -75,7 +81,11 @@ export default function Manual() {
               <ManualSectionItem
                 key={item.documentation.en?.synopsis}
                 synopsis={item.documentation.en?.synopsis || ''}
-                description={item.documentation.en?.description || ''}
+                description={
+                  (language === 'de'
+                    ? item.documentation.de?.description
+                    : item.documentation.en?.description) || ''
+                }
               />
             ))}
         </ManualSection>
