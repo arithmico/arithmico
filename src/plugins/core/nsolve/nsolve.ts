@@ -73,6 +73,10 @@ addPluginFunction(nsolvePlugin, {
             synopsis: 'nsolve(equation, start=-20, stop=20)',
             description: 'If possible, solve the equation within the limits.',
         },
+        de: {
+            synopsis: 'nsolve(equation, start=-20, stop=20)',
+            description: 'Sucht nach Lösungen für die gegebene Gleichung in den Grenzen start und stop.',
+        },
     },
 });
 

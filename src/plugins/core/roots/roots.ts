@@ -21,35 +21,47 @@ const rootHeader: FunctionHeaderItem[] = [
 
 addPluginFunction(
     rootsPlugin,
-    createPluginFunction('sqrt', sqrtHeader, 'Calculates the square root of v', (parameters, context) => {
-        const parameterStackFrame = mapParametersToStackFrame('sqrt', parameters, sqrtHeader, context);
-        const x = (<NumberNode>parameterStackFrame['x']).value;
+    createPluginFunction(
+        'sqrt',
+        sqrtHeader,
+        'Calculates the square root of x',
+        'Berechnet die Quadratwurzel von x.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('sqrt', parameters, sqrtHeader, context);
+            const x = (<NumberNode>parameterStackFrame['x']).value;
 
-        if (x < 0) {
-            throw 'RuntimeError: sqrt: x < 0';
-        }
+            if (x < 0) {
+                throw 'RuntimeError: sqrt: x < 0';
+            }
 
-        return createNumberNode(Math.sqrt(x));
-    }),
+            return createNumberNode(Math.sqrt(x));
+        },
+    ),
 );
 
 addPluginFunction(
     rootsPlugin,
-    createPluginFunction('root', rootHeader, 'Computes the nth root of x', (parameters, context) => {
-        const parameterStackFrame = mapParametersToStackFrame('root', parameters, rootHeader, context);
-        const x = (<NumberNode>parameterStackFrame['x']).value;
-        const n = (<NumberNode>parameterStackFrame['n']).value;
+    createPluginFunction(
+        'root',
+        rootHeader,
+        'Computes the nth root of x',
+        'Berechnet die n-te Wurzel von x.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('root', parameters, rootHeader, context);
+            const x = (<NumberNode>parameterStackFrame['x']).value;
+            const n = (<NumberNode>parameterStackFrame['n']).value;
 
-        if (x < 0) {
-            throw 'RuntimeError: root: x < 0';
-        }
+            if (x < 0) {
+                throw 'RuntimeError: root: x < 0';
+            }
 
-        if (n <= 0) {
-            throw 'RuntimeError: root: n <= 0';
-        }
+            if (n <= 0) {
+                throw 'RuntimeError: root: n <= 0';
+            }
 
-        return createNumberNode(Math.pow(x, 1 / n));
-    }),
+            return createNumberNode(Math.pow(x, 1 / n));
+        },
+    ),
 );
 
 export default rootsPlugin;

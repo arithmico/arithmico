@@ -31,6 +31,7 @@ addPluginFunction(
         'nderive',
         nderiveHeader,
         'Calculates the derivative of the function for the given position.',
+        'Berechnet den Wert der Ableitungsfunktion an der gegebenen Position.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('nintegrate', parameters, nderiveHeader, context);
             const f = <FunctionNode>parameterStackFrame['f'];

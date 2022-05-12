@@ -26,6 +26,10 @@ addPluginFunction(lsolvePlugin, {
             synopsis: 'lsolve(equation, ...)',
             description: 'If possible, solve the set of linear equations.',
         },
+        de: {
+            synopsis: 'lsolve(equation, ...)',
+            description: 'Löst, falls möglich, das lineare Gleichungssystem.',
+        },
     },
     function: {
         type: 'function',

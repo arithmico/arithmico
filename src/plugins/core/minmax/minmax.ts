@@ -17,20 +17,33 @@ const header: FunctionHeaderItem[] = [{ name: 'v', type: 'number', evaluate: tru
 
 addPluginFunction(
     minmaxPlugin,
-    createPluginFunction('min', header, 'returns the minimum of all passed parameters', (parameters, context) => {
-        const parameterStackFrame = mapParametersToStackFrame('min', parameters, header, context);
-        const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
-        return createNumberNode(Math.min(...values));
-    }),
+    createPluginFunction(
+        'min',
+        header,
+        'returns the minimum of all passed parameters',
+        'Gibt das Minimum aus allen übergebenen Werten zurück.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('min', parameters, header, context);
+            const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
+            return createNumberNode(Math.min(...values));
+        },
+    ),
 );
 
 addPluginFunction(
     minmaxPlugin,
-    createPluginFunction('max', header, 'returns the maximum of all passed parameters', (parameters, context) => {
-        const parameterStackFrame = mapParametersToStackFrame('max', parameters, header, context);
-        const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
-        return createNumberNode(Math.max(...values));
-    }),
+    createPluginFunction(
+        'max',
+        header,
+        'returns the maximum of all passed parameters',
+        'Gibt das Maximum aus allen übergebenen Werten zurück.',
+
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('max', parameters, header, context);
+            const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
+            return createNumberNode(Math.max(...values));
+        },
+    ),
 );
 
 export default minmaxPlugin;

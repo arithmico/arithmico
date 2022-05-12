@@ -26,6 +26,10 @@ addPluginFunction(nintegratePlugin, {
             synopsis: 'nintegrate(f, u, v)',
             description: 'Calculates the definite integral of the function for the given limits.',
         },
+        de: {
+            synopsis: 'nintegrate(f, u, v)',
+            description: 'Berechnet das bestimmte Integral von f zwischen u und v.',
+        },
     },
     function: {
         type: 'function',

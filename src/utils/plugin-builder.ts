@@ -36,7 +36,8 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
 export function createPluginFunction(
     name: string,
     header: FunctionHeaderItem[],
-    description: string,
+    descriptionEn: string,
+    descriptionDe: string,
     evaluator: FunctionNode['evaluator'],
 ): PluginFunction {
     const headerSymbols = convertHeaderToSymbolList(header);
@@ -48,7 +49,11 @@ export function createPluginFunction(
         documentation: {
             en: {
                 synopsis,
-                description,
+                description: descriptionEn,
+            },
+            de: {
+                synopsis,
+                description: descriptionDe,
             },
         },
         function: {

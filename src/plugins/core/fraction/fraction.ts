@@ -19,17 +19,23 @@ const header: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: tru
 
 addPluginFunction(
     fractionPlugin,
-    createPluginFunction('fraction', header, 'Calculates the nearest fraction', (parameters, context) => {
-        const parameterStackFrame = mapParametersToStackFrame('fraction', parameters, header, context);
-        const value = (<NumberNode>parameterStackFrame['x']).value;
+    createPluginFunction(
+        'fraction',
+        header,
+        'Calculates the nearest fraction',
+        'Berechnet den nächsten Bruch zu x.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('fraction', parameters, header, context);
+            const value = (<NumberNode>parameterStackFrame['x']).value;
 
-        if (value === 0) {
-            return createNumberNode(0);
-        }
+            if (value === 0) {
+                return createNumberNode(0);
+            }
 
-        const [left, right] = getLowestFraction(value);
-        return createDivided(createNumberNode(left), createNumberNode(right));
-    }),
+            const [left, right] = getLowestFraction(value);
+            return createDivided(createNumberNode(left), createNumberNode(right));
+        },
+    ),
 );
 
 export default fractionPlugin;
