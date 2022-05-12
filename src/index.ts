@@ -14,6 +14,7 @@ import expPlugin from './plugins/core/exp/exp';
 import minmaxPlugin from './plugins/core/minmax/minmax';
 import absPlugin from './plugins/core/abs/abs';
 import fractionPlugin from './plugins/core/fraction/fraction';
+import { transformEnglish2German, transformGerman2English } from './language-transform';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -78,7 +79,11 @@ export default function evaluate(input: string, context: Context = defaultContex
     let nodeTree;
 
     try {
-        nodeTree = parse(input);
+        if (context.options.decimalSeparator === ',') {
+            nodeTree = parse(transformGerman2English(input));
+        } else {
+            nodeTree = parse(input);
+        }
     } catch (syntaxError) {
         throw syntaxError.message;
     }
@@ -89,13 +94,13 @@ export default function evaluate(input: string, context: Context = defaultContex
     if (result.type === 'define') {
         const value = result.value;
         return {
-            result: resultString,
+            result: context.options.decimalSeparator === ',' ? transformEnglish2German(resultString) : resultString,
             context: insertStackObject(result.name, value, context),
         };
     }
 
     return {
-        result: resultString,
+        result: context.options.decimalSeparator === ',' ? transformEnglish2German(resultString) : resultString,
         context,
     };
 }

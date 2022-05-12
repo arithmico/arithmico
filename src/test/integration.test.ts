@@ -10,12 +10,20 @@ const testOptions: Options = {
     magnitudeThresholdForScientificNotation: 6,
 };
 
+const testOptionGermans: Options = {
+    decimalPlaces: 6,
+    decimalSeparator: ',',
+    magnitudeThresholdForScientificNotation: 6,
+};
+
 function createTestContext(stack: Context['stack'], options: Options = testOptions): Context {
     return {
         stack,
         options,
     };
 }
+
+const germanTextContext = createTestContext([{}], testOptionGermans);
 
 let lastId = 0;
 
@@ -25,9 +33,9 @@ function integrationTest(input: string, expectedOutput: string, context?: Contex
     });
 }
 
-function integrationTestThrow(input: string) {
+function integrationTestThrow(input: string, context?: Context) {
     test(`integration test (throw) #${++lastId}`, () => {
-        expect(() => evaluate(input)).toThrow();
+        expect(() => evaluate(input, context)).toThrow();
     });
 }
 
@@ -97,6 +105,8 @@ integrationTest('length([1,2,2])', '3');
 integrationTest('fraction(1/3)', '1 / 3');
 integrationTest('fraction(1/3+1/3)', '2 / 3');
 integrationTest('fraction(1/3-1/3)', '0');
+integrationTest('1,2+1,3', '2,5', germanTextContext);
+integrationTest('((x; y) -> x + y)(1;2)', '3', germanTextContext);
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -114,3 +124,5 @@ integrationTestThrow('log(1, 0)');
 integrationTestThrow('log(0, 0)');
 integrationTestThrow('ln(-1)');
 integrationTestThrow('lg(-1)');
+integrationTestThrow('1,2+1,3');
+integrationTestThrow('((x; y) -> x + y)(1;2)');
