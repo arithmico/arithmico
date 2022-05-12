@@ -25,7 +25,7 @@ jobs:
 
     - name: Zip
       run: |
-        git fetch --unshallow --tags
+        git fetch --tags
         mkdir deploy
         echo $(git describe)
         zip deploy/$(git describe).zip build
