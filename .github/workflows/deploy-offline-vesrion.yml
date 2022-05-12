@@ -25,6 +25,7 @@ jobs:
 
     - name: Zip
       run: |
+        mkdir deploy
         zip deploy/$(node -pe "require('./package.json')['version']").zip build
 
     - name: Configure AWS Credentials
