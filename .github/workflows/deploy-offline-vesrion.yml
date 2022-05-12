@@ -27,7 +27,7 @@ jobs:
       run: |
         git fetch --tags
         mkdir deploy
-        echo $(git describe)
+        git tag
         zip deploy/$(git describe).zip build
 
     - name: Configure AWS Credentials
