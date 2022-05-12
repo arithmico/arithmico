@@ -27,6 +27,18 @@ jobs:
       run: |
         mkdir deploy
         zip -r deploy/$(node -pe "require('./package.json')['version']").zip build
+    - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Download offline version [here](https://blob.behrenle.io/me/$(node -pe "require('./package.json')['version']").zip)
+          draft: false
+          prerelease: false
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
