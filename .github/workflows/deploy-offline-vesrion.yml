@@ -12,7 +12,6 @@ jobs:
     - uses: actions/checkout@v2
       with: 
         fetch-depth: "0"
-    - run: git fetch --unshallow --tags
 
 
     - name: Install dependencies
@@ -26,6 +25,7 @@ jobs:
 
     - name: Zip
       run: |
+        git fetch --unshallow --tags
         mkdir deploy
         echo $(git describe)
         zip deploy/$(git describe).zip build
