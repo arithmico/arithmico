@@ -21,7 +21,10 @@ jobs:
       run: npm run build
 
     - name: Zip
-      run: mkdir deploy && zip deploy/$(git describe).zip build
+      run: |
+        mkdir deploy
+        git log
+        zip deploy/$(git describe).zip build
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
