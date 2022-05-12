@@ -13,8 +13,6 @@ const ToolbarContainer = styled.aside`
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
   grid-auto-flow: column;
-  margin-top: auto;
-  margin-bottom: 30px;
 `;
 
 const Button = styled.button`

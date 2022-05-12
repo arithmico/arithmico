@@ -5,10 +5,12 @@ import CalculatorToolbar from '../../components/calculator-toolbar/calculator-to
 import PageContainer from '../../components/page-container/page-container';
 
 const Container = styled(PageContainer)`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-gap: 2rem;
   align-items: center;
-  justify-content: center;
+  height: 100%;
+  width: 100%;
 `;
 
 export default function Calculator() {

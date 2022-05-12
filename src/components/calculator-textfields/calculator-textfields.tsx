@@ -11,11 +11,11 @@ const TextfieldsContainer = styled.main`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding-bottom: 200px;
   justify-content: center;
 `;
 
 const MathTextfield = styled(Textfield)`
+  width: 100%;
   font-family: 'Source Code Pro', monospace;
 `;
 
