@@ -16,6 +16,7 @@ import absPlugin from './plugins/core/abs/abs';
 import fractionPlugin from './plugins/core/fraction/fraction';
 import crossPlugin from './plugins/core/cross/cross';
 import { transformEnglish2German, transformGerman2English } from './language-transform';
+import statisticsPlugin from './plugins/core/statistics/statistics';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -36,6 +37,7 @@ const plugins = [
     absPlugin,
     fractionPlugin,
     crossPlugin,
+    statisticsPlugin,
 ];
 
 let defaultContext: Context;
