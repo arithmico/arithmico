@@ -35,6 +35,10 @@ const Button = styled.button`
   &:enabled:hover {
     background-color: var(--me-background-300);
   }
+
+  &:enabled:focus {
+    border: 1px solid var(--me-text-400);
+  }
 `;
 
 export default function CalculatorToolbar() {
