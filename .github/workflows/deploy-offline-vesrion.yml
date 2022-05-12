@@ -25,7 +25,7 @@ jobs:
 
     - name: Zip
       run: |
-        git fetch --tags
+        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         mkdir deploy
         git tag
         zip deploy/$(git describe).zip build
