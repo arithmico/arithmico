@@ -1,4 +1,4 @@
-name: Deploy Production
+name: Deploy Offline Version
 
 on:
   workflow_dispatch:
@@ -17,7 +17,11 @@ jobs:
     - name: Build
       env:
         CI: true
+        REACT_APP_OFFLINE_MODE: true
       run: npm run build
+
+    - name: Zip
+      run: mkdir deploy && zip deploy/$(git describe).zip build
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -28,11 +32,11 @@ jobs:
 
     - name: Deploy static site to S3 bucket
       env: 
-        BUCKET_ID: ${{ secrets.BUCKET_ID }}
-      run: aws s3 sync ./build/ s3://$BUCKET_ID --delete
+        BUCKET_ID: ${{ secrets.BLOB_BUCKET_ID }}
+      run: aws s3 sync ./deploy/ s3://$BUCKET_ID/me/
 
     - name: Invalidate Cloundfront distrubution
       env:
-        DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
+        DISTRIBUTION_ID: ${{ secrets.BLOB_DISTRIBUTION_ID }}
       run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
 
