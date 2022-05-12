@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import 'overlayscrollbars/css/OverlayScrollbars.css';
-import './index.css';
 import OverlayScrollbars from 'overlayscrollbars';
+import '@fontsource/roboto';
+import '@fontsource/source-code-pro';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>

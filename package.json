@@ -21,6 +21,8 @@
   "private": true,
   "dependencies": {
     "@behrenle/number-cruncher": "^1.28.0",
+    "@fontsource/roboto": "^4.5.5",
+    "@fontsource/source-code-pro": "^4.5.9",
     "@headlessui/react": "^1.4.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
