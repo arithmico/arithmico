@@ -25,9 +25,7 @@ jobs:
 
     - name: Zip
       run: |
-        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-        mkdir deploy
-        git tag
+        echo $(node -pe "require('./package.json')['version']")
         zip deploy/$(git describe).zip build
 
     - name: Configure AWS Credentials
