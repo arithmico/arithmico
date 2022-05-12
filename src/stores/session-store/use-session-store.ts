@@ -23,7 +23,7 @@ const useSessionStore = create<SessionState>(
       decimalPlaces: getDefaultContext().options.decimalPlaces,
       interfaceFontSize: 'medium',
       theme: 'light',
-      language: 'en',
+      language: 'de',
       numberFormat: 'default',
       excludeInfoInProtocol: true as boolean,
 
