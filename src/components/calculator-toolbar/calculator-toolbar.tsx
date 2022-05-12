@@ -24,6 +24,7 @@ const Button = styled.button`
   flex: 1;
   height: 70px;
   font-size: 1.5em;
+  font-weight: 300;
   text-align: left;
   padding: 0 20px;
 
