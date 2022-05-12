@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, HashRouter, Routes } from 'react-router-dom';
 import i18n from './i18n/index';
 import Calculator from './pages/calculator/calculator';
 import Navbar from './components/navbar/navbar';
@@ -14,6 +14,8 @@ import Definitions from './pages/definitions/definitions';
 import TermsOfService from './pages/terms-of-service/terms-of-service';
 import PrivacyPolicy from './pages/privacy-policy/privacy-policy';
 
+const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
+
 function App() {
   const fontSize = useSessionStore((state) => state.interfaceFontSize);
   const theme = useSessionStore((state) => state.theme);
@@ -27,7 +29,7 @@ function App() {
 
   return (
     <ThemeProvider theme={{ type: theme }}>
-      <BrowserRouter>
+      <Router>
         <GlobalStyle fontSize={fontSize} />
         <Navbar />
         <Routes>
@@ -40,7 +42,7 @@ function App() {
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </ThemeProvider>
   );
 }
