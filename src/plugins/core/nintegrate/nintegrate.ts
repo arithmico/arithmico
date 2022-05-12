@@ -23,7 +23,7 @@ addPluginFunction(nintegratePlugin, {
     name: 'nintegrate',
     documentation: {
         en: {
-            synopsis: 'nintegral(f, u, v)',
+            synopsis: 'nintegrate(f, u, v)',
             description: 'Calculates the definite integral of the function for the given limits.',
         },
     },
