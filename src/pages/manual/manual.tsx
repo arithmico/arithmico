@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { getDocumentation } from '@behrenle/number-cruncher';
 import { GlobalDocumentationItem } from '@behrenle/number-cruncher/lib/types/Plugin';
 import styled from 'styled-components';
@@ -25,11 +25,19 @@ export default function Manual() {
   const [documentation] = useState(() => getDocumentation());
   const [searchStr, setSearchStr] = useState('');
   const [t] = useTranslation();
+  const serachRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (serachRef.current) {
+      serachRef.current.focus();
+    }
+  }, [serachRef]);
 
   return (
     <WithScrollbars>
       <PageContainer>
         <SearchField
+          ref={serachRef}
           placeholder={t('manual.search')}
           value={searchStr}
           onChange={(e) => setSearchStr(e.target.value)}

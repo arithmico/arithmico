@@ -6,6 +6,7 @@ import packageJson from '../../../package.json';
 import AboutContact from '../../components/about-contact/about-contact';
 import ExternalLink from '../../components/external-link/external-link';
 import PageContainer from '../../components/page-container/page-container';
+import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
 
 const Container = styled(PageContainer)`
   font-size: 1.5rem;
@@ -57,54 +58,56 @@ export default function About() {
   const [t] = useTranslation();
 
   return (
-    <Container>
-      <h1>{t('about.general')}</h1>
-      <StyledDl>
-        <dd>{t('about.version')}</dd>
-        <dt>{packageJson.version}</dt>
-        <dd>{t('about.license')}</dd>
-        <dt>{packageJson.license}</dt>
+    <WithScrollbars>
+      <Container>
+        <h1>{t('about.general')}</h1>
+        <StyledDl>
+          <dd>{t('about.version')}</dd>
+          <dt>{packageJson.version}</dt>
+          <dd>{t('about.license')}</dd>
+          <dt>{packageJson.license}</dt>
 
-        <dd>{t('about.author')}</dd>
-        <dt>
-          <AboutContact
-            name={packageJson.author.name}
-            email={packageJson.author.email}
-            url={packageJson.author.url}
-          />
-        </dt>
-
-        <dd>{t('about.contributors')}</dd>
-        {packageJson.contributors.map((contributor) => (
-          <dt key={contributor.name}>
+          <dd>{t('about.author')}</dd>
+          <dt>
             <AboutContact
-              name={contributor.name}
-              email={
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                contributor?.email
-              }
+              name={packageJson.author.name}
+              email={packageJson.author.email}
+              url={packageJson.author.url}
             />
           </dt>
-        ))}
 
-        <dd>{t('about.numberCruncherVersion')}</dd>
-        <dt>{packageJson.dependencies['@behrenle/number-cruncher'].slice(1)}</dt>
+          <dd>{t('about.contributors')}</dd>
+          {packageJson.contributors.map((contributor) => (
+            <dt key={contributor.name}>
+              <AboutContact
+                name={contributor.name}
+                email={
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  contributor?.email
+                }
+              />
+            </dt>
+          ))}
 
-        <dd>{t('about.reportBugs')}</dd>
-        <dt>
-          <ExternalLink href={packageJson.bugs.url}>{packageJson.bugs.url}</ExternalLink>
-        </dt>
-      </StyledDl>
-      <h1>{t('about.furtherInformation')}</h1>
-      <ul>
-        <li>
-          <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
-        </li>
-        <li>
-          <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
-        </li>
-      </ul>
-    </Container>
+          <dd>{t('about.numberCruncherVersion')}</dd>
+          <dt>{packageJson.dependencies['@behrenle/number-cruncher'].slice(1)}</dt>
+
+          <dd>{t('about.reportBugs')}</dd>
+          <dt>
+            <ExternalLink href={packageJson.bugs.url}>{packageJson.bugs.url}</ExternalLink>
+          </dt>
+        </StyledDl>
+        <h1>{t('about.furtherInformation')}</h1>
+        <ul>
+          <li>
+            <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
+          </li>
+          <li>
+            <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
+          </li>
+        </ul>
+      </Container>
+    </WithScrollbars>
   );
 }
