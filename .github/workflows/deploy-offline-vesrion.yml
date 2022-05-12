@@ -34,7 +34,7 @@ jobs:
         VERSION_NUMBER=$(node -pe "require('./package.json')['version']") 
         echo ::set-output name=release_tag::v$VERSION_NUMBER
         echo ::set-output name=release_name::Math Explorer v$VERSION_NUMBER
-        echo ::set-output name=release_text::"Download offline version [here]($(echo $VERSION_NUMBER))"
+        echo ::set-output name=release_text::"Download offline version [here](https://blob.behrenle.io/me/$(echo $VERSION_NUMBER).zip)"
 
     - name: Create Release
       id: create_release
