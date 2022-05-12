@@ -31,10 +31,10 @@ jobs:
     - name: Setup Vars
       id: vars
       run: |
-        VERSION_TAG=v$(node -pe "require('./package.json')
-        echo ::set-output name=release_tag::v$(VERSION_TAG)
-        echo ::set-output name=release_name::Math Explorer v$(VERSION_TAG)
-        echo ::set-output name=release_text::"Download offline version [here]($(VERSION_TAG))"
+        VERSION_NUMBER=$(node -pe "require('./package.json')['version']") 
+        echo ::set-output name=release_tag::v$(VERSION_NUMBER)
+        echo ::set-output name=release_name::Math Explorer v$(VERSION_NUMBER)
+        echo ::set-output name=release_text::"Download offline version [here]($(VERSION_NUMBER))"
 
     - name: Create Release
       id: create_release
