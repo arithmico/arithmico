@@ -47,8 +47,9 @@ addPluginFunction(
                 throw 'RuntimeError: nderive: invalid function signature';
             }
 
-            const value = createNumberNode(0);
+            const value = createNumberNode(position);
             const expression = createFunctionCall(f, [value]);
+            evaluate(expression, context);
             const h = Math.abs(position >= 1 ? position : 1) * H_COEFFICIENT;
 
             let result = 0;

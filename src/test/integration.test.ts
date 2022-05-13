@@ -137,3 +137,4 @@ integrationTestThrow('((x; y) -> x + y)(1;2)');
 integrationTestThrow('sqrt(-1)');
 integrationTestThrow('root(-1, 2)');
 integrationTestThrow('root(1, -2)');
+integrationTestThrow('nderive((x) -> 1/x, 0)');
