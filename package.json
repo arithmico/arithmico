@@ -1,6 +1,6 @@
 {
   "name": "@behrenle/number-cruncher",
-  "version": "1.31.1",
+  "version": "1.31.2",
   "private": false,
   "description": "",
   "main": "lib/index.js",
