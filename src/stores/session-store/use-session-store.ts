@@ -26,6 +26,7 @@ const useSessionStore = create<SessionState>(
       language: 'de',
       numberFormat: 'default',
       excludeInfoInProtocol: true as boolean,
+      copySynopsisOnClick: true as boolean,
 
       evaluate: () => set(evaluateInput),
       resetDefinitions: () => set(resetDefinitions),
@@ -41,7 +42,8 @@ const useSessionStore = create<SessionState>(
       setTheme: (theme) => set(() => ({ theme })),
       setExcludeInfoInProtocol: (value: boolean) => set(() => ({ excludeInfoInProtocol: value })),
       goBackInInputHistory: () => set(goBackInInputHistory),
-      goForwardInInputHistory: () => set(goForwardInInputHistory)
+      goForwardInInputHistory: () => set(goForwardInInputHistory),
+      setCopySynopsisOnClick: (copySynopsisOnClick) => set(() => ({ copySynopsisOnClick }))
     }),
     {
       name: 'settings',
@@ -52,7 +54,8 @@ const useSessionStore = create<SessionState>(
         theme: state.theme,
         excludeInfoInProtocol: state.excludeInfoInProtocol,
         numberFormat: state.numberFormat,
-        language: state.language
+        language: state.language,
+        copySynopsisOnClick: state.copySynopsisOnClick
       })
     }
   )

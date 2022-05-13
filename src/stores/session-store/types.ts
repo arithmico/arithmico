@@ -26,6 +26,7 @@ export interface SessionState {
   numberFormat: string;
   theme: string;
   excludeInfoInProtocol: boolean;
+  copySynopsisOnClick: boolean;
 
   evaluate: () => void;
   goBackInInputHistory: () => void;
@@ -41,4 +42,5 @@ export interface SessionState {
   setTheme: (theme: string) => void;
   setExcludeInfoInProtocol: (value: boolean) => void;
   setLanguage: (language: string) => void;
+  setCopySynopsisOnClick: (v: boolean) => void;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PageContainer from '../../components/page-container/page-container';
 import SettingsDecimalPlacesListbox from '../../components/settings-decimal-places-listbox/settings-decimal-places-listbox';
@@ -10,7 +10,10 @@ import useSessionStore from '../../stores/session-store/use-session-store';
 
 export default function Settings() {
   const [language, setLanguage] = useSessionStore((state) => [state.language, state.setLanguage]);
-  const [copyMaualContentByClicking, setCopyMaualContentByClicking] = useState(true);
+  const [copyMaualContentByClicking, setCopyMaualContentByClicking] = useSessionStore((state) => [
+    state.copySynopsisOnClick,
+    state.setCopySynopsisOnClick
+  ]);
   const [theme, setTheme] = useSessionStore((state) => [state.theme, state.setTheme]);
   const [fontSize, setFontSize] = useSessionStore((state) => [
     state.interfaceFontSize,

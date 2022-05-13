@@ -54,6 +54,7 @@ export default function Manual() {
             .map((hotkey) => (
               <ManualSectionItem
                 key={hotkey}
+                noCopy={true}
                 synopsis={(hotkey as string).toUpperCase()}
                 description={t((hotkeys as Record<string, string>)[hotkey] as string)}
               />

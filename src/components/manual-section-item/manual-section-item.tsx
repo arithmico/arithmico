@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import useSessionStore from '../../stores/session-store/use-session-store';
 
 interface ManualSectionItemProps {
   synopsis: string;
   description: string;
+  noCopy?: boolean;
 }
 
 const StyledDt = styled.dt`
@@ -22,10 +24,22 @@ const StyledDd = styled.dd`
   border-radius: 0 0.25rem 0.25rem 0;
 `;
 
-export default function ManualSectionItem({ synopsis, description }: ManualSectionItemProps) {
+export default function ManualSectionItem({
+  synopsis,
+  description,
+  noCopy
+}: ManualSectionItemProps) {
+  const copySynopsisOnClick = useSessionStore((state) => state.copySynopsisOnClick);
+
+  const onClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    if (!noCopy && copySynopsisOnClick && e.button === 0) {
+      navigator.clipboard.writeText(synopsis);
+    }
+  };
+
   return (
     <>
-      <StyledDt>{synopsis}</StyledDt>
+      <StyledDt onClick={onClick}>{synopsis}</StyledDt>
       <StyledDd>{description}</StyledDd>
     </>
   );
