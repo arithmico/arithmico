@@ -49,7 +49,7 @@ addPluginFunction(
 
             const value = createNumberNode(0);
             const expression = createFunctionCall(f, [value]);
-            const h = Math.abs(position) * H_COEFFICIENT;
+            const h = Math.abs(position >= 1 ? position : 1) * H_COEFFICIENT;
 
             let result = 0;
 
