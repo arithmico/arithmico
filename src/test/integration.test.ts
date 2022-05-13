@@ -92,6 +92,7 @@ integrationTest('nderive((x) -> x^2, 2)', '4');
 integrationTest('nderive((x) -> x^2, 2, 1)', '4');
 integrationTest('nderive((x) -> x^2, 3, 2)', '2');
 integrationTest('nderive((x) -> x^2, pi^2, 2)', '2');
+integrationTest('nderive((x) -> x, 0)', '1');
 integrationTest('log(8,2)', '3');
 integrationTest('exp(2)', '7.389056');
 integrationTest('ln(exp(2))', '2');
