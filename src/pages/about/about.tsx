@@ -54,6 +54,12 @@ const StyledLink = styled(Link)`
   color: var(--me-text-400);
 `;
 
+const StyledExternalLink = styled(ExternalLink)`
+  color: var(--me-text-400);
+  opacity: 1;
+  text-decoration: underline;
+`;
+
 export default function About() {
   const [t] = useTranslation();
 
@@ -100,6 +106,11 @@ export default function About() {
         </StyledDl>
         <h1>{t('about.furtherInformation')}</h1>
         <ul>
+          <li>
+            <StyledExternalLink href="https://blob.behrenle.io/me/MathExplorerAnleitung.docx">
+              {t('about.documentation')}
+            </StyledExternalLink>
+          </li>
           <li>
             <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
           </li>

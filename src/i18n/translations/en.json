@@ -53,6 +53,7 @@
     "about.contributors": "Contributors",
     "about.numberCruncherVersion": "Version of number-cruncher",
     "about.reportBugs": "Report bugs",
+    "about.documentation": "Documentation",
 
     "hotkeys.focusInput": "Focus input field",
     "hotkeys.focusOutput": "Focus output field",

@@ -53,6 +53,8 @@
     "about.contributors": "Mitwirkende",
     "about.numberCruncherVersion": "Version von number-cruncher",
     "about.reportBugs": "Fehler melden",
+    "about.documentation": "Anleitung",
+
 
     "hotkeys.focusInput": "Eingabefeld fokussieren",
     "hotkeys.focusOutput": "Ausgabefeld fokussieren",
