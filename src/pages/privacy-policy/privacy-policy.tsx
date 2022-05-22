@@ -21,12 +21,12 @@ const Link = styled(ExternalLink)`
 export default function PrivacyPolicy() {
   return (
     <Container>
-      <h1>Privacy Policy for Math Explorer</h1>
+      <h1>Privacy Policy for Arithmico</h1>
 
       <p>
-        At Math Explorer, accessible from https://me.behrenle.io, one of our main priorities is the
+        At Arithmico, accessible from https://arithmico.com, one of our main priorities is the
         privacy of our visitors. This Privacy Policy document contains types of information that is
-        collected and recorded by Math Explorer and how we use it.
+        collected and recorded by Arithmico and how we use it.
       </p>
 
       <p>
@@ -36,9 +36,9 @@ export default function PrivacyPolicy() {
 
       <p>
         This Privacy Policy applies only to our online activities and is valid for visitors to our
-        website with regards to the information that they shared and/or collect in Math Explorer.
-        This policy is not applicable to any information collected offline or via channels other
-        than this website. Our Privacy Policy was created with the help of the{' '}
+        website with regards to the information that they shared and/or collect in Arithmico. This
+        policy is not applicable to any information collected offline or via channels other than
+        this website. Our Privacy Policy was created with the help of the{' '}
         <Link href="https://www.privacypolicygenerator.info">Privacy Policy Generator</Link> and the{' '}
         <Link href="https://www.privacypolicyonline.com">Free Privacy Policy Generator</Link>.
       </p>
@@ -85,7 +85,7 @@ export default function PrivacyPolicy() {
       <h2>Log Files</h2>
 
       <p>
-        Math Explorer follows a standard procedure of using log files. These files log visitors when
+        Arithmico follows a standard procedure of using log files. These files log visitors when
         they visit websites. All hosting companies do this and a part of hosting services'
         analytics. The information collected by log files include internet protocol (IP) addresses,
         browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages,
@@ -98,7 +98,7 @@ export default function PrivacyPolicy() {
       <h2>Cookies and Web Beacons</h2>
 
       <p>
-        Like any other website, Math Explorer uses 'cookies'. These cookies are used to store
+        Like any other website, Arithmico uses 'cookies'. These cookies are used to store
         information including visitors' preferences, and the pages on the website that the visitor
         accessed or visited. The information is used to optimize the users' experience by
         customizing our web page content based on visitors' browser type and/or other information.
@@ -116,7 +116,7 @@ export default function PrivacyPolicy() {
 
       <p>
         You may consult this list to find the Privacy Policy for each of the advertising partners of
-        Math Explorer.
+        Arithmico.
       </p>
 
       <p>
@@ -129,14 +129,14 @@ export default function PrivacyPolicy() {
       </p>
 
       <p>
-        Note that Math Explorer has no access to or control over these cookies that are used by
+        Note that Arithmico has no access to or control over these cookies that are used by
         third-party advertisers.
       </p>
 
       <h2>Third Party Privacy Policies</h2>
 
       <p>
-        Math Explorer's Privacy Policy does not apply to other advertisers or websites. Thus, we are
+        Arithmico's Privacy Policy does not apply to other advertisers or websites. Thus, we are
         advising you to consult the respective Privacy Policies of these third-party ad servers for
         more detailed information. It may include their practices and instructions about how to
         opt-out of certain options.{' '}
@@ -213,7 +213,7 @@ export default function PrivacyPolicy() {
       </p>
 
       <p>
-        Math Explorer does not knowingly collect any Personal Identifiable Information from children
+        Arithmico does not knowingly collect any Personal Identifiable Information from children
         under the age of 13. If you think that your child provided this kind of information on our
         website, we strongly encourage you to contact us immediately and we will do our best efforts
         to promptly remove such information from our records.

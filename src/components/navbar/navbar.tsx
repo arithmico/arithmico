@@ -6,13 +6,14 @@ import styled from 'styled-components';
 const Header = styled.header`
   display: flex;
   align-items: center;
-  padding: 0 0.75rem;
+  padding: 0 2rem;
 `;
 
 const Title = styled.h1`
   display: flex;
   font-size: 2.5rem;
-  font-weight: 100;
+  font-weight: 200;
+  letter-spacing: 0.5rem;
 `;
 
 const Navigation = styled.nav`
@@ -70,7 +71,7 @@ export default function Navbar() {
 
   return (
     <Header>
-      <Title>Math Explorer</Title>
+      <Title>Arithmico</Title>
       <Navigation onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
         <NavigationList>
           <NavigationListItem hover={hover} name={t('nav.calculator')} to="/" />
