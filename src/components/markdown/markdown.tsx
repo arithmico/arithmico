@@ -40,6 +40,7 @@ const Button = styled.a`
   background-color: rgba(0, 0, 0, 0.15);
   color: black;
   margin-left: auto;
+  text-decoration: none;
   cursor: pointer;
 
   &:hover {
