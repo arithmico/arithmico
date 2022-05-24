@@ -14,7 +14,8 @@ jobs:
         fetch-depth: 0
 
     - name: Configure offline mode
-      run: sed -i 's/"homepage": "\/"/"homepage": ".\/"/g' package.json
+      run: |
+        sed -i 's/"homepage": "\/"/"homepage": ".\/"/g' package.json
 
     - name: Install dependencies
       run: npm ci
