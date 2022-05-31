@@ -8,12 +8,14 @@ const testOptions: Options = {
     decimalPlaces: 6,
     decimalSeparator: '.',
     magnitudeThresholdForScientificNotation: 6,
+    angleUnit: 'degrees',
 };
 
 const testOptionGermans: Options = {
     decimalPlaces: 6,
     decimalSeparator: ',',
     magnitudeThresholdForScientificNotation: 6,
+    angleUnit: 'degrees',
 };
 
 function createTestContext(stack: Context['stack'], options: Options = testOptions): Context {

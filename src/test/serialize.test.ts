@@ -24,6 +24,7 @@ const testOptions: Options = {
     decimalPlaces: 4,
     decimalSeparator: '.',
     magnitudeThresholdForScientificNotation: 6,
+    angleUnit: 'degrees',
 };
 
 describe('serialize primitives', () => {

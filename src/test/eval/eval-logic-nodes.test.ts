@@ -15,6 +15,7 @@ const testContext: Context = {
         decimalPlaces: 6,
         magnitudeThresholdForScientificNotation: 6,
         decimalSeparator: '.',
+        angleUnit: 'degrees',
     },
     stack: [{}],
 };

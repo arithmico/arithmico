@@ -7,6 +7,7 @@ const testContext: Context = {
         decimalPlaces: 5,
         decimalSeparator: ',',
         magnitudeThresholdForScientificNotation: 5,
+        angleUnit: 'degrees',
     },
     stack: [{}],
 };

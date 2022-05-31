@@ -25,6 +25,7 @@ const defaultOptions: Options = {
     decimalPlaces: 6,
     decimalSeparator: '.',
     magnitudeThresholdForScientificNotation: 6,
+    angleUnit: 'degrees',
 };
 
 const plugins = [
