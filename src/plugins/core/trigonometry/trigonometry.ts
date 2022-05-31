@@ -7,11 +7,10 @@ import {
     addPluginDescription,
     addPluginFunction,
     createPlugin,
+    createPluginFunction,
 } from '../../../utils/plugin-builder';
 import { closeTo } from '../../../utils/float-utils';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
-import createFunctionCall from '../../../create/FunctionCall';
-import createSymbolNode from '../../../create/SymbolNode';
 
 const trigonometryPlugin = createPlugin('core/trigonometry');
 
@@ -36,13 +35,14 @@ addPluginConstant(trigonometryPlugin, {
 function addTrigonometryFunction(name: string, func: (v: number) => number, enName: string, deName: string) {
     const header: FunctionHeaderItem[] = [{ type: 'number', name: 'x', evaluate: true }];
 
-    addPluginFunction(trigonometryPlugin, {
-        name: name,
-        function: {
-            type: 'function',
+    addPluginFunction(
+        trigonometryPlugin,
+        createPluginFunction(
+            name,
             header,
-            expression: createFunctionCall(createSymbolNode(name), [createSymbolNode('x')]),
-            evaluator: (parameters: SyntaxTreeNode[], context: Context): SyntaxTreeNode => {
+            `calculates the ${enName} of x`,
+            `berechnet den ${deName} von x`,
+            (parameters: SyntaxTreeNode[], context: Context): SyntaxTreeNode => {
                 const stackFrame = mapParametersToStackFrame(name, parameters, header, context);
                 const value = func((stackFrame.x as NumberNode).value);
 
@@ -56,18 +56,8 @@ function addTrigonometryFunction(name: string, func: (v: number) => number, enNa
 
                 return createNumberNode(value);
             },
-        },
-        documentation: {
-            en: {
-                synopsis: `${name}(x)`,
-                description: `calculates the ${enName} of x`,
-            },
-            de: {
-                synopsis: `${name}(x)`,
-                description: `berechnet den ${deName} von x`,
-            },
-        },
-    });
+        ),
+    );
 }
 
 addTrigonometryFunction('sin', Math.sin, 'sine', 'Sinus');
