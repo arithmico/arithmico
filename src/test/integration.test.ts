@@ -1,15 +1,9 @@
-import evaluate, { init } from '..';
+import { init } from '..';
 import createNumberNode from '../create/NumberNode';
-import { Context, Options } from '../types';
+import { Options } from '../types';
+import { createTestContext, integrationTest, integrationTestThrow } from '../utils/integration-test-utils';
 
 init();
-
-const testOptions: Options = {
-    decimalPlaces: 6,
-    decimalSeparator: '.',
-    magnitudeThresholdForScientificNotation: 6,
-    angleUnit: 'degrees',
-};
 
 const testOptionGermans: Options = {
     decimalPlaces: 6,
@@ -18,28 +12,7 @@ const testOptionGermans: Options = {
     angleUnit: 'degrees',
 };
 
-function createTestContext(stack: Context['stack'], options: Options = testOptions): Context {
-    return {
-        stack,
-        options,
-    };
-}
-
 const germanTextContext = createTestContext([{}], testOptionGermans);
-
-let lastId = 0;
-
-function integrationTest(input: string, expectedOutput: string, context?: Context) {
-    test(`integration test #${++lastId}`, () => {
-        expect(evaluate(input, context).result).toBe(expectedOutput);
-    });
-}
-
-function integrationTestThrow(input: string, context?: Context) {
-    test(`integration test (throw) #${++lastId}`, () => {
-        expect(() => evaluate(input, context)).toThrow();
-    });
-}
 
 integrationTest('1', '1');
 integrationTest('[1,2,3]', '[1, 2, 3]');
