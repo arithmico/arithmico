@@ -3,14 +3,10 @@ import createNumberNode from '../../create/NumberNode';
 import createSymbolNode from '../../create/SymbolNode';
 import evaluate from '../../eval';
 import { Context } from '../../types';
+import { createOptions } from '../../utils/context-utils';
 
 const testContext: Context = {
-    options: {
-        decimalPlaces: 6,
-        magnitudeThresholdForScientificNotation: 6,
-        decimalSeparator: '.',
-        angleUnit: 'degrees',
-    },
+    options: createOptions(),
     stack: [
         {
             a: createNumberNode(42),

@@ -11,14 +11,10 @@ import createTimes from '../../create/Times';
 import createVector from '../../create/Vector';
 import evaluate from '../../eval';
 import { Context } from '../../types';
+import { createOptions } from '../../utils/context-utils';
 
 const testContext: Context = {
-    options: {
-        decimalPlaces: 6,
-        magnitudeThresholdForScientificNotation: 6,
-        decimalSeparator: '.',
-        angleUnit: 'degrees',
-    },
+    options: createOptions(),
     stack: [
         {
             a: createNumberNode(42),

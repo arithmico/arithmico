@@ -54,6 +54,10 @@ export function init() {
     documentation = loadingResult.documentation;
 }
 
+export function isInitialized() {
+    return !!defaultContext;
+}
+
 export function getDocumentation() {
     return documentation;
 }

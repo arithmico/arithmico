@@ -1,3 +1,4 @@
+import { Options } from './../../../types/Context';
 import { NumberNode, FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
 import { SyntaxTreeNode, Context } from '../../../types';
 import createNumberNode from '../../../create/NumberNode';
@@ -32,7 +33,9 @@ addPluginConstant(trigonometryPlugin, {
     },
 });
 
-function addTrigonometryFunction(name: string, func: (v: number) => number, enName: string, deName: string) {
+type TrigonometryEvaluator = (v: number, angleUnit: Options['angleUnit']) => number;
+
+function addTrigonometryFunction(name: string, func: TrigonometryEvaluator, enName: string, deName: string) {
     const header: FunctionHeaderItem[] = [{ type: 'number', name: 'x', evaluate: true }];
 
     addPluginFunction(
@@ -44,7 +47,7 @@ function addTrigonometryFunction(name: string, func: (v: number) => number, enNa
             `berechnet den ${deName} von x`,
             (parameters: SyntaxTreeNode[], context: Context): SyntaxTreeNode => {
                 const stackFrame = mapParametersToStackFrame(name, parameters, header, context);
-                const value = func((stackFrame.x as NumberNode).value);
+                const value = func((stackFrame.x as NumberNode).value, context.options.angleUnit);
 
                 if (closeTo(value, 0)) {
                     return createNumberNode(0);
@@ -60,12 +63,32 @@ function addTrigonometryFunction(name: string, func: (v: number) => number, enNa
     );
 }
 
-addTrigonometryFunction('sin', Math.sin, 'sine', 'Sinus');
-addTrigonometryFunction('cos', Math.cos, 'cosine', 'Cosinus');
-addTrigonometryFunction('tan', Math.tan, 'tangent', 'Tangens');
-addTrigonometryFunction('asin', Math.asin, 'arcsine', 'Arkussinus');
-addTrigonometryFunction('acos', Math.acos, 'arc cosine', 'Arkuscosinus');
-addTrigonometryFunction('atan', Math.atan, 'arctangent', 'Arkustangens');
+function convertRadiansToDegree(radians: number) {
+    return (180 * radians) / Math.PI;
+}
+
+function convertDegreesToRadians(degrees: number) {
+    return (Math.PI * degrees) / 180;
+}
+
+function resolveAngleUnitInput(f: (x: number) => number): TrigonometryEvaluator {
+    return (v, angleUnit) => {
+        return angleUnit === 'degrees' ? f(convertDegreesToRadians(v)) : f(v);
+    };
+}
+
+function resolveAngleUnitOutput(f: (x: number) => number): TrigonometryEvaluator {
+    return (v, angleUnit) => {
+        return angleUnit === 'degrees' ? convertRadiansToDegree(f(v)) : f(v);
+    };
+}
+
+addTrigonometryFunction('sin', resolveAngleUnitInput(Math.sin), 'sine', 'Sinus');
+addTrigonometryFunction('cos', resolveAngleUnitInput(Math.cos), 'cosine', 'Cosinus');
+addTrigonometryFunction('tan', resolveAngleUnitInput(Math.tan), 'tangent', 'Tangens');
+addTrigonometryFunction('asin', resolveAngleUnitOutput(Math.asin), 'arcsine', 'Arkussinus');
+addTrigonometryFunction('acos', resolveAngleUnitOutput(Math.acos), 'arc cosine', 'Arkuscosinus');
+addTrigonometryFunction('atan', resolveAngleUnitOutput(Math.atan), 'arctangent', 'Arkustangens');
 
 addTrigonometryFunction('sinh', Math.sinh, 'hyperbolic sine', 'Sinus hyperbolicus');
 addTrigonometryFunction('cosh', Math.cosh, 'hyperbolic cosine', 'Cosinus hyperbolics');

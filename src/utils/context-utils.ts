@@ -1,5 +1,16 @@
 import serialize from '../serialize';
-import { Context, SyntaxTreeNode } from '../types';
+import { Context, Options, SyntaxTreeNode } from '../types';
+
+export const defaultOptions: Options = {
+    decimalPlaces: 6,
+    decimalSeparator: '.',
+    magnitudeThresholdForScientificNotation: 6,
+    angleUnit: 'degrees',
+};
+
+export function createOptions(options?: Partial<Options>): Options {
+    return { ...defaultOptions, ...options };
+}
 
 export function useStrictContextValidator(name: string, context: Context) {
     if (context.stack.length === 0) {

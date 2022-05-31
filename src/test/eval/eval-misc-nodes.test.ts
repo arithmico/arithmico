@@ -8,14 +8,10 @@ import createNegate from '../../create/Negate';
 import createLambda from '../../create/Lambda';
 import createSymbolNode from '../../create/SymbolNode';
 import createFunctionCall from '../../create/FunctionCall';
+import { createOptions } from '../../utils/context-utils';
 
 const testContext: Context = {
-    options: {
-        decimalPlaces: 6,
-        magnitudeThresholdForScientificNotation: 6,
-        decimalSeparator: '.',
-        angleUnit: 'degrees',
-    },
+    options: createOptions(),
     stack: [
         {
             a: createNumberNode(42),
