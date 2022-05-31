@@ -28,7 +28,8 @@ export function evaluateInput(state: SessionState): SessionState {
       options: {
         decimalSeparator: getDecimalSeparator(state.language, state.numberFormat),
         magnitudeThresholdForScientificNotation: state.decimalPlaces,
-        decimalPlaces: state.decimalPlaces
+        decimalPlaces: state.decimalPlaces,
+        angleUnit: state.angleUnit
       }
     });
     return {

@@ -48,7 +48,8 @@ export default function Definitions() {
     options: {
       decimalPlaces: state.decimalPlaces,
       decimalSeparator: '.',
-      magnitudeThresholdForScientificNotation: state.decimalPlaces
+      magnitudeThresholdForScientificNotation: state.decimalPlaces,
+      angleUnit: state.angleUnit
     }
   }));
   const definitions = serializeStack(context);

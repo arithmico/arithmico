@@ -39,6 +39,9 @@
     "settings.fontSize.small": "Small",
     "settings.fontSize.medium": "Medium",
     "settings.fontSize.large": "Large",
+    "settings.angleUnit": "Angle unit",
+    "settings.angleUnit.degrees": "Degrees",
+    "settings.angleUnit.radians": "Radians",
 
     "manual.hotkeys": "Hotkeys",
     "manual.functions": "Functions",

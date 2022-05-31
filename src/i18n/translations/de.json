@@ -39,6 +39,9 @@
     "settings.fontSize.small": "Klein",
     "settings.fontSize.medium": "Mittel",
     "settings.fontSize.large": "Groß",
+    "settings.angleUnit": "Winkelmaß",
+    "settings.angleUnit.degrees": "Gradmaß",
+    "settings.angleUnit.radians": "Bogenmaß",
 
     "manual.hotkeys": "Tastenbefehle",
     "manual.functions": "Funktionen",

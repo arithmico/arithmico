@@ -32,6 +32,11 @@ export default function Settings() {
     state.excludeInfoInProtocol,
     state.setExcludeInfoInProtocol
   ]);
+  const [angleUnit, setAngleUnit] = useSessionStore((state) => [
+    state.angleUnit,
+    state.setAngleUnit
+  ]);
+
   const [t] = useTranslation();
 
   return (
@@ -97,6 +102,15 @@ export default function Settings() {
               { label: t('settings.language.german'), value: 'de' }
             ]}
             value={numberFormat}
+          />
+          <SettingsListbox
+            onChange={(v: string) => setAngleUnit(v)}
+            label={t('settings.angleUnit')}
+            options={[
+              { label: t('settings.angleUnit.degrees'), value: 'degrees' },
+              { label: t('settings.angleUnit.radians'), value: 'radians' }
+            ]}
+            value={angleUnit}
           />
         </SettingsSection>
         {/*<SettingsSection heading="Miscellaneous">

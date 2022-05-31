@@ -1,4 +1,4 @@
-import { Context } from '@behrenle/number-cruncher/lib/types';
+import { Context, Options } from '@behrenle/number-cruncher/lib/types';
 
 export interface MathItem {
   type: 'math';
@@ -27,6 +27,7 @@ export interface SessionState {
   theme: string;
   excludeInfoInProtocol: boolean;
   copySynopsisOnClick: boolean;
+  angleUnit: Options['angleUnit'];
 
   evaluate: () => void;
   goBackInInputHistory: () => void;
@@ -37,6 +38,7 @@ export interface SessionState {
   resetOutput: () => void;
   resetProtocol: () => void;
   setDecimalPlaces: (n: number) => void;
+  setAngleUnit: (unit: string) => void;
   setInterfaceFontSize: (size: string) => void;
   setNumberFormat: (numberFormat: string) => void;
   setTheme: (theme: string) => void;

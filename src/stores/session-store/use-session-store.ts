@@ -27,6 +27,7 @@ const useSessionStore = create<SessionState>(
       numberFormat: 'default',
       excludeInfoInProtocol: true as boolean,
       copySynopsisOnClick: true as boolean,
+      angleUnit: 'degrees',
 
       evaluate: () => set(evaluateInput),
       resetDefinitions: () => set(resetDefinitions),
@@ -35,6 +36,8 @@ const useSessionStore = create<SessionState>(
       resetOutput: () => set(() => ({ outputResetted: true })),
       resetProtocol: () => set(() => ({ protocol: [] })),
       setDecimalPlaces: (n) => set(() => ({ decimalPlaces: n })),
+      setAngleUnit: (unit: string) =>
+        set(() => ({ angleUnit: unit === 'radians' ? 'radians' : 'degrees' })),
       setLanguage: (language) => set(() => ({ language: language === 'de' ? 'de' : 'en' })),
       setInterfaceFontSize: (interfaceFontSize: SessionState['interfaceFontSize']) =>
         set(() => ({ interfaceFontSize })),
