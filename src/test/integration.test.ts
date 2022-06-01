@@ -34,6 +34,7 @@ integrationTest('[[3,2,1],[1,0,2]]*[[1,2],[0,1],[4,0]]', '[[7, 8], [9, 2]]');
 integrationTest('[1,2,3]*[3,2,1]', '10');
 integrationTest('[[1,0],[0,1]]*[4,5]', '[4, 5]');
 integrationTest('[4,5]*[[1,0],[0,1]]', '[4, 5]');
+integrationTest('[2,4,6]/2', '[1, 2, 3]');
 integrationTest('a + 1', '42', createTestContext([{ a: createNumberNode(41) }]));
 integrationTest('sin(pi)', '0', radiansTestContext);
 integrationTest('sin(180)', '0');
