@@ -14,6 +14,7 @@ const StyledDt = styled.dt`
   margin: 0;
   padding: 1rem;
   border-radius: 0.25rem 0 0 0.25rem;
+  font-weight: var(--me-font-weight-normal);
 `;
 
 const StyledDd = styled.dd`
@@ -22,6 +23,7 @@ const StyledDd = styled.dd`
   margin: 0;
   padding: 1rem;
   border-radius: 0 0.25rem 0.25rem 0;
+  font-weight: var(--me-font-weight-normal);
 `;
 
 export default function ManualSectionItem({

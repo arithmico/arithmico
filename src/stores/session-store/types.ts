@@ -1,4 +1,4 @@
-import { Context, Options } from '@behrenle/number-cruncher/lib/types';
+import { Context } from '@behrenle/number-cruncher/lib/types';
 
 export interface MathItem {
   type: 'math';
@@ -27,7 +27,8 @@ export interface SessionState {
   theme: string;
   excludeInfoInProtocol: boolean;
   copySynopsisOnClick: boolean;
-  angleUnit: Options['angleUnit'];
+  angleUnit: string;
+  boldFont: boolean;
 
   evaluate: () => void;
   goBackInInputHistory: () => void;
@@ -45,4 +46,5 @@ export interface SessionState {
   setExcludeInfoInProtocol: (value: boolean) => void;
   setLanguage: (language: string) => void;
   setCopySynopsisOnClick: (v: boolean) => void;
+  setBoldFont: (v: boolean) => void;
 }

@@ -28,6 +28,7 @@ const useSessionStore = create<SessionState>(
       excludeInfoInProtocol: true as boolean,
       copySynopsisOnClick: true as boolean,
       angleUnit: 'degrees',
+      boldFont: false as boolean,
 
       evaluate: () => set(evaluateInput),
       resetDefinitions: () => set(resetDefinitions),
@@ -46,7 +47,8 @@ const useSessionStore = create<SessionState>(
       setExcludeInfoInProtocol: (value: boolean) => set(() => ({ excludeInfoInProtocol: value })),
       goBackInInputHistory: () => set(goBackInInputHistory),
       goForwardInInputHistory: () => set(goForwardInInputHistory),
-      setCopySynopsisOnClick: (copySynopsisOnClick) => set(() => ({ copySynopsisOnClick }))
+      setCopySynopsisOnClick: (copySynopsisOnClick) => set(() => ({ copySynopsisOnClick })),
+      setBoldFont: (v: boolean) => set(() => ({ boldFont: v }))
     }),
     {
       name: 'settings',
@@ -58,7 +60,9 @@ const useSessionStore = create<SessionState>(
         excludeInfoInProtocol: state.excludeInfoInProtocol,
         numberFormat: state.numberFormat,
         language: state.language,
-        copySynopsisOnClick: state.copySynopsisOnClick
+        copySynopsisOnClick: state.copySynopsisOnClick,
+        angleUnit: state.angleUnit,
+        boldFont: state.boldFont
       })
     }
   )

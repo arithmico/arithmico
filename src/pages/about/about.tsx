@@ -52,12 +52,14 @@ const StyledDl = styled.dl`
 
 const StyledLink = styled(Link)`
   color: var(--me-text-400);
+  font-weight: var(--me-font-weight-normal);
 `;
 
 const StyledExternalLink = styled(ExternalLink)`
   color: var(--me-text-400);
   opacity: 1;
   text-decoration: underline;
+  font-weight: var(--me-font-weight-normal);
 `;
 
 export default function About() {

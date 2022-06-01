@@ -41,6 +41,7 @@ const StyledLink = styled(Link)<{ selected: boolean }>`
   align-items: center;
   font-size: inherit;
   font-size: 1.5rem;
+  font-weight: var(--me-font-weight-normal);
   text-decoration: none;
   height: 100%;
   border-radius: 0 0 0.5rem 0.5rem;

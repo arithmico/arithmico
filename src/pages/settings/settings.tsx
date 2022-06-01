@@ -15,6 +15,7 @@ export default function Settings() {
     state.setCopySynopsisOnClick
   ]);
   const [theme, setTheme] = useSessionStore((state) => [state.theme, state.setTheme]);
+  const [boldFont, setBoldFont] = useSessionStore((state) => [state.boldFont, state.setBoldFont]);
   const [fontSize, setFontSize] = useSessionStore((state) => [
     state.interfaceFontSize,
     state.setInterfaceFontSize
@@ -51,6 +52,11 @@ export default function Settings() {
               { label: t('settings.language.german'), value: 'de' }
             ]}
             value={language}
+          />
+          <SettingsSwitch
+            label={t('settings.boldFont')}
+            enabled={boldFont}
+            onChange={setBoldFont}
           />
           <SettingsSwitch
             label={t('settings.copyManualContentByClicking')}

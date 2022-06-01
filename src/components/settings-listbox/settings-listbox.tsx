@@ -30,6 +30,7 @@ const Button = styled(Listbox.Button)`
   color: var(--me-text-400);
   text-align: left;
   padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+  font-weight: var(--me-font-weight-normal);
 `;
 
 const Options = styled(Listbox.Options)`
@@ -48,6 +49,7 @@ const Option = styled(Listbox.Option)`
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--me-text-100);
+  font-weight: var(--me-font-weight-normal);
   cursor: default;
 
   &:hover,

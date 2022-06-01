@@ -4,7 +4,7 @@ import { serializeStack } from '@behrenle/number-cruncher';
 import PageContainer from '../../components/page-container/page-container';
 import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
 import useSessionStore from '../../stores/session-store/use-session-store';
-import { Context } from '@behrenle/number-cruncher/lib/types';
+import { Context, Options } from '@behrenle/number-cruncher/lib/types';
 import DefinitionListItem from '../../components/definition-list-item/definition-list-item';
 import { useTranslation } from 'react-i18next';
 
@@ -49,7 +49,7 @@ export default function Definitions() {
       decimalPlaces: state.decimalPlaces,
       decimalSeparator: '.',
       magnitudeThresholdForScientificNotation: state.decimalPlaces,
-      angleUnit: state.angleUnit
+      angleUnit: state.angleUnit as Options['angleUnit']
     }
   }));
   const definitions = serializeStack(context);

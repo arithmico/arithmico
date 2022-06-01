@@ -20,6 +20,7 @@ function App() {
   const fontSize = useSessionStore((state) => state.interfaceFontSize);
   const theme = useSessionStore((state) => state.theme);
   const language = useSessionStore((state) => state.language);
+  const boldFont = useSessionStore((state) => state.boldFont);
 
   useEffect(() => {
     if (language && i18n.language !== language) {
@@ -30,7 +31,7 @@ function App() {
   return (
     <ThemeProvider theme={{ type: theme }}>
       <Router>
-        <GlobalStyle fontSize={fontSize} boldFont={false} />
+        <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
         <Navbar />
         <Routes>
           <Route path="/" element={<Calculator />} />

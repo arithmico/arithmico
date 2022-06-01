@@ -38,6 +38,7 @@ const LabelText = styled.span`
   margin-bottom: 5px;
   font-size: 18px;
   color: var(--me-text-100);
+  font-weight: var(--me-font-weight-normal);
 `;
 
 export default function CalculatorTextfields() {
