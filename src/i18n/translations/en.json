@@ -42,6 +42,7 @@
     "settings.angleUnit": "Angle unit",
     "settings.angleUnit.degrees": "Degrees",
     "settings.angleUnit.radians": "Radians",
+    "settings.boldFont": "Bold font",
 
     "manual.hotkeys": "Hotkeys",
     "manual.functions": "Functions",

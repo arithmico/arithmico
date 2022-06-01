@@ -42,6 +42,7 @@
     "settings.angleUnit": "Winkelmaß",
     "settings.angleUnit.degrees": "Gradmaß",
     "settings.angleUnit.radians": "Bogenmaß",
+    "settings.boldFont": "Fettgedruckte Schrift",
 
     "manual.hotkeys": "Tastenbefehle",
     "manual.functions": "Funktionen",
