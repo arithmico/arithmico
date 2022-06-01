@@ -5,8 +5,8 @@ import { CandidateIntervall } from './../types';
 import evaluate from '../../../../eval';
 
 const NEWTON_MAX_ITERATIONS = 32;
-const BISECTION_MAX_ITERATIONS = 64;
-const EPSILON_Y_COEFFICIENT = 64;
+const BISECTION_MAX_ITERATIONS = Math.pow(2, 7);
+const EPSILON_Y_COEFFICIENT = Math.pow(2, 7);
 
 function evaluatePosition(expression: SyntaxTreeNode, value: NumberNode, context: Context, position: number) {
     value.value = position;
