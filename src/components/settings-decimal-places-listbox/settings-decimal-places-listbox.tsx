@@ -12,7 +12,7 @@ const Container = styled.li`
 
 const Label = styled(Listbox.Label)`
   font-size: 2rem;
-  font-weight: 300;
+  font-weight: var(--me-font-weight-normal);
 `;
 
 const Button = styled(Listbox.Button)`

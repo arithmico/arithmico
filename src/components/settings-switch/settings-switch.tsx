@@ -17,7 +17,7 @@ const Container = styled.div`
 
 const SwitchLabel = styled(Switch.Label)`
   font-size: 2em;
-  font-weight: 300;
+  font-weight: var(--me-font-weight-normal);
 `;
 
 const StyledSwitch = styled(Switch)<{ checked: boolean }>`

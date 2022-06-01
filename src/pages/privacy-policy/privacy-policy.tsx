@@ -9,7 +9,7 @@ const Container = styled(PageContainer)`
   & > h1,
   h2,
   h3 {
-    font-weight: 300;
+    font-weight: var(--me-font-weight-normal);
   }
 `;
 

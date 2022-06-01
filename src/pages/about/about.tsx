@@ -16,7 +16,7 @@ const Container = styled(PageContainer)`
 
   & > h1 {
     font-size: 2.5rem;
-    font-weight: 300;
+    font-weight: var(--me-font-weight-normal);
     text-align: center;
     margin-top: 3rem;
     margin-bottom: 1.5rem;
@@ -45,7 +45,7 @@ const StyledDl = styled.dl`
 
   & > dt {
     grid-column-start: 2;
-    font-weight: 300;
+    font-weight: var(--me-font-weight-normal);
     font-size: 1.5rem;
   }
 `;

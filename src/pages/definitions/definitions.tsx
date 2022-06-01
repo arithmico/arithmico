@@ -9,7 +9,7 @@ import DefinitionListItem from '../../components/definition-list-item/definition
 import { useTranslation } from 'react-i18next';
 
 const Heading = styled.h1`
-  font-weight: 300;
+  font-weight: var(--me-font-weight-normal);
   font-size: 2.5em;
   margin-top: 2em;
   color: var(--me-text-400);
@@ -23,7 +23,7 @@ const DefinitionList = styled.dl`
   & > dt,
   dd {
     font-size: 2rem;
-    font-weight: 300;
+    font-weight: var(--me-font-weight-normal);
     font-family: 'Source Code Pro', monospace;
     padding-left: 5rem;
   }

@@ -22,7 +22,7 @@ const Header = styled.div`
 
 const Title = styled.h1`
   font-size: 2.5em;
-  font-weight: 300;
+  font-weight: var(--me-font-weight-normal);
   margin: 0;
 `;
 

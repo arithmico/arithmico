@@ -12,7 +12,7 @@ const Header = styled.header`
 const Title = styled.h1`
   display: flex;
   font-size: 2.5rem;
-  font-weight: 200;
+  font-weight: var(--me-font-weight-thin);
   letter-spacing: 0.5rem;
 `;
 

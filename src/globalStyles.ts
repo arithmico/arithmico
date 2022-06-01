@@ -3,10 +3,15 @@ import { createGlobalStyle, DefaultTheme } from 'styled-components';
 interface GlobalStyleProps {
   fontSize: string;
   theme: DefaultTheme;
+  boldFont: boolean;
 }
 
 function theme(light: string, dark: string) {
   return ({ theme }: GlobalStyleProps) => (theme.type === 'light' ? light : dark);
+}
+
+function bold(boldValue: string, nonBoldValue: string) {
+  return ({ boldFont }: GlobalStyleProps) => (boldFont ? boldValue : nonBoldValue);
 }
 
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
@@ -49,6 +54,10 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     --me-error: ${theme('#ff0000', '#fd7c7c')};
     --me-enabled: #f66b00;
     --me-switch-handle: #FFFFFF;
+
+    --me-font-weight-thin: ${bold('400', '200')};
+    --me-font-weight-normal: ${bold('700', '300')};
+    --me-font-weight-bold: ${bold('900', '400')};
   }
 `;
 

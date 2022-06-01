@@ -7,7 +7,7 @@ const Container = styled.section`
 
 const ManaulSectionHeading = styled.h1`
   font-size: 2.5rem;
-  font-weight: 300;
+  font-weight: var(--me-font-weight-normal);
 `;
 
 const StyledDl = styled.dl`

@@ -30,7 +30,7 @@ function App() {
   return (
     <ThemeProvider theme={{ type: theme }}>
       <Router>
-        <GlobalStyle fontSize={fontSize} />
+        <GlobalStyle fontSize={fontSize} boldFont={false} />
         <Navbar />
         <Routes>
           <Route path="/" element={<Calculator />} />

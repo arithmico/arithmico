@@ -8,7 +8,7 @@ const Textfield = styled.input.attrs({ type: 'text' })`
   width: 100%;
   min-width: 100px;
   font-size: 2.5em;
-  font-weight: 300;
+  font-weight: var(--me-font-weight-normal);
   color: var(--me-text-400);
   padding: 0.6em 0.75em;
 
