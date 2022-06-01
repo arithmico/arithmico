@@ -58,6 +58,7 @@
     "about.numberCruncherVersion": "Version of number-cruncher",
     "about.reportBugs": "Report bugs",
     "about.documentation": "Documentation",
+    "about.offlineVersion": "Offline version",
 
     "hotkeys.focusInput": "Focus input field",
     "hotkeys.focusOutput": "Focus output field",

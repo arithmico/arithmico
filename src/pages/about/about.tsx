@@ -114,6 +114,11 @@ export default function About() {
             </StyledExternalLink>
           </li>
           <li>
+            <StyledExternalLink href="https://github.com/behrenle/arithmico-calculator/releases">
+              {t('about.offlineVersion')}
+            </StyledExternalLink>
+          </li>
+          <li>
             <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
           </li>
           <li>
