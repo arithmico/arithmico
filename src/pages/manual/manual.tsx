@@ -15,11 +15,26 @@ const SearchField = styled(Textfield)`
   margin-top: 2em;
 `;
 
-function matchDocumentation(doc: GlobalDocumentationItem, searchStr: string) {
-  return (
-    doc.documentation.en?.synopsis.includes(searchStr) ||
-    doc.documentation.en?.description.includes(searchStr)
-  );
+function matchDocumentation(item: GlobalDocumentationItem, rawSearchStr: string, language: string) {
+  const searchStr = rawSearchStr.toLocaleLowerCase();
+  const doc = item.documentation[language as 'en' | 'de'];
+  if (doc) {
+    return (
+      doc.synopsis.toLowerCase().includes(searchStr) ||
+      doc.description.toLowerCase().includes(searchStr)
+    );
+  }
+
+  const fallbackDoc = item.documentation.en;
+
+  if (fallbackDoc) {
+    return (
+      fallbackDoc.synopsis.toLowerCase().includes(searchStr) ||
+      fallbackDoc.description.toLowerCase().includes(searchStr)
+    );
+  }
+
+  return false;
 }
 
 export default function Manual() {
@@ -48,8 +63,10 @@ export default function Manual() {
           {Object.keys(hotkeys)
             .filter(
               (hotkey) =>
-                hotkey.includes(searchStr) ||
-                ((hotkeys as Record<string, string>)[hotkey] as string).includes(searchStr)
+                hotkey.toLowerCase().includes(searchStr.toLowerCase()) ||
+                t((hotkeys as Record<string, string>)[hotkey] as string)
+                  .toLowerCase()
+                  .includes(searchStr.toLowerCase())
             )
             .map((hotkey) => (
               <ManualSectionItem
@@ -62,7 +79,9 @@ export default function Manual() {
         </ManualSection>
         <ManualSection heading={t('manual.constants')}>
           {documentation
-            .filter((item) => item.type === 'constant' && matchDocumentation(item, searchStr))
+            .filter(
+              (item) => item.type === 'constant' && matchDocumentation(item, searchStr, language)
+            )
             .map((item) => (
               <ManualSectionItem
                 key={item.documentation.en?.synopsis}
@@ -77,7 +96,9 @@ export default function Manual() {
         </ManualSection>
         <ManualSection heading={t('manual.functions')}>
           {documentation
-            .filter((item) => item.type === 'function' && matchDocumentation(item, searchStr))
+            .filter(
+              (item) => item.type === 'function' && matchDocumentation(item, searchStr, language)
+            )
             .map((item) => (
               <ManualSectionItem
                 key={item.documentation.en?.synopsis}
