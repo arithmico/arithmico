@@ -2,10 +2,10 @@ import { GlobalDocumentationItem } from './types/Plugin';
 import { parse } from './parse/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
-import { Context, Options } from './types';
+import { Context } from './types';
 import loadPlugins from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
-import { insertStackObject } from './utils/context-utils';
+import { createOptions, insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
@@ -21,12 +21,7 @@ import rootsPlugin from './plugins/core/roots/roots';
 
 export { serializeStack } from './utils/context-utils';
 
-const defaultOptions: Options = {
-    decimalPlaces: 6,
-    decimalSeparator: '.',
-    magnitudeThresholdForScientificNotation: 6,
-    angleUnit: 'degrees',
-};
+const defaultOptions = createOptions();
 
 const plugins = [
     trigonometryPlugin,

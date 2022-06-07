@@ -8,9 +8,17 @@ export default function evaluateGreaterOrEquals(node: GreaterOrEquals, context: 
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
 
-    if (leftChild.type === 'number' && rightChild.type === 'number') {
+    if (
+        leftChild.type === 'number' &&
+        rightChild.type === 'number' &&
+        context.options.config.operators.greaterOrEqualsNumberNumber
+    ) {
         return createBooleanNode(leftChild.value >= rightChild.value);
-    } else if (leftChild.type === 'function' && rightChild.type === 'function') {
+    } else if (
+        leftChild.type === 'function' &&
+        rightChild.type === 'function' &&
+        context.options.config.operators.greaterOrEqualsFunctionFunction
+    ) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createGreaterOrEquals, context);
     }
 

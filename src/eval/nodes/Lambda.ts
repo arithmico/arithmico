@@ -5,8 +5,11 @@ import { SyntaxTreeNode, Lambda } from '../../types';
 import createFunction from '../../create/Function';
 import { mapParametersToStackFrame } from '../../utils/parameter-utils';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function evaluateLambda(node: Lambda, _context: Context): SyntaxTreeNode {
+export default function evaluateLambda(node: Lambda, context: Context): SyntaxTreeNode {
+    if (!context.options.config.operators.lambda) {
+        throw `RuntimeError: lambdas are disabled in this configuration`;
+    }
+
     const evaluator = (parameters: SyntaxTreeNode[], context: Context) => {
         const localStackFrame: StackFrame = mapParametersToStackFrame('lambda', parameters, node.header, context);
 

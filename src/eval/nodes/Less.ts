@@ -8,9 +8,17 @@ export default function evaluateLess(node: Less, context: Context): SyntaxTreeNo
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
 
-    if (leftChild.type === 'number' && rightChild.type === 'number') {
+    if (
+        leftChild.type === 'number' &&
+        rightChild.type === 'number' &&
+        context.options.config.operators.lessNumberNumber
+    ) {
         return createBooleanNode(leftChild.value < rightChild.value);
-    } else if (leftChild.type === 'function' && rightChild.type === 'function') {
+    } else if (
+        leftChild.type === 'function' &&
+        rightChild.type === 'function' &&
+        context.options.config.operators.lessFunctionFunction
+    ) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createLess, context);
     }
 

@@ -10,9 +10,17 @@ export default function evaluatePlus(node: Plus, context: Context): SyntaxTreeNo
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
 
-    if (leftChild.type === 'number' && rightChild.type === 'number') {
+    if (
+        leftChild.type === 'number' &&
+        rightChild.type === 'number' &&
+        context.options.config.operators.plusNumberNumber
+    ) {
         return createNumberNode(leftChild.value + rightChild.value);
-    } else if (leftChild.type === 'vector' && rightChild.type === 'vector') {
+    } else if (
+        leftChild.type === 'vector' &&
+        rightChild.type === 'vector' &&
+        context.options.config.operators.plusVectorVector
+    ) {
         if (!compareShapesOfVectors(leftChild, rightChild)) {
             throw `ArithmeticError: can not add vectors of incompatible shapes`;
         }
@@ -23,7 +31,11 @@ export default function evaluatePlus(node: Plus, context: Context): SyntaxTreeNo
             ),
             context,
         );
-    } else if (leftChild.type === 'function' && rightChild.type === 'function') {
+    } else if (
+        leftChild.type === 'function' &&
+        rightChild.type === 'function' &&
+        context.options.config.operators.plusFunctionFunction
+    ) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createPlus, context);
     }
 
