@@ -11,11 +11,25 @@ function loadPluginConstant(pluginConstant: PluginConstant, context: Context): C
 }
 
 function loadPlugin(plugin: Plugin, context: Context): Context {
-    const contextWithFunctions = plugin.functions.reduce((context, func) => loadPluginFunction(func, context), context);
-    const contextWithConstants = plugin.constants.reduce(
-        (context, constant) => loadPluginConstant(constant, context),
-        contextWithFunctions,
-    );
+    const contextWithFunctions = plugin.functions
+        .filter((func) => {
+            if (context.options.config.load.mode === 'blacklist') {
+                return !context.options.config.load.names.includes(func.name);
+            } else {
+                return !context.options.config.load.names.includes(func.name);
+            }
+        })
+        .reduce((context, func) => loadPluginFunction(func, context), context);
+
+    const contextWithConstants = plugin.constants
+        .filter((constant) => {
+            if (context.options.config.load.mode === 'blacklist') {
+                return !context.options.config.load.names.includes(constant.name);
+            } else {
+                return !context.options.config.load.names.includes(constant.name);
+            }
+        })
+        .reduce((context, constant) => loadPluginConstant(constant, context), contextWithFunctions);
 
     return contextWithConstants;
 }
