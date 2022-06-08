@@ -2,7 +2,7 @@ import { GlobalDocumentationItem } from './types/Plugin';
 import { parse } from './parse/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
-import { Context } from './types';
+import { Context, Options } from './types';
 import loadPlugins from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
 import { createOptions, insertStackObject } from './utils/context-utils';
@@ -42,8 +42,8 @@ let defaultContext: Context;
 let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
-export function init() {
-    const loadingResult = loadPlugins(plugins, defaultOptions);
+export function init(options: Options = defaultOptions) {
+    const loadingResult = loadPlugins(plugins, options);
     defaultContext = loadingResult.context;
     loadingLog = loadingResult.log;
     documentation = loadingResult.documentation;
