@@ -7,7 +7,10 @@ export const defaultOptions: Options = {
     magnitudeThresholdForScientificNotation: 6,
     angleUnit: 'degrees',
     config: {
-        loadWhitelist: [],
+        load: {
+            mode: 'blacklist',
+            names: [],
+        },
         operators: {
             define: true,
             lambda: true,

@@ -6,7 +6,10 @@ export interface Options {
     magnitudeThresholdForScientificNotation: number;
     angleUnit: 'degrees' | 'radians';
     config: {
-        loadWhitelist: string[];
+        load: {
+            mode: 'whitelist' | 'blacklist';
+            names: string[];
+        };
         operators: {
             define: boolean;
             lambda: boolean;
