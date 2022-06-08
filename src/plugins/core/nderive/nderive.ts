@@ -58,7 +58,6 @@ addPluginFunction(
 
             for (let i = 0; i <= grade; i++) {
                 const cInner = Math.pow(-1, i) * binco(grade, i);
-                console.log(i, cInner);
 
                 value.value = position + (grade - 2 * i) * h;
                 const y = evaluate(expression, context);

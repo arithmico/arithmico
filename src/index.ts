@@ -86,7 +86,6 @@ export default function evaluate(input: string, context: Context = defaultContex
 
     try {
         if (context.options.decimalSeparator === ',') {
-            console.log('german');
             nodeTree = parse(transformGerman2English(input));
         } else {
             nodeTree = parse(input);
