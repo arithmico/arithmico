@@ -1,14 +1,14 @@
 import createNumberNode from '../../create/NumberNode';
 import { Context } from '../../types';
-import { insertStackObject, serializeStack } from '../../utils/context-utils';
+import { createOptions, insertStackObject, serializeStack } from '../../utils/context-utils';
 
 const testContext: Context = {
-    options: {
+    options: createOptions({
         decimalPlaces: 5,
         decimalSeparator: ',',
         magnitudeThresholdForScientificNotation: 5,
         angleUnit: 'degrees',
-    },
+    }),
     stack: [{}],
 };
 

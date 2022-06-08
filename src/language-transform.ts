@@ -1,5 +1,4 @@
 export function transformGerman2English(str: string) {
-    console.log('transform');
     if (str.indexOf('.') !== -1) {
         throw { message: 'SyntaxError: unexpected token "."' };
     }

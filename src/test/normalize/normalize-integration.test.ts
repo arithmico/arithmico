@@ -1,18 +1,14 @@
-import { Context, Options } from '../../types';
+import { Context } from '../../types';
 import { parse } from '../../parse/parser';
 import normalize from '../../normalize';
 import serialize from '../../serialize';
+import { createOptions } from '../../utils/context-utils';
 
 beforeEach(() => {
     global.console = require('console');
 });
 
-const testOptions: Options = {
-    decimalPlaces: 6,
-    decimalSeparator: '.',
-    magnitudeThresholdForScientificNotation: 6,
-    angleUnit: 'degrees',
-};
+const testOptions = createOptions();
 
 const testContext: Context = {
     options: testOptions,

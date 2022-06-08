@@ -1,4 +1,3 @@
-import { Options } from './../types';
 import createBooleanNode from '../create/BooleanNode';
 import createNumberNode from '../create/NumberNode';
 import serialize from '../serialize';
@@ -19,13 +18,9 @@ import createTimes from '../create/Times';
 import createPower from '../create/Power';
 import createNegate from '../create/Negate';
 import createFunction from '../create/Function';
+import { createOptions } from '../utils/context-utils';
 
-const testOptions: Options = {
-    decimalPlaces: 4,
-    decimalSeparator: '.',
-    magnitudeThresholdForScientificNotation: 6,
-    angleUnit: 'degrees',
-};
+const testOptions = createOptions({ decimalPlaces: 4 });
 
 describe('serialize primitives', () => {
     describe('serialize number', () => {

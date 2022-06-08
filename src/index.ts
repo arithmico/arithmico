@@ -5,7 +5,7 @@ import serialize from './serialize';
 import { Context, Options } from './types';
 import loadPlugins from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
-import { insertStackObject } from './utils/context-utils';
+import { createOptions, insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
@@ -21,12 +21,7 @@ import rootsPlugin from './plugins/core/roots/roots';
 
 export { serializeStack } from './utils/context-utils';
 
-const defaultOptions: Options = {
-    decimalPlaces: 6,
-    decimalSeparator: '.',
-    magnitudeThresholdForScientificNotation: 6,
-    angleUnit: 'degrees',
-};
+const defaultOptions = createOptions();
 
 const plugins = [
     trigonometryPlugin,
@@ -47,8 +42,8 @@ let defaultContext: Context;
 let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
-export function init() {
-    const loadingResult = loadPlugins(plugins, defaultOptions);
+export function init(options: Options = defaultOptions) {
+    const loadingResult = loadPlugins(plugins, options);
     defaultContext = loadingResult.context;
     loadingLog = loadingResult.log;
     documentation = loadingResult.documentation;
@@ -91,7 +86,6 @@ export default function evaluate(input: string, context: Context = defaultContex
 
     try {
         if (context.options.decimalSeparator === ',') {
-            console.log('german');
             nodeTree = parse(transformGerman2English(input));
         } else {
             nodeTree = parse(input);
