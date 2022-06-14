@@ -1,5 +1,6 @@
 import evaluate, { getDefaultContext } from '@behrenle/number-cruncher';
 import { Options } from '@behrenle/number-cruncher/lib/types';
+import { createOptions } from '@behrenle/number-cruncher/lib/utils/context-utils';
 import { MathItem, SessionState } from './types';
 
 function getDecimalSeparator(language: string, numberFormat: string) {
@@ -26,12 +27,12 @@ export function evaluateInput(state: SessionState): SessionState {
   try {
     const result = evaluate(state.input, {
       stack: state.stack,
-      options: {
+      options: createOptions({
         decimalSeparator: getDecimalSeparator(state.language, state.numberFormat),
         magnitudeThresholdForScientificNotation: state.decimalPlaces,
         decimalPlaces: state.decimalPlaces,
         angleUnit: state.angleUnit as Options['angleUnit']
-      }
+      })
     });
     return {
       ...state,
