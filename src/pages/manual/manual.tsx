@@ -6,13 +6,30 @@ import ManualSectionItem from '../../components/manual-section-item/manual-secti
 import ManualSection from '../../components/manual-section/manual-section';
 import PageContainer from '../../components/page-container/page-container';
 import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
-import Textfield from '../../components/textfield/textfield';
 import hotkeys from '../../hotkeys.json';
 import { useTranslation } from 'react-i18next';
 import useSessionStore from '../../stores/session-store/use-session-store';
 
-const SearchField = styled(Textfield)`
+const SearchField = styled.input.attrs({ type: 'search' })`
   margin-top: 2em;
+  background-color: var(--me-background-100);
+  outline: none;
+  border: thin solid var(--me-text-200);
+  border-radius: 10px;
+  width: 100%;
+  min-width: 100px;
+  font-size: 2.5em;
+  font-weight: var(--me-font-weight-normal);
+  color: var(--me-text-400);
+  padding: 0.6em 0.75em;
+
+  &::placeholder {
+    color: var(--me-text-100);
+  }
+
+  &:focus {
+    border: thin solid var(--me-text-400);
+  }
 `;
 
 function matchDocumentation(item: GlobalDocumentationItem, rawSearchStr: string, language: string) {
@@ -40,7 +57,8 @@ function matchDocumentation(item: GlobalDocumentationItem, rawSearchStr: string,
 export default function Manual() {
   const language = useSessionStore((state) => state.language);
   const [documentation] = useState(() => getDocumentation());
-  const [searchStr, setSearchStr] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [t] = useTranslation();
   const serachRef = useRef<HTMLInputElement>(null);
 
@@ -50,23 +68,30 @@ export default function Manual() {
     }
   }, [serachRef]);
 
+  const onSearchEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setSearchQuery(searchValue);
+    }
+  };
+
   return (
     <WithScrollbars>
       <PageContainer>
         <SearchField
           ref={serachRef}
           placeholder={t('manual.search')}
-          value={searchStr}
-          onChange={(e) => setSearchStr(e.target.value)}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyPress={onSearchEnter}
         />
         <ManualSection heading={t('manual.hotkeys')}>
           {Object.keys(hotkeys)
             .filter(
               (hotkey) =>
-                hotkey.toLowerCase().includes(searchStr.toLowerCase()) ||
+                hotkey.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 t((hotkeys as Record<string, string>)[hotkey] as string)
                   .toLowerCase()
-                  .includes(searchStr.toLowerCase())
+                  .includes(searchQuery.toLowerCase())
             )
             .map((hotkey) => (
               <ManualSectionItem
@@ -80,7 +105,7 @@ export default function Manual() {
         <ManualSection heading={t('manual.constants')}>
           {documentation
             .filter(
-              (item) => item.type === 'constant' && matchDocumentation(item, searchStr, language)
+              (item) => item.type === 'constant' && matchDocumentation(item, searchQuery, language)
             )
             .map((item) => (
               <ManualSectionItem
@@ -97,7 +122,7 @@ export default function Manual() {
         <ManualSection heading={t('manual.functions')}>
           {documentation
             .filter(
-              (item) => item.type === 'function' && matchDocumentation(item, searchStr, language)
+              (item) => item.type === 'function' && matchDocumentation(item, searchQuery, language)
             )
             .map((item) => (
               <ManualSectionItem
