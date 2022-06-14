@@ -7,6 +7,7 @@ import useSessionStore from '../../stores/session-store/use-session-store';
 import { Context, Options } from '@behrenle/number-cruncher/lib/types';
 import DefinitionListItem from '../../components/definition-list-item/definition-list-item';
 import { useTranslation } from 'react-i18next';
+import { createOptions } from '@behrenle/number-cruncher/lib/utils/context-utils';
 
 const Heading = styled.h1`
   font-weight: var(--me-font-weight-normal);
@@ -45,12 +46,12 @@ const DefinitionList = styled.dl`
 export default function Definitions() {
   const context: Context = useSessionStore((state) => ({
     stack: state.stack,
-    options: {
+    options: createOptions({
       decimalPlaces: state.decimalPlaces,
       decimalSeparator: '.',
       magnitudeThresholdForScientificNotation: state.decimalPlaces,
       angleUnit: state.angleUnit as Options['angleUnit']
-    }
+    })
   }));
   const definitions = serializeStack(context);
   const [t] = useTranslation();
