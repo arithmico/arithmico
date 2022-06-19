@@ -9,6 +9,7 @@ import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
 import hotkeys from '../../hotkeys.json';
 import { useTranslation } from 'react-i18next';
 import useSessionStore from '../../stores/session-store/use-session-store';
+import ExternalLink from '../../components/external-link/external-link';
 
 const SearchField = styled.input.attrs({ type: 'search' })`
   margin-top: 2em;
@@ -84,6 +85,9 @@ export default function Manual() {
           onChange={(e) => setSearchValue(e.target.value)}
           onKeyPress={onSearchEnter}
         />
+        <ExternalLink href="https://docs.arithmico.com">
+          {t('manual.fullDocumentation')}
+        </ExternalLink>
         <ManualSection heading={t('manual.hotkeys')}>
           {Object.keys(hotkeys)
             .filter(
