@@ -43,6 +43,9 @@
     "settings.angleUnit.degrees": "Gradmaß",
     "settings.angleUnit.radians": "Bogenmaß",
     "settings.boldFont": "Fettgedruckte Schrift",
+    "settings.misc": "Verschiedenes",
+    "settings.resetLabel": "Benutzerdefinierte Einstellungen löschen",
+    "settings.resetText": "Löschen",
 
     "manual.hotkeys": "Tastenbefehle",
     "manual.functions": "Funktionen",

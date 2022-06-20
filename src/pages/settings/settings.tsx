@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PageContainer from '../../components/page-container/page-container';
+import SettingsButton from '../../components/settings-button/settings-button';
 import SettingsDecimalPlacesListbox from '../../components/settings-decimal-places-listbox/settings-decimal-places-listbox';
 import SettingsListbox from '../../components/settings-listbox/settings-listbox';
 import SettingsSection from '../../components/settings-section/settings-section';
@@ -130,13 +131,13 @@ export default function Settings() {
             value={angleUnit}
           />
         </SettingsSection>
-        {/*<SettingsSection heading="Miscellaneous">
-        <SettingsSwitch
-          label="Use Analytics"
-          enabled={enableAnalytics}
-          onChange={setEnableAnalytics}
+        <SettingsSection heading={t('settings.misc')}>
+          <SettingsButton
+            label={t('settings.resetLabel')}
+            text={t('settings.resetText')}
+            onClick={() => dispatch({ type: 'resetSettings' })}
           />
-      </SettingsSection>*/}
+        </SettingsSection>
       </PageContainer>
     </WithScrollbars>
   );
