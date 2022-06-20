@@ -43,11 +43,15 @@
     "settings.angleUnit.degrees": "Degrees",
     "settings.angleUnit.radians": "Radians",
     "settings.boldFont": "Bold font",
+    "settings.misc": "Miscellaneous",
+    "settings.resetLabel": "Reset settings",
+    "settings.resetText": "Reset",
 
     "manual.hotkeys": "Hotkeys",
     "manual.functions": "Functions",
     "manual.constants": "Constants",
     "manual.search": "Search",
+    "manual.fullDocumentation": "Full documentation",
 
     "about.general": "General",
     "about.furtherInformation": "Further Information",

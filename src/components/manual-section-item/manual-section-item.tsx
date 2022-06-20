@@ -31,7 +31,7 @@ export default function ManualSectionItem({
   description,
   noCopy
 }: ManualSectionItemProps) {
-  const copySynopsisOnClick = useSessionStore((state) => state.copySynopsisOnClick);
+  const copySynopsisOnClick = useSessionStore((state) => state.settings.copySynopsisOnClick);
 
   const onClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (!noCopy && copySynopsisOnClick && e.button === 0) {

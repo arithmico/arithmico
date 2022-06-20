@@ -45,12 +45,12 @@ const DefinitionList = styled.dl`
 
 export default function Definitions() {
   const context: Context = useSessionStore((state) => ({
-    stack: state.stack,
+    stack: state.session.stack,
     options: createOptions({
-      decimalPlaces: state.decimalPlaces,
+      decimalPlaces: state.settings.decimalPlaces,
       decimalSeparator: '.',
-      magnitudeThresholdForScientificNotation: state.decimalPlaces,
-      angleUnit: state.angleUnit as Options['angleUnit']
+      magnitudeThresholdForScientificNotation: state.settings.decimalPlaces,
+      angleUnit: state.settings.angleUnit as Options['angleUnit']
     })
   }));
   const definitions = serializeStack(context);
