@@ -11,6 +11,12 @@ import { useTranslation } from 'react-i18next';
 import useSessionStore from '../../stores/session-store/use-session-store';
 import ExternalLink from '../../components/external-link/external-link';
 
+const DocumentationLink = styled(ExternalLink)`
+  font-size: 2rem;
+  margin-top: 1rem;
+  display: block;
+`;
+
 const SearchField = styled.input.attrs({ type: 'search' })`
   margin-top: 2em;
   background-color: var(--me-background-100);
@@ -85,9 +91,6 @@ export default function Manual() {
           onChange={(e) => setSearchValue(e.target.value)}
           onKeyPress={onSearchEnter}
         />
-        <ExternalLink href="https://docs.arithmico.com">
-          {t('manual.fullDocumentation')}
-        </ExternalLink>
         <ManualSection heading={t('manual.hotkeys')}>
           {Object.keys(hotkeys)
             .filter(
@@ -140,6 +143,9 @@ export default function Manual() {
               />
             ))}
         </ManualSection>
+        <DocumentationLink href="https://docs.arithmico.com">
+          {t('manual.fullDocumentation')}
+        </DocumentationLink>
       </PageContainer>
     </WithScrollbars>
   );
