@@ -17,10 +17,10 @@ import PrivacyPolicy from './pages/privacy-policy/privacy-policy';
 const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
 function App() {
-  const fontSize = useSessionStore((state) => state.interfaceFontSize);
-  const theme = useSessionStore((state) => state.theme);
-  const language = useSessionStore((state) => state.language);
-  const boldFont = useSessionStore((state) => state.boldFont);
+  const fontSize = useSessionStore((state) => state.settings.interfaceFontSize);
+  const theme = useSessionStore((state) => state.settings.theme);
+  const language = useSessionStore((state) => state.settings.language);
+  const boldFont = useSessionStore((state) => state.settings.boldFont);
 
   useEffect(() => {
     if (language && i18n.language !== language) {

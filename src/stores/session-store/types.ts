@@ -1,4 +1,5 @@
 import { Context } from '@behrenle/number-cruncher/lib/types';
+import { Action } from './action-types';
 
 export interface MathItem {
   type: 'math';
@@ -14,37 +15,28 @@ export interface InfoItem {
 
 type History = (MathItem | InfoItem)[];
 
-export interface SessionState {
+export interface Settings {
+  language: string;
+  numberFormat: string;
+  interfaceFontSize: string;
+  excludeInfoInProtocol: boolean;
+  copySynopsisOnClick: boolean;
+  angleUnit: string;
+  boldFont: boolean;
+  theme: string;
+  decimalPlaces: number;
+}
+
+export interface Session {
   input: string;
   historyIndex: number;
   outputResetted: boolean;
   protocol: History;
   stack: Context['stack'];
-  decimalPlaces: number;
-  interfaceFontSize: string;
-  language: string;
-  numberFormat: string;
-  theme: string;
-  excludeInfoInProtocol: boolean;
-  copySynopsisOnClick: boolean;
-  angleUnit: string;
-  boldFont: boolean;
+}
 
-  evaluate: () => void;
-  goBackInInputHistory: () => void;
-  goForwardInInputHistory: () => void;
-  resetDefinitions: () => void;
-  setInput: (input: string) => void;
-  resetInput: () => void;
-  resetOutput: () => void;
-  resetProtocol: () => void;
-  setDecimalPlaces: (n: number) => void;
-  setAngleUnit: (unit: string) => void;
-  setInterfaceFontSize: (size: string) => void;
-  setNumberFormat: (numberFormat: string) => void;
-  setTheme: (theme: string) => void;
-  setExcludeInfoInProtocol: (value: boolean) => void;
-  setLanguage: (language: string) => void;
-  setCopySynopsisOnClick: (v: boolean) => void;
-  setBoldFont: (v: boolean) => void;
+export interface SessionState {
+  settings: Settings;
+  session: Session;
+  dispatch: (action: Action) => void;
 }

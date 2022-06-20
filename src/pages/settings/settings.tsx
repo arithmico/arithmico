@@ -1,41 +1,53 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PageContainer from '../../components/page-container/page-container';
+import SettingsButton from '../../components/settings-button/settings-button';
 import SettingsDecimalPlacesListbox from '../../components/settings-decimal-places-listbox/settings-decimal-places-listbox';
 import SettingsListbox from '../../components/settings-listbox/settings-listbox';
 import SettingsSection from '../../components/settings-section/settings-section';
 import SettingsSwitch from '../../components/settings-switch/settings-switch';
 import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
-import useSessionStore from '../../stores/session-store/use-session-store';
+import useSessionStore, { useDispatch } from '../../stores/session-store/use-session-store';
 
 export default function Settings() {
-  const [language, setLanguage] = useSessionStore((state) => [state.language, state.setLanguage]);
-  const [copyMaualContentByClicking, setCopyMaualContentByClicking] = useSessionStore((state) => [
-    state.copySynopsisOnClick,
-    state.setCopySynopsisOnClick
+  const dispatch = useDispatch();
+  const [language, setLanguage] = useSessionStore((state) => [
+    state.settings.language,
+    (language: string) => dispatch({ type: 'setLanguage', language })
   ]);
-  const [theme, setTheme] = useSessionStore((state) => [state.theme, state.setTheme]);
-  const [boldFont, setBoldFont] = useSessionStore((state) => [state.boldFont, state.setBoldFont]);
+  const [copyMaualContentByClicking, setCopyMaualContentByClicking] = useSessionStore((state) => [
+    state.settings.copySynopsisOnClick,
+    (copySynopsisOnClick: boolean) =>
+      dispatch({ type: 'setCopySynopsisOnClick', copySynopsisOnClick })
+  ]);
+  const [theme, setTheme] = useSessionStore((state) => [
+    state.settings.theme,
+    (theme: string) => dispatch({ type: 'setTheme', theme })
+  ]);
+  const [boldFont, setBoldFont] = useSessionStore((state) => [
+    state.settings.boldFont,
+    (boldFont: boolean) => dispatch({ type: 'setBoldFont', boldFont })
+  ]);
   const [fontSize, setFontSize] = useSessionStore((state) => [
-    state.interfaceFontSize,
-    state.setInterfaceFontSize
+    state.settings.interfaceFontSize,
+    (interfaceFontSize: string) => dispatch({ type: 'setInterfaceFontSize', interfaceFontSize })
   ]);
   const [significantDecimalPlaces, setSignificantDecimalPlaces] = useSessionStore((state) => [
-    state.decimalPlaces,
-    state.setDecimalPlaces
+    state.settings.decimalPlaces,
+    (decimalPlaces: number) => dispatch({ type: 'setDecimalPlaces', decimalPlaces })
   ]);
   const [numberFormat, setNumberFormat] = useSessionStore((state) => [
-    state.numberFormat,
-    state.setNumberFormat
+    state.settings.numberFormat,
+    (numberFormat: string) => dispatch({ type: 'setNumberFormat', numberFormat })
   ]);
-  //const [enableAnalytics, setEnableAnalytics] = useState(true);
   const [excludeInfo, setExcludeInfo] = useSessionStore((state) => [
-    state.excludeInfoInProtocol,
-    state.setExcludeInfoInProtocol
+    state.settings.excludeInfoInProtocol,
+    (excludeInfoInProtocol: boolean) =>
+      dispatch({ type: 'setExcludeInfoInProtocol', excludeInfoInProtocol })
   ]);
   const [angleUnit, setAngleUnit] = useSessionStore((state) => [
-    state.angleUnit,
-    state.setAngleUnit
+    state.settings.angleUnit,
+    (angleUnit: string) => dispatch({ type: 'setAngleUnit', angleUnit })
   ]);
 
   const [t] = useTranslation();
@@ -119,13 +131,13 @@ export default function Settings() {
             value={angleUnit}
           />
         </SettingsSection>
-        {/*<SettingsSection heading="Miscellaneous">
-        <SettingsSwitch
-          label="Use Analytics"
-          enabled={enableAnalytics}
-          onChange={setEnableAnalytics}
+        <SettingsSection heading={t('settings.misc')}>
+          <SettingsButton
+            label={t('settings.resetLabel')}
+            text={t('settings.resetText')}
+            onClick={() => dispatch({ type: 'resetSettings' })}
           />
-      </SettingsSection>*/}
+        </SettingsSection>
       </PageContainer>
     </WithScrollbars>
   );

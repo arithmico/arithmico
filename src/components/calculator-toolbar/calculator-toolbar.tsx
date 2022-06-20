@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MathItem } from '../../stores/session-store/types';
-import useSessionStore from '../../stores/session-store/use-session-store';
+import useSessionStore, { useDispatch } from '../../stores/session-store/use-session-store';
 
 const ToolbarContainer = styled.aside`
   display: grid;
@@ -42,18 +42,19 @@ const Button = styled.button`
 `;
 
 export default function CalculatorToolbar() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const outputResetted = useSessionStore((state) => state.outputResetted);
+  const outputResetted = useSessionStore((state) => state.session.outputResetted);
   const mathItems = useSessionStore((state) =>
-    state.protocol.filter((hItem) => hItem.type === 'math')
+    state.session.protocol.filter((hItem) => hItem.type === 'math')
   ) as MathItem[];
   const currentOutput =
     !outputResetted && mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
-  const currentInput = useSessionStore((state) => state.input);
-  const resetDefinitions = useSessionStore((state) => state.resetDefinitions);
-  const resetInput = useSessionStore((state) => state.resetInput);
-  const resetOutput = useSessionStore((state) => state.resetOutput);
-  const resetProtocol = useSessionStore((store) => store.resetProtocol);
+  const currentInput = useSessionStore((state) => state.session.input);
+  const resetDefinitions = () => dispatch({ type: 'resetDefinitions' });
+  const resetInput = () => dispatch({ type: 'resetInput' });
+  const resetOutput = () => dispatch({ type: 'resetOutput' });
+  const resetProtocol = () => dispatch({ type: 'resetProtocol' });
   const resetAll = () => {
     resetInput();
     resetProtocol();

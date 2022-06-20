@@ -43,11 +43,16 @@
     "settings.angleUnit.degrees": "Gradmaß",
     "settings.angleUnit.radians": "Bogenmaß",
     "settings.boldFont": "Fettgedruckte Schrift",
+    "settings.misc": "Verschiedenes",
+    "settings.resetLabel": "Benutzerdefinierte Einstellungen löschen",
+    "settings.resetText": "Löschen",
 
     "manual.hotkeys": "Tastenbefehle",
     "manual.functions": "Funktionen",
     "manual.constants": "Konstanten",
     "manual.search": "Suche",
+    "manual.fullDocumentation": "Ausführliche Dokumentation",
+
 
     "about.general": "Allgemein",
     "about.furtherInformation": "Weitere Informationen",
