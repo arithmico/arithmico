@@ -56,7 +56,7 @@ function matchDocumentation(item: GlobalDocumentationItem, rawSearchStr: string,
 }
 
 export default function Manual() {
-  const language = useSessionStore((state) => state.language);
+  const language = useSessionStore((state) => state.settings.language);
   const [documentation] = useState(() => getDocumentation());
   const [searchQuery, setSearchQuery] = useState('');
   const [searchValue, setSearchValue] = useState('');

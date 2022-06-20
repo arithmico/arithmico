@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import useSessionStore from '../../stores/session-store/use-session-store';
+import useSessionStore, { useDispatch } from '../../stores/session-store/use-session-store';
 import { MathItem } from '../../stores/session-store/types';
 import Textfield from '../textfield/textfield';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -42,16 +42,17 @@ const LabelText = styled.span`
 `;
 
 export default function CalculatorTextfields() {
-  const input = useSessionStore((state) => state.input);
-  const setInput = useSessionStore((state) => state.setInput);
-  const outputResetted = useSessionStore((state) => state.outputResetted);
-  const evaluate = useSessionStore((state) => state.evaluate);
-  const resetInput = useSessionStore((state) => state.resetInput);
-  const resetOutput = useSessionStore((state) => state.resetOutput);
-  const goBackInHistory = useSessionStore((state) => state.goBackInInputHistory);
-  const goForwardInHistory = useSessionStore((state) => state.goForwardInInputHistory);
+  const dispatch = useDispatch();
+  const input = useSessionStore((state) => state.session.input);
+  const setInput = (input: string) => dispatch({ type: 'setInput', input });
+  const outputResetted = useSessionStore((state) => state.session.outputResetted);
+  const evaluate = () => dispatch({ type: 'evaluate' });
+  const resetInput = () => dispatch({ type: 'resetInput' });
+  const resetOutput = () => dispatch({ type: 'resetOutput' });
+  const goBackInHistory = () => dispatch({ type: 'goBackInInputHistory' });
+  const goForwardInHistory = () => dispatch({ type: 'goForwardInInputHistory' });
   const mathItems = useSessionStore((state) =>
-    state.protocol.filter((hItem) => hItem.type === 'math')
+    state.session.protocol.filter((hItem) => hItem.type === 'math')
   ) as MathItem[];
   const lastOutput =
     !outputResetted && mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';

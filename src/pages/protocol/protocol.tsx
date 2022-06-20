@@ -70,8 +70,8 @@ const HistoryContainer = styled.ul`
 
 export default function Protocol() {
   const navigate = useNavigate();
-  const history = useSessionStore((state) => state.protocol);
-  const excludeInfo = useSessionStore((state) => state.excludeInfoInProtocol);
+  const history = useSessionStore((state) => state.session.protocol);
+  const excludeInfo = useSessionStore((state) => state.settings.excludeInfoInProtocol);
   const containerRef = useRef<HTMLUListElement>(null);
   const [t] = useTranslation();
   useEffect(() => {
