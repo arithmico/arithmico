@@ -21,7 +21,7 @@
   ],
   "private": true,
   "dependencies": {
-    "@behrenle/number-cruncher": "^1.36.0",
+    "@behrenle/number-cruncher": "file:../../libs/number-cruncher",
     "@fontsource/roboto": "^4.5.5",
     "@fontsource/source-code-pro": "^4.5.9",
     "@headlessui/react": "1.5.0",
