@@ -1,9 +1,0 @@
-{
-  "alt + i": "hotkeys.focusInput",
-  "alt + o": "hotkeys.focusOutput",
-  "ctrl + alt + i": "hotkeys.resetInput",
-  "ctrl + alt + o": "hotkeys.resetOutput",
-  "ctrl + alt + m": "hotkeys.resetDefinitions",
-  "ctrl + alt + a": "hotkeys.resetAll",
-  "alt + p": "hotkeys.copyInputAndOutput"
-}
