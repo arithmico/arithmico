@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "lib": ["ES2020"],
+        "noImplicitAny": true,
+        "target": "ESNext",
+        "module": "commonjs",
+        "declaration": true,
+        "allowJs": true,
+        "outDir": "lib",
+        "rootDir": "src",
+        "sourceMap": true,
+        "moduleResolution": "node"
+    },
+    "exclude": [
+        "node_modules",
+        "lib",
+        "parser",
+        "coverage"
+    ]
+}
