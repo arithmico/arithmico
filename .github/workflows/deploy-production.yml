@@ -5,64 +5,74 @@ on:
   push:
     branches: [main]
 
+env:
+  CI: true
+  BUCKET_ID: ${{ secrets.BUCKET_ID }}
+  CALCULATOR_ONLINE_DIST: ${{ secrets.CALCULATOR_ONLINE_DIST }}
+  CALCULATOR_OFFLINE_DIST: ${{ secrets.CALCULATOR_OFFLINE_DIST }}
+  DOCUMENTATION_DIST: ${{ secrets.DOCUMENTATION_DIST }}
+
 jobs:
-  deploy_online_version:
-    name: Deploy online version
+  deploy_calculator_online:
+    name: Deploy Calculator Online Version
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
     - name: Install dependencies
       run: npm ci
-
     - name: Build
-      env:
-        CI: true
-      run: npm run build
-
+      run: npm run test -w libs/number-cruncher && npm run build -w apps/calculator
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
-
     - name: Deploy static site to S3 bucket
-      env: 
-        BUCKET_ID: ${{ secrets.BUCKET_ID }}
-      run: aws s3 sync ./build/ s3://$BUCKET_ID --delete
-
+      run: aws s3 sync ./apps/calculator/build s3://$BUCKET_ID/calculator/online/ --delete
     - name: Invalidate Cloundfront distrubution
-      env:
-        DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
-      run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
+      run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_ONLINE_DIST --paths '/*'
 
-  deploy_offline_version:
-    name: Deploy offline version
+  deploy_online_version:
+    name: Deploy Documentation
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build -w apps/documentation
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./apps/documentation/build s3://$BUCKET_ID/documentation --delete
+    - name: Invalidate Cloundfront distrubution
+      run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DIST --paths '/*'
+
+  deploy_calculator_offline:
+    name: Deploy Calculator Offline Version
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with: 
         fetch-depth: 0
-
     - name: Configure offline mode
       run: |
-        sed -i 's/"homepage": "\/"/"homepage": ".\/"/g' package.json
-
+        sed -i 's/"homepage": "\/"/"homepage": ".\/"/g' apps/calculator/package.json
     - name: Install dependencies
       run: npm ci
-
     - name: Build
       env:
-        CI: true
         REACT_APP_OFFLINE_MODE: true
-      run: npm run build
-
+      run: npm run test -w libs/number-cruncher && npm run build -w apps/calculator
     - name: Zip
       run: |
         mkdir deploy
-        zip -r deploy/$(node -pe "require('./package.json')['version']").zip build
-    
+        zip -r deploy/$(node -pe "require('./package.json')['version']").zip apps/calculator/build
     - name: Setup Vars
       id: vars
       run: |
@@ -70,7 +80,6 @@ jobs:
         echo ::set-output name=release_tag::v$VERSION_NUMBER
         echo ::set-output name=release_name::Arithmico v$VERSION_NUMBER
         echo ::set-output name=release_text::"Download offline version [here](https://blob.behrenle.io/arithmico-calculator/$(echo $VERSION_NUMBER).zip)"
-
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -89,13 +98,7 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
-
     - name: Deploy static site to S3 bucket
-      env: 
-        BUCKET_ID: ${{ secrets.BLOB_BUCKET_ID }}
-      run: aws s3 sync ./deploy/ s3://$BUCKET_ID/arithmico-calculator/
-
+      run: aws s3 sync ./deploy/ s3://$BUCKET_ID/calculator/offline/
     - name: Invalidate Cloundfront distrubution
-      env:
-        DISTRIBUTION_ID: ${{ secrets.BLOB_DISTRIBUTION_ID }}
-      run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
+      run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_OFFLINE_DIST --paths '/*'

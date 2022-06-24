@@ -1,83 +1,24 @@
 {
-  "name": "arithmico-calculator",
-  "version": "0.69.0",
+  "name": "arithmico",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": [
+    "./apps/*",
+    "./libs/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/behrenle/arithmico-calculator.git"
+  },
+  "author": "Lennard Behrens",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/behrenle/arithmico-calculator/issues"
   },
-  "homepage": "/",
-  "author": {
-    "name": "Lennard Behrens",
-    "email": "dev.behrenle@posteo.de",
-    "url": "https://behrenle.com"
-  },
-  "contributors": [
-    {
-      "name": "Knut Büttner"
-    },
-    {
-      "name": "Ulrich Kalina"
-    }
-  ],
-  "private": true,
-  "dependencies": {
-    "@behrenle/number-cruncher": "^1.36.0",
-    "@fontsource/roboto": "^4.5.5",
-    "@fontsource/source-code-pro": "^4.5.9",
-    "@headlessui/react": "^1.4.3",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.4.0",
-    "@types/node": "^16.11.22",
-    "@types/overlayscrollbars": "^1.12.1",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
-    "@types/styled-components": "^5.1.22",
-    "i18next": "^21.8.0",
-    "overlayscrollbars": "^1.13.1",
-    "overlayscrollbars-react": "^0.2.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-hotkeys-hook": "^3.4.4",
-    "react-i18next": "^11.16.9",
-    "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.0",
-    "styled-components": "^5.3.3",
-    "typescript": "^4.5.5",
-    "zustand": "^3.7.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.11.0",
-    "@typescript-eslint/parser": "^5.11.0",
-    "eslint": "^8.8.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.28.0",
-    "prettier": "^2.5.1"
-  }
+  "homepage": "https://github.com/behrenle/arithmico-calculator#readme"
 }
