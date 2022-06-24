@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run build -w apps/calculator
+      run: npm run test -w libs/number-cruncher && npm run build -w apps/calculator
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -68,7 +68,7 @@ jobs:
     - name: Build
       env:
         REACT_APP_OFFLINE_MODE: true
-      run: npm run build -w apps/calculator
+      run: npm run test -w libs/number-cruncher && npm run build -w apps/calculator
     - name: Zip
       run: |
         mkdir deploy
