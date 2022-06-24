@@ -24,10 +24,10 @@ function App() {
         <Route path="/" element={<Page>Wilkommen</Page>} />
         {chaptersDe.map((chapter, index) => (
           <Route
+            key={index}
             path={`/chapters/${index}`}
             element={
               <Chapter
-                key={index}
                 contentUrl={chapter.url}
                 title={chapter.title}
                 nextChapter={
