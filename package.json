@@ -16,10 +16,10 @@
     "test:calculator": "npm run test -w apps/calculator",
     "test:documentation": "npm run test -w apps/documentation",
     "test:all": "npm run test:number-cruncher && npm run test:calculator && npm run test:documentation",
-    "check:calculator": "npm run check -w apps/calculator",
-    "check:documentation": "npm run check -w apps/documentation",
-    "check:number-cruncher": "npm run type-check -w libs/number-cruncher",
-    "check:all": "npm run check:calculator && npm run check:documentation && npm run check:number-cruncher"
+    "lint:calculator": "npm run lint -w apps/calculator",
+    "lint:documentation": "npm run lint -w apps/documentation",
+    "lint:number-cruncher": "npm run lint -w libs/number-cruncher",
+    "lint:all": "npm run lint:calculator && npm run lint:documentation && npm run lint:number-cruncher"
   },
   "repository": {
     "type": "git",

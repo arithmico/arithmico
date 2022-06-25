@@ -25,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "check": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
     "test": "echo \"Info: no test specified\" && exit 0",
     "eject": "react-scripts eject"
   },
