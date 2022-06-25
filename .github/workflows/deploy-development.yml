@@ -19,7 +19,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run test:number-cruncher && npm run build:calculator
+      run: npm run build:number-cruncher && npm run build:calculator
+    - name: Test
+      run: npm run test:all
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
