@@ -1,6 +1,6 @@
 {
   "name": "arithmico-calculator",
-  "version": "0.69.0",
+  "version": "0.70.0",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/behrenle/arithmico-calculator/issues"
@@ -50,7 +50,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "echo \"Info: no test specified\" && exit 0",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

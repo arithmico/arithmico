@@ -5,34 +5,29 @@ on:
   push:
     branches: [dev]
 
+env: 
+  CI: true
+  BUCKET_ID: ${{ secrets.BUCKET_ID }}
+  DISTRIBUTION_ID: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
+
 jobs:
-  run:
+  deploy_calculator_online_dev:
+    name: Deploy Calculator Online Dev
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
     - name: Install dependencies
       run: npm ci
-
     - name: Build
-      env:
-        CI: true
-      run: npm run build
-
+      run: npm run test:number-cruncher && npm run build:calculator
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
-
     - name: Deploy static site to S3 bucket
-      env: 
-        BUCKET_ID: ${{ secrets.BUCKET_ID_DEV }}
-      run: aws s3 sync ./build/ s3://$BUCKET_ID --delete
-
+      run: aws s3 sync ./apps/calculator/build/ s3://$BUCKET_ID/calculator/dev-online --delete
     - name: Invalidate Cloundfront distrubution
-      env:
-        DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID_DEV }}
       run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
 
