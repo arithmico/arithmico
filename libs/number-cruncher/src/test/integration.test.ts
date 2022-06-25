@@ -82,6 +82,9 @@ integrationTest('root(8,3)', '2');
 integrationTest('fact(0)', '1');
 integrationTest('fact(1)', '1');
 integrationTest('fact(7)', '5040');
+integrationTest('ite(true, 1, 2)', '1');
+integrationTest('ite(true, 1+2, 2)', '3');
+integrationTest('ite(false, 1, 2)', '2');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

@@ -21,7 +21,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run test -w libs/number-cruncher && npm run build -w apps/calculator
+      run: npm run build:number-cruncher && npm run build:calculator
+    - name: Test
+      run: npm run test:all
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -41,7 +43,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run build -w apps/documentation
+      run: npm run build:documentation
+    - name: Test
+      run: npm run test:all
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -68,18 +72,20 @@ jobs:
     - name: Build
       env:
         REACT_APP_OFFLINE_MODE: true
-      run: npm run test -w libs/number-cruncher && npm run build -w apps/calculator
+      run: npm run build:number-cruncher && npm run build:calculator
+    - name: Test
+      run: npm run test:all
     - name: Zip
       run: |
         mkdir deploy
-        zip -r deploy/$(node -pe "require('./package.json')['version']").zip apps/calculator/build
+        zip -r deploy/$(node -pe "require('./apps/calculator/package.json')['version']").zip apps/calculator/build
     - name: Setup Vars
       id: vars
       run: |
-        VERSION_NUMBER=$(node -pe "require('./package.json')['version']") 
+        VERSION_NUMBER=$(node -pe "require('./apps/calculator/package.json')['version']") 
         echo ::set-output name=release_tag::v$VERSION_NUMBER
         echo ::set-output name=release_name::Arithmico v$VERSION_NUMBER
-        echo ::set-output name=release_text::"Download offline version [here](https://blob.behrenle.io/arithmico-calculator/$(echo $VERSION_NUMBER).zip)"
+        echo ::set-output name=release_text::"Download offline version [here](https://blob.arithmico.com/calculator/offline/$(echo $VERSION_NUMBER).zip)"
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -99,6 +105,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
     - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./deploy/ s3://$BUCKET_ID/calculator/offline/
+      run: aws s3 sync ./deploy/ s3://$BUCKET_ID/blob/calculator/offline/
     - name: Invalidate Cloundfront distrubution
       run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_OFFLINE_DIST --paths '/*'

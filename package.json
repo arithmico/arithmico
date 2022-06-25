@@ -6,10 +6,20 @@
     "./apps/*",
     "./libs/*"
   ],
-  "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:all": "npm run build:number-cruncher && npm run build:calculator && npm run build:documentation",
+    "build:number-cruncher": "npm run build -w libs/number-cruncher",
+    "build:calculator": "npm run build -w apps/calculator",
+    "build:documentation": "npm run build -w apps/documentation",
+    "test:number-cruncher": "npm run test -w libs/number-cruncher",
+    "test:calculator": "npm run test -w apps/calculator",
+    "test:documentation": "npm run test -w apps/documentation",
+    "test:all": "npm run test:number-cruncher && npm run test:calculator && npm run test:documentation",
+    "lint:calculator": "npm run lint -w apps/calculator",
+    "lint:documentation": "npm run lint -w apps/documentation",
+    "lint:number-cruncher": "npm run lint -w libs/number-cruncher",
+    "lint:all": "npm run lint:calculator && npm run lint:documentation && npm run lint:number-cruncher"
   },
   "repository": {
     "type": "git",
