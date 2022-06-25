@@ -6,8 +6,9 @@
     "./apps/*",
     "./libs/*"
   ],
-  "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^8.18.0"
+  },
   "scripts": {
     "build:all": "npm run build:number-cruncher && npm run build:calculator && npm run build:documentation",
     "build:number-cruncher": "npm run build -w libs/number-cruncher",
@@ -16,7 +17,11 @@
     "test:number-cruncher": "npm run test -w libs/number-cruncher",
     "test:calculator": "npm run test -w apps/calculator",
     "test:documentation": "npm run test -w apps/documentation",
-    "test:all": "npm run test:number-cruncher && npm run test:calculator && npm run test:documentation"
+    "test:all": "npm run test:number-cruncher && npm run test:calculator && npm run test:documentation",
+    "check:calculator": "eslint 'apps/calculator/src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
+    "check:documentation": "eslint 'apps/documentation/src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
+    "check:number-cruncher": "npm run type-check -w libs/number-cruncher",
+    "check:all": "npm run check:calculator && npm run check:documentation && npm run check:number-cruncher"
   },
   "repository": {
     "type": "git",
