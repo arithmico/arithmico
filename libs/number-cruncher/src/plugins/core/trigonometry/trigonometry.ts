@@ -1,4 +1,4 @@
-import { Options } from './../../../types/Context';
+0import { Options } from './../../../types/Context';
 import { NumberNode, FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
 import { SyntaxTreeNode, Context } from '../../../types';
 import createNumberNode from '../../../create/NumberNode';
