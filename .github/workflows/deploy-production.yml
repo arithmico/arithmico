@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run test -w libs/number-cruncher && npm run build -w apps/calculator
+      run: npm run test:number-cruncher && npm run build:calculator
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -41,7 +41,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run build -w apps/documentation
+      run: npm run build:documentation
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -68,15 +68,15 @@ jobs:
     - name: Build
       env:
         REACT_APP_OFFLINE_MODE: true
-      run: npm run test -w libs/number-cruncher && npm run build -w apps/calculator
+      run: npm run test:number-cruncher && npm run build:calculator
     - name: Zip
       run: |
         mkdir deploy
-        zip -r deploy/$(node -pe "require('./package.json')['version']").zip apps/calculator/build
+        zip -r deploy/$(node -pe "require('./apps/calculator/package.json')['version']").zip apps/calculator/build
     - name: Setup Vars
       id: vars
       run: |
-        VERSION_NUMBER=$(node -pe "require('./package.json')['version']") 
+        VERSION_NUMBER=$(node -pe "require('./apps/calculator/package.json')['version']") 
         echo ::set-output name=release_tag::v$VERSION_NUMBER
         echo ::set-output name=release_name::Arithmico v$VERSION_NUMBER
         echo ::set-output name=release_text::"Download offline version [here](https://blob.behrenle.io/arithmico-calculator/$(echo $VERSION_NUMBER).zip)"
