@@ -24,7 +24,7 @@
     "@behrenle/number-cruncher": "file:../../libs/number-cruncher",
     "@fontsource/roboto": "^4.5.7",
     "@fontsource/source-code-pro": "^4.5.9",
-    "@headlessui/react": "^1.6.5",
+    "@headlessui/react": "1.5",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
