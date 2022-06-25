@@ -274,7 +274,7 @@ addPluginConstant(physicalConstantsPlugin, {
     value: createNumberNode(8.85418781e-12),
     documentation: {
         en: {
-            synopsis: 'electric_field_constant',
+            synopsis: 'epsilon_0',
             description:
                 'electric field constant in (A s)/(V m) gives the ratio of electric flux density to electric field strength in vacuum',
         },
