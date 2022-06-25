@@ -1,10 +1,10 @@
-import {addPluginAuthor, addPluginConstant, addPluginDescription, createPlugin} from "../../../utils/plugin-builder";
-import createNumberNode from "../../../create/NumberNode";
+import { addPluginAuthor, addPluginConstant, addPluginDescription, createPlugin } from '../../../utils/plugin-builder';
+import createNumberNode from '../../../create/NumberNode';
 
 const physicalConstantsPlugin = createPlugin('core/physical-constants');
 
 addPluginAuthor(physicalConstantsPlugin, 'core');
-addPluginDescription(physicalConstantsPlugin, 'Adds many physical constants.')
+addPluginDescription(physicalConstantsPlugin, 'Adds many physical constants.');
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?c
 addPluginConstant(physicalConstantsPlugin, {
@@ -13,7 +13,7 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'c',
-            description: 'Speed of light in m/s in vacuum'
+            description: 'Speed of light in m/s in vacuum',
         },
         de: {
             synopsis: 'c',
@@ -29,7 +29,7 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'm_p',
-            description: 'proton mass in kg'
+            description: 'proton mass in kg',
         },
         de: {
             synopsis: 'm_p',
@@ -45,7 +45,7 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'm_n',
-            description: 'neutron mass in kg'
+            description: 'neutron mass in kg',
         },
         de: {
             synopsis: 'm_n',
@@ -57,11 +57,11 @@ addPluginConstant(physicalConstantsPlugin, {
 // source: https://en.wikipedia.org/wiki/Electron
 addPluginConstant(physicalConstantsPlugin, {
     name: 'm_e',
-    value: createNumberNode(9.10938370e-31),
+    value: createNumberNode(9.1093837e-31),
     documentation: {
         en: {
             synopsis: 'm_e',
-            description: 'electron mass in kg'
+            description: 'electron mass in kg',
         },
         de: {
             synopsis: 'm_e',
@@ -77,7 +77,7 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'm_mu',
-            description: 'muon mass in kg'
+            description: 'muon mass in kg',
         },
         de: {
             synopsis: 'm_mu',
@@ -97,7 +97,8 @@ addPluginConstant(physicalConstantsPlugin, {
         },
         de: {
             synopsis: 'a_0',
-            description: 'Der bohrsche Radius in m bezeichnet den Radius des Wasserstoffatoms im niedrigsten Energiezustand',
+            description:
+                'Der bohrsche Radius in m bezeichnet den Radius des Wasserstoffatoms im niedrigsten Energiezustand',
         },
     },
 });
@@ -109,11 +110,11 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'h',
-            description: 'Planck constant in J s'
+            description: 'Planck constant in J s',
         },
         de: {
             synopsis: 'h',
-            description: 'Planck\'sches Wirkungsquantum in J s',
+            description: "Planck'sches Wirkungsquantum in J s",
         },
     },
 });
@@ -125,7 +126,7 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'mu_N',
-            description: 'nuclear magneton in J/T is a constant of magnetic moment'
+            description: 'nuclear magneton in J/T is a constant of magnetic moment',
         },
         de: {
             synopsis: 'mu_N',
@@ -141,11 +142,13 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'mu_B',
-            description: 'Bohr magneton in J/T the magnitude of the magnetic moment of an electron with orbital angular momentum quantum number ℓ = 1'
+            description:
+                'Bohr magneton in J/T the magnitude of the magnetic moment of an electron with orbital angular momentum quantum number ℓ = 1',
         },
         de: {
             synopsis: 'mu_B',
-            description: 'Das bohrsche Magneton in J/T der Betrag des magnetischen Moments eines Elektrons mit  Bahndrehimpulsquantenzahl ℓ = 1',
+            description:
+                'Das bohrsche Magneton in J/T der Betrag des magnetischen Moments eines Elektrons mit  Bahndrehimpulsquantenzahl ℓ = 1',
         },
     },
 });
@@ -157,11 +160,13 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'fine_structure_constant',
-            description: 'The fine structure constant is dimensionless and indicates the strength of the electromagnetic interaction',
+            description:
+                'The fine structure constant is dimensionless and indicates the strength of the electromagnetic interaction',
         },
         de: {
             synopsis: 'fine_structure_constant',
-            description: 'Die Feinstrukturkonstante ist dimensionslos und gibt die Stärke der elektromagnetischen Wechselwirkung an',
+            description:
+                'Die Feinstrukturkonstante ist dimensionslos und gibt die Stärke der elektromagnetischen Wechselwirkung an',
         },
     },
 });
@@ -185,6 +190,7 @@ addPluginConstant(physicalConstantsPlugin, {
 // source: https://en.wikipedia.org/wiki/Faraday_constant
 addPluginConstant(physicalConstantsPlugin, {
     name: 'F',
+    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
     value: createNumberNode(96485.3321233100184),
     documentation: {
         en: {
@@ -269,11 +275,13 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'electric_field_constant',
-            description: 'electric field constant in (A s)/(V m) gives the ratio of electric flux density to electric field strength in vacuum',
+            description:
+                'electric field constant in (A s)/(V m) gives the ratio of electric flux density to electric field strength in vacuum',
         },
         de: {
             synopsis: 'epsilon_0',
-            description: 'Die elektrische Feldkonstante in (A s)/(V m) gibt das Verhältnis der elektrischen Flussdichte zur elektrischen Feldstärke im Vakuum an',
+            description:
+                'Die elektrische Feldkonstante in (A s)/(V m) gibt das Verhältnis der elektrischen Flussdichte zur elektrischen Feldstärke im Vakuum an',
         },
     },
 });
@@ -285,11 +293,13 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'mu_0',
-            description: 'magnetic field constant in N/(A^2) gives the ratio of the magnetic flux density to the magnetic field strength in vacuum',
+            description:
+                'magnetic field constant in N/(A^2) gives the ratio of the magnetic flux density to the magnetic field strength in vacuum',
         },
         de: {
             synopsis: 'mu_0',
-            description: 'Die magnetische Feldkonstante in N/(A^2) gibt das Verhältnis der magnetischen Flussdichte zur magnetischen Feldstärke im Vakuum an',
+            description:
+                'Die magnetische Feldkonstante in N/(A^2) gibt das Verhältnis der magnetischen Flussdichte zur magnetischen Feldstärke im Vakuum an',
         },
     },
 });
@@ -301,11 +311,13 @@ addPluginConstant(physicalConstantsPlugin, {
     documentation: {
         en: {
             synopsis: 'G',
-            description: 'Gravitational constant in m^3/(kg s^2) gives the strength of the gravitational force between two bodies as a function of their distance and masses.',
+            description:
+                'Gravitational constant in m^3/(kg s^2) gives the strength of the gravitational force between two bodies as a function of their distance and masses.',
         },
         de: {
             synopsis: 'G',
-            description: 'Die Gravitationskonstante in m^3/(kg s^2) gibt die Stärke der Gravitationskraft zwischen zwei Körpern in Abhängigkeit von ihrem Abstand und ihren Massen berechnen',
+            description:
+                'Die Gravitationskonstante in m^3/(kg s^2) gibt die Stärke der Gravitationskraft zwischen zwei Körpern in Abhängigkeit von ihrem Abstand und ihren Massen berechnen',
         },
     },
 });

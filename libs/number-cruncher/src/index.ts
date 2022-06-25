@@ -18,7 +18,7 @@ import crossPlugin from './plugins/core/cross/cross';
 import { transformEnglish2German, transformGerman2English } from './language-transform';
 import statisticsPlugin from './plugins/core/statistics/statistics';
 import rootsPlugin from './plugins/core/roots/roots';
-import physicalConstantsPlugin from "./plugins/core/physical-constants/physical-constants";
+import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 
 export { serializeStack } from './utils/context-utils';
