@@ -11,7 +11,8 @@ env:
   DISTRIBUTION_ID: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
 
 jobs:
-  run:
+  deploy_calculator_online_dev:
+    name: Deploy Calculator Online Dev
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
