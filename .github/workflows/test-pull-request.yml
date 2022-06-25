@@ -1,0 +1,37 @@
+name: pull-request auto test
+on:
+  pull_request:
+    branches: [ main ]
+
+env:
+  CI: true
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Set up node 
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 14
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm run test:all
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Set up node 
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 14
+      - name: Install dependencies
+        run: npm ci
+      - name: Check
+        run: npm run check:all
