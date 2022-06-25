@@ -206,15 +206,15 @@ addPluginConstant(physicalConstantsPlugin, {
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?e
 addPluginConstant(physicalConstantsPlugin, {
-    name: 'e',
+    name: 'physics_e',
     value: createNumberNode(1.602176634e-19),
     documentation: {
         en: {
-            synopsis: 'e',
+            synopsis: 'physics_e',
             description: 'elementary charge in Colomb of an electron',
         },
         de: {
-            synopsis: 'e',
+            synopsis: 'physics_e',
             description: 'Elementarladung in Colomb eines Elektrons',
         },
     },
