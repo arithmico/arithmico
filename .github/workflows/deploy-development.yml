@@ -28,7 +28,9 @@ jobs:
     - name: Bump version
       run: |
         git log
-        sh tools/auto-version-dev.sh && git push
+        sh tools/auto-version-dev.sh
+        cat tmp/commits.txt
+        exit 1
 
   deploy_calculator_online_dev:
     name: Deploy Calculator Online Dev
