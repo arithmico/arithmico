@@ -1,25 +1,6 @@
 {
   "name": "arithmico-calculator",
-  "version": "0.70.0",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/behrenle/arithmico-calculator/issues"
-  },
   "homepage": "/",
-  "author": {
-    "name": "Lennard Behrens",
-    "email": "dev.behrenle@posteo.de",
-    "url": "https://behrenle.com"
-  },
-  "contributors": [
-    {
-      "name": "Knut Büttner"
-    },
-    {
-      "name": "Ulrich Kalina"
-    }
-  ],
-  "private": true,
   "dependencies": {
     "@behrenle/number-cruncher": "file:../../libs/number-cruncher",
     "@fontsource/roboto": "^4.5.7",

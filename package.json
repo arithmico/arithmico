@@ -1,6 +1,19 @@
 {
   "name": "arithmico",
-  "version": "1.1.0",
+  "version": "0.71.0-0",
+  "author": {
+    "name": "Lennard Behrens",
+    "email": "dev.behrenle@posteo.de",
+    "url": "https://behrenle.com"
+  },
+  "contributors": [
+    {
+      "name": "Knut Büttner"
+    },
+    {
+      "name": "Ulrich Kalina"
+    }
+  ],
   "description": "",
   "workspaces": [
     "./apps/*",
@@ -25,10 +38,9 @@
     "type": "git",
     "url": "git+https://github.com/behrenle/arithmico-calculator.git"
   },
-  "author": "Lennard Behrens",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/behrenle/arithmico-calculator/issues"
+    "url": "https://github.com/behrenle/arithmico/issues"
   },
   "homepage": "https://github.com/behrenle/arithmico-calculator#readme"
 }
