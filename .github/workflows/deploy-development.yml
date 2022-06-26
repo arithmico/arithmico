@@ -26,7 +26,9 @@ jobs:
         git config --global user.name 'Github Actions'
         git config --global user.email 'dev.behrenle@posteo.de'
     - name: Bump version
-      run: sh tools/auto-version-dev.sh && git push
+      run: |
+        git log
+        sh tools/auto-version-dev.sh && git push
 
   deploy_calculator_online_dev:
     name: Deploy Calculator Online Dev
