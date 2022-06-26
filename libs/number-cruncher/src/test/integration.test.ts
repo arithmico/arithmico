@@ -85,6 +85,7 @@ integrationTest('fact(7)', '5040');
 integrationTest('ite(true, 1, 2)', '1');
 integrationTest('ite(true, 1+2, 2)', '3');
 integrationTest('ite(false, 1, 2)', '2');
+integrationTest('foo:bar:=42');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
