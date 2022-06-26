@@ -54,5 +54,5 @@ jobs:
     - name: Deploy static site to S3 bucket
       run: aws s3 sync ./apps/documentation/build/ s3://$BUCKET_ID/dev/documentation --delete
     - name: Invalidate Cloundfront distrubution
-      run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_DEV_DIST --paths '/*'
+      run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DEV_DIST --paths '/*'
 
