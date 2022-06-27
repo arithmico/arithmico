@@ -8,7 +8,8 @@ on:
 env: 
   CI: true
   BUCKET_ID: ${{ secrets.BUCKET_ID }}
-  DISTRIBUTION_ID: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
+  CALCULATOR_DEV_DIST: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
+  DOCUMENTATION_DEV_DIST: ${{ secrets.DOCUMENTATION_DEV_DIST }}
 
 jobs:
   deploy_calculator_online_dev:
@@ -19,7 +20,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run test:number-cruncher && npm run build:calculator
+      run: npm run build:number-cruncher && npm run build:calculator
+    - name: Test
+      run: npm run test:all
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -27,7 +30,29 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
     - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./apps/calculator/build/ s3://$BUCKET_ID/calculator/dev-online --delete
+      run: aws s3 sync ./apps/calculator/build/ s3://$BUCKET_ID/dev/calculator --delete
     - name: Invalidate Cloundfront distrubution
-      run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
+      run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_DEV_DIST --paths '/*'
+
+  deploy_documentation_dev:
+    name: Deploy Documentation Dev
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build:documentation
+    - name: Test
+      run: npm run test:all
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./apps/documentation/build/ s3://$BUCKET_ID/dev/documentation --delete
+    - name: Invalidate Cloundfront distrubution
+      run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DEV_DIST --paths '/*'
 

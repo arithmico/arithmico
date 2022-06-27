@@ -250,7 +250,14 @@ Boolean "boolean" = v:("true" / "false") {
     };
 }
 
-Symbol "symbol" = ([a-z] / [A-Z] / "_")+ { 
+Symbol "symbol" = head:Name ":" tail:Symbol {
+    return {
+        type: "symbol",
+        name: `${head.name}:${tail.name}`
+    }
+} / Name
+
+Name "name" = ([a-z] / [A-Z] / "_") ([a-z] / [A-Z] / [0-9] / "_")* { 
     if (text() === "__proto__") {
         error("SyntaxError: illegal symbol name '__proto__'")
     }

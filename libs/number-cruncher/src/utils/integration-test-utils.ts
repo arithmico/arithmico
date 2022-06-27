@@ -18,7 +18,7 @@ export function integrationTest(input: string, expectedOutput: string, context?:
         init();
     }
 
-    test(`integration test #${++lastId}`, () => {
+    test(`integration test #${++lastId}: ${input}`, () => {
         expect(evaluate(input, context).result).toBe(expectedOutput);
     });
 }
@@ -28,7 +28,7 @@ export function integrationTestThrow(input: string, context?: Context) {
         init();
     }
 
-    test(`integration test (throw) #${++lastId}`, () => {
+    test(`integration test (throw) #${++lastId}: ${input}`, () => {
         expect(() => evaluate(input, context)).toThrow();
     });
 }

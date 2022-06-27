@@ -2,11 +2,30 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import packageJson from '../../../package.json';
+import packageJsonData from '../../workspace.package.json';
 import AboutContact from '../../components/about-contact/about-contact';
 import ExternalLink from '../../components/external-link/external-link';
 import PageContainer from '../../components/page-container/page-container';
 import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
+
+interface PackageInformation {
+  version: string;
+  license: string;
+  author: {
+    name: string;
+    email: string;
+    url: string;
+  };
+  contributors: {
+    name: string;
+    email?: string;
+  }[];
+  bugs: {
+    url: string;
+  };
+}
+
+const packageJson = packageJsonData as PackageInformation;
 
 const Container = styled(PageContainer)`
   font-size: 1.5rem;
@@ -64,6 +83,7 @@ const StyledExternalLink = styled(ExternalLink)`
 
 export default function About() {
   const [t] = useTranslation();
+  console.log(packageJson);
 
   return (
     <WithScrollbars>
@@ -88,18 +108,15 @@ export default function About() {
           {packageJson.contributors.map((contributor) => (
             <dt key={contributor.name}>
               <AboutContact
-                name={contributor.name}
+                name={contributor.name || 'n. a.'}
                 email={
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
-                  contributor?.email
+                  contributor?.email || ''
                 }
               />
             </dt>
           ))}
-
-          <dd>{t('about.numberCruncherVersion')}</dd>
-          <dt>{packageJson.dependencies['@behrenle/number-cruncher'].slice(1)}</dt>
 
           <dd>{t('about.reportBugs')}</dd>
           <dt>
