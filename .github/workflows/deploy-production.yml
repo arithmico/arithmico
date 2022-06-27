@@ -13,11 +13,32 @@ env:
   DOCUMENTATION_DIST: ${{ secrets.DOCUMENTATION_DIST }}
 
 jobs:
+  bump_version:
+    name: Bump Version
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Install dependencies
+      run: npm ci
+    - name: Test
+      run: npm run test:all
+    - name: Setup git
+      run: |
+        git config --global user.name 'Github Actions'
+        git config --global user.email 'dev.behrenle@posteo.de'
+    - name: Bump version
+      run: sh tools/auto-version.sh && git push
+
   deploy_calculator_online:
     name: Deploy Calculator Online Version
+    needs: bump_version
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: fetch latest commits
+      run: git pull --no-rebase
     - name: Install dependencies
       run: npm ci
     - name: Build
@@ -37,9 +58,12 @@ jobs:
 
   deploy_documentation:
     name: Deploy Documentation
+    needs: bump_version
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: fetch latest commits
+      run: git pull --no-rebase
     - name: Install dependencies
       run: npm ci
     - name: Build
@@ -59,11 +83,14 @@ jobs:
 
   deploy_calculator_offline:
     name: Deploy Calculator Offline Version
+    needs: bump_version
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with: 
         fetch-depth: 0
+    - name: fetch latest commits
+      run: git pull --no-rebase
     - name: Configure offline mode
       run: |
         sed -i 's/"homepage": "\/"/"homepage": ".\/"/g' apps/calculator/package.json

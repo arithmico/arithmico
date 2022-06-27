@@ -12,32 +12,11 @@ env:
   DOCUMENTATION_DEV_DIST: ${{ secrets.DOCUMENTATION_DEV_DIST }}
 
 jobs:
-  bump_version:
-    name: Bump Version
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Install dependencies
-      run: npm ci
-    - name: Test
-      run: npm run test:all
-    - name: Setup git
-      run: |
-        git config --global user.name 'Github Actions'
-        git config --global user.email 'dev.behrenle@posteo.de'
-    - name: Bump version
-      run: sh tools/auto-version-dev.sh && git push
-
   deploy_calculator_online_dev:
     name: Deploy Calculator Online Dev
-    needs: bump_version
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: fetch latest commits
-      run: git pull --no-rebase
     - name: Install dependencies
       run: npm ci
     - name: Build
@@ -57,12 +36,9 @@ jobs:
 
   deploy_documentation_dev:
     name: Deploy Documentation Dev
-    needs: bump_version
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: fetch latest commits
-      run: git pull --no-rebase
     - name: Install dependencies
       run: npm ci
     - name: Build
