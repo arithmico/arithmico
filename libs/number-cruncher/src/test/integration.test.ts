@@ -86,6 +86,8 @@ integrationTest('ite(true, 1, 2)', '1');
 integrationTest('ite(true, 1+2, 2)', '3');
 integrationTest('ite(false, 1, 2)', '2');
 integrationTest('foo:bar:=42', '42');
+integrationTest('table((x)->x^2,0,2,1)', '[[0, 0], [1, 1], [2, 4]]');
+integrationTest('table((x: number)->x^2,0,2,1)', '[[0, 0], [1, 1], [2, 4]]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -109,3 +111,4 @@ integrationTestThrow('sqrt(-1)');
 integrationTestThrow('root(-1, 2)');
 integrationTestThrow('root(1, -2)');
 integrationTestThrow('nderive((x) -> 1/x, 0)');
+integrationTestThrow('table((x: boolean)->x^2,0,2,1)');
