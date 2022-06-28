@@ -20,6 +20,7 @@ import statisticsPlugin from './plugins/core/statistics/statistics';
 import rootsPlugin from './plugins/core/roots/roots';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
+import tablePlugin from './plugins/core/table/table';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -40,6 +41,7 @@ const plugins = [
     rootsPlugin,
     physicalConstantsPlugin,
     ifThenElsePlugin,
+    tablePlugin,
 ];
 
 let defaultContext: Context;
