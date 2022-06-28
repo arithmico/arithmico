@@ -105,11 +105,12 @@ jobs:
     - name: Zip
       run: |
         mkdir deploy
-        zip -r deploy/$(node -pe "require('./apps/calculator/package.json')['version']").zip apps/calculator/build
+        VERSION_NUMBER=$(node -pe "require('./package.json')['version']")
+        cd ./apps/calculator/build && zip -r ../../../deploy/$(VERSION_NUMBER).zip .
     - name: Setup Vars
       id: vars
       run: |
-        VERSION_NUMBER=$(node -pe "require('./apps/calculator/package.json')['version']") 
+        VERSION_NUMBER=$(node -pe "require('./package.json')['version']") 
         echo ::set-output name=release_tag::v$VERSION_NUMBER
         echo ::set-output name=release_name::Arithmico v$VERSION_NUMBER
         echo ::set-output name=release_text::"Download offline version [here](https://blob.arithmico.com/calculator/offline/$(echo $VERSION_NUMBER).zip)"
