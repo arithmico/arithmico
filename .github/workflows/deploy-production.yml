@@ -91,9 +91,6 @@ jobs:
         fetch-depth: 0
     - name: fetch latest commits
       run: git pull --no-rebase
-    - name: Configure offline mode
-      run: |
-        sed -i 's/"homepage": "\/"/"homepage": ".\/"/g' apps/calculator/package.json
     - name: Install dependencies
       run: npm ci
     - name: Build

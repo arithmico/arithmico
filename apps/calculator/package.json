@@ -1,6 +1,6 @@
 {
   "name": "arithmico-calculator",
-  "homepage": "/",
+  "homepage": ".",
   "dependencies": {
     "@behrenle/number-cruncher": "file:../../libs/number-cruncher",
     "@fontsource/roboto": "^4.5.7",
