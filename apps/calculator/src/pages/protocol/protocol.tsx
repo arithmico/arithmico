@@ -1,4 +1,3 @@
-import { getLoadingLog } from '@behrenle/number-cruncher';
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -6,8 +5,7 @@ import styled from 'styled-components';
 import InfoProtocolItem from '../../components/info-protocol-item/info-protocol-item';
 import MathProtocolItem from '../../components/math-protocol-item/math-protocol-item';
 import PageContainer from '../../components/page-container/page-container';
-import { InfoItem, MathItem } from '../../stores/session-store/types';
-import useSessionStore from '../../stores/session-store/use-session-store';
+import useProtocol from '../../hooks/use-protocol';
 
 const Container = styled(PageContainer)`
   display: grid;
@@ -70,8 +68,6 @@ const HistoryContainer = styled.ul`
 
 export default function Protocol() {
   const navigate = useNavigate();
-  const history = useSessionStore((state) => state.session.protocol);
-  const excludeInfo = useSessionStore((state) => state.settings.excludeInfoInProtocol);
   const containerRef = useRef<HTMLUListElement>(null);
   const [t] = useTranslation();
   useEffect(() => {
@@ -86,12 +82,9 @@ export default function Protocol() {
     containerRef.current.children[containerRef.current.children.length - 1].scrollIntoView({
       behavior: 'smooth'
     });
-  }, [history, containerRef]);
+  }, [containerRef]);
 
-  const protocolItems: (MathItem | InfoItem)[] = [
-    ...getLoadingLog().map((value) => ({ type: 'info', info: value } as InfoItem)),
-    ...history
-  ].filter((item) => item.type === 'math' || !excludeInfo);
+  const protocolItems = useProtocol();
 
   return (
     <Container>
