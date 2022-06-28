@@ -107,7 +107,6 @@ jobs:
         mkdir deploy
         VERSION_NUMBER=$(node -pe "require('./package.json')['version']")
         cd ./apps/calculator/build && zip -r ../../../deploy/$(echo $VERSION_NUMBER).zip .
-        (zip -r deploy/$(node -pe "require('./package.json')['version']").zip apps/calculator/build
     - name: Setup Vars
       id: vars
       run: |
