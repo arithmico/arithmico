@@ -19,7 +19,7 @@
     "toolbar.resetAll": "Reset All",
     "toolbar.showDefinitions": "Show Definitions",
     "toolbar.showProtocol": "Show Protocol",
-    "toolbar.toggleZenMode": "Toggle Zen Mode",
+    "toolbar.exportProtocol": "Export Protocol",
 
     "settings.interface": "Interface",
     "settings.appearance": "Appearance",

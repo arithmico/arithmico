@@ -97,7 +97,7 @@ export default function CalculatorToolbar() {
       <Button onClick={() => navigate('/protocol')}>{t('toolbar.showProtocol')}</Button>
       <Button onClick={resetProtocol}>{t('toolbar.resetProtocol')}</Button>
 
-      <Button disabled>{t('toolbar.toggleZenMode')}</Button>
+      <Button disabled>{t('toolbar.exportProtocol')}</Button>
       <Button onClick={resetAll}>{t('toolbar.resetAll')}</Button>
     </ToolbarContainer>
   );

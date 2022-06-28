@@ -19,7 +19,7 @@
     "toolbar.resetAll": "Alles löschen",
     "toolbar.showDefinitions": "Zeige Definitionen",
     "toolbar.showProtocol": "Zeige Protokoll",
-    "toolbar.toggleZenMode": "Zen Mode umschalten",
+    "toolbar.exportProtocol": "Protokoll exportieren",
 
     "settings.interface": "Oberfläche",
     "settings.appearance": "Erscheinungsbild",
