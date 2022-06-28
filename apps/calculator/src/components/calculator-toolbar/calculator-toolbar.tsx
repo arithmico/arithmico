@@ -1,10 +1,12 @@
 import React from 'react';
-import { useHotkeys } from 'react-hotkeys-hook';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { MathItem } from '../../stores/session-store/types';
-import useSessionStore, { useDispatch } from '../../stores/session-store/use-session-store';
+import useCurrentInput from '../../hooks/use-current-input';
+import useCurrentOutput from '../../hooks/use-current-output';
+import useExportProtocol from '../../hooks/use-export-protocol';
+import useHotkey from '../../hooks/use-hotkey';
+import { useDispatch } from '../../stores/session-store/use-session-store';
 
 const ToolbarContainer = styled.aside`
   display: grid;
@@ -44,13 +46,8 @@ const Button = styled.button`
 export default function CalculatorToolbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const outputResetted = useSessionStore((state) => state.session.outputResetted);
-  const mathItems = useSessionStore((state) =>
-    state.session.protocol.filter((hItem) => hItem.type === 'math')
-  ) as MathItem[];
-  const currentOutput =
-    !outputResetted && mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
-  const currentInput = useSessionStore((state) => state.session.input);
+  const currentOutput = useCurrentOutput();
+  const currentInput = useCurrentInput();
   const resetDefinitions = () => dispatch({ type: 'resetDefinitions' });
   const resetInput = () => dispatch({ type: 'resetInput' });
   const resetOutput = () => dispatch({ type: 'resetOutput' });
@@ -61,30 +58,11 @@ export default function CalculatorToolbar() {
     resetDefinitions();
   };
   const [t] = useTranslation();
+  const exportProtocol = useExportProtocol();
 
-  useHotkeys(
-    'ctrl + alt + m',
-    () => {
-      resetDefinitions();
-    },
-    { enableOnTags: ['INPUT'] }
-  );
-
-  useHotkeys(
-    'ctrl + alt + a',
-    () => {
-      resetAll();
-    },
-    { enableOnTags: ['INPUT'] }
-  );
-
-  useHotkeys(
-    'alt + p',
-    () => {
-      navigator.clipboard.writeText(currentInput + '\n' + currentOutput);
-    },
-    { enableOnTags: ['INPUT'] }
-  );
+  useHotkey('ctrl + alt + m', () => resetDefinitions());
+  useHotkey('ctrl + alt + a', () => resetAll());
+  useHotkey('alt + p', () => navigator.clipboard.writeText(currentInput + '\n' + currentOutput));
 
   return (
     <ToolbarContainer>
@@ -97,7 +75,7 @@ export default function CalculatorToolbar() {
       <Button onClick={() => navigate('/protocol')}>{t('toolbar.showProtocol')}</Button>
       <Button onClick={resetProtocol}>{t('toolbar.resetProtocol')}</Button>
 
-      <Button disabled>{t('toolbar.toggleZenMode')}</Button>
+      <Button onClick={exportProtocol}>{t('toolbar.exportProtocol')}</Button>
       <Button onClick={resetAll}>{t('toolbar.resetAll')}</Button>
     </ToolbarContainer>
   );
