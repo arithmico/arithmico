@@ -1,12 +1,16 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import packageJsonData from '../../workspace.package.json';
-import AboutContact from '../../components/about-contact/about-contact';
-import ExternalLink from '../../components/external-link/external-link';
-import PageContainer from '../../components/page-container/page-container';
-import WithScrollbars from '../../components/with-scrollbars/with-scrollbars';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import packageJsonData from "../../workspace.package.json";
+import AboutContact from "../../components/about-contact/about-contact";
+import ExternalLink from "../../components/external-link/external-link";
+import PageContainer from "../../components/page-container/page-container";
+import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
+
+const version: string = process.env.REACT_APP_DEV_MODE
+  ? "dev"
+  : packageJsonData["version"];
 
 interface PackageInformation {
   version: string;
@@ -88,14 +92,14 @@ export default function About() {
   return (
     <WithScrollbars>
       <Container>
-        <h1>{t('about.general')}</h1>
+        <h1>{t("about.general")}</h1>
         <StyledDl>
-          <dd>{t('about.version')}</dd>
-          <dt>{packageJson.version}</dt>
-          <dd>{t('about.license')}</dd>
+          <dd>{t("about.version")}</dd>
+          <dt>{version}</dt>
+          <dd>{t("about.license")}</dd>
           <dt>{packageJson.license}</dt>
 
-          <dd>{t('about.author')}</dd>
+          <dd>{t("about.author")}</dd>
           <dt>
             <AboutContact
               name={packageJson.author.name}
@@ -104,35 +108,37 @@ export default function About() {
             />
           </dt>
 
-          <dd>{t('about.contributors')}</dd>
+          <dd>{t("about.contributors")}</dd>
           {packageJson.contributors.map((contributor) => (
             <dt key={contributor.name}>
               <AboutContact
-                name={contributor.name || 'n. a.'}
+                name={contributor.name || "n. a."}
                 email={
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
-                  contributor?.email || ''
+                  contributor?.email || ""
                 }
               />
             </dt>
           ))}
 
-          <dd>{t('about.reportBugs')}</dd>
+          <dd>{t("about.reportBugs")}</dd>
           <dt>
-            <ExternalLink href={packageJson.bugs.url}>{packageJson.bugs.url}</ExternalLink>
+            <ExternalLink href={packageJson.bugs.url}>
+              {packageJson.bugs.url}
+            </ExternalLink>
           </dt>
         </StyledDl>
-        <h1>{t('about.furtherInformation')}</h1>
+        <h1>{t("about.furtherInformation")}</h1>
         <ul>
           <li>
             <StyledExternalLink href="https://blob.behrenle.io/me/MathExplorerAnleitung.docx">
-              {t('about.documentation')}
+              {t("about.documentation")}
             </StyledExternalLink>
           </li>
           <li>
             <StyledExternalLink href="https://github.com/behrenle/arithmico-calculator/releases">
-              {t('about.offlineVersion')}
+              {t("about.offlineVersion")}
             </StyledExternalLink>
           </li>
           <li>
