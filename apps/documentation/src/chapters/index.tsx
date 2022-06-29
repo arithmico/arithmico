@@ -3,15 +3,15 @@ import { Chapter } from "../types";
 const chaptersDe: Chapter[] = [
   {
     title: "Einführung",
-    url: require("./markdown/de/01_einfuerung.md"),
+    url: "/markdown/de/01_einfuerung.md",
   },
   {
     title: "Installation",
-    url: require("./markdown/de/02_installation.md"),
+    url: "/markdown/de/02_installation.md",
   },
   {
     title: "Einfache Rechnungen und Standardfunktionen",
-    url: require("./markdown/de/03_einfache_rechnungen.md"),
+    url: "/markdown/de/03_einfache_rechnungen.md",
   },
 ];
 

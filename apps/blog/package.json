@@ -1,5 +1,5 @@
 {
-  "name": "arithmico-calculator",
+  "name": "arithmico-blog",
   "homepage": ".",
   "scripts": {
     "start": "react-scripts start",

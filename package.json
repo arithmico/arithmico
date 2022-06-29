@@ -1,6 +1,6 @@
 {
   "name": "arithmico",
-  "version": "0.74.4",
+  "version": "0.75.0",
   "author": {
     "name": "Lennard Behrens",
     "email": "dev.behrenle@posteo.de",
@@ -19,28 +19,77 @@
     "./apps/*",
     "./libs/*"
   ],
-  "devDependencies": {},
   "scripts": {
-    "build:all": "npm run build:number-cruncher && npm run build:calculator && npm run build:documentation",
+    "build:all": "npm run build:number-cruncher && npm run build:calculator && npm run build:documentation && npm run build:blog",
     "build:number-cruncher": "npm run build -w libs/number-cruncher",
     "build:calculator": "npm run build -w apps/calculator",
     "build:documentation": "npm run build -w apps/documentation",
+    "build:blog": "npm run build -w apps/blog",
     "test:number-cruncher": "npm run test -w libs/number-cruncher",
     "test:calculator": "npm run test -w apps/calculator",
     "test:documentation": "npm run test -w apps/documentation",
-    "test:all": "npm run test:number-cruncher && npm run test:calculator && npm run test:documentation",
+    "test:blog": "npm run test -w apps/blog",
+    "test:all": "npm run test:number-cruncher && npm run test:calculator && npm run test:documentation  && npm run test:blog",
     "lint:calculator": "npm run lint -w apps/calculator",
     "lint:documentation": "npm run lint -w apps/documentation",
+    "lint:blog": "npm run lint -w apps/blog",
     "lint:number-cruncher": "npm run lint -w libs/number-cruncher",
-    "lint:all": "npm run lint:calculator && npm run lint:documentation && npm run lint:number-cruncher"
+    "lint:all": "npm run lint:calculator && npm run lint:documentation && npm run lint:number-cruncher && npm run lint:blog"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/behrenle/arithmico-calculator.git"
+    "url": "git+https://github.com/behrenle/arithmico.git"
   },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/behrenle/arithmico/issues"
   },
-  "homepage": "https://github.com/behrenle/arithmico-calculator#readme"
+  "homepage": "https://github.com/behrenle/arithmico#readme",
+  "dependencies": {
+    "@babel/cli": "^7.18.6",
+    "@babel/core": "^7.18.6",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@behrenle/number-cruncher": "file:./libs/number-cruncher",
+    "@fontsource/roboto": "^4.5.7",
+    "@fontsource/source-code-pro": "^4.5.10",
+    "@headlessui/react": "1.5",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.1",
+    "@types/file-saver": "^2.0.5",
+    "@types/node": "^18.0.0",
+    "@types/overlayscrollbars": "^1.12.1",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "@types/styled-components": "^5.1.25",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "babel-jest": "^28.1.1",
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.1.0",
+    "file-saver": "^2.0.5",
+    "i18next": "^21.8.11",
+    "jest": "^28.1.1",
+    "overlayscrollbars": "^1.13.2",
+    "overlayscrollbars-react": "^0.3.0",
+    "peggy": "^2.0.1",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hotkeys-hook": "^3.4.6",
+    "react-i18next": "^11.17.3",
+    "react-markdown": "^8.0.3",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "styled-components": "^5.3.5",
+    "typescript": "^4.7.4",
+    "web-vitals": "^2.1.4",
+    "zustand": "3.7"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.3"
+  }
 }
