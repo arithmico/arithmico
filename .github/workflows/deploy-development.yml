@@ -59,7 +59,7 @@ jobs:
       run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DEV_DIST --paths '/*'
 
   deploy_blog_dev:
-    name: Blog Documentation Dev
+    name: Blog Dev
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
