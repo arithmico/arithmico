@@ -13,8 +13,9 @@
         "sourceMap": true,
         "moduleResolution": "node",
         "typeRoots": [
-            "./node_modules/@types"
-        ]
+            "../../node_modules/@types"
+        ],
+        "types": ["jest", "node", "@types/jest"]
     },
     "include": [
         "src"
