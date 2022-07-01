@@ -13,6 +13,7 @@ import { ThemeProvider } from "styled-components";
 import Definitions from "./pages/definitions/definitions";
 import TermsOfService from "./pages/terms-of-service/terms-of-service";
 import PrivacyPolicy from "./pages/privacy-policy/privacy-policy";
+import ImprintContent from "@components/imprint-content/imprint-content";
 
 const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/definitions" element={<Definitions />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/imprint" element={<ImprintContent />} />
         </Routes>
       </Router>
     </ThemeProvider>

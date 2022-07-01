@@ -8,6 +8,7 @@ import "@fontsource/roboto/700.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home/home";
 import GlobalStyle from "@components/global-styles/global-styles";
+import ImprintContent from "@components/imprint-content/imprint-content";
 
 const Container = styled.div`
   position: absolute;
@@ -22,6 +23,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/imprint" element={<ImprintContent />} />
         </Routes>
       </Container>
     </ThemeProvider>
