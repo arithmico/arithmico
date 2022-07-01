@@ -81,7 +81,7 @@ jobs:
     - name: Invalidate Cloundfront distrubution
       run: aws cloudfront create-invalidation --distribution-id $BLOG_DEV_DIST --paths '/*'
 
-  deploy_blog_dev:
+  deploy_config_dev:
     name: Deploy Config Dev
     runs-on: ubuntu-latest
     steps:
