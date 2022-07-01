@@ -44,7 +44,7 @@ addPluginFunction(moduloPlugin,
 addPluginFunction(moduloPlugin,
     createPluginFunction(
         "idiv",
-        modHeader,
+        idivHeader,
         'calculates the integer division of n/m',
         'Berechnet das ganzzahlige Ergebnis der Division n/m.',
         (parameters, context) => {
