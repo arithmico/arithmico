@@ -1,7 +1,7 @@
-import React from 'react';
-import { Listbox } from '@headlessui/react';
-import styled from 'styled-components';
-import CodeIcon from '../../icons/code-icon';
+import React from "react";
+import { Listbox } from "@headlessui/react";
+import styled from "styled-components";
+import CodeIcon from "@components/icons/code-icon";
 
 const Container = styled.li`
   display: flex;
@@ -47,7 +47,7 @@ const Options = styled(Listbox.Options)`
 const Option = styled(Listbox.Option)<{ selected: boolean }>`
   font-size: 1.5rem;
   background-color: ${({ selected }) =>
-    selected ? 'var(--me-background-400)' : 'var(--me-background-300)'};
+    selected ? "var(--me-background-400)" : "var(--me-background-300)"};
   list-style: none;
   display: flex;
   align-items: center;
@@ -99,7 +99,7 @@ export default function SettingsDecimalPlacesListbox({
   label,
   value,
   options,
-  onChange
+  onChange,
 }: SettingsListboxProps) {
   return (
     <Container>
@@ -112,7 +112,11 @@ export default function SettingsDecimalPlacesListbox({
           </Button>
           <Options>
             {options.map((option, index) => (
-              <Option key={index} value={option.value} selected={option.value === value}>
+              <Option
+                key={index}
+                value={option.value}
+                selected={option.value === value}
+              >
                 {option.label}
               </Option>
             ))}
