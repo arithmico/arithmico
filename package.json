@@ -17,24 +17,27 @@
   "description": "",
   "workspaces": [
     "./apps/*",
-    "./libs/*"
+    "./libs/number-cruncher"
   ],
   "scripts": {
-    "build:all": "npm run build:number-cruncher && npm run build:calculator && npm run build:documentation && npm run build:blog",
+    "build:all": "npm run build -ws",
     "build:number-cruncher": "npm run build -w libs/number-cruncher",
     "build:calculator": "npm run build -w apps/calculator",
     "build:documentation": "npm run build -w apps/documentation",
     "build:blog": "npm run build -w apps/blog",
+    "build:config": "npm run build -w apps/config",
     "test:number-cruncher": "npm run test -w libs/number-cruncher",
     "test:calculator": "npm run test -w apps/calculator",
     "test:documentation": "npm run test -w apps/documentation",
     "test:blog": "npm run test -w apps/blog",
-    "test:all": "npm run test:number-cruncher && npm run test:calculator && npm run test:documentation  && npm run test:blog",
+    "test:config": "npm run test -w apps/config",
+    "test:all": "npm run test -ws",
     "lint:calculator": "npm run lint -w apps/calculator",
     "lint:documentation": "npm run lint -w apps/documentation",
     "lint:blog": "npm run lint -w apps/blog",
+    "lint:config": "npm run lint -w apps/config",
     "lint:number-cruncher": "npm run lint -w libs/number-cruncher",
-    "lint:all": "npm run lint:calculator && npm run lint:documentation && npm run lint:number-cruncher && npm run lint:blog"
+    "lint:all": "npm run lint -ws"
   },
   "repository": {
     "type": "git",
