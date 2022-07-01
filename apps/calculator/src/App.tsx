@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { Route, BrowserRouter, HashRouter, Routes } from 'react-router-dom';
-import i18n from './i18n/index';
-import Calculator from './pages/calculator/calculator';
-import Navbar from './components/navbar/navbar';
-import Settings from './pages/settings/settings';
-import Manual from './pages/manual/manual';
-import About from './pages/about/about';
-import Protocol from './pages/protocol/protocol';
-import GlobalStyle from './globalStyles';
-import useSessionStore from './stores/session-store/use-session-store';
-import { ThemeProvider } from 'styled-components';
-import Definitions from './pages/definitions/definitions';
-import TermsOfService from './pages/terms-of-service/terms-of-service';
-import PrivacyPolicy from './pages/privacy-policy/privacy-policy';
+import React, { useEffect } from "react";
+import { Route, BrowserRouter, HashRouter, Routes } from "react-router-dom";
+import i18n from "./i18n/index";
+import Calculator from "./pages/calculator/calculator";
+import Navbar from "./components/navbar/navbar";
+import Settings from "./pages/settings/settings";
+import Manual from "./pages/manual/manual";
+import About from "./pages/about/about";
+import Protocol from "./pages/protocol/protocol";
+import GlobalStyle from "@components/global-styles/global-styles";
+import useSessionStore from "./stores/session-store/use-session-store";
+import { ThemeProvider } from "styled-components";
+import Definitions from "./pages/definitions/definitions";
+import TermsOfService from "./pages/terms-of-service/terms-of-service";
+import PrivacyPolicy from "./pages/privacy-policy/privacy-policy";
 
 const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
