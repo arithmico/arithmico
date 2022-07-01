@@ -17,16 +17,6 @@ export default function Home() {
           }))}
         />
       ))}
-      <PluginConfig
-        name="foo"
-        items={[
-          {
-            name: "foo_bar",
-            description: "example description",
-            synopsis: "FOO_BAR",
-          },
-        ]}
-      />
     </Page>
   );
 }
