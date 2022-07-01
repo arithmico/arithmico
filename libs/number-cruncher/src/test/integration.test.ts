@@ -88,7 +88,6 @@ integrationTest('ite(false, 1, 2)', '2');
 integrationTest('foo:bar:=42', '42');
 integrationTest('table((x)->x^2,0,2,1)', '[[0, 0], [1, 1], [2, 4]]');
 integrationTest('table((x: number)->x^2,0,2,1)', '[[0, 0], [1, 1], [2, 4]]');
-
 integrationTest('physics:c', '2.997925 * 10^8');
 integrationTest('physics:m_p', '1.672622 * 10^(-27)');
 integrationTest('physics:m_n', '1.674927 * 10^(-27)');
@@ -108,8 +107,6 @@ integrationTest('physics:R', '8.314463');
 integrationTest('physics:epsilon_0', '8.854188 * 10^(-12)');
 integrationTest('physics:mu_0', '0.000001');
 integrationTest('physics:G', '6.674 * 10^(-11)');
-
-
 integrationTest('mod(2, 3)', '2');
 integrationTest('mod(-2, 3)', '1');
 integrationTest('mod(2, -3)', '-1');
