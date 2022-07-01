@@ -147,6 +147,9 @@ export default function About() {
           <li>
             <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
           </li>
+          <li>
+            <StyledLink to="/imprint">Imprint</StyledLink>
+          </li>
         </ul>
       </Container>
     </WithScrollbars>

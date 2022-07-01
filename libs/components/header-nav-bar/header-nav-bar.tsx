@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.header`
@@ -27,6 +28,12 @@ const Version = styled.span`
   color: white;
 `;
 
+const ImprintLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+  padding: 0 1rem;
+`;
+
 interface HeaderNavBarProps {
   title: string;
   subTitle: string;
@@ -44,6 +51,7 @@ export default function HeaderNavBar({
         {title} <span>{subTitle}</span>
       </h1>
       <Version>v{version}</Version>
+      <ImprintLink to="/imprint">Impressum</ImprintLink>
     </Container>
   );
 }
