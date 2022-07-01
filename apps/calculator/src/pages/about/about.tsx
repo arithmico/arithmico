@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import packageJsonData from "../../workspace.package.json";
+import packageJsonData from "@workspace-package.json";
 import AboutContact from "../../components/about-contact/about-contact";
 import ExternalLink from "../../components/external-link/external-link";
 import PageContainer from "../../components/page-container/page-container";
