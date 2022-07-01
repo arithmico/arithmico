@@ -3,7 +3,7 @@ import { parse } from './parse/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Options } from './types';
-import loadPlugins from './utils/plugin-loader';
+import loadPlugins, { loadPluginStructures } from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
 import { createOptions, insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
@@ -21,6 +21,7 @@ import rootsPlugin from './plugins/core/roots/roots';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import tablePlugin from './plugins/core/table/table';
+import moduloPlugin from "./plugins/core/modulo/modulo";
 
 export { serializeStack } from './utils/context-utils';
 
@@ -42,6 +43,7 @@ const plugins = [
     physicalConstantsPlugin,
     ifThenElsePlugin,
     tablePlugin,
+    moduloPlugin
 ];
 
 let defaultContext: Context;
@@ -53,6 +55,10 @@ export function init(options: Options = defaultOptions) {
     defaultContext = loadingResult.context;
     loadingLog = loadingResult.log;
     documentation = loadingResult.documentation;
+}
+
+export function getPluginStructures() {
+    return loadPluginStructures(plugins);
 }
 
 export function isInitialized() {

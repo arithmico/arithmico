@@ -1,55 +1,64 @@
-import evaluate, { init, getDefaultContext } from '@behrenle/number-cruncher';
-import create, { SetState } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { MathItem, Session, SessionState, Settings } from './types';
-import { createOptions } from '@behrenle/number-cruncher/lib/utils/context-utils';
-import { Options } from '@behrenle/number-cruncher/lib/types';
+import evaluate, { init, getDefaultContext } from "@behrenle/number-cruncher";
+import create, { SetState } from "zustand";
+import { persist } from "zustand/middleware";
+import { MathItem, Session, SessionState, Settings } from "./types";
+import { createOptions } from "@behrenle/number-cruncher/lib/utils/context-utils";
+import { Options } from "@behrenle/number-cruncher/lib/types";
 
 init();
 
 const defaultSettings: Settings = {
   decimalPlaces: getDefaultContext().options.decimalPlaces,
-  interfaceFontSize: 'medium',
-  theme: 'light',
-  language: 'de',
-  numberFormat: 'default',
+  interfaceFontSize: "medium",
+  theme: "light",
+  language: "de",
+  numberFormat: "default",
   excludeInfoInProtocol: true as boolean,
   copySynopsisOnClick: true as boolean,
-  angleUnit: 'degrees',
-  boldFont: false as boolean
+  angleUnit: "degrees",
+  boldFont: false as boolean,
 };
 
 const defaultSession: Session = {
-  input: '',
+  input: "",
   historyIndex: 0,
   outputResetted: false,
   protocol: [],
-  stack: getDefaultContext().stack
+  stack: getDefaultContext().stack,
 };
 
 function getDecimalSeparator(language: string, numberFormat: string) {
-  if (numberFormat === 'default') {
-    if (language === 'de') {
-      return ',';
+  if (numberFormat === "default") {
+    if (language === "de") {
+      return ",";
     }
-    return '.';
+    return ".";
   } else {
-    if (numberFormat === 'de') {
-      return ',';
+    if (numberFormat === "de") {
+      return ",";
     }
-    return '.';
+    return ".";
   }
 }
 
-export function setSessionAttribute(set: SetState<SessionState>, partialSession: Partial<Session>) {
-  return set((state) => ({ ...state, session: { ...state.session, ...partialSession } }));
+export function setSessionAttribute(
+  set: SetState<SessionState>,
+  partialSession: Partial<Session>
+) {
+  return set((state) => ({
+    ...state,
+    session: { ...state.session, ...partialSession },
+  }));
 }
 
 export function setSettingsAttribute(
   set: SetState<SessionState>,
   partialSettings: Partial<Settings>
 ) {
-  return set((state) => ({ ...state, settings: { ...state.settings, ...partialSettings } }));
+  return set((state) => ({
+    ...state,
+    settings: { ...state.settings, ...partialSettings },
+  }));
 }
 
 const useSessionStore = create<SessionState>(
@@ -59,59 +68,67 @@ const useSessionStore = create<SessionState>(
       session: defaultSession,
       dispatch: (action) => {
         switch (action.type) {
-          case 'setLanguage':
+          case "setLanguage":
             setSettingsAttribute(set, { language: action.language });
             break;
 
-          case 'setNumberFormat':
+          case "setNumberFormat":
             setSettingsAttribute(set, { numberFormat: action.numberFormat });
             break;
 
-          case 'setInterfaceFontSize':
-            setSettingsAttribute(set, { interfaceFontSize: action.interfaceFontSize });
+          case "setInterfaceFontSize":
+            setSettingsAttribute(set, {
+              interfaceFontSize: action.interfaceFontSize,
+            });
             break;
 
-          case 'setExcludeInfoInProtocol':
-            setSettingsAttribute(set, { excludeInfoInProtocol: action.excludeInfoInProtocol });
+          case "setExcludeInfoInProtocol":
+            setSettingsAttribute(set, {
+              excludeInfoInProtocol: action.excludeInfoInProtocol,
+            });
             break;
 
-          case 'setCopySynopsisOnClick':
-            setSettingsAttribute(set, { copySynopsisOnClick: action.copySynopsisOnClick });
+          case "setCopySynopsisOnClick":
+            setSettingsAttribute(set, {
+              copySynopsisOnClick: action.copySynopsisOnClick,
+            });
             break;
 
-          case 'setAngleUnit':
+          case "setAngleUnit":
             setSettingsAttribute(set, { angleUnit: action.angleUnit });
             break;
 
-          case 'setBoldFont':
+          case "setBoldFont":
             setSettingsAttribute(set, { boldFont: action.boldFont });
             break;
 
-          case 'setTheme':
+          case "setTheme":
             setSettingsAttribute(set, { theme: action.theme });
             break;
 
-          case 'setDecimalPlaces':
+          case "setDecimalPlaces":
             setSettingsAttribute(set, { decimalPlaces: action.decimalPlaces });
             break;
 
-          case 'resetSettings':
+          case "resetSettings":
             set((state) => ({ ...state, settings: defaultSettings }));
             break;
 
-          case 'setInput':
+          case "setInput":
             setSessionAttribute(set, { input: action.input });
             break;
 
-          case 'resetInput':
-            setSessionAttribute(set, { input: '' });
+          case "resetInput":
+            setSessionAttribute(set, { input: "" });
             break;
 
-          case 'evaluate':
+          case "evaluate":
             set((state) => {
-              if (state.session.input === '') return state;
+              if (state.session.input === "") return state;
 
-              const newIndex = state.session.protocol.filter((item) => item.type === 'math').length;
+              const newIndex = state.session.protocol.filter(
+                (item) => item.type === "math"
+              ).length;
 
               try {
                 const result = evaluate(state.session.input, {
@@ -121,10 +138,11 @@ const useSessionStore = create<SessionState>(
                       state.settings.language,
                       state.settings.numberFormat
                     ),
-                    magnitudeThresholdForScientificNotation: state.settings.decimalPlaces,
+                    magnitudeThresholdForScientificNotation:
+                      state.settings.decimalPlaces,
                     decimalPlaces: state.settings.decimalPlaces,
-                    angleUnit: state.settings.angleUnit as Options['angleUnit']
-                  })
+                    angleUnit: state.settings.angleUnit as Options["angleUnit"],
+                  }),
                 });
 
                 return {
@@ -136,14 +154,14 @@ const useSessionStore = create<SessionState>(
                     protocol: [
                       ...state.session.protocol,
                       {
-                        type: 'math',
+                        type: "math",
                         error: false,
                         input: state.session.input,
-                        output: result.result
-                      }
+                        output: result.result,
+                      },
                     ],
-                    stack: result.context.stack
-                  }
+                    stack: result.context.stack,
+                  },
                 };
               } catch (error) {
                 return {
@@ -155,23 +173,23 @@ const useSessionStore = create<SessionState>(
                     protocol: [
                       ...state.session.protocol,
                       {
-                        type: 'math',
+                        type: "math",
                         error: true,
                         input: state.session.input,
-                        output: error as string
-                      }
-                    ]
-                  }
+                        output: error as string,
+                      },
+                    ],
+                  },
                 };
               }
             });
             break;
 
-          case 'goBackInInputHistory':
+          case "goBackInInputHistory":
             set((state) => {
-              const mathItems = <MathItem[]>(
-                state.session.protocol.filter((item) => item.type === 'math')
-              );
+              const mathItems = state.session.protocol.filter(
+                (item) => item.type === "math"
+              ) as MathItem[];
               const newIndex = state.session.historyIndex - 1;
               if (newIndex < 0) {
                 return state;
@@ -182,17 +200,17 @@ const useSessionStore = create<SessionState>(
                 session: {
                   ...state.session,
                   historyIndex: newIndex,
-                  input: mathItems[newIndex].input
-                }
+                  input: mathItems[newIndex].input,
+                },
               };
             });
             break;
 
-          case 'goForwardInInputHistory':
+          case "goForwardInInputHistory":
             set((state) => {
-              const mathItems = <MathItem[]>(
-                state.session.protocol.filter((item) => item.type === 'math')
-              );
+              const mathItems = state.session.protocol.filter(
+                (item) => item.type === "math"
+              ) as MathItem[];
               const newIndex = state.session.historyIndex + 1;
               if (newIndex > mathItems.length) {
                 return state;
@@ -203,41 +221,47 @@ const useSessionStore = create<SessionState>(
                 session: {
                   ...state.session,
                   historyIndex: newIndex,
-                  input: newIndex === mathItems.length ? '' : mathItems[newIndex].input
-                }
+                  input:
+                    newIndex === mathItems.length
+                      ? ""
+                      : mathItems[newIndex].input,
+                },
               };
             });
             break;
 
-          case 'resetDefinitions':
+          case "resetDefinitions":
             set((state) => {
               return {
                 ...state,
                 session: {
                   ...state.session,
                   stack: getDefaultContext().stack,
-                  protocol: [...state.session.protocol, { type: 'info', info: 'reset definitions' }]
-                }
+                  protocol: [
+                    ...state.session.protocol,
+                    { type: "info", info: "reset definitions" },
+                  ],
+                },
               };
             });
             break;
 
-          case 'resetOutput':
+          case "resetOutput":
             setSessionAttribute(set, { outputResetted: true });
             break;
 
-          case 'resetProtocol':
+          case "resetProtocol":
             setSessionAttribute(set, { protocol: [] });
             break;
         }
-      }
+      },
     }),
     {
-      name: 'settings',
+      name: "settings",
       version: 4,
       partialize: (state) => ({
-        settings: state.settings
-      })
+        settings: state.settings,
+      }),
     }
   )
 );

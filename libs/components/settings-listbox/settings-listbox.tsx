@@ -1,8 +1,8 @@
-import React from 'react';
-import { Listbox } from '@headlessui/react';
-import styled from 'styled-components';
-import DoneIcon from '../../icons/done-icon';
-import CodeIcon from '../../icons/code-icon';
+import React from "react";
+import { Listbox } from "@headlessui/react";
+import styled from "styled-components";
+import DoneIcon from "../icons/done-icon";
+import CodeIcon from "../icons/code-icon";
 
 const Container = styled.li`
   display: flex;
@@ -94,7 +94,12 @@ interface SettingsListboxProps {
   onChange: ((value: number) => void) | ((value: string) => void);
 }
 
-export default function SettingsListbox({ label, value, options, onChange }: SettingsListboxProps) {
+export default function SettingsListbox({
+  label,
+  value,
+  options,
+  onChange,
+}: SettingsListboxProps) {
   return (
     <Container>
       <Listbox value={value} onChange={onChange}>

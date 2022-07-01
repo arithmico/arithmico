@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@components/*": ["../../libs/components/*"],
+        "@workspace-package.json": ["../../package.json"]
+      }
+    }
+  }
