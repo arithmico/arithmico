@@ -2,10 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import PageContainer from "../../components/page-container/page-container";
 import SettingsButton from "@components/settings-button/settings-button";
-import SettingsDecimalPlacesListbox from "../../components/settings-decimal-places-listbox/settings-decimal-places-listbox";
-import SettingsListbox from "../../components/settings-listbox/settings-listbox";
-import SettingsSection from "../../components/settings-section/settings-section";
+import SettingsListbox from "@components/settings-listbox/settings-listbox";
+import SettingsSection from "@components/settings-section/settings-section";
 import SettingsSwitch from "@components/settings-switch/settings-switch";
+import SettingsDecimalPlacesListbox from "../../components/settings-decimal-places-listbox/settings-decimal-places-listbox";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
 import useSessionStore, {
   useDispatch,
