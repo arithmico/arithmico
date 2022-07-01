@@ -1,0 +1,29 @@
+{
+  "name": "arithmico-config",
+  "homepage": ".",
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
+    "test": "echo \"Info: no test specified\" && exit 0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {}
+}
