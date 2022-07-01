@@ -3,7 +3,7 @@ import { parse } from './parse/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Options } from './types';
-import loadPlugins from './utils/plugin-loader';
+import loadPlugins, { loadPluginStructures } from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
 import { createOptions, insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
@@ -53,6 +53,10 @@ export function init(options: Options = defaultOptions) {
     defaultContext = loadingResult.context;
     loadingLog = loadingResult.log;
     documentation = loadingResult.documentation;
+}
+
+export function getPluginStructures() {
+    return loadPluginStructures(plugins);
 }
 
 export function isInitialized() {
