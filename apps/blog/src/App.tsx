@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import "./App.css";
 import "@fontsource/roboto/100.css";
 import "@fontsource/roboto/300.css";
@@ -8,6 +8,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home/home";
+import GlobalStyle from "@components/global-styles/global-styles";
 
 const Container = styled.div`
   position: absolute;
@@ -17,11 +18,14 @@ const Container = styled.div`
 
 function App() {
   return (
-    <Container>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Container>
+    <ThemeProvider theme={{ type: "light" }}>
+      <GlobalStyle boldFont={false} fontSize="normal" />
+      <Container>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Container>
+    </ThemeProvider>
   );
 }
 

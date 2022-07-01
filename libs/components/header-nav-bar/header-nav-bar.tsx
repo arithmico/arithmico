@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 const Container = styled.header`
   background-color: black;
+  display: flex;
+  align-items: center;
 
   & > h1 {
     margin: 0;
@@ -18,17 +20,30 @@ const Container = styled.header`
   }
 `;
 
+const Version = styled.span`
+  margin-left: auto;
+  font-size: 1rem;
+  padding: 0 1rem;
+  color: white;
+`;
+
 interface HeaderNavBarProps {
   title: string;
   subTitle: string;
+  version: string;
 }
 
-export default function HeaderNavBar({ title, subTitle }: HeaderNavBarProps) {
+export default function HeaderNavBar({
+  title,
+  subTitle,
+  version,
+}: HeaderNavBarProps) {
   return (
     <Container>
       <h1>
         {title} <span>{subTitle}</span>
       </h1>
+      <Version>v{version}</Version>
     </Container>
   );
 }
