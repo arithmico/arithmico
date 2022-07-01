@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../header/header";
+import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
 import Nav from "../nav/nav";
 import chaptersDe from "../../chapters/index";
 
@@ -29,7 +29,7 @@ interface PageProps {
 export default function Page({ children }: PageProps) {
   return (
     <Container>
-      <Header />
+      <HeaderNavBar title="Arithmico" subTitle="Docs" />
       <ScrollWrapper>
         <Nav chapters={chaptersDe} />
         <Content>{children}</Content>

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../header/header";
+import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
 
 const Container = styled.div`
   width: 100%;
@@ -26,7 +26,7 @@ interface PageProps {
 export default function Page({ children }: PageProps) {
   return (
     <Container>
-      <Header />
+      <HeaderNavBar title="Arithmico" subTitle="Blog" />
       <ScrollWrapper>
         <Content>{children}</Content>
       </ScrollWrapper>
