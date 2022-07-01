@@ -18,11 +18,16 @@ const Container = styled.header`
   }
 `;
 
-export default function Header() {
+interface HeaderNavBarProps {
+  title: string;
+  subTitle: string;
+}
+
+export default function HeaderNavBar({ title, subTitle }: HeaderNavBarProps) {
   return (
     <Container>
       <h1>
-        Arithmico <span>Blog</span>
+        {title} <span>{subTitle}</span>
       </h1>
     </Container>
   );
