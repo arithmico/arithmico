@@ -97,7 +97,6 @@ DefineFunction = symbol:Symbol _ "(" _ parameters:SymbolList _ ")" _ ":=" _ expr
         name: symbol.name,
         value: {
             type: "lambda",
-            name: symbol.name,
             header: parameters ? parameters : [],
             expression: expr
         }
@@ -105,13 +104,26 @@ DefineFunction = symbol:Symbol _ "(" _ parameters:SymbolList _ ")" _ ":=" _ expr
 }
 
 // define lambda function
-DefineLambdaFunction = "(" _ parameters:SymbolList _ ")" _ ("->" / "→") _ expr:Expression {
+DefineLambdaFunction = LambdaWithTypedParameters / LambdaWithOneUntypedParameter
+
+LambdaWithTypedParameters = "(" _ parameters:SymbolList _ ")" _ ("->" / "→") _ expr:Expression {
     return {
         type: "lambda",
-        name: "lambda",
         header: parameters ? parameters : [],
         expression: expr
     };
+}
+
+LambdaWithOneUntypedParameter = parameter:Symbol _ ("->" / "→") _ expr:Expression {
+    return {
+        type: "lambda",
+        header: [{
+            name: parameter.name,
+            type: "any",
+            evaluate: true
+        }],
+        expression: expr
+    }
 }
 
 Expression = Or
@@ -210,10 +222,10 @@ Power = left:Value _ "^" _ right:Value {
 // values
 Value = Boolean 
 / FunctionCall 
+/ DefineLambdaFunction
 / Symbol 
 / Number
 / Vector 
-/ DefineLambdaFunction
 / SubExpression
 
 SubExpression = "(" _ expr:Expression _ ")" {
