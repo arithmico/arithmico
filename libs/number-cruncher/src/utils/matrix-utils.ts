@@ -1,5 +1,3 @@
-import { valid } from 'overlayscrollbars';
-
 export function getSubmatrix(matrix: number[][], excludedRowIndex: number, excludedColumnIndex: number) {
     return matrix
         .filter((_, rowIndex) => rowIndex !== excludedRowIndex)
