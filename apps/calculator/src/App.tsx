@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Route, BrowserRouter, HashRouter, Routes } from "react-router-dom";
 import i18n from "./i18n/index";
 import Calculator from "./pages/calculator/calculator";
-import Navbar from "./components/navbar/navbar";
+import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
 import Settings from "./pages/settings/settings";
 import Manual from "./pages/manual/manual";
 import About from "./pages/about/about";
@@ -14,6 +14,7 @@ import Definitions from "./pages/definitions/definitions";
 import TermsOfService from "./pages/terms-of-service/terms-of-service";
 import PrivacyPolicy from "./pages/privacy-policy/privacy-policy";
 import ImprintContent from "@components/imprint-content/imprint-content";
+import { useTranslation } from "react-i18next";
 
 const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
@@ -22,6 +23,7 @@ function App() {
   const theme = useSessionStore((state) => state.settings.theme);
   const language = useSessionStore((state) => state.settings.language);
   const boldFont = useSessionStore((state) => state.settings.boldFont);
+  const [t] = useTranslation();
 
   useEffect(() => {
     if (language && i18n.language !== language) {
@@ -33,7 +35,28 @@ function App() {
     <ThemeProvider theme={{ type: theme }}>
       <Router>
         <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
-        <Navbar />
+        <HeaderNavBar
+          title="Arithmico"
+          subTitle="Calc"
+          items={[
+            {
+              name: t("nav.calculator"),
+              path: "/",
+            },
+            {
+              name: t("nav.settings"),
+              path: "/settings",
+            },
+            {
+              name: t("nav.manual"),
+              path: "/manual",
+            },
+            {
+              name: t("nav.about"),
+              path: "/about",
+            },
+          ]}
+        />
         <Routes>
           <Route path="/" element={<Calculator />} />
           <Route path="/settings" element={<Settings />} />

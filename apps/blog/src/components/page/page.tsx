@@ -31,6 +31,16 @@ export default function Page({ children }: PageProps) {
         title="Arithmico"
         subTitle="Blog"
         version={packageData.version}
+        items={[
+          {
+            name: "Home",
+            path: "/",
+          },
+          {
+            name: "Impressum",
+            path: "/imprint",
+          },
+        ]}
       />
       <ScrollWrapper>
         <Content>{children}</Content>
