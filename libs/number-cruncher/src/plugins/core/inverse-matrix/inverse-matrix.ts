@@ -8,10 +8,9 @@ import {
 import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
-import { det } from '../../../utils/calculate-det';
 import { isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
 import createVector from '../../../create/Vector';
-import { createIdentityMatrix } from '../../../utils/matrix-utils';
+import {createIdentityMatrix, det} from '../../../utils/matrix-utils';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
 
