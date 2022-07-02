@@ -9,7 +9,7 @@ import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTre
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
 import { det } from '../../../utils/calculate-det';
-import { getVectorRank, isSquareMatrix } from '../../../utils/vector-utils';
+import { getTensorRank, isSquareMatrix } from '../../../utils/tensor-utils';
 import IfThenElse from '../if-then-else/if-then-else';
 import { forwardRefWithAs } from '@headlessui/react/dist/utils/render';
 

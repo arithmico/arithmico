@@ -4,7 +4,7 @@ import createPlus from '../../create/Plus';
 import createVector from '../../create/Vector';
 import { Plus, Context, SyntaxTreeNode } from '../../types';
 import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
-import { compareShapesOfVectors } from '../../utils/vector-utils';
+import { compareShapesOfVectors } from '../../utils/tensor-utils';
 
 export default function evaluatePlus(node: Plus, context: Context): SyntaxTreeNode {
     const leftChild = evaluate(node.left, context);
