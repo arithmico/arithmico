@@ -7,10 +7,10 @@ import normalize from '../../../normalize';
 import serialize from '../../../serialize';
 import { Equals, FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
 import { addPluginAuthor, addPluginDescription, addPluginFunction, createPlugin } from '../../../utils/plugin-builder';
-import { det } from './utils/calculate-det';
+import { det } from '../../../utils/calculate-det';
 import { isEquationLinear } from './utils/check-linear';
 import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from './utils/get-coefficients';
-import { replaceColumn } from './utils/matrix-utils';
+import { replaceColumn } from '../../../utils/matrix-utils';
 
 const lsolvePlugin = createPlugin('lsolve');
 

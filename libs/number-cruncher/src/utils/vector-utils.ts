@@ -107,3 +107,16 @@ export function getVectorElement(vector: Vector, index: number[]): SyntaxTreeNod
         return getVectorElement(value, index.slice(1));
     }
 }
+
+export function isSquareMatrix(matrix: Vector) {
+    if (!isVectorHomogeneous(matrix)) {
+        return false;
+    }
+
+    const dimensions = getVectorDimensions(matrix);
+    if (dimensions.length !== 2) {
+        return false;
+    }
+
+    return dimensions[0] === dimensions[1];
+}

@@ -115,6 +115,9 @@ integrationTest('idiv(4, 3)', '1');
 integrationTest('idiv(-4, 3)', '-1');
 integrationTest('idiv(4, -3)', '-1');
 integrationTest('idiv(4, 3)', '1');
+integrationTest('det([[1]])', '1');
+integrationTest('det([[1, 0], [0, 1]])', '1');
+integrationTest('det([[1, 2],[3, 4]])', '-2');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -143,3 +146,6 @@ integrationTestThrow('mod(3,0)');
 integrationTestThrow('mod(-3,0)');
 integrationTestThrow('idiv(3,0)');
 integrationTestThrow('idiv(3,0)');
+integrationTestThrow('det([[1, 2],[4,3],[3, 4],])');
+integrationTestThrow('det([[1, 2],[4,3,-3],[3, 4],])');
+integrationTestThrow('det([[1, a],[3, 4]]');

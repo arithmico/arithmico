@@ -1,4 +1,4 @@
-import { det } from '../../../../plugins/core/lsolve/utils/calculate-det';
+import { det } from '../../utils/calculate-det';
 
 test('1x1 det', () => {
     expect(det([[7]])).toBe(7);
