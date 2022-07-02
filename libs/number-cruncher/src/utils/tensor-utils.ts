@@ -1,5 +1,4 @@
-import { SyntaxTreeNode } from './../types/SyntaxTreeNodes';
-import { Vector } from '../types';
+import { SyntaxTreeNode, Vector } from '../types/SyntaxTreeNodes';
 
 type VectorShape = number | (number | VectorShape)[];
 
@@ -119,4 +118,15 @@ export function isSquareMatrix(matrix: Vector) {
     }
 
     return dimensions[0] === dimensions[1];
+}
+
+export function isEveryElementNumber(tensor: Vector): boolean {
+    return tensor.values.every((element) => {
+        if (element.type === 'number') {
+            return true;
+        } else if (element.type === 'vector') {
+            return isEveryElementNumber(element);
+        }
+        return false;
+    });
 }

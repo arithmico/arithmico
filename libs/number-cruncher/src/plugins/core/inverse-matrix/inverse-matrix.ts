@@ -9,35 +9,42 @@ import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTre
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
 import { det } from '../../../utils/calculate-det';
-import { getTensorRank, isSquareMatrix } from '../../../utils/tensor-utils';
-import IfThenElse from '../if-then-else/if-then-else';
-import { forwardRefWithAs } from '@headlessui/react/dist/utils/render';
+import { isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
+import createVector from '../../../create/Vector';
+import { createIdentityMatrix } from '../../../utils/matrix-utils';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
 
 addPluginAuthor(inverseMatrixPlugin, 'core');
 addPluginDescription(inverseMatrixPlugin, 'adds inversion function for matrizes');
 
+const reverseHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const detHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
-
-function checkAllElementsNumbers(tensor: Vector): boolean {
-    return tensor.values.every((element) => {
-        if (element.type === 'number') {
-            return true;
-        } else if (element.type === 'vector') {
-            return checkAllElementsNumbers(element);
-        }
-        return false;
-    });
-}
+const idMatrixHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 
 addPluginFunction(
     inverseMatrixPlugin,
     createPluginFunction(
-        'det',
+        'matrix:inverse',
+        reverseHeader,
+        'reverse a given square matrix',
+        'Berechnet die inverse Matrix, falls diese existiert.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('det', parameters, detHeader, context);
+            const vector = <Vector>parameterStackFrame['n'];
+
+            return createNumberNode(0);
+        },
+    ),
+);
+
+addPluginFunction(
+    inverseMatrixPlugin,
+    createPluginFunction(
+        'matrix:det',
         detHeader,
         'calculates the determinant of a matrix',
-        'Berechnet die Determinantne einer Matrix',
+        'Berechnet die Determinante einer Matrix',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('det', parameters, detHeader, context);
             const vector = <Vector>parameterStackFrame['n'];
@@ -45,13 +52,41 @@ addPluginFunction(
             if (!isSquareMatrix(vector)) {
                 throw 'RuntimeError: det: not a square matrix';
             }
-            if (!checkAllElementsNumbers(vector)) {
+            if (!isEveryElementNumber(vector)) {
                 throw 'RuntimeError: det: only numbers are allowed as elements';
             }
 
             const matrix = vector.values.map((element) => (<Vector>element).values.map((e) => (<NumberNode>e).value));
 
             return createNumberNode(det(matrix));
+        },
+    ),
+);
+
+addPluginFunction(
+    inverseMatrixPlugin,
+    createPluginFunction(
+        'matrix:id',
+        idMatrixHeader,
+        'creates an n x n identity matrix',
+        'Erzeugt eine n x n Einheitsmatrix',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('matrix:id', parameters, idMatrixHeader, context);
+            const n = (<NumberNode>parameterStackFrame['n']).value;
+
+            if (n % 1 !== 0) {
+                throw 'RuntimeError: matrix:id: only integers are allowed';
+            }
+            if (n < 0) {
+                throw 'RuntimeError: matrix:id: negative numbers are not allowed';
+            }
+            if (n === 0) {
+                throw 'RuntimeError: matrix:id: zero is not allowed';
+            }
+
+            const id = createIdentityMatrix(n);
+
+            return createVector(id.map((value) => createVector(value.map((element) => createNumberNode(element)))));
         },
     ),
 );
