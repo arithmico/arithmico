@@ -11,7 +11,7 @@ import Page from "./components/page/page";
 import { Route, Routes } from "react-router-dom";
 import chaptersDe from "./chapters";
 import GlobalStyle from "@components/global-styles/global-styles";
-import ImprintContent from "@components/imprint-content/imprint-content";
+import Imprint from "./pages/imprint/imprint";
 
 const Container = styled.div`
   position: absolute;
@@ -42,7 +42,7 @@ function App() {
               }
             />
           ))}
-          <Route path="/imprint" element={<ImprintContent />} />
+          <Route path="/imprint" element={<Imprint />} />
         </Routes>
       </Container>
     </ThemeProvider>
