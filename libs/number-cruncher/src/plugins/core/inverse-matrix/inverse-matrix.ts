@@ -8,7 +8,7 @@ import {
 import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
-import { isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
+import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
 import createVector from '../../../create/Vector';
 import {
     addColumn,
@@ -17,6 +17,7 @@ import {
     det,
     getColumn,
     tensorToMatrix,
+    transpose,
 } from '../../../utils/matrix-utils';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
@@ -25,6 +26,7 @@ addPluginAuthor(inverseMatrixPlugin, 'core');
 addPluginDescription(inverseMatrixPlugin, 'adds inversion function for matrizes');
 
 const reverseHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
+const transposeHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const detHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const idMatrixHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 
@@ -67,12 +69,42 @@ addPluginFunction(
 addPluginFunction(
     inverseMatrixPlugin,
     createPluginFunction(
+        'matrix:transpose',
+        transposeHeader,
+        'transposes a matrix',
+        'Transponiert die Matrix.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame(
+                'matrix:transpose',
+                parameters,
+                transposeHeader,
+                context,
+            );
+            const tensor = <Vector>parameterStackFrame['n'];
+
+            if (getTensorRank(tensor) !== 2) {
+                throw 'RuntimeError: matrix:transpose: have to be a matrix';
+            }
+
+            const transposed = transpose(tensorToMatrix(tensor));
+
+            return createVector(
+                transposed.map((value) => createVector(value.map((element) => createNumberNode(element)))),
+            );
+        },
+    ),
+);
+
+
+addPluginFunction(
+    inverseMatrixPlugin,
+    createPluginFunction(
         'matrix:det',
         detHeader,
         'calculates the determinant of a matrix',
         'Berechnet die Determinante einer Matrix',
         (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame('det', parameters, detHeader, context);
+            const parameterStackFrame = mapParametersToStackFrame('matrix:det', parameters, detHeader, context);
             const vector = <Vector>parameterStackFrame['n'];
 
             if (!isEveryElementNumber(vector)) {

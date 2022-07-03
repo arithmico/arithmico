@@ -121,6 +121,7 @@ integrationTest('matrix:det([[1, 2],[3, 4]])', '-2');
 integrationTest('matrix:id(1)', '[[1]]');
 integrationTest('matrix:id(3)', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]');
 integrationTest('matrix:inverse([[2, 1, 0], [1, 2, -2], [0, -1, 1]])', '[[0, 1, 2], [1, -2, -4], [1, -2, -3]]');
+integrationTest('matrix:transpose([[1, 2],[4, 3],[3, 4]])', '[[1, 4, 3], [2, 3, 4]]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -159,3 +160,4 @@ integrationTestThrow('matrix:inverse([[1, 2],[4, 3],[3, 4]])');
 integrationTestThrow('matrix:inverse([[1, 2],[4, 3, -3],[3, 4]])');
 integrationTestThrow('matrix:inverse([[1, a],[3, 4]]');
 integrationTestThrow('matrix:inverse([[2, 1, 0], [1, 2, -2], [4, 2, 0]])');
+integrationTestThrow('matrix:transpose([1])');

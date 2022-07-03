@@ -1,5 +1,4 @@
 import { NumberNode, Vector } from '../types/SyntaxTreeNodes';
-import { REFUSED } from 'dns';
 
 export function getSubMatrix(matrix: number[][], excludedRowIndex: number, excludedColumnIndex: number) {
     return matrix
@@ -54,6 +53,14 @@ export function addColumn(column: number[], matrix: number[][]): number[][] {
     const result = matrix.map((row) => row.slice());
     for (let i = 0; i < matrix.length; i++) {
         result[i].push(column[i]);
+    }
+    return result;
+}
+
+export function transpose(matrix: number[][]): number[][] {
+    const result = [];
+    for (let i = 0; i < matrix[0].length; i++) {
+        result.push(getColumn(i, matrix));
     }
     return result;
 }

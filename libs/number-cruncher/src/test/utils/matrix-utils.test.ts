@@ -1,4 +1,4 @@
-import { addColumn, det, getColumn } from '../../utils/matrix-utils';
+import { addColumn, det, getColumn, transpose } from '../../utils/matrix-utils';
 
 test('1x1 det', () => {
     expect(det([[7]])).toBe(7);
@@ -56,16 +56,5 @@ test('addColumn #1', () => {
 });
 
 test('addColumn #2', () => {
-    expect(
-        addColumn(
-            [1, 2],
-            [
-                [],
-                [],
-            ],
-        ),
-    ).toStrictEqual([
-        [1],
-        [2],
-    ]);
+    expect(addColumn([1, 2], [[], []])).toStrictEqual([[1], [2]]);
 });
