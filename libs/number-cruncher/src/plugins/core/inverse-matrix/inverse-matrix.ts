@@ -10,7 +10,14 @@ import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
 import { isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
 import createVector from '../../../create/Vector';
-import {createIdentityMatrix, det} from '../../../utils/matrix-utils';
+import {
+    addColumn,
+    cramerSolver,
+    createIdentityMatrix,
+    det,
+    getColumn,
+    tensorToMatrix,
+} from '../../../utils/matrix-utils';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
 
@@ -32,7 +39,27 @@ addPluginFunction(
             const parameterStackFrame = mapParametersToStackFrame('det', parameters, detHeader, context);
             const vector = <Vector>parameterStackFrame['n'];
 
-            return createNumberNode(0);
+            if (!isEveryElementNumber(vector)) {
+                throw 'RuntimeError: inverse: only numbers in a matrix are allowed as elements';
+            }
+            if (!isSquareMatrix(vector)) {
+                throw 'RuntimeError: inverse: not a square matrix';
+            }
+
+            const matrix = tensorToMatrix(vector);
+            const coefficientsDet = det(matrix);
+            if (coefficientsDet === 0) {
+                throw "SolveError: The matrix isn't invertible because det = 0";
+            }
+
+            const idMatrix = createIdentityMatrix(matrix.length);
+            let result: number[][] = new Array(matrix.length).fill(undefined).map(() => []);
+
+            for (let i = 0; i < matrix.length; i++) {
+                result = addColumn(cramerSolver(matrix, getColumn(i, idMatrix), coefficientsDet), result);
+            }
+
+            return createVector(result.map((value) => createVector(value.map((element) => createNumberNode(element)))));
         },
     ),
 );
@@ -48,14 +75,14 @@ addPluginFunction(
             const parameterStackFrame = mapParametersToStackFrame('det', parameters, detHeader, context);
             const vector = <Vector>parameterStackFrame['n'];
 
-            if (!isSquareMatrix(vector)) {
-                throw 'RuntimeError: det: not a square matrix';
-            }
             if (!isEveryElementNumber(vector)) {
                 throw 'RuntimeError: det: only numbers are allowed as elements';
             }
+            if (!isSquareMatrix(vector)) {
+                throw 'RuntimeError: det: not a square matrix';
+            }
 
-            const matrix = vector.values.map((element) => (<Vector>element).values.map((e) => (<NumberNode>e).value));
+            const matrix = tensorToMatrix(vector);
 
             return createNumberNode(det(matrix));
         },
