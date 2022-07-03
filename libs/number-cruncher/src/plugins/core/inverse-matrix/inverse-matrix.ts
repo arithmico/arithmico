@@ -5,21 +5,12 @@ import {
     createPlugin,
     createPluginFunction,
 } from '../../../utils/plugin-builder';
-import {FunctionHeaderItem, NumberNode, Vector} from '../../../types/SyntaxTreeNodes';
-import {mapParametersToStackFrame} from '../../../utils/parameter-utils';
+import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTreeNodes';
+import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
-import {getTensorRank, isEveryElementNumber, isSquareMatrix} from '../../../utils/tensor-utils';
+import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
 import createVector from '../../../create/Vector';
-import {
-    addColumn,
-    cramerSolver,
-    createIdentityMatrix,
-    det,
-    getCofactorMatrix,
-    getColumn,
-    tensorToMatrix,
-    transpose,
-} from '../../../utils/matrix-utils';
+import { createIdentityMatrix, det, getCofactorMatrix, tensorToMatrix, transpose } from '../../../utils/matrix-utils';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
 
@@ -67,7 +58,11 @@ addPluginFunction(
              */
             const adjunct = transpose(getCofactorMatrix(matrix));
 
-            return createVector(adjunct.map((value) => createVector(value.map((element) => createNumberNode(element / coefficientsDet)))));
+            return createVector(
+                adjunct.map((value) =>
+                    createVector(value.map((element) => createNumberNode(element / coefficientsDet))),
+                ),
+            );
         },
     ),
 );
