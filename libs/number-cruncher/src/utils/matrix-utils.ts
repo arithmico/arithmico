@@ -1,4 +1,4 @@
-import {NumberNode, Vector} from '../types/SyntaxTreeNodes';
+import { NumberNode, Vector } from '../types/SyntaxTreeNodes';
 
 function det2x2(matrix: number[][]): number {
     return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
@@ -85,6 +85,6 @@ export function transpose(matrix: number[][]): number[][] {
     return result;
 }
 
-export function getCofactorMatrix(matrix: number[][]): number[][] {
-    return matrix.map((row, i) => row.map((column, j) => Math.pow(-1, i + j) * det(getSubMatrix(matrix, i, j))));
+export function calculateCofactorMatrix(matrix: number[][]): number[][] {
+    return matrix.map((row, i) => row.map((column, j) => ((i + j) % 2 === 0 ? 1 : -1) * det(getSubMatrix(matrix, i, j))));
 }

@@ -10,7 +10,7 @@ import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
 import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
 import createVector from '../../../create/Vector';
-import { createIdentityMatrix, det, getCofactorMatrix, tensorToMatrix, transpose } from '../../../utils/matrix-utils';
+import { createIdentityMatrix, det, calculateCofactorMatrix, tensorToMatrix, transpose } from '../../../utils/matrix-utils';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
 
@@ -19,6 +19,7 @@ addPluginDescription(inverseMatrixPlugin, 'adds inversion function for matrizes'
 
 const reverseHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const adjHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
+const cofHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const transposeHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const detHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const idMatrixHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
@@ -56,7 +57,7 @@ addPluginFunction(
                 result = addColumn(cramerSolver(matrix, getColumn(i, idMatrix), coefficientsDet), result);
             }
              */
-            const adjunct = transpose(getCofactorMatrix(matrix));
+            const adjunct = transpose(calculateCofactorMatrix(matrix));
 
             return createVector(
                 adjunct.map((value) =>
@@ -82,10 +83,34 @@ addPluginFunction(
                 throw 'RuntimeError: matrix:adj: have to be a matrix';
             }
 
-            const adjunct = transpose(getCofactorMatrix(tensorToMatrix(tensor)));
+            const adjunct = transpose(calculateCofactorMatrix(tensorToMatrix(tensor)));
 
             return createVector(
                 adjunct.map((value) => createVector(value.map((element) => createNumberNode(element)))),
+            );
+        },
+    ),
+);
+
+addPluginFunction(
+    inverseMatrixPlugin,
+    createPluginFunction(
+        'matrix:cof',
+        cofHeader,
+        'calculates the cofactor matrix',
+        'Berechneet die Cofaktormatrix.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('matrix:cof', parameters, cofHeader, context);
+            const tensor = <Vector>parameterStackFrame['n'];
+
+            if (getTensorRank(tensor) !== 2) {
+                throw 'RuntimeError: matrix:adj: have to be a matrix';
+            }
+
+            const cofactorMatrix = calculateCofactorMatrix(tensorToMatrix(tensor));
+
+            return createVector(
+                cofactorMatrix.map((value) => createVector(value.map((element) => createNumberNode(element)))),
             );
         },
     ),
