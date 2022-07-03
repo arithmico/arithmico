@@ -5,10 +5,10 @@ import {
     createPlugin,
     createPluginFunction,
 } from '../../../utils/plugin-builder';
-import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTreeNodes';
-import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
+import {FunctionHeaderItem, NumberNode, Vector} from '../../../types/SyntaxTreeNodes';
+import {mapParametersToStackFrame} from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
-import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
+import {getTensorRank, isEveryElementNumber, isSquareMatrix} from '../../../utils/tensor-utils';
 import createVector from '../../../create/Vector';
 import {
     addColumn,

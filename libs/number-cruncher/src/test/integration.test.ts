@@ -1,6 +1,6 @@
-import { getDefaultContext, init } from '..';
+import {getDefaultContext, init} from '..';
 import createNumberNode from '../create/NumberNode';
-import { createOptions } from '../utils/context-utils';
+import {createOptions} from '../utils/context-utils';
 import { createTestContext, integrationTest, integrationTestThrow } from '../utils/integration-test-utils';
 
 init();
