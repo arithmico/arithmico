@@ -1,4 +1,4 @@
-import { NumberNode, Vector } from '../types/SyntaxTreeNodes';
+import {NumberNode, Vector} from '../types/SyntaxTreeNodes';
 
 export function getSubMatrix(matrix: number[][], excludedRowIndex: number, excludedColumnIndex: number) {
     return matrix
@@ -63,4 +63,8 @@ export function transpose(matrix: number[][]): number[][] {
         result.push(getColumn(i, matrix));
     }
     return result;
+}
+
+export function getCofactorMatrix(matrix: number[][]): number[][] {
+    return matrix.map((row, i) => row.map((column, j) => Math.pow(-1, i + j) * det(getSubMatrix(matrix, i, j))));
 }

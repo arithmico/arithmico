@@ -15,6 +15,7 @@ import {
     cramerSolver,
     createIdentityMatrix,
     det,
+    getCofactorMatrix,
     getColumn,
     tensorToMatrix,
     transpose,
@@ -26,6 +27,7 @@ addPluginAuthor(inverseMatrixPlugin, 'core');
 addPluginDescription(inverseMatrixPlugin, 'adds inversion function for matrizes');
 
 const reverseHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
+const adjHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const transposeHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const detHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const idMatrixHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
@@ -69,6 +71,30 @@ addPluginFunction(
 addPluginFunction(
     inverseMatrixPlugin,
     createPluginFunction(
+        'matrix:adj',
+        adjHeader,
+        'calculates the adjugate matrix',
+        'Berechneet die adjunkte Matrix.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('matrix:adj', parameters, adjHeader, context);
+            const tensor = <Vector>parameterStackFrame['n'];
+
+            if (getTensorRank(tensor) !== 2) {
+                throw 'RuntimeError: matrix:adj: have to be a matrix';
+            }
+
+            const adjunct = transpose(getCofactorMatrix(tensorToMatrix(tensor)));
+
+            return createVector(
+                adjunct.map((value) => createVector(value.map((element) => createNumberNode(element)))),
+            );
+        },
+    ),
+);
+
+addPluginFunction(
+    inverseMatrixPlugin,
+    createPluginFunction(
         'matrix:transpose',
         transposeHeader,
         'transposes a matrix',
@@ -94,7 +120,6 @@ addPluginFunction(
         },
     ),
 );
-
 
 addPluginFunction(
     inverseMatrixPlugin,
