@@ -56,14 +56,18 @@ addPluginFunction(
                 throw "SolveError: The matrix isn't invertible because det = 0";
             }
 
+            // uses cramer's rule
+            /*
             const idMatrix = createIdentityMatrix(matrix.length);
             let result: number[][] = new Array(matrix.length).fill(undefined).map(() => []);
 
             for (let i = 0; i < matrix.length; i++) {
                 result = addColumn(cramerSolver(matrix, getColumn(i, idMatrix), coefficientsDet), result);
             }
+             */
+            const adjunct = transpose(getCofactorMatrix(matrix));
 
-            return createVector(result.map((value) => createVector(value.map((element) => createNumberNode(element)))));
+            return createVector(adjunct.map((value) => createVector(value.map((element) => createNumberNode(element / coefficientsDet)))));
         },
     ),
 );

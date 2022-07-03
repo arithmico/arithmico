@@ -1,5 +1,20 @@
 import {NumberNode, Vector} from '../types/SyntaxTreeNodes';
 
+function det2x2(matrix: number[][]): number {
+    return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
+}
+
+function det3x3(matrix: number[][]): number {
+    return (
+        matrix[0][0] * matrix[1][1] * matrix[2][2] +
+        matrix[0][1] * matrix[1][2] * matrix[2][0] +
+        matrix[0][2] * matrix[1][0] * matrix[2][1] -
+        matrix[0][2] * matrix[1][1] * matrix[2][0] -
+        matrix[0][0] * matrix[1][2] * matrix[2][1] -
+        matrix[0][1] * matrix[1][0] * matrix[2][2]
+    );
+}
+
 export function getSubMatrix(matrix: number[][], excludedRowIndex: number, excludedColumnIndex: number) {
     return matrix
         .filter((_, rowIndex) => rowIndex !== excludedRowIndex)
@@ -7,13 +22,18 @@ export function getSubMatrix(matrix: number[][], excludedRowIndex: number, exclu
 }
 
 export function det(matrix: number[][]): number {
-    if (matrix.length === 1 && matrix[0].length === 1) {
-        return matrix[0][0];
+    switch (matrix.length) {
+        case 3:
+            return det3x3(matrix);
+        case 2:
+            return det2x2(matrix);
+        case 1:
+            return matrix[0][0];
+        default:
+            return matrix
+                .map((_, i) => Math.pow(-1, i + 2) * matrix[i][0] * det(getSubMatrix(matrix, i, 0)))
+                .reduce((a, b) => a + b);
     }
-
-    return matrix
-        .map((_, i) => Math.pow(-1, i + 2) * matrix[i][0] * det(getSubMatrix(matrix, i, 0)))
-        .reduce((a, b) => a + b);
 }
 
 export function replaceColumn(matrix: number[][], column: number[], index: number): number[][] {
