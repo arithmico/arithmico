@@ -1,5 +1,4 @@
-import { SyntaxTreeNode } from './../types/SyntaxTreeNodes';
-import { Vector } from '../types';
+import { SyntaxTreeNode, Vector } from '../types/SyntaxTreeNodes';
 
 type VectorShape = number | (number | VectorShape)[];
 
@@ -60,7 +59,7 @@ export function isVectorHomogeneous(vector: Vector): boolean {
     return isShapeHomogeneous(getShape(vector));
 }
 
-export function getVectorRank(vector: Vector): number {
+export function getTensorRank(vector: Vector): number {
     const shape = getShape(vector);
 
     if (!isShapeHomogeneous(shape)) {
@@ -78,7 +77,7 @@ function getShapeDimensions(shape: VectorShape): number[] {
     return [shape.length, ...getShapeDimensions(shape[0])];
 }
 
-export function getVectorDimensions(vector: Vector): number[] {
+export function getTensorDimensions(vector: Vector): number[] {
     const shape = getShape(vector);
 
     if (!isShapeHomogeneous(shape)) {
@@ -88,7 +87,7 @@ export function getVectorDimensions(vector: Vector): number[] {
     return getShapeDimensions(shape);
 }
 
-export function getVectorElement(vector: Vector, index: number[]): SyntaxTreeNode {
+export function getTensorElement(vector: Vector, index: number[]): SyntaxTreeNode {
     if (index.length === 0) {
         throw 'RuntimeError: empty vector index';
     }
@@ -104,6 +103,30 @@ export function getVectorElement(vector: Vector, index: number[]): SyntaxTreeNod
         if (value.type !== 'vector') {
             throw 'RuntimeError: incompatible vector index';
         }
-        return getVectorElement(value, index.slice(1));
+        return getTensorElement(value, index.slice(1));
     }
+}
+
+export function isSquareMatrix(matrix: Vector) {
+    if (!isVectorHomogeneous(matrix)) {
+        return false;
+    }
+
+    const dimensions = getTensorDimensions(matrix);
+    if (dimensions.length !== 2) {
+        return false;
+    }
+
+    return dimensions[0] === dimensions[1];
+}
+
+export function isEveryElementNumber(tensor: Vector): boolean {
+    return tensor.values.every((element) => {
+        if (element.type === 'number') {
+            return true;
+        } else if (element.type === 'vector') {
+            return isEveryElementNumber(element);
+        }
+        return false;
+    });
 }

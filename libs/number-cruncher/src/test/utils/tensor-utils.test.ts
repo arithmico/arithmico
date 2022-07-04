@@ -3,11 +3,11 @@ import createNumberNode from '../../create/NumberNode';
 import createVector from '../../create/Vector';
 import {
     getShape,
-    getVectorDimensions,
-    getVectorElement,
-    getVectorRank,
+    getTensorDimensions,
+    getTensorElement,
+    getTensorRank,
     isVectorHomogeneous,
-} from '../../utils/vector-utils';
+} from '../../utils/tensor-utils';
 
 test('get vector shape (1d)', () => {
     const vector = createVector([createNumberNode(1), createNumberNode(2), createNumberNode(3)]);
@@ -21,12 +21,12 @@ test('get vector shape (inhomogeneous)', () => {
 
 test('get vector rank - throw', () => {
     const vector = createVector([createVector([createNumberNode(1), createNumberNode(2)]), createBooleanNode(false)]);
-    expect(() => getVectorRank(vector)).toThrow();
+    expect(() => getTensorRank(vector)).toThrow();
 });
 
 test('get vector rank = 1', () => {
     const vector = createVector([createNumberNode(1), createNumberNode(2), createBooleanNode(false)]);
-    expect(getVectorRank(vector)).toStrictEqual(1);
+    expect(getTensorRank(vector)).toStrictEqual(1);
 });
 
 test('get vector rank = 2', () => {
@@ -35,17 +35,17 @@ test('get vector rank = 2', () => {
         createVector([createNumberNode(3), createNumberNode(4)]),
         createVector([createNumberNode(5), createNumberNode(6)]),
     ]);
-    expect(getVectorRank(vector)).toStrictEqual(2);
+    expect(getTensorRank(vector)).toStrictEqual(2);
 });
 
 test('get vector dimensions - throw', () => {
     const vector = createVector([createVector([createNumberNode(1), createNumberNode(2)]), createBooleanNode(false)]);
-    expect(() => getVectorDimensions(vector)).toThrow();
+    expect(() => getTensorDimensions(vector)).toThrow();
 });
 
 test('get vector dimensions (1d)', () => {
     const vector = createVector([createNumberNode(1), createNumberNode(2), createBooleanNode(false)]);
-    expect(getVectorDimensions(vector)).toStrictEqual([3]);
+    expect(getTensorDimensions(vector)).toStrictEqual([3]);
 });
 
 test('get vector dimensions (2d)', () => {
@@ -54,7 +54,7 @@ test('get vector dimensions (2d)', () => {
         createVector([createNumberNode(3), createNumberNode(4)]),
         createVector([createNumberNode(5), createNumberNode(6)]),
     ]);
-    expect(getVectorDimensions(vector)).toStrictEqual([3, 2]);
+    expect(getTensorDimensions(vector)).toStrictEqual([3, 2]);
 });
 
 test('is vector shape homogeneous - true (1d)', () => {
@@ -96,30 +96,30 @@ test('is vector shape homogeneous - false (inhomogeneous child)"', () => {
 
 test('get vector element - 1d', () => {
     const vector = createVector([createNumberNode(1), createNumberNode(2)]);
-    expect(getVectorElement(vector, [1])).toStrictEqual(createNumberNode(2));
+    expect(getTensorElement(vector, [1])).toStrictEqual(createNumberNode(2));
 });
 
 test('get vector element - inhomogeneous', () => {
     const vector = createVector([createNumberNode(1), createVector([createNumberNode(2), createNumberNode(3)])]);
-    expect(getVectorElement(vector, [1, 0])).toStrictEqual(createNumberNode(2));
+    expect(getTensorElement(vector, [1, 0])).toStrictEqual(createNumberNode(2));
 });
 
 test('get vector element - slice', () => {
     const vector = createVector([createNumberNode(1), createVector([createNumberNode(2), createNumberNode(3)])]);
-    expect(getVectorElement(vector, [1])).toStrictEqual(createVector([createNumberNode(2), createNumberNode(3)]));
+    expect(getTensorElement(vector, [1])).toStrictEqual(createVector([createNumberNode(2), createNumberNode(3)]));
 });
 
 test('get vector element - throw (empty index)', () => {
     const vector = createVector([createNumberNode(1), createNumberNode(2)]);
-    expect(() => getVectorElement(vector, [])).toThrow();
+    expect(() => getTensorElement(vector, [])).toThrow();
 });
 
 test('get vector element - throw (index out of bounds)', () => {
     const vector = createVector([createNumberNode(1), createNumberNode(2)]);
-    expect(() => getVectorElement(vector, [2])).toThrow();
+    expect(() => getTensorElement(vector, [2])).toThrow();
 });
 
 test('get vector element - throw (incompatible index)', () => {
     const vector = createVector([createNumberNode(1), createNumberNode(2)]);
-    expect(() => getVectorElement(vector, [1, 0])).toThrow();
+    expect(() => getTensorElement(vector, [1, 0])).toThrow();
 });

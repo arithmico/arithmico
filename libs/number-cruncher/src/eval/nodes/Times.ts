@@ -5,7 +5,7 @@ import createTimes from '../../create/Times';
 import createVector from '../../create/Vector';
 import { Times, Context, SyntaxTreeNode, Vector } from '../../types';
 import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
-import { getVectorDimensions, getVectorElement } from '../../utils/vector-utils';
+import { getTensorDimensions, getTensorElement } from '../../utils/tensor-utils';
 
 function matrixTimesMatrixItem(leftMatrix: Vector, rightMatrix: Vector, x: number, y: number): SyntaxTreeNode {
     const line = leftMatrix.values[y] as Vector;
@@ -13,8 +13,8 @@ function matrixTimesMatrixItem(leftMatrix: Vector, rightMatrix: Vector, x: numbe
         .map(
             (_, index) =>
                 createTimes(
-                    getVectorElement(leftMatrix, [y, index]),
-                    getVectorElement(rightMatrix, [index, x]),
+                    getTensorElement(leftMatrix, [y, index]),
+                    getTensorElement(rightMatrix, [index, x]),
                 ) as SyntaxTreeNode,
         )
         .reduceRight((right, left) => createPlus(left, right));
@@ -49,8 +49,8 @@ export default function evaluateTimes(node: Times, context: Context): SyntaxTree
     }
 
     if (leftChild.type === 'vector' && rightChild.type === 'vector') {
-        const leftDims = getVectorDimensions(leftChild);
-        const rightDims = getVectorDimensions(rightChild);
+        const leftDims = getTensorDimensions(leftChild);
+        const rightDims = getTensorDimensions(rightChild);
         const leftRank = leftDims.length;
         const rightRank = rightDims.length;
 

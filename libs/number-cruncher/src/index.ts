@@ -21,7 +21,8 @@ import rootsPlugin from './plugins/core/roots/roots';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import tablePlugin from './plugins/core/table/table';
-import moduloPlugin from "./plugins/core/modulo/modulo";
+import moduloPlugin from './plugins/core/modulo/modulo';
+import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -43,7 +44,8 @@ const plugins = [
     physicalConstantsPlugin,
     ifThenElsePlugin,
     tablePlugin,
-    moduloPlugin
+    moduloPlugin,
+    inverseMatrixPlugin,
 ];
 
 let defaultContext: Context;

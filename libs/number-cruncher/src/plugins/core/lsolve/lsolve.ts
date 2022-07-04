@@ -5,12 +5,11 @@ import createSymbolNode from '../../../create/SymbolNode';
 import createVector from '../../../create/Vector';
 import normalize from '../../../normalize';
 import serialize from '../../../serialize';
-import { Equals, FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
-import { addPluginAuthor, addPluginDescription, addPluginFunction, createPlugin } from '../../../utils/plugin-builder';
-import { det } from './utils/calculate-det';
-import { isEquationLinear } from './utils/check-linear';
-import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from './utils/get-coefficients';
-import { replaceColumn } from './utils/matrix-utils';
+import {Equals, FunctionHeaderItem} from '../../../types/SyntaxTreeNodes';
+import {addPluginAuthor, addPluginDescription, addPluginFunction, createPlugin} from '../../../utils/plugin-builder';
+import {isEquationLinear} from './utils/check-linear';
+import {getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations} from './utils/get-coefficients';
+import {cramerSolver, det} from '../../../utils/matrix-utils';
 
 const lsolvePlugin = createPlugin('lsolve');
 
@@ -64,19 +63,19 @@ addPluginFunction(lsolvePlugin, {
 
             const coefficients = getCoefficientMatrix(equations, context);
             const constants = getConstantVector(equations);
-            const results: Equals[] = [];
             const coefficientsDet = det(coefficients);
 
             if (coefficientsDet === 0) {
                 throw 'SolveError: The equation system has no solution';
             }
 
-            for (let i = 0; i < variableNames.length; i++) {
-                const value = det(replaceColumn(coefficients, constants, i)) / coefficientsDet;
-                results.push(createEquals(createSymbolNode(variableNames[i]), createNumberNode(value)));
-            }
+            const results = cramerSolver(coefficients, constants, coefficientsDet);
 
-            return createVector(results);
+            return createVector(
+                results.map((value, index) =>
+                    createEquals(createSymbolNode(variableNames[index]), createNumberNode(value)),
+                ),
+            );
         },
     },
 });
