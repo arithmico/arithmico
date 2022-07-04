@@ -11,12 +11,15 @@ import createNumberNode from '../../../create/NumberNode';
 import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
 import createVector from '../../../create/Vector';
 import {
+    calculateCofactorMatrix,
     createIdentityMatrix,
     det,
-    calculateCofactorMatrix,
     tensorToMatrix,
     transpose,
 } from '../../../utils/matrix-utils';
+import createDivided from '../../../create/Divided';
+import { reduceFraction } from '../../../utils/float-utils';
+import createNegate from '../../../create/Negate';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
 
@@ -49,8 +52,8 @@ addPluginFunction(
             }
 
             const matrix = tensorToMatrix(vector);
-            const coefficientsDet = det(matrix);
-            if (coefficientsDet === 0) {
+            const coefficientDet = det(matrix);
+            if (coefficientDet === 0) {
                 throw "SolveError: The matrix isn't invertible because det = 0";
             }
 
@@ -58,7 +61,25 @@ addPluginFunction(
 
             return createVector(
                 adjunct.map((value) =>
-                    createVector(value.map((element) => createNumberNode(element / coefficientsDet))),
+                    createVector(
+                        value.map((element) => {
+                            const [numerator, denominator] = reduceFraction(element, coefficientDet);
+
+                            if (denominator === 1) {
+                                return createNumberNode(numerator);
+                            }
+
+                            if (numerator * denominator < 0) {
+                                return createNegate(
+                                    createDivided(
+                                        createNumberNode(Math.abs(numerator)),
+                                        createNumberNode(Math.abs(denominator)),
+                                    ),
+                                );
+                            }
+                            return createDivided(createNumberNode(numerator), createNumberNode(denominator));
+                        }),
+                    ),
                 ),
             );
         },
