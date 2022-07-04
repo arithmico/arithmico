@@ -10,7 +10,13 @@ import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/NumberNode';
 import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
 import createVector from '../../../create/Vector';
-import { createIdentityMatrix, det, calculateCofactorMatrix, tensorToMatrix, transpose } from '../../../utils/matrix-utils';
+import {
+    createIdentityMatrix,
+    det,
+    calculateCofactorMatrix,
+    tensorToMatrix,
+    transpose,
+} from '../../../utils/matrix-utils';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
 
@@ -29,7 +35,7 @@ addPluginFunction(
     createPluginFunction(
         'matrix:inverse',
         reverseHeader,
-        'reverse a given square matrix',
+        'inverse a given square matrix if possible',
         'Berechnet die inverse Matrix, falls diese existiert.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('det', parameters, detHeader, context);
@@ -48,15 +54,6 @@ addPluginFunction(
                 throw "SolveError: The matrix isn't invertible because det = 0";
             }
 
-            // uses cramer's rule
-            /*
-            const idMatrix = createIdentityMatrix(matrix.length);
-            let result: number[][] = new Array(matrix.length).fill(undefined).map(() => []);
-
-            for (let i = 0; i < matrix.length; i++) {
-                result = addColumn(cramerSolver(matrix, getColumn(i, idMatrix), coefficientsDet), result);
-            }
-             */
             const adjunct = transpose(calculateCofactorMatrix(matrix));
 
             return createVector(
@@ -79,8 +76,11 @@ addPluginFunction(
             const parameterStackFrame = mapParametersToStackFrame('matrix:adj', parameters, adjHeader, context);
             const tensor = <Vector>parameterStackFrame['n'];
 
-            if (getTensorRank(tensor) !== 2) {
-                throw 'RuntimeError: matrix:adj: have to be a matrix';
+            if (!isEveryElementNumber(tensor)) {
+                throw 'RuntimeError: matrix:adj: only numbers in a matrix are allowed as elements';
+            }
+            if (!isSquareMatrix(tensor)) {
+                throw 'RuntimeError: matrix:adj: not a square matrix';
             }
 
             const adjunct = transpose(calculateCofactorMatrix(tensorToMatrix(tensor)));
@@ -103,8 +103,11 @@ addPluginFunction(
             const parameterStackFrame = mapParametersToStackFrame('matrix:cof', parameters, cofHeader, context);
             const tensor = <Vector>parameterStackFrame['n'];
 
-            if (getTensorRank(tensor) !== 2) {
-                throw 'RuntimeError: matrix:adj: have to be a matrix';
+            if (!isEveryElementNumber(tensor)) {
+                throw 'RuntimeError: matrix:cof: only numbers in a matrix are allowed as elements';
+            }
+            if (!isSquareMatrix(tensor)) {
+                throw 'RuntimeError: matrix:cof: not a square matrix';
             }
 
             const cofactorMatrix = calculateCofactorMatrix(tensorToMatrix(tensor));
