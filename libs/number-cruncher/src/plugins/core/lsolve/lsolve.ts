@@ -1,8 +1,8 @@
-import createEquals from '../../../create/Equals';
-import createFunctionCall from '../../../create/FunctionCall';
-import createNumberNode from '../../../create/NumberNode';
-import createSymbolNode from '../../../create/SymbolNode';
-import createVector from '../../../create/Vector';
+import createEquals from '../../../create/create-equals';
+import createFunctionCall from '../../../create/create-function-call';
+import createNumberNode from '../../../create/create-number-node';
+import createSymbolNode from '../../../create/create-symbol-node';
+import createVector from '../../../create/create-vector';
 import normalize from '../../../normalize';
 import serialize from '../../../serialize';
 import {Equals, FunctionHeaderItem} from '../../../types/SyntaxTreeNodes';

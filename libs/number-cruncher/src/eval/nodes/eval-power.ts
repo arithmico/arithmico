@@ -1,6 +1,6 @@
 import evaluate from '..';
-import createNumberNode from '../../create/NumberNode';
-import createPower from '../../create/Power';
+import createNumberNode from '../../create/create-number-node';
+import createPower from '../../create/create-power';
 import { Power, Context, SyntaxTreeNode } from '../../types';
 import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 

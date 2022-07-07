@@ -1,4 +1,4 @@
-import { NumberNode } from './../types';
+import { NumberNode } from '../types';
 
 export default function createNumberNode(value: number): NumberNode {
     if (!Number.isFinite(value)) {

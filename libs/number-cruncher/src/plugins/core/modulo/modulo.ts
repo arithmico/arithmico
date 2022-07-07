@@ -8,7 +8,7 @@ import {
 import {NumberNode} from "../../../types";
 import {FunctionHeaderItem} from "../../../types/SyntaxTreeNodes";
 import {mapParametersToStackFrame} from "../../../utils/parameter-utils";
-import createNumberNode from "../../../create/NumberNode";
+import createNumberNode from "../../../create/create-number-node";
 
 const moduloPlugin = createPlugin('modulo');
 addPluginDescription(moduloPlugin, 'adds modulo and integer division');

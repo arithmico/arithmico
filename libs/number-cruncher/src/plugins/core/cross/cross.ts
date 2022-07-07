@@ -9,9 +9,9 @@ import {
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import { getTensorRank } from '../../../utils/tensor-utils';
 import evaluate from '../../../eval';
-import createVector from '../../../create/Vector';
-import createMinus from '../../../create/Minus';
-import createTimes from '../../../create/Times';
+import createVector from '../../../create/create-vector';
+import createMinus from '../../../create/create-minus';
+import createTimes from '../../../create/create-times';
 
 const header: FunctionHeaderItem[] = [
     { name: 'a', type: 'vector', evaluate: true },

@@ -1,24 +1,24 @@
 import { Context, SyntaxTreeNode } from '../types';
-import evaluateAnd from './nodes/And';
-import evaluateBoolean from './nodes/Boolean';
-import evaluateLambda from './nodes/Lambda';
-import evaluateDivided from './nodes/Divided';
-import evaluateEquals from './nodes/Equals';
-import evaluateFunctionCall from './nodes/FunctionCall';
-import evaluateGreater from './nodes/Greater';
-import evaluateGreaterOrEquals from './nodes/GreaterOrEquals';
-import evaluateLess from './nodes/Less';
-import evaluateLessOrEquals from './nodes/LessOrEquals';
-import evaluateMinus from './nodes/Minus';
-import evaluateNegate from './nodes/Negate';
-import evaluateNumber from './nodes/Number';
-import evaluateOr from './nodes/Or';
-import evaluatePlus from './nodes/Plus';
-import evaluatePower from './nodes/Power';
-import evaluateSymbol from './nodes/Symbol';
-import evaluateTimes from './nodes/Times';
-import evaluateVector from './nodes/Vector';
-import evaluateDefine from './nodes/Define';
+import evaluateAnd from './nodes/eval-and';
+import evaluateBoolean from './nodes/eval-boolean';
+import evaluateLambda from './nodes/eval-lambda';
+import evaluateDivided from './nodes/eval-divided';
+import evaluateEquals from './nodes/eval-equals';
+import evaluateFunctionCall from './nodes/eval-function-call';
+import evaluateGreater from './nodes/eval-greater';
+import evaluateGreaterOrEquals from './nodes/eval-greater-or-equals';
+import evaluateLess from './nodes/eval-less';
+import evaluateLessOrEquals from './nodes/eval-less-or-equals';
+import evaluateMinus from './nodes/eval-minus';
+import evaluateNegate from './nodes/eval-negate';
+import evaluateNumber from './nodes/eval-number';
+import evaluateOr from './nodes/eval-or';
+import evaluatePlus from './nodes/eval-plus';
+import evaluatePower from './nodes/eval-power';
+import evaluateSymbol from './nodes/eval-symbol';
+import evaluateTimes from './nodes/eval-times';
+import evaluateVector from './nodes/eval-vector';
+import evaluateDefine from './nodes/eval-define';
 
 export default function evaluate(node: SyntaxTreeNode, context: Context) {
     switch (node.type) {

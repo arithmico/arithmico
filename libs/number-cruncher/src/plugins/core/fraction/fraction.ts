@@ -1,5 +1,5 @@
-import createDivided from '../../../create/Divided';
-import createNumberNode from '../../../create/NumberNode';
+import createDivided from '../../../create/create-divided';
+import createNumberNode from '../../../create/create-number-node';
 import { FunctionHeaderItem, NumberNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import {

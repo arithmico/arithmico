@@ -1,6 +1,6 @@
-import createBooleanNode from '../../create/BooleanNode';
-import createNumberNode from '../../create/NumberNode';
-import createVector from '../../create/Vector';
+import createBooleanNode from '../../create/create-boolean-node';
+import createNumberNode from '../../create/create-number-node';
+import createVector from '../../create/create-vector';
 import {
     getShape,
     getTensorDimensions,
