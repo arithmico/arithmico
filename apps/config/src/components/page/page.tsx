@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
-import packageData from "@workspace-package.json";
 
 const Container = styled.div`
   width: 100%;
@@ -30,7 +29,16 @@ export default function Page({ children }: PageProps) {
       <HeaderNavBar
         title="Arithmico"
         subTitle="Config"
-        version={packageData.version}
+        items={[
+          {
+            name: "Home",
+            path: "/",
+          },
+          {
+            name: "Impressum",
+            path: "/imprint",
+          },
+        ]}
       />
       <ScrollWrapper>
         <Content>{children}</Content>

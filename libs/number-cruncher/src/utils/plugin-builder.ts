@@ -1,8 +1,8 @@
 import { PluginConstant, PluginFunction } from './../types/Plugin';
 import { Plugin } from '../types/Plugin';
 import { FunctionHeaderItem, FunctionNode, SymbolNode } from '../types/SyntaxTreeNodes';
-import createFunctionCall from '../create/FunctionCall';
-import createSymbolNode from '../create/SymbolNode';
+import createFunctionCall from '../create/create-function-call';
+import createSymbolNode from '../create/create-symbol-node';
 
 export function createPlugin(name: string): Plugin {
     return {

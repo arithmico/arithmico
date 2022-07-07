@@ -1,21 +1,21 @@
 import { SyntaxTreeNode, Options } from '../types';
-import serializeAnd from './nodes/And';
-import serializeDivided from './nodes/Divided';
-import serializeEquals from './nodes/Equals';
-import serializeFunction from './nodes/Function';
-import serializeFunctionCall from './nodes/FunctionCall';
-import serializeGreater from './nodes/Greater';
-import serializeGreaterOrEquals from './nodes/GreaterOrEquals';
-import serializeLess from './nodes/Less';
-import serializeLessOrEquals from './nodes/LessOrEqual';
-import serializeMinus from './nodes/Minus';
-import serializeNegate from './nodes/Negate';
-import serializeNumber from './nodes/Number';
-import serializeOr from './nodes/Or';
-import serializePlus from './nodes/Plus';
-import serializePower from './nodes/Power';
-import serializeTimes from './nodes/Times';
-import serializeVector from './nodes/Vector';
+import serializeAnd from './nodes/serialize-and';
+import serializeDivided from './nodes/serialize-divided';
+import serializeEquals from './nodes/serialize-equals';
+import serializeFunction from './nodes/serialize-function';
+import serializeFunctionCall from './nodes/serialize-function-call';
+import serializeGreater from './nodes/serialize-greater';
+import serializeGreaterOrEquals from './nodes/serialize-greater-or-equals';
+import serializeLess from './nodes/serialize-less';
+import serializeLessOrEquals from './nodes/serialize-less-or-equal';
+import serializeMinus from './nodes/serialize-minus';
+import serializeNegate from './nodes/serialize-negate';
+import serializeNumber from './nodes/serialize-number';
+import serializeOr from './nodes/serialize-or';
+import serializePlus from './nodes/serialize-plus';
+import serializePower from './nodes/serialize-power';
+import serializeTimes from './nodes/serialize-times';
+import serializeVector from './nodes/serialize-vector';
 
 const serializePrecedents: SyntaxTreeNode['type'][] = [
     'define',

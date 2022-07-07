@@ -7,10 +7,10 @@ import {
     createPluginFunction,
 } from '../../../utils/plugin-builder';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
-import createVector from '../../../create/Vector';
-import createNumberNode from '../../../create/NumberNode';
+import createVector from '../../../create/create-vector';
+import createNumberNode from '../../../create/create-number-node';
 import evaluate from '../../../eval';
-import createFunctionCall from '../../../create/FunctionCall';
+import createFunctionCall from '../../../create/create-function-call';
 
 const tablePlugin = createPlugin('core/table');
 addPluginAuthor(tablePlugin, 'core');

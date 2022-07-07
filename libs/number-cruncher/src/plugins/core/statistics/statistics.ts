@@ -1,4 +1,4 @@
-import createNumberNode from '../../../create/NumberNode';
+import createNumberNode from '../../../create/create-number-node';
 import { FunctionHeaderItem, NumberNode } from '../../../types/SyntaxTreeNodes';
 import { binco } from '../../../utils/binco';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';

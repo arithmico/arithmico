@@ -1,6 +1,6 @@
 import normalize from '..';
-import createNumberNode from '../../create/NumberNode';
-import createPower from '../../create/Power';
+import createNumberNode from '../../create/create-number-node';
+import createPower from '../../create/create-power';
 import evaluate from '../../eval';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
 import { containsVariables } from '../../utils/symbolic-utils';

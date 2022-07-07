@@ -7,11 +7,11 @@ import {
     createPluginFunction,
 } from '../../../utils/plugin-builder';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
-import { getVectorRank } from '../../../utils/vector-utils';
+import { getTensorRank } from '../../../utils/tensor-utils';
 import evaluate from '../../../eval';
-import createVector from '../../../create/Vector';
-import createMinus from '../../../create/Minus';
-import createTimes from '../../../create/Times';
+import createVector from '../../../create/create-vector';
+import createMinus from '../../../create/create-minus';
+import createTimes from '../../../create/create-times';
 
 const header: FunctionHeaderItem[] = [
     { name: 'a', type: 'vector', evaluate: true },
@@ -35,8 +35,8 @@ addPluginFunction(
             const right = <Vector>parameterStackFrame['b'];
 
             try {
-                const leftRank = getVectorRank(left);
-                const rightRank = getVectorRank(right);
+                const leftRank = getTensorRank(left);
+                const rightRank = getTensorRank(right);
 
                 if (leftRank !== 1 || rightRank !== 1) {
                     throw '';

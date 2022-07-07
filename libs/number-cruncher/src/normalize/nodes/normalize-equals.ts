@@ -1,7 +1,7 @@
 import normalize from '..';
-import createEquals from '../../create/Equals';
-import createMinus from '../../create/Minus';
-import createNumberNode from '../../create/NumberNode';
+import createEquals from '../../create/create-equals';
+import createMinus from '../../create/create-minus';
+import createNumberNode from '../../create/create-number-node';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
 
 const normalizeChildren: PartialNormalizer = (node, context) => {
