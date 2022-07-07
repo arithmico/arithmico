@@ -1,4 +1,4 @@
-import { FunctionNode, FunctionHeaderItem } from './../types/SyntaxTreeNodes';
+import { FunctionNode, FunctionHeaderItem } from '../types/SyntaxTreeNodes';
 import { Context, SyntaxTreeNode } from '../types';
 
 export default function createFunction(

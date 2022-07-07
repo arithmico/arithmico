@@ -1,10 +1,10 @@
 import normalize from '..';
 import evaluate from '../../eval';
-import createNegate from '../../create/Negate';
+import createNegate from '../../create/create-negate';
 import { containsVariables } from '../../utils/symbolic-utils';
 import { combineNormalizers, PartialNormalizer } from './../../utils/normalize-utils';
-import createTimes from '../../create/Times';
-import createNumberNode from '../../create/NumberNode';
+import createTimes from '../../create/create-times';
+import createNumberNode from '../../create/create-number-node';
 
 const evaluateIfPossible: PartialNormalizer = (node, context) => {
     if (!containsVariables(node, context)) {

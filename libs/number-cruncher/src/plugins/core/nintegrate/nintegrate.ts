@@ -1,6 +1,6 @@
-import createFunctionCall from '../../../create/FunctionCall';
-import createNumberNode from '../../../create/NumberNode';
-import createSymbolNode from '../../../create/SymbolNode';
+import createFunctionCall from '../../../create/create-function-call';
+import createNumberNode from '../../../create/create-number-node';
+import createSymbolNode from '../../../create/create-symbol-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/SyntaxTreeNodes';
 import { closeTo } from '../../../utils/float-utils';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';

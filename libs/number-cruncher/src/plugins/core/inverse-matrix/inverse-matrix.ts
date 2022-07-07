@@ -7,9 +7,9 @@ import {
 } from '../../../utils/plugin-builder';
 import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
-import createNumberNode from '../../../create/NumberNode';
+import createNumberNode from '../../../create/create-number-node';
 import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../utils/tensor-utils';
-import createVector from '../../../create/Vector';
+import createVector from '../../../create/create-vector';
 import {
     calculateCofactorMatrix,
     createIdentityMatrix,
@@ -17,9 +17,9 @@ import {
     tensorToMatrix,
     transpose,
 } from '../../../utils/matrix-utils';
-import createDivided from '../../../create/Divided';
+import createDivided from '../../../create/create-divided';
 import { reduceFraction } from '../../../utils/float-utils';
-import createNegate from '../../../create/Negate';
+import createNegate from '../../../create/create-negate';
 
 const inverseMatrixPlugin = createPlugin('core/inverse-matrix');
 

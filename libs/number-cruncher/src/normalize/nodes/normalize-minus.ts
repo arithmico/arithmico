@@ -1,8 +1,8 @@
 import normalize from '..';
 import evaluate from '../../eval';
-import createMinus from '../../create/Minus';
-import createNegate from '../../create/Negate';
-import createPlus from '../../create/Plus';
+import createMinus from '../../create/create-minus';
+import createNegate from '../../create/create-negate';
+import createPlus from '../../create/create-plus';
 import { containsVariables } from '../../utils/symbolic-utils';
 import { combineNormalizers, PartialNormalizer } from './../../utils/normalize-utils';
 

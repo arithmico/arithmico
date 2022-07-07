@@ -1,5 +1,5 @@
 import { addPluginAuthor, addPluginConstant, addPluginDescription, createPlugin } from '../../../utils/plugin-builder';
-import createNumberNode from '../../../create/NumberNode';
+import createNumberNode from '../../../create/create-number-node';
 
 const physicalConstantsPlugin = createPlugin('core/physical-constants');
 

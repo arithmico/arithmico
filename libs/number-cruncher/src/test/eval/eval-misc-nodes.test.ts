@@ -1,13 +1,13 @@
 import { Context, FunctionNode } from '../../types';
-import createBooleanNode from '../../create/BooleanNode';
-import createNumberNode from '../../create/NumberNode';
+import createBooleanNode from '../../create/create-boolean-node';
+import createNumberNode from '../../create/create-number-node';
 import evaluate from '../../eval';
-import createPlus from '../../create/Plus';
-import createVector from '../../create/Vector';
-import createNegate from '../../create/Negate';
-import createLambda from '../../create/Lambda';
-import createSymbolNode from '../../create/SymbolNode';
-import createFunctionCall from '../../create/FunctionCall';
+import createPlus from '../../create/create-plus';
+import createVector from '../../create/create-vector';
+import createNegate from '../../create/create-negate';
+import createLambda from '../../create/create-lambda';
+import createSymbolNode from '../../create/create-symbol-node';
+import createFunctionCall from '../../create/create-function-call';
 import { createOptions } from '../../utils/context-utils';
 
 const testContext: Context = {

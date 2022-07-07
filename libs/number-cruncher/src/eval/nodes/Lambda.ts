@@ -2,7 +2,7 @@ import { Context } from './../../types/Context';
 import { StackFrame } from '../../types/Context';
 import evaluate from '..';
 import { SyntaxTreeNode, Lambda } from '../../types';
-import createFunction from '../../create/Function';
+import createFunction from '../../create/create-function';
 import { mapParametersToStackFrame } from '../../utils/parameter-utils';
 
 export default function evaluateLambda(node: Lambda, context: Context): SyntaxTreeNode {

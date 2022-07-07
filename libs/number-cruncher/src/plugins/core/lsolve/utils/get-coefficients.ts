@@ -1,4 +1,4 @@
-import createNumberNode from '../../../../create/NumberNode';
+import createNumberNode from '../../../../create/create-number-node';
 import { Context, Equals, NumberNode, SyntaxTreeNode } from '../../../../types';
 import { getVariableNames } from '../../../../utils/symbolic-utils';
 import { getFactors } from './get-factors';

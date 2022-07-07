@@ -1,8 +1,8 @@
-import createFunctionCall from '../../../create/FunctionCall';
-import createMinus from '../../../create/Minus';
-import createNumberNode from '../../../create/NumberNode';
-import createSymbolNode from '../../../create/SymbolNode';
-import createVector from '../../../create/Vector';
+import createFunctionCall from '../../../create/create-function-call';
+import createMinus from '../../../create/create-minus';
+import createNumberNode from '../../../create/create-number-node';
+import createSymbolNode from '../../../create/create-symbol-node';
+import createVector from '../../../create/create-vector';
 import { Context, Equals, NumberNode, SyntaxTreeNode } from '../../../types';
 import { FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';

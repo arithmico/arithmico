@@ -1,7 +1,7 @@
 import evaluate from '..';
-import createMinus from '../../create/Minus';
-import createNumberNode from '../../create/NumberNode';
-import createVector from '../../create/Vector';
+import createMinus from '../../create/create-minus';
+import createNumberNode from '../../create/create-number-node';
+import createVector from '../../create/create-vector';
 import { Minus, Context, SyntaxTreeNode } from '../../types';
 import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 import { compareShapesOfVectors } from '../../utils/tensor-utils';

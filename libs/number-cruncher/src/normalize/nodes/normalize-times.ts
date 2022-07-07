@@ -1,13 +1,13 @@
 import { Context } from './../../types/Context';
 import { SyntaxTreeNode } from './../../types/SyntaxTreeNodes';
 import normalize from '..';
-import createPlus from '../../create/Plus';
-import createTimes from '../../create/Times';
+import createPlus from '../../create/create-plus';
+import createTimes from '../../create/create-times';
 import evaluate from '../../eval';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
 import { containsVariables, convertListToOperatorChain, convertOperatorChainToList } from '../../utils/symbolic-utils';
-import createPower from '../../create/Power';
-import createNumberNode from '../../create/NumberNode';
+import createPower from '../../create/create-power';
+import createNumberNode from '../../create/create-number-node';
 
 const evaluateIfPossible: PartialNormalizer = (node, context) => {
     if (!containsVariables(node, context)) {

@@ -1,6 +1,6 @@
 import evaluate from '..';
-import createBooleanNode from '../../create/BooleanNode';
-import createLess from '../../create/Less';
+import createBooleanNode from '../../create/create-boolean-node';
+import createLess from '../../create/create-less';
 import { Less, Context, SyntaxTreeNode } from '../../types';
 import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 

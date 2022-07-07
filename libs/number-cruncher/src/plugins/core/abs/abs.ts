@@ -1,4 +1,4 @@
-import createNumberNode from '../../../create/NumberNode';
+import createNumberNode from '../../../create/create-number-node';
 import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import {

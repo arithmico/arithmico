@@ -1,5 +1,5 @@
-import createFunctionCall from '../../../create/FunctionCall';
-import createNumberNode from '../../../create/NumberNode';
+import createFunctionCall from '../../../create/create-function-call';
+import createNumberNode from '../../../create/create-number-node';
 import evaluate from '../../../eval';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/SyntaxTreeNodes';
 import { binco } from '../../../utils/binco';

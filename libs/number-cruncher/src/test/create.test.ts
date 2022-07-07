@@ -1,25 +1,25 @@
 import { SyntaxTreeNode } from './../types/SyntaxTreeNodes';
-import createAnd from '../create/And';
-import createBooleanNode from '../create/BooleanNode';
-import createDivided from '../create/Divided';
-import createEquals from '../create/Equals';
-import createFunctionCall from '../create/FunctionCall';
-import createGreater from '../create/Greater';
-import createGreaterOrEquals from '../create/GreaterOrEquals';
-import createLess from '../create/Less';
-import createLessOrEquals from '../create/LessOrEquals';
-import createMinus from '../create/Minus';
-import createNegate from '../create/Negate';
-import createNumberNode from '../create/NumberNode';
-import createOr from '../create/Or';
-import createPlus from '../create/Plus';
-import createPower from '../create/Power';
-import createSymbolNode from '../create/SymbolNode';
-import createTimes from '../create/Times';
-import createVector from '../create/Vector';
-import createFunction from '../create/Function';
-import createDefine from '../create/Define';
-import createLambda from '../create/Lambda';
+import createAnd from '../create/create-and';
+import createBooleanNode from '../create/create-boolean-node';
+import createDivided from '../create/create-divided';
+import createEquals from '../create/create-equals';
+import createFunctionCall from '../create/create-function-call';
+import createGreater from '../create/create-greater';
+import createGreaterOrEquals from '../create/create-greater-or-equals';
+import createLess from '../create/create-less';
+import createLessOrEquals from '../create/create-less-or-equals';
+import createMinus from '../create/create-minus';
+import createNegate from '../create/create-negate';
+import createNumberNode from '../create/create-number-node';
+import createOr from '../create/create-or';
+import createPlus from '../create/create-plus';
+import createPower from '../create/create-power';
+import createSymbolNode from '../create/create-symbol-node';
+import createTimes from '../create/create-times';
+import createVector from '../create/create-vector';
+import createFunction from '../create/create-function';
+import createDefine from '../create/create-define';
+import createLambda from '../create/create-lambda';
 
 describe('create primitives nodes', () => {
     test('create number', () => {
