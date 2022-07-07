@@ -1,4 +1,4 @@
-import { Options } from './../../types/Context';
+import { Options } from '../../types/Context';
 import serialize, { needsBrackets } from '..';
 import { FunctionNode } from '../../types';
 import { FunctionHeaderItem } from '../../types/SyntaxTreeNodes';

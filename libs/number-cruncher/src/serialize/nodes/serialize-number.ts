@@ -1,4 +1,4 @@
-import { NumberNode, Options } from './../../types';
+import { NumberNode, Options } from '../../types';
 
 export default function serializeNumber(node: NumberNode, options: Options): string {
     if (node.value === 0) {
