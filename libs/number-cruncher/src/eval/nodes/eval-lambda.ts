@@ -1,4 +1,4 @@
-import { Context } from './../../types/Context';
+import { Context } from '../../types/Context';
 import { StackFrame } from '../../types/Context';
 import evaluate from '..';
 import { SyntaxTreeNode, Lambda } from '../../types';
