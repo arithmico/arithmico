@@ -1,6 +1,6 @@
 {
   "name": "arithmico",
-  "version": "0.78.2",
+  "version": "0.78.3",
   "author": {
     "name": "Lennard Behrens",
     "email": "dev.behrenle@posteo.de",
@@ -23,26 +23,24 @@
     "./libs/engine"
   ],
   "scripts": {
-    "build:all":    "npm run build -w libs/engine -w apps/calc -w apps/docs -w apps/blog -w apps/config",
+    "build:all": "npm run build -w libs/engine -w apps/calc -w apps/docs -w apps/blog -w apps/config",
     "build:engine": "npm run build -w libs/engine",
-    "build:calc":   "npm run build -w apps/calc",
-    "build:docs":   "npm run build -w apps/docs",
-    "build:blog":   "npm run build -w apps/blog",
+    "build:calc": "npm run build -w apps/calc",
+    "build:docs": "npm run build -w apps/docs",
+    "build:blog": "npm run build -w apps/blog",
     "build:config": "npm run build -w apps/config",
-    
-    "test:engine":  "npm run test -w libs/engine",
-    "test:calc":    "npm run test -w apps/calc",
-    "test:docs":    "npm run test -w apps/docs",
-    "test:blog":    "npm run test -w apps/blog",
-    "test:config":  "npm run test -w apps/config",
-    "test:all":     "npm run test -ws",
-
-    "lint:calc":    "npm run lint -w apps/calc",
-    "lint:docs":    "npm run lint -w apps/docs",
-    "lint:blog":    "npm run lint -w apps/blog",
-    "lint:config":  "npm run lint -w apps/config",
-    "lint:engine":  "npm run lint -w libs/engine",
-    "lint:all":     "npm run lint -ws"
+    "test:engine": "npm run test -w libs/engine",
+    "test:calc": "npm run test -w apps/calc",
+    "test:docs": "npm run test -w apps/docs",
+    "test:blog": "npm run test -w apps/blog",
+    "test:config": "npm run test -w apps/config",
+    "test:all": "npm run test -ws",
+    "lint:calc": "npm run lint -w apps/calc",
+    "lint:docs": "npm run lint -w apps/docs",
+    "lint:blog": "npm run lint -w apps/blog",
+    "lint:config": "npm run lint -w apps/config",
+    "lint:engine": "npm run lint -w libs/engine",
+    "lint:all": "npm run lint -ws"
   },
   "repository": {
     "type": "git",
