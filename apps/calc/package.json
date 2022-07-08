@@ -1,5 +1,5 @@
 {
-  "name": "@arithmico/blog",
+  "name": "@arithmico/calc",
   "homepage": ".",
   "scripts": {
     "start": "craco start",

@@ -1,5 +1,5 @@
 {
-  "name": "arithmico-config",
+  "name": "@arithmico/config",
   "homepage": ".",
   "scripts": {
     "start": "craco start",

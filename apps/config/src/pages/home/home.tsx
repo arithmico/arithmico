@@ -1,7 +1,7 @@
 import React from "react";
 import PluginConfig from "../../components/plugin-config/plugin-config";
 import Page from "../../components/page/page";
-import { getPluginStructures } from "@behrenle/number-cruncher";
+import { getPluginStructures } from "@arithmico/engine";
 const pluginStructures = getPluginStructures();
 
 export default function Home() {
