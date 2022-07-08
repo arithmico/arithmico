@@ -34,7 +34,7 @@ jobs:
         git fetch
         git switch dev
         git rebase origin/main
-        git pull
+        git push
 
   deploy_calculator_online:
     name: Deploy Calculator Online Version
