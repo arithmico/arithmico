@@ -162,7 +162,7 @@ RelationChainElement = _ relationSymbol:("=" / "<=" / ">=" / "<" / ">") _ term:T
 // arithmetic
 Term = Plus
 
-Plus = left:Minus _ "+" _ right:Plus {
+Plus = left:Minus _ "+" _ right:(Plus / Negate) {
     return {
         type: "plus",
         left, 
@@ -171,7 +171,7 @@ Plus = left:Minus _ "+" _ right:Plus {
 } / Minus
 
 // the ugly way to eliminate left recursion 
-MinusItem = _ "-" _ item:Times {
+MinusItem = _ "-" _ item:(Times / Negate) {
     return item;
 }
 Minus = first:(Times / Negate) rest:MinusItem+ {
@@ -183,7 +183,7 @@ Minus = first:(Times / Negate) rest:MinusItem+ {
     }));
 } / Times
 
-Times = left:Divided _ "*" _ right:Times {
+Times = left:Divided _ "*" _ right:(Times / Negate) {
     return {
         type: "times",
         left,
@@ -195,32 +195,39 @@ Times = left:Divided _ "*" _ right:Times {
 DividedItem = _ "/" _ item:(Power / Negate) {
     return item;
 }
-Divided = first:Power rest:DividedItem+ {
+Divided = first:(Power / Negate) rest:DividedItem+ {
     const items = [first, ...rest];
     return items.reduce((left, right) => ({
         type: "divided",
         left,
         right
     }));
-} / Negate
-
-Negate = _ "-" _ value:Negate {
-    return {
-        type: "negate",
-        value
-    };
 } / Power
 
-Power = left:Value _ "^" _ right:Value {
+Power = left:Value _ "^" _ right:NegatedValue {
     return {
         type: "power",
         left, 
         right
     };
+} / Negate
+
+Negate = _ "-" _ value:Power {
+    return {
+        type: "negate",
+        value
+    };
+} / Value
+
+NegatedValue = _ "-" _ value:Value {
+    return {
+        type: "negate",
+        value
+    };
 } / Value
 
 // values
-Value = Boolean 
+Value = Boolean
 / FunctionCall 
 / DefineLambdaFunction
 / Symbol 
