@@ -190,7 +190,7 @@ Negate = _ "-" _ value:Negate {
     };
 } / Times
 
-Times = left:Divided _ "*" _ right:Times {
+Times = left:Divided _ "*" _ right:Negate {
     return {
         type: "times",
         left,
