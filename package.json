@@ -23,6 +23,9 @@
     "./libs/engine"
   ],
   "scripts": {
+    "start:calc": "npm start -w apps/calc",
+    "start:docs": "npm start -w apps/docs",
+    "start:blog": "npm start -w apps/blog",
     "build:all": "npm run build -w libs/engine -w apps/calc -w apps/docs -w apps/blog -w apps/config",
     "build:engine": "npm run build -w libs/engine",
     "build:calc": "npm run build -w apps/calc",
