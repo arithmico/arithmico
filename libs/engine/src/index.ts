@@ -1,3 +1,4 @@
+import { createOptions } from '@arithmico/engine/lib/utils/context-utils';
 import { GlobalDocumentationItem } from './types/Plugin';
 import { parse } from './parse/parser';
 import evaluateNode from './eval';
@@ -23,6 +24,7 @@ import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import tablePlugin from './plugins/core/table/table';
 import moduloPlugin from './plugins/core/modulo/modulo';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
+import load from './load';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -53,10 +55,14 @@ let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
 export function init(options: Options = defaultOptions) {
-    const loadingResult = loadPlugins(plugins, options);
-    defaultContext = loadingResult.context;
-    loadingLog = loadingResult.log;
-    documentation = loadingResult.documentation;
+    const loadingResult = load(plugins, {
+        loadingMode: 'blacklist',
+        loadingList: [],
+        options: createOptions(),
+    });
+    defaultContext = loadingResult[0];
+    documentation = loadingResult[1];
+    loadingLog = loadingResult[2];
 }
 
 export function getPluginStructures() {

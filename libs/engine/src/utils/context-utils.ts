@@ -60,6 +60,13 @@ export const defaultOptions: Options = {
     },
 };
 
+export function createContextWithOptions(options: Options): Context {
+    return {
+        options,
+        stack: [{}],
+    };
+}
+
 export function createOptions(options?: Partial<Options>): Options {
     return { ...defaultOptions, ...options };
 }
