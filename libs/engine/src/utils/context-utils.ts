@@ -68,7 +68,14 @@ export function createContextWithOptions(options: Options): Context {
 }
 
 export function createOptions(options?: Partial<Options>): Options {
-    return { ...defaultOptions, ...options };
+    return {
+        ...defaultOptions,
+        ...options,
+        operators: {
+            ...defaultOptions.operators,
+            ...options.operators,
+        },
+    };
 }
 
 export function useStrictContextValidator(name: string, context: Context) {
