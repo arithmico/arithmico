@@ -9,7 +9,7 @@ import {
     createPluginFunction,
 } from '../../../utils/plugin-builder';
 
-const rootsPlugin = createPlugin('statistics');
+const rootsPlugin = createPlugin('core/roots');
 addPluginDescription(rootsPlugin, 'adds erf, normal, cnormal, binco, binom, cbinom functions');
 addPluginAuthor(rootsPlugin, 'core');
 

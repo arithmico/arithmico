@@ -8,7 +8,7 @@ import { addPluginAuthor, addPluginDescription, addPluginFunction, createPlugin 
 import { integrateIntervall } from './utils';
 
 const INTERVALLS = 128;
-const nintegratePlugin = createPlugin('nintegrate');
+const nintegratePlugin = createPlugin('core/nintegrate');
 
 addPluginAuthor(nintegratePlugin, 'core');
 addPluginDescription(nintegratePlugin, 'adds nintegral function');
