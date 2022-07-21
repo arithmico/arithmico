@@ -9,6 +9,7 @@ export default function Home() {
     <Page>
       {pluginStructures.map((pluginStructure) => (
         <PluginConfig
+          key={pluginStructure.name}
           name={pluginStructure.name}
           items={pluginStructure.items.map((item) => ({
             name: item.name,
