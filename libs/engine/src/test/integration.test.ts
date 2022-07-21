@@ -29,7 +29,7 @@ integrationTest('1 < 2 <= 2 = 2 >= 2 > 1', 'true');
 integrationTest('2 + 3 * 4 ^ 5 / 32 = 98', 'true');
 integrationTest('10 / 2 / 5', '1');
 integrationTest('10 - 5 - 3 - 2', '0');
-integrationTest('-2 + 4', '-2');
+integrationTest('-2 + 4', '2');
 integrationTest('2 + -4', '-2');
 integrationTest('2 * -2', '-4');
 integrationTest('2 / -2', '-1');
