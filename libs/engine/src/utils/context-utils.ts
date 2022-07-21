@@ -6,68 +6,76 @@ export const defaultOptions: Options = {
     decimalSeparator: '.',
     magnitudeThresholdForScientificNotation: 6,
     angleUnit: 'degrees',
-    config: {
-        load: {
-            mode: 'blacklist',
-            names: [],
-        },
-        operators: {
-            define: true,
-            lambda: true,
+    operators: {
+        define: true,
+        lambda: true,
 
-            orBooleanBoolean: true,
-            orFunctionFunction: true,
+        orBooleanBoolean: true,
+        orFunctionFunction: true,
 
-            andBooleanBoolean: true,
-            andFunctionFunction: true,
+        andBooleanBoolean: true,
+        andFunctionFunction: true,
 
-            negateNumber: true,
-            negateBoolean: true,
-            negateFunction: true,
+        negateNumber: true,
+        negateBoolean: true,
+        negateFunction: true,
 
-            equalsNumberNumber: true,
-            equalsBooleanBoolean: true,
-            equalsFunctionFunction: true,
+        equalsNumberNumber: true,
+        equalsBooleanBoolean: true,
+        equalsFunctionFunction: true,
 
-            lessNumberNumber: true,
-            lessFunctionFunction: true,
+        lessNumberNumber: true,
+        lessFunctionFunction: true,
 
-            lessOrEqualsNumberNumber: true,
-            lessOrEqualsFunctionFunction: true,
+        lessOrEqualsNumberNumber: true,
+        lessOrEqualsFunctionFunction: true,
 
-            greaterNumberNumber: true,
-            greaterFunctionFunction: true,
+        greaterNumberNumber: true,
+        greaterFunctionFunction: true,
 
-            greaterOrEqualsNumberNumber: true,
-            greaterOrEqualsFunctionFunction: true,
+        greaterOrEqualsNumberNumber: true,
+        greaterOrEqualsFunctionFunction: true,
 
-            plusNumberNumber: true,
-            plusVectorVector: true,
-            plusFunctionFunction: true,
+        plusNumberNumber: true,
+        plusVectorVector: true,
+        plusFunctionFunction: true,
 
-            minusNumberNumber: true,
-            minusVectorVector: true,
-            minusFunctionFunction: true,
+        minusNumberNumber: true,
+        minusVectorVector: true,
+        minusFunctionFunction: true,
 
-            timesNumberNumber: true,
-            timesNumberVector: true,
-            timesVectorVector: true,
-            timesVectorMatrix: true,
-            timesMatrixMatrix: true,
-            timesFunctionFunction: true,
+        timesNumberNumber: true,
+        timesNumberVector: true,
+        timesVectorVector: true,
+        timesVectorMatrix: true,
+        timesMatrixMatrix: true,
+        timesFunctionFunction: true,
 
-            dividedNumberNumber: true,
-            dividedVectorNumber: true,
-            dividedFunctionFunction: true,
+        dividedNumberNumber: true,
+        dividedVectorNumber: true,
+        dividedFunctionFunction: true,
 
-            powerNumberNumber: true,
-            powerFunctionFunction: true,
-        },
+        powerNumberNumber: true,
+        powerFunctionFunction: true,
     },
 };
 
+export function createContextWithOptions(options: Options): Context {
+    return {
+        options,
+        stack: [{}],
+    };
+}
+
 export function createOptions(options?: Partial<Options>): Options {
-    return { ...defaultOptions, ...options };
+    return {
+        ...defaultOptions,
+        ...options,
+        operators: {
+            ...defaultOptions.operators,
+            ...options?.operators,
+        },
+    };
 }
 
 export function useStrictContextValidator(name: string, context: Context) {

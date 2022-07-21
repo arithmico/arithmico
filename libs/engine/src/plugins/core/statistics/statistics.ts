@@ -16,7 +16,7 @@ import { calculateFact } from './utils/fact';
 import { calculateCNormal, calculateNormal } from './utils/normal';
 import { calculateSd } from './utils/sd';
 import { calculateVar } from './utils/var';
-const statisticsPlugin = createPlugin('statistics');
+const statisticsPlugin = createPlugin('core/statistics');
 addPluginDescription(statisticsPlugin, 'adds erf, normal, cnormal, binco, binom, cbinom functions');
 addPluginAuthor(statisticsPlugin, 'core');
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
