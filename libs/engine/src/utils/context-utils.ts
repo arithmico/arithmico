@@ -73,7 +73,7 @@ export function createOptions(options?: Partial<Options>): Options {
         ...options,
         operators: {
             ...defaultOptions.operators,
-            ...options.operators,
+            ...options?.operators,
         },
     };
 }
