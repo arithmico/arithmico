@@ -25,6 +25,7 @@ import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
+import fibPlugin from './plugins/core/fibonacci/fib';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -46,6 +47,7 @@ const plugins = [
     tablePlugin,
     moduloPlugin,
     inverseMatrixPlugin,
+    fibPlugin,
 ];
 
 let defaultContext: Context;
