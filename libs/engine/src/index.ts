@@ -23,6 +23,7 @@ import tablePlugin from './plugins/core/table/table';
 import moduloPlugin from './plugins/core/modulo/modulo';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
+import loadPluginStructures from './load/load-plugin-structure';
 
 export { serializeStack } from './utils/context-utils';
 
