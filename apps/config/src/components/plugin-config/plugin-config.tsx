@@ -1,14 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import PluginObjectToggle from "../plugin-object-toggle/plugin-object-toggle";
 import styled from "styled-components";
 import { Disclosure } from "@headlessui/react";
 import ExpandMore from "@components/icons/expand-more";
-
-interface PluginItemProps {
-  name: string;
-  synopsis: string;
-  description: string;
-}
 
 const Section = styled.section`
   display: flex;
@@ -32,7 +26,7 @@ const PluginObjectsList = styled.ul`
 
 const DisclosureButton = styled(Disclosure.Button)<{
   open: boolean;
-  children: React.ReactNode; // idk why styled components does not get the children property
+  children: React.ReactNode /* idk why styled components does not get the children property*/;
 }>`
   display: flex;
   align-items: center;
@@ -45,20 +39,27 @@ const DisclosureButton = styled(Disclosure.Button)<{
   outline: none;
 `;
 
-const ExpandMoreIcon = styled(ExpandMore)<{
-  open: boolean;
-}>`
+const ExpandMoreIcon = styled(ExpandMore)<{ open: boolean }>`
   transform: rotate(${({ open }) => (open ? "180" : "0")}deg);
   margin-left: auto;
   transition: transform 0.25s;
 `;
 
+interface PluginItemProps {
+  name: string;
+  synopsis: string;
+  description: string;
+}
 interface PluginConfigProps {
   name: string;
   items: PluginItemProps[];
 }
 
 export default function PluginConfig({ name, items }: PluginConfigProps) {
+  const [state, setState] = useState(() =>
+    Object.fromEntries(items.map((item) => [item.name, true]))
+  );
+
   return (
     <Section>
       <Disclosure>
@@ -73,9 +74,14 @@ export default function PluginConfig({ name, items }: PluginConfigProps) {
                 {items.map((item, index) => (
                   <PluginObjectToggle
                     key={index}
-                    enabled
+                    enabled={!!state[item.name]}
                     label={item.synopsis}
-                    onChange={() => null}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        [item.name]: !state[item.name],
+                      })
+                    }
                   ></PluginObjectToggle>
                 ))}
               </PluginObjectsList>

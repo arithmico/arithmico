@@ -11,8 +11,9 @@ interface PluginObjectToggleProps {
 const Container = styled.div`
   display: flex;
   align-items: center;
+  //height: 3rem;
   padding: 1rem;
-  background-color: var(--me-background-200);
+  background-color: var(--me-background-100);
   border-radius: 0.5rem;
   margin: 0.5rem 0;
 `;
