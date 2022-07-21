@@ -5,7 +5,7 @@ import serialize from './serialize';
 import { Context, Profile } from './types';
 import { loadPluginStructures } from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
-import { createOptions, insertStackObject } from './utils/context-utils';
+import { insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
@@ -26,8 +26,6 @@ import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 
 export { serializeStack } from './utils/context-utils';
-
-const defaultOptions = createOptions();
 
 const plugins = [
     trigonometryPlugin,
