@@ -11,13 +11,13 @@ export default function evaluateLessOrEquals(node: LessOrEquals, context: Contex
     if (
         leftChild.type === 'number' &&
         rightChild.type === 'number' &&
-        context.options.config.operators.lessOrEqualsNumberNumber
+        context.options.operators.lessOrEqualsNumberNumber
     ) {
         return createBooleanNode(leftChild.value <= rightChild.value);
     } else if (
         leftChild.type === 'function' &&
         rightChild.type === 'function' &&
-        context.options.config.operators.lessOrEqualsFunctionFunction
+        context.options.operators.lessOrEqualsFunctionFunction
     ) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createLessOrEquals, context);
     }

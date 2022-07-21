@@ -116,7 +116,12 @@ export default function HeaderNavBar({
       >
         <NavigationList>
           {items.map((item) => (
-            <NavigationListItem name={item.name} to={item.path} hover={hover} />
+            <NavigationListItem
+              name={item.name}
+              to={item.path}
+              hover={hover}
+              key={item.path}
+            />
           ))}
         </NavigationList>
       </Navigation>

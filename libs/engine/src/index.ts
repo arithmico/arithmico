@@ -2,10 +2,9 @@ import { GlobalDocumentationItem } from './types/Plugin';
 import { parse } from './parse/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
-import { Context, Options } from './types';
-import loadPlugins, { loadPluginStructures } from './utils/plugin-loader';
+import { Context, Profile } from './types';
 import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
-import { createOptions, insertStackObject } from './utils/context-utils';
+import { insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
@@ -23,10 +22,11 @@ import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import tablePlugin from './plugins/core/table/table';
 import moduloPlugin from './plugins/core/modulo/modulo';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
+import load from './load';
+import loadPluginStructures from './load/load-plugin-structure';
+import { createProfile } from './utils/profile-utils';
 
 export { serializeStack } from './utils/context-utils';
-
-const defaultOptions = createOptions();
 
 const plugins = [
     trigonometryPlugin,
@@ -52,11 +52,11 @@ let defaultContext: Context;
 let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
-export function init(options: Options = defaultOptions) {
-    const loadingResult = loadPlugins(plugins, options);
-    defaultContext = loadingResult.context;
-    loadingLog = loadingResult.log;
-    documentation = loadingResult.documentation;
+export function init(profile: Profile = createProfile()) {
+    const loadingResult = load(plugins, profile);
+    defaultContext = loadingResult[0];
+    documentation = loadingResult[1];
+    loadingLog = loadingResult[2];
 }
 
 export function getPluginStructures() {

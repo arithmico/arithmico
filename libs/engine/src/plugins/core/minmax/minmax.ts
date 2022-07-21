@@ -9,7 +9,7 @@ import {
     createPluginFunction,
 } from '../../../utils/plugin-builder';
 
-const minmaxPlugin = createPlugin('minmax');
+const minmaxPlugin = createPlugin('core/minmax');
 addPluginAuthor(minmaxPlugin, 'core');
 addPluginDescription(minmaxPlugin, 'adds min and max functions');
 

@@ -11,7 +11,7 @@ import {
 } from '../../../utils/plugin-builder';
 import { getLowestFraction } from './utils';
 
-const fractionPlugin = createPlugin('fraction');
+const fractionPlugin = createPlugin('core/fraction');
 addPluginDescription(fractionPlugin, 'adds fraction function');
 addPluginAuthor(fractionPlugin, 'core');
 
