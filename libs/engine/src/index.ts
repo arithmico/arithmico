@@ -23,6 +23,7 @@ import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import tablePlugin from './plugins/core/table/table';
 import moduloPlugin from './plugins/core/modulo/modulo';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
+import fibPlugin from "./plugins/core/fibonacci/fib";
 
 export { serializeStack } from './utils/context-utils';
 
@@ -46,6 +47,7 @@ const plugins = [
     tablePlugin,
     moduloPlugin,
     inverseMatrixPlugin,
+    fibPlugin,
 ];
 
 let defaultContext: Context;
