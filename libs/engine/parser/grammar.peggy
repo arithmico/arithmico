@@ -181,16 +181,9 @@ Minus = first:(Times / Negate) rest:MinusItem+ {
         left, 
         right
     }));
-} / Negate
-
-Negate = _ "-" _ value:Negate {
-    return {
-        type: "negate",
-        value
-    };
 } / Times
 
-Times = left:Divided _ "*" _ right:Negate {
+Times = left:Divided _ "*" _ right:Times {
     return {
         type: "times",
         left,
@@ -198,17 +191,24 @@ Times = left:Divided _ "*" _ right:Negate {
     };
 } / Divided
 
-// the ugly way to eliminate left recursion 
-DividedItem = _ "/" _ item:Power {
+// the ugly way to eliminate left recursion
+DividedItem = _ "/" _ item:(Power / Negate) {
     return item;
 }
 Divided = first:Power rest:DividedItem+ {
     const items = [first, ...rest];
     return items.reduce((left, right) => ({
         type: "divided",
-        left, 
+        left,
         right
     }));
+} / Negate
+
+Negate = _ "-" _ value:Negate {
+    return {
+        type: "negate",
+        value
+    };
 } / Power
 
 Power = left:Value _ "^" _ right:Value {
