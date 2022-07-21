@@ -23,6 +23,7 @@
     "./libs/engine"
   ],
   "scripts": {
+    "start:config": "npm start -w apps/config",
     "start:calc": "npm start -w apps/calc",
     "start:docs": "npm start -w apps/docs",
     "start:blog": "npm start -w apps/blog",
