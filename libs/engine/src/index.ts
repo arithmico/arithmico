@@ -1,10 +1,9 @@
-import { createOptions } from '@arithmico/engine/lib/utils/context-utils';
 import { GlobalDocumentationItem } from './types/Plugin';
 import { parse } from './parse/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
-import { Context, Options } from './types';
-import loadPlugins, { loadPluginStructures } from './utils/plugin-loader';
+import { Context, Profile } from './types';
+import { loadPluginStructures } from './utils/plugin-loader';
 import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
 import { createOptions, insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
@@ -54,12 +53,8 @@ let defaultContext: Context;
 let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
-export function init(options: Options = defaultOptions) {
-    const loadingResult = load(plugins, {
-        loadingMode: 'blacklist',
-        loadingList: [],
-        options: createOptions(),
-    });
+export function init(profile: Profile) {
+    const loadingResult = load(plugins, profile);
     defaultContext = loadingResult[0];
     documentation = loadingResult[1];
     loadingLog = loadingResult[2];
