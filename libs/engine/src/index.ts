@@ -24,6 +24,7 @@ import moduloPlugin from './plugins/core/modulo/modulo';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
+import { createProfile } from './utils/profile-utils';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -51,7 +52,7 @@ let defaultContext: Context;
 let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
-export function init(profile: Profile) {
+export function init(profile: Profile = createProfile()) {
     const loadingResult = load(plugins, profile);
     defaultContext = loadingResult[0];
     documentation = loadingResult[1];
