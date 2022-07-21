@@ -22,8 +22,8 @@ addPluginFunction(
     createPluginFunction(
         'fib',
         fibHeader,
-        'calculates the nth fibonacci number',
-        'Berechnet die nte Fibonacci Zahl.',
+        'calculates the n-th fibonacci number',
+        'Berechnet die n-te Fibonacci Zahl.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('fib', parameters, fibHeader, context);
             const n = (<NumberNode>parameterStackFrame['n']).value;
@@ -33,7 +33,7 @@ addPluginFunction(
             }
 
             if (n <= 0) {
-                throw 'RuntimeError: fib: number has to 1 or greater';
+                throw 'RuntimeError: fib: number has to be 1 or greater';
             }
 
             return createNumberNode(fib(n));
