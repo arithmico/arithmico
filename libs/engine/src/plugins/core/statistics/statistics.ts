@@ -1,5 +1,5 @@
 import createNumberNode from '../../../create/create-number-node';
-import { FunctionHeaderItem, NumberNode } from '../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, NumberNode, Vector } from '../../../types/SyntaxTreeNodes';
 import { binco } from '../../../utils/binco';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import {
@@ -17,6 +17,7 @@ import { calculateCNormal, calculateNormal } from './utils/normal';
 import { calculateSd } from './utils/sd';
 import { calculateVar } from './utils/var';
 import { calculateQuantile } from './utils/quantile';
+import { isEveryElementNumber } from '../../../utils/tensor-utils';
 
 const statisticsPlugin = createPlugin('core/statistics');
 
@@ -42,7 +43,7 @@ const binomHeader: FunctionHeaderItem[] = [
 
 const quantileHeader: FunctionHeaderItem[] = [
     { name: 'p', type: 'number', evaluate: true },
-    { name: 'x', type: 'number', evaluate: true, repeat: true },
+    { name: 'xs', type: 'vector', evaluate: true },
 ];
 
 addPluginFunction(
@@ -215,14 +216,28 @@ addPluginFunction(
     statisticsPlugin,
     createPluginFunction(
         'quantile',
-        numberSeriesHeader,
+        quantileHeader,
         'Calculates the p-quantile, i.e. p (between 0 and 1) divides the quantity into a part p less than or equal to and another part 1-p is greater than or equal to the quantile.',
         'Berechnet das p-Quantil, d. h. p (zwischen 0 und 1) teilt die Menge auf in einen Teil p kleiner oder gleich und einen anderen Teil 1-p größer oder gleich dem Quantil ist.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('quantile', parameters, quantileHeader, context);
             const p = (<NumberNode>parameterStackFrame['p']).value;
-            const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
-            return createNumberNode(calculateQuantile(p, xs));
+            const xs = <Vector>parameterStackFrame['xs'];
+
+            if (!isEveryElementNumber(xs)) {
+                throw 'RuntimeError: quantile: all elements of xs must be numbers.';
+            }
+
+            if (p < 0 || p > 1) {
+                throw 'RuntimeError: quantile: p has to be between 0 and 1.';
+            }
+
+            return createNumberNode(
+                calculateQuantile(
+                    p,
+                    xs.values.map((x) => (<NumberNode>x).value),
+                ),
+            );
         },
     ),
 );

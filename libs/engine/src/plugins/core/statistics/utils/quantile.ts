@@ -1,8 +1,25 @@
 export function calculateQuantile(p: number, xs: number[]): number {
     const arr: number[] = xs.slice(0).sort((a, b) => a - b);
-    const expValue: number = arr.length * p;
+    const expectedValue: number = arr.length * p;
 
-    return expValue % 1 === 0
-        ? (arr[expValue / 2] + arr[expValue / 2 + 1]) / 2
-        : (arr[Math.floor(expValue)] + arr[Math.floor(expValue + 1)]) / 2;
+    const leftIndex = Math.floor(expectedValue) - 1;
+    const rightIndex = Math.ceil(expectedValue) - 1;
+    const leftValue = arr[leftIndex];
+    const rightValue = arr[rightIndex];
+    const coefficient = rightIndex === leftIndex ? 0 : (rightValue - leftValue) / (rightIndex - leftIndex);
+
+    return leftValue + coefficient * (expectedValue - leftValue);
+    //return leftValue + coefficient * (rightValue - leftValue);
+
+    /*
+    if (expectedValue % 1 === 0) {
+        return (arr[expectedValue - 1] + arr[expectedValue]) / 2;
+    } else {
+        return arr[Math.floor(expectedValue)] + ;
+    }
+
+    expectedValue % 1 === 0
+        ? (arr[expectedValue / 2] + arr[expectedValue / 2 + 1]) / 2
+        : arr[Math.floor(expectedValue + 1)];
+     */
 }
