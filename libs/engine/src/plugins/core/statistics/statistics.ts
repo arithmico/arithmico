@@ -16,9 +16,13 @@ import { calculateFact } from './utils/fact';
 import { calculateCNormal, calculateNormal } from './utils/normal';
 import { calculateSd } from './utils/sd';
 import { calculateVar } from './utils/var';
+import {calculateMedian} from "./utils/median";
+
 const statisticsPlugin = createPlugin('core/statistics');
-addPluginDescription(statisticsPlugin, 'adds erf, normal, cnormal, binco, binom, cbinom functions');
+
+addPluginDescription(statisticsPlugin, 'adds erf, normal, cnormal, binco, binom, cbinom and another statistical functions');
 addPluginAuthor(statisticsPlugin, 'core');
+
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 const numberSeriesHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true, repeat: true }];
 
@@ -180,6 +184,21 @@ addPluginFunction(
             const parameterStackFrame = mapParametersToStackFrame('sd', parameters, numberSeriesHeader, context);
             const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateSd(xs));
+        },
+    ),
+);
+
+addPluginFunction(
+    statisticsPlugin,
+    createPluginFunction(
+        'median',
+        numberSeriesHeader,
+        'Calculates the median.',
+        'Berechnet den Median.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('median', parameters, numberSeriesHeader, context);
+            const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
+            return createNumberNode(calculateMedian(xs));
         },
     ),
 );
