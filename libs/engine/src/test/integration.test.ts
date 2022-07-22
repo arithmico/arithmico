@@ -85,6 +85,8 @@ integrationTest('cross([1,2,3],[-7,8,9])', '[-6, -30, 22]');
 integrationTest('cross([1,0,0],[0,1,0])', '[0, 0, 1]');
 integrationTest('median(3, 13, 7, 5, 21, 23, 39, 23, 40, 23, 14, 12, 56, 23, 29)', '23');
 integrationTest('median(2, 3, 4, 5)', '3.5');
+integrationTest('quantile(0.25, 6, 1, 3, 8, 4, 5, 2, 7, 9)', '2.5');
+integrationTest('quantile(0.75, 1, 2, 2, 3, 5, 8, 9, 12, 12, 13)', '12');
 integrationTest('sqrt(4)', '2');
 integrationTest('root(8,3)', '2');
 integrationTest('fact(0)', '1');

@@ -16,11 +16,14 @@ import { calculateFact } from './utils/fact';
 import { calculateCNormal, calculateNormal } from './utils/normal';
 import { calculateSd } from './utils/sd';
 import { calculateVar } from './utils/var';
-import {calculateMedian} from "./utils/median";
+import { calculateQuantile } from './utils/quantile';
 
 const statisticsPlugin = createPlugin('core/statistics');
 
-addPluginDescription(statisticsPlugin, 'adds erf, normal, cnormal, binco, binom, cbinom and another statistical functions');
+addPluginDescription(
+    statisticsPlugin,
+    'adds erf, normal, cnormal, binco, binom, cbinom and another statistical functions',
+);
 addPluginAuthor(statisticsPlugin, 'core');
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
@@ -35,6 +38,11 @@ const binomHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
     { name: 'p', type: 'number', evaluate: true },
     { name: 'k', type: 'number', evaluate: true },
+];
+
+const quantileHeader: FunctionHeaderItem[] = [
+    { name: 'p', type: 'number', evaluate: true },
+    { name: 'x', type: 'number', evaluate: true, repeat: true },
 ];
 
 addPluginFunction(
@@ -198,7 +206,23 @@ addPluginFunction(
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('median', parameters, numberSeriesHeader, context);
             const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
-            return createNumberNode(calculateMedian(xs));
+            return createNumberNode(calculateQuantile(0.5, xs));
+        },
+    ),
+);
+
+addPluginFunction(
+    statisticsPlugin,
+    createPluginFunction(
+        'quantile',
+        numberSeriesHeader,
+        'Calculates the p-quantile, i.e. p (between 0 and 1) divides the quantity into a part p less than or equal to and another part 1-p is greater than or equal to the quantile.',
+        'Berechnet das p-Quantil, d. h. p (zwischen 0 und 1) teilt die Menge auf in einen Teil p kleiner oder gleich und einen anderen Teil 1-p größer oder gleich dem Quantil ist.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('quantile', parameters, quantileHeader, context);
+            const p = (<NumberNode>parameterStackFrame['p']).value;
+            const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
+            return createNumberNode(calculateQuantile(p, xs));
         },
     ),
 );
