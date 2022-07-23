@@ -258,28 +258,28 @@ addPluginFunction(
         'Berechnet die Kovarianz zweier gleichgroßer Vektoren',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('cov', parameters, doubleVectorHeader, context);
-            const x = <Vector>parameterStackFrame['x'];
-            const y = <Vector>parameterStackFrame['y'];
+            const xs = <Vector>parameterStackFrame['x'];
+            const ys = <Vector>parameterStackFrame['y'];
 
-            if (!isEveryElementNumber(x)) {
-                throw 'RuntimeError: cov: All elements of x must be numbers.';
+            if (!isEveryElementNumber(xs)) {
+                throw 'RuntimeError: cov: All elements of xs must be numbers.';
             }
 
-            if (!isEveryElementNumber(y)) {
-                throw 'RuntimeError: cov: All elements of y must be numbers.';
+            if (!isEveryElementNumber(ys)) {
+                throw 'RuntimeError: cov: All elements of ys must be numbers.';
             }
 
-            const xs = x.values;
-            const ys = y.values;
+            const xsValue = xs.values;
+            const ysValue = ys.values;
 
-            if (xs.length !== ys.length) {
+            if (xsValue.length !== ysValue.length) {
                 throw 'RuntimeError: cov: Both vectors must have the same length.';
             }
 
             return createNumberNode(
                 calculateCovariance(
-                    xs.map((v) => (<NumberNode>v).value),
-                    ys.map((v) => (<NumberNode>v).value),
+                    xsValue.map((v) => (<NumberNode>v).value),
+                    ysValue.map((v) => (<NumberNode>v).value),
                 ),
             );
         },
@@ -295,25 +295,25 @@ addPluginFunction(
         'Berechnet den Korrelationskoeffizienten (Pearson) zweier gleichgroßer Vektoren',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('corr', parameters, doubleVectorHeader, context);
-            const x = <Vector>parameterStackFrame['x'];
-            const y = <Vector>parameterStackFrame['y'];
+            const xs = <Vector>parameterStackFrame['x'];
+            const ys = <Vector>parameterStackFrame['y'];
 
-            if (!isEveryElementNumber(x)) {
-                throw 'RuntimeError: corr: All elements of x must be numbers.';
+            if (!isEveryElementNumber(xs)) {
+                throw 'RuntimeError: corr: All elements of xs must be numbers.';
             }
 
-            if (!isEveryElementNumber(y)) {
-                throw 'RuntimeError: corr: All elements of y must be numbers.';
+            if (!isEveryElementNumber(ys)) {
+                throw 'RuntimeError: corr: All elements of ys must be numbers.';
             }
 
-            const xs = x.values.map((v) => (<NumberNode>v).value);
-            const ys = y.values.map((v) => (<NumberNode>v).value);
+            const xsValue = xs.values.map((v) => (<NumberNode>v).value);
+            const ysValue = ys.values.map((v) => (<NumberNode>v).value);
 
-            if (xs.length !== ys.length) {
+            if (xsValue.length !== ysValue.length) {
                 throw 'RuntimeError: corr: Both vectors must have the same length.';
             }
 
-            return createNumberNode(calculateCorrelationCoefficient(xs, ys));
+            return createNumberNode(calculateCorrelationCoefficient(xsValue, ysValue));
         },
     ),
 );

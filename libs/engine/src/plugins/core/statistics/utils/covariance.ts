@@ -1,14 +1,14 @@
 import { calculateAvg } from './avg';
 
-export function calculateCovariance(x: number[], y: number[]): number {
-    const mean_x = calculateAvg(x);
-    const mean_y = calculateAvg(y);
+export function calculateCovariance(xs: number[], ys: number[]): number {
+    const meanX = calculateAvg(xs);
+    const meanY = calculateAvg(ys);
 
     return (
-        new Array(x.length)
+        new Array(xs.length)
             .fill(0)
-            .map((_, index) => (x[index] - mean_x) * (y[index] - mean_y))
+            .map((_, index) => (xs[index] - meanX) * (ys[index] - meanY))
             .reduce((a, b) => a + b) /
-        (x.length - 1)
+        (xs.length - 1)
     );
 }
