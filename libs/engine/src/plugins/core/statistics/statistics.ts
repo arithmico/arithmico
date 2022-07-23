@@ -18,6 +18,8 @@ import { calculateSd } from './utils/sd';
 import { calculateVar } from './utils/var';
 import { calculateQuantile } from './utils/quantile';
 import { isEveryElementNumber } from '../../../utils/tensor-utils';
+import { calculateCovariance } from './utils/covariance';
+import { calculateCorrelationCoefficient } from './utils/corr';
 
 const statisticsPlugin = createPlugin('core/statistics');
 
@@ -44,6 +46,11 @@ const binomHeader: FunctionHeaderItem[] = [
 const quantileHeader: FunctionHeaderItem[] = [
     { name: 'p', type: 'number', evaluate: true },
     { name: 'xs', type: 'vector', evaluate: true },
+];
+
+const doubleVectorHeader: FunctionHeaderItem[] = [
+    { name: 'x', type: 'vector', evaluate: true },
+    { name: 'y', type: 'vector', evaluate: true },
 ];
 
 addPluginFunction(
@@ -238,6 +245,75 @@ addPluginFunction(
                     xs.values.map((x) => (<NumberNode>x).value),
                 ),
             );
+        },
+    ),
+);
+
+addPluginFunction(
+    statisticsPlugin,
+    createPluginFunction(
+        'cov',
+        doubleVectorHeader,
+        'Calculates the covariance of two vectors of the same size.',
+        'Berechnet die Kovarianz zweier gleichgroßer Vektoren',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('cov', parameters, doubleVectorHeader, context);
+            const x = <Vector>parameterStackFrame['x'];
+            const y = <Vector>parameterStackFrame['y'];
+
+            if (!isEveryElementNumber(x)) {
+                throw 'RuntimeError: cov: All elements of x must be numbers.';
+            }
+
+            if (!isEveryElementNumber(y)) {
+                throw 'RuntimeError: cov: All elements of y must be numbers.';
+            }
+
+            const xs = x.values;
+            const ys = y.values;
+
+            if (xs.length !== ys.length) {
+                throw 'RuntimeError: cov: Both vectors must have the same length.';
+            }
+
+            return createNumberNode(
+                calculateCovariance(
+                    xs.map((v) => (<NumberNode>v).value),
+                    ys.map((v) => (<NumberNode>v).value),
+                ),
+            );
+        },
+    ),
+);
+
+addPluginFunction(
+    statisticsPlugin,
+    createPluginFunction(
+        'corr',
+        doubleVectorHeader,
+        'Calculates the Pearson correlation coefficient of two vectors of the same size.',
+        'Berechnet den Korrelationskoeffizienten (Pearson) zweier gleichgroßer Vektoren',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('corr', parameters, doubleVectorHeader, context);
+            const x = <Vector>parameterStackFrame['x'];
+            const y = <Vector>parameterStackFrame['y'];
+
+            if (!isEveryElementNumber(x)) {
+                throw 'RuntimeError: corr: All elements of x must be numbers.';
+            }
+
+            if (!isEveryElementNumber(y)) {
+                throw 'RuntimeError: corr: All elements of y must be numbers.';
+            }
+
+            const xs = x.values.map((v) => (<NumberNode>v).value);
+            const ys = y.values.map((v) => (<NumberNode>v).value);
+
+            if (xs.length !== ys.length) {
+                throw 'RuntimeError: corr: Both vectors must have the same length.';
+            }
+
+            return createNumberNode(calculateCorrelationCoefficient(xs, ys));
         },
     ),
 );

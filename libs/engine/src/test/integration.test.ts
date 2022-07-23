@@ -87,6 +87,13 @@ integrationTest('median(3, 13, 7, 5, 21, 23, 39, 23, 40, 23, 14, 12, 56, 23, 29)
 integrationTest('median(2, 3, 4, 5)', '3.5');
 integrationTest('quantile(0.25, [6, 1, 3, 8, 4, 5, 2, 7, 9])', '2.5');
 integrationTest('quantile(0.75, [1, 2, 2, 3, 5, 8, 9, 12, 12, 13])', '12');
+/*
+integrationTest('cov([18, 2, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])', '222.93');
+integrationTest(
+    'corr([10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5], [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68])',
+    '0.816420',
+);
+ */
 integrationTest('sqrt(4)', '2');
 integrationTest('root(8,3)', '2');
 integrationTest('fact(0)', '1');
@@ -156,6 +163,14 @@ integrationTestThrow('lg(-1)');
 integrationTestThrow('1,2+1,3');
 integrationTestThrow('((x; y) -> x + y)(1;2)');
 integrationTestThrow('median(1, 3, a)');
+integrationTestThrow('quantile(0.8, [2, a, 4, 5])');
+integrationTestThrow('quantile(-0.8, [2, 3, 4, 5])');
+integrationTestThrow('cov([18, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])');
+integrationTestThrow('cov([18, a, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])');
+integrationTestThrow('cov([18, 2, 42, 14, 22, 35, 45, 8], [22, b, 53, 30, 25, 36, 45, 13])');
+integrationTestThrow('corr([18, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])');
+integrationTestThrow('corr([18, a, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])');
+integrationTestThrow('corr([18, 2, 42, 14, 22, 35, 45, 8], [22, b, 53, 30, 25, 36, 45, 13])');
 integrationTestThrow('sqrt(-1)');
 integrationTestThrow('root(-1, 2)');
 integrationTestThrow('root(1, -2)');
