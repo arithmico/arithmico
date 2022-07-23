@@ -83,17 +83,18 @@ integrationTest('1,2+1,3', '2,5', germanTextContext);
 integrationTest('((x; y) -> x + y)(1;2)', '3', germanTextContext);
 integrationTest('cross([1,2,3],[-7,8,9])', '[-6, -30, 22]');
 integrationTest('cross([1,0,0],[0,1,0])', '[0, 0, 1]');
+integrationTest('avg(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '9');
+integrationTest('var(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '11');
+integrationTest('sd(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '3.316625');
 integrationTest('median(3, 13, 7, 5, 21, 23, 39, 23, 40, 23, 14, 12, 56, 23, 29)', '23');
 integrationTest('median(2, 3, 4, 5)', '3.5');
 integrationTest('quantile(0.25, [6, 1, 3, 8, 4, 5, 2, 7, 9])', '2.5');
 integrationTest('quantile(0.75, [1, 2, 2, 3, 5, 8, 9, 12, 12, 13])', '12');
-/*
-integrationTest('cov([18, 2, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])', '222.93');
+integrationTest('cov([18, 2, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])', '222.928571');
 integrationTest(
     'corr([10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5], [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68])',
-    '0.816420',
+    '0.816421',
 );
- */
 integrationTest('sqrt(4)', '2');
 integrationTest('root(8,3)', '2');
 integrationTest('fact(0)', '1');
