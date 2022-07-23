@@ -9,7 +9,7 @@ import {
     createPluginFunction,
 } from '../../../utils/plugin-builder';
 
-const absPlugin = createPlugin('abs');
+const absPlugin = createPlugin('core/abs');
 addPluginAuthor(absPlugin, 'core');
 addPluginDescription(absPlugin, 'adds abs and length functions');
 

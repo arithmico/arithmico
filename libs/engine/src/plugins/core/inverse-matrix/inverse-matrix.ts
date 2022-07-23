@@ -92,7 +92,7 @@ addPluginFunction(
         'matrix:adj',
         adjHeader,
         'calculates the adjugate matrix',
-        'Berechneet die adjunkte Matrix.',
+        'Berechnet die adjunkte Matrix.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('matrix:adj', parameters, adjHeader, context);
             const tensor = <Vector>parameterStackFrame['n'];
@@ -119,7 +119,7 @@ addPluginFunction(
         'matrix:cof',
         cofHeader,
         'calculates the cofactor matrix',
-        'Berechneet die Cofaktormatrix.',
+        'Berechnet die Cofaktormatrix.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('matrix:cof', parameters, cofHeader, context);
             const tensor = <Vector>parameterStackFrame['n'];

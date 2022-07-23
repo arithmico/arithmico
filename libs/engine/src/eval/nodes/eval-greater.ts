@@ -8,16 +8,12 @@ export default function evaluateGreater(node: Greater, context: Context): Syntax
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
 
-    if (
-        leftChild.type === 'number' &&
-        rightChild.type === 'number' &&
-        context.options.config.operators.greaterNumberNumber
-    ) {
+    if (leftChild.type === 'number' && rightChild.type === 'number' && context.options.operators.greaterNumberNumber) {
         return createBooleanNode(leftChild.value > rightChild.value);
     } else if (
         leftChild.type === 'function' &&
         rightChild.type === 'function' &&
-        context.options.config.operators.greaterFunctionFunction
+        context.options.operators.greaterFunctionFunction
     ) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createGreater, context);
     }

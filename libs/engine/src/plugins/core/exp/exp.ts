@@ -10,7 +10,7 @@ import {
     createPluginFunction,
 } from '../../../utils/plugin-builder';
 
-const expPlugin = createPlugin('exp');
+const expPlugin = createPlugin('core/exp');
 addPluginAuthor(expPlugin, 'core');
 addPluginDescription(expPlugin, 'adds e, exp, log, lg');
 

@@ -174,20 +174,13 @@ Plus = left:Minus _ "+" _ right:Plus {
 MinusItem = _ "-" _ item:Times {
     return item;
 }
-Minus = first:(Times / Negate) rest:MinusItem+ {
+Minus = first:Times rest:MinusItem+ {
     const items = [first, ...rest];
     return items.reduce((left, right) => ({
         type: "minus",
         left, 
         right
     }));
-} / Negate
-
-Negate = _ "-" _ value:Negate {
-    return {
-        type: "negate",
-        value
-    };
 } / Times
 
 Times = left:Divided _ "*" _ right:Times {
@@ -198,7 +191,7 @@ Times = left:Divided _ "*" _ right:Times {
     };
 } / Divided
 
-// the ugly way to eliminate left recursion 
+// the ugly way to eliminate left recursion
 DividedItem = _ "/" _ item:Power {
     return item;
 }
@@ -206,21 +199,28 @@ Divided = first:Power rest:DividedItem+ {
     const items = [first, ...rest];
     return items.reduce((left, right) => ({
         type: "divided",
-        left, 
+        left,
         right
     }));
 } / Power
 
-Power = left:Value _ "^" _ right:Value {
+Power = left:Value _ "^" _ right:Negate {
     return {
         type: "power",
         left, 
         right
     };
+} / Negate
+
+Negate = _ "-" _ value:Power {
+    return {
+        type: "negate",
+        value
+    };
 } / Value
 
 // values
-Value = Boolean 
+Value = Boolean
 / FunctionCall 
 / DefineLambdaFunction
 / Symbol 

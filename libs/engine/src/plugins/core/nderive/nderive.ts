@@ -14,7 +14,7 @@ import {
 
 const H_COEFFICIENT = 1e-6;
 
-const nderivePlugin = createPlugin('nderive');
+const nderivePlugin = createPlugin('core/nderive');
 
 addPluginAuthor(nderivePlugin, 'core');
 addPluginDescription(nderivePlugin, 'adds nderive function');

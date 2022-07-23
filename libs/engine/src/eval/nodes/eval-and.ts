@@ -8,16 +8,12 @@ export default function evaluateAnd(node: And, context: Context): SyntaxTreeNode
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
 
-    if (
-        leftChild.type === 'boolean' &&
-        rightChild.type === 'boolean' &&
-        context.options.config.operators.andBooleanBoolean
-    ) {
+    if (leftChild.type === 'boolean' && rightChild.type === 'boolean' && context.options.operators.andBooleanBoolean) {
         return createBooleanNode(leftChild.value && rightChild.value);
     } else if (
         leftChild.type === 'function' &&
         rightChild.type === 'function' &&
-        context.options.config.operators.andFunctionFunction
+        context.options.operators.andFunctionFunction
     ) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createAnd, context);
     }

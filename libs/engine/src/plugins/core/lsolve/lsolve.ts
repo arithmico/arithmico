@@ -5,13 +5,13 @@ import createSymbolNode from '../../../create/create-symbol-node';
 import createVector from '../../../create/create-vector';
 import normalize from '../../../normalize';
 import serialize from '../../../serialize';
-import {Equals, FunctionHeaderItem} from '../../../types/SyntaxTreeNodes';
-import {addPluginAuthor, addPluginDescription, addPluginFunction, createPlugin} from '../../../utils/plugin-builder';
-import {isEquationLinear} from './utils/check-linear';
-import {getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations} from './utils/get-coefficients';
-import {cramerSolver, det} from '../../../utils/matrix-utils';
+import { Equals, FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
+import { addPluginAuthor, addPluginDescription, addPluginFunction, createPlugin } from '../../../utils/plugin-builder';
+import { isEquationLinear } from './utils/check-linear';
+import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from './utils/get-coefficients';
+import { cramerSolver, det } from '../../../utils/matrix-utils';
 
-const lsolvePlugin = createPlugin('lsolve');
+const lsolvePlugin = createPlugin('core/lsolve');
 
 addPluginAuthor(lsolvePlugin, 'core');
 addPluginDescription(lsolvePlugin, 'adds lsolve function');

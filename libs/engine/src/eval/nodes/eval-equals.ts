@@ -11,16 +11,14 @@ export default function evaluateEquals(node: Equals, context: Context): SyntaxTr
     if (
         (leftChild.type === 'boolean' &&
             rightChild.type === 'boolean' &&
-            context.options.config.operators.equalsBooleanBoolean) ||
-        (leftChild.type === 'number' &&
-            rightChild.type === 'number' &&
-            context.options.config.operators.equalsNumberNumber)
+            context.options.operators.equalsBooleanBoolean) ||
+        (leftChild.type === 'number' && rightChild.type === 'number' && context.options.operators.equalsNumberNumber)
     ) {
         return createBooleanNode(leftChild.value === rightChild.value);
     } else if (
         leftChild.type === 'function' &&
         rightChild.type === 'function' &&
-        context.options.config.operators.equalsFunctionFunction
+        context.options.operators.equalsFunctionFunction
     ) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createEquals, context);
     }
