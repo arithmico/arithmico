@@ -17,6 +17,11 @@ function bold(boldValue: string, nonBoldValue: string) {
 }
 
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
+  * {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+  }
+  
   .os-theme-dark.os-theme-custom > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
     background-color: var(--me-background-300);
   }
