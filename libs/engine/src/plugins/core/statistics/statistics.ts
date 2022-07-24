@@ -49,8 +49,8 @@ const quantileHeader: FunctionHeaderItem[] = [
 ];
 
 const doubleVectorHeader: FunctionHeaderItem[] = [
-    { name: 'x', type: 'vector', evaluate: true },
-    { name: 'y', type: 'vector', evaluate: true },
+    { name: 'xs', type: 'vector', evaluate: true },
+    { name: 'ys', type: 'vector', evaluate: true },
 ];
 
 addPluginFunction(
@@ -258,8 +258,8 @@ addPluginFunction(
         'Berechnet die Kovarianz zweier gleichgroßer Vektoren',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('cov', parameters, doubleVectorHeader, context);
-            const xs = <Vector>parameterStackFrame['x'];
-            const ys = <Vector>parameterStackFrame['y'];
+            const xs = <Vector>parameterStackFrame['xs'];
+            const ys = <Vector>parameterStackFrame['ys'];
 
             if (!isEveryElementNumber(xs)) {
                 throw 'RuntimeError: cov: All elements of xs must be numbers.';
@@ -295,8 +295,8 @@ addPluginFunction(
         'Berechnet den Korrelationskoeffizienten (Pearson) zweier gleichgroßer Vektoren',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('corr', parameters, doubleVectorHeader, context);
-            const xs = <Vector>parameterStackFrame['x'];
-            const ys = <Vector>parameterStackFrame['y'];
+            const xs = <Vector>parameterStackFrame['xs'];
+            const ys = <Vector>parameterStackFrame['ys'];
 
             if (!isEveryElementNumber(xs)) {
                 throw 'RuntimeError: corr: All elements of xs must be numbers.';
