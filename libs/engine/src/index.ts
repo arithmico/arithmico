@@ -26,6 +26,7 @@ import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
 import fibPlugin from './plugins/core/fibonacci/fib';
+import polynomialPlugin from './plugins/core/polynom/polynomial';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -48,6 +49,7 @@ const plugins = [
     moduloPlugin,
     inverseMatrixPlugin,
     fibPlugin,
+    polynomialPlugin,
 ];
 
 let defaultContext: Context;
