@@ -1,5 +1,10 @@
 import { NumberNode, SymbolNode, SyntaxTreeNode } from '../types/SyntaxTreeNodes';
 import { convertOperatorChainToList } from './symbolic-utils';
+import createTimes from '../create/create-times';
+import createNumberNode from '../create/create-number-node';
+import createPower from '../create/create-power';
+import createSymbolNode from '../create/create-symbol-node';
+import createPlus from '../create/create-plus';
 
 interface Monomial {
     coefficient: number;
@@ -92,8 +97,26 @@ function getSummandBase(summand: SyntaxTreeNode) {
     throw 'RuntimeError: there are multiple bases';
 }
 
-export function isPolynomialValid(node: SyntaxTreeNode) {
-    return false;
+export function isPolynomialMathematicallyValid(node: SyntaxTreeNode) {
+    const summands = getSummands(node);
+
+    if (!summands.every((summand) => getSummandDegree(summand) >= 0 && getSummandDegree(summand) % 1 === 0)) {
+        return false;
+    }
+
+    const symbol = getSummandBase(summands[0]);
+
+    if (
+        !summands.every(
+            (summand) =>
+                getSummandBase(summand) === symbol ||
+                (getSummandDegree(summand) === 0 && getSummandBase(summand)) === '',
+        )
+    ) {
+        return false;
+    }
+
+    return true;
 }
 
 export function getPolynomial(node: SyntaxTreeNode): Monomial[] {
@@ -109,4 +132,41 @@ export function getPolynomial(node: SyntaxTreeNode): Monomial[] {
                 },
         )
         .sort((a, b) => b.degree - a.degree);
+}
+
+function getSyntaxTreeNodeFromMonomial(monomial: Monomial): SyntaxTreeNode {
+    switch (monomial.degree) {
+        case 0:
+            return createNumberNode(monomial.coefficient);
+        case 1:
+            return createTimes(
+                createNumberNode(monomial.coefficient),
+                typeof monomial.base === 'string' ? createSymbolNode(monomial.base) : createNumberNode(monomial.base),
+            );
+        default:
+            return createTimes(
+                createNumberNode(monomial.coefficient),
+                createPower(
+                    typeof monomial.base === 'string'
+                        ? createSymbolNode(monomial.base)
+                        : createNumberNode(monomial.base),
+                    createNumberNode(monomial.degree),
+                ),
+            );
+    }
+}
+
+export function getSyntaxTreeNodeFromPolynomial(polynomial: Monomial[]): SyntaxTreeNode {
+    const firstMonomial = getSyntaxTreeNodeFromMonomial(polynomial[0]);
+
+    if (polynomial.length === 1) {
+        return firstMonomial;
+    }
+
+    let currentSyntaxTreeNode = firstMonomial;
+    for (let i = 1; i < polynomial.length - 1; i++) {
+        const newSyntaxTreeNode = getSyntaxTreeNodeFromMonomial(polynomial[i]);
+        currentSyntaxTreeNode = createPlus(currentSyntaxTreeNode, newSyntaxTreeNode);
+    }
+    return currentSyntaxTreeNode;
 }

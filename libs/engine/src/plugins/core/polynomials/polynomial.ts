@@ -8,7 +8,7 @@ import {
 import { FunctionHeaderItem, SyntaxTreeNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
-import {getPolynomial, isPolynomialValid} from "../../../utils/polynomial-syntax-tree-utils";
+import {getPolynomial, isPolynomialMathematicallyValid} from "../../../utils/polynomial-syntax-tree-utils";
 
 const polynomialPlugin = createPlugin('core/polynomial');
 addPluginDescription(polynomialPlugin, 'Adds polynomial division and another functions on polynoms.');
@@ -33,7 +33,7 @@ addPluginFunction(
 
             const polynomial = getPolynomial(n);
 
-            if (!isPolynomialValid(n)) {
+            if (!isPolynomialMathematicallyValid(n)) {
                 throw '';
             }
 
