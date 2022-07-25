@@ -392,10 +392,10 @@ test('getPolynomial() 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
         ),
         // 4*x^5 - x^0 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3
     ).toStrictEqual([
-        { coefficient: 2, base: '', degree: 0 },
         { coefficient: 4, base: 'x', degree: 5 },
         { coefficient: 4, base: 'y', degree: 4 },
         { coefficient: -6, base: 'x', degree: 3 },
         { coefficient: 2, base: 'x', degree: 1 },
+        { coefficient: 2, base: '', degree: 0 },
     ]);
 });

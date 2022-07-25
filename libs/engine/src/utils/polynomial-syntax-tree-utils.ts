@@ -99,12 +99,14 @@ export function isPolynomialValid(node: SyntaxTreeNode) {
 export function getPolynomial(node: SyntaxTreeNode): Monomial[] {
     const summands = getSummands(node);
 
-    return summands.map(
-        (summand) =>
-            <Monomial>{
-                coefficient: getSummandCoefficient(summand),
-                base: getSummandBase(summand),
-                degree: getSummandDegree(summand),
-            },
-    );
+    return summands
+        .map(
+            (summand) =>
+                <Monomial>{
+                    coefficient: getSummandCoefficient(summand),
+                    base: getSummandBase(summand),
+                    degree: getSummandDegree(summand),
+                },
+        )
+        .sort((a, b) => b.degree - a.degree);
 }
