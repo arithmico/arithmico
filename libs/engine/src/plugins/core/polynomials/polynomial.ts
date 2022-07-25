@@ -8,15 +8,17 @@ import {
 import { FunctionHeaderItem, SyntaxTreeNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
-import {getPolynomial, isPolynomialMathematicallyValid} from "../../../utils/polynomial-syntax-tree-utils";
+import { getPolynomial, getSyntaxTreeNodeFromPolynomial } from '../../../utils/polynomial-syntax-tree-utils';
+import normalize from '../../../normalize';
+import { calculatePolynomialSum } from './utils/polynomial-utils';
 
 const polynomialPlugin = createPlugin('core/polynomial');
 addPluginDescription(polynomialPlugin, 'Adds polynomial division and another functions on polynoms.');
 addPluginAuthor(polynomialPlugin, 'core');
 
 const doublePolynomialHeader: FunctionHeaderItem[] = [
-    { name: 'n', type: 'any', evaluate: true },
-    { name: 'm', type: 'any', evaluate: true },
+    { name: 'p', type: 'any', evaluate: true },
+    { name: 'q', type: 'any', evaluate: true },
 ];
 
 addPluginFunction(
@@ -24,20 +26,17 @@ addPluginFunction(
     createPluginFunction(
         'padd',
         doublePolynomialHeader,
-        'Adds two polynomials n and m.',
-        'Addiert zwei Polynome n und m.',
+        'Adds two polynomials p and q.',
+        'Addiert zwei Polynome p und q.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('padd', parameters, doublePolynomialHeader, context);
-            const n = <SyntaxTreeNode>parameterStackFrame['n'];
-            const m = <SyntaxTreeNode>parameterStackFrame['m'];
+            const p = <SyntaxTreeNode>parameterStackFrame['p'];
+            const q = <SyntaxTreeNode>parameterStackFrame['q'];
 
-            const polynomial = getPolynomial(n);
+            const polynomialP = getPolynomial(normalize(p, context));
+            const polynomialQ = getPolynomial(normalize(q, context));
 
-            if (!isPolynomialMathematicallyValid(n)) {
-                throw '';
-            }
-
-            return createNumberNode(0);
+            return getSyntaxTreeNodeFromPolynomial(calculatePolynomialSum(polynomialP, polynomialQ));
         },
     ),
 );
@@ -47,12 +46,12 @@ addPluginFunction(
     createPluginFunction(
         'pdiv',
         doublePolynomialHeader,
-        'Divides two polynomials, the dividend n must have an equal or higher degree than the dividend m.',
-        'Dividiert zwei Polynome, der Dividiend n muss einen gleichen oder höheren Grad als der Dividend m aufweisen.',
+        'Divides two polynomials, the dividend p must have an equal or higher degree than the dividend q.',
+        'Dividiert zwei Polynome, der Dividiend p muss einen gleichen oder höheren Grad als der Dividend q aufweisen.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('pdiv', parameters, doublePolynomialHeader, context);
-            const n = <SyntaxTreeNode>parameterStackFrame['n'];
-            const m = <SyntaxTreeNode>parameterStackFrame['m'];
+            const p = <SyntaxTreeNode>parameterStackFrame['p'];
+            const q = <SyntaxTreeNode>parameterStackFrame['q'];
             // todo
             return createNumberNode(0);
         },

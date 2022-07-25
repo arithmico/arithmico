@@ -1,7 +1,7 @@
 import createNumberNode from '../../../../create/create-number-node';
 import { Context, Equals, NumberNode } from '../../../../types';
 import { getVariableNames } from '../../../../utils/symbolic-utils';
-import { getSummandCoefficient, getSummands } from '../../../../utils/polynomial-syntax-tree-utils';
+import { getMonomialCoefficientFromSummand, getSummands } from '../../../../utils/polynomial-syntax-tree-utils';
 
 export function getVariableNamesFromEquations(equations: Equals[], context: Context): string[] {
     return [
@@ -21,7 +21,7 @@ export function getCoefficientMatrix(equations: Equals[], context: Context): num
 
         summands.forEach((summand) => {
             const variables = getVariableNames(summand, context);
-            const coefficient = createNumberNode(getSummandCoefficient(summand));
+            const coefficient = createNumberNode(getMonomialCoefficientFromSummand(summand));
 
             if (variables.length !== 1) {
                 return;

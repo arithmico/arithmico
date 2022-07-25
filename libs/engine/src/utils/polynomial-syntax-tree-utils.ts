@@ -6,7 +6,7 @@ import createPower from '../create/create-power';
 import createSymbolNode from '../create/create-symbol-node';
 import createPlus from '../create/create-plus';
 
-interface Monomial {
+export interface Monomial {
     coefficient: number;
     base: string | number;
     degree: number;
@@ -20,7 +20,7 @@ export function getFactors(summand: SyntaxTreeNode): SyntaxTreeNode[] {
     return convertOperatorChainToList('times', summand);
 }
 
-export function getSummandCoefficient(summand: SyntaxTreeNode): number {
+export function getMonomialCoefficientFromSummand(summand: SyntaxTreeNode): number {
     const factors = getFactors(summand);
     const coefficients = <NumberNode[]>factors.filter((factor) => factor.type === 'number');
 
@@ -45,18 +45,18 @@ function isSummandLinear(summand: SyntaxTreeNode) {
 }
 
 function isSummandConstant(summand: SyntaxTreeNode) {
-    const summandParts = convertOperatorChainToList('times', summand);
+    const factors = convertOperatorChainToList('times', summand);
     return (
-        (summandParts.length === 1 && summand.type !== 'times' && summandParts[0].type === 'number') ||
-        (summandParts.length === 2 &&
+        (factors.length === 1 && summand.type !== 'times' && factors[0].type === 'number') ||
+        (factors.length === 2 &&
             summand.type === 'times' &&
-            summandParts[1].type === 'number' &&
-            summandParts[1].value === 1)
+            factors[1].type === 'number' &&
+            factors[1].value === 1)
     );
 }
 
-function getSummandDegree(summand: SyntaxTreeNode): number {
-    const summandParts = convertOperatorChainToList('times', summand);
+function getMonomialDegreeFromSummand(summand: SyntaxTreeNode): number {
+    const factors = convertOperatorChainToList('times', summand);
 
     if (isSummandLinear(summand)) {
         return 1;
@@ -66,7 +66,7 @@ function getSummandDegree(summand: SyntaxTreeNode): number {
     }
 
     const degrees: NumberNode[] = <NumberNode[]>(
-        convertOperatorChainToList('power', summandParts[1]).filter((factor) => factor.type === 'number')
+        convertOperatorChainToList('power', factors[1]).filter((factor) => factor.type === 'number')
     );
 
     if (degrees.length === 1) {
@@ -76,47 +76,47 @@ function getSummandDegree(summand: SyntaxTreeNode): number {
     throw 'RuntimeError: multiple degrees';
 }
 
-function getSummandBase(summand: SyntaxTreeNode) {
-    const summandParts = convertOperatorChainToList('times', summand);
+function getMonomialBaseFromSummand(summand: SyntaxTreeNode) {
+    const factors = convertOperatorChainToList('times', summand);
 
-    if (isSummandLinear(summand) && summandParts[1].type === 'symbol') {
-        return summandParts[1].name;
+    if (isSummandLinear(summand) && factors[1].type === 'symbol') {
+        return factors[1].name;
     }
     if (isSummandConstant(summand)) {
         return '';
     }
 
     const bases: SymbolNode[] = <SymbolNode[]>(
-        convertOperatorChainToList('power', summandParts[1]).filter((factor) => factor.type === 'symbol')
+        convertOperatorChainToList('power', factors[1]).filter((factor) => factor.type === 'symbol')
     );
 
     if (bases.length === 1) {
         return bases[0].name;
     }
 
-    throw 'RuntimeError: there are multiple bases';
+    throw 'RuntimeError: multiple bases';
+}
+
+function isPolynomialDegreeValid(factors: SyntaxTreeNode[]) {
+    return factors.every((summand) => getMonomialDegreeFromSummand(summand) >= 0 && getMonomialDegreeFromSummand(summand) % 1 === 0);
+}
+
+function isEveryPolynomialBaseSame(factors: SyntaxTreeNode[]) {
+    const symbol = getMonomialBaseFromSummand(factors[0]);
+    return factors.every(
+        (summand) =>
+            getMonomialBaseFromSummand(summand) === symbol || (getMonomialDegreeFromSummand(summand) === 0 && getMonomialBaseFromSummand(summand)) === '',
+    );
 }
 
 export function isPolynomialMathematicallyValid(node: SyntaxTreeNode) {
-    const summands = getSummands(node);
+    const factors = getSummands(node);
 
-    if (!summands.every((summand) => getSummandDegree(summand) >= 0 && getSummandDegree(summand) % 1 === 0)) {
+    if (!isPolynomialDegreeValid(factors)) {
         return false;
     }
 
-    const symbol = getSummandBase(summands[0]);
-
-    if (
-        !summands.every(
-            (summand) =>
-                getSummandBase(summand) === symbol ||
-                (getSummandDegree(summand) === 0 && getSummandBase(summand)) === '',
-        )
-    ) {
-        return false;
-    }
-
-    return true;
+    return isEveryPolynomialBaseSame(factors);
 }
 
 export function getPolynomial(node: SyntaxTreeNode): Monomial[] {
@@ -124,11 +124,11 @@ export function getPolynomial(node: SyntaxTreeNode): Monomial[] {
 
     return summands
         .map(
-            (summand) =>
+            (factor) =>
                 <Monomial>{
-                    coefficient: getSummandCoefficient(summand),
-                    base: getSummandBase(summand),
-                    degree: getSummandDegree(summand),
+                    coefficient: getMonomialCoefficientFromSummand(factor),
+                    base: getMonomialBaseFromSummand(factor),
+                    degree: getMonomialDegreeFromSummand(factor),
                 },
         )
         .sort((a, b) => b.degree - a.degree);
