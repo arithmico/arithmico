@@ -28,6 +28,7 @@ function normalizeTest(input: string, expectedOutput: string, context: Context =
 normalizeTest('42', '42');
 normalizeTest('true', 'true');
 normalizeTest('x', 'x');
+normalizeTest('x^1', 'x');
 normalizeTest('x + 2', '2 + x');
 normalizeTest('2 + 2', '4');
 normalizeTest('a + b + c', 'a + b + c');
@@ -45,6 +46,9 @@ normalizeTest('x*y*x*y', 'x^2 * y^2');
 normalizeTest('x * x', 'x^2');
 normalizeTest('x^2 * x^3', 'x^5');
 normalizeTest('x^n * x^m', 'x^(n + m)');
+normalizeTest('x^0', '1');
+normalizeTest('3 * x^0', '3 * 1');
+normalizeTest('2 + 3 * x^0', '5 * 1');
 normalizeTest('2 + 3', '5');
 normalizeTest('2 * 3', '6');
 normalizeTest('2 / 4', '0.5');

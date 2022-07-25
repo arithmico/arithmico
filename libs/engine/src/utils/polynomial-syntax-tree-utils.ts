@@ -27,6 +27,10 @@ export function getSummandCoefficient(summand: SyntaxTreeNode): number {
         return coefficients[0].value;
     }
 
+    if (isSummandConstant(summand) && factors[0].type === 'number') {
+        return factors[0].value;
+    }
+
     throw 'RuntimeError: multiple coefficients';
 }
 
@@ -37,7 +41,13 @@ function isSummandLinear(summand: SyntaxTreeNode) {
 
 function isSummandConstant(summand: SyntaxTreeNode) {
     const summandParts = convertOperatorChainToList('times', summand);
-    return summandParts.length === 1 && summand.type !== 'times' && summandParts[0].type === 'number';
+    return (
+        (summandParts.length === 1 && summand.type !== 'times' && summandParts[0].type === 'number') ||
+        (summandParts.length === 2 &&
+            summand.type === 'times' &&
+            summandParts[1].type === 'number' &&
+            summandParts[1].value === 1)
+    );
 }
 
 function getSummandDegree(summand: SyntaxTreeNode): number {
@@ -79,7 +89,7 @@ function getSummandBase(summand: SyntaxTreeNode) {
         return bases[0].name;
     }
 
-    throw 'RuntimeError: there are none or multiple bases';
+    throw 'RuntimeError: there are multiple bases';
 }
 
 export function isPolynomialValid(node: SyntaxTreeNode) {

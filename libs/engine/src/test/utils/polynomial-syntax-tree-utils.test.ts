@@ -246,6 +246,34 @@ test('getPolynomial() 2', () => {
     ).toStrictEqual([{ coefficient: 2, base: '', degree: 0 }]);
 });
 
+test('getPolynomial() 2 + x^0', () => {
+    expect(
+        getPolynomial(
+            normalize(
+                <SyntaxTreeNode>{
+                    type: 'plus',
+                    left: {
+                        type: 'number',
+                        value: 2,
+                    },
+                    right: {
+                        type: 'power',
+                        left: {
+                            type: 'symbol',
+                            name: 'x',
+                        },
+                        right: {
+                            type: 'number',
+                            value: 0,
+                        },
+                    },
+                },
+                testContext,
+            ),
+        ),
+    ).toStrictEqual([{ coefficient: 3, base: '', degree: 0 }]);
+});
+
 test('getPolynomial() 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
     expect(
         getPolynomial(
@@ -253,10 +281,24 @@ test('getPolynomial() 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
                 <SyntaxTreeNode>{
                     type: 'plus',
                     left: {
-                        type: 'times',
+                        type: 'minus',
                         left: {
-                            type: 'number',
-                            value: 4,
+                            type: 'times',
+                            left: {
+                                type: 'number',
+                                value: 4,
+                            },
+                            right: {
+                                type: 'power',
+                                left: {
+                                    type: 'symbol',
+                                    name: 'x',
+                                },
+                                right: {
+                                    type: 'number',
+                                    value: 5,
+                                },
+                            },
                         },
                         right: {
                             type: 'power',
@@ -266,7 +308,7 @@ test('getPolynomial() 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
                             },
                             right: {
                                 type: 'number',
-                                value: 5,
+                                value: 0,
                             },
                         },
                     },
@@ -348,9 +390,9 @@ test('getPolynomial() 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
                 testContext,
             ),
         ),
-        // 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3
+        // 4*x^5 - x^0 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3
     ).toStrictEqual([
-        { coefficient: 3, base: '', degree: 0 },
+        { coefficient: 2, base: '', degree: 0 },
         { coefficient: 4, base: 'x', degree: 5 },
         { coefficient: 4, base: 'y', degree: 4 },
         { coefficient: -6, base: 'x', degree: 3 },
