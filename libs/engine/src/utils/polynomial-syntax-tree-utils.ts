@@ -1,6 +1,6 @@
-import { NumberNode, Power, SyntaxTreeNode } from '../types/SyntaxTreeNodes';
+import { NumberNode, SymbolNode, SyntaxTreeNode } from '../types/SyntaxTreeNodes';
 import { convertOperatorChainToList } from './symbolic-utils';
-import polynomial from '../plugins/core/polynomials/polynomial';
+import { stringify } from 'querystring';
 
 interface Monomial {
     coefficient: number;
@@ -31,13 +31,29 @@ export function getSummandCoefficient(summand: SyntaxTreeNode): number {
     throw 'RuntimeError: multiple coefficients';
 }
 
-function getSummandDegree(summand: SyntaxTreeNode): number {
-    const powerParts = convertOperatorChainToList('power', summand);
-    const degrees = <NumberNode[]>powerParts.filter((factor) => factor.type === 'number');
+function isSummandLinear(summand: SyntaxTreeNode) {
+    const summandParts = convertOperatorChainToList('times', summand);
+    return summandParts.length === 2 && summandParts[1].type !== 'power' && summandParts[1].type === 'symbol';
+}
 
-    if (degrees.length === 0) {
+function isSummandConstant(summand: SyntaxTreeNode) {
+    const summandParts = convertOperatorChainToList('times', summand);
+    return summandParts.length === 1 && summand.type !== 'times' && summandParts[0].type === 'number';
+}
+
+function getSummandDegree(summand: SyntaxTreeNode): number {
+    const summandParts = convertOperatorChainToList('times', summand);
+
+    if (isSummandLinear(summand)) {
+        return 1;
+    }
+    if (isSummandConstant(summand)) {
         return 0;
     }
+
+    const degrees: NumberNode[] = <NumberNode[]>(
+        convertOperatorChainToList('power', summandParts[1]).filter((factor) => factor.type === 'number')
+    );
 
     if (degrees.length === 1) {
         return degrees[0].value;
@@ -47,19 +63,24 @@ function getSummandDegree(summand: SyntaxTreeNode): number {
 }
 
 function getSummandBase(summand: SyntaxTreeNode) {
-    const powerParts = convertOperatorChainToList('power', summand);
-    const bases = <NumberNode[]>powerParts.filter((factor) => factor.type === 'symbol');
+    const summandParts = convertOperatorChainToList('times', summand);
 
-    if (bases.length === 0) {
-        return 0;
+    if (isSummandLinear(summand) && summandParts[1].type === 'symbol') {
+        return summandParts[1].name;
     }
+    if (isSummandConstant(summand)) {
+        return '';
+    }
+
+    const bases: SymbolNode[] = <SymbolNode[]>(
+        convertOperatorChainToList('power', summandParts[1]).filter((factor) => factor.type === 'symbol')
+    );
 
     if (bases.length === 1) {
-        return bases[0].value;
+        return bases[0].name;
     }
 
-    throw 'RuntimeError: multiple degrees';
-
+    throw 'RuntimeError: there are none or multiple bases';
 }
 
 export function isPolynomialValid(node: SyntaxTreeNode) {
