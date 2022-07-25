@@ -10,16 +10,35 @@ import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
 import { getPolynomial, getSyntaxTreeNodeFromPolynomial } from '../../../utils/polynomial-syntax-tree-utils';
 import normalize from '../../../normalize';
-import { calculatePolynomialSum } from './utils/polynomial-utils';
+import {calculatePolynomialSum, getDegreeFromPolynomial} from './utils/polynomial-utils';
 
 const polynomialPlugin = createPlugin('core/polynomial');
 addPluginDescription(polynomialPlugin, 'Adds polynomial division and another functions on polynoms.');
 addPluginAuthor(polynomialPlugin, 'core');
 
+const singlePolynomialHeader: FunctionHeaderItem[] = [{ name: 'p', type: 'any', evaluate: true }];
 const doublePolynomialHeader: FunctionHeaderItem[] = [
     { name: 'p', type: 'any', evaluate: true },
     { name: 'q', type: 'any', evaluate: true },
 ];
+
+addPluginFunction(
+    polynomialPlugin,
+    createPluginFunction(
+        'deg',
+        singlePolynomialHeader,
+        'Calculates the degree of given polynomial p.',
+        'Berechnet den Grad eines gegebenen Polynoms p.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('deg', parameters, singlePolynomialHeader, context);
+            const p = <SyntaxTreeNode>parameterStackFrame['p'];
+
+            const polynomialP = getPolynomial(normalize(p, context));
+
+            return createNumberNode(getDegreeFromPolynomial(polynomialP));
+        },
+    ),
+);
 
 addPluginFunction(
     polynomialPlugin,

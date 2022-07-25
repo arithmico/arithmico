@@ -274,7 +274,7 @@ test('getPolynomial() 2 + x^0', () => {
     ).toStrictEqual([{ coefficient: 3, base: '', degree: 0 }]);
 });
 
-test('getPolynomial() 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
+test('getPolynomial() 4*x^5 - x^0 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
     expect(
         getPolynomial(
             normalize(
