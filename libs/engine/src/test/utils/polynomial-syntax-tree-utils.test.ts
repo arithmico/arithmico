@@ -1,8 +1,8 @@
 import { SyntaxTreeNode } from '../../types/SyntaxTreeNodes';
 import { getPolynomial } from '../../utils/polynomial-syntax-tree-utils';
 import normalize from '../../normalize';
-import { createOptions, defaultOptions } from '../../utils/context-utils';
-import { Context, Options } from '../../types/Context';
+import { createOptions } from '../../utils/context-utils';
+import { Context } from '../../types/Context';
 
 const testOptions = createOptions();
 
@@ -10,7 +10,6 @@ const testContext: Context = {
     options: testOptions,
     stack: [{}],
 };
-
 
 test('getPolynomial() 2*x^3', () => {
     expect(
@@ -212,7 +211,6 @@ test('getPolynomial() 2*x^3 - 4*x^2', () => {
     ]);
 });
 
-
 test('getPolynomial() 2*x', () => {
     expect(
         getPolynomial(
@@ -246,4 +244,116 @@ test('getPolynomial() 2', () => {
             ),
         ),
     ).toStrictEqual([{ coefficient: 2, base: '', degree: 0 }]);
+});
+
+test('getPolynomial() 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
+    expect(
+        getPolynomial(
+            normalize(
+                <SyntaxTreeNode>{
+                    type: 'plus',
+                    left: {
+                        type: 'times',
+                        left: {
+                            type: 'number',
+                            value: 4,
+                        },
+                        right: {
+                            type: 'power',
+                            left: {
+                                type: 'symbol',
+                                name: 'x',
+                            },
+                            right: {
+                                type: 'number',
+                                value: 5,
+                            },
+                        },
+                    },
+                    right: {
+                        type: 'plus',
+                        left: {
+                            type: 'minus',
+                            left: {
+                                type: 'times',
+                                left: {
+                                    type: 'number',
+                                    value: 4,
+                                },
+                                right: {
+                                    type: 'power',
+                                    left: {
+                                        type: 'symbol',
+                                        name: 'y',
+                                    },
+                                    right: {
+                                        type: 'number',
+                                        value: 4,
+                                    },
+                                },
+                            },
+                            right: {
+                                type: 'times',
+                                left: {
+                                    type: 'number',
+                                    value: 6,
+                                },
+                                right: {
+                                    type: 'power',
+                                    left: {
+                                        type: 'symbol',
+                                        name: 'x',
+                                    },
+                                    right: {
+                                        type: 'number',
+                                        value: 3,
+                                    },
+                                },
+                            },
+                        },
+                        right: {
+                            type: 'plus',
+                            left: {
+                                type: 'minus',
+                                left: {
+                                    type: 'times',
+                                    left: {
+                                        type: 'number',
+                                        value: 3,
+                                    },
+                                    right: {
+                                        type: 'power',
+                                        left: {
+                                            type: 'symbol',
+                                            name: 'x',
+                                        },
+                                        right: {
+                                            type: 'number',
+                                            value: 1,
+                                        },
+                                    },
+                                },
+                                right: {
+                                    type: 'symbol',
+                                    name: 'x',
+                                },
+                            },
+                            right: {
+                                type: 'number',
+                                value: 3,
+                            },
+                        },
+                    },
+                },
+                testContext,
+            ),
+        ),
+        // 4*x^5 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3
+    ).toStrictEqual([
+        { coefficient: 3, base: '', degree: 0 },
+        { coefficient: 4, base: 'x', degree: 5 },
+        { coefficient: 4, base: 'y', degree: 4 },
+        { coefficient: -6, base: 'x', degree: 3 },
+        { coefficient: 2, base: 'x', degree: 1 },
+    ]);
 });

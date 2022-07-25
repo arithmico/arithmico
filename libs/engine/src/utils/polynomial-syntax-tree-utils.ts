@@ -1,6 +1,5 @@
 import { NumberNode, SymbolNode, SyntaxTreeNode } from '../types/SyntaxTreeNodes';
 import { convertOperatorChainToList } from './symbolic-utils';
-import { stringify } from 'querystring';
 
 interface Monomial {
     coefficient: number;
