@@ -5,7 +5,7 @@ import SettingsButton from "@components/settings-button/settings-button";
 import SettingsListbox from "@components/settings-listbox/settings-listbox";
 import SettingsSection from "@components/settings-section/settings-section";
 import SettingsSwitch from "@components/settings-switch/settings-switch";
-import SettingsDecimalPlacesListbox from "../../components/settings-decimal-places-listbox/settings-decimal-places-listbox";
+import SettingsDecimalPlacesListbox from "@components/settings-decimal-places-listbox/settings-decimal-places-listbox";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
 import useSessionStore, {
   useDispatch,
