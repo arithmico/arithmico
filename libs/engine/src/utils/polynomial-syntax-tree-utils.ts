@@ -6,9 +6,18 @@ import createPower from '../create/create-power';
 import createSymbolNode from '../create/create-symbol-node';
 import createPlus from '../create/create-plus';
 
-export interface Monomial {
+type Polynomial = Monomial[];
+
+type Monomial = NonConstant | Constant;
+
+interface NonConstant {
     coefficient: number;
     base: string | number;
+    degree: number;
+}
+
+interface Constant {
+    coefficient: number;
     degree: number;
 }
 
@@ -48,10 +57,7 @@ function isSummandConstant(summand: SyntaxTreeNode) {
     const factors = convertOperatorChainToList('times', summand);
     return (
         (factors.length === 1 && summand.type !== 'times' && factors[0].type === 'number') ||
-        (factors.length === 2 &&
-            summand.type === 'times' &&
-            factors[1].type === 'number' &&
-            factors[1].value === 1)
+        (factors.length === 2 && summand.type === 'times' && factors[1].type === 'number' && factors[1].value === 1)
     );
 }
 
@@ -79,14 +85,18 @@ function getMonomialDegreeFromSummand(summand: SyntaxTreeNode): number {
 function getMonomialBaseFromSummand(summand: SyntaxTreeNode) {
     const factors = convertOperatorChainToList('times', summand);
 
-    if (isSummandLinear(summand) && factors[1].type === 'symbol') {
+    if (isSummandLinear(summand) && factors.length === 2 && factors[1].type && factors[1].type === 'symbol') {
         return factors[1].name;
     }
     if (isSummandConstant(summand)) {
         return '';
     }
 
-    const bases: SymbolNode[] = <SymbolNode[]>(
+    if (factors.length < 2) {
+        throw 'testError';
+    }
+
+    const bases = <SymbolNode[]>(
         convertOperatorChainToList('power', factors[1]).filter((factor) => factor.type === 'symbol')
     );
 
@@ -98,14 +108,17 @@ function getMonomialBaseFromSummand(summand: SyntaxTreeNode) {
 }
 
 function isPolynomialDegreeValid(factors: SyntaxTreeNode[]) {
-    return factors.every((summand) => getMonomialDegreeFromSummand(summand) >= 0 && getMonomialDegreeFromSummand(summand) % 1 === 0);
+    return factors.every(
+        (summand) => getMonomialDegreeFromSummand(summand) >= 0 && getMonomialDegreeFromSummand(summand) % 1 === 0,
+    );
 }
 
 function isEveryPolynomialBaseSame(factors: SyntaxTreeNode[]) {
     const symbol = getMonomialBaseFromSummand(factors[0]);
     return factors.every(
         (summand) =>
-            getMonomialBaseFromSummand(summand) === symbol || (getMonomialDegreeFromSummand(summand) === 0 && getMonomialBaseFromSummand(summand)) === '',
+            getMonomialBaseFromSummand(summand) === symbol ||
+            (getMonomialDegreeFromSummand(summand) === 0 && getMonomialBaseFromSummand(summand)) === '',
     );
 }
 
@@ -123,14 +136,11 @@ export function getPolynomial(node: SyntaxTreeNode): Monomial[] {
     const summands = getSummands(node);
 
     return summands
-        .map(
-            (factor) =>
-                <Monomial>{
-                    coefficient: getMonomialCoefficientFromSummand(factor),
-                    base: getMonomialBaseFromSummand(factor),
-                    degree: getMonomialDegreeFromSummand(factor),
-                },
-        )
+        .map((factor) => ({
+            coefficient: getMonomialCoefficientFromSummand(factor),
+            base: getMonomialBaseFromSummand(factor),
+            degree: getMonomialDegreeFromSummand(factor),
+        }))
         .sort((a, b) => b.degree - a.degree);
 }
 

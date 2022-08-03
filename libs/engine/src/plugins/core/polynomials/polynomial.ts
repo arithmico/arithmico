@@ -16,10 +16,10 @@ const polynomialPlugin = createPlugin('core/polynomial');
 addPluginDescription(polynomialPlugin, 'Adds polynomial division and another functions on polynoms.');
 addPluginAuthor(polynomialPlugin, 'core');
 
-const singlePolynomialHeader: FunctionHeaderItem[] = [{ name: 'p', type: 'any', evaluate: true }];
+const singlePolynomialHeader: FunctionHeaderItem[] = [{ name: 'p', type: 'any', evaluate: false }];
 const doublePolynomialHeader: FunctionHeaderItem[] = [
-    { name: 'p', type: 'any', evaluate: true },
-    { name: 'q', type: 'any', evaluate: true },
+    { name: 'p', type: 'any', evaluate: false },
+    { name: 'q', type: 'any', evaluate: false },
 ];
 
 addPluginFunction(

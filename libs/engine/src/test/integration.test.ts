@@ -146,7 +146,7 @@ integrationTest('fib(1)', '1');
 integrationTest('fib(2)', '1');
 integrationTest('fib(19)', '4181');
 integrationTest('deg(2*x^2 + x + 4)', '2');
-//integrationTest('padd(2*x^2 + x + 4, 5*x + 3)', '2 * x^2 + 6 *  x + 7')
+//integrationTest('padd(2*x^2 + x + 4, 5*x + 3)', '2 * x^2 + 6 * x + 7')
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
