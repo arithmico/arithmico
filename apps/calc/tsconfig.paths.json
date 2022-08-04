@@ -3,6 +3,7 @@
       "baseUrl": ".",
       "paths": {
         "@pages/*": ["./src/pages/*"],
+        "@local-components/*": ["./src/components/*"],
         "@components/*": ["../../libs/components/*"],
         "@workspace-package.json": ["../../package.json"],
         "@stores/*": ["../../libs/stores/*"]

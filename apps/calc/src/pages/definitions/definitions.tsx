@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { serializeStack } from "@arithmico/engine";
-import PageContainer from "../../components/page-container/page-container";
-import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
+import { useTranslation } from "react-i18next";
 import useSessionStore from "../../stores/session-store/use-session-store";
 import { Context, Options } from "@arithmico/engine/lib/types";
-import DefinitionListItem from "../../components/definition-list-item/definition-list-item";
-import { useTranslation } from "react-i18next";
+import PageContainer from "@local-components/page-container/page-container";
+import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
+import DefinitionListItem from "@local-components/definition-list-item/definition-list-item";
 import { createOptions } from "@arithmico/engine/lib/utils/context-utils";
+import { serializeStack } from "@arithmico/engine";
 
 const Heading = styled.h1`
   font-weight: var(--me-font-weight-normal);

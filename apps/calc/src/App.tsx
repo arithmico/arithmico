@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import i18n from "./i18n/index";
-import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
-import GlobalStyle from "@components/global-styles/global-styles";
 import useSessionStore from "./stores/session-store/use-session-store";
 import { ThemeProvider } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { Provider } from "react-redux";
 import calculatorStore from "@stores/calculator-store";
-import AppRoutes from "./components/app-routes/app-routes";
+import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
+import GlobalStyle from "@components/global-styles/global-styles";
+import AppRoutes from "@local-components/app-routes/app-routes";
 
 const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
