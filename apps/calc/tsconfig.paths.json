@@ -2,6 +2,7 @@
     "compilerOptions": {
       "baseUrl": ".",
       "paths": {
+        "@pages/*": ["./src/pages/*"],
         "@components/*": ["../../libs/components/*"],
         "@workspace-package.json": ["../../package.json"],
         "@stores/*": ["../../libs/stores/*"]

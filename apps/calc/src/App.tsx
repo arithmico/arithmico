@@ -1,22 +1,14 @@
 import React, { useEffect } from "react";
-import { Route, BrowserRouter, HashRouter, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import i18n from "./i18n/index";
-import Calculator from "./pages/calculator/calculator";
 import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
-import Settings from "./pages/settings/settings";
-import Manual from "./pages/manual/manual";
-import About from "./pages/about/about";
-import Protocol from "./pages/protocol/protocol";
 import GlobalStyle from "@components/global-styles/global-styles";
 import useSessionStore from "./stores/session-store/use-session-store";
 import { ThemeProvider } from "styled-components";
-import Definitions from "./pages/definitions/definitions";
-import TermsOfService from "./pages/terms-of-service/terms-of-service";
-import PrivacyPolicy from "./pages/privacy-policy/privacy-policy";
-import ImprintContent from "@components/imprint-content/imprint-content";
 import { useTranslation } from "react-i18next";
 import { Provider } from "react-redux";
 import calculatorStore from "@stores/calculator-store";
+import AppRoutes from "./components/app-routes/app-routes";
 
 const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
@@ -36,8 +28,8 @@ function App() {
   return (
     <Provider store={calculatorStore}>
       <ThemeProvider theme={{ type: theme }}>
+        <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
         <Router>
-          <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
           <HeaderNavBar
             title="Arithmico"
             subTitle="Calc"
@@ -60,17 +52,7 @@ function App() {
               },
             ]}
           />
-          <Routes>
-            <Route path="/" element={<Calculator />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/manual" element={<Manual />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/protocol" element={<Protocol />} />
-            <Route path="/definitions" element={<Definitions />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/imprint" element={<ImprintContent />} />
-          </Routes>
+          <AppRoutes />
         </Router>
       </ThemeProvider>
     </Provider>
