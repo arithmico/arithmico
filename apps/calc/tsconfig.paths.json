@@ -3,7 +3,8 @@
       "baseUrl": ".",
       "paths": {
         "@components/*": ["../../libs/components/*"],
-        "@workspace-package.json": ["../../package.json"]
+        "@workspace-package.json": ["../../package.json"],
+        "@stores/*": ["../../libs/stores/*"]
       }
     }
   }

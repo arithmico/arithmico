@@ -15,6 +15,8 @@ import TermsOfService from "./pages/terms-of-service/terms-of-service";
 import PrivacyPolicy from "./pages/privacy-policy/privacy-policy";
 import ImprintContent from "@components/imprint-content/imprint-content";
 import { useTranslation } from "react-i18next";
+import { Provider } from "react-redux";
+import calculatorStore from "@stores/calculator-store";
 
 const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
@@ -32,44 +34,46 @@ function App() {
   }, [language]);
 
   return (
-    <ThemeProvider theme={{ type: theme }}>
-      <Router>
-        <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
-        <HeaderNavBar
-          title="Arithmico"
-          subTitle="Calc"
-          items={[
-            {
-              name: t("nav.calculator"),
-              path: "/",
-            },
-            {
-              name: t("nav.settings"),
-              path: "/settings",
-            },
-            {
-              name: t("nav.manual"),
-              path: "/manual",
-            },
-            {
-              name: t("nav.about"),
-              path: "/about",
-            },
-          ]}
-        />
-        <Routes>
-          <Route path="/" element={<Calculator />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/manual" element={<Manual />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/protocol" element={<Protocol />} />
-          <Route path="/definitions" element={<Definitions />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/imprint" element={<ImprintContent />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <Provider store={calculatorStore}>
+      <ThemeProvider theme={{ type: theme }}>
+        <Router>
+          <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
+          <HeaderNavBar
+            title="Arithmico"
+            subTitle="Calc"
+            items={[
+              {
+                name: t("nav.calculator"),
+                path: "/",
+              },
+              {
+                name: t("nav.settings"),
+                path: "/settings",
+              },
+              {
+                name: t("nav.manual"),
+                path: "/manual",
+              },
+              {
+                name: t("nav.about"),
+                path: "/about",
+              },
+            ]}
+          />
+          <Routes>
+            <Route path="/" element={<Calculator />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/manual" element={<Manual />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/protocol" element={<Protocol />} />
+            <Route path="/definitions" element={<Definitions />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/imprint" element={<ImprintContent />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
