@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import i18n from "./i18n/index";
 import { ThemeProvider } from "styled-components";
-import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
 import GlobalStyle from "@components/global-styles/global-styles";
 import AppRoutes from "@local-components/app-routes/app-routes";
 import {
@@ -13,6 +11,7 @@ import {
   selectLanguage,
   selectTheme,
 } from "@stores/calculator-selectors";
+import AppHeaderNavBar from "@local-components/app-header-nav-bar/app-header-nav-bar";
 
 const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
@@ -21,7 +20,6 @@ function App() {
   const theme = useSelector(selectTheme);
   const language = useSelector(selectLanguage);
   const boldFont = useSelector(selectBoldFont);
-  const [t] = useTranslation();
 
   useEffect(() => {
     if (language && i18n.language !== language) {
@@ -33,28 +31,7 @@ function App() {
     <ThemeProvider theme={{ type: theme }}>
       <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
       <Router>
-        <HeaderNavBar
-          title="Arithmico"
-          subTitle="Calc"
-          items={[
-            {
-              name: t("nav.calculator"),
-              path: "/",
-            },
-            {
-              name: t("nav.settings"),
-              path: "/settings",
-            },
-            {
-              name: t("nav.manual"),
-              path: "/manual",
-            },
-            {
-              name: t("nav.about"),
-              path: "/about",
-            },
-          ]}
-        />
+        <AppHeaderNavBar />
         <AppRoutes />
       </Router>
     </ThemeProvider>
