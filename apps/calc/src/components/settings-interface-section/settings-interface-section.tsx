@@ -15,7 +15,7 @@ import {
   setExcludeInfoInProtocol,
 } from "@stores/calc-slices/calculator-settings-slice";
 
-export default function InterfaceSettings() {
+export default function SettingsInterfaceSection() {
   const [t] = useTranslation();
   const dispatch = useDispatch();
   const language = useSelector(selectLanguage);

@@ -1,11 +1,9 @@
-import evaluate, { init, getDefaultContext } from "@arithmico/engine";
+import evaluate, { getDefaultContext } from "@arithmico/engine";
 import create, { SetState } from "zustand";
 import { persist } from "zustand/middleware";
 import { MathItem, Session, SessionState, Settings } from "./types";
 import { createOptions } from "@arithmico/engine/lib/utils/context-utils";
 import { Options } from "@arithmico/engine/lib/types";
-
-init();
 
 const defaultSettings: Settings = {
   decimalPlaces: getDefaultContext().options.decimalPlaces,

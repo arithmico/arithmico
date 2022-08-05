@@ -1,25 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import 'overlayscrollbars/css/OverlayScrollbars.css';
-import OverlayScrollbars from 'overlayscrollbars';
-import '@fontsource/roboto/100.css';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import '@fontsource/source-code-pro';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import "overlayscrollbars/css/OverlayScrollbars.css";
+import OverlayScrollbars from "overlayscrollbars";
+import "@fontsource/roboto/100.css";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "@fontsource/source-code-pro";
+import "./index.css";
+import { init } from "@arithmico/engine";
+import { Provider } from "react-redux";
+import calculatorStore from "@stores/calculator-store";
+
+init();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={calculatorStore}>
+      <App />
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 OverlayScrollbars(document.body, {
   nativeScrollbarsOverlaid: {
-    showNativeScrollbars: false
-  }
+    showNativeScrollbars: false,
+  },
 });
