@@ -10,19 +10,10 @@ import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import useSessionStore, {
   useDispatch,
 } from "../../stores/session-store/use-session-store";
+import InterfaceSettings from "@local-components/interface-settings/interface-settings";
 
 export default function Settings() {
   const dispatch = useDispatch();
-  const [language, setLanguage] = useSessionStore((state) => [
-    state.settings.language,
-    (language: string) => dispatch({ type: "setLanguage", language }),
-  ]);
-  const [copyMaualContentByClicking, setCopyMaualContentByClicking] =
-    useSessionStore((state) => [
-      state.settings.copySynopsisOnClick,
-      (copySynopsisOnClick: boolean) =>
-        dispatch({ type: "setCopySynopsisOnClick", copySynopsisOnClick }),
-    ]);
   const [theme, setTheme] = useSessionStore((state) => [
     state.settings.theme,
     (theme: string) => dispatch({ type: "setTheme", theme }),
@@ -47,11 +38,6 @@ export default function Settings() {
     (numberFormat: string) =>
       dispatch({ type: "setNumberFormat", numberFormat }),
   ]);
-  const [excludeInfo, setExcludeInfo] = useSessionStore((state) => [
-    state.settings.excludeInfoInProtocol,
-    (excludeInfoInProtocol: boolean) =>
-      dispatch({ type: "setExcludeInfoInProtocol", excludeInfoInProtocol }),
-  ]);
   const [angleUnit, setAngleUnit] = useSessionStore((state) => [
     state.settings.angleUnit,
     (angleUnit: string) => dispatch({ type: "setAngleUnit", angleUnit }),
@@ -62,32 +48,7 @@ export default function Settings() {
   return (
     <WithScrollbars>
       <PageContainer>
-        <SettingsSection heading={t("settings.interface")}>
-          <SettingsListbox
-            onChange={setLanguage}
-            label={t("settings.language")}
-            options={[
-              { label: t("settings.language.english"), value: "en" },
-              { label: t("settings.language.german"), value: "de" },
-            ]}
-            value={language}
-          />
-          <SettingsSwitch
-            label={t("settings.boldFont")}
-            enabled={boldFont}
-            onChange={setBoldFont}
-          />
-          <SettingsSwitch
-            label={t("settings.copyManualContentByClicking")}
-            enabled={copyMaualContentByClicking}
-            onChange={setCopyMaualContentByClicking}
-          />
-          <SettingsSwitch
-            label={t("settings.excludeInfoInProtocol")}
-            enabled={excludeInfo}
-            onChange={setExcludeInfo}
-          />
-        </SettingsSection>
+        <InterfaceSettings />
 
         <SettingsSection heading={t("settings.appearance")}>
           <SettingsListbox
@@ -108,6 +69,11 @@ export default function Settings() {
               { label: t("settings.fontSize.large"), value: "large" },
             ]}
             value={fontSize}
+          />
+          <SettingsSwitch
+            label={t("settings.boldFont")}
+            enabled={boldFont}
+            onChange={setBoldFont}
           />
         </SettingsSection>
 

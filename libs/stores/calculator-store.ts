@@ -15,4 +15,8 @@ const calculatorStore = configureStore({
   },
 });
 
+export type CalculatorRootState = ReturnType<
+  typeof calculatorStore["getState"]
+>;
+
 export default calculatorStore;
