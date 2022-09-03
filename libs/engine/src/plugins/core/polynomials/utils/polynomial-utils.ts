@@ -1,11 +1,22 @@
-import { Monomial } from '../../../../utils/polynomial-syntax-tree-utils';
+import { Polynomial, sortPolynomialByDegree } from '../../../../utils/polynomial-syntax-tree-utils';
 
-export function getDegreeFromPolynomial(p: Monomial[]): number {
-    return p.sort((a, b) => b.degree - a.degree)[0].degree;
+export function getDegreeFromPolynomial(p: Polynomial): number {
+    const highestMonomial = p.sort((a, b) => sortPolynomialByDegree(a, b))[0];
+
+    if (highestMonomial === null) {
+        throw "Polynomial isn't correct!";
+    }
+
+    if (highestMonomial.type === 'constant') {
+        return 0;
+    } else {
+        return highestMonomial.degree;
+    }
 }
 
-export function calculatePolynomialSum(p: Monomial[], q: Monomial[]): Monomial[] {
-    const result: Monomial[] = [];
+export function calculatePolynomialSum(p: Polynomial, q: Polynomial): Polynomial {
+    /*
+    const result: Polynomial = [];
 
     let pCounter = 0;
     let qCounter = 0;
@@ -44,4 +55,6 @@ export function calculatePolynomialSum(p: Monomial[], q: Monomial[]): Monomial[]
             return result.concat(q.slice(pCounter, q.length));
         }
     }
+     */
+    return null;
 }

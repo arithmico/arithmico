@@ -6,19 +6,20 @@ import createPower from '../create/create-power';
 import createSymbolNode from '../create/create-symbol-node';
 import createPlus from '../create/create-plus';
 
-type Polynomial = Monomial[];
+export type Polynomial = Monomial[];
 
 type Monomial = NonConstant | Constant;
 
 interface NonConstant {
+    type: 'monomial';
     coefficient: number;
-    base: string | number;
+    base: string;
     degree: number;
 }
 
 interface Constant {
+    type: 'constant';
     coefficient: number;
-    degree: number;
 }
 
 export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
@@ -49,12 +50,15 @@ export function getMonomialCoefficientFromSummand(summand: SyntaxTreeNode): numb
 }
 
 function isSummandLinear(summand: SyntaxTreeNode) {
-    const summandParts = convertOperatorChainToList('times', summand);
-    return summandParts.length === 2 && summandParts[1].type !== 'power' && summandParts[1].type === 'symbol';
+    const factors = getFactors(summand);
+    return (
+        (factors.length === 1 && summand.type !== 'times' && factors[0].type === 'symbol') ||
+        (factors.length === 2 && factors[1].type !== 'power' && factors[1].type === 'symbol')
+    );
 }
 
 function isSummandConstant(summand: SyntaxTreeNode) {
-    const factors = convertOperatorChainToList('times', summand);
+    const factors = getFactors(summand);
     return (
         (factors.length === 1 && summand.type !== 'times' && factors[0].type === 'number') ||
         (factors.length === 2 && summand.type === 'times' && factors[1].type === 'number' && factors[1].value === 1)
@@ -62,7 +66,7 @@ function isSummandConstant(summand: SyntaxTreeNode) {
 }
 
 function getMonomialDegreeFromSummand(summand: SyntaxTreeNode): number {
-    const factors = convertOperatorChainToList('times', summand);
+    const factors = getFactors(summand);
 
     if (isSummandLinear(summand)) {
         return 1;
@@ -83,17 +87,19 @@ function getMonomialDegreeFromSummand(summand: SyntaxTreeNode): number {
 }
 
 function getMonomialBaseFromSummand(summand: SyntaxTreeNode) {
-    const factors = convertOperatorChainToList('times', summand);
+    const factors = getFactors(summand);
 
-    if (isSummandLinear(summand) && factors.length === 2 && factors[1].type && factors[1].type === 'symbol') {
-        return factors[1].name;
+    if (isSummandLinear(summand)) {
+        if (factors.length === 2 && factors[1].type === 'symbol') {
+            return factors[1].name;
+        }
+
+        if (factors.length === 1 && factors[0].type === 'symbol') {
+            return factors[0].name;
+        }
     }
     if (isSummandConstant(summand)) {
-        return '';
-    }
-
-    if (factors.length < 2) {
-        throw 'testError';
+        return;
     }
 
     const bases = <SymbolNode[]>(
@@ -132,41 +138,57 @@ export function isPolynomialMathematicallyValid(node: SyntaxTreeNode) {
     return isEveryPolynomialBaseSame(factors);
 }
 
-export function getPolynomial(node: SyntaxTreeNode): Monomial[] {
+export function getPolynomial(node: SyntaxTreeNode): Polynomial {
     const summands = getSummands(node);
 
     return summands
-        .map((factor) => ({
-            coefficient: getMonomialCoefficientFromSummand(factor),
-            base: getMonomialBaseFromSummand(factor),
-            degree: getMonomialDegreeFromSummand(factor),
-        }))
-        .sort((a, b) => b.degree - a.degree);
+        .map((factor) => {
+            if (isSummandConstant(factor)) {
+                return <Constant>{ type: 'constant', coefficient: getMonomialCoefficientFromSummand(factor) };
+            } else {
+                return <NonConstant>{
+                    type: 'monomial',
+                    coefficient: getMonomialCoefficientFromSummand(factor),
+                    base: getMonomialBaseFromSummand(factor),
+                    degree: getMonomialDegreeFromSummand(factor),
+                };
+            }
+        })
+        .sort((a, b) => sortPolynomialByDegree(a, b));
 }
 
-function getSyntaxTreeNodeFromMonomial(monomial: Monomial): SyntaxTreeNode {
-    switch (monomial.degree) {
-        case 0:
-            return createNumberNode(monomial.coefficient);
-        case 1:
-            return createTimes(
-                createNumberNode(monomial.coefficient),
-                typeof monomial.base === 'string' ? createSymbolNode(monomial.base) : createNumberNode(monomial.base),
-            );
-        default:
-            return createTimes(
-                createNumberNode(monomial.coefficient),
-                createPower(
-                    typeof monomial.base === 'string'
-                        ? createSymbolNode(monomial.base)
-                        : createNumberNode(monomial.base),
-                    createNumberNode(monomial.degree),
-                ),
-            );
+export function sortPolynomialByDegree(a: Monomial, b: Monomial): number {
+    if (a.type === 'monomial' && b.type === 'monomial') {
+        return b.degree - a.degree;
+    }
+
+    if (a.type === 'constant' && b.type === 'monomial') {
+        return 1;
+    }
+
+    if (a.type === 'monomial' && b.type === 'constant') {
+        return -1;
     }
 }
 
-export function getSyntaxTreeNodeFromPolynomial(polynomial: Monomial[]): SyntaxTreeNode {
+function getSyntaxTreeNodeFromMonomial(monomial: Monomial): SyntaxTreeNode {
+    if (monomial.type === 'constant') {
+        return createNumberNode(monomial.coefficient);
+    }
+
+    if (monomial.type === 'monomial' && monomial.degree === 1) {
+        return createTimes(createNumberNode(monomial.coefficient), createSymbolNode(monomial.base));
+    }
+
+    if (monomial.type === 'monomial' && monomial.degree > 1) {
+        return createTimes(
+            createNumberNode(monomial.coefficient),
+            createPower(createSymbolNode(monomial.base), createNumberNode(monomial.degree)),
+        );
+    }
+}
+
+export function getSyntaxTreeNodeFromPolynomial(polynomial: Polynomial): SyntaxTreeNode {
     const firstMonomial = getSyntaxTreeNodeFromMonomial(polynomial[0]);
 
     if (polynomial.length === 1) {

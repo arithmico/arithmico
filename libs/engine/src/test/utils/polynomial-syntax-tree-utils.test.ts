@@ -31,7 +31,7 @@ test('getPolynomial() 2*x^3', () => {
                 },
             },
         }),
-    ).toStrictEqual([{ coefficient: 2, base: 'x', degree: 3 }]);
+    ).toStrictEqual([{ type: 'monomial', coefficient: 2, base: 'x', degree: 3 }]);
 });
 
 test('getPolynomial() 2*x^3 + 4*x^2', () => {
@@ -76,8 +76,8 @@ test('getPolynomial() 2*x^3 + 4*x^2', () => {
             },
         }),
     ).toStrictEqual([
-        { coefficient: 2, base: 'x', degree: 3 },
-        { coefficient: 4, base: 'x', degree: 2 },
+        { type: 'monomial', coefficient: 2, base: 'x', degree: 3 },
+        { type: 'monomial', coefficient: 4, base: 'x', degree: 2 },
     ]);
 });
 
@@ -123,8 +123,8 @@ test('getPolynomial() 2*x^3 + 4*y^2', () => {
             },
         }),
     ).toStrictEqual([
-        { coefficient: 2, base: 'x', degree: 3 },
-        { coefficient: 4, base: 'y', degree: 2 },
+        { type: 'monomial', coefficient: 2, base: 'x', degree: 3 },
+        { type: 'monomial', coefficient: 4, base: 'y', degree: 2 },
     ]);
 });
 
@@ -156,7 +156,7 @@ test('getPolynomial() -2*x^3', () => {
                 testContext,
             ),
         ),
-    ).toStrictEqual([{ coefficient: -2, base: 'x', degree: 3 }]);
+    ).toStrictEqual([{ type: 'monomial', coefficient: -2, base: 'x', degree: 3 }]);
 });
 
 test('getPolynomial() 2*x^3 - 4*x^2', () => {
@@ -206,8 +206,8 @@ test('getPolynomial() 2*x^3 - 4*x^2', () => {
             ),
         ),
     ).toStrictEqual([
-        { coefficient: 2, base: 'x', degree: 3 },
-        { coefficient: -4, base: 'x', degree: 2 },
+        { type: 'monomial', coefficient: 2, base: 'x', degree: 3 },
+        { type: 'monomial', coefficient: -4, base: 'x', degree: 2 },
     ]);
 });
 
@@ -229,7 +229,7 @@ test('getPolynomial() 2*x', () => {
                 testContext,
             ),
         ),
-    ).toStrictEqual([{ coefficient: 2, base: 'x', degree: 1 }]);
+    ).toStrictEqual([{ type: 'monomial', coefficient: 2, base: 'x', degree: 1 }]);
 });
 
 test('getPolynomial() 2', () => {
@@ -243,7 +243,21 @@ test('getPolynomial() 2', () => {
                 testContext,
             ),
         ),
-    ).toStrictEqual([{ coefficient: 2, base: '', degree: 0 }]);
+    ).toStrictEqual([{ type: 'constant', coefficient: 2 }]);
+});
+
+test('getPolynomial() x', () => {
+    expect(
+        getPolynomial(
+            normalize(
+                <SyntaxTreeNode>{
+                    type: 'symbol',
+                    name: 'x'
+                },
+                testContext,
+            ),
+        ),
+    ).toStrictEqual([{ type: 'monomial', coefficient: 1, base: 'x', degree: 1 }]);
 });
 
 test('getPolynomial() 2 + x^0', () => {
@@ -271,7 +285,54 @@ test('getPolynomial() 2 + x^0', () => {
                 testContext,
             ),
         ),
-    ).toStrictEqual([{ coefficient: 3, base: '', degree: 0 }]);
+    ).toStrictEqual([{ type: 'constant', coefficient: 3 }]);
+});
+
+// 2*x^2 + x + 4
+test('getPolynomial() 2*x^2 + x + 4', () => {
+    expect(
+        getPolynomial(
+            normalize(
+                <SyntaxTreeNode>{
+                    type: 'plus',
+                    left: {
+                        type: 'times',
+                        left: {
+                            type: 'number',
+                            value: 2,
+                        },
+                        right: {
+                            type: 'power',
+                            left: {
+                                type: 'symbol',
+                                name: 'x',
+                            },
+                            right: {
+                                type: 'number',
+                                value: 2,
+                            },
+                        },
+                    },
+                    right: {
+                        type: 'plus',
+                        left: {
+                            type: 'symbol',
+                            name: 'x',
+                        },
+                        right: {
+                            type: 'number',
+                            value: 4,
+                        },
+                    },
+                },
+                testContext,
+            ),
+        ),
+    ).toStrictEqual([
+        { type: 'monomial', coefficient: 2, base: 'x', degree: 2 },
+        { type: 'monomial', coefficient: 1, base: 'x', degree: 1 },
+        { type: 'constant', coefficient: 4 },
+    ]);
 });
 
 test('getPolynomial() 4*x^5 - x^0 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
@@ -392,10 +453,10 @@ test('getPolynomial() 4*x^5 - x^0 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3', () => {
         ),
         // 4*x^5 - x^0 + 4*y^4 - 6*x^3 + 3*x^1 - x + 3
     ).toStrictEqual([
-        { coefficient: 4, base: 'x', degree: 5 },
-        { coefficient: 4, base: 'y', degree: 4 },
-        { coefficient: -6, base: 'x', degree: 3 },
-        { coefficient: 2, base: 'x', degree: 1 },
-        { coefficient: 2, base: '', degree: 0 },
+        { type: 'monomial', coefficient: 4, base: 'x', degree: 5 },
+        { type: 'monomial', coefficient: 4, base: 'y', degree: 4 },
+        { type: 'monomial', coefficient: -6, base: 'x', degree: 3 },
+        { type: 'monomial', coefficient: 2, base: 'x', degree: 1 },
+        { type: 'constant', coefficient: 2 },
     ]);
 });
