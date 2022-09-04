@@ -146,7 +146,12 @@ integrationTest('fib(1)', '1');
 integrationTest('fib(2)', '1');
 integrationTest('fib(19)', '4181');
 integrationTest('deg(2*x^2 + x + 4)', '2');
-//integrationTest('padd(2*x^2 + x + 4, 5*x + 3)', '2 * x^2 + 6 * x + 7')
+integrationTest('deg(x)', '1');
+integrationTest('deg(1)', '0');
+integrationTest('padd(2*x^2, 3*x^2)', '5 * x^2');
+integrationTest('padd(1, 2)', '3');
+integrationTest('padd(2*x^2 + x + 4, 5*x + 3)', '2 * x^2 + 6 * x + 7');
+integrationTest('padd(5*x + 3, 2*x^2 + x + 4)', '2 * x^2 + 6 * x + 7');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -202,3 +207,4 @@ integrationTestThrow('matrix:cof([[2, 1, 0], [1, 2], [4, 2, 0]])');
 integrationTestThrow('matrix:cof([1])');
 integrationTestThrow('fib(0)');
 integrationTestThrow('fib(3.5)');
+integrationTestThrow('deg(x^-1)');

@@ -10,14 +10,14 @@ export type Polynomial = Monomial[];
 
 type Monomial = NonConstant | Constant;
 
-interface NonConstant {
+export interface NonConstant {
     type: 'monomial';
     coefficient: number;
     base: string;
     degree: number;
 }
 
-interface Constant {
+export interface Constant {
     type: 'constant';
     coefficient: number;
 }
@@ -72,7 +72,7 @@ function getMonomialDegreeFromSummand(summand: SyntaxTreeNode): number {
         return 1;
     }
     if (isSummandConstant(summand)) {
-        return 0;
+        return;
     }
 
     const degrees: NumberNode[] = <NumberNode[]>(
@@ -98,6 +98,7 @@ function getMonomialBaseFromSummand(summand: SyntaxTreeNode) {
             return factors[0].name;
         }
     }
+
     if (isSummandConstant(summand)) {
         return;
     }
@@ -196,7 +197,7 @@ export function getSyntaxTreeNodeFromPolynomial(polynomial: Polynomial): SyntaxT
     }
 
     let currentSyntaxTreeNode = firstMonomial;
-    for (let i = 1; i < polynomial.length - 1; i++) {
+    for (let i = 1; i < polynomial.length; i++) {
         const newSyntaxTreeNode = getSyntaxTreeNodeFromMonomial(polynomial[i]);
         currentSyntaxTreeNode = createPlus(currentSyntaxTreeNode, newSyntaxTreeNode);
     }
