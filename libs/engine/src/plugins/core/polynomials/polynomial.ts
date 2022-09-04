@@ -10,8 +10,8 @@ import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
 import { getPolynomial } from '../../../utils/polynomial-syntax-tree-utils';
 import normalize from '../../../normalize';
-import {calculatePolynomialSum, getDegreeFromPolynomial} from './utils/polynomial-utils';
-import {getSyntaxTreeNodeFromPolynomial} from "../../../utils/polynomial-type-utils";
+import { calculatePolynomialDash, getDegreeFromPolynomial } from './utils/polynomial-utils';
+import { getSyntaxTreeNodeFromPolynomial } from '../../../utils/polynomial-type-utils';
 
 const polynomialPlugin = createPlugin('core/polynomial');
 addPluginDescription(polynomialPlugin, 'Adds polynomial division and another functions on polynoms.');
@@ -56,7 +56,27 @@ addPluginFunction(
             const polynomialP = getPolynomial(normalize(p, context));
             const polynomialQ = getPolynomial(normalize(q, context));
 
-            return getSyntaxTreeNodeFromPolynomial(calculatePolynomialSum(polynomialP, polynomialQ));
+            return getSyntaxTreeNodeFromPolynomial(calculatePolynomialDash(polynomialP, polynomialQ));
+        },
+    ),
+);
+
+addPluginFunction(
+    polynomialPlugin,
+    createPluginFunction(
+        'psub',
+        doublePolynomialHeader,
+        'Subtracts two polynomials p and q.',
+        'Subtrahiert zwei Polynome p und q.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('psub', parameters, doublePolynomialHeader, context);
+            const p = <SyntaxTreeNode>parameterStackFrame['p'];
+            const q = <SyntaxTreeNode>parameterStackFrame['q'];
+
+            const polynomialP = getPolynomial(normalize(p, context));
+            const polynomialQ = getPolynomial(normalize(q, context));
+
+            return getSyntaxTreeNodeFromPolynomial(calculatePolynomialDash(polynomialP, polynomialQ, true));
         },
     ),
 );

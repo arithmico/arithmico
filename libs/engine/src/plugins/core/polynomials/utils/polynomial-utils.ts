@@ -22,7 +22,7 @@ export function getDegreeFromPolynomial(p: Polynomial): number {
     }
 }
 
-export function calculatePolynomialSum(p: Polynomial, q: Polynomial): Polynomial {
+export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus: boolean = false): Polynomial {
     const result: Polynomial = [];
 
     let pCounter = 0;
@@ -40,42 +40,26 @@ export function calculatePolynomialSum(p: Polynomial, q: Polynomial): Polynomial
         }
 
         if (compareMonomialsDegreeEqual(p[pCounter], q[qCounter])) {
-            const qMonomialsSameDegree = q.filter((m) => {
-                if (m.type === 'monomial') {
-                    return p[pCounter].type === 'monomial' ? m.degree === (<NonConstant>p[pCounter]).degree : false;
-                } else {
-                    return p[pCounter].type === 'constant';
-                }
-            });
-
-            const qMonomialsSameBase = qMonomialsSameDegree.filter((m) => {
-                if (m.type === 'monomial') {
-                    return p[pCounter].type === 'monomial' ? m.base === (<NonConstant>p[pCounter]).base : false;
-                } else {
-                    return p[pCounter].type === 'constant';
-                }
-            });
-
-            if (qMonomialsSameBase.length === 1) {
-                if (p[pCounter].type === 'monomial') {
-                    result.push(<NonConstant>{
-                        type: 'monomial',
-                        coefficient: p[pCounter].coefficient + q[qCounter].coefficient,
-                        base: (<NonConstant>p[pCounter]).base,
-                        degree: (<NonConstant>p[pCounter]).degree,
-                    });
-                }
-                if (p[pCounter].type === 'constant') {
-                    result.push(<Constant>{
-                        type: 'constant',
-                        coefficient: p[pCounter].coefficient + q[qCounter].coefficient,
-                    });
-                }
-                pCounter++;
-                qCounter++;
-            } else {
-                throw 'RuntimeError: calculatePolynomialSum: multiple elements with same base and degree';
+            if (p[pCounter].type === 'monomial') {
+                result.push(<NonConstant>{
+                    type: 'monomial',
+                    coefficient: minus
+                        ? p[pCounter].coefficient - q[qCounter].coefficient
+                        : p[pCounter].coefficient + q[qCounter].coefficient,
+                    base: (<NonConstant>p[pCounter]).base,
+                    degree: (<NonConstant>p[pCounter]).degree,
+                });
             }
+            if (p[pCounter].type === 'constant') {
+                result.push(<Constant>{
+                    type: 'constant',
+                    coefficient: minus
+                        ? p[pCounter].coefficient - q[qCounter].coefficient
+                        : p[pCounter].coefficient + q[qCounter].coefficient,
+                });
+            }
+            pCounter++;
+            qCounter++;
         }
     }
 
