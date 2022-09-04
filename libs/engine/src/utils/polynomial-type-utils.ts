@@ -21,34 +21,34 @@ export interface Constant {
 }
 
 export function sortPolynomialByDegree(a: Monomial, b: Monomial): number {
-    if (compareMonomialsEqual(a, b)) {
+    if (compareMonomialsDegreeEqual(a, b)) {
         return 0;
     }
 
-    if (compareMonomialsSmaller(a, b)) {
+    if (compareMonomialsDegreeSmaller(a, b)) {
         return 1;
     }
 
-    if (compareMonomialsGreater(a, b)) {
+    if (compareMonomialsDegreeGreater(a, b)) {
         return -1;
     }
 }
 
-export function compareMonomialsGreater(a: Monomial, b: Monomial) {
+export function compareMonomialsDegreeGreater(a: Monomial, b: Monomial) {
     return (
         (a.type === 'monomial' && b.type === 'monomial' && (<NonConstant>a).degree > (<NonConstant>b).degree) ||
         (a.type === 'monomial' && b.type === 'constant')
     );
 }
 
-export function compareMonomialsSmaller(a: Monomial, b: Monomial) {
+export function compareMonomialsDegreeSmaller(a: Monomial, b: Monomial) {
     return (
         (a.type === 'monomial' && b.type === 'monomial' && (<NonConstant>a).degree < (<NonConstant>b).degree) ||
         (a.type === 'constant' && b.type === 'monomial')
     );
 }
 
-export function compareMonomialsEqual(a: Monomial, b: Monomial) {
+export function compareMonomialsDegreeEqual(a: Monomial, b: Monomial) {
     return (
         (a.type === 'monomial' && b.type === 'monomial' && (<NonConstant>a).degree === (<NonConstant>b).degree) ||
         (a.type === 'constant' && b.type === 'constant')

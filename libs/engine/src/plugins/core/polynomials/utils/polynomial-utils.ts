@@ -1,7 +1,7 @@
 import {
-    compareMonomialsEqual,
-    compareMonomialsGreater,
-    compareMonomialsSmaller,
+    compareMonomialsDegreeEqual,
+    compareMonomialsDegreeGreater,
+    compareMonomialsDegreeSmaller,
     Constant,
     NonConstant,
     Polynomial,
@@ -29,17 +29,17 @@ export function calculatePolynomialSum(p: Polynomial, q: Polynomial): Polynomial
     let qCounter = 0;
 
     while (pCounter < p.length && qCounter < q.length) {
-        if (compareMonomialsGreater(p[pCounter], q[qCounter])) {
+        if (compareMonomialsDegreeGreater(p[pCounter], q[qCounter])) {
             result.push(p[pCounter]);
             pCounter++;
         }
 
-        if (compareMonomialsSmaller(p[pCounter], q[qCounter])) {
+        if (compareMonomialsDegreeSmaller(p[pCounter], q[qCounter])) {
             result.push(q[qCounter]);
             qCounter++;
         }
 
-        if (compareMonomialsEqual(p[pCounter], q[qCounter])) {
+        if (compareMonomialsDegreeEqual(p[pCounter], q[qCounter])) {
             const qMonomialsSameDegree = q.filter((m) => {
                 if (m.type === 'monomial') {
                     return p[pCounter].type === 'monomial' ? m.degree === (<NonConstant>p[pCounter]).degree : false;
