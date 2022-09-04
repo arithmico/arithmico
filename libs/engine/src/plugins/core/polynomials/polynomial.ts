@@ -8,9 +8,10 @@ import {
 import { FunctionHeaderItem, SyntaxTreeNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
-import { getPolynomial, getSyntaxTreeNodeFromPolynomial } from '../../../utils/polynomial-syntax-tree-utils';
+import { getPolynomial } from '../../../utils/polynomial-syntax-tree-utils';
 import normalize from '../../../normalize';
 import {calculatePolynomialSum, getDegreeFromPolynomial} from './utils/polynomial-utils';
+import {getSyntaxTreeNodeFromPolynomial} from "../../../utils/polynomial-type-utils";
 
 const polynomialPlugin = createPlugin('core/polynomial');
 addPluginDescription(polynomialPlugin, 'Adds polynomial division and another functions on polynoms.');

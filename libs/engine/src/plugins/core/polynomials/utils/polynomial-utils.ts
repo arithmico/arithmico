@@ -1,10 +1,12 @@
 import {
+    compareMonomialsEqual,
+    compareMonomialsGreater,
+    compareMonomialsSmaller,
     Constant,
     NonConstant,
     Polynomial,
     sortPolynomialByDegree,
-} from '../../../../utils/polynomial-syntax-tree-utils';
-import { suppressConsoleLogs } from '@headlessui/react/dist/test-utils/suppress-console-logs';
+} from '../../../../utils/polynomial-type-utils';
 
 export function getDegreeFromPolynomial(p: Polynomial): number {
     const highestMonomial = p.sort((a, b) => sortPolynomialByDegree(a, b))[0];
@@ -27,32 +29,17 @@ export function calculatePolynomialSum(p: Polynomial, q: Polynomial): Polynomial
     let qCounter = 0;
 
     while (pCounter < p.length && qCounter < q.length) {
-        if (
-            (p[pCounter].type === 'monomial' &&
-                q[qCounter].type === 'monomial' &&
-                (<NonConstant>p[pCounter]).degree > (<NonConstant>q[qCounter]).degree) ||
-            (p[pCounter].type === 'monomial' && q[qCounter].type === 'constant')
-        ) {
+        if (compareMonomialsGreater(p[pCounter], q[qCounter])) {
             result.push(p[pCounter]);
             pCounter++;
         }
 
-        if (
-            (p[pCounter].type === 'monomial' &&
-                q[qCounter].type === 'monomial' &&
-                (<NonConstant>p[pCounter]).degree < (<NonConstant>q[qCounter]).degree) ||
-            (p[pCounter].type === 'constant' && q[qCounter].type === 'monomial')
-        ) {
+        if (compareMonomialsSmaller(p[pCounter], q[qCounter])) {
             result.push(q[qCounter]);
             qCounter++;
         }
 
-        if (
-            (p[pCounter].type === 'monomial' &&
-                q[qCounter].type === 'monomial' &&
-                (<NonConstant>p[pCounter]).degree === (<NonConstant>q[qCounter]).degree) ||
-            (p[pCounter].type === 'constant' && q[qCounter].type === 'constant')
-        ) {
+        if (compareMonomialsEqual(p[pCounter], q[qCounter])) {
             const qMonomialsSameDegree = q.filter((m) => {
                 if (m.type === 'monomial') {
                     return p[pCounter].type === 'monomial' ? m.degree === (<NonConstant>p[pCounter]).degree : false;
