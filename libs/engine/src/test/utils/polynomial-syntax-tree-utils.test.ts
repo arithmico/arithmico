@@ -81,6 +81,27 @@ test('getPolynomial() 2*x^3 + 4*x^2', () => {
     ]);
 });
 
+test('getPolynomial() x^2', () => {
+    expect(
+        getPolynomial(
+            normalize(
+                <SyntaxTreeNode>{
+                    type: 'power',
+                    left: {
+                        type: 'symbol',
+                        name: 'x',
+                    },
+                    right: {
+                        type: 'number',
+                        value: 2,
+                    },
+                },
+                testContext,
+            ),
+        ),
+    ).toStrictEqual([{ type: 'monomial', coefficient: 1, base: 'x', degree: 2 }]);
+});
+
 test('getPolynomial() 2*x^3 + 4*y^2', () => {
     expect(
         getPolynomial(<SyntaxTreeNode>{
@@ -252,7 +273,7 @@ test('getPolynomial() x', () => {
             normalize(
                 <SyntaxTreeNode>{
                     type: 'symbol',
-                    name: 'x'
+                    name: 'x',
                 },
                 testContext,
             ),

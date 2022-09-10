@@ -29,6 +29,7 @@ normalizeTest('42', '42');
 normalizeTest('true', 'true');
 normalizeTest('x', 'x');
 normalizeTest('x^1', 'x');
+normalizeTest('x^2', 'x^2');
 normalizeTest('x + 2', '2 + x');
 normalizeTest('2 + 2', '4');
 normalizeTest('a + b + c', 'a + b + c');

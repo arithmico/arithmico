@@ -3,13 +3,14 @@ import {
     compareMonomialsDegreeGreater,
     compareMonomialsDegreeSmaller,
     Constant,
+    haveMonomialsSameBase,
     NonConstant,
     Polynomial,
-    sortPolynomialByDegree,
+    sortMonomialsByDegree,
 } from '../../../../utils/polynomial-type-utils';
 
 export function getDegreeFromPolynomial(p: Polynomial): number {
-    const highestMonomial = p.sort((a, b) => sortPolynomialByDegree(a, b))[0];
+    const highestMonomial = p.sort(sortMonomialsByDegree)[0];
 
     if (highestMonomial === null) {
         throw "RuntimeError: internally Polynomial isn't correct!";
@@ -22,52 +23,90 @@ export function getDegreeFromPolynomial(p: Polynomial): number {
     }
 }
 
-export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus: boolean = false): Polynomial {
+export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = false): Polynomial {
     const result: Polynomial = [];
 
-    let pCounter = 0;
-    let qCounter = 0;
+    let copyP = p.slice();
+    let copyQ = q.slice();
 
-    while (pCounter < p.length && qCounter < q.length) {
-        if (compareMonomialsDegreeGreater(p[pCounter], q[qCounter])) {
-            result.push(p[pCounter]);
-            pCounter++;
+    while (copyP.length > 0 && copyQ.length > 0) {
+        const latestElementP = copyP.at(-1);
+        const latestElementQ = copyQ.at(-1);
+
+        if (compareMonomialsDegreeGreater(latestElementP, latestElementQ)) {
+            result.push(copyP.pop());
+            continue;
         }
 
-        if (compareMonomialsDegreeSmaller(p[pCounter], q[qCounter])) {
-            result.push(q[qCounter]);
-            qCounter++;
+        if (compareMonomialsDegreeSmaller(latestElementP, latestElementQ)) {
+            result.push(copyQ.pop());
+            continue;
         }
 
-        if (compareMonomialsDegreeEqual(p[pCounter], q[qCounter])) {
-            if (p[pCounter].type === 'monomial') {
+        if (
+            compareMonomialsDegreeEqual(latestElementP, latestElementQ) &&
+            haveMonomialsSameBase(latestElementP, latestElementQ)
+        ) {
+            if (latestElementP.type === 'monomial') {
                 result.push(<NonConstant>{
                     type: 'monomial',
                     coefficient: minus
-                        ? p[pCounter].coefficient - q[qCounter].coefficient
-                        : p[pCounter].coefficient + q[qCounter].coefficient,
-                    base: (<NonConstant>p[pCounter]).base,
-                    degree: (<NonConstant>p[pCounter]).degree,
+                        ? latestElementP.coefficient - latestElementQ.coefficient
+                        : latestElementP.coefficient + latestElementQ.coefficient,
+                    base: (<NonConstant>latestElementP).base,
+                    degree: (<NonConstant>latestElementP).degree,
                 });
             }
-            if (p[pCounter].type === 'constant') {
+            if (latestElementP.type === 'constant') {
                 result.push(<Constant>{
                     type: 'constant',
                     coefficient: minus
-                        ? p[pCounter].coefficient - q[qCounter].coefficient
-                        : p[pCounter].coefficient + q[qCounter].coefficient,
+                        ? latestElementP.coefficient - latestElementQ.coefficient
+                        : latestElementP.coefficient + latestElementQ.coefficient,
                 });
             }
-            pCounter++;
-            qCounter++;
+            copyP.pop();
+            copyQ.pop();
+            continue;
+        }
+
+        if (
+            compareMonomialsDegreeEqual(latestElementQ, latestElementQ) &&
+            !haveMonomialsSameBase(latestElementP, latestElementQ)
+        ) {
+            copyQ = copyQ.filter((m) => {
+                if (haveMonomialsSameBase(latestElementP, m) && compareMonomialsDegreeEqual(latestElementP, m)) {
+                    result.push(<NonConstant>{
+                        type: 'monomial',
+                        coefficient: minus
+                            ? latestElementP.coefficient - m.coefficient
+                            : latestElementP.coefficient + m.coefficient,
+                        base: (<NonConstant>m).base,
+                        degree: (<NonConstant>m).degree,
+                    });
+                    copyP.pop();
+                    return false;
+                } else {
+                    return true;
+                }
+            });
         }
     }
 
-    if (pCounter !== p.length - 1) {
-        return result.concat(p.slice(pCounter, p.length));
+    if (copyP.length !== 0) {
+        return result.concat(copyP).sort(sortMonomialsByDegree);
     }
-    if (qCounter !== q.length - 1) {
-        return result.concat(q.slice(pCounter, q.length));
+    if (copyQ.length !== 0) {
+        return result.concat(copyQ).sort(sortMonomialsByDegree);
     }
-    return result;
+    return result.sort(sortMonomialsByDegree);
+}
+
+export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial) {
+    return [<Constant>{ type: 'constant', coefficient: 0 }];
+    const multiplicatedPolynomials = [];
+
+    p.forEach((m) => {
+        return null;
+    });
 }

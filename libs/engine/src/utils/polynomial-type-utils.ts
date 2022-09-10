@@ -20,7 +20,7 @@ export interface Constant {
     coefficient: number;
 }
 
-export function sortPolynomialByDegree(a: Monomial, b: Monomial): number {
+export function sortMonomialsByDegree(a: Monomial, b: Monomial): number {
     if (compareMonomialsDegreeEqual(a, b)) {
         return 0;
     }
@@ -51,6 +51,13 @@ export function compareMonomialsDegreeSmaller(a: Monomial, b: Monomial) {
 export function compareMonomialsDegreeEqual(a: Monomial, b: Monomial) {
     return (
         (a.type === 'monomial' && b.type === 'monomial' && (<NonConstant>a).degree === (<NonConstant>b).degree) ||
+        (a.type === 'constant' && b.type === 'constant')
+    );
+}
+
+export function haveMonomialsSameBase(a: Monomial, b: Monomial) {
+    return (
+        (a.type === 'monomial' && b.type === 'monomial' && (<NonConstant>a).base === (<NonConstant>b).base) ||
         (a.type === 'constant' && b.type === 'constant')
     );
 }

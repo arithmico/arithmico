@@ -1,6 +1,6 @@
 import { NumberNode, SymbolNode, SyntaxTreeNode } from '../types/SyntaxTreeNodes';
 import { convertOperatorChainToList } from './symbolic-utils';
-import { Constant, NonConstant, Polynomial, sortPolynomialByDegree } from './polynomial-type-utils';
+import { Constant, NonConstant, Polynomial, sortMonomialsByDegree } from './polynomial-type-utils';
 
 export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
     return convertOperatorChainToList('plus', node);
@@ -52,11 +52,13 @@ function getMonomialDegreeFromSummand(summand: SyntaxTreeNode): number {
         return 1;
     }
     if (isSummandConstant(summand)) {
-        return;
+        return 0;
     }
 
     const degrees: NumberNode[] = <NumberNode[]>(
-        convertOperatorChainToList('power', factors[1]).filter((factor) => factor.type === 'number')
+        convertOperatorChainToList('power', factors.length === 1 ? factors[0] : factors[1]).filter(
+            (factor) => factor.type === 'number',
+        )
     );
 
     if (degrees.length === 1) {
@@ -84,7 +86,9 @@ function getMonomialBaseFromSummand(summand: SyntaxTreeNode) {
     }
 
     const bases = <SymbolNode[]>(
-        convertOperatorChainToList('power', factors[1]).filter((factor) => factor.type === 'symbol')
+        convertOperatorChainToList('power', factors.length === 1 ? factors[0] : factors[1]).filter(
+            (factor) => factor.type === 'symbol',
+        )
     );
 
     if (bases.length === 1) {
@@ -94,25 +98,32 @@ function getMonomialBaseFromSummand(summand: SyntaxTreeNode) {
     throw 'RuntimeError: multiple bases';
 }
 
-function isPolynomialDegreeValid(factors: SyntaxTreeNode[]) {
-    return factors.every(
-        (summand) => getMonomialDegreeFromSummand(summand) >= 0 && getMonomialDegreeFromSummand(summand) % 1 === 0,
-    );
+export function isPolynomialDegreeValid(node: SyntaxTreeNode) {
+    const summands = getSummands(node);
+    return summands.every((summand) => {
+        const degree = getMonomialDegreeFromSummand(summand);
+        return degree >= 0 && degree % 1 === 0;
+    });
 }
 
-function isEveryPolynomialBaseSame(factors: SyntaxTreeNode[]) {
-    const symbol = getMonomialBaseFromSummand(factors[0]);
-    return factors.every((summand) => getMonomialBaseFromSummand(summand) === symbol || isSummandConstant(summand));
+export function isEveryPolynomialBaseSame(node: SyntaxTreeNode) {
+    const summands = getSummands(node);
+    if (summands.length === 1) {
+        return isSummandConstant(summands[0]) || getMonomialBaseFromSummand(summands[0]) !== undefined;
+    }
+
+    if (summands.length >= 2) {
+        const symbol = getMonomialBaseFromSummand(summands[1]);
+        return summands.every(
+            (summand) => getMonomialBaseFromSummand(summand) === symbol || isSummandConstant(summand),
+        );
+    }
+
+    return false;
 }
 
 export function isPolynomialMathematicallyValid(node: SyntaxTreeNode) {
-    const summands = getSummands(node);
-
-    if (!isPolynomialDegreeValid(summands)) {
-        return false;
-    }
-
-    return isEveryPolynomialBaseSame(summands);
+    return isPolynomialDegreeValid(node) && isEveryPolynomialBaseSame(node);
 }
 
 export function getPolynomial(node: SyntaxTreeNode): Polynomial {
@@ -131,5 +142,5 @@ export function getPolynomial(node: SyntaxTreeNode): Polynomial {
                 };
             }
         })
-        .sort((a, b) => sortPolynomialByDegree(a, b));
+        .sort(sortMonomialsByDegree);
 }
