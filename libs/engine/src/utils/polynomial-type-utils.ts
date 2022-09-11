@@ -93,3 +93,36 @@ export function getSyntaxTreeNodeFromPolynomial(polynomial: Polynomial): SyntaxT
     }
     return currentSyntaxTreeNode;
 }
+
+export function multiplyMonomials(mp: Monomial, mq: Monomial) {
+    if (mp.type === 'constant' && mq.type === 'constant') {
+        return <Constant>{ type: 'constant', coefficient: mp.coefficient * mq.coefficient };
+    }
+
+    if (mp.type === 'constant' && mq.type === 'monomial') {
+        return <NonConstant>{
+            type: 'monomial',
+            coefficient: mp.coefficient * mq.coefficient,
+            base: mq.base,
+            degree: mq.degree,
+        };
+    }
+
+    if (mp.type === 'monomial' && mq.type === 'constant') {
+        return <NonConstant>{
+            type: 'monomial',
+            coefficient: mp.coefficient * mq.coefficient,
+            base: mp.base,
+            degree: mp.degree,
+        };
+    }
+
+    if (mp.type === 'monomial' && mq.type === 'monomial') {
+        return <NonConstant>{
+            type: 'monomial',
+            coefficient: mp.coefficient * mq.coefficient,
+            base: mp.base,
+            degree: mp.degree + mq.degree,
+        };
+    }
+}

@@ -49,7 +49,7 @@ addPluginFunction(
             }
 
             if (!isEveryPolynomialBaseSame(normalizedP)) {
-                throw 'MathError: deg:  Every monomial must have the same base.';
+                throw "MathError: deg: polynomial isn't mathematically correct! Every monomial must have the same base.";
             }
 
             const polynomialP = getPolynomial(normalizedP);
@@ -111,8 +111,27 @@ addPluginFunction(
             const p = <SyntaxTreeNode>parameterStackFrame['p'];
             const q = <SyntaxTreeNode>parameterStackFrame['q'];
 
-            const polynomialP = getPolynomial(normalize(p, context));
-            const polynomialQ = getPolynomial(normalize(q, context));
+            const normalizedP = normalize(p, context);
+            const normalizedQ = normalize(q, context);
+
+            if (!isPolynomialDegreeValid(normalizedP)) {
+                throw "MathError: pmul: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
+            }
+
+            if (!isEveryPolynomialBaseSame(normalizedP)) {
+                throw "MathError: pmul:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
+            }
+
+            if (!isPolynomialDegreeValid(normalizedQ)) {
+                throw "MathError: pmul: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
+            }
+
+            if (!isEveryPolynomialBaseSame(normalizedQ)) {
+                throw "MathError: pmul:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
+            }
+
+            const polynomialP = getPolynomial(normalizedP);
+            const polynomialQ = getPolynomial(normalizedQ);
 
             return getSyntaxTreeNodeFromPolynomial(calculatePolynomialMultiplication(polynomialP, polynomialQ));
         },

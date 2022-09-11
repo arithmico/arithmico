@@ -4,6 +4,7 @@ import {
     compareMonomialsDegreeSmaller,
     Constant,
     haveMonomialsSameBase,
+    multiplyMonomials,
     NonConstant,
     Polynomial,
     sortMonomialsByDegree,
@@ -26,20 +27,20 @@ export function getDegreeFromPolynomial(p: Polynomial): number {
 export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = false): Polynomial {
     const result: Polynomial = [];
 
-    let copyP = p.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
-    let copyQ = q.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
+    const copiedP = p.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
+    let copiedQ = q.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
 
-    while (copyP.length > 0 && copyQ.length > 0) {
-        const latestElementP = copyP.at(-1);
-        const latestElementQ = copyQ.at(-1);
+    while (copiedP.length > 0 && copiedQ.length > 0) {
+        const latestElementP = copiedP.at(-1);
+        const latestElementQ = copiedQ.at(-1);
 
         if (compareMonomialsDegreeGreater(latestElementP, latestElementQ)) {
-            result.push(copyP.pop());
+            result.push(copiedP.pop());
             continue;
         }
 
         if (compareMonomialsDegreeSmaller(latestElementP, latestElementQ)) {
-            result.push(copyQ.pop());
+            result.push(copiedQ.pop());
             continue;
         }
 
@@ -65,8 +66,8 @@ export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = fa
                         : latestElementP.coefficient + latestElementQ.coefficient,
                 });
             }
-            copyP.pop();
-            copyQ.pop();
+            copiedP.pop();
+            copiedQ.pop();
             continue;
         }
 
@@ -74,7 +75,7 @@ export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = fa
             compareMonomialsDegreeEqual(latestElementQ, latestElementQ) &&
             !haveMonomialsSameBase(latestElementP, latestElementQ)
         ) {
-            copyQ = copyQ.filter((m) => {
+            copiedQ = copiedQ.filter((m) => {
                 if (haveMonomialsSameBase(latestElementP, m) && compareMonomialsDegreeEqual(latestElementP, m)) {
                     result.push(<NonConstant>{
                         type: 'monomial',
@@ -84,7 +85,7 @@ export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = fa
                         base: (<NonConstant>m).base,
                         degree: (<NonConstant>m).degree,
                     });
-                    copyP.pop();
+                    copiedP.pop();
                     return false;
                 } else {
                     return true;
@@ -93,20 +94,26 @@ export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = fa
         }
     }
 
-    if (copyP.length !== 0) {
-        return result.concat(copyP);
+    if (copiedP.length !== 0) {
+        return result.concat(copiedP);
     }
-    if (copyQ.length !== 0) {
-        return result.concat(copyQ);
+    if (copiedQ.length !== 0) {
+        return result.concat(copiedQ);
     }
     return result;
 }
 
-export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial) {
-    return [<Constant>{ type: 'constant', coefficient: 0 }];
-    const multiplicatedPolynomials = [];
+export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial): Polynomial {
+    const multipliedPolynomials: Polynomial[] = [];
 
-    p.forEach((m) => {
-        return null;
+    const copiedP = p.slice();
+    const copiedQ = q.slice();
+
+    copiedP.forEach((mp) => {
+        const multipliedMonomials: Polynomial = [];
+        copiedQ.forEach((mq) => multipliedMonomials.push(multiplyMonomials(mp, mq)));
+        multipliedPolynomials.push(multipliedMonomials);
     });
+
+    return multipliedPolynomials.reduce((a, b) => calculatePolynomialDash(a, b)).sort(sortMonomialsByDegree);
 }

@@ -162,6 +162,9 @@ integrationTest('psub(5*x + 3, 2*x^2 + x + 4)', '2 * x^2 + 4 * x + -1');
 integrationTest('psub(2*x + y, -2*y + 3*x)', '3 * y + (-1) * x');
 integrationTest('psub(-2*y + 3*x, 2*x + y)', '1 * x + (-3) * y');
 integrationTest('psub(x^2 + 2*x + y -3, -2*y + 3*x)', '1 * x^2 + 3 * y + (-1) * x + -3');
+integrationTest('psub(1, 2)', '-1');
+integrationTest('pmul(2*x^2 + x + 4, 5*x + 3)', '10 * x^3 + 11 * x^2 + 23 * x + 12');
+integrationTest('pmul(5*x + 3, 2*x^2 + x + 4)', '10 * x^3 + 11 * x^2 + 23 * x + 12');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -219,3 +222,6 @@ integrationTestThrow('fib(0)');
 integrationTestThrow('fib(3.5)');
 integrationTestThrow('deg(x^-1)');
 integrationTestThrow('deg(x^5 + y^4)');
+integrationTestThrow('pmul(2*x + y, -2*y + 3*x)');
+integrationTestThrow('pmul(-2*y + 3*x, 2*x + y)');
+integrationTestThrow('pmul(x^2 + 2*x + y -3, -2*y + 3*x)');
