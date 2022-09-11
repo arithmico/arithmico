@@ -26,8 +26,8 @@ export function getDegreeFromPolynomial(p: Polynomial): number {
 export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = false): Polynomial {
     const result: Polynomial = [];
 
-    let copyP = p.slice();
-    let copyQ = q.slice();
+    let copyP = p.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
+    let copyQ = q.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
 
     while (copyP.length > 0 && copyQ.length > 0) {
         const latestElementP = copyP.at(-1);
@@ -94,12 +94,12 @@ export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = fa
     }
 
     if (copyP.length !== 0) {
-        return result.concat(copyP).sort(sortMonomialsByDegree);
+        return result.concat(copyP);
     }
     if (copyQ.length !== 0) {
-        return result.concat(copyQ).sort(sortMonomialsByDegree);
+        return result.concat(copyQ);
     }
-    return result.sort(sortMonomialsByDegree);
+    return result;
 }
 
 export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial) {
