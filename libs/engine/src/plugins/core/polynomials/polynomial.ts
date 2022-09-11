@@ -36,12 +36,17 @@ const doublePolynomialHeader: FunctionHeaderItem[] = [
 addPluginFunction(
     polynomialPlugin,
     createPluginFunction(
-        'deg',
+        'polynomial:deg',
         singlePolynomialHeader,
         'Calculates the degree of given polynomial p.',
         'Berechnet den Grad eines gegebenen Polynoms p.',
         (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame('deg', parameters, singlePolynomialHeader, context);
+            const parameterStackFrame = mapParametersToStackFrame(
+                'polynomial:deg',
+                parameters,
+                singlePolynomialHeader,
+                context,
+            );
             const p = <SyntaxTreeNode>parameterStackFrame['p'];
 
             const normalizedP = normalize(p, context);
@@ -64,12 +69,17 @@ addPluginFunction(
 addPluginFunction(
     polynomialPlugin,
     createPluginFunction(
-        'padd',
+        'polynomial:add',
         doublePolynomialHeader,
         'Adds two polynomials p and q.',
         'Addiert zwei Polynome p und q.',
         (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame('padd', parameters, doublePolynomialHeader, context);
+            const parameterStackFrame = mapParametersToStackFrame(
+                'polynomial:add',
+                parameters,
+                doublePolynomialHeader,
+                context,
+            );
             const p = <SyntaxTreeNode>parameterStackFrame['p'];
             const q = <SyntaxTreeNode>parameterStackFrame['q'];
 
@@ -84,12 +94,17 @@ addPluginFunction(
 addPluginFunction(
     polynomialPlugin,
     createPluginFunction(
-        'psub',
+        'polynomial:sub',
         doublePolynomialHeader,
         'Subtracts two polynomials p and q.',
         'Subtrahiert zwei Polynome p und q.',
         (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame('psub', parameters, doublePolynomialHeader, context);
+            const parameterStackFrame = mapParametersToStackFrame(
+                'polynomial:sub',
+                parameters,
+                doublePolynomialHeader,
+                context,
+            );
             const p = <SyntaxTreeNode>parameterStackFrame['p'];
             const q = <SyntaxTreeNode>parameterStackFrame['q'];
 
@@ -104,12 +119,17 @@ addPluginFunction(
 addPluginFunction(
     polynomialPlugin,
     createPluginFunction(
-        'pmul',
+        'polynomial:mul',
         doublePolynomialHeader,
         'Multiplicates two polynomials p and q.',
         'Multipliziert zwei Polynome p und q.',
         (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame('pmul', parameters, doublePolynomialHeader, context);
+            const parameterStackFrame = mapParametersToStackFrame(
+                'polynomial:mul',
+                parameters,
+                doublePolynomialHeader,
+                context,
+            );
             const p = <SyntaxTreeNode>parameterStackFrame['p'];
             const q = <SyntaxTreeNode>parameterStackFrame['q'];
 
@@ -117,19 +137,19 @@ addPluginFunction(
             const normalizedQ = normalize(q, context);
 
             if (!isPolynomialDegreeValid(normalizedP)) {
-                throw "MathError: pmul: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
+                throw "MathError: polynomial:mul: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
             }
 
             if (!isEveryPolynomialBaseSame(normalizedP)) {
-                throw "MathError: pmul:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
+                throw "MathError: polynomial:mul:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
             }
 
             if (!isPolynomialDegreeValid(normalizedQ)) {
-                throw "MathError: pmul: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
+                throw "MathError: polynomial:mul: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
             }
 
             if (!isEveryPolynomialBaseSame(normalizedQ)) {
-                throw "MathError: pmul:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
+                throw "MathError: polynomial:mul:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
             }
 
             const polynomialP = getPolynomial(normalizedP);
@@ -143,12 +163,17 @@ addPluginFunction(
 addPluginFunction(
     polynomialPlugin,
     createPluginFunction(
-        'pdiv',
+        'polynomial:div',
         doublePolynomialHeader,
-        'Divides two polynomials, the dividend p must have an equal or higher degree than the dividend q.',
-        'Dividiert zwei Polynome, der Dividiend p muss einen gleichen oder höheren Grad als der Dividend q aufweisen.',
+        'Divides two polynomials, the dividend p must have an equal or higher degree than the dividend q. The result is returned as [quotient, remainder].',
+        'Dividiert zwei Polynome, der Dividiend p muss einen gleichen oder höheren Grad als der Dividend q aufweisen. Das Ergebnis als [Quotient, Rest].',
         (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame('pdiv', parameters, doublePolynomialHeader, context);
+            const parameterStackFrame = mapParametersToStackFrame(
+                'polynomial:div',
+                parameters,
+                doublePolynomialHeader,
+                context,
+            );
             const p = <SyntaxTreeNode>parameterStackFrame['p'];
             const q = <SyntaxTreeNode>parameterStackFrame['q'];
 
@@ -156,30 +181,29 @@ addPluginFunction(
             const normalizedQ = normalize(q, context);
 
             if (!isPolynomialDegreeValid(normalizedP)) {
-                throw "MathError: pdiv: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
+                throw "MathError: polynomial:div: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
             }
 
             if (!isEveryPolynomialBaseSame(normalizedP)) {
-                throw "MathError: pdiv:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
+                throw "MathError: polynomial:div:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
             }
 
             if (!isPolynomialDegreeValid(normalizedQ)) {
-                throw "MathError: pdiv: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
+                throw "MathError: polynomial:div: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
             }
-
             if (!isEveryPolynomialBaseSame(normalizedQ)) {
-                throw "MathError: pdiv:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
+                throw "MathError: polynomial:div:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
             }
 
             const polynomialP = getPolynomial(normalizedP);
             const polynomialQ = getPolynomial(normalizedQ);
 
             if (getDegreeFromPolynomial(polynomialP) < getDegreeFromPolynomial(polynomialQ)) {
-                throw "MathError: pdiv: divisor q mustn't have a greater or equal degree as dividend p!";
+                throw "MathError: polynomial:div: divisor q mustn't have a greater or equal degree as dividend p!";
             }
 
             if (polynomialQ.length === 1 && polynomialQ[0].type === 'constant' && polynomialQ[0].coefficient === 0) {
-                throw "MathError: pdiv: divisor q mustn't be 0!";
+                throw "MathError: polynomial:div: divisor q mustn't be 0!";
             }
 
             const quotientRemainder = calculatePolynomialDivision(polynomialP, polynomialQ);

@@ -5,6 +5,7 @@ import createTimes from '../create/create-times';
 import createSymbolNode from '../create/create-symbol-node';
 import createPower from '../create/create-power';
 import { getDegreeFromPolynomial } from '../plugins/core/polynomials/utils/polynomial-utils';
+import createNegate from '../create/create-negate';
 
 export type Polynomial = Monomial[];
 type Monomial = NonConstant | Constant;
@@ -69,14 +70,28 @@ function getSyntaxTreeNodeFromMonomial(monomial: Monomial): SyntaxTreeNode {
     }
 
     if (monomial.type === 'monomial' && monomial.degree === 1) {
-        return createTimes(createNumberNode(monomial.coefficient), createSymbolNode(monomial.base));
+        switch (monomial.coefficient) {
+            case 1:
+                return createSymbolNode(monomial.base);
+            case -1:
+                return createNegate(createSymbolNode(monomial.base));
+            default:
+                return createTimes(createNumberNode(monomial.coefficient), createSymbolNode(monomial.base));
+        }
     }
 
     if (monomial.type === 'monomial' && monomial.degree > 1) {
-        return createTimes(
-            createNumberNode(monomial.coefficient),
-            createPower(createSymbolNode(monomial.base), createNumberNode(monomial.degree)),
-        );
+        switch (monomial.coefficient) {
+            case 1:
+                return createPower(createSymbolNode(monomial.base), createNumberNode(monomial.degree));
+            case -1:
+                return createNegate(createPower(createSymbolNode(monomial.base), createNumberNode(monomial.degree)));
+            default:
+                return createTimes(
+                    createNumberNode(monomial.coefficient),
+                    createPower(createSymbolNode(monomial.base), createNumberNode(monomial.degree)),
+                );
+        }
     }
 }
 

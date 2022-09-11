@@ -122,10 +122,6 @@ export function isEveryPolynomialBaseSame(node: SyntaxTreeNode) {
     return false;
 }
 
-export function isPolynomialMathematicallyValid(node: SyntaxTreeNode) {
-    return isPolynomialDegreeValid(node) && isEveryPolynomialBaseSame(node);
-}
-
 export function getPolynomial(node: SyntaxTreeNode): Polynomial {
     const summands = getSummands(node);
 
