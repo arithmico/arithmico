@@ -3,6 +3,8 @@ import {
     compareMonomialsDegreeGreater,
     compareMonomialsDegreeSmaller,
     Constant,
+    divideMonomials,
+    fillPolynomialWithZero,
     haveMonomialsSameBase,
     multiplyMonomials,
     NonConstant,
@@ -95,12 +97,12 @@ export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = fa
     }
 
     if (copiedP.length !== 0) {
-        return result.concat(copiedP);
+        return result.concat(copiedP).filter((m) => m.coefficient !== 0);
     }
     if (copiedQ.length !== 0) {
-        return result.concat(copiedQ);
+        return result.concat(copiedQ).filter((m) => m.coefficient !== 0);
     }
-    return result;
+    return result.filter((m) => m.coefficient !== 0);
 }
 
 export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial): Polynomial {
@@ -116,4 +118,33 @@ export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial):
     });
 
     return multipliedPolynomials.reduce((a, b) => calculatePolynomialDash(a, b)).sort(sortMonomialsByDegree);
+}
+
+export function calculatePolynomialDivision(p: Polynomial, q: Polynomial): [Polynomial, Polynomial] {
+    const constantZero = [<Constant>{ type: 'constant', coefficient: 0 }];
+    let quotient: Polynomial = constantZero;
+    let remainder: Polynomial = fillPolynomialWithZero(p.slice());
+    const divisor = q.slice();
+
+    console.debug('quotient begin: ', quotient);
+    console.debug('remainder begin: ', remainder);
+    console.debug('divisor: ', divisor);
+    let i = 1;
+
+    while (
+        !(remainder.length === 1 && remainder[0].type === 'constant' && remainder[0].coefficient === 0) &&
+        getDegreeFromPolynomial(remainder) >= getDegreeFromPolynomial(divisor)
+    ) {
+        const temp: Polynomial = [divideMonomials(remainder[0], divisor[0])];
+        quotient = calculatePolynomialDash(quotient, temp);
+        remainder = calculatePolynomialDash(remainder, calculatePolynomialMultiplication(temp, divisor), true);
+        remainder = remainder.length === 0 ? constantZero : remainder;
+
+        console.debug(`temp ${i}`, temp);
+        console.debug(`remainder ${i}`, remainder);
+        console.debug(`quotient ${i}`, quotient);
+        i++;
+    }
+
+    return [quotient, remainder];
 }

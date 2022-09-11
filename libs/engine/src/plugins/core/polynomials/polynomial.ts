@@ -7,7 +7,6 @@ import {
 } from '../../../utils/plugin-builder';
 import { FunctionHeaderItem, SyntaxTreeNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
-import createNumberNode from '../../../create/create-number-node';
 import {
     getPolynomial,
     isEveryPolynomialBaseSame,
@@ -16,10 +15,13 @@ import {
 import normalize from '../../../normalize';
 import {
     calculatePolynomialDash,
+    calculatePolynomialDivision,
     calculatePolynomialMultiplication,
     getDegreeFromPolynomial,
 } from './utils/polynomial-utils';
 import { getSyntaxTreeNodeFromPolynomial } from '../../../utils/polynomial-type-utils';
+import createNumberNode from '../../../create/create-number-node';
+import createVector from '../../../create/create-vector';
 
 const polynomialPlugin = createPlugin('core/polynomial');
 addPluginDescription(polynomialPlugin, 'Adds polynomial division and another functions on polynoms.');
@@ -149,8 +151,43 @@ addPluginFunction(
             const parameterStackFrame = mapParametersToStackFrame('pdiv', parameters, doublePolynomialHeader, context);
             const p = <SyntaxTreeNode>parameterStackFrame['p'];
             const q = <SyntaxTreeNode>parameterStackFrame['q'];
-            // todo
-            return createNumberNode(0);
+
+            const normalizedP = normalize(p, context);
+            const normalizedQ = normalize(q, context);
+
+            if (!isPolynomialDegreeValid(normalizedP)) {
+                throw "MathError: pdiv: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
+            }
+
+            if (!isEveryPolynomialBaseSame(normalizedP)) {
+                throw "MathError: pdiv:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
+            }
+
+            if (!isPolynomialDegreeValid(normalizedQ)) {
+                throw "MathError: pdiv: polynomial p isn't mathematically correct! Every monomial must have an integer degree >= 0.";
+            }
+
+            if (!isEveryPolynomialBaseSame(normalizedQ)) {
+                throw "MathError: pdiv:  polynomial q isn't mathematically correct! Every monomial must have the same base.";
+            }
+
+            const polynomialP = getPolynomial(normalizedP);
+            const polynomialQ = getPolynomial(normalizedQ);
+
+            if (getDegreeFromPolynomial(polynomialP) < getDegreeFromPolynomial(polynomialQ)) {
+                throw "MathError: pdiv: divisor q mustn't have a greater or equal degree as dividend p!";
+            }
+
+            if (polynomialQ.length === 1 && polynomialQ[0].type === 'constant' && polynomialQ[0].coefficient === 0) {
+                throw "MathError: pdiv: divisor q mustn't be 0!";
+            }
+
+            const quotientRemainder = calculatePolynomialDivision(polynomialP, polynomialQ);
+
+            return createVector([
+                getSyntaxTreeNodeFromPolynomial(quotientRemainder[0]),
+                getSyntaxTreeNodeFromPolynomial(quotientRemainder[1]),
+            ]);
         },
     ),
 );
