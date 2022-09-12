@@ -9,6 +9,7 @@ import {
     multiplyMonomials,
     NonConstant,
     Polynomial,
+    removeZerosFromPolynomial,
     sortMonomialsByDegree,
 } from '../../../../utils/polynomial-type-utils';
 
@@ -26,7 +27,7 @@ export function getDegreeFromPolynomial(p: Polynomial): number {
     }
 }
 
-export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = false): Polynomial {
+function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus: boolean): Polynomial {
     let result: Polynomial = [];
 
     const copiedP = p.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
@@ -103,8 +104,17 @@ export function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus = fa
         result = result.concat(copiedQ);
     }
 
-    result = result.filter((m) => m.coefficient !== 0).sort(sortMonomialsByDegree);
-    return result.length === 0 ? [<Constant>{ type: 'constant', coefficient: 0 }] : result;
+    return removeZerosFromPolynomial(result);
+}
+
+
+
+export function calculatePolynomialAddition(p: Polynomial, q: Polynomial) {
+    return calculatePolynomialDash(p, q, false);
+}
+
+export function calculatePolynomialSubtraction(p: Polynomial, q: Polynomial) {
+    return calculatePolynomialDash(p, q, true);
 }
 
 export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial): Polynomial {
@@ -119,7 +129,7 @@ export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial):
         multipliedPolynomials.push(multipliedMonomials);
     });
 
-    return multipliedPolynomials.reduce((a, b) => calculatePolynomialDash(a, b)).sort(sortMonomialsByDegree);
+    return multipliedPolynomials.reduce(calculatePolynomialAddition).sort(sortMonomialsByDegree);
 }
 
 export function calculatePolynomialDivision(p: Polynomial, q: Polynomial): [Polynomial, Polynomial] {
@@ -132,8 +142,8 @@ export function calculatePolynomialDivision(p: Polynomial, q: Polynomial): [Poly
         getDegreeFromPolynomial(remainder) >= getDegreeFromPolynomial(divisor)
     ) {
         const temp: Polynomial = [divideMonomials(remainder[0], divisor[0])];
-        quotient = calculatePolynomialDash(quotient, temp);
-        remainder = calculatePolynomialDash(remainder, calculatePolynomialMultiplication(temp, divisor), true);
+        quotient = calculatePolynomialAddition(quotient, temp);
+        remainder = calculatePolynomialSubtraction(remainder, calculatePolynomialMultiplication(temp, divisor));
     }
 
     return [quotient, remainder];

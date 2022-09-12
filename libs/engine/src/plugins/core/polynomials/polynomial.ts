@@ -14,9 +14,10 @@ import {
 } from '../../../utils/polynomial-syntax-tree-utils';
 import normalize from '../../../normalize';
 import {
-    calculatePolynomialDash,
+    calculatePolynomialAddition,
     calculatePolynomialDivision,
     calculatePolynomialMultiplication,
+    calculatePolynomialSubtraction,
     getDegreeFromPolynomial,
 } from './utils/polynomial-utils';
 import { getSyntaxTreeNodeFromPolynomial } from '../../../utils/polynomial-type-utils';
@@ -86,7 +87,7 @@ addPluginFunction(
             const polynomialP = getPolynomial(normalize(p, context));
             const polynomialQ = getPolynomial(normalize(q, context));
 
-            return getSyntaxTreeNodeFromPolynomial(calculatePolynomialDash(polynomialP, polynomialQ));
+            return getSyntaxTreeNodeFromPolynomial(calculatePolynomialAddition(polynomialP, polynomialQ));
         },
     ),
 );
@@ -111,7 +112,7 @@ addPluginFunction(
             const polynomialP = getPolynomial(normalize(p, context));
             const polynomialQ = getPolynomial(normalize(q, context));
 
-            return getSyntaxTreeNodeFromPolynomial(calculatePolynomialDash(polynomialP, polynomialQ, true));
+            return getSyntaxTreeNodeFromPolynomial(calculatePolynomialSubtraction(polynomialP, polynomialQ));
         },
     ),
 );
@@ -165,8 +166,8 @@ addPluginFunction(
     createPluginFunction(
         'polynomial:div',
         doublePolynomialHeader,
-        'Divides two polynomials, the dividend p must have an equal or higher degree than the dividend q. The result is returned as [quotient, remainder].',
-        'Dividiert zwei Polynome, der Dividiend p muss einen gleichen oder höheren Grad als der Dividend q aufweisen. Das Ergebnis als [Quotient, Rest].',
+        'Divides two polynomials, the dividend p must have an equal or higher degree than the divisor q. The result is returned as [quotient, remainder].',
+        'Dividiert zwei Polynome, der Dividiend p muss einen gleichen oder höheren Grad als der Divisor q aufweisen. Das Ergebnis als [Quotient, Rest].',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame(
                 'polynomial:div',

@@ -1,10 +1,10 @@
-import { SyntaxTreeNode } from '../types/SyntaxTreeNodes';
+import {SyntaxTreeNode} from '../types/SyntaxTreeNodes';
 import createPlus from '../create/create-plus';
 import createNumberNode from '../create/create-number-node';
 import createTimes from '../create/create-times';
 import createSymbolNode from '../create/create-symbol-node';
 import createPower from '../create/create-power';
-import { getDegreeFromPolynomial } from '../plugins/core/polynomials/utils/polynomial-utils';
+import {getDegreeFromPolynomial} from '../plugins/core/polynomials/utils/polynomial-utils';
 import createNegate from '../create/create-negate';
 
 export type Polynomial = Monomial[];
@@ -170,7 +170,6 @@ export function divideMonomials(mp: Monomial, mq: Monomial) {
 }
 
 export function fillPolynomialWithZero(p: Polynomial) {
-    console.debug('poly: ', p);
     const copiedP = p.slice();
     const base = p.length === 1 && p[0].type === 'constant' ? null : (<NonConstant>p[0]).base;
     const newMonomials = [];
@@ -204,4 +203,9 @@ export function fillPolynomialWithZero(p: Polynomial) {
         }
     }
     return copiedP.concat(newMonomials).sort(sortMonomialsByDegree);
+}
+
+export function removeZerosFromPolynomial(p: Polynomial) {
+    const copiedP = p.slice().filter((m) => m.coefficient !== 0).sort(sortMonomialsByDegree);
+    return copiedP.length === 0 ? [<Constant>{type: 'constant', coefficient: 0}] : copiedP;
 }
