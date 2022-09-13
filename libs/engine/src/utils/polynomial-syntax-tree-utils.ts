@@ -1,6 +1,11 @@
 import { NumberNode, SymbolNode, SyntaxTreeNode } from '../types/SyntaxTreeNodes';
 import { convertOperatorChainToList } from './symbolic-utils';
-import { Constant, NonConstant, Polynomial, sortMonomialsByDegree } from './polynomial-type-utils';
+import {
+    createConstantMonomial,
+    createNonConstantMonomial,
+    Polynomial,
+    sortMonomialsByDegree,
+} from './polynomial-type-utils';
 
 export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
     return convertOperatorChainToList('plus', node);
@@ -123,20 +128,15 @@ export function isEveryPolynomialBaseSame(node: SyntaxTreeNode) {
 }
 
 export function getPolynomial(node: SyntaxTreeNode): Polynomial {
-    const summands = getSummands(node);
-
-    return summands
-        .map((factor) => {
-            if (isSummandConstant(factor)) {
-                return <Constant>{ type: 'constant', coefficient: getMonomialCoefficientFromSummand(factor) };
-            } else {
-                return <NonConstant>{
-                    type: 'monomial',
-                    coefficient: getMonomialCoefficientFromSummand(factor),
-                    base: getMonomialBaseFromSummand(factor),
-                    degree: getMonomialDegreeFromSummand(factor),
-                };
-            }
+    return getSummands(node)
+        .map((summand) => {
+            return isSummandConstant(summand)
+                ? createConstantMonomial(getMonomialCoefficientFromSummand(summand))
+                : createNonConstantMonomial(
+                      getMonomialCoefficientFromSummand(summand),
+                      getMonomialBaseFromSummand(summand),
+                      getMonomialDegreeFromSummand(summand),
+                  );
         })
         .sort(sortMonomialsByDegree);
 }
