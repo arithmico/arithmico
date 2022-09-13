@@ -150,7 +150,7 @@ export function divideMonomials(mp: Monomial, mq: Monomial) {
 
 export function fillPolynomialWithZeros(p: Polynomial) {
     const copiedP = p.slice();
-    const base = p.length === 1 && p[0].type === 'constant' ? null : (<NonConstant>p[0]).base;
+    const base = p.length === 1 && p[0].type === 'non-constant' ? p[0].base : null;
     const newMonomials = [];
 
     for (let i = 0, currentDegree = getDegreeFromPolynomial(p); currentDegree >= 0; currentDegree--) {
