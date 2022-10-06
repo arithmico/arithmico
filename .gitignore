@@ -3,6 +3,8 @@
 # dependencies
 /node_modules
 apps/*/node_modules
+apps/*/build
+apps/*/dist
 libs/*/node_modules
 /.pnp
 .pnp.js
