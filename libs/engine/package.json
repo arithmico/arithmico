@@ -2,6 +2,7 @@
   "name": "@arithmico/engine",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "type": "module",
   "scripts": {
     "build-parser": "node parser/build.js",
     "test": "npm run build && jest --coverage",
