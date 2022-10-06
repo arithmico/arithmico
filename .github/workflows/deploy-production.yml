@@ -100,7 +100,7 @@ jobs:
       run: npm ci
     - name: Build
       env:
-        REACT_APP_OFFLINE_MODE: true
+        VITE_OFFLINE_MODE: true
       run: npm run build:engine && npm run build:calc
     - name: Test
       run: npm run test:all

@@ -13,7 +13,7 @@ import {
 } from "@stores/calculator-selectors";
 import AppHeaderNavBar from "@local-components/app-header-nav-bar/app-header-nav-bar";
 
-const Router = process.env.REACT_APP_OFFLINE_MODE ? HashRouter : BrowserRouter;
+const Router = import.meta.env.VITE_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
 function App() {
   const fontSize = useSelector(selectFontSize);

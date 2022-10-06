@@ -7,7 +7,7 @@ on:
 
 env: 
   CI: true
-  REACT_APP_DEV_MODE: true
+  VITE_DEV_MODE: true
   BUCKET_ID: ${{ secrets.BUCKET_ID }}
   CALCULATOR_DEV_DIST: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
   DOCUMENTATION_DEV_DIST: ${{ secrets.DOCUMENTATION_DEV_DIST }}
