@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build-parser": "node parser/build.js",
-    "test": "npm run build && jest --coverage",
+    "test": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
     "pretty": "prettier 'src/**/*' --check",
     "type-check": "tsc --noEmit",
