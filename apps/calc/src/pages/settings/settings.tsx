@@ -6,29 +6,27 @@ import SettingsSection from "@components/settings-section/settings-section";
 import SettingsDecimalPlacesListbox from "@components/settings-decimal-places-listbox/settings-decimal-places-listbox";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
-import useSessionStore, {
-  useDispatch,
-} from "../../stores/session-store/use-session-store";
 import InterfaceSettings from "@local-components/settings-interface-section/settings-interface-section";
 import AppearanceSettings from "@local-components/settings-appearance-section/settings-appearance-section";
+import { useDispatch, useSelector } from "react-redux";
+import { CalculatorRootState } from "@stores/calculator-store";
+import {
+  setAngleUnit,
+  setDecimalPlaces,
+  setNumberFormat,
+} from "@stores/slices/settings";
 
 export default function Settings() {
   const dispatch = useDispatch();
-  const [significantDecimalPlaces, setSignificantDecimalPlaces] =
-    useSessionStore((state) => [
-      state.settings.decimalPlaces,
-      (decimalPlaces: number) =>
-        dispatch({ type: "setDecimalPlaces", decimalPlaces }),
-    ]);
-  const [numberFormat, setNumberFormat] = useSessionStore((state) => [
-    state.settings.numberFormat,
-    (numberFormat: string) =>
-      dispatch({ type: "setNumberFormat", numberFormat }),
-  ]);
-  const [angleUnit, setAngleUnit] = useSessionStore((state) => [
-    state.settings.angleUnit,
-    (angleUnit: string) => dispatch({ type: "setAngleUnit", angleUnit }),
-  ]);
+  const significantDecimalPlaces = useSelector(
+    (state: CalculatorRootState) => state.settings.decimalPlaces
+  );
+  const numberFormat = useSelector(
+    (state: CalculatorRootState) => state.settings.numberFormat
+  );
+  const angleUnit = useSelector(
+    (state: CalculatorRootState) => state.settings.angleUnit
+  );
 
   const [t] = useTranslation();
 
@@ -39,7 +37,7 @@ export default function Settings() {
         <AppearanceSettings />
         <SettingsSection heading={t("settings.calculator")}>
           <SettingsDecimalPlacesListbox
-            onChange={setSignificantDecimalPlaces}
+            onChange={(v: number) => dispatch(setDecimalPlaces(v))}
             label={t("settings.significantDecimalPlaces")}
             options={new Array(15)
               .fill(0)
@@ -47,7 +45,7 @@ export default function Settings() {
             value={significantDecimalPlaces}
           />
           <SettingsListbox
-            onChange={setNumberFormat}
+            onChange={(v: string) => dispatch(setNumberFormat(v))}
             label={t("settings.numberFormat")}
             options={[
               { label: t("settings.numberFormat.default"), value: "default" },
@@ -57,7 +55,7 @@ export default function Settings() {
             value={numberFormat}
           />
           <SettingsListbox
-            onChange={(v: string) => setAngleUnit(v)}
+            onChange={(v: string) => dispatch(setAngleUnit(v))}
             label={t("settings.angleUnit")}
             options={[
               { label: t("settings.angleUnit.degrees"), value: "degrees" },

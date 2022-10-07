@@ -1,10 +1,18 @@
-import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import useSessionStore, { useDispatch } from '../../stores/session-store/use-session-store';
-import { MathItem } from '../../stores/session-store/types';
-import Textfield from '../textfield/textfield';
-import { useHotkeys } from 'react-hotkeys-hook';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
+import Textfield from "../textfield/textfield";
+import { useHotkeys } from "react-hotkeys-hook";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { CalculatorRootState } from "@stores/calculator-store";
+import {
+  moveForwardInHistory,
+  moveBackInHistory,
+  setInput,
+  resetInput,
+  resetOutput,
+} from "@stores/slices/calculator-session";
+import useEvaluate from "../../hooks/use-evaluate";
 
 const TextfieldsContainer = styled.main`
   display: flex;
@@ -16,7 +24,7 @@ const TextfieldsContainer = styled.main`
 
 const MathTextfield = styled(Textfield)`
   width: 100%;
-  font-family: 'Source Code Pro', monospace;
+  font-family: "Source Code Pro", monospace;
 `;
 
 const ErrorTextfield = styled(MathTextfield)`
@@ -43,20 +51,16 @@ const LabelText = styled.span`
 
 export default function CalculatorTextfields() {
   const dispatch = useDispatch();
-  const input = useSessionStore((state) => state.session.input);
-  const setInput = (input: string) => dispatch({ type: 'setInput', input });
-  const outputResetted = useSessionStore((state) => state.session.outputResetted);
-  const evaluate = () => dispatch({ type: 'evaluate' });
-  const resetInput = () => dispatch({ type: 'resetInput' });
-  const resetOutput = () => dispatch({ type: 'resetOutput' });
-  const goBackInHistory = () => dispatch({ type: 'goBackInInputHistory' });
-  const goForwardInHistory = () => dispatch({ type: 'goForwardInInputHistory' });
-  const mathItems = useSessionStore((state) =>
-    state.session.protocol.filter((hItem) => hItem.type === 'math')
-  ) as MathItem[];
-  const lastOutput =
-    !outputResetted && mathItems.length > 0 ? mathItems[mathItems.length - 1].output : '';
-  const isError = mathItems.length > 0 ? mathItems[mathItems.length - 1].error : false;
+  const evaluate = useEvaluate();
+  const input = useSelector(
+    (state: CalculatorRootState) => state.session.input
+  );
+  const output = useSelector(
+    (state: CalculatorRootState) => state.session.output
+  );
+  const isError = useSelector(
+    (state: CalculatorRootState) => state.session.error
+  );
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLInputElement>(null);
   const [t] = useTranslation();
@@ -68,47 +72,48 @@ export default function CalculatorTextfields() {
   }, [inputRef]);
 
   useHotkeys(
-    'alt + i',
+    "alt + i",
     () => {
       if (inputRef.current) {
         inputRef.current.focus();
       }
     },
-    { enableOnTags: ['INPUT'] }
+    { enableOnTags: ["INPUT"] }
   );
 
   useHotkeys(
-    'alt + o',
+    "alt + o",
     () => {
       if (outputRef.current) {
         outputRef.current.focus();
       }
     },
-    { enableOnTags: ['INPUT'] }
+    { enableOnTags: ["INPUT"] }
   );
 
   useHotkeys(
-    'ctrl + alt + i',
+    "ctrl + alt + i",
     () => {
-      resetInput();
+      dispatch(resetInput());
       if (inputRef.current) {
         inputRef.current.focus();
       }
     },
-    { enableOnTags: ['INPUT'] }
+    { enableOnTags: ["INPUT"] }
   );
 
   useHotkeys(
-    'ctrl + alt + o',
+    "ctrl + alt + o",
     () => {
-      resetOutput();
+      dispatch(resetOutput());
     },
-    { enableOnTags: ['INPUT'] }
+    { enableOnTags: ["INPUT"] }
   );
 
   const onInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && input.length > 0) {
+    if (e.key === "Enter" && input.length > 0) {
       evaluate();
+
       if (outputRef.current) {
         outputRef.current.focus();
       }
@@ -116,7 +121,7 @@ export default function CalculatorTextfields() {
   };
 
   const onOutputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       if (inputRef.current) {
         inputRef.current.focus();
       }
@@ -124,11 +129,11 @@ export default function CalculatorTextfields() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'ArrowUp') {
-      goBackInHistory();
+    if (e.key === "ArrowUp") {
+      dispatch(moveBackInHistory());
       e.preventDefault();
-    } else if (e.key === 'ArrowDown') {
-      goForwardInHistory();
+    } else if (e.key === "ArrowDown") {
+      dispatch(moveForwardInHistory());
       e.preventDefault();
     }
   };
@@ -136,32 +141,32 @@ export default function CalculatorTextfields() {
   return (
     <TextfieldsContainer>
       <LabelContainer>
-        <LabelText>{t('common.input')}</LabelText>
+        <LabelText>{t("common.input")}</LabelText>
         <MathTextfield
           ref={inputRef}
-          placeholder={t('common.input')}
+          placeholder={t("common.input")}
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => dispatch(setInput(e.target.value))}
           onKeyPress={onInputKeyPress}
           onKeyDown={(e) => handleKeyDown(e)}
         />
       </LabelContainer>
       <LabelContainer>
-        <LabelText>{t('common.output')}</LabelText>
+        <LabelText>{t("common.output")}</LabelText>
         {isError ? (
           <ErrorTextfield
             ref={outputRef}
-            placeholder={t('common.output')}
+            placeholder={t("common.output")}
             readOnly
-            value={lastOutput}
+            value={output}
             onKeyPress={onOutputKeyPress}
           />
         ) : (
           <MathTextfield
             ref={outputRef}
-            placeholder={t('common.output')}
+            placeholder={t("common.output")}
             readOnly
-            value={lastOutput}
+            value={output}
             onKeyPress={onOutputKeyPress}
           />
         )}

@@ -9,7 +9,8 @@ import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import ExternalLink from "@local-components/external-link/external-link";
 import hotkeys from "../../hotkeys.json";
 import { useTranslation } from "react-i18next";
-import useSessionStore from "../../stores/session-store/use-session-store";
+import { useSelector } from "react-redux";
+import { CalculatorRootState } from "@stores/calculator-store";
 
 const DocumentationLink = styled(ExternalLink)`
   font-size: 2rem;
@@ -66,7 +67,9 @@ function matchDocumentation(
 }
 
 export default function Manual() {
-  const language = useSessionStore((state) => state.settings.language);
+  const language = useSelector(
+    (state: CalculatorRootState) => state.settings.language
+  );
   const [documentation] = useState(() => getDocumentation());
   const [searchQuery, setSearchQuery] = useState("");
   const [searchValue, setSearchValue] = useState("");

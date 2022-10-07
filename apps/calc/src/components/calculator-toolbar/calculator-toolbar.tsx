@@ -1,12 +1,17 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import useCurrentInput from '../../hooks/use-current-input';
-import useCurrentOutput from '../../hooks/use-current-output';
-import useExportProtocol from '../../hooks/use-export-protocol';
-import useHotkey from '../../hooks/use-hotkey';
-import { useDispatch } from '../../stores/session-store/use-session-store';
+import { CalculatorRootState } from "@stores/calculator-store";
+import {
+  resetAll,
+  resetDefinitions,
+  resetInput,
+  resetOutput,
+  resetProtocol,
+} from "@stores/slices/calculator-session";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import useExportProtocol from "../../hooks/use-export-protocol";
+import useHotkey from "../../hooks/use-hotkey";
 
 const ToolbarContainer = styled.aside`
   display: grid;
@@ -46,37 +51,48 @@ const Button = styled.button`
 export default function CalculatorToolbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentOutput = useCurrentOutput();
-  const currentInput = useCurrentInput();
-  const resetDefinitions = () => dispatch({ type: 'resetDefinitions' });
-  const resetInput = () => dispatch({ type: 'resetInput' });
-  const resetOutput = () => dispatch({ type: 'resetOutput' });
-  const resetProtocol = () => dispatch({ type: 'resetProtocol' });
-  const resetAll = () => {
-    resetInput();
-    resetProtocol();
-    resetDefinitions();
-  };
+  const currentOutput = useSelector(
+    (state: CalculatorRootState) => state.session.input
+  );
+  const currentInput = useSelector(
+    (state: CalculatorRootState) => state.session.output
+  );
   const [t] = useTranslation();
   const exportProtocol = useExportProtocol();
 
-  useHotkey('ctrl + alt + m', () => resetDefinitions());
-  useHotkey('ctrl + alt + a', () => resetAll());
-  useHotkey('alt + p', () => navigator.clipboard.writeText(currentInput + '\n' + currentOutput));
+  useHotkey("ctrl + alt + m", () => dispatch(resetDefinitions()));
+  useHotkey("ctrl + alt + a", () => dispatch(resetAll()));
+  useHotkey("alt + p", () =>
+    navigator.clipboard.writeText(currentInput + "\n" + currentOutput)
+  );
 
   return (
     <ToolbarContainer>
-      <Button onClick={resetInput}>{t('toolbar.resetInput')}</Button>
-      <Button onClick={resetOutput}>{t('toolbar.resetOutput')}</Button>
+      <Button onClick={() => dispatch(resetInput())}>
+        {t("toolbar.resetInput")}
+      </Button>
+      <Button onClick={() => dispatch(resetOutput)}>
+        {t("toolbar.resetOutput")}
+      </Button>
 
-      <Button onClick={() => navigate('/definitions')}>{t('toolbar.showDefinitions')}</Button>
-      <Button onClick={resetDefinitions}>{t('toolbar.resetDefinitions')}</Button>
+      <Button onClick={() => navigate("/definitions")}>
+        {t("toolbar.showDefinitions")}
+      </Button>
+      <Button onClick={() => dispatch(resetDefinitions())}>
+        {t("toolbar.resetDefinitions")}
+      </Button>
 
-      <Button onClick={() => navigate('/protocol')}>{t('toolbar.showProtocol')}</Button>
-      <Button onClick={resetProtocol}>{t('toolbar.resetProtocol')}</Button>
+      <Button onClick={() => navigate("/protocol")}>
+        {t("toolbar.showProtocol")}
+      </Button>
+      <Button onClick={() => dispatch(resetProtocol())}>
+        {t("toolbar.resetProtocol")}
+      </Button>
 
-      <Button onClick={exportProtocol}>{t('toolbar.exportProtocol')}</Button>
-      <Button onClick={resetAll}>{t('toolbar.resetAll')}</Button>
+      <Button onClick={exportProtocol}>{t("toolbar.exportProtocol")}</Button>
+      <Button onClick={() => dispatch(resetAll())}>
+        {t("toolbar.resetAll")}
+      </Button>
     </ToolbarContainer>
   );
 }

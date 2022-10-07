@@ -29,18 +29,20 @@ export type Protocol = ProtocolItem[];
 interface CalculatorSessionState {
   input: string;
   output: string;
+  error: boolean;
   stack: Context["stack"];
   historyIndex: number;
   protocol: Protocol;
 }
 
-const initialState: CalculatorSessionState = {
+const initialState = (): CalculatorSessionState => ({
   input: "",
   output: "",
+  error: false,
   stack: getDefaultContext().stack,
   historyIndex: 0,
   protocol: [],
-};
+});
 
 const getMathAndErrorItems = (items: Protocol) =>
   items.filter((item) => item.type === "math" || item.type === "error") as (
@@ -59,16 +61,28 @@ const calculatorSessionSlice = createSlice({
       state.protocol.push(action.payload);
     },
     resetProtocol: (state) => {
-      state.protocol = initialState.protocol;
+      state.protocol = initialState().protocol;
     },
     setStack: (state, action: PayloadAction<Context["stack"]>) => {
       state.stack = action.payload;
     },
     resetStack: (state) => {
-      state.stack = initialState.stack;
+      state.stack = initialState().stack;
     },
     resetOutput: (state) => {
       state.output = "";
+    },
+    resetInput: (state) => {
+      state.input = "";
+    },
+    resetDefinitions: (state) => {
+      state.stack = getDefaultContext().stack;
+    },
+    resetAll: (state) => {
+      state.stack = getDefaultContext().stack;
+      state.input = "";
+      state.output = "";
+      state.protocol = initialState().protocol;
     },
     moveBackInHistory: (state) => {
       const mathItems = getMathAndErrorItems(state.protocol);
@@ -76,6 +90,7 @@ const calculatorSessionSlice = createSlice({
       const item = mathItems[0];
       state.input = item?.input ?? "";
       state.output = (item?.type === "math" ? item.output : item.error) ?? "";
+      state.error = item && item.type === "error";
     },
     moveForwardInHistory: (state) => {
       const mathItems = getMathAndErrorItems(state.protocol);
@@ -85,9 +100,11 @@ const calculatorSessionSlice = createSlice({
       );
       const item = mathItems[state.historyIndex];
       state.input = item?.input ?? "";
-      state.output = (item?.type === "math" ? item.output : item.error) ?? "";
+      state.output = (item?.type === "math" ? item?.output : item?.error) ?? "";
+      state.error = item && item.type === "error";
     },
     evaluate: (state, action: PayloadAction<Context>) => {
+      console.log("evaluate");
       if (state.input === "") {
         return;
       }
@@ -103,12 +120,15 @@ const calculatorSessionSlice = createSlice({
           input: state.input,
           output: result.result,
         });
+        state.output = result.result;
+        state.error = false;
       } catch (e) {
         state.protocol.push({
           type: "error",
           input: state.input,
           error: e as string,
         });
+        state.error = true;
         state.output = e as string;
       }
     },
@@ -122,6 +142,12 @@ export const {
   setInput,
   setStack,
   evaluate,
+  moveBackInHistory,
+  moveForwardInHistory,
+  resetInput,
+  resetOutput,
+  resetDefinitions,
+  resetAll,
 } = calculatorSessionSlice.actions;
 
 export default calculatorSessionSlice;

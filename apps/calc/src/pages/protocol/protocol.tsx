@@ -2,10 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import InfoProtocolItem from "@local-components/info-protocol-item/info-protocol-item";
-import MathProtocolItem from "@local-components/math-protocol-item/math-protocol-item";
 import PageContainer from "@local-components/page-container/page-container";
-import useProtocol from "../../hooks/use-protocol";
+import ProtocolMathItem from "@local-components/protocol-math-item/protocol-math-item";
+import { useSelector } from "react-redux";
+import { CalculatorRootState } from "@stores/calculator-store";
+import ProtocolInfoItem from "@local-components/protocol-info-item/info-protocol-item";
+import ProtocolErrorItem from "@local-components/protocol-error-item/protocol-error-item";
 
 const Container = styled(PageContainer)`
   display: grid;
@@ -86,7 +88,9 @@ export default function Protocol() {
     });
   }, [containerRef]);
 
-  const protocolItems = useProtocol();
+  const protocolItems = useSelector(
+    (state: CalculatorRootState) => state.session.protocol
+  );
 
   return (
     <Container>
@@ -97,13 +101,32 @@ export default function Protocol() {
         </BackButton>
       </Header>
       <HistoryContainer ref={containerRef}>
-        {protocolItems.map((historyItem, index) =>
-          historyItem.type === "math" ? (
-            <MathProtocolItem item={historyItem} key={index} />
-          ) : (
-            <InfoProtocolItem item={historyItem} key={index} />
-          )
-        )}
+        {protocolItems.map((item, index) => {
+          switch (item.type) {
+            case "math":
+              return (
+                <ProtocolMathItem
+                  input={item.input}
+                  output={item.output}
+                  key={index}
+                />
+              );
+
+            case "info":
+              return <ProtocolInfoItem message={item.info} key={index} />;
+
+            case "error":
+              return (
+                <ProtocolErrorItem
+                  input={item.input}
+                  output={item.error}
+                  key={index}
+                />
+              );
+            default:
+              return null;
+          }
+        })}
       </HistoryContainer>
     </Container>
   );
