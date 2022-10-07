@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface SettingsState {
+  language: string;
   numberFormat: string;
   angleUnit: string;
   decimalPlaces: number;
@@ -12,6 +13,7 @@ export interface SettingsState {
 }
 
 const initialState: SettingsState = {
+  language: "de",
   numberFormat: "de",
   angleUnit: "degrees",
   decimalPlaces: 5,
@@ -24,11 +26,17 @@ const initialState: SettingsState = {
 
 export const themes = ["light", "dark"];
 export const fontSizes = ["small", "medium", "large"];
+export const languages = ["de", "en"];
 
 const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
+    setLanguage: (state, action: PayloadAction<string>) => {
+      if (languages.includes(action.payload)) {
+        state.language = action.payload;
+      }
+    },
     setNumberFormat: (state, action: PayloadAction<string>) => {
       state.numberFormat = action.payload === "en" ? action.payload : "de";
     },
@@ -69,6 +77,7 @@ const settingsSlice = createSlice({
 
 export default settingsSlice;
 export const {
+  setLanguage,
   setAngleUnit,
   setBoldFont,
   setCopySynopsisOnClick,
