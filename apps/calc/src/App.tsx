@@ -5,21 +5,24 @@ import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 import GlobalStyle from "@components/global-styles/global-styles";
 import AppRoutes from "@local-components/app-routes/app-routes";
-import {
-  selectBoldFont,
-  selectFontSize,
-  selectLanguage,
-  selectTheme,
-} from "@stores/calculator-selectors";
 import AppHeaderNavBar from "@local-components/app-header-nav-bar/app-header-nav-bar";
+import { CalculatorRootState } from "@stores/calculator-store";
 
 const Router = import.meta.env.VITE_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
 function App() {
-  const fontSize = useSelector(selectFontSize);
-  const theme = useSelector(selectTheme);
-  const language = useSelector(selectLanguage);
-  const boldFont = useSelector(selectBoldFont);
+  const fontSize = useSelector(
+    (state: CalculatorRootState) => state.settings.fontSize
+  );
+  const theme = useSelector(
+    (state: CalculatorRootState) => state.settings.theme
+  );
+  const language = useSelector(
+    (state: CalculatorRootState) => state.settings.language
+  );
+  const boldFont = useSelector(
+    (state: CalculatorRootState) => state.settings.boldFont
+  );
 
   useEffect(() => {
     if (language && i18n.language !== language) {
