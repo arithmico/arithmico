@@ -18,7 +18,7 @@ const initialState: SettingsState = {
   angleUnit: "degrees",
   decimalPlaces: 5,
   theme: "light",
-  fontSize: "normal",
+  fontSize: "medium",
   boldFont: false,
   excludeInfoInProtocol: true,
   copySynopsisOnClick: false,
