@@ -1,26 +1,23 @@
-import React from "react";
 import SettingsListbox from "@components/settings-listbox/settings-listbox";
 import { useSelector, useDispatch } from "react-redux";
 import SettingsSection from "@components/settings-section/settings-section";
 import SettingsSwitch from "@components/settings-switch/settings-switch";
 import { useTranslation } from "react-i18next";
-import {
-  selectBoldFont,
-  selectFontSize,
-  selectTheme,
-} from "@stores/calculator-selectors";
-import {
-  setBoldFont,
-  setFontSize,
-  setTheme,
-} from "@stores/global-slices/appearance-settings-slice";
+import { setBoldFont, setFontSize, setTheme } from "@stores/slices/settings";
+import { CalculatorRootState } from "@stores/calculator-store";
 
 export default function SettingsAppearanceSection() {
   const [t] = useTranslation();
   const dispatch = useDispatch();
-  const theme = useSelector(selectTheme);
-  const fontSize = useSelector(selectFontSize);
-  const boldFont = useSelector(selectBoldFont);
+  const theme = useSelector(
+    (state: CalculatorRootState) => state.settings.theme
+  );
+  const fontSize = useSelector(
+    (state: CalculatorRootState) => state.settings.fontSize
+  );
+  const boldFont = useSelector(
+    (state: CalculatorRootState) => state.settings.boldFont
+  );
 
   return (
     <SettingsSection heading={t("settings.appearance")}>

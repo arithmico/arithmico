@@ -3,24 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import SettingsListbox from "@components/settings-listbox/settings-listbox";
 import SettingsSection from "@components/settings-section/settings-section";
 import SettingsSwitch from "@components/settings-switch/settings-switch";
-import {
-  selectCopySynopsisOnClick,
-  selectExcludeInfoInProtocol,
-  selectLanguage,
-} from "@stores/calculator-selectors";
-import { setLanguage } from "@stores/global-slices/langugage-settings-slice";
 import { useTranslation } from "react-i18next";
 import {
   setCopySynopsisOnClick,
   setExcludeInfoInProtocol,
-} from "@stores/calc-slices/calculator-settings-slice";
+  setLanguage,
+} from "@stores/slices/settings";
+import { CalculatorRootState } from "@stores/calculator-store";
 
 export default function SettingsInterfaceSection() {
   const [t] = useTranslation();
   const dispatch = useDispatch();
-  const language = useSelector(selectLanguage);
-  const copySynopsisOnClick = useSelector(selectCopySynopsisOnClick);
-  const excludeInfoInProtocol = useSelector(selectExcludeInfoInProtocol);
+  const language = useSelector(
+    (state: CalculatorRootState) => state.settings.language
+  );
+  const copySynopsisOnClick = useSelector(
+    (state: CalculatorRootState) => state.settings.copySynopsisOnClick
+  );
+  const excludeInfoInProtocol = useSelector(
+    (state: CalculatorRootState) => state.settings.excludeInfoInProtocol
+  );
 
   return (
     <SettingsSection heading={t("settings.interface")}>
