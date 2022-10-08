@@ -9,7 +9,7 @@ import createNegate from '../create/create-negate';
 
 export type Polynomial = Monomial[];
 
-type Monomial = NonConstant | Constant;
+export type Monomial = NonConstant | Constant;
 
 interface NonConstant {
     type: 'non-constant';
@@ -23,8 +23,8 @@ interface Constant {
     coefficient: number;
 }
 
-export function createNonConstantMonomial(coefficient: number, base: string, degree: number) {
-    return <NonConstant>{
+export function createNonConstantMonomial(coefficient: number, base: string, degree: number): NonConstant {
+    return {
         type: 'non-constant',
         coefficient: coefficient,
         base: base,
@@ -32,25 +32,17 @@ export function createNonConstantMonomial(coefficient: number, base: string, deg
     };
 }
 
-export function createConstantMonomial(coefficient: number) {
-    return <Constant>{
+export function createConstantMonomial(coefficient: number): Constant {
+    return {
         type: 'constant',
         coefficient: coefficient,
     };
 }
 
 export function sortMonomialsByDegree(a: Monomial, b: Monomial): number {
-    if (compareMonomialsDegreeEqual(a, b)) {
-        return 0;
-    }
-
-    if (compareMonomialsDegreeSmaller(a, b)) {
-        return 1;
-    }
-
-    if (compareMonomialsDegreeGreater(a, b)) {
-        return -1;
-    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return (b?.degree ?? 0) - (a?.degree ?? 0);
 }
 
 export function compareMonomialsDegreeGreater(a: Monomial, b: Monomial) {
@@ -116,40 +108,68 @@ export function getSyntaxTreeNodeFromPolynomial(polynomial: Polynomial): SyntaxT
     return polynomial.map(getSyntaxTreeNodeFromMonomial).reduce(createPlus);
 }
 
-export function multiplyMonomials(mp: Monomial, mq: Monomial) {
-    if (mp.type === 'non-constant' && mq.type === 'non-constant') {
-        return createNonConstantMonomial(mp.coefficient * mq.coefficient, mp.base, mp.degree + mq.degree);
+export function multiplyMonomials(leftMonomial: Monomial, rightMonomial: Monomial) {
+    if (leftMonomial.type === 'non-constant' && rightMonomial.type === 'non-constant') {
+        return createNonConstantMonomial(
+            leftMonomial.coefficient * rightMonomial.coefficient,
+            leftMonomial.base,
+            leftMonomial.degree + rightMonomial.degree,
+        );
     }
 
-    if (mp.type === 'non-constant' && mq.type === 'constant') {
-        return createNonConstantMonomial(mp.coefficient * mq.coefficient, mp.base, mp.degree);
+    if (leftMonomial.type === 'non-constant' && rightMonomial.type === 'constant') {
+        return createNonConstantMonomial(
+            leftMonomial.coefficient * rightMonomial.coefficient,
+            leftMonomial.base,
+            leftMonomial.degree,
+        );
     }
 
-    if (mp.type === 'constant' && mq.type === 'non-constant') {
-        return createNonConstantMonomial(mp.coefficient * mq.coefficient, mq.base, mq.degree);
+    if (leftMonomial.type === 'constant' && rightMonomial.type === 'non-constant') {
+        return createNonConstantMonomial(
+            leftMonomial.coefficient * rightMonomial.coefficient,
+            rightMonomial.base,
+            rightMonomial.degree,
+        );
     }
 
-    if (mp.type === 'constant' && mq.type === 'constant') {
-        return createConstantMonomial(mp.coefficient * mq.coefficient);
+    if (leftMonomial.type === 'constant' && rightMonomial.type === 'constant') {
+        return createConstantMonomial(leftMonomial.coefficient * rightMonomial.coefficient);
     }
 }
 
-export function divideMonomials(mp: Monomial, mq: Monomial) {
-    if (mp.type === 'non-constant' && mq.type === 'non-constant' && mp.degree > mq.degree) {
-        return createNonConstantMonomial(mp.coefficient / mq.coefficient, mp.base, mp.degree - mq.degree);
+export function divideMonomials(leftMonomial: Monomial, rightMonomial: Monomial) {
+    if (
+        leftMonomial.type === 'non-constant' &&
+        rightMonomial.type === 'non-constant' &&
+        leftMonomial.degree > rightMonomial.degree
+    ) {
+        return createNonConstantMonomial(
+            leftMonomial.coefficient / rightMonomial.coefficient,
+            leftMonomial.base,
+            leftMonomial.degree - rightMonomial.degree,
+        );
     }
 
-    if (mp.type === 'non-constant' && mq.type === 'non-constant' && mp.degree === mq.degree) {
-        return createConstantMonomial(mp.coefficient / mq.coefficient);
+    if (
+        leftMonomial.type === 'non-constant' &&
+        rightMonomial.type === 'non-constant' &&
+        leftMonomial.degree === rightMonomial.degree
+    ) {
+        return createConstantMonomial(leftMonomial.coefficient / rightMonomial.coefficient);
     }
 
-    if (mp.type === 'non-constant' && mq.type === 'constant') {
-        return createNonConstantMonomial(mp.coefficient / mq.coefficient, mp.base, mp.degree);
+    if (leftMonomial.type === 'non-constant' && rightMonomial.type === 'constant') {
+        return createNonConstantMonomial(
+            leftMonomial.coefficient / rightMonomial.coefficient,
+            leftMonomial.base,
+            leftMonomial.degree,
+        );
     }
 }
 
 export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
-    const copiedPolynomial = polynomial.slice();
+    const copiedPolynomial = [...polynomial];
     const base = polynomial.length === 1 && polynomial[0].type === 'non-constant' ? polynomial[0].base : null;
     const newMonomials = [];
 
@@ -165,15 +185,9 @@ export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
             } else {
                 i++;
             }
-            continue;
-        }
-
-        if (monomial.type === 'non-constant' && monomial.degree !== currentDegree) {
+        } else if (monomial.type === 'non-constant' && monomial.degree !== currentDegree) {
             newMonomials.push(createNonConstantMonomial(0, base, currentDegree));
-            continue;
-        }
-
-        if (currentDegree === 0 && copiedPolynomial.at(-1).type !== 'constant') {
+        } else if (currentDegree === 0 && copiedPolynomial.at(-1).type !== 'constant') {
             newMonomials.push(createConstantMonomial(0));
         }
     }
@@ -181,6 +195,6 @@ export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
 }
 
 export function removeMonomialsWithCoefficientZero(polynomial: Polynomial) {
-    const copiedP = polynomial.slice().filter((m) => m.coefficient !== 0);
-    return copiedP.length === 0 ? [createConstantMonomial(0)] : copiedP;
+    const copiedPolynomial = [...polynomial].filter((m) => m.coefficient !== 0);
+    return copiedPolynomial.length === 0 ? [createConstantMonomial(0)] : copiedPolynomial;
 }

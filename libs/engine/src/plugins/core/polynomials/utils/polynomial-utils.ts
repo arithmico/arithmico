@@ -1,119 +1,118 @@
 import {
+    addMissingMonomialsWithCoefficientZero,
     compareMonomialsDegreeEqual,
     compareMonomialsDegreeGreater,
     compareMonomialsDegreeSmaller,
     createConstantMonomial,
     createNonConstantMonomial,
     divideMonomials,
-    addMissingMonomialsWithCoefficientZero,
     haveMonomialsSameBase,
+    Monomial,
     multiplyMonomials,
     Polynomial,
     removeMonomialsWithCoefficientZero,
     sortMonomialsByDegree,
 } from '../../../../utils/polynomial-type-utils';
 
-export function getDegreeFromPolynomial(p: Polynomial): number {
-    const highestMonomial = p[0];
-
-    if (highestMonomial === null) {
-        throw "RuntimeError: internally Polynomial isn't correct!";
+export function getDegreeFromPolynomial(polynomial: Polynomial): number {
+    if (polynomial.length === 0) {
+        throw 'RuntimeError: Internal polynomial is not correct';
     }
 
-    if (highestMonomial.type === 'constant') {
-        return 0;
-    } else {
-        return highestMonomial.degree;
-    }
+    const highestMonomial = polynomial[0];
+
+    return highestMonomial.type === 'constant' ? 0 : highestMonomial.degree;
 }
 
-function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus: boolean): Polynomial {
+function calculatePolynomialSumOrDifference(
+    leftPolynomial: Polynomial,
+    rightPolynomial: Polynomial,
+    isDifference: boolean,
+): Polynomial {
     let result: Polynomial = [];
 
-    const copiedP = p.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
-    let copiedQ = q.slice().sort((a, b) => -1 * sortMonomialsByDegree(a, b));
+    const reverseSort = (a: Monomial, b: Monomial) => -sortMonomialsByDegree(a, b);
 
-    while (copiedP.length > 0 && copiedQ.length > 0) {
-        const latestElementP = copiedP.at(-1);
-        const latestElementQ = copiedQ.at(-1);
+    const reversedLeftPolynomial = [...leftPolynomial].sort(reverseSort);
+    let reversedRightPolynomial = [...rightPolynomial].sort(reverseSort);
+
+    while (reversedLeftPolynomial.length > 0 && reversedRightPolynomial.length > 0) {
+        const latestElementP = reversedLeftPolynomial.at(-1);
+        const latestElementQ = reversedRightPolynomial.at(-1);
 
         if (compareMonomialsDegreeGreater(latestElementP, latestElementQ)) {
-            result.push(copiedP.pop());
-            continue;
-        }
+            result.push(reversedLeftPolynomial.pop());
+        } else if (compareMonomialsDegreeSmaller(latestElementP, latestElementQ)) {
+            result.push(reversedRightPolynomial.pop());
+        } else if (compareMonomialsDegreeEqual(latestElementP, latestElementQ)) {
+            reversedRightPolynomial = reversedRightPolynomial.filter((monomial) => {
+                if (
+                    haveMonomialsSameBase(latestElementP, monomial) &&
+                    compareMonomialsDegreeEqual(latestElementP, monomial)
+                ) {
+                    const calculatedCoefficient =
+                        latestElementP.coefficient + (isDifference ? -monomial.coefficient : +monomial.coefficient);
 
-        if (compareMonomialsDegreeSmaller(latestElementP, latestElementQ)) {
-            result.push(copiedQ.pop());
-            continue;
-        }
-
-        if (compareMonomialsDegreeEqual(latestElementP, latestElementQ)) {
-            copiedQ = copiedQ.filter((m) => {
-                if (haveMonomialsSameBase(latestElementP, m) && compareMonomialsDegreeEqual(latestElementP, m)) {
-                    const calculatedCoefficient = minus
-                        ? latestElementP.coefficient - m.coefficient
-                        : latestElementP.coefficient + m.coefficient;
-
-                    if (m.type === 'non-constant') {
-                        result.push(createNonConstantMonomial(calculatedCoefficient, m.base, m.degree));
+                    if (monomial.type === 'non-constant') {
+                        result.push(createNonConstantMonomial(calculatedCoefficient, monomial.base, monomial.degree));
                     }
 
-                    if (m.type === 'constant') {
+                    if (monomial.type === 'constant') {
                         result.push(createConstantMonomial(calculatedCoefficient));
                     }
 
-                    copiedP.pop();
+                    reversedLeftPolynomial.pop();
                     return false;
-                } else {
-                    return true;
                 }
+                return true;
             });
         }
     }
 
-    if (copiedP.length !== 0) {
-        result = result.concat(copiedP);
-    }
-    if (copiedQ.length !== 0) {
-        result = result.concat(copiedQ);
-    }
-
+    result = result.concat(reversedLeftPolynomial, reversedRightPolynomial);
     return removeMonomialsWithCoefficientZero(result);
 }
 
 export function calculatePolynomialAddition(p: Polynomial, q: Polynomial) {
-    return calculatePolynomialDash(p, q, false);
+    return calculatePolynomialSumOrDifference(p, q, false);
 }
 
 export function calculatePolynomialSubtraction(p: Polynomial, q: Polynomial) {
-    return calculatePolynomialDash(p, q, true);
+    return calculatePolynomialSumOrDifference(p, q, true);
 }
 
-export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial): Polynomial {
+export function calculatePolynomialMultiplication(leftPolynomial: Polynomial, rightPolynomial: Polynomial): Polynomial {
     const multipliedPolynomials: Polynomial[] = [];
-    const [shortestPolynomial, longestPolynomial] = p.length <= q.length ? [p, q] : [q, p];
+    const [shortestPolynomial, longestPolynomial] = [leftPolynomial, rightPolynomial].sort(
+        (left, right) => right.length - left.length,
+    );
 
-    shortestPolynomial.forEach((mp) => {
+    shortestPolynomial.forEach((shortestPolynomialItem) => {
         const multipliedMonomials: Polynomial = [];
-        longestPolynomial.forEach((mq) => multipliedMonomials.push(multiplyMonomials(mp, mq)));
+        longestPolynomial.forEach((longestPolynomialItem) =>
+            multipliedMonomials.push(multiplyMonomials(shortestPolynomialItem, longestPolynomialItem)),
+        );
         multipliedPolynomials.push(multipliedMonomials);
     });
 
     return multipliedPolynomials.reduce(calculatePolynomialAddition);
 }
 
-export function calculatePolynomialDivision(p: Polynomial, q: Polynomial): [Polynomial, Polynomial] {
+export function calculatePolynomialDivision(numerator: Polynomial, denominator: Polynomial): [Polynomial, Polynomial] {
     let quotient: Polynomial = [createConstantMonomial(0)];
-    let remainder: Polynomial = addMissingMonomialsWithCoefficientZero(p);
-    const divisor = q.slice();
+    let remainder: Polynomial = addMissingMonomialsWithCoefficientZero(numerator);
+    const divisor = [...denominator];
 
     while (
         !(remainder.length === 1 && remainder[0].type === 'constant' && remainder[0].coefficient === 0) &&
         getDegreeFromPolynomial(remainder) >= getDegreeFromPolynomial(divisor)
     ) {
-        const temp: Polynomial = [divideMonomials(remainder[0], divisor[0])];
-        quotient = calculatePolynomialAddition(quotient, temp);
-        remainder = calculatePolynomialSubtraction(remainder, calculatePolynomialMultiplication(temp, divisor));
+        const dividedMonomial: Polynomial = [divideMonomials(remainder[0], divisor[0])];
+        quotient = calculatePolynomialAddition(quotient, dividedMonomial);
+        remainder = calculatePolynomialSubtraction(
+            remainder,
+            calculatePolynomialMultiplication(dividedMonomial, divisor),
+        );
     }
 
     return [quotient, remainder];
