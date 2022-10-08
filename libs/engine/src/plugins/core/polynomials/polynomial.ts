@@ -5,7 +5,7 @@ import {
     createPlugin,
     createPluginFunction,
 } from '../../../utils/plugin-builder';
-import { FunctionHeaderItem, SyntaxTreeNode } from '../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import {
     getPolynomial,
