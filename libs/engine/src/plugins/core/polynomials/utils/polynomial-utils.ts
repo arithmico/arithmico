@@ -5,11 +5,11 @@ import {
     createConstantMonomial,
     createNonConstantMonomial,
     divideMonomials,
-    fillPolynomialWithZeros,
+    addMissingMonomialsWithCoefficientZero,
     haveMonomialsSameBase,
     multiplyMonomials,
     Polynomial,
-    removeZerosFromPolynomial,
+    removeMonomialsWithCoefficientZero,
     sortMonomialsByDegree,
 } from '../../../../utils/polynomial-type-utils';
 
@@ -78,7 +78,7 @@ function calculatePolynomialDash(p: Polynomial, q: Polynomial, minus: boolean): 
         result = result.concat(copiedQ);
     }
 
-    return removeZerosFromPolynomial(result);
+    return removeMonomialsWithCoefficientZero(result);
 }
 
 export function calculatePolynomialAddition(p: Polynomial, q: Polynomial) {
@@ -104,7 +104,7 @@ export function calculatePolynomialMultiplication(p: Polynomial, q: Polynomial):
 
 export function calculatePolynomialDivision(p: Polynomial, q: Polynomial): [Polynomial, Polynomial] {
     let quotient: Polynomial = [createConstantMonomial(0)];
-    let remainder: Polynomial = fillPolynomialWithZeros(p.slice());
+    let remainder: Polynomial = addMissingMonomialsWithCoefficientZero(p);
     const divisor = q.slice();
 
     while (

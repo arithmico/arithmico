@@ -87,7 +87,7 @@ function getMonomialBaseFromSummand(summand: SyntaxTreeNode) {
     }
 
     if (isSummandConstant(summand)) {
-        return;
+        return null;
     }
 
     const bases = <SymbolNode[]>(
@@ -128,15 +128,17 @@ export function isEveryPolynomialBaseSame(node: SyntaxTreeNode) {
 }
 
 export function getPolynomial(node: SyntaxTreeNode): Polynomial {
-    return getSummands(node)
-        .map((summand) => {
-            return isSummandConstant(summand)
-                ? createConstantMonomial(getMonomialCoefficientFromSummand(summand))
-                : createNonConstantMonomial(
-                      getMonomialCoefficientFromSummand(summand),
-                      getMonomialBaseFromSummand(summand),
-                      getMonomialDegreeFromSummand(summand),
-                  );
-        })
-        .sort(sortMonomialsByDegree);
+    return getSummands(node).map(summandToMonomial).sort(sortMonomialsByDegree);
+}
+
+function summandToMonomial(summand: SyntaxTreeNode) {
+    if (isSummandConstant(summand)) {
+        return createConstantMonomial(getMonomialCoefficientFromSummand(summand));
+    } else {
+        return createNonConstantMonomial(
+            getMonomialCoefficientFromSummand(summand),
+            getMonomialBaseFromSummand(summand),
+            getMonomialDegreeFromSummand(summand),
+        );
+    }
 }

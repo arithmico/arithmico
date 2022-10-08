@@ -148,19 +148,23 @@ export function divideMonomials(mp: Monomial, mq: Monomial) {
     }
 }
 
-export function fillPolynomialWithZeros(p: Polynomial) {
-    const copiedP = p.slice();
-    const base = p.length === 1 && p[0].type === 'non-constant' ? p[0].base : null;
+export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
+    const copiedPolynomial = polynomial.slice();
+    const base = polynomial.length === 1 && polynomial[0].type === 'non-constant' ? polynomial[0].base : null;
     const newMonomials = [];
 
-    for (let i = 0, currentDegree = getDegreeFromPolynomial(p); currentDegree >= 0; currentDegree--) {
-        const monomial = copiedP[i];
+    for (let i = 0, currentDegree = getDegreeFromPolynomial(polynomial); currentDegree >= 0; currentDegree--) {
+        const monomial = copiedPolynomial[i];
 
         if (
             (monomial.type === 'non-constant' && monomial.degree === currentDegree) ||
             (monomial.type === 'constant' && currentDegree === 0)
         ) {
-            i === p.length - 1 ? (i = p.length - 1) : i++;
+            if (i === polynomial.length - 1) {
+                i = polynomial.length - 1;
+            } else {
+                i++;
+            }
             continue;
         }
 
@@ -169,14 +173,14 @@ export function fillPolynomialWithZeros(p: Polynomial) {
             continue;
         }
 
-        if (currentDegree === 0 && copiedP.at(-1).type !== 'constant') {
+        if (currentDegree === 0 && copiedPolynomial.at(-1).type !== 'constant') {
             newMonomials.push(createConstantMonomial(0));
         }
     }
-    return copiedP.concat(newMonomials).sort(sortMonomialsByDegree);
+    return copiedPolynomial.concat(newMonomials).sort(sortMonomialsByDegree);
 }
 
-export function removeZerosFromPolynomial(p: Polynomial) {
-    const copiedP = p.slice().filter((m) => m.coefficient !== 0);
+export function removeMonomialsWithCoefficientZero(polynomial: Polynomial) {
+    const copiedP = polynomial.slice().filter((m) => m.coefficient !== 0);
     return copiedP.length === 0 ? [createConstantMonomial(0)] : copiedP;
 }
