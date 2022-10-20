@@ -17,6 +17,7 @@ export const initialState = defaultProfile.settings;
 export const themes = ["light", "dark"];
 export const fontSizes = ["small", "medium", "large"];
 export const languages = ["de", "en"];
+export const numberFormats = ["de", "en", "default"];
 
 const settingsSlice = createSlice({
   name: "settings",
@@ -28,7 +29,9 @@ const settingsSlice = createSlice({
       }
     },
     setNumberFormat: (state, action: PayloadAction<string>) => {
-      state.numberFormat = action.payload === "en" ? action.payload : "de";
+      if (numberFormats.includes(action.payload)) {
+        state.numberFormat = action.payload;
+      }
     },
     setAngleUnit: (state, action: PayloadAction<string>) => {
       state.angleUnit =

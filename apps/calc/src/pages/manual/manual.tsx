@@ -14,8 +14,9 @@ import { CalculatorRootState } from "@stores/calculator-store";
 
 const DocumentationLink = styled(ExternalLink)`
   font-size: 2rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: block;
+  text-decoration: underline;
 `;
 
 const SearchField = styled.input.attrs({ type: "search" })`
@@ -98,23 +99,22 @@ export default function Manual() {
           onChange={(e) => setSearchValue(e.target.value)}
           onKeyPress={onSearchEnter}
         />
-        <ManualSection heading={t("manual.hotkeys")}>
-          {Object.keys(hotkeys)
+        <ManualSection heading={t("manual.functions")}>
+          {documentation
             .filter(
-              (hotkey) =>
-                hotkey.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                t((hotkeys as Record<string, string>)[hotkey] as string)
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase())
+              (item) =>
+                item.type === "function" &&
+                matchDocumentation(item, searchQuery, language)
             )
-            .map((hotkey) => (
+            .map((item) => (
               <ManualSectionItem
-                key={hotkey}
-                noCopy={true}
-                synopsis={(hotkey as string).toUpperCase()}
-                description={t(
-                  (hotkeys as Record<string, string>)[hotkey] as string
-                )}
+                key={item.documentation.en?.synopsis}
+                synopsis={item.documentation.en?.synopsis || ""}
+                description={
+                  (language === "de"
+                    ? item.documentation.de?.description
+                    : item.documentation.en?.description) || ""
+                }
               />
             ))}
         </ManualSection>
@@ -137,22 +137,23 @@ export default function Manual() {
               />
             ))}
         </ManualSection>
-        <ManualSection heading={t("manual.functions")}>
-          {documentation
+        <ManualSection heading={t("manual.hotkeys")}>
+          {Object.keys(hotkeys)
             .filter(
-              (item) =>
-                item.type === "function" &&
-                matchDocumentation(item, searchQuery, language)
+              (hotkey) =>
+                hotkey.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                t((hotkeys as Record<string, string>)[hotkey] as string)
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase())
             )
-            .map((item) => (
+            .map((hotkey) => (
               <ManualSectionItem
-                key={item.documentation.en?.synopsis}
-                synopsis={item.documentation.en?.synopsis || ""}
-                description={
-                  (language === "de"
-                    ? item.documentation.de?.description
-                    : item.documentation.en?.description) || ""
-                }
+                key={hotkey}
+                noCopy={true}
+                synopsis={(hotkey as string).toUpperCase()}
+                description={t(
+                  (hotkeys as Record<string, string>)[hotkey] as string
+                )}
               />
             ))}
         </ManualSection>

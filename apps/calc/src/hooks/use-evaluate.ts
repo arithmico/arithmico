@@ -2,6 +2,7 @@ import { getDefaultContext } from "@arithmico/engine";
 import { CalculatorRootState } from "@stores/calculator-store";
 import { evaluate } from "@stores/slices/calculator-session";
 import { useDispatch, useSelector } from "react-redux";
+import useNumberFormat from "./use-number-format";
 
 const defaultContext = getDefaultContext();
 
@@ -16,9 +17,7 @@ export default function useEvaluate() {
   const decimalPlaces = useSelector(
     (state: CalculatorRootState) => state.settings.decimalPlaces
   );
-  const numberFormat = useSelector(
-    (state: CalculatorRootState) => state.settings.numberFormat
-  );
+  const numberFormat = useNumberFormat();
 
   return () =>
     dispatch(
