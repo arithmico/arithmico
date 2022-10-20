@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "../../node_modules/redux-persist/types"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
