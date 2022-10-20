@@ -132,7 +132,7 @@ export default function About() {
         <h1>{t("about.furtherInformation")}</h1>
         <ul>
           <li>
-            <StyledExternalLink href="https://blob.behrenle.io/me/MathExplorerAnleitung.docx">
+            <StyledExternalLink href="https://blob.arithmico.com/calculator/ArithmicoAnleitung.docx">
               {t("about.documentation")}
             </StyledExternalLink>
           </li>

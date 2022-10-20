@@ -25,28 +25,12 @@ const TextfieldsContainer = styled.main`
 const MathTextfield = styled(Textfield)`
   width: 100%;
   font-family: "Source Code Pro", monospace;
+  margin: 1rem;
 `;
 
 const ErrorTextfield = styled(MathTextfield)`
   color: var(--me-error);
-`;
-
-const LabelContainer = styled.label`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-  &:last-child {
-    margin-top: 80px;
-  }
-`;
-
-const LabelText = styled.span`
-  margin-left: 20px;
-  margin-bottom: 5px;
-  font-size: 18px;
-  color: var(--me-text-100);
-  font-weight: var(--me-font-weight-normal);
+  margin: 1rem;
 `;
 
 export default function CalculatorTextfields() {
@@ -140,37 +124,31 @@ export default function CalculatorTextfields() {
 
   return (
     <TextfieldsContainer>
-      <LabelContainer>
-        <LabelText>{t("common.input")}</LabelText>
-        <MathTextfield
-          ref={inputRef}
-          placeholder={t("common.input")}
-          value={input}
-          onChange={(e) => dispatch(setInput(e.target.value))}
-          onKeyPress={onInputKeyPress}
-          onKeyDown={(e) => handleKeyDown(e)}
+      <MathTextfield
+        ref={inputRef}
+        placeholder={t("common.input")}
+        value={input}
+        onChange={(e) => dispatch(setInput(e.target.value))}
+        onKeyPress={onInputKeyPress}
+        onKeyDown={(e) => handleKeyDown(e)}
+      />
+      {isError ? (
+        <ErrorTextfield
+          ref={outputRef}
+          placeholder={t("common.output")}
+          readOnly
+          value={output}
+          onKeyPress={onOutputKeyPress}
         />
-      </LabelContainer>
-      <LabelContainer>
-        <LabelText>{t("common.output")}</LabelText>
-        {isError ? (
-          <ErrorTextfield
-            ref={outputRef}
-            placeholder={t("common.output")}
-            readOnly
-            value={output}
-            onKeyPress={onOutputKeyPress}
-          />
-        ) : (
-          <MathTextfield
-            ref={outputRef}
-            placeholder={t("common.output")}
-            readOnly
-            value={output}
-            onKeyPress={onOutputKeyPress}
-          />
-        )}
-      </LabelContainer>
+      ) : (
+        <MathTextfield
+          ref={outputRef}
+          placeholder={t("common.output")}
+          readOnly
+          value={output}
+          onKeyPress={onOutputKeyPress}
+        />
+      )}
     </TextfieldsContainer>
   );
 }
