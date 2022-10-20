@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import PluginObjectToggle from "../plugin-object-toggle/plugin-object-toggle";
 import styled from "styled-components";
 import { Disclosure } from "@headlessui/react";
 import ExpandMore from "@components/icons/expand-more";
+import { useDispatch, useSelector } from "react-redux";
+import { ConfigRootState } from "@stores/config-store";
+import { toggleObject } from "@stores/slices/config-profile";
 
 const Section = styled.section`
   display: flex;
@@ -56,9 +59,10 @@ interface PluginConfigProps {
 }
 
 export default function PluginConfig({ name, items }: PluginConfigProps) {
-  const [state, setState] = useState(() =>
-    Object.fromEntries(items.map((item) => [item.name, true]))
+  const enabledObjects = useSelector(
+    (state: ConfigRootState) => state.profile.objects
   );
+  const dispatch = useDispatch();
 
   return (
     <Section>
@@ -74,14 +78,9 @@ export default function PluginConfig({ name, items }: PluginConfigProps) {
                 {items.map((item, index) => (
                   <PluginObjectToggle
                     key={index}
-                    enabled={!!state[item.name]}
+                    enabled={enabledObjects.includes(item.name)}
                     label={item.synopsis}
-                    onChange={() =>
-                      setState({
-                        ...state,
-                        [item.name]: !state[item.name],
-                      })
-                    }
+                    onChange={() => dispatch(toggleObject(item.name))}
                   ></PluginObjectToggle>
                 ))}
               </PluginObjectsList>
