@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import defaultProfile from "../profile";
 export interface SettingsState {
   language: string;
   numberFormat: string;
@@ -12,17 +12,7 @@ export interface SettingsState {
   copySynopsisOnClick: boolean;
 }
 
-const initialState: SettingsState = {
-  language: "de",
-  numberFormat: "de",
-  angleUnit: "degrees",
-  decimalPlaces: 5,
-  theme: "light",
-  fontSize: "medium",
-  boldFont: false,
-  excludeInfoInProtocol: true,
-  copySynopsisOnClick: false,
-};
+export const initialState = defaultProfile.settings;
 
 export const themes = ["light", "dark"];
 export const fontSizes = ["small", "medium", "large"];

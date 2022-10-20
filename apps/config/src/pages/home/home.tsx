@@ -2,6 +2,7 @@ import Page from "../../components/page/page";
 import DefaultSettings from "../../components/default-settings/default-settings";
 import PluginsConfig from "../../components/plugins-config/plugins-config";
 import styled from "styled-components";
+import useDownloadProfile from "../../hooks/use-download-profile";
 
 const Button = styled.button`
   position: relative;
@@ -29,12 +30,14 @@ const ToolbarContainer = styled.div`
 `;
 
 export default function Home() {
+  const download = useDownloadProfile();
+
   return (
     <Page>
       <DefaultSettings />
       <PluginsConfig />
       <ToolbarContainer>
-        <Button>Download Profile</Button>
+        <Button onClick={download}>Download Profile</Button>
       </ToolbarContainer>
     </Page>
   );
