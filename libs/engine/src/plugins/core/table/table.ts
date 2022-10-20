@@ -29,7 +29,7 @@ addPluginFunction(
         'table',
         tableHeader,
         'Maps f(x) to (x, f(x)) within the given interval [a,b], where w is the distance between the x values',
-        'Bildet f(x) auf (x, f(x)) innerhalb des angegebenen Intervalls [a,b] ab, abei ist w der Abstand zwischen den x-Werten',
+        'table(f, u?, v?, w?) Erstellt zu der Funktion f eine Wertetabelle mit Wertepaaren [x; f(x)] für x-Werte aus dem Intervall [u; v]. Dabei gibt w die Schrittweite der x-Werte an.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('table', parameters, tableHeader, context);
             const f = <FunctionNode>parameterStackFrame['f'];
