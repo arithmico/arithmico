@@ -79,7 +79,7 @@ export function getLoadingLog() {
 
 export function getDefaultContext() {
     if (!defaultContext) {
-        throw 'InitializationError: NumberCruncher was not initialized';
+        init();
     }
 
     return defaultContext;

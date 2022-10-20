@@ -3,12 +3,12 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import packageJsonData from "@workspace-package.json";
-import AboutContact from "../../components/about-contact/about-contact";
-import ExternalLink from "../../components/external-link/external-link";
-import PageContainer from "../../components/page-container/page-container";
-import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
+import AboutContact from "@local-components/about-contact/about-contact";
+import ExternalLink from "@local-components/external-link/external-link";
+import PageContainer from "@local-components/page-container/page-container";
+import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 
-const version: string = process.env.REACT_APP_DEV_MODE
+const version: string = import.meta.env.VITE_DEV_MODE
   ? "dev"
   : packageJsonData["version"];
 

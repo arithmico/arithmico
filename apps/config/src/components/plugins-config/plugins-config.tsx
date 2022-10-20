@@ -6,11 +6,7 @@ import PluginConfig from "../plugin-config/plugin-config";
 
 const pluginStructures = getPluginStructures();
 
-const Section = styled.section`
-  & > h1 {
-    font-size: 2rem;
-  }
-`;
+const Section = styled.section``;
 
 export default function PluginsConfig() {
   return (

@@ -1,6 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
-import { InfoItem } from '../../stores/session-store/types';
+import styled from "styled-components";
 
 const Container = styled.li`
   display: grid;
@@ -17,11 +15,11 @@ const Container = styled.li`
   }
 `;
 
-export default function InfoProtocolItem({ item }: { item: InfoItem }) {
+export default function ProtocolInfoItem({ message }: { message: string }) {
   return (
     <Container>
       <span>[info]</span>
-      <span>{item.info}</span>
+      <span>{message}</span>
     </Container>
   );
 }

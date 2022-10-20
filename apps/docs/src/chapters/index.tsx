@@ -13,6 +13,10 @@ const chaptersDe: Chapter[] = [
     title: "Einfache Rechnungen und Standardfunktionen",
     url: "/markdown/de/03_einfache_rechnungen.md",
   },
+  {
+    title: "Test",
+    url: "/markdown/de/test.md",
+  },
 ];
 
 export default chaptersDe;

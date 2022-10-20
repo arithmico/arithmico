@@ -2,14 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import { getDocumentation } from "@arithmico/engine";
 import { GlobalDocumentationItem } from "@arithmico/engine/lib/types/Plugin";
 import styled from "styled-components";
-import ManualSectionItem from "../../components/manual-section-item/manual-section-item";
-import ManualSection from "../../components/manual-section/manual-section";
-import PageContainer from "../../components/page-container/page-container";
-import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
+import ManualSectionItem from "@local-components/manual-section-item/manual-section-item";
+import ManualSection from "@local-components/manual-section/manual-section";
+import PageContainer from "@local-components/page-container/page-container";
+import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
+import ExternalLink from "@local-components/external-link/external-link";
 import hotkeys from "../../hotkeys.json";
 import { useTranslation } from "react-i18next";
-import useSessionStore from "../../stores/session-store/use-session-store";
-import ExternalLink from "../../components/external-link/external-link";
+import { useSelector } from "react-redux";
+import { CalculatorRootState } from "@stores/calculator-store";
 
 const DocumentationLink = styled(ExternalLink)`
   font-size: 2rem;
@@ -66,7 +67,9 @@ function matchDocumentation(
 }
 
 export default function Manual() {
-  const language = useSessionStore((state) => state.settings.language);
+  const language = useSelector(
+    (state: CalculatorRootState) => state.settings.language
+  );
   const [documentation] = useState(() => getDocumentation());
   const [searchQuery, setSearchQuery] = useState("");
   const [searchValue, setSearchValue] = useState("");

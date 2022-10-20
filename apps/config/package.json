@@ -2,8 +2,8 @@
   "name": "@arithmico/config",
   "homepage": ".",
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "vite",
+    "build": "vite build",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
     "test": "echo \"Info: no test specified\" && exit 0"
   },

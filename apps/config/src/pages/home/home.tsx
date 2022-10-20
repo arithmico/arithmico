@@ -1,8 +1,8 @@
-import React from "react";
 import Page from "../../components/page/page";
 import DefaultSettings from "../../components/default-settings/default-settings";
 import PluginsConfig from "../../components/plugins-config/plugins-config";
 import styled from "styled-components";
+import useDownloadProfile from "../../hooks/use-download-profile";
 
 const Button = styled.button`
   position: relative;
@@ -15,7 +15,7 @@ const Button = styled.button`
   font-size: 2rem;
   color: var(--me-text-400);
   justify-content: center;
-  padding: 0.25rem 1rem;
+  padding: 1rem 2rem;
   font-weight: var(--me-font-weight-normal);
   margin: 2rem 0;
 
@@ -24,12 +24,21 @@ const Button = styled.button`
   }
 `;
 
+const ToolbarContainer = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
 export default function Home() {
+  const download = useDownloadProfile();
+
   return (
     <Page>
       <DefaultSettings />
       <PluginsConfig />
-      <Button>Download Profile</Button>
+      <ToolbarContainer>
+        <Button onClick={download}>Download Profile</Button>
+      </ToolbarContainer>
     </Page>
   );
 }

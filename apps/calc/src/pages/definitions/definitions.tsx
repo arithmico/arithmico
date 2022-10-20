@@ -1,13 +1,13 @@
-import React from "react";
 import styled from "styled-components";
-import { serializeStack } from "@arithmico/engine";
-import PageContainer from "../../components/page-container/page-container";
-import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
-import useSessionStore from "../../stores/session-store/use-session-store";
-import { Context, Options } from "@arithmico/engine/lib/types";
-import DefinitionListItem from "../../components/definition-list-item/definition-list-item";
 import { useTranslation } from "react-i18next";
+import { Context, Options } from "@arithmico/engine/lib/types";
+import PageContainer from "@local-components/page-container/page-container";
+import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
+import DefinitionListItem from "@local-components/definition-list-item/definition-list-item";
 import { createOptions } from "@arithmico/engine/lib/utils/context-utils";
+import { serializeStack } from "@arithmico/engine";
+import { useSelector } from "react-redux";
+import { CalculatorRootState } from "@stores/calculator-store";
 
 const Heading = styled.h1`
   font-weight: var(--me-font-weight-normal);
@@ -44,16 +44,19 @@ const DefinitionList = styled.dl`
 `;
 
 export default function Definitions() {
-  const context: Context = useSessionStore((state) => ({
+  const context: Context = useSelector((state: CalculatorRootState) => ({
     stack: state.session.stack,
     options: createOptions({
       decimalPlaces: state.settings.decimalPlaces,
-      decimalSeparator: ".",
+      decimalSeparator: state.settings.numberFormat === "de" ? "," : ".",
       magnitudeThresholdForScientificNotation: state.settings.decimalPlaces,
       angleUnit: state.settings.angleUnit as Options["angleUnit"],
     }),
   }));
-  const definitions = serializeStack(context);
+  const definitions = serializeStack({
+    ...context,
+    stack: [context.stack.at(-1) ?? {}],
+  });
   const [t] = useTranslation();
 
   return (

@@ -3,9 +3,10 @@ import { parse } from '../../parse/parser';
 import normalize from '../../normalize';
 import serialize from '../../serialize';
 import { createOptions } from '../../utils/context-utils';
+import globalConsole from 'console';
 
 beforeEach(() => {
-    global.console = require('console');
+    global.console = globalConsole;
 });
 
 const testOptions = createOptions();
