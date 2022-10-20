@@ -1,45 +1,92 @@
-import React from "react";
 import styled from "styled-components";
 import Heading from "../heading/heading";
 import SettingsListbox from "@components/settings-listbox/settings-listbox";
 import SettingsSwitch from "@components/settings-switch/settings-switch";
 import SettingsDecimalPlacesListbox from "@components/settings-decimal-places-listbox/settings-decimal-places-listbox";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setAngleUnit,
+  setBoldFont,
+  setCopySynopsisOnClick,
+  setDecimalPlaces,
+  setExcludeInfoInProtocol,
+  setFontSize,
+  setLanguage,
+  setNumberFormat,
+  setTheme,
+} from "@stores/slices/settings";
+import { ConfigRootState } from "@stores/config-store";
 
 const Section = styled.section`
   font-size: inherit;
 `;
 
+const decimalPlacesOptions = new Array(15)
+  .fill(0)
+  .map((_, index) => ({ label: index.toString(), value: index }));
+
 export default function DefaultSettings() {
+  const dispatch = useDispatch();
+  const language = useSelector(
+    (state: ConfigRootState) => state.settings.language
+  );
+  const boldFont = useSelector(
+    (state: ConfigRootState) => state.settings.boldFont
+  );
+  const copySynopsisOnClick = useSelector(
+    (state: ConfigRootState) => state.settings.copySynopsisOnClick
+  );
+  const excludeInfoInProtocol = useSelector(
+    (state: ConfigRootState) => state.settings.excludeInfoInProtocol
+  );
+  const theme = useSelector((state: ConfigRootState) => state.settings.theme);
+  const fontSize = useSelector(
+    (state: ConfigRootState) => state.settings.fontSize
+  );
+  const decimalPlaces = useSelector(
+    (state: ConfigRootState) => state.settings.decimalPlaces
+  );
+  const numberFormat = useSelector(
+    (state: ConfigRootState) => state.settings.numberFormat
+  );
+  const angleUnit = useSelector(
+    (state: ConfigRootState) => state.settings.angleUnit
+  );
+
   return (
     <Section>
       <Heading>Default Settings</Heading>
       <Heading type={2}>Interface</Heading>
       <SettingsListbox
         label="Language"
-        onChange={() => null}
-        value="en"
+        onChange={(v: string) => dispatch(setLanguage(v))}
+        value={language}
         options={[
           { label: "English", value: "en" },
           { label: "German", value: "de" },
         ]}
       />
-      <SettingsSwitch enabled={false} label="Bold font" onChange={() => null} />
       <SettingsSwitch
-        enabled
-        label="Copy manual content by clicking"
-        onChange={() => null}
+        enabled={boldFont}
+        label="Bold font"
+        onChange={(v: boolean) => dispatch(setBoldFont(v))}
       />
       <SettingsSwitch
-        enabled
+        enabled={copySynopsisOnClick}
+        label="Copy manual content by clicking"
+        onChange={(v: boolean) => dispatch(setCopySynopsisOnClick(v))}
+      />
+      <SettingsSwitch
+        enabled={excludeInfoInProtocol}
         label="Exclude info in protocol"
-        onChange={() => null}
+        onChange={(v: boolean) => dispatch(setExcludeInfoInProtocol(v))}
       />
 
       <Heading type={2}>Appearance</Heading>
       <SettingsListbox
         label="Theme"
-        onChange={() => null}
-        value="light"
+        onChange={(v: string) => dispatch(setTheme(v))}
+        value={theme}
         options={[
           { label: "Light", value: "light" },
           { label: "Dark", value: "dark" },
@@ -47,8 +94,8 @@ export default function DefaultSettings() {
       />
       <SettingsListbox
         label="Font size"
-        onChange={() => null}
-        value="medium"
+        onChange={(v: string) => dispatch(setFontSize(v))}
+        value={fontSize}
         options={[
           { label: "Small", value: "small" },
           { label: "Medium", value: "medium" },
@@ -59,16 +106,14 @@ export default function DefaultSettings() {
       <Heading type={2}>Calculator</Heading>
       <SettingsDecimalPlacesListbox
         label="Significant decimal places"
-        options={new Array(15)
-          .fill(0)
-          .map((_, index) => ({ label: index.toString(), value: index }))}
-        value={3}
-        onChange={() => null}
+        options={decimalPlacesOptions}
+        value={decimalPlaces}
+        onChange={(v: number) => dispatch(setDecimalPlaces(v))}
       />
       <SettingsListbox
         label="Number format"
-        onChange={() => null}
-        value="en"
+        onChange={(v: string) => dispatch(setNumberFormat(v))}
+        value={numberFormat}
         options={[
           { label: "Default", value: "default" },
           { label: "English", value: "en" },
@@ -77,8 +122,8 @@ export default function DefaultSettings() {
       />
       <SettingsListbox
         label="Angle unit"
-        onChange={() => null}
-        value="degrees"
+        onChange={(v: string) => setAngleUnit(v)}
+        value={angleUnit}
         options={[
           { label: "Degrees", value: "degrees" },
           { label: "Radians", value: "radians" },

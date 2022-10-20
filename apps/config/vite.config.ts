@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       "@components": path.resolve(__dirname, "../../libs/components/"),
       "@workspace-package.json": path.resolve(__dirname, "../../package.json"),
+      "@stores": path.resolve(__dirname, "../../libs/stores/"),
     },
   },
 });
