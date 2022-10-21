@@ -11,6 +11,7 @@ import { getVariableNames } from '../../../utils/symbolic-utils';
 import checkCandidates from './utils/check-candidates';
 import findCandidates from './utils/find-candidates';
 import findDirectHits from './utils/find-direct-hits';
+import refineResults from './utils/refine-results';
 import scan from './utils/scan';
 
 const nsolvePlugin = createPlugin('core/nsolve');
@@ -59,7 +60,7 @@ addPluginFunction(nsolvePlugin, {
             const solutions = checkCandidates(expression, candidates, value, localContext);
 
             const results: number[] = [];
-            [...directHits, ...solutions].forEach((solution) => {
+            refineResults([...directHits, ...solutions], leftLimit, rightLimit).forEach((solution) => {
                 if (!results.includes(solution)) {
                     results.push(solution);
                 }
