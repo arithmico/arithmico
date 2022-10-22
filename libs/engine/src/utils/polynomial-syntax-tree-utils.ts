@@ -4,7 +4,7 @@ import {
     createConstantMonomial,
     createNonConstantMonomial,
     Polynomial,
-    sortMonomialsByDegree,
+    compareMonomialsByDegree,
 } from './polynomial-type-utils';
 
 export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
@@ -128,7 +128,7 @@ export function isEveryPolynomialBaseSame(node: SyntaxTreeNode) {
 }
 
 export function getPolynomial(node: SyntaxTreeNode): Polynomial {
-    return getSummands(node).map(summandToMonomial).sort(sortMonomialsByDegree);
+    return getSummands(node).map(summandToMonomial).sort(compareMonomialsByDegree);
 }
 
 function summandToMonomial(summand: SyntaxTreeNode) {

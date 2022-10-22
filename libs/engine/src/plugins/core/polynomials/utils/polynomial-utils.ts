@@ -11,7 +11,7 @@ import {
     multiplyMonomials,
     Polynomial,
     removeMonomialsWithCoefficientZero,
-    sortMonomialsByDegree,
+    compareMonomialsByDegree,
 } from '../../../../utils/polynomial-type-utils';
 
 export function getDegreeFromPolynomial(polynomial: Polynomial): number {
@@ -31,7 +31,7 @@ function calculatePolynomialSumOrDifference(
 ): Polynomial {
     let result: Polynomial = [];
 
-    const reverseSort = (a: Monomial, b: Monomial) => -sortMonomialsByDegree(a, b);
+    const reverseSort = (a: Monomial, b: Monomial) => -compareMonomialsByDegree(a, b);
 
     const reversedLeftPolynomial = [...leftPolynomial].sort(reverseSort);
     let reversedRightPolynomial = [...rightPolynomial].sort(reverseSort);

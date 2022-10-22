@@ -20,6 +20,8 @@ interface NonConstant {
 
 interface Constant {
     type: 'constant';
+    base?: undefined;
+    degree?: undefined;
     coefficient: number;
 }
 
@@ -39,38 +41,31 @@ export function createConstantMonomial(coefficient: number): Constant {
     };
 }
 
-export function sortMonomialsByDegree(a: Monomial, b: Monomial): number {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return (b?.degree ?? 0) - (a?.degree ?? 0);
+export function compareMonomialsByDegree(a: Monomial, b: Monomial): number {
+    return (b.degree ?? 0) - (a.degree ?? 0);
+}
+
+function getMonomialDegree(monomial: Monomial) {
+    if (monomial.type === 'constant') {
+        return 0;
+    }
+    return monomial.degree;
 }
 
 export function compareMonomialsDegreeGreater(a: Monomial, b: Monomial) {
-    return (
-        (a.type === 'non-constant' && b.type === 'non-constant' && a.degree > b.degree) ||
-        (a.type === 'non-constant' && b.type === 'constant')
-    );
+    return getMonomialDegree(a) > getMonomialDegree(b);
 }
 
 export function compareMonomialsDegreeSmaller(a: Monomial, b: Monomial) {
-    return (
-        (a.type === 'non-constant' && b.type === 'non-constant' && a.degree < b.degree) ||
-        (a.type === 'constant' && b.type === 'non-constant')
-    );
+    return getMonomialDegree(a) < getMonomialDegree(b);
 }
 
 export function compareMonomialsDegreeEqual(a: Monomial, b: Monomial) {
-    return (
-        (a.type === 'non-constant' && b.type === 'non-constant' && a.degree === b.degree) ||
-        (a.type === 'constant' && b.type === 'constant')
-    );
+    return getMonomialDegree(a) === getMonomialDegree(b);
 }
 
 export function haveMonomialsSameBase(a: Monomial, b: Monomial) {
-    return (
-        (a.type === 'non-constant' && b.type === 'non-constant' && a.base === b.base) ||
-        (a.type === 'constant' && b.type === 'constant')
-    );
+    return a.base === b.base;
 }
 
 function getSyntaxTreeNodeFromMonomial(monomial: Monomial): SyntaxTreeNode {
@@ -139,32 +134,16 @@ export function multiplyMonomials(leftMonomial: Monomial, rightMonomial: Monomia
 }
 
 export function divideMonomials(leftMonomial: Monomial, rightMonomial: Monomial) {
-    if (
-        leftMonomial.type === 'non-constant' &&
-        rightMonomial.type === 'non-constant' &&
-        leftMonomial.degree > rightMonomial.degree
-    ) {
+    if (getMonomialDegree(leftMonomial) > getMonomialDegree(rightMonomial)) {
         return createNonConstantMonomial(
             leftMonomial.coefficient / rightMonomial.coefficient,
             leftMonomial.base,
-            leftMonomial.degree - rightMonomial.degree,
+            getMonomialDegree(leftMonomial) - getMonomialDegree(rightMonomial),
         );
     }
 
-    if (
-        leftMonomial.type === 'non-constant' &&
-        rightMonomial.type === 'non-constant' &&
-        leftMonomial.degree === rightMonomial.degree
-    ) {
+    if (getMonomialDegree(leftMonomial) === getMonomialDegree(rightMonomial)) {
         return createConstantMonomial(leftMonomial.coefficient / rightMonomial.coefficient);
-    }
-
-    if (leftMonomial.type === 'non-constant' && rightMonomial.type === 'constant') {
-        return createNonConstantMonomial(
-            leftMonomial.coefficient / rightMonomial.coefficient,
-            leftMonomial.base,
-            leftMonomial.degree,
-        );
     }
 }
 
@@ -176,10 +155,7 @@ export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
     for (let i = 0, currentDegree = getDegreeFromPolynomial(polynomial); currentDegree >= 0; currentDegree--) {
         const monomial = copiedPolynomial[i];
 
-        if (
-            (monomial.type === 'non-constant' && monomial.degree === currentDegree) ||
-            (monomial.type === 'constant' && currentDegree === 0)
-        ) {
+        if (getMonomialDegree(monomial) === currentDegree) {
             if (i === polynomial.length - 1) {
                 i = polynomial.length - 1;
             } else {
@@ -191,7 +167,7 @@ export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
             newMonomials.push(createConstantMonomial(0));
         }
     }
-    return copiedPolynomial.concat(newMonomials).sort(sortMonomialsByDegree);
+    return copiedPolynomial.concat(newMonomials).sort(compareMonomialsByDegree);
 }
 
 export function removeMonomialsWithCoefficientZero(polynomial: Polynomial) {
