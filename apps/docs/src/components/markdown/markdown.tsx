@@ -30,7 +30,7 @@ const Label = styled.label`
     margin-bottom: 0.25rem;
   }
 `;
-
+/*
 const Button = styled.a`
   font-size: 1rem;
   outline: none;
@@ -48,6 +48,7 @@ const Button = styled.a`
     background-color: rgba(0, 0, 0, 0.25);
   }
 `;
+*/
 
 const Strong = styled.strong`
   font-weight: 500;
