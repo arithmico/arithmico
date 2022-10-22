@@ -8,7 +8,7 @@ import {
 import { FunctionHeaderItem, NumberNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
-import {fib} from "./fib-utils";
+import { fib } from './fib-utils';
 
 const fibPlugin = createPlugin('core/fib');
 
