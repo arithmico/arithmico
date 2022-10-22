@@ -1,6 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
+import { MathJax } from "better-react-mathjax";
 
 const Form = styled.div`
   display: flex;
@@ -73,48 +74,50 @@ interface MarkdownProps {
 
 export default function Markdown({ content }: MarkdownProps) {
   return (
-    <ReactMarkdown
-      components={{
-        a: ({ ...props }) => <Link {...props} />,
-        p: ({ children }) => <Paragraph>{children}</Paragraph>,
-        strong: ({ children }) => <Strong>{children}</Strong>,
-        code: ({ node, inline, className, children, ...props }) => {
-          const child = node.children[0];
+    <MathJax inline>
+      <ReactMarkdown
+        components={{
+          a: ({ ...props }) => <Link {...props} />,
+          p: ({ children }) => <Paragraph>{children}</Paragraph>,
+          strong: ({ children }) => <Strong>{children}</Strong>,
+          code: ({ node, inline, className, children, ...props }) => {
+            const child = node.children[0];
 
-          if (child.type !== "text") {
-            return <code>{children}</code>;
-          }
+            if (child.type !== "text") {
+              return <code>{children}</code>;
+            }
 
-          const lines = child.value.split("\n").filter((line) => line !== "");
+            const lines = child.value.split("\n").filter((line) => line !== "");
 
-          if (lines.length !== 2) {
-            return <code>{children}</code>;
-          }
+            if (lines.length !== 2) {
+              return <code>{children}</code>;
+            }
 
-          return (
-            <Form>
-              <Label>
-                <span>Eingabe</span>
-                <Textfield value={lines[0]} readOnly />
-              </Label>
-              <Label>
-                <span>Ausgabe</span>
-                <Textfield value={lines[1]} readOnly />
-              </Label>
-              <Button
-                href={`https://arithmico.com/examples/${encodeURIComponent(
-                  lines[0]
-                )}`}
-                target="_blank"
-              >
-                Ausprobieren
-              </Button>
-            </Form>
-          );
-        },
-      }}
-    >
-      {content}
-    </ReactMarkdown>
+            return (
+              <Form>
+                <Label>
+                  <span>Eingabe</span>
+                  <Textfield value={lines[0]} readOnly />
+                </Label>
+                <Label>
+                  <span>Ausgabe</span>
+                  <Textfield value={lines[1]} readOnly />
+                </Label>
+                <Button
+                  href={`https://arithmico.com/examples/${encodeURIComponent(
+                    lines[0]
+                  )}`}
+                  target="_blank"
+                >
+                  Ausprobieren
+                </Button>
+              </Form>
+            );
+          },
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </MathJax>
   );
 }

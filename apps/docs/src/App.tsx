@@ -12,6 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import chaptersDe from "./chapters";
 import GlobalStyle from "@components/global-styles/global-styles";
 import Imprint from "./pages/imprint/imprint";
+import { MathJaxContext } from "better-react-mathjax";
 
 const Container = styled.div`
   position: absolute;
@@ -21,31 +22,42 @@ const Container = styled.div`
 
 function App() {
   return (
-    <ThemeProvider theme={{ type: "light" }}>
-      <GlobalStyle boldFont={false} fontSize="normal" />
-      <Container>
-        <Routes>
-          <Route path="/" element={<Page>Wilkommen</Page>} />
-          {chaptersDe.map((chapter, index) => (
-            <Route
-              key={index}
-              path={`/chapters/${index}`}
-              element={
-                <Chapter
-                  contentUrl={chapter.url}
-                  title={chapter.title}
-                  nextChapter={
-                    index < chaptersDe.length - 1 ? index + 1 : undefined
-                  }
-                  previousChapter={index > 0 ? index - 1 : undefined}
-                />
-              }
-            />
-          ))}
-          <Route path="/imprint" element={<Imprint />} />
-        </Routes>
-      </Container>
-    </ThemeProvider>
+    <MathJaxContext
+      config={{
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+      }}
+    >
+      <ThemeProvider theme={{ type: "light" }}>
+        <GlobalStyle boldFont={false} fontSize="normal" />
+        <Container>
+          <Routes>
+            <Route path="/" element={<Page>Wilkommen</Page>} />
+            {chaptersDe.map((chapter, index) => (
+              <Route
+                key={index}
+                path={`/chapters/${index}`}
+                element={
+                  <Chapter
+                    contentUrl={chapter.url}
+                    title={chapter.title}
+                    nextChapter={
+                      index < chaptersDe.length - 1 ? index + 1 : undefined
+                    }
+                    previousChapter={index > 0 ? index - 1 : undefined}
+                  />
+                }
+              />
+            ))}
+            <Route path="/imprint" element={<Imprint />} />
+          </Routes>
+        </Container>
+      </ThemeProvider>
+    </MathJaxContext>
   );
 }
 
