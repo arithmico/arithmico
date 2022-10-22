@@ -1,23 +1,7 @@
 import createNumberNode from '../../../../create/create-number-node';
-import { Context, Equals, NumberNode, SyntaxTreeNode } from '../../../../types';
+import { Context, Equals, NumberNode } from '../../../../types';
 import { getVariableNames } from '../../../../utils/symbolic-utils';
-import { getFactors } from './get-factors';
-import { getSummands } from './get-summands';
-
-function getSummandCoefficient(summand: SyntaxTreeNode): NumberNode {
-    const factors = getFactors(summand);
-    const coefficients = <NumberNode[]>factors.filter((factor) => factor.type === 'number');
-
-    if (coefficients.length === 0) {
-        return createNumberNode(1);
-    }
-
-    if (coefficients.length === 1) {
-        return coefficients[0];
-    }
-
-    throw 'RuntimeError: multiple coefficients';
-}
+import { getMonomialCoefficientFromSummand, getSummands } from '../../../../utils/polynomial-syntax-tree-utils';
 
 export function getVariableNamesFromEquations(equations: Equals[], context: Context): string[] {
     return [
@@ -33,11 +17,11 @@ export function getCoefficientMatrix(equations: Equals[], context: Context): num
 
     return equations.map((equation) => {
         const coefficients: number[] = new Array(variableNames.length).fill(0);
-        const summands = getSummands(equation);
+        const summands = getSummands(equation.left);
 
         summands.forEach((summand) => {
             const variables = getVariableNames(summand, context);
-            const coefficient = getSummandCoefficient(summand);
+            const coefficient = createNumberNode(getMonomialCoefficientFromSummand(summand));
 
             if (variables.length !== 1) {
                 return;
@@ -58,7 +42,7 @@ export function getCoefficientMatrix(equations: Equals[], context: Context): num
 
 export function getConstantVector(equations: Equals[]): number[] {
     return equations.map((equation) => {
-        const summands = getSummands(equation);
+        const summands = getSummands(equation.left);
         const constants = <NumberNode[]>summands.filter((summand) => summand.type === 'number');
 
         if (constants.length === 0) {

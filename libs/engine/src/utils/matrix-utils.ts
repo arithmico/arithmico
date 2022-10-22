@@ -86,5 +86,7 @@ export function transpose(matrix: number[][]): number[][] {
 }
 
 export function calculateCofactorMatrix(matrix: number[][]): number[][] {
-    return matrix.map((row, i) => row.map((column, j) => ((i + j) % 2 === 0 ? 1 : -1) * det(getSubMatrix(matrix, i, j))));
+    return matrix.map((row, i) =>
+        row.map((column, j) => ((i + j) % 2 === 0 ? 1 : -1) * det(getSubMatrix(matrix, i, j))),
+    );
 }

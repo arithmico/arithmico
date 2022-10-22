@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import InfoProtocolItem from '../../components/info-protocol-item/info-protocol-item';
-import MathProtocolItem from '../../components/math-protocol-item/math-protocol-item';
-import PageContainer from '../../components/page-container/page-container';
-import useProtocol from '../../hooks/use-protocol';
+import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import PageContainer from "@local-components/page-container/page-container";
+import ProtocolMathItem from "@local-components/protocol-math-item/protocol-math-item";
+import { useSelector } from "react-redux";
+import { CalculatorRootState } from "@stores/calculator-store";
+import ProtocolInfoItem from "@local-components/protocol-info-item/info-protocol-item";
+import ProtocolErrorItem from "@local-components/protocol-error-item/protocol-error-item";
 
 const Container = styled(PageContainer)`
   display: grid;
@@ -79,27 +81,52 @@ export default function Protocol() {
       return;
     }
 
-    containerRef.current.children[containerRef.current.children.length - 1].scrollIntoView({
-      behavior: 'smooth'
+    containerRef.current.children[
+      containerRef.current.children.length - 1
+    ].scrollIntoView({
+      behavior: "smooth",
     });
   }, [containerRef]);
 
-  const protocolItems = useProtocol();
+  const protocolItems = useSelector(
+    (state: CalculatorRootState) => state.session.protocol
+  );
 
   return (
     <Container>
       <Header>
-        <Title>{t('protocol')}</Title>
-        <BackButton onClick={() => navigate('/')}>{t('common.back')}</BackButton>
+        <Title>{t("protocol")}</Title>
+        <BackButton onClick={() => navigate("/")}>
+          {t("common.back")}
+        </BackButton>
       </Header>
       <HistoryContainer ref={containerRef}>
-        {protocolItems.map((historyItem, index) =>
-          historyItem.type === 'math' ? (
-            <MathProtocolItem item={historyItem} key={index} />
-          ) : (
-            <InfoProtocolItem item={historyItem} key={index} />
-          )
-        )}
+        {protocolItems.map((item, index) => {
+          switch (item.type) {
+            case "math":
+              return (
+                <ProtocolMathItem
+                  input={item.input}
+                  output={item.output}
+                  key={index}
+                />
+              );
+
+            case "info":
+              return <ProtocolInfoItem message={item.info} key={index} />;
+
+            case "error":
+              return (
+                <ProtocolErrorItem
+                  input={item.input}
+                  output={item.error}
+                  key={index}
+                />
+              );
+            default:
+              return null;
+          }
+        })}
       </HistoryContainer>
     </Container>
   );

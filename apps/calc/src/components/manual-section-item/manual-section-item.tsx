@@ -1,6 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import useSessionStore from '../../stores/session-store/use-session-store';
+import { CalculatorRootState } from "@stores/calculator-store";
+import React from "react";
+import { useSelector } from "react-redux";
+import useNumberFormat from "../../hooks/use-number-format";
+import styled from "styled-components";
 
 interface ManualSectionItemProps {
   synopsis: string;
@@ -29,9 +31,11 @@ const StyledDd = styled.dd`
 export default function ManualSectionItem({
   synopsis,
   description,
-  noCopy
+  noCopy,
 }: ManualSectionItemProps) {
-  const copySynopsisOnClick = useSessionStore((state) => state.settings.copySynopsisOnClick);
+  const copySynopsisOnClick = useSelector(
+    (state: CalculatorRootState) => state.settings.copySynopsisOnClick
+  );
 
   const onClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (!noCopy && copySynopsisOnClick && e.button === 0) {
@@ -39,9 +43,18 @@ export default function ManualSectionItem({
     }
   };
 
+  const numberFormat = useNumberFormat();
+
   return (
     <>
-      <StyledDt onClick={onClick}>{synopsis}</StyledDt>
+      <StyledDt onClick={onClick}>
+        {numberFormat === "de"
+          ? synopsis
+              .replaceAll(",", ";")
+              .replaceAll(".", ",")
+              .replaceAll(",,,", "...")
+          : synopsis}
+      </StyledDt>
       <StyledDd>{description}</StyledDd>
     </>
   );

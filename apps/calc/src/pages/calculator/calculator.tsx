@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import CalculatorTextfields from '../../components/calculator-textfields/calculator-textfields';
-import CalculatorToolbar from '../../components/calculator-toolbar/calculator-toolbar';
-import PageContainer from '../../components/page-container/page-container';
+import React from "react";
+import styled from "styled-components";
+import CalculatorTextfields from "@local-components/calculator-textfields/calculator-textfields";
+import CalculatorToolbar from "@local-components/calculator-toolbar/calculator-toolbar";
+import PageContainer from "@local-components/page-container/page-container";
 
 const Container = styled(PageContainer)`
   display: grid;
