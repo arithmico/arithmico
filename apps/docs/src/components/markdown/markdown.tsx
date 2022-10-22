@@ -103,14 +103,14 @@ export default function Markdown({ content }: MarkdownProps) {
                   <span>Ausgabe</span>
                   <Textfield value={lines[1]} readOnly />
                 </Label>
-                <Button
+                {/*<Button
                   href={`https://arithmico.com/examples/${encodeURIComponent(
                     lines[0]
                   )}`}
                   target="_blank"
                 >
                   Ausprobieren
-                </Button>
+                </Button>*/}
               </Form>
             );
           },
