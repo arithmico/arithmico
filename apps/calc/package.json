@@ -4,6 +4,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "build:offline": "VITE_OFFLINE_MODE=true NODE_ENV=production vite build --mode offline",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
     "test": "echo \"Info: no test specified\" && exit 0"
   },
