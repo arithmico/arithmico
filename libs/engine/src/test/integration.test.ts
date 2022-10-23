@@ -172,7 +172,6 @@ integrationTest('polynomial:div(x^4 + x^2 - 2*x + 1, x^2 - 1)', '[x^2 + 2, (-2) 
 integrationTest('polynomial:div(x^3 - x^2 + 2*x - 5, x^2 - 3)', '[x + -1, 5 * x + -8]');
 integrationTest('polynomial:div(4*x^4 - 5*x^2 - 4*x -4, x-2)', '[4 * x^3 + 8 * x^2 + 11 * x + 18, 32]');
 
-
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
 integrationTestThrow('2 ^ 3 ^ 4');
