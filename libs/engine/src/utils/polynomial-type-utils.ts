@@ -45,23 +45,11 @@ export function compareMonomialsByDegree(a: Monomial, b: Monomial): number {
     return (b.degree ?? 0) - (a.degree ?? 0);
 }
 
-function getMonomialDegree(monomial: Monomial) {
+export function getMonomialDegree(monomial: Monomial) {
     if (monomial.type === 'constant') {
         return 0;
     }
     return monomial.degree;
-}
-
-export function compareMonomialsDegreeGreater(a: Monomial, b: Monomial) {
-    return getMonomialDegree(a) > getMonomialDegree(b);
-}
-
-export function compareMonomialsDegreeSmaller(a: Monomial, b: Monomial) {
-    return getMonomialDegree(a) < getMonomialDegree(b);
-}
-
-export function compareMonomialsDegreeEqual(a: Monomial, b: Monomial) {
-    return getMonomialDegree(a) === getMonomialDegree(b);
 }
 
 export function haveMonomialsSameBase(a: Monomial, b: Monomial) {

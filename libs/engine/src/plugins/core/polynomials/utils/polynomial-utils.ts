@@ -1,17 +1,15 @@
 import {
     addMissingMonomialsWithCoefficientZero,
-    compareMonomialsDegreeEqual,
-    compareMonomialsDegreeGreater,
-    compareMonomialsDegreeSmaller,
+    compareMonomialsByDegree,
     createConstantMonomial,
     createNonConstantMonomial,
     divideMonomials,
+    getMonomialDegree,
     haveMonomialsSameBase,
     Monomial,
     multiplyMonomials,
     Polynomial,
     removeMonomialsWithCoefficientZero,
-    compareMonomialsByDegree,
 } from '../../../../utils/polynomial-type-utils';
 
 export function getDegreeFromPolynomial(polynomial: Polynomial): number {
@@ -40,15 +38,15 @@ function calculatePolynomialSumOrDifference(
         const latestElementP = reversedLeftPolynomial.at(-1);
         const latestElementQ = reversedRightPolynomial.at(-1);
 
-        if (compareMonomialsDegreeGreater(latestElementP, latestElementQ)) {
+        if (getMonomialDegree(latestElementP) > getMonomialDegree(latestElementQ)) {
             result.push(reversedLeftPolynomial.pop());
-        } else if (compareMonomialsDegreeSmaller(latestElementP, latestElementQ)) {
+        } else if (getMonomialDegree(latestElementP) < getMonomialDegree(latestElementQ)) {
             result.push(reversedRightPolynomial.pop());
-        } else if (compareMonomialsDegreeEqual(latestElementP, latestElementQ)) {
+        } else if (getMonomialDegree(latestElementP) === getMonomialDegree(latestElementQ)) {
             reversedRightPolynomial = reversedRightPolynomial.filter((monomial) => {
                 if (
                     haveMonomialsSameBase(latestElementP, monomial) &&
-                    compareMonomialsDegreeEqual(latestElementP, monomial)
+                    getMonomialDegree(latestElementP) === getMonomialDegree(monomial)
                 ) {
                     const calculatedCoefficient =
                         latestElementP.coefficient + (isDifference ? -monomial.coefficient : +monomial.coefficient);
