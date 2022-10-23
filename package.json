@@ -82,6 +82,7 @@
     "better-react-mathjax": "^2.0.2",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.1.0",
     "file-saver": "^2.0.5",
     "i18next": "^21.8.11",
