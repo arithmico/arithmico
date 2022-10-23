@@ -170,6 +170,8 @@ integrationTest('polynomial:div(5*x^2 + 3*x - 12, x - 4)', '[5 * x + 23, 80]');
 integrationTest('polynomial:div(x^3 + 4 * x^2 - 9*x - 36, x - 3)', '[x^2 + 7 * x + 12, 0]');
 integrationTest('polynomial:div(x^4 + x^2 - 2*x + 1, x^2 - 1)', '[x^2 + 2, (-2) * x + 3]');
 integrationTest('polynomial:div(x^3 - x^2 + 2*x - 5, x^2 - 3)', '[x + -1, 5 * x + -8]');
+integrationTest('polynomial:div(4*x^4 - 5*x^2 - 4*x -4, x-2)', '[4 * x^3 + 8 * x^2 + 11 * x + 18, 32]');
+
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

@@ -149,7 +149,7 @@ export function divideMonomials(leftMonomial: Monomial, rightMonomial: Monomial)
 
 export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
     const copiedPolynomial = [...polynomial];
-    const base = polynomial.length === 1 && polynomial[0].type === 'non-constant' ? polynomial[0].base : null;
+    const base = polynomial.length === 1 && polynomial[0].type === 'constant' ? null : polynomial[0].base;
     const newMonomials = [];
 
     for (let i = 0, currentDegree = getDegreeFromPolynomial(polynomial); currentDegree >= 0; currentDegree--) {
