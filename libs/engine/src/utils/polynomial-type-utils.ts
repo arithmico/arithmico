@@ -45,23 +45,11 @@ export function compareMonomialsByDegree(a: Monomial, b: Monomial): number {
     return (b.degree ?? 0) - (a.degree ?? 0);
 }
 
-function getMonomialDegree(monomial: Monomial) {
+export function getMonomialDegree(monomial: Monomial) {
     if (monomial.type === 'constant') {
         return 0;
     }
     return monomial.degree;
-}
-
-export function compareMonomialsDegreeGreater(a: Monomial, b: Monomial) {
-    return getMonomialDegree(a) > getMonomialDegree(b);
-}
-
-export function compareMonomialsDegreeSmaller(a: Monomial, b: Monomial) {
-    return getMonomialDegree(a) < getMonomialDegree(b);
-}
-
-export function compareMonomialsDegreeEqual(a: Monomial, b: Monomial) {
-    return getMonomialDegree(a) === getMonomialDegree(b);
 }
 
 export function haveMonomialsSameBase(a: Monomial, b: Monomial) {
@@ -149,7 +137,7 @@ export function divideMonomials(leftMonomial: Monomial, rightMonomial: Monomial)
 
 export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
     const copiedPolynomial = [...polynomial];
-    const base = polynomial.length === 1 && polynomial[0].type === 'non-constant' ? polynomial[0].base : null;
+    const base = polynomial.length === 1 && polynomial[0].type === 'constant' ? null : polynomial[0].base;
     const newMonomials = [];
 
     for (let i = 0, currentDegree = getDegreeFromPolynomial(polynomial); currentDegree >= 0; currentDegree--) {
