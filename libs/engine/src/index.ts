@@ -27,6 +27,7 @@ import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
 import fibPlugin from './plugins/core/fibonacci/fib';
 import polynomialPlugin from './plugins/core/polynomials/polynomial';
+import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -50,6 +51,7 @@ const plugins = [
     inverseMatrixPlugin,
     fibPlugin,
     polynomialPlugin,
+    tensorPlugin,
 ];
 
 let defaultContext: Context;
