@@ -57,7 +57,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
     - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./apps/calc/build s3://$BUCKET_ID/prod/calculator --delete
+      run: aws s3 sync ./apps/calc/dist s3://$BUCKET_ID/prod/calculator --delete
     - name: Invalidate Cloundfront distrubution
       run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_ONLINE_DIST --paths '/*'
 
@@ -82,7 +82,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
     - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./apps/docs/build s3://$BUCKET_ID/prod/documentation --delete
+      run: aws s3 sync ./apps/docs/dist s3://$BUCKET_ID/prod/documentation --delete
     - name: Invalidate Cloundfront distrubution
       run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DIST --paths '/*'
 
@@ -99,16 +99,16 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      env:
-        VITE_OFFLINE_MODE: true
-      run: npm run build:engine && npm run build:calc
+      run: |
+        npm run build:engine
+        npm run build:offline -w apps/calc/
     - name: Test
       run: npm run test:all
     - name: Zip
       run: |
         mkdir deploy
         VERSION_NUMBER=$(node -pe "require('./package.json')['version']")
-        cd ./apps/calc/build && zip -r ../../../deploy/$(echo $VERSION_NUMBER).zip .
+        cd ./apps/calc/dist && zip -r ../../../deploy/$(echo $VERSION_NUMBER).zip .
     - name: Setup Vars
       id: vars
       run: |

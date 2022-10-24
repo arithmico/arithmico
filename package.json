@@ -1,6 +1,6 @@
 {
   "name": "arithmico",
-  "version": "0.79.2",
+  "version": "1.0.4",
   "author": {
     "name": "Lennard Behrens",
     "email": "dev.behrenle@posteo.de",
@@ -79,8 +79,10 @@
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "@vitejs/plugin-react": "^2.1.0",
+    "better-react-mathjax": "^2.0.2",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.1.0",
     "file-saver": "^2.0.5",
     "i18next": "^21.8.11",
@@ -90,8 +92,6 @@
     "peggy": "^2.0.1",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
-    "react-app-alias-ex": "^2.1.0",
-    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-hotkeys-hook": "^3.4.6",
     "react-i18next": "^11.17.3",
@@ -100,6 +100,7 @@
     "styled-components": "^5.3.5",
     "typescript": "^4.7.4",
     "vite": "^3.1.5",
+    "vite-plugin-singlefile": "^0.12.3",
     "web-vitals": "^2.1.4",
     "zustand": "3.7"
   },
