@@ -197,6 +197,12 @@ integrationTest('floor(2)', '2');
 integrationTest('ceil(-1.1)', '-1');
 integrationTest('ceil(1.2)', '2');
 integrationTest('ceil(1)', '1');
+integrationTest('[1, 2, 3]^3', '[14, 28, 42]');
+integrationTest('[1, 2, 3]^1', '[1, 2, 3]');
+integrationTest('[[1, 2], [3, 4]]^3', '[[37, 54], [81, 118]]');
+integrationTest('[[1, 2], [3, 4]]^1', '[[1, 2], [3, 4]]');
+integrationTest('[[1, 2], [3, 4]]^0', '[[1, 0], [0, 1]]');
+integrationTest('((x->x)+(y->2*y))(2)', '6');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -271,3 +277,9 @@ integrationTestThrow('polynomial:div(x^2 + 2*x + y -3, 0)');
 */
 integrationTestThrow('tensor:rank([1,[2,3]])');
 integrationTestThrow('tensor:dims([1,[2,3]])');
+integrationTestThrow('[1, [2, 3]]^1');
+integrationTestThrow('[1, 2]^(-1)');
+integrationTestThrow('[1, 2]^1.5');
+integrationTestThrow('[[[1]]]^2');
+integrationTestThrow('[[1], [2]]^2');
+integrationTestThrow('[1, 2, 3]^0');
