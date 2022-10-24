@@ -1,4 +1,3 @@
-import exp from 'constants';
 import evaluate from '..';
 import createNumberNode from '../../create/create-number-node';
 import createPower from '../../create/create-power';
