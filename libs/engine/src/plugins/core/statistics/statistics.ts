@@ -73,7 +73,7 @@ addPluginFunction(
     createPluginFunction(
         'fact',
         singleNumberHeader,
-        'Calculates the factorial of x',
+        'Calculates the factorial of x.',
         'Berechnet die Fakultät von x.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('fact', parameters, singleNumberHeader, context);
