@@ -37,10 +37,10 @@ const replaceNegateWithTimes: PartialNormalizer = (node, context) => {
 };
 
 const normalizeNegate = combineNormalizers([
-    evaluateIfPossible,
     normalizeChild,
     removeDoubleNegate,
     replaceNegateWithTimes,
+    evaluateIfPossible,
 ]);
 
 export default normalizeNegate;
