@@ -28,6 +28,7 @@ import { createProfile } from './utils/profile-utils';
 import fibPlugin from './plugins/core/fibonacci/fib';
 import polynomialPlugin from './plugins/core/polynomials/polynomial';
 import tensorPlugin from './plugins/core/tensor/tensor-plugin';
+import roundPlugin from './plugins/core/round/round-plugin';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -52,6 +53,7 @@ const plugins = [
     fibPlugin,
     polynomialPlugin,
     tensorPlugin,
+    roundPlugin,
 ];
 
 let defaultContext: Context;

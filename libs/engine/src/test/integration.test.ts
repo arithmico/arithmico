@@ -184,6 +184,17 @@ integrationTest('tensor:dims([])', '[0]');
 integrationTest('tensor:dims([1])', '[1]');
 integrationTest('tensor:dims([1, 2])', '[2]');
 integrationTest('tensor:dims([[1,2],[3,4]])', '[2, 2]');
+integrationTest('round(0.5)', '1');
+integrationTest('round(-0.5)', '0');
+integrationTest('round(-0.6)', '-1');
+integrationTest('round(3)', '3');
+integrationTest('round(0.4)', '0');
+integrationTest('floor(1.1)', '1');
+integrationTest('floor(-1.1)', '-2');
+integrationTest('floor(2)', '2');
+integrationTest('ceil(-1.1)', '-1');
+integrationTest('ceil(1.2)', '2');
+integrationTest('ceil(1)', '1');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
