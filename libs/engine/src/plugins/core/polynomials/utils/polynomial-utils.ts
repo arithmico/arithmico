@@ -17,9 +17,7 @@ export function getDegreeFromPolynomial(polynomial: Polynomial): number {
         throw 'RuntimeError: Internal polynomial is not correct';
     }
 
-    const highestMonomial = polynomial[0];
-
-    return highestMonomial.type === 'constant' ? 0 : highestMonomial.degree;
+    return getMonomialDegree(polynomial[0]);
 }
 
 function calculatePolynomialSumOrDifference(
