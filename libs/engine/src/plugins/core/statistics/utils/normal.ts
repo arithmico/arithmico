@@ -1,7 +1,7 @@
 import { calculateErf } from './erf';
 
 export function calculateNormal(x: number): number {
-    return Math.exp(Math.pow(x, 2) / 2) / Math.sqrt(2 * Math.PI);
+    return Math.exp(-Math.pow(x, 2) / 2) / Math.sqrt(2 * Math.PI);
 }
 
 export function calculateCNormal(x: number): number {
