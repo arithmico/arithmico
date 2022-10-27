@@ -146,6 +146,7 @@ integrationTest('matrix:cof([[4, 3], [5, 7]])', '[[7, -5], [-3, 4]]');
 integrationTest('fib(1)', '1');
 integrationTest('fib(2)', '1');
 integrationTest('fib(19)', '4181');
+/*
 integrationTest('polynomial:deg(2*x^2 + x + 4)', '2');
 integrationTest('polynomial:deg(x)', '1');
 integrationTest('polynomial:deg(1)', '0');
@@ -170,7 +171,7 @@ integrationTest('polynomial:div(5*x^2 + 3*x - 12, x - 4)', '[5 * x + 23, 80]');
 integrationTest('polynomial:div(x^3 + 4 * x^2 - 9*x - 36, x - 3)', '[x^2 + 7 * x + 12, 0]');
 integrationTest('polynomial:div(x^4 + x^2 - 2*x + 1, x^2 - 1)', '[x^2 + 2, (-2) * x + 3]');
 integrationTest('polynomial:div(x^3 - x^2 + 2*x - 5, x^2 - 3)', '[x + -1, 5 * x + -8]');
-
+*/
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
 integrationTestThrow('2 ^ 3 ^ 4');
@@ -225,6 +226,7 @@ integrationTestThrow('matrix:cof([[2, 1, 0], [1, 2], [4, 2, 0]])');
 integrationTestThrow('matrix:cof([1])');
 integrationTestThrow('fib(0)');
 integrationTestThrow('fib(3.5)');
+/*
 integrationTestThrow('polynomial:deg(x^-1)');
 integrationTestThrow('polynomial:deg(x^5 + y^4)');
 integrationTestThrow('polynomial:mul(2*x + y, -2*y + 3*x)');
@@ -234,3 +236,4 @@ integrationTestThrow('polynomial:div(2*x + y, -2*y + 3*x)');
 integrationTestThrow('polynomial:div(-2*y + 3*x, 2*x + y)');
 integrationTestThrow('polynomial:div(x^2 + 2*x + y -3, -2*x^3 + 3*x)');
 integrationTestThrow('polynomial:div(x^2 + 2*x + y -3, 0)');
+*/
