@@ -195,6 +195,7 @@ integrationTest('floor(2)', '2');
 integrationTest('ceil(-1.1)', '-1');
 integrationTest('ceil(1.2)', '2');
 integrationTest('ceil(1)', '1');
+integrationTest('list:filter(x->x>=5,[1,2,3,4,5,6,7,8,9,10])', '[5, 6, 7, 8, 9, 10]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

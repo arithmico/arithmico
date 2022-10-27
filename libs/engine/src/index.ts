@@ -29,6 +29,7 @@ import fibPlugin from './plugins/core/fibonacci/fib';
 import polynomialPlugin from './plugins/core/polynomials/polynomial';
 import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import roundPlugin from './plugins/core/round/round-plugin';
+import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -54,6 +55,7 @@ const plugins = [
     polynomialPlugin,
     tensorPlugin,
     roundPlugin,
+    listmodPlugin,
 ];
 
 let defaultContext: Context;
