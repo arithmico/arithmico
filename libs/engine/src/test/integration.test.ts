@@ -177,6 +177,7 @@ integrationTest('polynomial:div(5*x^2 + 3*x - 12, x - 4)', '[5 * x + 23, 80]');
 integrationTest('polynomial:div(x^3 + 4 * x^2 - 9*x - 36, x - 3)', '[x^2 + 7 * x + 12, 0]');
 integrationTest('polynomial:div(x^4 + x^2 - 2*x + 1, x^2 - 1)', '[x^2 + 2, (-2) * x + 3]');
 integrationTest('polynomial:div(x^3 - x^2 + 2*x - 5, x^2 - 3)', '[x + -1, 5 * x + -8]');
+integrationTest('polynomial:div(4*x^4 - 5*x^2 - 4*x -4, x-2)', '[4 * x^3 + 8 * x^2 + 11 * x + 18, 32]');
 */
 integrationTest('tensor:rank([])', '1');
 integrationTest('tensor:rank([1])', '1');
@@ -203,7 +204,6 @@ integrationTest('[[1, 2], [3, 4]]^3', '[[37, 54], [81, 118]]');
 integrationTest('[[1, 2], [3, 4]]^1', '[[1, 2], [3, 4]]');
 integrationTest('[[1, 2], [3, 4]]^0', '[[1, 0], [0, 1]]');
 integrationTest('((x->x)+(y->2*y))(2)', '6');
-integrationTest('polynomial:div(4*x^4 - 5*x^2 - 4*x -4, x-2)', '[4 * x^3 + 8 * x^2 + 11 * x + 18, 32]');
 integrationTest('tensor:rank([])', '1');
 integrationTest('tensor:rank([1])', '1');
 integrationTest('tensor:rank([1, 2])', '1');
