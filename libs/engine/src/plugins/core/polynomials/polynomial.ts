@@ -8,8 +8,8 @@ import {
 import { FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import {
-    getPolynomial,
-    isEveryPolynomialBaseSame,
+    getPolynomial, haveTwoPolynomialsSameBase,
+    isEverySummandOfPolynomialBaseSame,
     isPolynomialDegreeValid,
 } from '../../../utils/polynomial-syntax-tree-utils';
 import normalize from '../../../normalize';
@@ -56,7 +56,7 @@ addPluginFunction(
                 throw 'RuntimeError: polynomial:deg: Polynomial is not mathematically correct. Every monomial must have an integer degree >= 0.';
             }
 
-            if (!isEveryPolynomialBaseSame(normalizedPolynomialSyntaxTreeNode)) {
+            if (!isEverySummandOfPolynomialBaseSame(normalizedPolynomialSyntaxTreeNode)) {
                 throw 'RuntimeError: polynomial:deg: Polynomial is not mathematically correct. Every monomial must have the same base.';
             }
 
@@ -140,17 +140,11 @@ addPluginFunction(
             if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode1)) {
                 throw 'RuntimeError: polynomial:mul: Polynomial p is not mathematically correct. Every monomial must have an integer degree >= 0.';
             }
-
-            if (!isEveryPolynomialBaseSame(normalizedPolynomialSyntaxTreeNode1)) {
-                throw 'RuntimeError: polynomial:mul: Polynomial q is not mathematically correct. Every monomial must have the same base.';
-            }
-
             if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode2)) {
                 throw 'RuntimeError: polynomial:mul: Polynomial p is not mathematically correct. Every monomial must have an integer degree >= 0.';
             }
-
-            if (!isEveryPolynomialBaseSame(normalizedPolynomialSyntaxTreeNode2)) {
-                throw 'RuntimeError: polynomial:mul: Polynomial q is not mathematically correct. Every monomial must have the same base.';
+            if (!haveTwoPolynomialsSameBase(normalizedPolynomialSyntaxTreeNode1, normalizedPolynomialSyntaxTreeNode2)) {
+                throw 'RuntimeError: Polynomial:mul: Polynomials p and q are not mathematically correct. Every monomial must have the same base.';
             }
 
             const polynomial1 = getPolynomial(normalizedPolynomialSyntaxTreeNode1);
@@ -184,16 +178,11 @@ addPluginFunction(
             if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode1)) {
                 throw 'RuntimeError: Polynomial:div: polynomial p is not mathematically correct! Every monomial must have an integer degree >= 0.';
             }
-
-            if (!isEveryPolynomialBaseSame(normalizedPolynomialSyntaxTreeNode1)) {
-                throw 'RuntimeError: Polynomial:div:  Polynomial q is not mathematically correct. Every monomial must have the same base.';
-            }
-
             if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode2)) {
                 throw 'RuntimeError: Polynomial:div: Polynomial p is not mathematically correct. Every monomial must have an integer degree >= 0.';
             }
-            if (!isEveryPolynomialBaseSame(normalizedPolynomialSyntaxTreeNode2)) {
-                throw 'RuntimeError: Polynomial:div:  Polynomial q is not mathematically correct. Every monomial must have the same base.';
+            if (!haveTwoPolynomialsSameBase(normalizedPolynomialSyntaxTreeNode1, normalizedPolynomialSyntaxTreeNode2)) {
+                throw 'RuntimeError: Polynomial:div: Polynomials p and q are not mathematically correct. Every monomial must have the same base.';
             }
 
             const polynomial1 = getPolynomial(normalizedPolynomialSyntaxTreeNode1);
