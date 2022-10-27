@@ -49,7 +49,7 @@ const plugins = [
     moduloPlugin,
     inverseMatrixPlugin,
     fibPlugin,
-    polynomialPlugin,
+    //polynomialPlugin,
 ];
 
 let defaultContext: Context;
