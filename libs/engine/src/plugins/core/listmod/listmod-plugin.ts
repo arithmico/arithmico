@@ -90,4 +90,49 @@ addPluginFunction(
     ),
 );
 
+const reduceHeader: FunctionHeaderItem[] = [
+    { name: 'f', type: 'function', evaluate: true },
+    { name: 'l', type: 'vector', evaluate: true },
+    { name: 'start_acc', type: 'any', evaluate: true, optional: true },
+];
+
+addPluginFunction(
+    listmodPlugin,
+    createPluginFunction(
+        'list:reduce',
+        reduceHeader,
+        'Reduces a list to a single value with the specified reducer function',
+        'Reduziert eine Liste mithilfe der übergebenen Reduzierfunktion',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('list:reduce', parameters, reduceHeader, context);
+            const reduceFunction = <FunctionNode>parameterStackFrame['f'];
+            const list = <Vector>parameterStackFrame['l'];
+            const startAcc = parameterStackFrame['start_acc'];
+
+            if (reduceFunction.header.length !== 2) {
+                throw 'TypeError: list:reduce: Invalid reduce function signature';
+            }
+
+            if (list.values.length === 0) {
+                throw 'RuntimeError: list:reduce: List is empty';
+            }
+
+            if (list.values.length < 2 && !startAcc) {
+                throw 'RuntimeError: list:reduce: start_acc not specified';
+            }
+
+            if (startAcc) {
+                return list.values.reduce(
+                    (acc, value) => evaluate(createFunctionCall(reduceFunction, [acc, value]), context),
+                    startAcc,
+                );
+            }
+
+            return list.values.reduce((acc, value) =>
+                evaluate(createFunctionCall(reduceFunction, [acc, value]), context),
+            );
+        },
+    ),
+);
+
 export default listmodPlugin;
