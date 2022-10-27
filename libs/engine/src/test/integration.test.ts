@@ -197,6 +197,9 @@ integrationTest('ceil(1.2)', '2');
 integrationTest('ceil(1)', '1');
 integrationTest('list:filter(x->x>=5,[1,2,3,4,5,6,7,8,9,10])', '[5, 6, 7, 8, 9, 10]');
 integrationTest('list:map(x->x^2,[1,2,3])', '[1, 4, 9]');
+integrationTest('list:reduce((a,b)->a+b,[1,2,3])', '6');
+integrationTest('list:reduce((a,b)->a+b,[1,2,3], 2)', '8');
+integrationTest('list:reduce((a,b)->a+b,[1], 2)', '3');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -273,3 +276,6 @@ integrationTestThrow('list:filter((x,y)->true, [1,2,3])');
 integrationTestThrow('list:filter((x)->x, [1,2,3])');
 integrationTestThrow('list:map((x, y)->x, [1,2,3])');
 integrationTestThrow('list:map((x)->x - 2, [true, false, true])');
+integrationTestThrow('list:reduce((a,b)->a+b,[])');
+integrationTestThrow('list:reduce((a,b)->a+b,[1])');
+integrationTestThrow('list:reduce((a)->a,[1])');
