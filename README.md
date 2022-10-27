@@ -29,9 +29,21 @@ npm run build:engine
 ```
 
 3. Build one a web application by running one of the following commands
-  - `npm run build:calc`
-  - `npm run build:docs`
-  - `npm run build:blog`
-  - `npm run build:config`
+  - Build Arithmico Calc 
+  ```
+  npm run build:calc
+  ```
+  - Build Arithmico Docs 
+  ```
+  npm run build:docs
+  ```
+  - Build Arithmico Blog 
+  ```
+  npm run build:blog
+  ```
+  - Build Arithmico Config
+  ```
+  npm run build:config
+  ```
 
 4. Serve the files under `<project-root>/apps/<app-name>/dist/*` on a web server
