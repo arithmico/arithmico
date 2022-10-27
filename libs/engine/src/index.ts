@@ -51,7 +51,7 @@ const plugins = [
     moduloPlugin,
     inverseMatrixPlugin,
     fibPlugin,
-    polynomialPlugin,
+    //polynomialPlugin,
     tensorPlugin,
     roundPlugin,
 ];
