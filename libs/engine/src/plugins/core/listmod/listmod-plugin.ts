@@ -28,7 +28,12 @@ addPluginFunction(
         'Filter a list l with a filter function f',
         'Filter eine Liste l mit einer Filterfunktion f',
         (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame('table', parameters, functionAndListHeader, context);
+            const parameterStackFrame = mapParametersToStackFrame(
+                'list:filter',
+                parameters,
+                functionAndListHeader,
+                context,
+            );
             const filterFunction = <FunctionNode>parameterStackFrame['f'];
             const list = <Vector>parameterStackFrame['l'];
             const resultValues: SyntaxTreeNode[] = [];
@@ -46,6 +51,38 @@ addPluginFunction(
                 if (filterResult.value) {
                     resultValues.push(value);
                 }
+            });
+
+            return createVector(resultValues);
+        },
+    ),
+);
+
+addPluginFunction(
+    listmodPlugin,
+    createPluginFunction(
+        'list:map',
+        functionAndListHeader,
+        'Maps each element x of list l to f(x).',
+        'Bildet jedes Element x der List l auf f(x) ab.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame(
+                'list:map',
+                parameters,
+                functionAndListHeader,
+                context,
+            );
+            const mapFunction = <FunctionNode>parameterStackFrame['f'];
+            const list = <Vector>parameterStackFrame['l'];
+            const resultValues: SyntaxTreeNode[] = [];
+
+            if (mapFunction.header.length !== 1) {
+                throw 'TypeError: list:map: Invalid map function signature';
+            }
+
+            list.values.forEach((value) => {
+                const mapResult = evaluate(createFunctionCall(mapFunction, [value]), context);
+                resultValues.push(mapResult);
             });
 
             return createVector(resultValues);
