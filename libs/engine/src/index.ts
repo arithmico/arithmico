@@ -26,7 +26,7 @@ import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
 import fibPlugin from './plugins/core/fibonacci/fib';
-import polynomialPlugin from './plugins/core/polynomials/polynomial';
+//import polynomialPlugin from './plugins/core/polynomials/polynomial';
 
 export { serializeStack } from './utils/context-utils';
 
