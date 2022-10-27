@@ -87,7 +87,6 @@ const StyledExternalLink = styled(ExternalLink)`
 
 export default function About() {
   const [t] = useTranslation();
-  console.log(packageJson);
 
   return (
     <WithScrollbars>
