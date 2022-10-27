@@ -268,3 +268,5 @@ integrationTestThrow('polynomial:div(x^2 + 2*x + y -3, -2*x^3 + 3*x)');
 integrationTestThrow('polynomial:div(x^2 + 2*x + y -3, 0)');
 integrationTestThrow('tensor:rank([1,[2,3]])');
 integrationTestThrow('tensor:dims([1,[2,3]])');
+integrationTestThrow('list:filter((x,y)->true, [1,2,3])');
+integrationTestThrow('list:filter((x)->x, [1,2,3])');
