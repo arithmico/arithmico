@@ -33,7 +33,7 @@ jobs:
         sh tools/auto-version.sh && git push
         git fetch
         git switch dev
-        git rebase origin/main
+        git merge origin/main
         git push
 
   deploy_calculator_online:
