@@ -183,6 +183,7 @@ integrationTest('polynomial:sub(2*x + y, -2*y + 3*x)', '(-x) + 3 * y');
 integrationTest('polynomial:sub(-2*y + 3*x, 2*x + y)', 'x - 3 * y');
 integrationTest('polynomial:sub(x^2 + 2*x + y -3, -2*y + 3*x)', 'x^2 - x + 3 * y - 3');
 integrationTest('polynomial:sub(1, 2)', '-1');
+integrationTest('polynomial:sub(x^7 - x^6 - x^5 - x^4 - x^3 - x, 0)', 'x^7 - x^6 - x^5 - x^4 - x^3 - x');
 integrationTest('polynomial:mul(2*x^2 + x + 4, 5*x + 3)', '10 * x^3 + 11 * x^2 + 23 * x + 12');
 integrationTest('polynomial:mul(5*x + 3, 2*x^2 + x + 4)', '10 * x^3 + 11 * x^2 + 23 * x + 12');
 integrationTest('polynomial:div(5*x^2 + 3*x - 12, x - 4)', '[5 * x + 23, 80]');

@@ -177,7 +177,6 @@ function getSyntaxTreeNodeFromMonomial(monomial: Monomial): SyntaxTreeNode {
 }
 
 function beautifyPolynomial(node: SyntaxTreeNode): SyntaxTreeNode {
-    console.debug(JSON.stringify(node, null, 2));
     if (node.type !== 'plus') {
         return node;
     }
@@ -185,24 +184,15 @@ function beautifyPolynomial(node: SyntaxTreeNode): SyntaxTreeNode {
     const leftChild = beautifyPolynomial(node.left);
     const rightChild = beautifyPolynomial(node.right);
 
-    if (rightChild.type !== 'plus') {
-        if (rightChild.type === 'negate') {
-            return createMinus(leftChild, rightChild.value);
-        }
-
-        return node;
+    if (rightChild.type === 'negate') {
+        return createMinus(leftChild, rightChild.value);
     }
 
-    // before rotate: a + ((-b) + c)
-    // after rotate: (a - b) + c
-    if (rightChild.left.type === 'negate') {
-        return createPlus(createMinus(leftChild, rightChild.left.value), rightChild.right);
-    }
-    if (rightChild.left.type)
-    return node;
+    return createPlus(leftChild, rightChild);
 }
 
 export function getSyntaxTreeNodeFromPolynomial(polynomial: Polynomial): SyntaxTreeNode {
     const monomialList = polynomial.map(getSyntaxTreeNodeFromMonomial);
-    return beautifyPolynomial(convertListToOperatorChain('plus', monomialList));
+    const notBeautifiedNode = [...monomialList].reverse().reduceRight((node, monomial) => createPlus(node, monomial));
+    return beautifyPolynomial(notBeautifiedNode);
 }
