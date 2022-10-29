@@ -2,7 +2,7 @@ import createFunctionCall from '../../../create/create-function-call';
 import createNumberNode from '../../../create/create-number-node';
 import createVector from '../../../create/create-vector';
 import evaluate from '../../../eval';
-import { FunctionHeaderItem, FunctionNode, SyntaxTreeNode, Vector } from '../../../types';
+import { FunctionHeaderItem, FunctionNode, NumberNode, SyntaxTreeNode, Vector } from '../../../types';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import {
     addPluginAuthor,
@@ -195,6 +195,42 @@ addPluginFunction(
             const firstListValues = (<Vector>parameterStackFrame['l1']).values;
             const secondListValues = (<Vector>parameterStackFrame['l2']).values;
             return createVector([...firstListValues, ...secondListValues]);
+        },
+    ),
+);
+
+const RangeHeader: FunctionHeaderItem[] = [
+    { name: 'start', type: 'number', evaluate: true },
+    { name: 'stop', type: 'number', evaluate: true },
+    { name: 'step_size', type: 'number', evaluate: true, optional: true },
+];
+
+addPluginFunction(
+    listmodPlugin,
+    createPluginFunction(
+        'list:range',
+        RangeHeader,
+        'Generates a list with numbers from "start" to "stop" in ascending order with a spacing of "step_size".',
+        'Erzeugt eine Liste mit aufsteigend sortierten Zahlen von "start" bis "stop" im Abstand von "step_size".',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('list:range', parameters, RangeHeader, context);
+            const start = (<NumberNode>parameterStackFrame['start']).value;
+            const stop = (<NumberNode>parameterStackFrame['stop']).value;
+            const stepSize = (<NumberNode>parameterStackFrame['step_size'])?.value ?? 1;
+            const values: number[] = [];
+            const min = Math.min(start, stop);
+            const max = Math.max(start, stop);
+            const increment = Math.abs(stepSize);
+
+            if (increment <= 0) {
+                throw 'RuntimeError: list:range: step_size must be >= 0';
+            }
+
+            for (let i = min; i <= max; i += increment) {
+                values.push(i);
+            }
+
+            return createVector(values.map((value) => createNumberNode(value)));
         },
     ),
 );

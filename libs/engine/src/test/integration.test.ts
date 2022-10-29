@@ -203,6 +203,11 @@ integrationTest('list:reduce((a,b)->a+b,[1], 2)', '3');
 integrationTest('list:reverse([1,2,3])', '[3, 2, 1]');
 integrationTest('list:concat([1,2,3], [1,2,3])', '[1, 2, 3, 1, 2, 3]');
 integrationTest('list:sort([3, 2, 8, 5, 3])', '[2, 3, 3, 5, 8]');
+integrationTest('list:range(1, 4)', '[1, 2, 3, 4]');
+integrationTest('list:range(4, 1)', '[1, 2, 3, 4]');
+integrationTest('list:range(4, 1, 2)', '[1, 3]');
+integrationTest('list:range(4, 1, 4)', '[1]');
+integrationTest('list:range(1, -1)', '[-1, 0, 1]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -283,3 +288,4 @@ integrationTestThrow('list:reduce((a,b)->a+b,[])');
 integrationTestThrow('list:reduce((a,b)->a+b,[1])');
 integrationTestThrow('list:reduce((a)->a,[1])');
 integrationTestThrow('list:sort([1, true, 2])');
+integrationTestThrow('list:range(1, 10, 0)');
