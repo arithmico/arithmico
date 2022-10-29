@@ -1,6 +1,6 @@
 import {
     addMissingMonomialsWithCoefficientZero,
-    compareMonomialsByDegree,
+    compareMonomials,
     createConstantMonomial,
     createNonConstantMonomial,
     divideMonomials,
@@ -27,7 +27,7 @@ function calculatePolynomialSumOrDifference(
 ): Polynomial {
     let result: Polynomial = [];
 
-    const reverseSort = (a: Monomial, b: Monomial) => -compareMonomialsByDegree(a, b);
+    const reverseSort = (a: Monomial, b: Monomial) => -compareMonomials(a, b);
 
     const reversedLeftPolynomial = [...leftPolynomial].sort(reverseSort);
     let reversedRightPolynomial = [...rightPolynomial].sort(reverseSort);
@@ -69,12 +69,55 @@ function calculatePolynomialSumOrDifference(
     return removeMonomialsWithCoefficientZero(result);
 }
 
+function newDashCalc(leftPolynomial: Polynomial, rightPolynomial: Polynomial, isDifference: boolean): Polynomial {
+    let rightPolynomialToAdd;
+    if (isDifference) {
+        rightPolynomialToAdd = rightPolynomial.map((monomial) => ({ ...monomial, coefficient: -monomial.coefficient }));
+    }
+    rightPolynomialToAdd = rightPolynomialToAdd ?? rightPolynomial;
+    let result = [...leftPolynomial];
+    const indicesToRmeove: number[] = [];
+    const addedMonomials: Polynomial = [];
+
+    for (let i = 0; i < rightPolynomialToAdd.length; i++) {
+        const monomial = rightPolynomialToAdd[i];
+        if (monomial === undefined) {
+            break;
+        }
+
+        const indexFound = result.findIndex(
+            (m) => getMonomialDegree(m) === getMonomialDegree(monomial) && haveMonomialsSameBase(m, monomial),
+        );
+        if (indexFound !== -1) {
+            const sum = result[indexFound].coefficient + monomial.coefficient;
+            addedMonomials.push(
+                getMonomialDegree(monomial) === 0
+                    ? createConstantMonomial(sum)
+                    : createNonConstantMonomial(sum, monomial.base, monomial.degree),
+            );
+            //result.splice(indexFound, 1);
+            indicesToRmeove.push(indexFound);
+        } else {
+            result.push(monomial);
+            rightPolynomialToAdd.splice(i, 1);
+        }
+
+        const setOfIndicesToRemove = new Set(indicesToRmeove);
+        result = result.filter((_, index) => !setOfIndicesToRemove.has(index));
+
+        console.debug('result before add addedM:', result);
+        console.debug('addedM:', addedMonomials);
+    }
+
+    return removeMonomialsWithCoefficientZero(result.concat(addedMonomials).sort(compareMonomials));
+}
+
 export function calculatePolynomialAddition(p: Polynomial, q: Polynomial) {
-    return calculatePolynomialSumOrDifference(p, q, false);
+    return newDashCalc(p, q, false);
 }
 
 export function calculatePolynomialSubtraction(p: Polynomial, q: Polynomial) {
-    return calculatePolynomialSumOrDifference(p, q, true);
+    return newDashCalc(p, q, true);
 }
 
 export function calculatePolynomialMultiplication(leftPolynomial: Polynomial, rightPolynomial: Polynomial): Polynomial {

@@ -41,8 +41,16 @@ export function createConstantMonomial(coefficient: number): Constant {
     };
 }
 
-export function compareMonomialsByDegree(a: Monomial, b: Monomial): number {
-    return getMonomialDegree(b) - getMonomialDegree(a);
+export function compareMonomials(a: Monomial, b: Monomial): number {
+    const degreeResult = getMonomialDegree(b) - getMonomialDegree(a);
+    if (degreeResult !== 0) {
+        return degreeResult;
+    }
+    const baseResult = a.base.localeCompare(b.base);
+    if (baseResult !== 0) {
+        return baseResult;
+    }
+    return b.coefficient - a.coefficient;
 }
 
 export function getMonomialDegree(monomial: Monomial) {
@@ -148,7 +156,7 @@ export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
             newMonomials.push(createConstantMonomial(0));
         }
     }
-    return copiedPolynomial.concat(newMonomials).sort(compareMonomialsByDegree);
+    return copiedPolynomial.concat(newMonomials).sort(compareMonomials);
 }
 
 export function removeMonomialsWithCoefficientZero(polynomial: Polynomial) {

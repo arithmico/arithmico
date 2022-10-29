@@ -4,7 +4,7 @@ import {
     createConstantMonomial,
     createNonConstantMonomial,
     Polynomial,
-    compareMonomialsByDegree,
+    compareMonomials,
 } from './polynomial-type-utils';
 import ifThenElse from '../plugins/core/if-then-else/if-then-else';
 
@@ -172,5 +172,5 @@ function summandToMonomial(summand: SyntaxTreeNode) {
 }
 
 export function getPolynomial(node: SyntaxTreeNode): Polynomial {
-    return getSummands(node).map(summandToMonomial).sort(compareMonomialsByDegree);
+    return getSummands(node).map(summandToMonomial).sort(compareMonomials);
 }
