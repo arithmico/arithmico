@@ -1,15 +1,17 @@
 import { SyntaxTreeNode } from '../types/SyntaxTreeNodes';
-import createPlus from '../create/create-plus';
 import createNumberNode from '../create/create-number-node';
 import createTimes from '../create/create-times';
 import createSymbolNode from '../create/create-symbol-node';
 import createPower from '../create/create-power';
 import { getDegreeFromPolynomial } from '../plugins/core/polynomials/utils/polynomial-utils';
 import createNegate from '../create/create-negate';
+import { convertListToOperatorChain } from './symbolic-utils';
+import createMinus from '../create/create-minus';
+import createPlus from '../create/create-plus';
 
 export type Polynomial = Monomial[];
 
-export type Monomial = NonConstant | Constant;
+type Monomial = NonConstant | Constant;
 
 export interface NonConstant {
     type: 'non-constant';
@@ -64,41 +66,6 @@ export function getMonomialDegree(monomial: Monomial) {
 
 export function haveMonomialsSameBase(a: Monomial, b: Monomial) {
     return a.base === b.base;
-}
-
-function getSyntaxTreeNodeFromMonomial(monomial: Monomial): SyntaxTreeNode {
-    if (monomial.type === 'constant') {
-        return createNumberNode(monomial.coefficient);
-    }
-
-    if (monomial.type === 'non-constant' && monomial.degree === 1) {
-        switch (monomial.coefficient) {
-            case 1:
-                return createSymbolNode(monomial.base);
-            case -1:
-                return createNegate(createSymbolNode(monomial.base));
-            default:
-                return createTimes(createNumberNode(monomial.coefficient), createSymbolNode(monomial.base));
-        }
-    }
-
-    if (monomial.type === 'non-constant' && monomial.degree > 1) {
-        switch (monomial.coefficient) {
-            case 1:
-                return createPower(createSymbolNode(monomial.base), createNumberNode(monomial.degree));
-            case -1:
-                return createNegate(createPower(createSymbolNode(monomial.base), createNumberNode(monomial.degree)));
-            default:
-                return createTimes(
-                    createNumberNode(monomial.coefficient),
-                    createPower(createSymbolNode(monomial.base), createNumberNode(monomial.degree)),
-                );
-        }
-    }
-}
-
-export function getSyntaxTreeNodeFromPolynomial(polynomial: Polynomial): SyntaxTreeNode {
-    return polynomial.map(getSyntaxTreeNodeFromMonomial).reduce(createPlus);
 }
 
 export function multiplyMonomials(leftMonomial: Monomial, rightMonomial: Monomial) {
@@ -167,4 +134,75 @@ export function addMissingMonomialsWithCoefficientZero(polynomial: Polynomial) {
 export function removeMonomialsWithCoefficientZero(polynomial: Polynomial) {
     const copiedPolynomial = [...polynomial].filter((m) => m.coefficient !== 0);
     return copiedPolynomial.length === 0 ? [createConstantMonomial(0)] : copiedPolynomial;
+}
+
+function getSyntaxTreeNodeFromMonomial(monomial: Monomial): SyntaxTreeNode {
+    const degree = getMonomialDegree(monomial);
+    const positiveCoefficient = createNumberNode(monomial.coefficient);
+
+    if (degree === 0) {
+        if (monomial.coefficient < 0) {
+            return createNegate(createNumberNode(-monomial.coefficient));
+        }
+        return positiveCoefficient;
+    }
+
+    const symbol = createSymbolNode(monomial.base);
+    if (degree === 1) {
+        if (Math.abs(monomial.coefficient) === 1) {
+            if (monomial.coefficient < 0) {
+                return createNegate(symbol);
+            }
+            return symbol;
+        }
+        if (monomial.coefficient < 0) {
+            return createNegate(createTimes(createNumberNode(-monomial.coefficient), symbol));
+        }
+
+        return createTimes(positiveCoefficient, symbol);
+    }
+
+    const power = createPower(symbol, createNumberNode(monomial.degree));
+    if (monomial.coefficient === 1) {
+        return power;
+    }
+    if (monomial.coefficient === -1) {
+        return createNegate(power);
+    }
+    if (monomial.coefficient < 0) {
+        return createNegate(createTimes(createNumberNode(-monomial.coefficient), power));
+    }
+
+    return createTimes(createNumberNode(monomial.coefficient), power);
+}
+
+function beautifyPolynomial(node: SyntaxTreeNode): SyntaxTreeNode {
+    console.debug(JSON.stringify(node, null, 2));
+    if (node.type !== 'plus') {
+        return node;
+    }
+
+    const leftChild = beautifyPolynomial(node.left);
+    const rightChild = beautifyPolynomial(node.right);
+
+    if (rightChild.type !== 'plus') {
+        if (rightChild.type === 'negate') {
+            return createMinus(leftChild, rightChild.value);
+        }
+
+        return node;
+    }
+
+    // before rotate: a + ((-b) + c)
+    // after rotate: (a - b) + c
+    if (rightChild.left.type === 'negate') {
+        return createPlus(createMinus(leftChild, rightChild.left.value), rightChild.right);
+    }
+    if (rightChild.left.type)
+    return node;
+}
+
+export function getSyntaxTreeNodeFromPolynomial(polynomial: Polynomial): SyntaxTreeNode {
+    const monomialList = polynomial.map(getSyntaxTreeNodeFromMonomial);
+    return beautifyPolynomial(convertListToOperatorChain('plus', monomialList));
 }

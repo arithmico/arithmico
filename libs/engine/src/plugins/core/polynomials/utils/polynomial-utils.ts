@@ -6,7 +6,6 @@ import {
     divideMonomials,
     getMonomialDegree,
     haveMonomialsSameBase,
-    Monomial,
     multiplyMonomials,
     NonConstant,
     Polynomial,
@@ -39,7 +38,7 @@ export function calculatePolynomialAddition(leftPolynomial: Polynomial, rightPol
 
         const existingMonomial = addCandidates.at(0);
         const existingMonomialIndex = result.indexOf(existingMonomial);
-        const combinedMonomial =
+        result[existingMonomialIndex] =
             degree !== 0
                 ? createNonConstantMonomial(
                       existingMonomial.coefficient + monomial.coefficient,
@@ -47,7 +46,6 @@ export function calculatePolynomialAddition(leftPolynomial: Polynomial, rightPol
                       (<NonConstant>existingMonomial).degree,
                   )
                 : createConstantMonomial(existingMonomial.coefficient + monomial.coefficient);
-        result[existingMonomialIndex] = combinedMonomial;
     });
 
     return removeMonomialsWithCoefficientZero(result);
