@@ -15,6 +15,8 @@ const listmodPlugin = createPlugin('listmod');
 addPluginAuthor(listmodPlugin, 'core');
 addPluginDescription(listmodPlugin, 'modify lists');
 
+const singleListHeader: FunctionHeaderItem[] = [{ name: 'l', type: 'vector', evaluate: true }];
+
 const functionAndListHeader: FunctionHeaderItem[] = [
     { name: 'f', type: 'function', evaluate: true },
     { name: 'l', type: 'vector', evaluate: true },
@@ -131,6 +133,26 @@ addPluginFunction(
             return list.values.reduce((acc, value) =>
                 evaluate(createFunctionCall(reduceFunction, [acc, value]), context),
             );
+        },
+    ),
+);
+
+addPluginFunction(
+    listmodPlugin,
+    createPluginFunction(
+        'list:reverse',
+        singleListHeader,
+        'Creates a new list with the elements of l in reverse order.',
+        'Erzeugt eine neue Liste mit den Elementen von l in umgekehrter Reihenfolge.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame(
+                'list:reverse',
+                parameters,
+                singleListHeader,
+                context,
+            );
+            const values = (<Vector>parameterStackFrame['l']).values;
+            return createVector([...values].reverse());
         },
     ),
 );

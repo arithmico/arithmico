@@ -200,6 +200,7 @@ integrationTest('list:map(x->x^2,[1,2,3])', '[1, 4, 9]');
 integrationTest('list:reduce((a,b)->a+b,[1,2,3])', '6');
 integrationTest('list:reduce((a,b)->a+b,[1,2,3], 2)', '8');
 integrationTest('list:reduce((a,b)->a+b,[1], 2)', '3');
+integrationTest('list:reverse([1,2,3])', '[3, 2, 1]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
