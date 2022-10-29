@@ -202,6 +202,7 @@ integrationTest('list:reduce((a,b)->a+b,[1,2,3], 2)', '8');
 integrationTest('list:reduce((a,b)->a+b,[1], 2)', '3');
 integrationTest('list:reverse([1,2,3])', '[3, 2, 1]');
 integrationTest('list:concat([1,2,3], [1,2,3])', '[1, 2, 3, 1, 2, 3]');
+integrationTest('list:sort([3, 2, 8, 5, 3])', '[2, 3, 3, 5, 8]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -281,3 +282,4 @@ integrationTestThrow('list:map((x)->x - 2, [true, false, true])');
 integrationTestThrow('list:reduce((a,b)->a+b,[])');
 integrationTestThrow('list:reduce((a,b)->a+b,[1])');
 integrationTestThrow('list:reduce((a)->a,[1])');
+integrationTestThrow('list:sort([1, true, 2])');

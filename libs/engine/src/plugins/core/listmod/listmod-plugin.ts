@@ -1,4 +1,5 @@
 import createFunctionCall from '../../../create/create-function-call';
+import createNumberNode from '../../../create/create-number-node';
 import createVector from '../../../create/create-vector';
 import evaluate from '../../../eval';
 import { FunctionHeaderItem, FunctionNode, SyntaxTreeNode, Vector } from '../../../types';
@@ -157,6 +158,27 @@ addPluginFunction(
             );
             const values = (<Vector>parameterStackFrame['l']).values;
             return createVector([...values].reverse());
+        },
+    ),
+);
+
+addPluginFunction(
+    listmodPlugin,
+    createPluginFunction(
+        'list:sort',
+        singleListHeader,
+        'Creates a new sorted list with the elements of l.',
+        'Erzeugt eine neue sortierte Liste mit den Elementen von l.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('list:sort', parameters, singleListHeader, context);
+            const values = (<Vector>parameterStackFrame['l']).values.map((value) => {
+                if (value.type !== 'number') {
+                    throw `TypeError: list:sort: Expected list of numbers but found element of type ${value.type}`;
+                }
+
+                return value.value;
+            });
+            return createVector([...values].sort().map((value) => createNumberNode(value)));
         },
     ),
 );
