@@ -11,14 +11,14 @@ export type Polynomial = Monomial[];
 
 export type Monomial = NonConstant | Constant;
 
-interface NonConstant {
+export interface NonConstant {
     type: 'non-constant';
     coefficient: number;
     base: string;
     degree: number;
 }
 
-interface Constant {
+export interface Constant {
     type: 'constant';
     base?: undefined;
     degree?: undefined;

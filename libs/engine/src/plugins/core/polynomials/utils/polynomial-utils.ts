@@ -8,6 +8,7 @@ import {
     haveMonomialsSameBase,
     Monomial,
     multiplyMonomials,
+    NonConstant,
     Polynomial,
     removeMonomialsWithCoefficientZero,
 } from '../../../../utils/polynomial-type-utils';
@@ -66,6 +67,45 @@ function calculatePolynomialSumOrDifference(
     }
 
     result = result.concat(reversedLeftPolynomial, reversedRightPolynomial);
+    return removeMonomialsWithCoefficientZero(result);
+}
+
+function subtractPolynomials(leftPolynomial: Polynomial, rightPolynomial: Polynomial) {
+    return addPolynomials(
+        leftPolynomial,
+        rightPolynomial.map((monomial) => ({ ...monomial, coefficient: -monomial.coefficient })),
+    );
+}
+
+function addPolynomials(leftPolynomial: Polynomial, rightPolynomial: Polynomial) {
+    const monomials = [...leftPolynomial, ...rightPolynomial].sort(compareMonomials);
+    const result: Polynomial = [];
+
+    monomials.forEach((monomial) => {
+        const degree = getMonomialDegree(monomial);
+        const addCandidates = result.filter(
+            (resultMonomial) =>
+                getMonomialDegree(resultMonomial) === degree && haveMonomialsSameBase(monomial, resultMonomial),
+        );
+
+        if (addCandidates.length === 0) {
+            result.push(monomial);
+            return;
+        }
+
+        const existingMonomial = addCandidates.at(0);
+        const existingMonomialIndex = result.indexOf(existingMonomial);
+        const combinedMonomial =
+            degree !== 0
+                ? createNonConstantMonomial(
+                      existingMonomial.coefficient + monomial.coefficient,
+                      (<NonConstant>existingMonomial).base,
+                      (<NonConstant>existingMonomial).degree,
+                  )
+                : createConstantMonomial(existingMonomial.coefficient + monomial.coefficient);
+        result[existingMonomialIndex] = combinedMonomial;
+    });
+
     return removeMonomialsWithCoefficientZero(result);
 }
 
