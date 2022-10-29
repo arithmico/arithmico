@@ -201,6 +201,7 @@ integrationTest('list:reduce((a,b)->a+b,[1,2,3])', '6');
 integrationTest('list:reduce((a,b)->a+b,[1,2,3], 2)', '8');
 integrationTest('list:reduce((a,b)->a+b,[1], 2)', '3');
 integrationTest('list:reverse([1,2,3])', '[3, 2, 1]');
+integrationTest('list:concat([1,2,3], [1,2,3])', '[1, 2, 3, 1, 2, 3]');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

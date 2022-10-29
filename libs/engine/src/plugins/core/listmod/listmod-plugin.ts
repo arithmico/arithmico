@@ -16,6 +16,10 @@ addPluginAuthor(listmodPlugin, 'core');
 addPluginDescription(listmodPlugin, 'modify lists');
 
 const singleListHeader: FunctionHeaderItem[] = [{ name: 'l', type: 'vector', evaluate: true }];
+const twoListsHeader: FunctionHeaderItem[] = [
+    { name: 'l1', type: 'vector', evaluate: true },
+    { name: 'l2', type: 'vector', evaluate: true },
+];
 
 const functionAndListHeader: FunctionHeaderItem[] = [
     { name: 'f', type: 'function', evaluate: true },
@@ -153,6 +157,22 @@ addPluginFunction(
             );
             const values = (<Vector>parameterStackFrame['l']).values;
             return createVector([...values].reverse());
+        },
+    ),
+);
+
+addPluginFunction(
+    listmodPlugin,
+    createPluginFunction(
+        'list:concat',
+        twoListsHeader,
+        'Creates a new list with the elements of l1 and l2 concatenated.',
+        'Erzeugt eine neue Liste mit den Elementen von l1 und l2 hintereinander gehängt.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('list:concat', parameters, twoListsHeader, context);
+            const firstListValues = (<Vector>parameterStackFrame['l1']).values;
+            const secondListValues = (<Vector>parameterStackFrame['l2']).values;
+            return createVector([...firstListValues, ...secondListValues]);
         },
     ),
 );
