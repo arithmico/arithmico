@@ -42,9 +42,14 @@ export function createConstantMonomial(coefficient: number): Constant {
 }
 
 export function compareMonomials(a: Monomial, b: Monomial): number {
-    const degreeResult = getMonomialDegree(b) - getMonomialDegree(a);
+    const degreeA = getMonomialDegree(a);
+    const degreeB = getMonomialDegree(b);
+    const degreeResult = degreeB - degreeA;
     if (degreeResult !== 0) {
         return degreeResult;
+    }
+    if (degreeA === 0) {
+        return b.coefficient - a.coefficient;
     }
     const baseResult = a.base.localeCompare(b.base);
     if (baseResult !== 0) {

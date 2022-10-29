@@ -170,7 +170,6 @@ integrationTest('polynomial:add(2*x^2, 3*x^2)', '5 * x^2');
 integrationTest('polynomial:add(1, 2)', '3');
 integrationTest('polynomial:add(2*x^2 + x + 4, 5*x + 3)', '2 * x^2 + 6 * x + 7');
 integrationTest('polynomial:add(5*x + 3, 2*x^2 + x + 4)', '2 * x^2 + 6 * x + 7');
-/*
 integrationTest('polynomial:add(x,y)', 'x + y');
 integrationTest('polynomial:add(2*x + y, -2*y + 3*x)', '(-y) + 5 * x');
 integrationTest('polynomial:add(x^2 + 2*x + y -3, -2*y + 3*x)', 'x^2 + (-y) + 5 * x + -3');
@@ -190,7 +189,6 @@ integrationTest('polynomial:div(5*x^2 + 3*x - 12, x - 4)', '[5 * x + 23, 80]');
 integrationTest('polynomial:div(x^3 + 4 * x^2 - 9*x - 36, x - 3)', '[x^2 + 7 * x + 12, 0]');
 integrationTest('polynomial:div(x^4 + x^2 - 2*x + 1, x^2 - 1)', '[x^2 + 2, (-2) * x + 3]');
 integrationTest('polynomial:div(x^3 - x^2 + 2*x - 5, x^2 - 3)', '[x + -1, 5 * x + -8]');
-*/
 integrationTest('tensor:rank([])', '1');
 integrationTest('tensor:rank([1])', '1');
 integrationTest('tensor:rank([1, 2])', '1');
