@@ -8,7 +8,8 @@ import {
 import { FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import {
-    getPolynomial, haveTwoPolynomialsSameBase,
+    getPolynomial,
+    haveTwoPolynomialsSameBase,
     isEverySummandOfPolynomialBaseSame,
     isPolynomialDegreeValid,
 } from '../../../utils/polynomial-syntax-tree-utils';
@@ -175,14 +176,15 @@ addPluginFunction(
             const normalizedPolynomialSyntaxTreeNode1 = normalize(polynomialSyntaxTreeNode1, context);
             const normalizedPolynomialSyntaxTreeNode2 = normalize(polynomialSyntaxTreeNode2, context);
 
-            if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode1)) {
-                throw 'RuntimeError: Polynomial:div: polynomial p is not mathematically correct! Every monomial must have an integer degree >= 0.';
+            if (
+                !isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode1) ||
+                !isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode2)
+            ) {
+                throw 'RuntimeError: Polynomial:div: Every monomial must have an integer degree >= 0.';
             }
-            if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode2)) {
-                throw 'RuntimeError: Polynomial:div: Polynomial p is not mathematically correct. Every monomial must have an integer degree >= 0.';
-            }
+
             if (!haveTwoPolynomialsSameBase(normalizedPolynomialSyntaxTreeNode1, normalizedPolynomialSyntaxTreeNode2)) {
-                throw 'RuntimeError: Polynomial:div: Polynomials p and q are not mathematically correct. Every monomial must have the same base.';
+                throw 'RuntimeError: Polynomial:div: Every monomial must have the same base.';
             }
 
             const polynomial1 = getPolynomial(normalizedPolynomialSyntaxTreeNode1);
