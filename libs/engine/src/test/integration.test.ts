@@ -223,6 +223,11 @@ integrationTest('list:range(4, 1)', '[1, 2, 3, 4]');
 integrationTest('list:range(4, 1, 2)', '[1, 3]');
 integrationTest('list:range(4, 1, 4)', '[1]');
 integrationTest('list:range(1, -1)', '[-1, 0, 1]');
+integrationTest('prime:range(2)', '[2]');
+integrationTest('prime:range(10)', '[2, 3, 5, 7]');
+integrationTest('prime:range(23)', '[2, 3, 5, 7, 11, 13, 17, 19, 23]');
+integrationTest('prime:nth(1)', '2');
+integrationTest('prime:nth(200)', '1223');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
