@@ -29,7 +29,11 @@ export function getNthPrime(n: number) {
     return primes[n - 1];
 }
 
-function isPrime(number: number): boolean {
-    const numbers = getNumbersFrom2ToN(number).splice(number - 1, 1);
-    return !numbers.every((value) => value % number === 0);
+export function isPrime(number: number) {
+    if (number % 1 !== 0 || number < 2) {
+        return false;
+    }
+    const numbers = getNumbersFrom2ToN(number);
+    numbers.pop();
+    return !numbers.some((value) => number % value === 0);
 }

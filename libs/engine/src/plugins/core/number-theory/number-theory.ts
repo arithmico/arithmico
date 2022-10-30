@@ -9,7 +9,8 @@ import { FunctionHeaderItem, NumberNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
 import createVector from '../../../create/create-vector';
-import {getNthPrime, sieveOfEratosthenes} from './utils/prime-number-utils';
+import {getNthPrime, isPrime, sieveOfEratosthenes} from './utils/prime-number-utils';
+import createBooleanNode from "../../../create/create-boolean-node";
 
 const numberTheoryPlugin = createPlugin('core/number-theory');
 addPluginDescription(numberTheoryPlugin, 'brings many functions for calculation on integers and in number theory');
@@ -57,6 +58,21 @@ addPluginFunction(
                 throw 'RuntimeError: prime:nth: Numbers samaller than 2 are not allowed.';
             }
             return createNumberNode(getNthPrime(n));
+        },
+    ),
+);
+
+addPluginFunction(
+    numberTheoryPlugin,
+    createPluginFunction(
+        'prime:is',
+        singleNumberHeader,
+        'Returns true if the given number is a prime number, otherwise returns false.',
+        'Gibt true zurück, wenn die gegebene Zahl eine Primzahl ist, ansonsten wird false zurückgegeben.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('prime:is', parameters, singleNumberHeader, context);
+            const n = (<NumberNode>parameterStackFrame['n']).value;
+            return createBooleanNode(isPrime(n));
         },
     ),
 );
