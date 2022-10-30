@@ -163,11 +163,11 @@ function factorsEquals(leftFactors: SyntaxTreeNode[], rightFactors: SyntaxTreeNo
 }
 
 const normalizePlus = combineNormalizers([
-    evaluateIfPossible,
     normalizeChildren,
     rotateIfLeftChildPlus,
     combineLeftChildWithRightChildLeftChild,
     moveVariablesRight,
+    evaluateIfPossible,
     combineMultiples,
 ]);
 

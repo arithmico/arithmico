@@ -187,7 +187,6 @@ const removeNeutralElement: PartialNormalizer = (node, context) => {
 };
 
 const normalizeTimes = combineNormalizers([
-    evaluateIfPossible,
     normalizeChildren,
     moveVariablesRight,
     rotateIfLeftChildTimes,
@@ -198,6 +197,7 @@ const normalizeTimes = combineNormalizers([
     moveRightNegateOut,
     combinePowersNormalizer,
     removeNeutralElement,
+    evaluateIfPossible,
 ]);
 
 export default normalizeTimes;

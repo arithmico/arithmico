@@ -28,6 +28,6 @@ const replaceMinusWithNegate: PartialNormalizer = (node, context) => {
     return normalize(createPlus(node.left, createNegate(node.right)), context);
 };
 
-const normalizeMinus = combineNormalizers([evaluateIfPossible, normalizeChildren, replaceMinusWithNegate]);
+const normalizeMinus = combineNormalizers([normalizeChildren, replaceMinusWithNegate, evaluateIfPossible]);
 
 export default normalizeMinus;

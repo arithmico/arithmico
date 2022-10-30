@@ -38,10 +38,10 @@ const removeZeroExponent: PartialNormalizer = (node, _context) => {
 };
 
 const normalizePower = combineNormalizers([
-    evaluateIfPossible,
     normalizeChildren,
     removeOneExponent,
     removeZeroExponent,
+    evaluateIfPossible,
 ]);
 
 export default normalizePower;

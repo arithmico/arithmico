@@ -7,11 +7,17 @@ export function checkP(functionName: string, p: number) {
 }
 
 export function checkNK(functionName: string, n: number, k: number) {
+    if (n < 0) {
+        throw `RuntimeError: ${functionName}: n < 0`;
+    }
     if (k < 0) {
         throw `RuntimeError: ${functionName}: k < 0`;
     }
-    if (n < 0) {
-        throw `RuntimeError: ${functionName}: n < 0`;
+    if (n % 1 !== 0) {
+        throw `RuntimeError: ${functionName}: n has to be an integer`;
+    }
+    if (k % 1 !== 0) {
+        throw `RuntimeError: ${functionName}: k has to be an integer`;
     }
     if (n < k) {
         throw `RuntimeError: ${functionName}: n < k`;

@@ -86,7 +86,6 @@ const negatePowerDenominatorAndMoveToNumerator: PartialNormalizer = (node, conte
 };
 
 const normalizeDivided = combineNormalizers([
-    evaluateIfPossible,
     flipRightChildDivided,
     normalizeChildren,
     distributeLeftChildPlus,
@@ -95,6 +94,7 @@ const normalizeDivided = combineNormalizers([
     splitTimesDenominator,
     convertSymbolDenominatorToPower,
     negatePowerDenominatorAndMoveToNumerator,
+    evaluateIfPossible,
 ]);
 
 export default normalizeDivided;

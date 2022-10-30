@@ -343,13 +343,13 @@ describe('serialze arithmetic nodes', () => {
             expect(serialize(createMinus(createSymbolNode('a'), createSymbolNode('b')), testOptions)).toBe('a - b');
         });
 
-        test('serialize minus - brackets left', () => {
+        test('serialize minus - no brackets left', () => {
             expect(
                 serialize(
                     createMinus(createPlus(createSymbolNode('a'), createSymbolNode('b')), createSymbolNode('c')),
                     testOptions,
                 ),
-            ).toBe('(a + b) - c');
+            ).toBe('a + b - c');
         });
 
         test('serialize minus - brackets right', () => {

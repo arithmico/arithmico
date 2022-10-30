@@ -1,3 +1,5 @@
+import createNumberNode from '../create/create-number-node';
+import createVector from '../create/create-vector';
 import { SyntaxTreeNode, Vector } from '../types/SyntaxTreeNodes';
 
 type VectorShape = number | (number | VectorShape)[];
@@ -129,4 +131,20 @@ export function isEveryElementNumber(tensor: Vector): boolean {
         }
         return false;
     });
+}
+
+export function createIdentityMatrix(size: number): Vector {
+    return createVector(
+        new Array(size)
+            .fill(0)
+            .map((_, rowIndex) =>
+                createVector(
+                    new Array(size)
+                        .fill(0)
+                        .map((_, columnIndex) =>
+                            rowIndex === columnIndex ? createNumberNode(1) : createNumberNode(0),
+                        ),
+                ),
+            ),
+    );
 }

@@ -1,9 +1,49 @@
 # Arithmico Project
+This repository contains the source code of for the Arithmico Engine and the following web applications
+- Arithmico Calc
+- Arithmico Docs
+- Arithmico Config
+- Arithmico Blog
 
-## URLs
-- [Calculator Production](https://arithmico.com)
-- [Calculator Development](https://dev-calc.arithmico.com)
-- [Documentation Production](https://docs.arithmico.com)
-- [Documentation Development](https://dev-docs.arithmico.com)
-- [Blog Development](https://dev-blog.arithmico.com/)
-- [Config Development](https://dev-config.arithmico.com/)
+# Deployments
+
+## Production Deployments
+- [Arithmico Calc](https://arithmico.com)
+- [Arithmico Docs](https://docs.arithmico.com)
+
+## Development Deployments
+- [Arithmico Calc (dev)](https://dev-calc.arithmico.com)
+- [Arithmico Docs (dev)](https://dev-docs.arithmico.com)
+- [Arithmico Blog (dev)](https://dev-blog.arithmico.com/)
+- [Arithmico Config (dev)](https://dev-config.arithmico.com/)
+
+# Build Instructions
+1. Go to the project folder and run
+```
+npm install
+```
+
+2. Build the Arithmico Engine by running
+```
+npm run build:engine
+```
+
+3. Build one a web application by running one of the following commands
+  - Build Arithmico Calc 
+  ```
+  npm run build:calc
+  ```
+  - Build Arithmico Docs 
+  ```
+  npm run build:docs
+  ```
+  - Build Arithmico Blog 
+  ```
+  npm run build:blog
+  ```
+  - Build Arithmico Config
+  ```
+  npm run build:config
+  ```
+
+4. Serve the files under `<project-root>/apps/<app-name>/dist/*` on a web server
