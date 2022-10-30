@@ -127,35 +127,16 @@ export function isEverySummandOfPolynomialBaseSame(node: SyntaxTreeNode) {
 }
 
 export function haveTwoPolynomialsSameBase(node1: SyntaxTreeNode, node2: SyntaxTreeNode) {
-    const summandsNode1 = getSummands(node1);
-    const summandsNode2 = getSummands(node2);
+    const summands = [...getSummands(node1), ...getSummands(node2)];
+    const bases = new Set<string>();
+    summands.forEach((summand) => {
+        if (isSummandConstant(summand)) {
+            return;
+        }
 
-    if (
-        (summandsNode1.length === 1 && isSummandConstant(summandsNode1[0])) ||
-        (summandsNode2.length === 1 && isSummandConstant(summandsNode2[0]))
-    ) {
-        return true;
-    }
-
-    if (summandsNode1.length === 1 && isSummandLinear(summandsNode1[0])) {
-        const symbol = getMonomialBaseFromSummand(summandsNode1[1]);
-        return checkEverySummandsHasSymbolBase(summandsNode2, symbol);
-    }
-
-    if (summandsNode2.length === 1 && isSummandLinear(summandsNode2[0])) {
-        const symbol = getMonomialBaseFromSummand(summandsNode2[1]);
-        return checkEverySummandsHasSymbolBase(summandsNode1, symbol);
-    }
-
-    if (summandsNode1.length >= 2 && summandsNode2.length >= 2) {
-        return (
-            getMonomialBaseFromSummand(summandsNode1[1]) === getMonomialBaseFromSummand(summandsNode2[1]) &&
-            isEverySummandOfPolynomialBaseSame(node1) &&
-            isEverySummandOfPolynomialBaseSame(node2)
-        );
-    }
-
-    return false;
+        bases.add(getMonomialBaseFromSummand(summand));
+    });
+    return bases.size <= 1;
 }
 
 function summandToMonomial(summand: SyntaxTreeNode) {
