@@ -4,7 +4,7 @@ import {
     createConstantMonomial,
     createNonConstantMonomial,
     Polynomial,
-    compareMonomialsByDegree,
+    compareMonomials,
 } from './polynomial-type-utils';
 
 export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
@@ -13,6 +13,19 @@ export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
 
 export function getFactors(summand: SyntaxTreeNode): SyntaxTreeNode[] {
     return convertOperatorChainToList('times', summand);
+}
+
+function isSummandConstant(summand: SyntaxTreeNode) {
+    const factors = getFactors(summand);
+    return factors.length === 1 && summand.type !== 'times' && factors[0].type === 'number';
+}
+
+function isSummandLinear(summand: SyntaxTreeNode) {
+    const factors = getFactors(summand);
+    return (
+        (factors.length === 1 && summand.type !== 'times' && factors[0].type === 'symbol') ||
+        (factors.length === 2 && factors[1].type !== 'power' && factors[1].type === 'symbol')
+    );
 }
 
 export function getMonomialCoefficientFromSummand(summand: SyntaxTreeNode): number {
@@ -32,22 +45,6 @@ export function getMonomialCoefficientFromSummand(summand: SyntaxTreeNode): numb
     }
 
     throw 'RuntimeError: multiple coefficients';
-}
-
-function isSummandLinear(summand: SyntaxTreeNode) {
-    const factors = getFactors(summand);
-    return (
-        (factors.length === 1 && summand.type !== 'times' && factors[0].type === 'symbol') ||
-        (factors.length === 2 && factors[1].type !== 'power' && factors[1].type === 'symbol')
-    );
-}
-
-function isSummandConstant(summand: SyntaxTreeNode) {
-    const factors = getFactors(summand);
-    return (
-        (factors.length === 1 && summand.type !== 'times' && factors[0].type === 'number') ||
-        (factors.length === 2 && summand.type === 'times' && factors[1].type === 'number' && factors[1].value === 1)
-    );
 }
 
 function getMonomialDegreeFromSummand(summand: SyntaxTreeNode): number {
@@ -111,7 +108,11 @@ export function isPolynomialDegreeValid(node: SyntaxTreeNode) {
     });
 }
 
-export function isEveryPolynomialBaseSame(node: SyntaxTreeNode) {
+function checkEverySummandsHasSymbolBase(summands: SyntaxTreeNode[], symbol: string) {
+    return summands.every((summand) => getMonomialBaseFromSummand(summand) === symbol || isSummandConstant(summand));
+}
+
+export function isEverySummandOfPolynomialBaseSame(node: SyntaxTreeNode) {
     const summands = getSummands(node);
     if (summands.length === 1) {
         return isSummandConstant(summands[0]) || getMonomialBaseFromSummand(summands[0]) !== undefined;
@@ -119,16 +120,42 @@ export function isEveryPolynomialBaseSame(node: SyntaxTreeNode) {
 
     if (summands.length >= 2) {
         const symbol = getMonomialBaseFromSummand(summands[1]);
-        return summands.every(
-            (summand) => getMonomialBaseFromSummand(summand) === symbol || isSummandConstant(summand),
-        );
+        return checkEverySummandsHasSymbolBase(summands, symbol);
     }
 
     return false;
 }
 
-export function getPolynomial(node: SyntaxTreeNode): Polynomial {
-    return getSummands(node).map(summandToMonomial).sort(compareMonomialsByDegree);
+export function haveTwoPolynomialsSameBase(node1: SyntaxTreeNode, node2: SyntaxTreeNode) {
+    const summandsNode1 = getSummands(node1);
+    const summandsNode2 = getSummands(node2);
+
+    if (
+        (summandsNode1.length === 1 && isSummandConstant(summandsNode1[0])) ||
+        (summandsNode2.length === 1 && isSummandConstant(summandsNode2[0]))
+    ) {
+        return true;
+    }
+
+    if (summandsNode1.length === 1 && isSummandLinear(summandsNode1[0])) {
+        const symbol = getMonomialBaseFromSummand(summandsNode1[1]);
+        return checkEverySummandsHasSymbolBase(summandsNode2, symbol);
+    }
+
+    if (summandsNode2.length === 1 && isSummandLinear(summandsNode2[0])) {
+        const symbol = getMonomialBaseFromSummand(summandsNode2[1]);
+        return checkEverySummandsHasSymbolBase(summandsNode1, symbol);
+    }
+
+    if (summandsNode1.length >= 2 && summandsNode2.length >= 2) {
+        return (
+            getMonomialBaseFromSummand(summandsNode1[1]) === getMonomialBaseFromSummand(summandsNode2[1]) &&
+            isEverySummandOfPolynomialBaseSame(node1) &&
+            isEverySummandOfPolynomialBaseSame(node2)
+        );
+    }
+
+    return false;
 }
 
 function summandToMonomial(summand: SyntaxTreeNode) {
@@ -141,4 +168,8 @@ function summandToMonomial(summand: SyntaxTreeNode) {
             getMonomialDegreeFromSummand(summand),
         );
     }
+}
+
+export function getPolynomial(node: SyntaxTreeNode): Polynomial {
+    return getSummands(node).map(summandToMonomial).sort(compareMonomials);
 }
