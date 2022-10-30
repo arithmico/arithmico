@@ -5,7 +5,6 @@ import createSymbolNode from '../create/create-symbol-node';
 import createPower from '../create/create-power';
 import { getDegreeFromPolynomial } from '../plugins/core/polynomials/utils/polynomial-utils';
 import createNegate from '../create/create-negate';
-import { convertListToOperatorChain } from './symbolic-utils';
 import createMinus from '../create/create-minus';
 import createPlus from '../create/create-plus';
 

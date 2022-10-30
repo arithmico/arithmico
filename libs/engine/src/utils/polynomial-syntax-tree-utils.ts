@@ -6,7 +6,6 @@ import {
     Polynomial,
     compareMonomials,
 } from './polynomial-type-utils';
-import ifThenElse from '../plugins/core/if-then-else/if-then-else';
 
 export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
     return convertOperatorChainToList('plus', node);
