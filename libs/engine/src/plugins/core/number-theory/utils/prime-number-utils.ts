@@ -5,21 +5,19 @@ function getNumbersFrom2ToN(n: number) {
 export function sieveOfEratosthenes(n: number): number[] {
     const numbers = getNumbersFrom2ToN(n);
     let reversedNumbers = [...numbers].reverse();
-    let result: number[] = [];
+    const result: number[] = [];
 
     for (let i = 0; i < numbers.length; i++) {
         const primeNumber = reversedNumbers.pop();
         result.push(primeNumber);
         if (primeNumber << 1 > n) {
-            result = result.concat(reversedNumbers).sort((a, b) => a - b);
-            break;
+            return result.concat(reversedNumbers).sort((a, b) => a - b);
         }
         reversedNumbers = reversedNumbers.filter((value) => value % primeNumber !== 0);
     }
-    return result;
 }
 
-export function getNthPrime(n: number) {
+export function getNthPrimeNumber(n: number) {
     let sizeFactor = 2;
     let primes;
     do {
@@ -29,7 +27,7 @@ export function getNthPrime(n: number) {
     return primes[n - 1];
 }
 
-export function isPrime(number: number) {
+export function isPrimeNumber(number: number) {
     if (number % 1 !== 0 || number < 2) {
         return false;
     }

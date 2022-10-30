@@ -214,6 +214,8 @@ integrationTest('prime:is(1223)', 'true');
 integrationTest('prime:is(1)', 'false');
 integrationTest('prime:is(1.3)', 'false');
 integrationTest('prime:is(-1)', 'false');
+integrationTest('prime:pi(2)', '1');
+integrationTest('prime:pi(100)', '25');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -296,3 +298,13 @@ integrationTestThrow('list:reduce((a,b)->a+b,[1])');
 integrationTestThrow('list:reduce((a)->a,[1])');
 integrationTestThrow('list:sort([1, true, 2])');
 integrationTestThrow('list:range(1, 10, 0)');
+integrationTestThrow('prime:range(1.3)');
+integrationTestThrow('prime:range(1)');
+integrationTestThrow('prime:range(-1)');
+integrationTestThrow('prime:nth(0)');
+integrationTestThrow('prime:nth(1.3)');
+integrationTestThrow('prime:nth(-1)');
+integrationTestThrow('prime:pi(1.3)');
+integrationTestThrow('prime:pi(1)');
+integrationTestThrow('prime:pi(-1)');
+
