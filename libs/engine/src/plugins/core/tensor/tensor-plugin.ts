@@ -31,7 +31,7 @@ addPluginFunction(
                 singleTensorHeader,
                 context,
             );
-            const tensor = <Vector>parameterStackFrame['t'];
+            const tensor = <Vector>parameterStackFrame.get('t');
             try {
                 return createNumberNode(getTensorRank(tensor));
             } catch (e) {
@@ -55,7 +55,7 @@ addPluginFunction(
                 singleTensorHeader,
                 context,
             );
-            const tensor = <Vector>parameterStackFrame['t'];
+            const tensor = <Vector>parameterStackFrame.get('t');
             try {
                 return createVector(getTensorDimensions(tensor).map((n) => createNumberNode(n)));
             } catch (e) {

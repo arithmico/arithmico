@@ -24,7 +24,7 @@ addPluginFunction(
         'Gibt die nächstgelegene ganze Zahl zurück',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('round', parameters, singleNumberHeader, context);
-            const value = (<NumberNode>parameterStackFrame['x']).value;
+            const value = (<NumberNode>parameterStackFrame.get('x')).value;
             return createNumberNode(Math.round(value));
         },
     ),
@@ -39,7 +39,7 @@ addPluginFunction(
         'Gibt die größte ganze Zahl zurück, welche <= x ist',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('floor', parameters, singleNumberHeader, context);
-            const value = (<NumberNode>parameterStackFrame['x']).value;
+            const value = (<NumberNode>parameterStackFrame.get('x')).value;
             return createNumberNode(Math.floor(value));
         },
     ),
@@ -54,7 +54,7 @@ addPluginFunction(
         'Gibt die kleinste ganze Zahl zurück, welche >= x ist',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('ceil', parameters, singleNumberHeader, context);
-            const value = (<NumberNode>parameterStackFrame['x']).value;
+            const value = (<NumberNode>parameterStackFrame.get('x')).value;
             return createNumberNode(Math.ceil(value));
         },
     ),

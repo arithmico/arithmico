@@ -24,7 +24,7 @@ addPluginFunction(
         'Gibt das Minimum aus allen übergebenen Werten zurück.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('min', parameters, header, context);
-            const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
+            const values = [...parameterStackFrame.values()].map((value) => (<NumberNode>value).value);
             return createNumberNode(Math.min(...values));
         },
     ),
@@ -40,7 +40,7 @@ addPluginFunction(
 
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('max', parameters, header, context);
-            const values = Object.values(parameterStackFrame).map((value) => (<NumberNode>value).value);
+            const values = [...parameterStackFrame.values()].map((value) => (<NumberNode>value).value);
             return createNumberNode(Math.max(...values));
         },
     ),

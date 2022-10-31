@@ -3,43 +3,26 @@ import { getPolynomial } from '../../utils/polynomial-syntax-tree-utils';
 import normalize from '../../normalize';
 import { createOptions } from '../../utils/context-utils';
 import { Context } from '../../types/Context';
+import createNumberNode from '../../create/create-number-node';
+import createNegate from '../../create/create-negate';
 
 const testOptions = createOptions();
 
 const testContext: Context = {
     options: testOptions,
-    stack: [{}],
+    stack: [new Map()],
 };
 
 test('getPolynomial() 2', () => {
-    expect(
-        getPolynomial(
-            normalize(
-                <SyntaxTreeNode>{
-                    type: 'number',
-                    value: 2,
-                },
-                testContext,
-            ),
-        ),
-    ).toStrictEqual([{ type: 'constant', coefficient: 2 }]);
+    expect(getPolynomial(normalize(createNumberNode(2), testContext))).toStrictEqual([
+        { type: 'constant', coefficient: 2 },
+    ]);
 });
 
 test('getPolynomial() -2', () => {
-    expect(
-        getPolynomial(
-            normalize(
-                <SyntaxTreeNode>{
-                    type: 'negate',
-                    value: {
-                        type: 'number',
-                        value: 2,
-                    },
-                },
-                testContext,
-            ),
-        ),
-    ).toStrictEqual([{ type: 'constant', coefficient: -2 }]);
+    expect(getPolynomial(normalize(createNegate(createNumberNode(2)), testContext))).toStrictEqual([
+        { type: 'constant', coefficient: -2 },
+    ]);
 });
 
 test('getPolynomial() 2 + x^0', () => {

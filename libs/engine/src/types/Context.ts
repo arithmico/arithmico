@@ -9,9 +9,8 @@ export interface Options {
         [key: string]: boolean;
     };
 }
-export interface StackFrame {
-    [key: string]: SyntaxTreeNode;
-}
+
+export type StackFrame = Map<string, SyntaxTreeNode>;
 
 export interface Context {
     options: Options;

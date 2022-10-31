@@ -34,9 +34,9 @@ addPluginFunction(
         'Berechnet den Wert der Ableitungsfunktion an der gegebenen Position.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('nintegrate', parameters, nderiveHeader, context);
-            const f = <FunctionNode>parameterStackFrame['f'];
-            const position = (<NumberNode>parameterStackFrame['position']).value;
-            const rawGrade = parameterStackFrame['grade'];
+            const f = <FunctionNode>parameterStackFrame.get('f');
+            const position = (<NumberNode>parameterStackFrame.get('position')).value;
+            const rawGrade = parameterStackFrame.get('grade');
             const grade = !rawGrade || rawGrade.type !== 'number' ? 1 : rawGrade.value;
 
             if (grade < 1 || grade % 1 !== 0) {

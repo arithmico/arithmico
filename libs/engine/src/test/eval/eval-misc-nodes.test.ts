@@ -1,4 +1,4 @@
-import { Context, FunctionNode } from '../../types';
+import { Context, FunctionNode, SyntaxTreeNode } from '../../types';
 import createBooleanNode from '../../create/create-boolean-node';
 import createNumberNode from '../../create/create-number-node';
 import evaluate from '../../eval';
@@ -9,20 +9,22 @@ import createLambda from '../../create/create-lambda';
 import createSymbolNode from '../../create/create-symbol-node';
 import createFunctionCall from '../../create/create-function-call';
 import { createOptions } from '../../utils/context-utils';
+import createFunction from '../../create/create-function';
 
 const testContext: Context = {
     options: createOptions(),
     stack: [
-        {
-            a: createNumberNode(42),
-            g: {
-                type: 'function',
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                evaluator: (_params, _context) => createNumberNode(42),
-                expression: createNumberNode(42),
-                header: [{ type: 'number', name: 'x', evaluate: true }],
-            },
-        },
+        new Map<string, SyntaxTreeNode>([
+            ['a', createNumberNode(42)],
+            [
+                'g',
+                createFunction(
+                    (_params: SyntaxTreeNode[], _context: Context) => createNumberNode(42),
+                    [{ type: 'number', name: 'x', evaluate: true }],
+                    createNumberNode(42),
+                ),
+            ],
+        ]),
     ],
 };
 

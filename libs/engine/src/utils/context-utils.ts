@@ -63,7 +63,7 @@ export const defaultOptions: Options = {
 export function createContextWithOptions(options: Options): Context {
     return {
         options,
-        stack: [{}],
+        stack: [new Map()],
     };
 }
 
@@ -88,7 +88,7 @@ export function existsOnStack(name: string, context: Context) {
     for (let i = context.stack.length - 1; i >= 0; i--) {
         const stackFrame = context.stack[i];
 
-        if (stackFrame[name]) {
+        if (stackFrame.has(name)) {
             return true;
         }
     }
@@ -100,8 +100,8 @@ export function getStackObject(name: string, context: Context) {
     for (let i = context.stack.length - 1; i >= 0; i--) {
         const stackFrame = context.stack[i];
 
-        if (stackFrame[name]) {
-            return stackFrame[name];
+        if (stackFrame.has(name)) {
+            return stackFrame.get(name);
         }
     }
 }
@@ -111,14 +111,14 @@ export function insertStackObject(name: string, stackObject: SyntaxTreeNode, con
     const stackFrameIndex = context.stack.length - 1;
     return {
         ...context,
-        stack: context.stack.map((stackFrame, index) =>
-            index === stackFrameIndex
-                ? {
-                      ...context.stack[stackFrameIndex],
-                      [name]: stackObject,
-                  }
-                : stackFrame,
-        ),
+        stack: context.stack.map((stackFrame, index) => {
+            if (index === stackFrameIndex) {
+                const newStackFrame = new Map(stackFrame);
+                newStackFrame.set(name, stackObject);
+                return newStackFrame;
+            }
+            return stackFrame;
+        }),
     };
 }
 
@@ -128,9 +128,6 @@ export function serializeStack(context: Context): Record<string, string> {
     }
 
     return Object.fromEntries(
-        Object.entries(context.stack[context.stack.length - 1]).map(([name, node]) => [
-            name,
-            serialize(node, context.options),
-        ]),
+        [...context.stack.at(-1).entries()].map(([name, node]) => [name, serialize(node, context.options)]),
     );
 }

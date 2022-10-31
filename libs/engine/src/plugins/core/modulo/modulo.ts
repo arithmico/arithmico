@@ -32,8 +32,8 @@ addPluginFunction(
         'Berechnet den Rest der Division n/m (mathematische Variante).',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('mod', parameters, modHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
-            const m = (<NumberNode>parameterStackFrame['m']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
+            const m = (<NumberNode>parameterStackFrame.get('m')).value;
 
             if (m === 0) throw 'ArithmeticError: division by zero is not allowed';
 
@@ -51,8 +51,8 @@ addPluginFunction(
         'Berechnet das ganzzahlige Ergebnis der Division n/m.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('mod', parameters, modHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
-            const m = (<NumberNode>parameterStackFrame['m']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
+            const m = (<NumberNode>parameterStackFrame.get('m')).value;
 
             if (m === 0) throw 'ArithmeticError: division by zero is not allowed';
 

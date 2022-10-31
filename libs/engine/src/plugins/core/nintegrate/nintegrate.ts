@@ -41,9 +41,9 @@ addPluginFunction(nintegratePlugin, {
         ]),
         evaluator: (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('nintegrate', parameters, nintegrateHeader, context);
-            const f = <FunctionNode>parameterStackFrame['f'];
-            const start = <NumberNode>parameterStackFrame['start'];
-            const stop = <NumberNode>parameterStackFrame['stop'];
+            const f = <FunctionNode>parameterStackFrame.get('f');
+            const start = <NumberNode>parameterStackFrame.get('start');
+            const stop = <NumberNode>parameterStackFrame.get('stop');
 
             if (f.header.length !== 1 || (f.header[0].type !== 'number' && f.header[0].type !== 'any')) {
                 throw 'RuntimeError: nintegrate: invalid function header';

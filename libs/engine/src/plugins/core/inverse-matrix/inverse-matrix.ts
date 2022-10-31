@@ -42,7 +42,7 @@ addPluginFunction(
         'Berechnet die inverse Matrix, falls diese existiert.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('det', parameters, detHeader, context);
-            const vector = <Vector>parameterStackFrame['n'];
+            const vector = <Vector>parameterStackFrame.get('n');
 
             if (!isEveryElementNumber(vector)) {
                 throw 'RuntimeError: inverse: only numbers in a matrix are allowed as elements';
@@ -95,7 +95,7 @@ addPluginFunction(
         'Berechnet die adjunkte Matrix.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('matrix:adj', parameters, adjHeader, context);
-            const tensor = <Vector>parameterStackFrame['n'];
+            const tensor = <Vector>parameterStackFrame.get('n');
 
             if (!isEveryElementNumber(tensor)) {
                 throw 'RuntimeError: matrix:adj: only numbers in a matrix are allowed as elements';
@@ -122,7 +122,7 @@ addPluginFunction(
         'Berechnet die Cofaktormatrix.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('matrix:cof', parameters, cofHeader, context);
-            const tensor = <Vector>parameterStackFrame['n'];
+            const tensor = <Vector>parameterStackFrame.get('n');
 
             if (!isEveryElementNumber(tensor)) {
                 throw 'RuntimeError: matrix:cof: only numbers in a matrix are allowed as elements';
@@ -154,7 +154,7 @@ addPluginFunction(
                 transposeHeader,
                 context,
             );
-            const tensor = <Vector>parameterStackFrame['n'];
+            const tensor = <Vector>parameterStackFrame.get('n');
 
             if (getTensorRank(tensor) !== 2) {
                 throw 'RuntimeError: matrix:transpose: have to be a matrix';
@@ -178,7 +178,7 @@ addPluginFunction(
         'Berechnet die Determinante einer Matrix',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('matrix:det', parameters, detHeader, context);
-            const vector = <Vector>parameterStackFrame['n'];
+            const vector = <Vector>parameterStackFrame.get('n');
 
             if (!isEveryElementNumber(vector)) {
                 throw 'RuntimeError: det: only numbers are allowed as elements';
@@ -203,7 +203,7 @@ addPluginFunction(
         'Erzeugt eine n x n Einheitsmatrix',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('matrix:id', parameters, idMatrixHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
 
             if (n % 1 !== 0) {
                 throw 'RuntimeError: matrix:id: only integers are allowed';

@@ -41,8 +41,8 @@ addPluginFunction(
                 functionAndListHeader,
                 context,
             );
-            const filterFunction = <FunctionNode>parameterStackFrame['f'];
-            const list = <Vector>parameterStackFrame['l'];
+            const filterFunction = <FunctionNode>parameterStackFrame.get('f');
+            const list = <Vector>parameterStackFrame.get('l');
             const resultValues: SyntaxTreeNode[] = [];
 
             if (filterFunction.header.length !== 1) {
@@ -79,8 +79,8 @@ addPluginFunction(
                 functionAndListHeader,
                 context,
             );
-            const mapFunction = <FunctionNode>parameterStackFrame['f'];
-            const list = <Vector>parameterStackFrame['l'];
+            const mapFunction = <FunctionNode>parameterStackFrame.get('f');
+            const list = <Vector>parameterStackFrame.get('l');
             const resultValues: SyntaxTreeNode[] = [];
 
             if (mapFunction.header.length !== 1) {
@@ -112,9 +112,9 @@ addPluginFunction(
         'Reduziert eine Liste mithilfe der übergebenen Reduzierfunktion',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('list:reduce', parameters, reduceHeader, context);
-            const reduceFunction = <FunctionNode>parameterStackFrame['f'];
-            const list = <Vector>parameterStackFrame['l'];
-            const startAcc = parameterStackFrame['start_acc'];
+            const reduceFunction = <FunctionNode>parameterStackFrame.get('f');
+            const list = <Vector>parameterStackFrame.get('l');
+            const startAcc = parameterStackFrame.get('start_acc');
 
             if (reduceFunction.header.length !== 2) {
                 throw 'TypeError: list:reduce: Invalid reduce function signature';
@@ -156,7 +156,7 @@ addPluginFunction(
                 singleListHeader,
                 context,
             );
-            const values = (<Vector>parameterStackFrame['l']).values;
+            const values = (<Vector>parameterStackFrame.get('l')).values;
             return createVector([...values].reverse());
         },
     ),
@@ -171,7 +171,7 @@ addPluginFunction(
         'Erzeugt eine neue sortierte Liste mit den Elementen von l.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('list:sort', parameters, singleListHeader, context);
-            const values = (<Vector>parameterStackFrame['l']).values.map((value) => {
+            const values = (<Vector>parameterStackFrame.get('l')).values.map((value) => {
                 if (value.type !== 'number') {
                     throw `TypeError: list:sort: Expected list of numbers but found element of type ${value.type}`;
                 }
@@ -192,8 +192,8 @@ addPluginFunction(
         'Erzeugt eine neue Liste mit den Elementen von l1 und l2 hintereinander gehängt.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('list:concat', parameters, twoListsHeader, context);
-            const firstListValues = (<Vector>parameterStackFrame['l1']).values;
-            const secondListValues = (<Vector>parameterStackFrame['l2']).values;
+            const firstListValues = (<Vector>parameterStackFrame.get('l1')).values;
+            const secondListValues = (<Vector>parameterStackFrame.get('l2')).values;
             return createVector([...firstListValues, ...secondListValues]);
         },
     ),
@@ -214,9 +214,9 @@ addPluginFunction(
         'Erzeugt eine Liste mit aufsteigend sortierten Zahlen von "start" bis "stop" im Abstand von "step_size".',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('list:range', parameters, RangeHeader, context);
-            const start = (<NumberNode>parameterStackFrame['start']).value;
-            const stop = (<NumberNode>parameterStackFrame['stop']).value;
-            const stepSize = (<NumberNode>parameterStackFrame['step_size'])?.value ?? 1;
+            const start = (<NumberNode>parameterStackFrame.get('start')).value;
+            const stop = (<NumberNode>parameterStackFrame.get('stop')).value;
+            const stepSize = (<NumberNode>parameterStackFrame.get('step_size'))?.value ?? 1;
             const values: number[] = [];
             const min = Math.min(start, stop);
             const max = Math.max(start, stop);

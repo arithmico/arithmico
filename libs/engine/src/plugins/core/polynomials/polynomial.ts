@@ -49,7 +49,7 @@ addPluginFunction(
                 singlePolynomialHeader,
                 context,
             );
-            const polynomialSyntaxTreeNode = parameterStackFrame['p'];
+            const polynomialSyntaxTreeNode = parameterStackFrame.get('p');
 
             const normalizedPolynomialSyntaxTreeNode = normalize(polynomialSyntaxTreeNode, context);
 
@@ -82,8 +82,8 @@ addPluginFunction(
                 doublePolynomialHeader,
                 context,
             );
-            const polynomialSyntaxTreeNode1 = parameterStackFrame['p'];
-            const polynomialSyntaxTreeNode2 = parameterStackFrame['q'];
+            const polynomialSyntaxTreeNode1 = parameterStackFrame.get('p');
+            const polynomialSyntaxTreeNode2 = parameterStackFrame.get('q');
 
             const polynomial1 = getPolynomial(normalize(polynomialSyntaxTreeNode1, context));
             const polynomial2 = getPolynomial(normalize(polynomialSyntaxTreeNode2, context));
@@ -107,8 +107,8 @@ addPluginFunction(
                 doublePolynomialHeader,
                 context,
             );
-            const polynomialSyntaxTreeNode1 = parameterStackFrame['p'];
-            const polynomialSyntaxTreeNode2 = parameterStackFrame['q'];
+            const polynomialSyntaxTreeNode1 = parameterStackFrame.get('p');
+            const polynomialSyntaxTreeNode2 = parameterStackFrame.get('q');
 
             const polynomial1 = getPolynomial(normalize(polynomialSyntaxTreeNode1, context));
             const polynomial2 = getPolynomial(normalize(polynomialSyntaxTreeNode2, context));
@@ -132,8 +132,8 @@ addPluginFunction(
                 doublePolynomialHeader,
                 context,
             );
-            const polynomialSyntaxTreeNode1 = parameterStackFrame['p'];
-            const polynomialSyntaxTreeNode2 = parameterStackFrame['q'];
+            const polynomialSyntaxTreeNode1 = parameterStackFrame.get('p');
+            const polynomialSyntaxTreeNode2 = parameterStackFrame.get('q');
 
             const normalizedPolynomialSyntaxTreeNode1 = normalize(polynomialSyntaxTreeNode1, context);
             const normalizedPolynomialSyntaxTreeNode2 = normalize(polynomialSyntaxTreeNode2, context);
@@ -170,8 +170,8 @@ addPluginFunction(
                 doublePolynomialHeader,
                 context,
             );
-            const polynomialSyntaxTreeNode1 = parameterStackFrame['p'];
-            const polynomialSyntaxTreeNode2 = parameterStackFrame['q'];
+            const polynomialSyntaxTreeNode1 = parameterStackFrame.get('p');
+            const polynomialSyntaxTreeNode2 = parameterStackFrame.get('q');
 
             const normalizedPolynomialSyntaxTreeNode1 = normalize(polynomialSyntaxTreeNode1, context);
             const normalizedPolynomialSyntaxTreeNode2 = normalize(polynomialSyntaxTreeNode2, context);
