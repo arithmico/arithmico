@@ -26,7 +26,7 @@ addPluginFunction(
         'Berechnet die n-te Fibonacci Zahl.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('fib', parameters, fibHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
 
             if (n % 1 !== 0) {
                 throw 'RuntimeError: fib: only integers are allowed';

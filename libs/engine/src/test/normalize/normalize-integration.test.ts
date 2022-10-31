@@ -13,7 +13,7 @@ const testOptions = createOptions();
 
 const testContext: Context = {
     options: testOptions,
-    stack: [{}],
+    stack: [new Map()],
 };
 
 let lastId = 0;

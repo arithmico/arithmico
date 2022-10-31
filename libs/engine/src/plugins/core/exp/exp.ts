@@ -39,7 +39,7 @@ addPluginFunction(
     expPlugin,
     createPluginFunction('exp', expHeader, 'Equivalent to e^x.', 'Äquivalent zu e^x', (parameters, context) => {
         const parameterStackFrame = mapParametersToStackFrame('exp', parameters, expHeader, context);
-        const x = (<NumberNode>parameterStackFrame['x']).value;
+        const x = (<NumberNode>parameterStackFrame.get('x')).value;
         return createNumberNode(Math.exp(x));
     }),
 );
@@ -53,7 +53,7 @@ addPluginFunction(
         'Berechnet den Logarithmus von x zur Basis 10',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('lg', parameters, expHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
             if (x <= 0) {
                 throw 'RuntimeError: lg: undefined';
             }
@@ -71,7 +71,7 @@ addPluginFunction(
         'Berechnet den Logarithmus von x zur Basis e.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('ln', parameters, expHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
             if (x <= 0) {
                 throw 'RuntimeError: lg: undefined';
             }
@@ -89,8 +89,8 @@ addPluginFunction(
         'Berechnet den Logarithmus von x zur Basis base',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('log', parameters, logHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
-            const b = (<NumberNode>parameterStackFrame['base']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
+            const b = (<NumberNode>parameterStackFrame.get('base')).value;
 
             if (x <= 0 || b <= 0) {
                 throw 'RuntimeError: log: undefined';

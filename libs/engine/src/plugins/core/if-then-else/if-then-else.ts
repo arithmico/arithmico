@@ -42,9 +42,9 @@ addPluginFunction(
         'gibt "t" zurück falls "c" true ist sonst "e"',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('ite', parameters, iteHeader, context);
-            const condition = (<BooleanNode>parameterStackFrame['c']).value;
-            const thenNode = parameterStackFrame['t'];
-            const elseNode = parameterStackFrame['e'];
+            const condition = (<BooleanNode>parameterStackFrame.get('c')).value;
+            const thenNode = parameterStackFrame.get('t');
+            const elseNode = parameterStackFrame.get('e');
             return evaluate(condition ? thenNode : elseNode, context);
         },
     ),

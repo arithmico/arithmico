@@ -62,7 +62,7 @@ addPluginFunction(
         'Gaußsche Fehlerfunktion',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('erf', parameters, singleNumberHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
             return createNumberNode(calculateErf(x));
         },
     ),
@@ -77,7 +77,7 @@ addPluginFunction(
         'Berechnet die Fakultät von x.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('fact', parameters, singleNumberHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
             return createNumberNode(calculateFact(x));
         },
     ),
@@ -92,7 +92,7 @@ addPluginFunction(
         'Standartnormalverteilung',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('normal', parameters, singleNumberHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
             return createNumberNode(calculateNormal(x));
         },
     ),
@@ -107,7 +107,7 @@ addPluginFunction(
         'Kumulative Standartnormalverteilung',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('cnormal', parameters, singleNumberHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
             return createNumberNode(calculateCNormal(x));
         },
     ),
@@ -122,8 +122,8 @@ addPluginFunction(
         'Berechnet n über k (Binomialkoeffizient)',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('binco', parameters, bincoHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
-            const k = (<NumberNode>parameterStackFrame['k']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
+            const k = (<NumberNode>parameterStackFrame.get('k')).value;
             checkNK('binco', n, k);
             return createNumberNode(binco(n, k));
         },
@@ -134,9 +134,9 @@ addPluginFunction(
     statisticsPlugin,
     createPluginFunction('binom', binomHeader, 'Binomial distribution', 'Binomialverteilung', (parameters, context) => {
         const parameterStackFrame = mapParametersToStackFrame('binom', parameters, binomHeader, context);
-        const n = (<NumberNode>parameterStackFrame['n']).value;
-        const p = (<NumberNode>parameterStackFrame['p']).value;
-        const k = (<NumberNode>parameterStackFrame['k']).value;
+        const n = (<NumberNode>parameterStackFrame.get('n')).value;
+        const p = (<NumberNode>parameterStackFrame.get('p')).value;
+        const k = (<NumberNode>parameterStackFrame.get('k')).value;
         return createNumberNode(calculateBinom(n, p, k));
     }),
 );
@@ -151,9 +151,9 @@ addPluginFunction(
         'Kumulative Binomialverteilung',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('cbinom', parameters, binomHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
-            const p = (<NumberNode>parameterStackFrame['p']).value;
-            const k = (<NumberNode>parameterStackFrame['k']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
+            const p = (<NumberNode>parameterStackFrame.get('p')).value;
+            const k = (<NumberNode>parameterStackFrame.get('k')).value;
             return createNumberNode(calculateCBinom(n, p, k));
         },
     ),
@@ -168,7 +168,7 @@ addPluginFunction(
         'Berechnet das arithmetische Mittel',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('avg', parameters, numberSeriesHeader, context);
-            const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
+            const xs = [...parameterStackFrame.values()].map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateAvg(xs));
         },
     ),
@@ -183,7 +183,7 @@ addPluginFunction(
         'Berechnet die Varianz',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('var', parameters, numberSeriesHeader, context);
-            const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
+            const xs = [...parameterStackFrame.values()].map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateVar(xs));
         },
     ),
@@ -198,7 +198,7 @@ addPluginFunction(
         'Berechnet die Standardabweichung',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('sd', parameters, numberSeriesHeader, context);
-            const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
+            const xs = [...parameterStackFrame.values()].map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateSd(xs));
         },
     ),
@@ -213,7 +213,7 @@ addPluginFunction(
         'Berechnet den Median.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('median', parameters, numberSeriesHeader, context);
-            const xs = Object.values(parameterStackFrame).map((x) => (<NumberNode>x).value);
+            const xs = [...parameterStackFrame.values()].map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateQuantile(0.5, xs));
         },
     ),
@@ -228,8 +228,8 @@ addPluginFunction(
         'Berechnet das p-Quantil, d. h. p (zwischen 0 und 1) teilt die Menge auf in einen Teil p kleiner oder gleich und einen anderen Teil 1-p größer oder gleich dem Quantil ist.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('quantile', parameters, quantileHeader, context);
-            const p = (<NumberNode>parameterStackFrame['p']).value;
-            const xs = <Vector>parameterStackFrame['xs'];
+            const p = (<NumberNode>parameterStackFrame.get('p')).value;
+            const xs = <Vector>parameterStackFrame.get('xs');
 
             if (!isEveryElementNumber(xs)) {
                 throw 'RuntimeError: quantile: all elements of xs must be numbers.';
@@ -258,8 +258,8 @@ addPluginFunction(
         'Berechnet die Kovarianz zweier gleichgroßer Vektoren',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('cov', parameters, doubleVectorHeader, context);
-            const xs = <Vector>parameterStackFrame['xs'];
-            const ys = <Vector>parameterStackFrame['ys'];
+            const xs = <Vector>parameterStackFrame.get('xs');
+            const ys = <Vector>parameterStackFrame.get('ys');
 
             if (!isEveryElementNumber(xs)) {
                 throw 'RuntimeError: cov: All elements of xs must be numbers.';
@@ -295,8 +295,8 @@ addPluginFunction(
         'Berechnet den Korrelationskoeffizienten (Pearson) zweier gleichgroßer Vektoren',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('corr', parameters, doubleVectorHeader, context);
-            const xs = <Vector>parameterStackFrame['xs'];
-            const ys = <Vector>parameterStackFrame['ys'];
+            const xs = <Vector>parameterStackFrame.get('xs');
+            const ys = <Vector>parameterStackFrame.get('ys');
 
             if (!isEveryElementNumber(xs)) {
                 throw 'RuntimeError: corr: All elements of xs must be numbers.';

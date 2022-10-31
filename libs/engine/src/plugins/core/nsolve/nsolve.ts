@@ -37,9 +37,9 @@ addPluginFunction(nsolvePlugin, {
         ]),
         evaluator: (parameters: SyntaxTreeNode[], context: Context): SyntaxTreeNode => {
             const stackFrame = mapParametersToStackFrame('nsolve', parameters, nsolveHeader, context);
-            const leftLimit = stackFrame.start ? (<NumberNode>stackFrame.start).value : -20;
-            const rightLimit = stackFrame.stop ? (<NumberNode>stackFrame.stop).value : 20;
-            const equation = <Equals>stackFrame.equation;
+            const leftLimit = stackFrame.has('start') ? (<NumberNode>stackFrame.get('start')).value : -20;
+            const rightLimit = stackFrame.has('stop') ? (<NumberNode>stackFrame.get('stop')).value : 20;
+            const equation = <Equals>stackFrame.get('equation');
             const expression = createMinus(equation.left, equation.right);
             const variableNames = getVariableNames(expression, context);
 
@@ -48,7 +48,8 @@ addPluginFunction(nsolvePlugin, {
             }
 
             const value = createNumberNode(leftLimit);
-            const localStackFrame = { [variableNames[0]]: value };
+            const localStackFrame = new Map();
+            localStackFrame.set(variableNames[0], value);
             const localContext: Context = {
                 ...context,
                 stack: [...context.stack, localStackFrame],

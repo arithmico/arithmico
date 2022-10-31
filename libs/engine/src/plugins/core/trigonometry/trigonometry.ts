@@ -47,7 +47,7 @@ function addTrigonometryFunction(name: string, func: TrigonometryEvaluator, enNa
             `berechnet den ${deName} von x`,
             (parameters: SyntaxTreeNode[], context: Context): SyntaxTreeNode => {
                 const stackFrame = mapParametersToStackFrame(name, parameters, header, context);
-                const value = func((stackFrame.x as NumberNode).value, context.options.angleUnit);
+                const value = func((<NumberNode>stackFrame.get('x')).value, context.options.angleUnit);
 
                 if (closeTo(value, 0)) {
                     return createNumberNode(0);

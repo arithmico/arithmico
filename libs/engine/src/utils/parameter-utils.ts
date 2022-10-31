@@ -8,7 +8,7 @@ export function mapParametersToStackFrame(
     header: FunctionHeaderItem[],
     context: Context,
 ): StackFrame {
-    const stackFrame: StackFrame = {};
+    const stackFrame: StackFrame = new Map();
     let parameterIndex = 0;
     let matched = 0;
 
@@ -34,10 +34,13 @@ export function mapParametersToStackFrame(
             ) {
                 parameterIndex++;
                 if (headerItem.repeat) {
-                    stackFrame[`${headerItem.name}_${matched}`] = headerItem.evaluate ? evaluatedParameter : parameter;
+                    stackFrame.set(
+                        `${headerItem.name}_${matched}`,
+                        headerItem.evaluate ? evaluatedParameter : parameter,
+                    );
                     matched++;
                 } else {
-                    stackFrame[headerItem.name] = headerItem.evaluate ? evaluatedParameter : parameter;
+                    stackFrame.set(headerItem.name, headerItem.evaluate ? evaluatedParameter : parameter);
                     break;
                 }
             } else {

@@ -31,8 +31,8 @@ addPluginFunction(
         'Berechnet das Kreuzprodukt der Vektoren a und b.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('cross', parameters, header, context);
-            const left = <Vector>parameterStackFrame['a'];
-            const right = <Vector>parameterStackFrame['b'];
+            const left = <Vector>parameterStackFrame.get('a');
+            const right = <Vector>parameterStackFrame.get('b');
 
             try {
                 const leftRank = getTensorRank(left);

@@ -13,7 +13,7 @@ import { createOptions } from '../../utils/context-utils';
 
 const testContext: Context = {
     options: createOptions(),
-    stack: [{}],
+    stack: [new Map()],
 };
 
 describe('evaluate or', () => {

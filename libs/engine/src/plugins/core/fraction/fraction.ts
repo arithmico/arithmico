@@ -9,7 +9,7 @@ import {
     createPlugin,
     createPluginFunction,
 } from '../../../utils/plugin-builder';
-import { getLowestFraction } from './utils';
+import { getLowestFraction } from './fraction-utils';
 
 const fractionPlugin = createPlugin('core/fraction');
 addPluginDescription(fractionPlugin, 'adds fraction function');
@@ -26,7 +26,7 @@ addPluginFunction(
         'Berechnet den nächsten Bruch zu x.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('fraction', parameters, header, context);
-            const value = (<NumberNode>parameterStackFrame['x']).value;
+            const value = (<NumberNode>parameterStackFrame.get('x')).value;
 
             if (value === 0) {
                 return createNumberNode(0);
