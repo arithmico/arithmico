@@ -19,6 +19,7 @@ const testContext: Context = {
             [
                 'g',
                 createFunction(
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     (_params: SyntaxTreeNode[], _context: Context) => createNumberNode(42),
                     [{ type: 'number', name: 'x', evaluate: true }],
                     createNumberNode(42),
