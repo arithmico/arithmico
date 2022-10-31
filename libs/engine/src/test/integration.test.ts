@@ -223,6 +223,7 @@ integrationTest('list:range(4, 1)', '[1, 2, 3, 4]');
 integrationTest('list:range(4, 1, 2)', '[1, 3]');
 integrationTest('list:range(4, 1, 4)', '[1]');
 integrationTest('list:range(1, -1)', '[-1, 0, 1]');
+integrationTest('(__proto__ -> __proto__)(2)', '2');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
