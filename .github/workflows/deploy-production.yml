@@ -97,7 +97,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run build:config
+      run: npm run build:engine && npm run build:config
     - name: Test
       run: npm run test:all
     - name: Configure AWS Credentials
