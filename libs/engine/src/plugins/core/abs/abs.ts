@@ -25,7 +25,7 @@ addPluginFunction(
         'Berechnet den absoluten Wert einer Zahl.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('abs', parameters, absHeader, context);
-            const value = (<NumberNode>parameterStackFrame['v']).value;
+            const value = (<NumberNode>parameterStackFrame.get('v')).value;
             return createNumberNode(Math.abs(value));
         },
     ),
@@ -40,7 +40,7 @@ addPluginFunction(
         'Berechnet die Länge eines Vektors',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('length', parameters, lengthHeader, context);
-            const values = (<Vector>parameterStackFrame['v']).values.map((value) => {
+            const values = (<Vector>parameterStackFrame.get('v')).values.map((value) => {
                 if (value.type !== 'number') {
                     throw `TypeError: length: expected number got ${value.type}`;
                 }

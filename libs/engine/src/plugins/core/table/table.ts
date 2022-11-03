@@ -32,10 +32,10 @@ addPluginFunction(
         'table(f, u?, v?, w?) Erstellt zu der Funktion f eine Wertetabelle mit Wertepaaren [x; f(x)] für x-Werte aus dem Intervall [u; v]. Dabei gibt w die Schrittweite der x-Werte an.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('table', parameters, tableHeader, context);
-            const f = <FunctionNode>parameterStackFrame['f'];
-            const u = parameterStackFrame['u'] ? (<NumberNode>parameterStackFrame['u']).value : -10;
-            const v = parameterStackFrame['v'] ? (<NumberNode>parameterStackFrame['v']).value : 10;
-            const width = parameterStackFrame['w'] ? (<NumberNode>parameterStackFrame['w']).value : 1;
+            const f = <FunctionNode>parameterStackFrame.get('f');
+            const u = parameterStackFrame.has('u') ? (<NumberNode>parameterStackFrame.get('u')).value : -10;
+            const v = parameterStackFrame.has('v') ? (<NumberNode>parameterStackFrame.get('v')).value : 10;
+            const width = parameterStackFrame.has('w') ? (<NumberNode>parameterStackFrame.get('w')).value : 1;
             const start = Math.min(u, v);
             const stop = Math.max(u, v);
             const values: Vector[] = [];

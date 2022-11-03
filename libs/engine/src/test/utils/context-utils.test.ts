@@ -9,20 +9,22 @@ const testContext: Context = {
         magnitudeThresholdForScientificNotation: 5,
         angleUnit: 'degrees',
     }),
-    stack: [{}],
+    stack: [new Map()],
 };
 
 test('insert stack object', () => {
     expect(insertStackObject('foo', createNumberNode(42), testContext)).toStrictEqual({
         ...testContext,
-        stack: [{ foo: createNumberNode(42) }],
+        stack: [new Map([['foo', createNumberNode(42)]])],
     });
 });
 
 test('insert stack object - skip empty stack frame', () => {
-    expect(insertStackObject('foo', createNumberNode(42), { ...testContext, stack: [{}, {}] })).toStrictEqual({
+    expect(
+        insertStackObject('foo', createNumberNode(42), { ...testContext, stack: [new Map(), new Map()] }),
+    ).toStrictEqual({
         ...testContext,
-        stack: [{}, { foo: createNumberNode(42) }],
+        stack: [new Map(), new Map([['foo', createNumberNode(42)]])],
     });
 });
 
@@ -31,7 +33,7 @@ test('insert stack object - throw', () => {
 });
 
 test('serialize stack', () => {
-    expect(serializeStack({ ...testContext, stack: [{ foo: createNumberNode(42) }] })).toStrictEqual({
+    expect(serializeStack({ ...testContext, stack: [new Map([['foo', createNumberNode(42)]])] })).toStrictEqual({
         foo: '42',
     });
 });

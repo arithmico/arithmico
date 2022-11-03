@@ -270,10 +270,6 @@ Symbol "symbol" = head:Name ":" tail:Symbol {
 } / Name
 
 Name "name" = ([a-z] / [A-Z] / "_") ([a-z] / [A-Z] / [0-9] / "_")* { 
-    if (text() === "__proto__") {
-        error("SyntaxError: illegal symbol name '__proto__'")
-    }
-
     return {
         type: "symbol", 
         name: text()

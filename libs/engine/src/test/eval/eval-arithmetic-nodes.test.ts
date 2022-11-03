@@ -15,11 +15,7 @@ import { createOptions } from '../../utils/context-utils';
 
 const testContext: Context = {
     options: createOptions(),
-    stack: [
-        {
-            a: createNumberNode(42),
-        },
-    ],
+    stack: [new Map([['a', createNumberNode(42)]])],
 };
 
 describe('evaluate plus node', () => {

@@ -86,6 +86,31 @@ jobs:
     - name: Invalidate Cloundfront distrubution
       run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DIST --paths '/*'
 
+  deploy_config:
+    name: Deploy Config
+    needs: bump_version
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: fetch latest commits
+      run: git pull --no-rebase
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build:config
+    - name: Test
+      run: npm run test:all
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./apps/config/dist s3://$BUCKET_ID/prod/config --delete
+    - name: Invalidate Cloundfront distrubution
+      run: aws cloudfront create-invalidation --distribution-id $CONFIG_DIST --paths '/*'
+
   deploy_calculator_offline:
     name: Deploy Calculator Offline Version
     needs: bump_version

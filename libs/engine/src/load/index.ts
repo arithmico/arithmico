@@ -21,7 +21,7 @@ export default function load(plugins: Plugin[], profile: Profile): [Context, Glo
         }
     }, context);
 
-    contextWithLoadedPlugins.stack.push({});
+    contextWithLoadedPlugins.stack.push(new Map());
 
     return [contextWithLoadedPlugins, docs, logs];
 }

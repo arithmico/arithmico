@@ -10,6 +10,7 @@ This repository contains the source code of for the Arithmico Engine and the fol
 ## Production Deployments
 - [Arithmico Calc](https://arithmico.com)
 - [Arithmico Docs](https://docs.arithmico.com)
+- [Arithmico Config](https://config.arithmico.com)
 
 ## Development Deployments
 - [Arithmico Calc (dev)](https://dev-calc.arithmico.com)

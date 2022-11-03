@@ -28,7 +28,7 @@ addPluginFunction(
         'Berechnet die Quadratwurzel von x.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('sqrt', parameters, sqrtHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
 
             if (x < 0) {
                 throw 'RuntimeError: sqrt: x < 0';
@@ -48,8 +48,8 @@ addPluginFunction(
         'Berechnet die n-te Wurzel von x.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('root', parameters, rootHeader, context);
-            const x = (<NumberNode>parameterStackFrame['x']).value;
-            const n = (<NumberNode>parameterStackFrame['n']).value;
+            const x = (<NumberNode>parameterStackFrame.get('x')).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
 
             if (x < 0) {
                 throw 'RuntimeError: root: x < 0';
