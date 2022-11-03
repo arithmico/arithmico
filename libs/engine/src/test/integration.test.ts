@@ -216,6 +216,14 @@ integrationTest('prime:is(1.3)', 'false');
 integrationTest('prime:is(-1)', 'false');
 integrationTest('prime:pi(2)', '1');
 integrationTest('prime:pi(100)', '25');
+integrationTest('gcd(4, 12)', '4');
+integrationTest('gcd(12, 4)', '4');
+integrationTest('gcd(63, 22)', '1');
+integrationTest('gcd(22, 63)', '1');
+integrationTest('gcdExtended(4, 12)', '4');
+integrationTest('gcdExtended(12, 4)', '4');
+integrationTest('gcdExtended(63, 22)', '1');
+integrationTest('gcdExtended(22, 63)', '1');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -307,4 +315,12 @@ integrationTestThrow('prime:nth(-1)');
 integrationTestThrow('prime:pi(1.3)');
 integrationTestThrow('prime:pi(1)');
 integrationTestThrow('prime:pi(-1)');
+integrationTestThrow('gcd(-1, 5)');
+integrationTestThrow('gcd(1, -5)');
+integrationTestThrow('gcd(1.5, 5)');
+integrationTestThrow('gcd(1, 5.2)');
+integrationTestThrow('gcdExtended(-1, 5)');
+integrationTestThrow('gcdExtended(1, -5)');
+integrationTestThrow('gcdExtended(1.5, 5)');
+integrationTestThrow('gcdExtended(1, 5.2)');
 

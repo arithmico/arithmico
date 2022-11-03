@@ -9,7 +9,7 @@ export function reduceFraction(numerator: number, denominator: number): [number,
     return [Math.round(numerator / gcd), Math.round(denominator / gcd)];
 }
 
-function greatestCommonDivisor(numerator: number, denominator: number): number {
+export function greatestCommonDivisor(numerator: number, denominator: number): number {
     let a = numerator;
     let b = denominator;
 
