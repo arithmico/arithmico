@@ -11,6 +11,11 @@ import createNumberNode from '../../../create/create-number-node';
 import createVector from '../../../create/create-vector';
 import { getNthPrimeNumber, isPrimeNumber, sieveOfEratosthenes } from './utils/prime-number-utils';
 import createBooleanNode from '../../../create/create-boolean-node';
+import { greatestCommonDivisor } from '../../../utils/float-utils';
+import { extendedEuclideanGreatestCommonDivisor } from './utils/gcd-extended';
+import createEquals from '../../../create/create-equals';
+import createPlus from '../../../create/create-plus';
+import createTimes from '../../../create/create-times';
 
 const numberTheoryPlugin = createPlugin('core/number-theory');
 addPluginDescription(numberTheoryPlugin, 'brings many functions for calculation on integers and in number theory');
@@ -19,7 +24,7 @@ addPluginAuthor(numberTheoryPlugin, 'core');
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 const doubleNumberHeader: FunctionHeaderItem[] = [
     { name: 'a', type: 'number', evaluate: true },
-    { name: 'a', type: 'number', evaluate: true },
+    { name: 'b', type: 'number', evaluate: true },
 ];
 
 addPluginFunction(
@@ -27,8 +32,8 @@ addPluginFunction(
     createPluginFunction(
         'prime:range',
         singleNumberHeader,
-        'Returns all prime numbers between 2 and including n.',
-        'Gibt alle Primzahlen zurück, die zwischen 2 und einschließlich n liegen.',
+        'Returns all prime numbers in the interval (1, n].',
+        'Gibt alle Primzahlen im Intervall (1, n] zurück.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame(
                 'prime:range',
@@ -91,8 +96,8 @@ addPluginFunction(
     createPluginFunction(
         'prime:pi',
         singleNumberHeader,
-        'The pi function specifies the number of prime numbers in the interval [1, n].',
-        'Die PiFunktion gibt die Anzahl der Primzahlen im Intervall (1, n] an.',
+        'The pi function specifies the number of prime numbers in the interval (1, n].',
+        'Die Pi Funktion gibt die Anzahl der Primzahlen im Intervall (1, n] an.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('prime:pi', parameters, singleNumberHeader, context);
             const n = (<NumberNode>parameterStackFrame['n']).value;
@@ -105,6 +110,70 @@ addPluginFunction(
             }
 
             return createNumberNode(sieveOfEratosthenes(n).length);
+        },
+    ),
+);
+
+addPluginFunction(
+    numberTheoryPlugin,
+    createPluginFunction(
+        'gcd',
+        doubleNumberHeader,
+        'Calculates the greatest common divisor (gcd).',
+        'Berechnet den größten gemeinsamen Teiler (ggT).',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('gcd', parameters, doubleNumberHeader, context);
+            const a = (<NumberNode>parameterStackFrame['a']).value;
+            const b = (<NumberNode>parameterStackFrame['b']).value;
+
+            if (a % 1 !== 0 || b % 1 !== 0) {
+                throw 'RuntimeError: gcd: Only integers are allowed.';
+            }
+            if (a < 1 || b < 1) {
+                throw 'RuntimeError: gcd: Numbers smaller than 1 are not allowed.';
+            }
+
+            return createNumberNode(greatestCommonDivisor(a, b));
+        },
+    ),
+);
+
+addPluginFunction(
+    numberTheoryPlugin,
+    createPluginFunction(
+        'gcdExtended',
+        doubleNumberHeader,
+        'Calculates the greatest common divisor (gcd) with extended euclidean algorithm.',
+        'Berechnet den größten gemeinsamen Teiler (ggT) mit dem erweitertem euklidischen Algorithmus.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame(
+                'gcdExtended',
+                parameters,
+                doubleNumberHeader,
+                context,
+            );
+            const a = (<NumberNode>parameterStackFrame['a']).value;
+            const b = (<NumberNode>parameterStackFrame['b']).value;
+
+            if (a % 1 !== 0 || b % 1 !== 0) {
+                throw 'RuntimeError: gcdExtended: Only integers are allowed.';
+            }
+            if (a < 1 || b < 1) {
+                throw 'RuntimeError: gcdExtended: Numbers smaller than 1 are not allowed.';
+            }
+
+            const resultExtGCD = extendedEuclideanGreatestCommonDivisor(a, b);
+            const gcd = resultExtGCD[0];
+            const bezoutFactorA = resultExtGCD[1];
+            const bezoutFactorB = resultExtGCD[2];
+
+            return createEquals(
+                createNumberNode(gcd),
+                createPlus(
+                    createTimes(createNumberNode(bezoutFactorA), createNumberNode(a)),
+                    createTimes(createNumberNode(bezoutFactorB), createNumberNode(b)),
+                ),
+            );
         },
     ),
 );
