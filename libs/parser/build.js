@@ -1,9 +1,9 @@
 import peggy from 'peggy';
 import fs from 'fs';
 
-const pathToGrammar = 'parser/grammar.peggy';
-const outputDir = 'src/parse';
-const outputPath = 'src/parse/parser.js';
+const pathToGrammar = 'grammar.peggy';
+const outputDir = '../engine/src/parse'; //'src/parse';
+const outputPath = '../engine/src/parse/parser.js'; //'src/parse/parser.js';
 const grammarSource = fs.readFileSync(pathToGrammar, 'utf8');
 const parserSource = peggy.generate(grammarSource, {
     output: 'source',

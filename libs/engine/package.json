@@ -4,13 +4,12 @@
   "types": "lib/index.d.ts",
   "type": "module",
   "scripts": {
-    "build-parser": "node parser/build.js",
     "test": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
     "pretty": "prettier 'src/**/*' --check",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "rm -rf lib && npm run build-parser &&  npm run build:types && npm run build:js",
+    "build": "rm -rf lib && npm run build:parser -w @arithmico/parser &&  npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".js,.ts,.tsx\" --source-maps inline"
   },
