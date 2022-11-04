@@ -1,5 +1,5 @@
 import { GlobalDocumentationItem } from './types/Plugin';
-import { parse } from './parse/parser';
+import { parse } from '../../parser/generated/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
@@ -110,9 +110,9 @@ export default function evaluate(input: string, context: Context = defaultContex
 
     try {
         if (context.options.decimalSeparator === ',') {
-            nodeTree = parse(transformGerman2English(input));
+            nodeTree = parse(transformGerman2English(input), undefined);
         } else {
-            nodeTree = parse(input);
+            nodeTree = parse(input, undefined);
         }
     } catch (syntaxError) {
         throw syntaxError.message;
