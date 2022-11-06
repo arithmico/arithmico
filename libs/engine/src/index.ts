@@ -1,5 +1,5 @@
 import { GlobalDocumentationItem } from './types/Plugin';
-import { parse } from '../../parser/generated/parser';
+import { parse } from '@arithmico/parser/generated/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';

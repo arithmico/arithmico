@@ -1,5 +1,5 @@
 import { Context } from '../../types';
-import { parse } from '../../../../parser/generated/parser';
+import { parse } from '@arithmico/parser/generated/parser';
 import normalize from '../../normalize';
 import serialize from '../../serialize';
 import { createOptions } from '../../utils/context-utils';
