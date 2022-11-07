@@ -11,6 +11,7 @@ env:
   CALCULATOR_ONLINE_DIST: ${{ secrets.CALCULATOR_ONLINE_DIST }}
   CALCULATOR_OFFLINE_DIST: ${{ secrets.CALCULATOR_OFFLINE_DIST }}
   DOCUMENTATION_DIST: ${{ secrets.DOCUMENTATION_DIST }}
+  CONFIG_DIST: ${{ secrets.CONFIG_DIST }}
 
 jobs:
   bump_version:
@@ -47,7 +48,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run build:engine && npm run build:calc
+      run: |
+        export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
+        npm run build:calc
     - name: Test
       run: npm run test:all
     - name: Configure AWS Credentials
@@ -86,6 +89,31 @@ jobs:
     - name: Invalidate Cloundfront distrubution
       run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DIST --paths '/*'
 
+  deploy_config:
+    name: Deploy Config
+    needs: bump_version
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: fetch latest commits
+      run: git pull --no-rebase
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build:engine && npm run build:config
+    - name: Test
+      run: npm run test:all
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./apps/config/dist s3://$BUCKET_ID/prod/config --delete
+    - name: Invalidate Cloundfront distrubution
+      run: aws cloudfront create-invalidation --distribution-id $CONFIG_DIST --paths '/*'
+
   deploy_calculator_offline:
     name: Deploy Calculator Offline Version
     needs: bump_version
@@ -100,7 +128,7 @@ jobs:
       run: npm ci
     - name: Build
       run: |
-        npm run build:engine
+        export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
         npm run build:offline -w apps/calc/
     - name: Test
       run: npm run test:all
@@ -113,9 +141,9 @@ jobs:
       id: vars
       run: |
         VERSION_NUMBER=$(node -pe "require('./package.json')['version']") 
-        echo ::set-output name=release_tag::v$VERSION_NUMBER
-        echo ::set-output name=release_name::Arithmico v$VERSION_NUMBER
-        echo ::set-output name=release_text::"Download offline version [here](https://blob.arithmico.com/calculator/offline/$(echo $VERSION_NUMBER).zip)"
+        echo "release_tag=v$VERSION_NUMBER" >> $GITHUB_OUTPUT
+        echo "release_name=Arithmico v$VERSION_NUMBER" >> $GITHUB_OUTPUT
+        echo release_text="Download offline version [here](https://blob.arithmico.com/calculator/offline/$(echo $VERSION_NUMBER).zip)" >> $GITHUB_OUTPUT
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1

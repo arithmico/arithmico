@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: |
         export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
-        npm run build:engine && npm run build:calc
+        npm run build:calc
     - name: Test
       run: npm run test:all
     - name: Configure AWS Credentials
@@ -93,7 +93,7 @@ jobs:
     - name: Build
       run: |
         export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
-        npm run build:engine && npm run build:config
+        npm run build:config
     - name: Test
       run: npm run test:all
     - name: Configure AWS Credentials
