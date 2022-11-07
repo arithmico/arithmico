@@ -85,7 +85,7 @@ TypedSymbol = symbol:Symbol type:SymbolType? {
         evaluate: true
     };
 }
-SymbolListItem = _ "," _ symbol:TypedSymbol {
+SymbolListItem = _ ItemSeparator _ symbol:TypedSymbol {
     return symbol;
 }
 SymbolList = first:TypedSymbol _ rest:SymbolListItem* {
@@ -232,7 +232,7 @@ SubExpression = "(" _ expr:Expression _ ")" {
     return expr;
 }
 
-ListElement = _ "," _ item:Expression {
+ListElement = _ ItemSeparator _ item:Expression {
     return item;
 }
 
@@ -276,7 +276,7 @@ Name "name" = ([a-z] / [A-Z] / "_") ([a-z] / [A-Z] / [0-9] / "_")* {
     }; 
 }
 
-Number "number" = [0-9]+ ("." [0-9]*)? { 
+Number "number" = [0-9]+ (DecimalSeparator [0-9]*)? { 
     return {
         type: "number", 
         value: parseFloat(text(), 10)
