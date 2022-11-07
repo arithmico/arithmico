@@ -3,6 +3,7 @@
   "type": "module",
   "main": "lib/main.js",
   "scripts": {
+    "install": "npm run build",
     "build": "node build.js"
   }
 }
