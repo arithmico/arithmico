@@ -141,9 +141,9 @@ jobs:
       id: vars
       run: |
         VERSION_NUMBER=$(node -pe "require('./package.json')['version']") 
-        echo ::set-output name=release_tag::v$VERSION_NUMBER
-        echo ::set-output name=release_name::Arithmico v$VERSION_NUMBER
-        echo ::set-output name=release_text::"Download offline version [here](https://blob.arithmico.com/calculator/offline/$(echo $VERSION_NUMBER).zip)"
+        echo "release_tag=v$VERSION_NUMBER" >> $GITHUB_OUTPUT
+        echo "release_name=Arithmico v$VERSION_NUMBER" >> $GITHUB_OUTPUT
+        echo release_text="Download offline version [here](https://blob.arithmico.com/calculator/offline/$(echo $VERSION_NUMBER).zip)" >> $GITHUB_OUTPUT
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
