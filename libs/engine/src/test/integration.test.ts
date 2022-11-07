@@ -11,6 +11,7 @@ const radiansTestContext = createTestContext(defaultStack, createOptions({ angle
 
 integrationTest('1', '1');
 integrationTest('[1,2,3]', '[1, 2, 3]');
+integrationTest('[1;2;3]', '[1; 2; 3]', germanTextContext);
 integrationTest('1 + 2', '3');
 integrationTest('1 - 2', '-1');
 integrationTest('-2', '-2');
