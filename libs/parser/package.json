@@ -2,6 +2,6 @@
   "name": "@arithmico/parser",
   "type": "module",
   "scripts": {
-    "build:parser": "node build.js"
+    "build": "node build.js"
   }
 }
