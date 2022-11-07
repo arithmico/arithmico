@@ -286,3 +286,11 @@ Number "number" = [0-9]+ ("." [0-9]*)? {
 // misc
 _ "whitespace"
   	= [ \t\n\r]*
+
+ItemSeparator = s:("," / ";") & {
+    return options.language === "de" && s === ";";
+}
+
+DecimalSeparator = s:("." / ",") & {
+    return options.language === "de" && s === ",";
+}
