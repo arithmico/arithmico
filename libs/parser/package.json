@@ -1,6 +1,7 @@
 {
   "name": "@arithmico/parser",
   "type": "module",
+  "main": "lib/main.js",
   "scripts": {
     "build": "node build.js"
   }
