@@ -1,5 +1,7 @@
 import { GlobalDocumentationItem } from './types/Plugin';
-import { parse } from '@arithmico/parser/generated/parser';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { parse } from '@arithmico/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
