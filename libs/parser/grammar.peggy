@@ -279,7 +279,7 @@ Name "name" = ([a-z] / [A-Z] / "_") ([a-z] / [A-Z] / [0-9] / "_")* {
 Number "number" = [0-9]+ (DecimalSeparator [0-9]*)? { 
     return {
         type: "number", 
-        value: parseFloat(text(), 10)
+        value: parseFloat(text().replace(",", "."), 10)
     }; 
 }
 
@@ -288,9 +288,11 @@ _ "whitespace"
   	= [ \t\n\r]*
 
 ItemSeparator = s:("," / ";") & {
-    return options.language === "de" && s === ";";
+    return options.language === "de" && s === ";" 
+        || options.language === "en" && s === ",";
 }
 
 DecimalSeparator = s:("." / ",") & {
-    return options.language === "de" && s === ",";
+    return options.language === "de" && s === ","
+        || options.language === "en" && s === ".";
 }
