@@ -1,5 +1,13 @@
 import { NumberNode, Options } from '../../types';
 
+function fixDecimalSeparator(serializedNumber: string, decimalSeparator: string) {
+    if (decimalSeparator === '.') {
+        return serializedNumber;
+    }
+
+    return serializedNumber.replace('.', ',');
+}
+
 export default function serializeNumber(node: NumberNode, options: Options): string {
     if (node.value === 0) {
         return '0';
@@ -12,11 +20,11 @@ export default function serializeNumber(node: NumberNode, options: Options): str
         const mantisseStr = Number(mantisse.toFixed(options.decimalPlaces)).toString();
 
         if (magnitude < 0) {
-            return `${mantisseStr} * 10^(${magnitude.toString()})`;
+            return fixDecimalSeparator(`${mantisseStr} * 10^(${magnitude.toString()})`, options.decimalSeparator);
         }
 
-        return `${mantisseStr} * 10^${magnitude.toString()}`;
+        return fixDecimalSeparator(`${mantisseStr} * 10^${magnitude.toString()}`, options.decimalSeparator);
     }
 
-    return Number(node.value.toFixed(options.decimalPlaces)).toString();
+    return fixDecimalSeparator(Number(node.value.toFixed(options.decimalPlaces)).toString(), options.decimalSeparator);
 }

@@ -22,7 +22,7 @@ let lastId = 0;
 
 function normalizeTest(input: string, expectedOutput: string, context: Context = testContext) {
     test(`normalize integration test #${++lastId}`, () => {
-        const node = parse(input, testOptions);
+        const node = parse(input, { language: 'en' });
         const normalizedNode = normalize(node, context);
         expect(serialize(normalizedNode, context.options)).toBe(expectedOutput);
     });

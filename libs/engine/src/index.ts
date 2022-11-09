@@ -16,7 +16,6 @@ import minmaxPlugin from './plugins/core/minmax/minmax';
 import absPlugin from './plugins/core/abs/abs';
 import fractionPlugin from './plugins/core/fraction/fraction';
 import crossPlugin from './plugins/core/cross/cross';
-import { transformEnglish2German, transformGerman2English } from './language-transform';
 import statisticsPlugin from './plugins/core/statistics/statistics';
 import rootsPlugin from './plugins/core/roots/roots';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
@@ -111,11 +110,9 @@ export default function evaluate(input: string, context: Context = defaultContex
     let nodeTree;
 
     try {
-        if (context.options.decimalSeparator === ',') {
-            nodeTree = parse(transformGerman2English(input), undefined);
-        } else {
-            nodeTree = parse(input, undefined);
-        }
+        nodeTree = parse(input, {
+            language: context.options.decimalSeparator === ',' ? 'de' : 'en',
+        });
     } catch (syntaxError) {
         throw syntaxError.message;
     }
@@ -126,13 +123,13 @@ export default function evaluate(input: string, context: Context = defaultContex
     if (result.type === 'define') {
         const value = result.value;
         return {
-            result: context.options.decimalSeparator === ',' ? transformEnglish2German(resultString) : resultString,
+            result: resultString,
             context: insertStackObject(result.name, value, context),
         };
     }
 
     return {
-        result: context.options.decimalSeparator === ',' ? transformEnglish2German(resultString) : resultString,
+        result: resultString,
         context,
     };
 }
