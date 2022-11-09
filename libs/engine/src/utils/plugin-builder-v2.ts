@@ -28,7 +28,7 @@ interface PluginFunctionProps {
     context: Context;
 }
 
-export class PluginBuilderV2 {
+class PluginBuilderV2 {
     private plugin: Plugin;
 
     constructor() {
@@ -152,11 +152,11 @@ export class PluginBuilderV2 {
                     };
 
                     const runtimeError = (message: string) => {
-                        throw `RuntimeError: ${name}: ${message}`;
+                        `RuntimeError: ${name}: ${message}`;
                     };
 
                     const typeError = (message: string) => {
-                        throw `TypeError: ${name}: ${message}`;
+                        `TypeError: ${name}: ${message}`;
                     };
 
                     return evaluator({ getParameter, runtimeError, typeError, context });
@@ -182,4 +182,8 @@ export class PluginBuilderV2 {
 
         return this.plugin;
     }
+}
+
+export default function createPluginV2() {
+    return new PluginBuilderV2();
 }
