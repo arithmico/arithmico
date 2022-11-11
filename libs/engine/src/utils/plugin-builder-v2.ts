@@ -153,6 +153,7 @@ class PluginBuilder extends PluginFragment {
     addFragment(fragment: PluginFragment) {
         this.functions = this.functions.concat(fragment.getFunctions());
         this.constants = this.constants.concat(fragment.getConstants());
+        return this;
     }
 
     build(): Plugin {

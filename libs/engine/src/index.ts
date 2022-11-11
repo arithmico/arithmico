@@ -11,7 +11,6 @@ import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
 import nderivePlugin from './plugins/core/nderive/nderive';
-import expPlugin from './plugins/core/exp/exp';
 import minmaxPlugin from './plugins/core/minmax/minmax';
 import absPlugin from './plugins/core/abs/abs';
 import fractionPlugin from './plugins/core/fraction/fraction';
@@ -31,12 +30,12 @@ import polynomialPlugin from './plugins/core/polynomials/polynomial';
 import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import roundPlugin from './plugins/core/round/round-plugin';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
+import analysisPlugin from './plugins/core/analysis-plugin/analysis-plugin';
 
 export { serializeStack } from './utils/context-utils';
 
 const plugins = [
     trigonometryPlugin,
-    expPlugin,
     nsolvePlugin,
     lsolvePlugin,
     nintegratePlugin,
@@ -57,6 +56,7 @@ const plugins = [
     tensorPlugin,
     roundPlugin,
     listmodPlugin,
+    analysisPlugin,
 ];
 
 let defaultContext: Context;
