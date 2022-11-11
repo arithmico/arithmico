@@ -37,7 +37,7 @@ interface PluginFunctionProps {
     context: Context;
 }
 
-class PluginFragment {
+export class PluginFragment {
     protected constants: PluginConstant[];
     protected functions: PluginFunction[];
 
