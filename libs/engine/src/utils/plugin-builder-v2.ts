@@ -1,7 +1,7 @@
 import createFunctionCall from '../create/create-function-call';
 import createSymbolNode from '../create/create-symbol-node';
 import { Context, FunctionHeaderItem, FunctionNode, Plugin, SymbolNode, SyntaxTreeNode } from '../types';
-import { mapParametersToStackFrame } from './parameter-utils';
+import { getParameterMap } from './parameter-utils';
 
 function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
     const result: SymbolNode[] = [];
@@ -22,7 +22,7 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
 }
 
 interface PluginFunctionProps {
-    getParameter(name: string): SyntaxTreeNode;
+    getParameter(name: string): SyntaxTreeNode | SyntaxTreeNode[];
     runtimeError(message: string): void;
     typeError(message: string): void;
     context: Context;
@@ -136,9 +136,9 @@ class PluginBuilderV2 {
                 expression,
                 header,
                 evaluator: (parameters, context) => {
-                    const parameterStackFrame = mapParametersToStackFrame(name, parameters, header, context);
+                    const parameterMap = getParameterMap(name, parameters, header, context);
                     const getParameter = (name: string, fallback?: SyntaxTreeNode) => {
-                        const parameter = parameterStackFrame.get(name);
+                        const parameter = parameterMap.get(name);
 
                         if (!parameter && !fallback) {
                             throw `RuntimeError: ${name}: No parameter fallback available`;
