@@ -225,6 +225,7 @@ Value = Boolean
 / DefineLambdaFunction
 / Symbol 
 / Number
+/ String
 / Vector 
 / SubExpression
 
@@ -281,6 +282,13 @@ Number "number" = [0-9]+ (DecimalSeparator [0-9]*)? {
         type: "number", 
         value: parseFloat(text().replace(",", "."), 10)
     }; 
+}
+
+String "string" = "\"" _ ([a-z] / [A-Z] / "_")* _ "\"" {
+    return {
+    type: "string",
+    value: text()
+    };
 }
 
 // misc
