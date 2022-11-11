@@ -152,11 +152,11 @@ class PluginBuilderV2 {
                     };
 
                     const runtimeError = (message: string) => {
-                        `RuntimeError: ${name}: ${message}`;
+                        return `RuntimeError: ${name}: ${message}`;
                     };
 
                     const typeError = (message: string) => {
-                        `TypeError: ${name}: ${message}`;
+                        return `TypeError: ${name}: ${message}`;
                     };
 
                     return evaluator({ getParameter, runtimeError, typeError, context });
