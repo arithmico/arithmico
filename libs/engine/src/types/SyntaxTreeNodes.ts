@@ -19,6 +19,7 @@ export type SyntaxTreeNode =
     | NumberNode
     | BooleanNode
     | SymbolNode
+    | StringNode
     | FunctionNode
     | Lambda
     | Define;
@@ -164,4 +165,9 @@ export interface BooleanNode {
 export interface SymbolNode {
     type: 'symbol';
     name: string;
+}
+
+export interface StringNode {
+    type: 'string';
+    value: string;
 }

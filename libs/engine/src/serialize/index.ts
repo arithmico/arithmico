@@ -1,4 +1,4 @@
-import { SyntaxTreeNode, Options } from '../types';
+import { Options, SyntaxTreeNode } from '../types';
 import serializeAnd from './nodes/serialize-and';
 import serializeDivided from './nodes/serialize-divided';
 import serializeEquals from './nodes/serialize-equals';
@@ -38,6 +38,7 @@ const serializePrecedents: SyntaxTreeNode['type'][] = [
     'symbol',
     'boolean',
     'number',
+    'string',
 ];
 
 export function needsBrackets(
@@ -105,6 +106,9 @@ export default function serialize(node: SyntaxTreeNode, options: Options): strin
 
         case 'symbol':
             return node.name;
+
+        case 'string':
+            return node.value;
 
         case 'function':
             return serializeFunction(node, options);
