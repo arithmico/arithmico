@@ -11,10 +11,7 @@ const header: FunctionHeaderItem[] = [
     { name: 'b', type: 'vector', evaluate: true },
 ];
 
-const crossPlugin = createPluginV2()
-    .withName('cross')
-    .withAuthor('core')
-    .withDescription('adds cross function')
+const crossPlugin = createPluginV2('cross', 'core', 'adds cross function')
     .addFunction(
         'cross',
         header,
