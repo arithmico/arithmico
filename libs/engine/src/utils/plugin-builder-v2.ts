@@ -1,7 +1,16 @@
 import createFunctionCall from '../create/create-function-call';
 import createSymbolNode from '../create/create-symbol-node';
-import { Context, FunctionHeaderItem, FunctionNode, Plugin, SymbolNode, SyntaxTreeNode } from '../types';
-import { mapParametersToStackFrame } from './parameter-utils';
+import {
+    Context,
+    FunctionHeaderItem,
+    FunctionNode,
+    Plugin,
+    PluginConstant,
+    PluginFunction,
+    SymbolNode,
+    SyntaxTreeNode,
+} from '../types';
+import { getParameterMap } from './parameter-utils';
 
 function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
     const result: SymbolNode[] = [];
@@ -22,66 +31,27 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
 }
 
 interface PluginFunctionProps {
-    getParameter(name: string): SyntaxTreeNode;
+    getParameter(name: string): SyntaxTreeNode | SyntaxTreeNode[];
     runtimeError(message: string): void;
     typeError(message: string): void;
     context: Context;
 }
 
-class PluginBuilderV2 {
-    private plugin: Plugin;
+export class PluginFragment {
+    protected constants: PluginConstant[];
+    protected functions: PluginFunction[];
 
     constructor() {
-        this.plugin = {
-            name: '',
-            author: '',
-            description: '',
-            constants: [],
-            functions: [],
-            inlineDefinitions: [],
-        };
+        this.constants = [];
+        this.functions = [];
     }
 
-    withName(name: string): PluginBuilderV2 {
-        if (name.length < 1) {
-            throw 'invalid name';
-        }
-
-        if (this.plugin.name.length > 0) {
-            throw 'name is already set';
-        }
-
-        this.plugin.name = name;
-
-        return this;
+    getConstants() {
+        return this.constants;
     }
 
-    withAuthor(author: string): PluginBuilderV2 {
-        if (author.length < 1) {
-            throw 'invalid author';
-        }
-
-        if (this.plugin.author.length > 0) {
-            throw 'author is already set';
-        }
-
-        this.plugin.author = author;
-
-        return this;
-    }
-
-    withDescription(description: string): PluginBuilderV2 {
-        if (description.length < 1) {
-            throw 'invalid description';
-        }
-
-        if (this.plugin.description.length > 0) {
-            throw 'description is already set';
-        }
-
-        this.plugin.description = description;
-
-        return this;
+    getFunctions() {
+        return this.functions;
     }
 
     addConstant(
@@ -89,8 +59,8 @@ class PluginBuilderV2 {
         descriptionEn: string,
         descriptionDe: string,
         value: Exclude<SyntaxTreeNode, FunctionNode>,
-    ): PluginBuilderV2 {
-        this.plugin.constants.push({
+    ) {
+        this.constants.push({
             name,
             value,
             documentation: {
@@ -114,12 +84,12 @@ class PluginBuilderV2 {
         descriptionEn: string,
         descriptionDe: string,
         evaluator: (props: PluginFunctionProps) => SyntaxTreeNode,
-    ): PluginBuilderV2 {
+    ) {
         const headerSymbols = convertHeaderToSymbolList(header);
         const synopsis = `${name}(${headerSymbols.map((symbol) => symbol.name).join(', ')})`;
         const expression = createFunctionCall(createSymbolNode(name), headerSymbols);
 
-        this.plugin.functions.push({
+        this.functions.push({
             name,
             documentation: {
                 en: {
@@ -136,9 +106,9 @@ class PluginBuilderV2 {
                 expression,
                 header,
                 evaluator: (parameters, context) => {
-                    const parameterStackFrame = mapParametersToStackFrame(name, parameters, header, context);
+                    const parameterMap = getParameterMap(name, parameters, header, context);
                     const getParameter = (name: string, fallback?: SyntaxTreeNode) => {
-                        const parameter = parameterStackFrame.get(name);
+                        const parameter = parameterMap.get(name);
 
                         if (!parameter && !fallback) {
                             throw `RuntimeError: ${name}: No parameter fallback available`;
@@ -152,11 +122,11 @@ class PluginBuilderV2 {
                     };
 
                     const runtimeError = (message: string) => {
-                        `RuntimeError: ${name}: ${message}`;
+                        return `RuntimeError: ${name}: ${message}`;
                     };
 
                     const typeError = (message: string) => {
-                        `TypeError: ${name}: ${message}`;
+                        return `TypeError: ${name}: ${message}`;
                     };
 
                     return evaluator({ getParameter, runtimeError, typeError, context });
@@ -166,24 +136,38 @@ class PluginBuilderV2 {
 
         return this;
     }
+}
+
+class PluginBuilder extends PluginFragment {
+    private name: string;
+    private author: string;
+    private description: string;
+
+    constructor(name: string, author: string, description: string) {
+        super();
+        this.name = name;
+        this.author = author;
+        this.description = description;
+    }
+
+    addFragment(fragment: PluginFragment) {
+        this.functions = this.functions.concat(fragment.getFunctions());
+        this.constants = this.constants.concat(fragment.getConstants());
+        return this;
+    }
 
     build(): Plugin {
-        if (!this.plugin.name) {
-            throw 'no plugin name specified';
-        }
-
-        if (!this.plugin.author) {
-            throw 'no plugin author specified';
-        }
-
-        if (!this.plugin.description) {
-            throw 'no plugin description specified';
-        }
-
-        return this.plugin;
+        return {
+            name: this.name,
+            author: this.author,
+            description: this.description,
+            constants: this.constants,
+            functions: this.functions,
+            inlineDefinitions: [],
+        };
     }
 }
 
-export default function createPluginV2() {
-    return new PluginBuilderV2();
+export default function createPluginV2(name: string, author: string, description: string) {
+    return new PluginBuilder(name, author, description);
 }
