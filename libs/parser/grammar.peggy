@@ -284,7 +284,7 @@ Number "number" = [0-9]+ (DecimalSeparator [0-9]*)? {
     }; 
 }
 
-String "string" = "\"" _ ([a-z] / [A-Z] / "_")* _ "\"" {
+String "string" =  (("\"" ([a-z] / [A-Z] / "_")* "\"") / ("\'" ([a-z] / [A-Z] / "_")* "\'")) {
     return {
     type: "string",
     value: text()
