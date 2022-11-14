@@ -14,6 +14,7 @@ import serializeNumber from './nodes/serialize-number';
 import serializeOr from './nodes/serialize-or';
 import serializePlus from './nodes/serialize-plus';
 import serializePower from './nodes/serialize-power';
+import serializeStringNode from './nodes/serialize-string-node';
 import serializeTimes from './nodes/serialize-times';
 import serializeVector from './nodes/serialize-vector';
 
@@ -108,7 +109,7 @@ export default function serialize(node: SyntaxTreeNode, options: Options): strin
             return node.name;
 
         case 'string':
-            return node.value;
+            return serializeStringNode(node, options);
 
         case 'function':
             return serializeFunction(node, options);
