@@ -52,10 +52,10 @@ export default function CalculatorToolbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentOutput = useSelector(
-    (state: CalculatorRootState) => state.session.input
+    (state: CalculatorRootState) => state.session.output
   );
   const currentInput = useSelector(
-    (state: CalculatorRootState) => state.session.output
+    (state: CalculatorRootState) => state.session.input
   );
   const [t] = useTranslation();
   const exportProtocol = useExportProtocol();
