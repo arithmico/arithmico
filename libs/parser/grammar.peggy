@@ -225,6 +225,7 @@ Value = Boolean
 / DefineLambdaFunction
 / Symbol 
 / Number
+/ String
 / Vector 
 / SubExpression
 
@@ -282,6 +283,27 @@ Number "number" = [0-9]+ (DecimalSeparator [0-9]*)? {
         value: parseFloat(text().replace(",", "."), 10)
     }; 
 }
+
+String = DoubleQuotesString / SingleQuotesString
+
+DoubleQuotesString = '"' content:$DoubleQuotesStringContent '"' {
+	return {
+    	type: "string",
+        value: content
+    }
+}
+
+SingleQuotesString = "'" content:$SingleQuotesStringContent "'" {
+    return {
+        type: "string",
+        value: content
+    }
+}
+
+DoubleQuotesStringContent = (StringCharacter / '\\"' / "'")*
+SingleQuotesStringContent = (StringCharacter / "\\'" / '"')*
+
+StringCharacter = [^\'\"\\] / "\\\\"
 
 // misc
 _ "whitespace"

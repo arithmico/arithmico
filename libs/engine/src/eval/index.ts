@@ -19,6 +19,7 @@ import evaluateSymbol from './nodes/eval-symbol';
 import evaluateTimes from './nodes/eval-times';
 import evaluateVector from './nodes/eval-vector';
 import evaluateDefine from './nodes/eval-define';
+import evaluateString from './nodes/eval-string';
 
 export default function evaluate(node: SyntaxTreeNode, context: Context) {
     switch (node.type) {
@@ -30,6 +31,9 @@ export default function evaluate(node: SyntaxTreeNode, context: Context) {
 
         case 'symbol':
             return evaluateSymbol(node, context);
+
+        case 'string':
+            return evaluateString(node);
 
         case 'or':
             return evaluateOr(node, context);
