@@ -284,12 +284,26 @@ Number "number" = [0-9]+ (DecimalSeparator [0-9]*)? {
     }; 
 }
 
-String "string" =  (("\"" ([a-z] / [A-Z] / "_")* "\"") / ("\'" ([a-z] / [A-Z] / "_")* "\'")) {
-    return {
-    type: "string",
-    value: text()
-    };
+String = DoubleQuotesString / SingleQuotesString
+
+DoubleQuotesString = '"' content:$DoubleQuotesStringContent '"' {
+	return {
+    	type: "string",
+        value: content
+    }
 }
+
+SingleQuotesString = "'" content:$SingleQuotesStringContent "'" {
+    return {
+        type: "string",
+        value: content
+    }
+}
+
+DoubleQuotesStringContent = (StringCharacter / '\\"' / "'")*
+SingleQuotesStringContent = (StringCharacter / "\\'" / '"')*
+
+StringCharacter = [^\'\"\\] / "\\\\"
 
 // misc
 _ "whitespace"
