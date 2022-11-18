@@ -1,4 +1,4 @@
-import { FunctionHeaderItem, NumberNode, Vector } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, NumberNode, SyntaxTreeNode, Vector } from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
 import { calculateAvg } from '../utils/avg';
 import { calculateVar } from '../utils/var';
@@ -8,6 +8,7 @@ import { isEveryElementNumber } from '../../../../utils/tensor-utils';
 import { calculateCovariance } from '../utils/covariance';
 import { calculateCorrelationCoefficient } from '../utils/corr';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import createVector from '../../../../create/create-vector';
 
 const numberSeriesHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true, repeat: true }];
 
@@ -28,12 +29,12 @@ const samplingStatisticsFragment = new PluginFragment()
         'Calculates the arithmetic mean',
         'Berechnet das arithmetische Mittel',
         ({ getParameter }) => {
-            const xs = (<Vector>getParameter('xs')).values.map((x) => (<NumberNode>x).value);
+            const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateAvg(xs));
         },
     )
     .addFunction('var', numberSeriesHeader, 'Calculates the variance', 'Berechnet die Varianz', ({ getParameter }) => {
-        const xs = (<Vector>getParameter('xs')).values.map((x) => (<NumberNode>x).value);
+        const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
         return createNumberNode(calculateVar(xs));
     })
     .addFunction(
@@ -42,7 +43,7 @@ const samplingStatisticsFragment = new PluginFragment()
         'Calculates the standard deviation',
         'Berechnet die Standardabweichung',
         ({ getParameter }) => {
-            const xs = (<Vector>getParameter('xs')).values.map((x) => (<NumberNode>x).value);
+            const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateSd(xs));
         },
     )
@@ -52,7 +53,7 @@ const samplingStatisticsFragment = new PluginFragment()
         'Calculates the median.',
         'Berechnet den Median.',
         ({ getParameter }) => {
-            const xs = (<Vector>getParameter('xs')).values.map((x) => (<NumberNode>x).value);
+            const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateQuantile(0.5, xs));
         },
     )
