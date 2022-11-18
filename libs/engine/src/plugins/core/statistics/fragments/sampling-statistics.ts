@@ -8,7 +8,6 @@ import { isEveryElementNumber } from '../../../../utils/tensor-utils';
 import { calculateCovariance } from '../utils/covariance';
 import { calculateCorrelationCoefficient } from '../utils/corr';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';
-import createVector from '../../../../create/create-vector';
 
 const numberSeriesHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true, repeat: true }];
 
@@ -52,8 +51,13 @@ const samplingStatisticsFragment = new PluginFragment()
         numberSeriesHeader,
         'Calculates the median.',
         'Berechnet den Median.',
-        ({ getParameter }) => {
+        ({ getParameter, runtimeError }) => {
             const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
+
+            if (xs.length < 2) {
+                throw runtimeError('Needs 2 or more parameters.');
+            }
+
             return createNumberNode(calculateQuantile(0.5, xs));
         },
     )
@@ -72,6 +76,10 @@ const samplingStatisticsFragment = new PluginFragment()
 
             if (p < 0 || p > 1) {
                 throw runtimeError('Value p has to be between 0 and 1.');
+            }
+
+            if (xs.values.length < 2) {
+                throw runtimeError('Needs 2 or more parameters.');
             }
 
             return createNumberNode(

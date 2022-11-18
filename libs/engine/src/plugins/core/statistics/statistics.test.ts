@@ -60,11 +60,13 @@ integrationTest('sd(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '3.162278');
 // median
 integrationTest('median(3, 13, 7, 5, 21, 23, 39, 23, 40, 23, 14, 12, 56, 23, 29)', '23');
 integrationTest('median(2, 3, 4, 5)', '3.5');
+integrationTestThrow('median(2)');
 integrationTestThrow('median(1, 3, a)');
 
 // quantile
 integrationTest('quantile(0.25, [6, 1, 3, 8, 4, 5, 2, 7, 9])', '2.5');
 integrationTest('quantile(0.75, [1, 2, 2, 3, 5, 8, 9, 12, 12, 13])', '12');
+integrationTestThrow('quantile(0.8, [2])');
 integrationTestThrow('quantile(0.8, [2, a, 4, 5])');
 integrationTestThrow('quantile(-0.8, [2, 3, 4, 5])');
 
