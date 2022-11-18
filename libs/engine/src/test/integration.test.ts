@@ -228,6 +228,11 @@ integrationTest('[1;2;3]', '[1; 2; 3]', germanTextContext);
 integrationTest('1,2+1,3', '2,5', germanTextContext);
 integrationTest('((x; y) -> x + y)(1;2)', '3', germanTextContext);
 integrationTest('((x; y) -> x + y)', '(x: any; y: any) → x + y', germanTextContext);
+integrationTest('prime:range(2)', '[2]');
+integrationTest('prime:range(10)', '[2, 3, 5, 7]');
+integrationTest('prime:range(23)', '[2, 3, 5, 7, 11, 13, 17, 19, 23]');
+integrationTest('prime:nth(1)', '2');
+integrationTest('prime:nth(200)', '1223');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

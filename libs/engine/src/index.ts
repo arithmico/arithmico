@@ -31,6 +31,7 @@ import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import roundPlugin from './plugins/core/round/round-plugin';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis-plugin/analysis-plugin';
+import numberTheoryPlugin from './plugins/core/number-theory/number-theory';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -57,6 +58,7 @@ const plugins = [
     roundPlugin,
     listmodPlugin,
     analysisPlugin,
+    numberTheoryPlugin,
 ];
 
 let defaultContext: Context;
