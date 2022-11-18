@@ -202,28 +202,6 @@ integrationTest('[1;2;3]', '[1; 2; 3]', germanTextContext);
 integrationTest('1,2+1,3', '2,5', germanTextContext);
 integrationTest('((x; y) -> x + y)(1;2)', '3', germanTextContext);
 integrationTest('((x; y) -> x + y)', '(x: any; y: any) → x + y', germanTextContext);
-integrationTest('prime:range(2)', '[2]');
-integrationTest('prime:range(10)', '[2, 3, 5, 7]');
-integrationTest('prime:range(23)', '[2, 3, 5, 7, 11, 13, 17, 19, 23]');
-integrationTest('prime:nth(1)', '2');
-integrationTest('prime:nth(2)', '3');
-integrationTest('prime:nth(200)', '1223');
-integrationTest('prime:is(2)', 'true');
-integrationTest('prime:is(6)', 'false');
-integrationTest('prime:is(1223)', 'true');
-integrationTest('prime:is(1)', 'false');
-integrationTest('prime:is(1.3)', 'false');
-integrationTest('prime:is(-1)', 'false');
-integrationTest('prime:pi(2)', '1');
-integrationTest('prime:pi(100)', '25');
-integrationTest('gcd(4, 12)', '4');
-integrationTest('gcd(12, 4)', '4');
-integrationTest('gcd(63, 22)', '1');
-integrationTest('gcd(22, 63)', '1');
-integrationTest('gcdExtended(4, 12)', '4');
-integrationTest('gcdExtended(12, 4)', '4');
-integrationTest('gcdExtended(63, 22)', '1');
-integrationTest('gcdExtended(22, 63)', '1');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
@@ -323,7 +301,3 @@ integrationTestThrow('gcdExtended(-1, 5)');
 integrationTestThrow('gcdExtended(1, -5)');
 integrationTestThrow('gcdExtended(1.5, 5)');
 integrationTestThrow('gcdExtended(1, 5.2)');
-<<<<<<< HEAD
-=======
-
->>>>>>> 9cc6a0d (feat: add extended gcd)
