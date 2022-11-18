@@ -1,4 +1,4 @@
-import {integrationTest, integrationTestThrow} from "../../../utils/integration-test-utils";
+import { integrationTest, integrationTestThrow } from '../../../utils/integration-test-utils';
 
 // prime:range
 integrationTest('prime:range(2)', '[2]');

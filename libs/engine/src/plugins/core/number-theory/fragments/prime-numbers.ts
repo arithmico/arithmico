@@ -37,8 +37,8 @@ const primeNumberFragment = new PluginFragment()
             if (n % 1 !== 0) {
                 throw runtimeError('Only integers are allowed.');
             }
-            if (n < 2) {
-                throw runtimeError('Numbers smaller than 2 are not allowed.');
+            if (n < 1) {
+                throw runtimeError('Numbers smaller than 1 are not allowed.');
             }
 
             return createNumberNode(getNthPrimeNumber(n));
