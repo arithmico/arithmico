@@ -1,8 +1,8 @@
 import { FunctionHeaderItem, NumberNode, SyntaxTreeNode, Vector } from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
 import { calculateAvg } from '../utils/avg';
-import { calculateVar } from '../utils/var';
-import { calculateSd } from '../utils/sd';
+import { calculateBiasedSampleVariance, calculateUnbiasedSampleVariance } from '../utils/var';
+import { calculateBiasedStandartDeviation, calculateUnbiasedStandardDeviation } from '../utils/sd';
 import { calculateQuantile } from '../utils/quantile';
 import { isEveryElementNumber } from '../../../../utils/tensor-utils';
 import { calculateCovariance } from '../utils/covariance';
@@ -10,12 +10,10 @@ import { calculateCorrelationCoefficient } from '../utils/corr';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';
 
 const numberSeriesHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true, repeat: true }];
-
 const quantileHeader: FunctionHeaderItem[] = [
     { name: 'p', type: 'number', evaluate: true },
     { name: 'xs', type: 'vector', evaluate: true },
 ];
-
 const doubleVectorHeader: FunctionHeaderItem[] = [
     { name: 'xs', type: 'vector', evaluate: true },
     { name: 'ys', type: 'vector', evaluate: true },
@@ -32,18 +30,44 @@ const samplingStatisticsFragment = new PluginFragment()
             return createNumberNode(calculateAvg(xs));
         },
     )
-    .addFunction('var', numberSeriesHeader, 'Calculates the variance', 'Berechnet die Varianz', ({ getParameter }) => {
-        const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
-        return createNumberNode(calculateVar(xs));
-    })
+    .addFunction(
+        'var',
+        numberSeriesHeader,
+        'Calculates the biased sample variance divided by n.',
+        'Berechnet die Stichprobenvarianz (geteilt durch n)',
+        ({ getParameter }) => {
+            const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
+            return createNumberNode(calculateBiasedSampleVariance(xs));
+        },
+    )
+    .addFunction(
+        'unbiased:var',
+        numberSeriesHeader,
+        'Calculates the unbiased sample variance divided by n - 1.',
+        'Berechnet die normierte Stichprobenvarianz (geteilt durch n - 1)',
+        ({ getParameter }) => {
+            const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
+            return createNumberNode(calculateUnbiasedSampleVariance(xs));
+        },
+    )
     .addFunction(
         'sd',
         numberSeriesHeader,
-        'Calculates the standard deviation',
-        'Berechnet die Standardabweichung',
+        'Calculates the standard deviation based on biased sample variance',
+        'Berechnet die Standardabweichung basierend auf der Stichprobenvarianz.',
         ({ getParameter }) => {
             const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
-            return createNumberNode(calculateSd(xs));
+            return createNumberNode(calculateBiasedStandartDeviation(xs));
+        },
+    )
+    .addFunction(
+        'unbiased:sd',
+        numberSeriesHeader,
+        'Calculates the standard deviation based on unbiased sample variance',
+        'Berechnet die Standardabweichung basierend auf der normierten Stichprobenvarianz.',
+        ({ getParameter }) => {
+            const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
+            return createNumberNode(calculateUnbiasedStandardDeviation(xs));
         },
     )
     .addFunction(

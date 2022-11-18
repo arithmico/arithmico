@@ -52,10 +52,16 @@ integrationTestThrow('cbinom(10, -0.87, 9)');
 integrationTest('avg(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '9');
 
 // var
-integrationTest('var(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '11');
+integrationTest('var(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '10');
+
+// unbiased:var
+integrationTest('unbiased:var(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '11');
 
 // sd
-integrationTest('sd(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '3.316625');
+integrationTest('sd(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '3.162278');
+
+// unbiased:sd
+integrationTest('unbiased:sd(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '3.316625');
 
 // median
 integrationTest('median(3, 13, 7, 5, 21, 23, 39, 23, 40, 23, 14, 12, 56, 23, 29)', '23');

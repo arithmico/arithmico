@@ -1,9 +1,9 @@
-import { calculateNVar, calculateVar } from './var';
+import { calculateBiasedSampleVariance, calculateUnbiasedSampleVariance } from './var';
 
-export function calculateSd(xs: number[]): number {
-    return Math.sqrt(calculateVar(xs));
+export function calculateUnbiasedStandardDeviation(xs: number[]): number {
+    return Math.sqrt(calculateUnbiasedSampleVariance(xs));
 }
 
-export function calculateNSd(xs: number[]): number {
-    return Math.sqrt(calculateNVar(xs));
+export function calculateBiasedStandartDeviation(xs: number[]): number {
+    return Math.sqrt(calculateBiasedSampleVariance(xs));
 }
