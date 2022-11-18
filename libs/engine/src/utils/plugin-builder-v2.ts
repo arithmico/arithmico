@@ -31,7 +31,7 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
 }
 
 interface PluginFunctionProps {
-    getParameter(name: string): SyntaxTreeNode | SyntaxTreeNode[];
+    getParameter(name: string, fallback?: SyntaxTreeNode): SyntaxTreeNode | SyntaxTreeNode[];
     runtimeError(message: string): void;
     typeError(message: string): void;
     context: Context;
