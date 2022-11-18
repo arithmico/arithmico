@@ -3,7 +3,7 @@ import createNumberNode from '../../../../create/create-number-node';
 import { calculateErf } from '../utils/erf';
 import { calculateFact } from '../utils/fact';
 import { calculateCNormal, calculateNormal } from '../utils/normal';
-import { calculateBinom, calculateCBinom, checkNK } from '../utils/binomial';
+import { calculateBinom, calculateCBinom } from '../utils/binomial';
 import { binco } from '../../../../utils/binco';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';
 
@@ -62,30 +62,92 @@ const distributionFragment = new PluginFragment()
     .addFunction(
         'binco',
         bincoHeader,
-        'Computes n over k (binomial coefficient)',
+        'Computes n choose k (binomial coefficient)',
         'Berechnet n über k (Binomialkoeffizient)',
-        ({ getParameter }) => {
+        ({ getParameter, runtimeError }) => {
             const n = (<NumberNode>getParameter('n')).value;
             const k = (<NumberNode>getParameter('k')).value;
-            checkNK('binco', n, k);
+
+            if (n < 0) {
+                throw runtimeError('n < 0');
+            }
+            if (k < 0) {
+                throw runtimeError('k < 0');
+            }
+            if (n % 1 !== 0) {
+                throw runtimeError('n has to be an integer');
+            }
+            if (k % 1 !== 0) {
+                throw runtimeError('n has to be an integer.');
+            }
+            if (n < k) {
+                throw runtimeError('n < k');
+            }
+
             return createNumberNode(binco(n, k));
         },
     )
-    .addFunction('binom', binomHeader, 'Binomial distribution', 'Binomialverteilung', ({ getParameter }) => {
-        const n = (<NumberNode>getParameter('n')).value;
-        const p = (<NumberNode>getParameter('p')).value;
-        const k = (<NumberNode>getParameter('k')).value;
-        return createNumberNode(calculateBinom(n, p, k));
-    })
+    .addFunction(
+        'binom',
+        binomHeader,
+        'Binomial distribution',
+        'Binomialverteilung',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+            const p = (<NumberNode>getParameter('p')).value;
+            const k = (<NumberNode>getParameter('k')).value;
+
+            if (p < 0 || p > 1) {
+                throw runtimeError('p is not between 0 and 1');
+            }
+            if (n < 0) {
+                throw runtimeError('n < 0');
+            }
+            if (k < 0) {
+                throw runtimeError('k < 0');
+            }
+            if (n % 1 !== 0) {
+                throw runtimeError('n has to be an integer');
+            }
+            if (k % 1 !== 0) {
+                throw runtimeError('n has to be an integer.');
+            }
+            if (n < k) {
+                throw runtimeError('n < k');
+            }
+
+            return createNumberNode(calculateBinom(n, p, k));
+        },
+    )
     .addFunction(
         'cbinom',
         binomHeader,
         'Cumulative binomial distribution',
         'Kumulative Binomialverteilung',
-        ({ getParameter }) => {
+        ({ getParameter, runtimeError }) => {
             const n = (<NumberNode>getParameter('n')).value;
             const p = (<NumberNode>getParameter('p')).value;
             const k = (<NumberNode>getParameter('k')).value;
+
+            if (p < 0 || p > 1) {
+                throw runtimeError('p is not between 0 and 1');
+            }
+            if (n < 0) {
+                throw runtimeError('n < 0');
+            }
+            if (k < 0) {
+                throw runtimeError('k < 0');
+            }
+            if (n % 1 !== 0) {
+                throw runtimeError('n has to be an integer');
+            }
+            if (k % 1 !== 0) {
+                throw runtimeError('n has to be an integer.');
+            }
+            if (n < k) {
+                throw runtimeError('n < k');
+            }
+
             return createNumberNode(calculateCBinom(n, p, k));
         },
     );
