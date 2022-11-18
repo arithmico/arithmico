@@ -378,4 +378,3 @@ integrationTestThrow('gcdExtended(-1, 5)');
 integrationTestThrow('gcdExtended(1, -5)');
 integrationTestThrow('gcdExtended(1.5, 5)');
 integrationTestThrow('gcdExtended(1, 5.2)');
-
