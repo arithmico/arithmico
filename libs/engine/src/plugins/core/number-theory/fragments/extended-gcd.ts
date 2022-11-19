@@ -1,7 +1,7 @@
 import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
 import { greatestCommonDivisor } from '../../../../utils/float-utils';
-import { extendedEuclideanGreatestCommonDivisor } from '../utils/gcd-extended';
+import { extendedEuclideanGreatestCommonDivisor } from '../utils/gcd-extended-utils';
 import createEquals from '../../../../create/create-equals';
 import createPlus from '../../../../create/create-plus';
 import createTimes from '../../../../create/create-times';
@@ -13,7 +13,6 @@ const doubleNumberHeader: FunctionHeaderItem[] = [
 ];
 
 const gcdFragment = new PluginFragment()
-
     .addFunction(
         'gcd',
         doubleNumberHeader,
