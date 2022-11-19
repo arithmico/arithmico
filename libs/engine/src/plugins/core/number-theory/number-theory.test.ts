@@ -54,3 +54,9 @@ integrationTestThrow('gcdExtended(-1, 5)');
 integrationTestThrow('gcdExtended(1, -5)');
 integrationTestThrow('gcdExtended(1.5, 5)');
 integrationTestThrow('gcdExtended(1, 5.2)');
+
+// lcm
+integrationTest('lcm(12, 18)', '36');
+integrationTest('lcm(6, 7)', '42');
+integrationTestThrow('lcm(1, -5)');
+integrationTestThrow('lcm(1.5, 5)');

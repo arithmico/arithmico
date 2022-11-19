@@ -1,6 +1,6 @@
 import createPluginV2 from '../../../utils/plugin-builder-v2';
 import primeNumberFragment from './fragments/prime-numbers';
-import gcdFragment from './fragments/extended-gcd';
+import gcdLcmFragment from './fragments/gcd-lcm';
 
 const numberTheoryPlugin = createPluginV2(
     'core/number-theory',
@@ -8,7 +8,7 @@ const numberTheoryPlugin = createPluginV2(
     'core',
 )
     .addFragment(primeNumberFragment)
-    .addFragment(gcdFragment)
+    .addFragment(gcdLcmFragment)
     .build();
 
 export default numberTheoryPlugin;
