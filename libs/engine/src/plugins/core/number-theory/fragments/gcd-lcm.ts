@@ -12,7 +12,7 @@ const doubleNumberHeader: FunctionHeaderItem[] = [
     { name: 'b', type: 'number', evaluate: true },
 ];
 
-const gcdFragment = new PluginFragment()
+const gcdLcmFragment = new PluginFragment()
     .addFunction(
         'gcd',
         doubleNumberHeader,
@@ -61,6 +61,25 @@ const gcdFragment = new PluginFragment()
                 ),
             );
         },
+    )
+    .addFunction(
+        'lcm',
+        doubleNumberHeader,
+        'Calculates the least common multiple (lcm).',
+        'Berechnet das kleinste gemeinsame Vielfache (kgV).',
+        ({ getParameter, runtimeError }) => {
+            const a = (<NumberNode>getParameter('a')).value;
+            const b = (<NumberNode>getParameter('b')).value;
+
+            if (a % 1 !== 0 || b % 1 !== 0) {
+                throw runtimeError('Only integers are allowed.');
+            }
+            if (a < 1 || b < 1) {
+                throw runtimeError('Numbers smaller than 1 are not allowed.');
+            }
+
+            return createNumberNode((a * b) / greatestCommonDivisor(a, b));
+        },
     );
 
-export default gcdFragment;
+export default gcdLcmFragment;
