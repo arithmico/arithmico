@@ -27,6 +27,7 @@ integrationTest('prime:is(-1)', 'false');
 // prime:pi
 integrationTest('prime:pi(2)', '1');
 integrationTest('prime:pi(100)', '25');
+integrationTest('prime:pi(1223)', '200');
 integrationTestThrow('prime:pi(1.3)');
 integrationTestThrow('prime:pi(1)');
 integrationTestThrow('prime:pi(-1)');
