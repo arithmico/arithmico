@@ -1,6 +1,6 @@
 import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import createVector from '../../../../create/create-vector';
-import { getNthPrimeNumber, isPrimeNumber, sieveOfEratosthenes } from '../utils/prime-number-utils';
+import { getNthPrimeNumber, isPrimeNumber, sieveOfAtkin } from '../utils/prime-number-utils';
 import createNumberNode from '../../../../create/create-number-node';
 import createBooleanNode from '../../../../create/create-boolean-node';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';
@@ -23,7 +23,7 @@ const primeNumberFragment = new PluginFragment()
                 throw runtimeError('Numbers smaller than 2 are not allowed.');
             }
 
-            return createVector(sieveOfEratosthenes(n).map((value) => createNumberNode(value)));
+            return createVector(sieveOfAtkin(n).map((value) => createNumberNode(value)));
         },
     )
     .addFunction(
@@ -69,7 +69,7 @@ const primeNumberFragment = new PluginFragment()
                 throw runtimeError('Numbers smaller than 2 are not allowed.');
             }
 
-            return createNumberNode(sieveOfEratosthenes(n).length);
+            return createNumberNode(sieveOfAtkin(n).length);
         },
     );
 
