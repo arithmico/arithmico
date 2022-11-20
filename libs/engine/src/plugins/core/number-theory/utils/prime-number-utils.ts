@@ -65,8 +65,8 @@ export function sieveOfAtkin(n: number) {
         }
     }
 
-    primeCandidates.forEach((value, index) => {
-        if (value) {
+    primeCandidates.forEach((isPrime, index) => {
+        if (isPrime) {
             primes.push(index);
         }
     });
@@ -74,13 +74,11 @@ export function sieveOfAtkin(n: number) {
 }
 
 export function getNthPrimeNumber(n: number) {
-    let sizeFactor = 2;
-    let primes;
-    do {
+    let primes = sieveOfAtkin(n);
+    for (let sizeFactor = 2; primes.length <= n; sizeFactor++) {
         primes = sieveOfAtkin(sizeFactor * n);
-        sizeFactor++;
-    } while (primes.length <= n);
-    return primes[n - 1];
+    }
+    return primes[n - 1]
 }
 
 export function isPrimeNumber(number: number) {
