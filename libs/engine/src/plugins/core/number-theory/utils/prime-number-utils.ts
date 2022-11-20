@@ -1,92 +1,76 @@
-import { valid } from 'overlayscrollbars';
-
 function getNumbersFrom2ToN(n: number) {
     return new Array(n - 1).fill(0).map((_, index) => index + 2);
 }
 
 export function sieveOfAtkin(n: number) {
-    const s = [1, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49, 53, 59];
-    const a = new Array(n).fill(false);
+    const primes: number[] = [];
+    if (n >= 2) {
+        primes.push(2);
+    }
+    if (n >= 3) {
+        primes.push(3);
+    }
+    if (n >= 5) {
+        primes.push(5);
+    }
+
+    if (n < 7) {
+        return primes;
+    }
+
+    const primeCandidates = new Array(n).fill(false);
     const loopEnd = Math.sqrt(n);
 
-    for (let x = 1; x < loopEnd; x++) {
-        for (let y = 0; y < loopEnd; y += 2) {
-            const m = 4 * x ** 2 + y ** 2;
+    for (let x = 1; x <= loopEnd; x++) {
+        for (let y = 1; y <= loopEnd; y += 2) {
+            const m = 4 * x * x + y * y;
             if (new Set([1, 13, 17, 29, 37, 41, 49, 53]).has(m % 60) && m <= n) {
-                a[m] = !a[m];
+                primeCandidates[m] = !primeCandidates[m];
             }
         }
     }
 
-    for (let x = 1; x < loopEnd; x += 2) {
-        for (let y = 2; y < loopEnd; y += 2) {
-            const m = 3 * x ** 2 + y ** 2;
+    for (let x = 1; x <= loopEnd; x += 2) {
+        for (let y = 2; y <= loopEnd; y += 2) {
+            const m = 3 * x * x + y * y;
             if (new Set([7, 19, 31, 43]).has(m % 60) && m <= n) {
-                a[m] = !a[m];
+                primeCandidates[m] = !primeCandidates[m];
             }
         }
     }
 
-    for (let x = 2; x < loopEnd; x++) {
-        for (let y = x - 1; y > 1; y -= 2) {
-            const m = 3 * x ** 2 - y ** 2;
+    for (let x = 2; x <= loopEnd; x++) {
+        for (let y = x - 1; 1 <= y; y -= 2) {
+            const m = 3 * x * x - y * y;
             if (new Set([11, 23, 47, 59]).has(m % 60) && m <= n) {
-                a[m] = !a[m];
+                primeCandidates[m] = !primeCandidates[m];
             }
         }
     }
 
-    const temp: Set<number> = new Set();
-    new Array(Math.floor(n / 60))
-        .fill(0)
-        .map((_, index) => 60 * index)
-        .forEach((value) => s.forEach((sValue) => M.add(value + sValue)));
-    const M = new Set(Array.from(temp).sort((a, b) => a - b));
-
-    M.delete(1);
-    for (const m of M) {
-        if (m ** 2 > n) {
+    const loopEnd2 = Math.round(n / 60) + 59;
+    for (let m = 0; m < loopEnd2; m++) {
+        const squaredM = m * m;
+        if (squaredM > n) {
             break;
         }
-        const mm = m ** 2;
-        if (a[m]) {
-            for (const m2 of M) {
-                const c = mm * m2;
-                if (c > n) {
+        if (primeCandidates[m]) {
+            for (let m2 = 0; loopEnd2; m2++) {
+                const cubedM = squaredM * m2;
+                if (cubedM > n) {
                     break;
                 }
-                a[c] = false;
+                primeCandidates[cubedM] = false;
             }
         }
     }
-    const primes = [2, 3, 5];
-    return primes.concat(
-        a.reduce(
-            (a, b, currentIndex) =>
-                function (filtered: number[], value: boolean) {
-                    if (value) {
-                        filtered.push(currentIndex);
-                    }
-                    return filtered;
-                },
-            [],
-        ),
-    );
-}
 
-function sieveOfEratosthenes(n: number) {
-    const numbers = getNumbersFrom2ToN(n);
-    let reversedNumbers = [...numbers].reverse();
-    const result: number[] = [];
-
-    for (let i = 0; i < numbers.length; i++) {
-        const primeNumber = reversedNumbers.pop();
-        result.push(primeNumber);
-        if (primeNumber << 1 > n) {
-            return result.concat(reversedNumbers).sort((a, b) => a - b);
+    primeCandidates.forEach((value, index) => {
+        if (value) {
+            primes.push(index);
         }
-        reversedNumbers = reversedNumbers.filter((value) => value % primeNumber !== 0);
-    }
+    });
+    return primes;
 }
 
 export function getNthPrimeNumber(n: number) {
