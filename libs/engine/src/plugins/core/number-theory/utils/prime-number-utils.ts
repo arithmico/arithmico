@@ -21,28 +21,31 @@ export function sieveOfAtkin(n: number) {
     const primeCandidates = new Array(n).fill(false);
     const loopEnd = Math.sqrt(n);
 
+    const set1 = new Set([1, 13, 17, 29, 37, 41, 49, 53]);
     for (let x = 1; x <= loopEnd; x++) {
         for (let y = 1; y <= loopEnd; y += 2) {
             const m = 4 * x * x + y * y;
-            if (new Set([1, 13, 17, 29, 37, 41, 49, 53]).has(m % 60) && m <= n) {
+            if (set1.has(m % 60) && m <= n) {
                 primeCandidates[m] = !primeCandidates[m];
             }
         }
     }
 
+    const set2 = new Set([7, 19, 31, 43]);
     for (let x = 1; x <= loopEnd; x += 2) {
         for (let y = 2; y <= loopEnd; y += 2) {
             const m = 3 * x * x + y * y;
-            if (new Set([7, 19, 31, 43]).has(m % 60) && m <= n) {
+            if (set2.has(m % 60) && m <= n) {
                 primeCandidates[m] = !primeCandidates[m];
             }
         }
     }
 
+    const set3 = new Set([11, 23, 47, 59]);
     for (let x = 2; x <= loopEnd; x++) {
         for (let y = x - 1; 1 <= y; y -= 2) {
             const m = 3 * x * x - y * y;
-            if (new Set([11, 23, 47, 59]).has(m % 60) && m <= n) {
+            if (set3.has(m % 60) && m <= n) {
                 primeCandidates[m] = !primeCandidates[m];
             }
         }
@@ -78,7 +81,7 @@ export function getNthPrimeNumber(n: number) {
     for (let sizeFactor = 2; primes.length <= n; sizeFactor++) {
         primes = sieveOfAtkin(sizeFactor * n);
     }
-    return primes[n - 1]
+    return primes[n - 1];
 }
 
 export function isPrimeNumber(number: number) {
