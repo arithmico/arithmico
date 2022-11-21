@@ -1,5 +1,4 @@
 import { integrationTest, integrationTestThrow } from '../../../utils/integration-test-utils';
-import Nintegrate from "../nintegrate/nintegrate";
 
 // prime:range
 integrationTest('prime:range(2)', '[2]');
