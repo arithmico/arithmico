@@ -51,14 +51,14 @@ export function sieveOfAtkin(n: number) {
         }
     }
 
-    const loopEnd2 = Math.round(n / 60) + 59;
-    for (let m = 0; m < loopEnd2; m++) {
+    const loopEnd2 = n / 60 + 59;
+    for (let m = 0; m <= loopEnd2; m++) {
         const squaredM = m * m;
         if (squaredM > n) {
             break;
         }
         if (primeCandidates[m]) {
-            for (let m2 = 0; loopEnd2; m2++) {
+            for (let m2 = 0; m2 <= loopEnd2; m2++) {
                 const cubedM = squaredM * m2;
                 if (cubedM > n) {
                     break;
