@@ -1,4 +1,5 @@
 import { integrationTest, integrationTestThrow } from '../../../utils/integration-test-utils';
+import Nintegrate from "../nintegrate/nintegrate";
 
 // prime:range
 integrationTest('prime:range(2)', '[2]');
@@ -61,3 +62,18 @@ integrationTest('lcm(12, 18)', '36');
 integrationTest('lcm(6, 7)', '42');
 integrationTestThrow('lcm(1, -5)');
 integrationTestThrow('lcm(1.5, 5)');
+
+// coprime
+integrationTest('coprime(12, 77)', 'true');
+integrationTest('coprime(4, 12)', 'false');
+integrationTestThrow('coprime(1, 5.2)');
+integrationTestThrow('coprime(1, -5)');
+
+// euler:phi
+integrationTest('euler:phi(1)', '1');
+integrationTest('euler:phi(2)', '1');
+integrationTest('euler:phi(10)', '4');
+integrationTest('euler:phi(72)', '24');
+integrationTest('euler:phi(100)', '40');
+integrationTestThrow('prime:pi(1.3)');
+integrationTestThrow('prime:pi(-1)');
