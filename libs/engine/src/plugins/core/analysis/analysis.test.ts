@@ -41,6 +41,11 @@ integrationTest('root(8,3)', '2');
 integrationTestThrow('root(-1, 2)');
 integrationTestThrow('root(1, -2)');
 
+// table
+integrationTest('table((x)->x^2,0,2,1)', '[[0, 0], [1, 1], [2, 4]]');
+integrationTest('table((x: number)->x^2,0,2,1)', '[[0, 0], [1, 1], [2, 4]]');
+integrationTestThrow('table((x: boolean)->x^2,0,2,1)');
+
 // round
 integrationTest('round(0.5)', '1');
 integrationTest('round(-0.5)', '0');
@@ -64,3 +69,9 @@ integrationTest('abs(7)', '7');
 
 // length
 integrationTest('length([1,2,2])', '3');
+
+// min
+integrationTest('min(-1,1,2,3)', '-1');
+
+// max
+integrationTest('max(-1,1,2,3,2,1)', '3');

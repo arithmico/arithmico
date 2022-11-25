@@ -11,7 +11,7 @@ const minmaxFragment = new PluginFragment()
         'returns the minimum of all passed parameters',
         'Gibt das Minimum aus allen übergebenen Werten zurück.',
         ({ getParameter }) => {
-            const values = (<SyntaxTreeNode[]>getParameter('x')).map((value) => (<NumberNode>value).value);
+            const values = (<SyntaxTreeNode[]>getParameter('v')).map((value) => (<NumberNode>value).value);
             return createNumberNode(Math.min(...values));
         },
     )
@@ -22,7 +22,7 @@ const minmaxFragment = new PluginFragment()
         'Gibt das Maximum aus allen übergebenen Werten zurück.',
 
         ({ getParameter }) => {
-            const values = (<SyntaxTreeNode[]>getParameter('x')).map((value) => (<NumberNode>value).value);
+            const values = (<SyntaxTreeNode[]>getParameter('v')).map((value) => (<NumberNode>value).value);
             return createNumberNode(Math.max(...values));
         },
     );

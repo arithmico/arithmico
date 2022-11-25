@@ -5,27 +5,21 @@ import { parse } from '@arithmico/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
-import trigonometryPlugin from './plugins/core/analysis/fragments/trigonometry';
 import { insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
 import nderivePlugin from './plugins/core/nderive/nderive';
-import minmaxPlugin from './plugins/core/analysis/fragments/minmax';
-import absPlugin from './plugins/core/analysis/fragments/abs';
 import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
-import rootsPlugin from './plugins/core/analysis/fragments/roots';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
-import tablePlugin from './plugins/core/table/table';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
 import polynomialPlugin from './plugins/core/polynomials/polynomial';
 import tensorPlugin from './plugins/core/tensor/tensor-plugin';
-import roundPlugin from './plugins/core/analysis/fragments/round';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
@@ -41,7 +35,6 @@ const plugins = [
     statisticsPlugin,
     physicalConstantsPlugin,
     ifThenElsePlugin,
-    tablePlugin,
     inverseMatrixPlugin,
     polynomialPlugin,
     tensorPlugin,
