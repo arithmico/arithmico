@@ -93,6 +93,24 @@ integrationTest('idiv(4, 3)', '1');
 integrationTestThrow('idiv(3,0)');
 integrationTestThrow('idiv(-3,0)');
 
+// binco
+integrationTest('binco(5, 0)', '1');
+integrationTest('binco(5, 1)', '5');
+integrationTest('binco(7,4)', '35');
+integrationTestThrow('binco(-3, 5)');
+integrationTestThrow('binco(3, -5)');
+integrationTestThrow('binco(5, 0.5)');
+integrationTestThrow('binco(5.4, 2)');
+integrationTestThrow('binco(3, 5)');
+integrationTestThrow('binco(2, 3)');
+
+// fact
+integrationTest('fact(0)', '1');
+integrationTest('fact(1)', '1');
+integrationTest('fact(7)', '5040');
+integrationTestThrow('fact(-1)');
+integrationTestThrow('fact(0.1)');
+
 // fib
 integrationTest('fib(1)', '1');
 integrationTest('fib(2)', '1');
