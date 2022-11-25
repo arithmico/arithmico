@@ -1,9 +1,5 @@
 import { integrationTest, integrationTestThrow } from '../../../utils/integration-test-utils';
 
-// erf
-integrationTest('erf(1)', '0.842701');
-integrationTest('erf(-1)', '-0.842701');
-
 // fact
 integrationTest('fact(0)', '1');
 integrationTest('fact(1)', '1');
@@ -90,3 +86,7 @@ integrationTest(
 integrationTestThrow('corr([18, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])');
 integrationTestThrow('corr([18, a, 42, 14, 22, 35, 45, 8], [22, 10, 53, 30, 25, 36, 45, 13])');
 integrationTestThrow('corr([18, 2, 42, 14, 22, 35, 45, 8], [22, b, 53, 30, 25, 36, 45, 13])');
+
+// erf
+integrationTest('erf(1)', '0.842701');
+integrationTest('erf(-1)', '-0.842701');
