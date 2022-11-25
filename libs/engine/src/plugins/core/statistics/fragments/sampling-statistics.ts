@@ -1,13 +1,13 @@
-import { FunctionHeaderItem, NumberNode, SyntaxTreeNode, Vector } from '../../../../types/SyntaxTreeNodes';
+import {FunctionHeaderItem, NumberNode, SyntaxTreeNode, Vector} from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
-import { calculateAvg } from '../utils/avg';
-import { calculateBiasedSampleVariance, calculateUnbiasedSampleVariance } from '../utils/var';
-import { calculateBiasedStandartDeviation, calculateUnbiasedStandardDeviation } from '../utils/sd';
-import { calculateQuantile } from '../utils/quantile';
-import { isEveryElementNumber } from '../../../../utils/tensor-utils';
-import { calculateCovariance } from '../utils/covariance';
-import { calculateCorrelationCoefficient } from '../utils/corr';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import {calculateAvg} from '../utils/avg';
+import {calculateBiasedSampleVariance, calculateUnbiasedSampleVariance} from '../utils/var';
+import {calculateBiasedStandartDeviation, calculateUnbiasedStandardDeviation} from '../utils/sd';
+import {calculateQuantile} from '../utils/quantile';
+import {isEveryElementNumber} from '../../../../utils/tensor-utils';
+import {calculateCovariance} from '../utils/covariance';
+import {calculateCorrelationCoefficient} from '../utils/corr';
+import {PluginFragment} from '../../../../utils/plugin-builder-v2';
 
 const numberSeriesHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true, repeat: true }];
 const quantileHeader: FunctionHeaderItem[] = [
@@ -131,19 +131,14 @@ const samplingStatisticsFragment = new PluginFragment()
                 throw runtimeError('All elements of ys must be numbers.');
             }
 
-            const xsValue = xs.values;
-            const ysValue = ys.values;
+            const xValues = xs.values.map((v) => (<NumberNode>v).value);
+            const yValues = ys.values.map((v) => (<NumberNode>v).value);
 
-            if (xsValue.length !== ysValue.length) {
+            if (xValues.length !== yValues.length) {
                 throw runtimeError('Both vectors must have the same length.');
             }
 
-            return createNumberNode(
-                calculateCovariance(
-                    xsValue.map((v) => (<NumberNode>v).value),
-                    ysValue.map((v) => (<NumberNode>v).value),
-                ),
-            );
+            return createNumberNode(calculateCovariance(xValues, yValues));
         },
     )
     .addFunction(
@@ -163,14 +158,14 @@ const samplingStatisticsFragment = new PluginFragment()
                 throw runtimeError('All elements of ys must be numbers.');
             }
 
-            const xsValue = xs.values.map((v) => (<NumberNode>v).value);
-            const ysValue = ys.values.map((v) => (<NumberNode>v).value);
+            const xValues = xs.values.map((v) => (<NumberNode>v).value);
+            const yValues = ys.values.map((v) => (<NumberNode>v).value);
 
-            if (xsValue.length !== ysValue.length) {
+            if (xValues.length !== yValues.length) {
                 throw runtimeError('Both vectors must have the same length.');
             }
 
-            return createNumberNode(calculateCorrelationCoefficient(xsValue, ysValue));
+            return createNumberNode(calculateCorrelationCoefficient(xValues, yValues));
         },
     );
 
