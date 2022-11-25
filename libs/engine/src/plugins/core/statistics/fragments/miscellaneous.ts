@@ -1,11 +1,11 @@
-import {FunctionHeaderItem, NumberNode} from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
-import {calculateErf} from '../utils/erf';
-import {PluginFragment} from '../../../../utils/plugin-builder-v2';
+import { calculateErf } from '../utils/erf';
+import { PluginFragment } from '../../../../utils/plugin-builder-v2';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 
-const miscellaneousFragment = new PluginFragment().addFragment(
+const miscellaneousFragment = new PluginFragment().addFunction(
     'erf',
     singleNumberHeader,
     'Gaussian error function',
