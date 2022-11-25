@@ -74,5 +74,6 @@ integrationTest('euler:phi(2)', '1');
 integrationTest('euler:phi(10)', '4');
 integrationTest('euler:phi(72)', '24');
 integrationTest('euler:phi(100)', '40');
-integrationTestThrow('prime:phi(1.3)');
-integrationTestThrow('prime:phi(-1)');
+integrationTestThrow('euler:phi(1.3)');
+integrationTestThrow('euler:phi(-1)');
+
