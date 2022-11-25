@@ -5,7 +5,7 @@ import { parse } from '@arithmico/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
-import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
+import trigonometryPlugin from './plugins/core/analysis/fragments/trigonometry';
 import { insertStackObject } from './utils/context-utils';
 import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
@@ -27,13 +27,12 @@ import polynomialPlugin from './plugins/core/polynomials/polynomial';
 import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import roundPlugin from './plugins/core/round/round-plugin';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
-import analysisPlugin from './plugins/core/analysis-plugin/analysis-plugin';
+import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
 
 export { serializeStack } from './utils/context-utils';
 
 const plugins = [
-    trigonometryPlugin,
     nsolvePlugin,
     lsolvePlugin,
     nintegratePlugin,
