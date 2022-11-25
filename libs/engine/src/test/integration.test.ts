@@ -205,6 +205,7 @@ integrationTest('((x; y) -> x + y)', '(x: any; y: any) → x + y', germanTextCon
 integrationTest('\\sqrt {4}', '2');
 integrationTest('\\sqrt [3] {8}', '2');
 integrationTest('\\frac {4} {8}', '0.5');
+integrationTest('\\frac {4} {\\sqrt { 4 } }', '2');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
