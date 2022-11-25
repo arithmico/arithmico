@@ -49,9 +49,6 @@ integrationTest('((x: number) -> x) + ((y: number) -> y^2)', '(x: number) → x 
 integrationTest('((x: number) -> x) + ((x: number) -> x^2)', '(x: number) → x + x^2');
 integrationTest('lsolve(2*x+3*y=-6, -3*x-4*y=7)', '[x = 3, y = -4]');
 integrationTest('lsolve(x=2, x=3-y)', '[x = 2, y = 1]');
-integrationTest('nintegrate((x)->x^2,0,1)', '0.333333');
-integrationTest('nintegrate((x)->2*x^2,0,1)', '0.666667');
-integrationTest('nintegrate((x)->1/x, -1, 1)', '0');
 integrationTest('cross([1,2,3],[-7,8,9])', '[-6, -30, 22]');
 integrationTest('cross([1,0,0],[0,1,0])', '[0, 0, 1]');
 integrationTest('ite(true, 1, 2)', '1');
@@ -159,7 +156,6 @@ integrationTestThrow('[[1,2],3]+[1,2,3]');
 integrationTestThrow('[1,2]+[1,2,3]');
 integrationTestThrow('(-1)^2.1');
 integrationTestThrow('lsolve(x+y=1,2*x+2*y=1)');
-integrationTestThrow('nintegrate((x)->x&true, -1, 1)');
 integrationTestThrow('1,2+1,3');
 integrationTestThrow('((x; y) -> x + y)(1;2)');
 integrationTestThrow('matrix:det([[1, 2],[4, 3],[3, 4]])');
@@ -215,4 +211,3 @@ integrationTestThrow('list:reduce((a,b)->a+b,[1])');
 integrationTestThrow('list:reduce((a)->a,[1])');
 integrationTestThrow('list:sort([1, true, 2])');
 integrationTestThrow('list:range(1, 10, 0)');
-

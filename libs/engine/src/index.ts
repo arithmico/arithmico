@@ -6,10 +6,7 @@ import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
 import { insertStackObject } from './utils/context-utils';
-import nsolvePlugin from './plugins/core/numeric-methods/fragments/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
-import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
-import nderivePlugin from './plugins/core/numeric-methods/fragments/nderive';
 import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
@@ -29,7 +26,6 @@ export { serializeStack } from './utils/context-utils';
 
 const plugins = [
     lsolvePlugin,
-    nintegratePlugin,
     crossPlugin,
     statisticsPlugin,
     physicalConstantsPlugin,

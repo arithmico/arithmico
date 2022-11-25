@@ -1,5 +1,5 @@
-import evaluate from '../../../eval';
-import { Context, NumberNode, SyntaxTreeNode } from '../../../types';
+import evaluate from '../../../../eval';
+import { Context, NumberNode, SyntaxTreeNode } from '../../../../types';
 
 const positionWheightPairs = [
     [0.9914553711208126, 0.022935322010529224],
