@@ -43,18 +43,18 @@ integrationTestThrow('gcd(1.5, 5)');
 integrationTestThrow('gcd(1, 5.2)');
 
 // gcdExtended
-integrationTest('gcdExtended(4, 12)', '4 = 1 * 4 + 0 * 12');
-integrationTest('gcdExtended(12, 4)', '4 = 0 * 12 + 1 * 4');
-integrationTest('gcdExtended(12, 6)', '6 = 0 * 12 + 1 * 6');
-integrationTest('gcdExtended(6, 12)', '6 = 1 * 6 + 0 * 12');
-integrationTest('gcdExtended(12, 8)', '4 = 1 * 12 + (-1) * 8');
-integrationTest('gcdExtended(8, 12)', '4 = (-1) * 8 + 1 * 12');
-integrationTest('gcdExtended(63, 22)', '1 = 7 * 63 + (-20) * 22');
-integrationTest('gcdExtended(22, 63)', '1 = (-20) * 22 + 7 * 63');
-integrationTestThrow('gcdExtended(-1, 5)');
-integrationTestThrow('gcdExtended(1, -5)');
-integrationTestThrow('gcdExtended(1.5, 5)');
-integrationTestThrow('gcdExtended(1, 5.2)');
+integrationTest('gcd:extended(4, 12)', '4 = 1 * 4 + 0 * 12');
+integrationTest('gcd:extended(12, 4)', '4 = 0 * 12 + 1 * 4');
+integrationTest('gcd:extended(12, 6)', '6 = 0 * 12 + 1 * 6');
+integrationTest('gcd:extended(6, 12)', '6 = 1 * 6 + 0 * 12');
+integrationTest('gcd:extended(12, 8)', '4 = 1 * 12 + (-1) * 8');
+integrationTest('gcd:extended(8, 12)', '4 = (-1) * 8 + 1 * 12');
+integrationTest('gcd:extended(63, 22)', '1 = 7 * 63 + (-20) * 22');
+integrationTest('gcd:extended(22, 63)', '1 = (-20) * 22 + 7 * 63');
+integrationTestThrow('gcd:extended(-1, 5)');
+integrationTestThrow('gcd:extended(1, -5)');
+integrationTestThrow('gcd:extended(1.5, 5)');
+integrationTestThrow('gcd:extended(1, 5.2)');
 
 // lcm
 integrationTest('lcm(12, 18)', '36');
