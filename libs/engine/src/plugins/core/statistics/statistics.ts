@@ -1,7 +1,7 @@
 import createPluginV2 from '../../../utils/plugin-builder-v2';
 import distributionFragment from './fragments/distributions';
 import samplingStatisticsFragment from './fragments/sampling-statistics';
-import miscellaneousFragment from "./fragments/miscellaneous";
+import miscellaneousStatisticsFragment from "./fragments/miscellaneous";
 
 const statisticsPlugin = createPluginV2(
     'core/statistics',
@@ -10,7 +10,7 @@ const statisticsPlugin = createPluginV2(
 )
     .addFragment(distributionFragment)
     .addFragment(samplingStatisticsFragment)
-    .addFragment(miscellaneousFragment)
+    .addFragment(miscellaneousStatisticsFragment)
     .build();
 
 export default statisticsPlugin;

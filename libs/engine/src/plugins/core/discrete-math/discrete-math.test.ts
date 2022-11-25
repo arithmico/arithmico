@@ -92,3 +92,10 @@ integrationTest('idiv(4, -3)', '-1');
 integrationTest('idiv(4, 3)', '1');
 integrationTestThrow('idiv(3,0)');
 integrationTestThrow('idiv(-3,0)');
+
+// fib
+integrationTest('fib(1)', '1');
+integrationTest('fib(2)', '1');
+integrationTest('fib(19)', '4181');
+integrationTestThrow('fib(0)');
+integrationTestThrow('fib(3.5)');

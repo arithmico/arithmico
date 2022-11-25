@@ -120,9 +120,6 @@ integrationTest('matrix:inverse([[2, 1, 0], [1, 2, -2], [0, -1, 1]])', '[[0, 1, 
 integrationTest('matrix:transpose([[1, 2],[4, 3],[3, 4]])', '[[1, 4, 3], [2, 3, 4]]');
 integrationTest('matrix:adj([[4, 3], [5, 7]])', '[[7, -3], [-5, 4]]');
 integrationTest('matrix:cof([[4, 3], [5, 7]])', '[[7, -5], [-3, 4]]');
-integrationTest('fib(1)', '1');
-integrationTest('fib(2)', '1');
-integrationTest('fib(19)', '4181');
 integrationTest('[1, 2, 3]^3', '[14, 28, 42]');
 integrationTest('[1, 2, 3]^1', '[1, 2, 3]');
 integrationTest('[[1, 2], [3, 4]]^3', '[[37, 54], [81, 118]]');
@@ -234,8 +231,6 @@ integrationTestThrow('matrix:adj([1])');
 integrationTestThrow('matrix:cof([[1, a],[3, 4]]');
 integrationTestThrow('matrix:cof([[2, 1, 0], [1, 2], [4, 2, 0]])');
 integrationTestThrow('matrix:cof([1])');
-integrationTestThrow('fib(0)');
-integrationTestThrow('fib(3.5)');
 integrationTestThrow('[1, [2, 3]]^1');
 integrationTestThrow('[1, 2]^(-1)');
 integrationTestThrow('[1, 2]^1.5');
