@@ -9,7 +9,7 @@ import { FunctionHeaderItem, NumberNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
 import createVector from '../../../create/create-vector';
-import { getNthPrimeNumber, isPrimeNumber, sieveOfEratosthenes } from './utils/prime-number-utils';
+import { getNthPrimeNumber, isPrime, isPrimeNumber, sieveOfEratosthenes } from './utils/prime-number-utils';
 import createBooleanNode from '../../../create/create-boolean-node';
 import { greatestCommonDivisor } from '../../../utils/float-utils';
 import { extendedEuclideanGreatestCommonDivisor } from './utils/gcd-extended';
@@ -174,6 +174,21 @@ addPluginFunction(
                     createTimes(createNumberNode(bezoutFactorB), createNumberNode(b)),
                 ),
             );
+        },
+    ),
+);
+
+addPluginFunction(
+    numberTheoryPlugin,
+    createPluginFunction(
+        'prime:is',
+        singleNumberHeader,
+        'Returns true if the given number is a prime number, otherwise returns false.',
+        'Gibt true zurück, wenn die gegebene Zahl eine Primzahl ist, ansonsten wird false zurückgegeben.',
+        (parameters, context) => {
+            const parameterStackFrame = mapParametersToStackFrame('prime:is', parameters, singleNumberHeader, context);
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
+            return createBooleanNode(isPrime(n));
         },
     ),
 );
