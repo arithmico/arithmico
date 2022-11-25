@@ -77,3 +77,18 @@ integrationTest('euler:phi(100)', '40');
 integrationTestThrow('euler:phi(1.3)');
 integrationTestThrow('euler:phi(-1)');
 
+// mod
+integrationTest('mod(2, 3)', '2');
+integrationTest('mod(-2, 3)', '1');
+integrationTest('mod(2, -3)', '-1');
+integrationTest('mod(-2, -3)', '-2');
+integrationTestThrow('mod(3,0)');
+integrationTestThrow('mod(-3,0)');
+
+// idiv
+integrationTest('idiv(4, 3)', '1');
+integrationTest('idiv(-4, 3)', '-1');
+integrationTest('idiv(4, -3)', '-1');
+integrationTest('idiv(4, 3)', '1');
+integrationTestThrow('idiv(3,0)');
+integrationTestThrow('idiv(-3,0)');

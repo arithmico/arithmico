@@ -20,7 +20,7 @@ import rootsPlugin from './plugins/core/roots/roots';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import tablePlugin from './plugins/core/table/table';
-import moduloPlugin from './plugins/core/modulo/modulo';
+import moduloPlugin from './plugins/core/discrete-math/fragments/modulo';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
