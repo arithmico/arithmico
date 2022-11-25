@@ -25,7 +25,7 @@ import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
 import polynomialPlugin from './plugins/core/polynomials/polynomial';
 import tensorPlugin from './plugins/core/tensor/tensor-plugin';
-import roundPlugin from './plugins/core/round/round-plugin';
+import roundPlugin from './plugins/core/analysis/fragments/round';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
@@ -47,7 +47,6 @@ const plugins = [
     inverseMatrixPlugin,
     polynomialPlugin,
     tensorPlugin,
-    roundPlugin,
     listmodPlugin,
     analysisPlugin,
     discreteMathPlugin,

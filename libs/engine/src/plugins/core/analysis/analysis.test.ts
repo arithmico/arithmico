@@ -40,3 +40,20 @@ integrationTestThrow('sqrt(-1)');
 integrationTest('root(8,3)', '2');
 integrationTestThrow('root(-1, 2)');
 integrationTestThrow('root(1, -2)');
+
+// round
+integrationTest('round(0.5)', '1');
+integrationTest('round(-0.5)', '0');
+integrationTest('round(-0.6)', '-1');
+integrationTest('round(3)', '3');
+integrationTest('round(0.4)', '0');
+
+// floor
+integrationTest('floor(1.1)', '1');
+integrationTest('floor(-1.1)', '-2');
+integrationTest('floor(2)', '2');
+
+// ceil
+integrationTest('ceil(-1.1)', '-1');
+integrationTest('ceil(1.2)', '2');
+integrationTest('ceil(1)', '1');
