@@ -126,7 +126,39 @@ LambdaWithOneUntypedParameter = parameter:Symbol _ ("->" / "→") _ expr:Express
     }
 }
 
-Expression = Or
+Expression = Or / LatexExpression
+
+LatexExpression = LatexSqrtWithDegree / LatexSqrt / LatexFrac
+
+LatexSqrt = "\\sqrt" _ "{" _ expr:Expression _ "}" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "sqrt"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexSqrtWithDegree = "\\sqrt" _ "[" _ degree:Expression _ "]" _ "{" _ expr:Expression _ "}" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "root"
+        },
+        parameters: [expr, degree]
+    }
+}
+
+LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}" {
+    return {
+        type: "divided",
+        left,
+        right
+    }
+} 
 
 // logic
 Or = left:And _ "|" _ right:Or {
