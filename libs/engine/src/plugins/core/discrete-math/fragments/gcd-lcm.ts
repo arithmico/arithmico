@@ -33,7 +33,7 @@ const gcdLcmFragment = new PluginFragment()
         },
     )
     .addFunction(
-        'gcdExtended',
+        'gcd:extended',
         doubleNumberHeader,
         'Calculates the greatest common divisor (gcd) with extended euclidean algorithm.',
         'Berechnet den größten gemeinsamen Teiler (ggT) mit dem erweitertem euklidischen Algorithmus.',
