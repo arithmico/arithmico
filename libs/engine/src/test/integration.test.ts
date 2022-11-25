@@ -323,3 +323,7 @@ integrationTestThrow('gcdExtended(-1, 5)');
 integrationTestThrow('gcdExtended(1, -5)');
 integrationTestThrow('gcdExtended(1.5, 5)');
 integrationTestThrow('gcdExtended(1, 5.2)');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9cc6a0d (feat: add extended gcd)
