@@ -41,7 +41,7 @@ addPluginFunction(
                 singleNumberHeader,
                 context,
             );
-            const n = (<NumberNode>parameterStackFrame['n']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
 
             if (n % 1 !== 0) {
                 throw 'RuntimeError: prime:range: Only integers are allowed.';
@@ -63,7 +63,7 @@ addPluginFunction(
         'Gibt die nte Primzahl zurück.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('prime:nth', parameters, singleNumberHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
 
             if (n % 1 !== 0) {
                 throw 'RuntimeError: prime:nth: Only integers are allowed.';
@@ -85,7 +85,7 @@ addPluginFunction(
         'Gibt true zurück, wenn die gegebene Zahl eine Primzahl ist, ansonsten wird false zurückgegeben.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('prime:is', parameters, singleNumberHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
             return createBooleanNode(isPrimeNumber(n));
         },
     ),
@@ -100,7 +100,7 @@ addPluginFunction(
         'Die Pi Funktion gibt die Anzahl der Primzahlen im Intervall (1, n] an.',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('prime:pi', parameters, singleNumberHeader, context);
-            const n = (<NumberNode>parameterStackFrame['n']).value;
+            const n = (<NumberNode>parameterStackFrame.get('n')).value;
 
             if (n % 1 !== 0) {
                 throw 'RuntimeError: prime:pi: Only integers are allowed.';
@@ -123,8 +123,8 @@ addPluginFunction(
         'Berechnet den größten gemeinsamen Teiler (ggT).',
         (parameters, context) => {
             const parameterStackFrame = mapParametersToStackFrame('gcd', parameters, doubleNumberHeader, context);
-            const a = (<NumberNode>parameterStackFrame['a']).value;
-            const b = (<NumberNode>parameterStackFrame['b']).value;
+            const a = (<NumberNode>parameterStackFrame.get('a')).value;
+            const b = (<NumberNode>parameterStackFrame.get('b')).value;
 
             if (a % 1 !== 0 || b % 1 !== 0) {
                 throw 'RuntimeError: gcd: Only integers are allowed.';
@@ -152,8 +152,8 @@ addPluginFunction(
                 doubleNumberHeader,
                 context,
             );
-            const a = (<NumberNode>parameterStackFrame['a']).value;
-            const b = (<NumberNode>parameterStackFrame['b']).value;
+            const a = (<NumberNode>parameterStackFrame.get('a')).value;
+            const b = (<NumberNode>parameterStackFrame.get('b')).value;
 
             if (a % 1 !== 0 || b % 1 !== 0) {
                 throw 'RuntimeError: gcdExtended: Only integers are allowed.';
