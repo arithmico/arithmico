@@ -1,6 +1,5 @@
 import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
-import { calculateErf } from '../utils/erf';
 import { calculateFact } from '../utils/fact';
 import { calculateCNormal, calculateNormal } from '../utils/normal';
 import { calculateBinom, calculateCBinom } from '../utils/binomial';
