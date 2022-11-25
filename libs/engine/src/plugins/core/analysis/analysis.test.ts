@@ -31,3 +31,12 @@ integrationTest('sin(pi)', '0', radiansTestContext);
 integrationTest('sin(180)', '0');
 integrationTest('sin(pi/2)', '1', radiansTestContext);
 integrationTest('sin(90)', '1');
+
+// sqrt
+integrationTest('sqrt(4)', '2');
+integrationTestThrow('sqrt(-1)');
+
+// root
+integrationTest('root(8,3)', '2');
+integrationTestThrow('root(-1, 2)');
+integrationTestThrow('root(1, -2)');

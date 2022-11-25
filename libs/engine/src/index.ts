@@ -15,7 +15,7 @@ import minmaxPlugin from './plugins/core/minmax/minmax';
 import absPlugin from './plugins/core/abs/abs';
 import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
-import rootsPlugin from './plugins/core/roots/roots';
+import rootsPlugin from './plugins/core/analysis/fragments/roots';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import tablePlugin from './plugins/core/table/table';
@@ -41,7 +41,6 @@ const plugins = [
     absPlugin,
     crossPlugin,
     statisticsPlugin,
-    rootsPlugin,
     physicalConstantsPlugin,
     ifThenElsePlugin,
     tablePlugin,
