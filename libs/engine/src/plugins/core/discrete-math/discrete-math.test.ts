@@ -1,11 +1,11 @@
 import { integrationTest, integrationTestThrow } from '../../../utils/integration-test-utils';
 
 // prime:range
+integrationTest('prime:range(1)', '[]');
 integrationTest('prime:range(2)', '[2]');
 integrationTest('prime:range(10)', '[2, 3, 5, 7]');
 integrationTest('prime:range(23)', '[2, 3, 5, 7, 11, 13, 17, 19, 23]');
 integrationTestThrow('prime:range(1.3)');
-integrationTestThrow('prime:range(1)');
 integrationTestThrow('prime:range(-1)');
 
 // prime:nth

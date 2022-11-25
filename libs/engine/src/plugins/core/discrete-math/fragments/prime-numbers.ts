@@ -19,8 +19,8 @@ const primeNumberFragment = new PluginFragment()
             if (n % 1 !== 0) {
                 throw runtimeError('Only integers are allowed.');
             }
-            if (n < 2) {
-                throw runtimeError('Numbers smaller than 2 are not allowed.');
+            if (n < 0) {
+                throw runtimeError('Numbers smaller than 0 are not allowed.');
             }
 
             return createVector(sieveOfAtkin(n).map((value) => createNumberNode(value)));
