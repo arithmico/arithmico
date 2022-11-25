@@ -13,24 +13,22 @@ import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
 import nderivePlugin from './plugins/core/nderive/nderive';
 import minmaxPlugin from './plugins/core/minmax/minmax';
 import absPlugin from './plugins/core/abs/abs';
-import fractionPlugin from './plugins/core/fraction/fraction';
 import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
 import rootsPlugin from './plugins/core/roots/roots';
 import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import tablePlugin from './plugins/core/table/table';
-import moduloPlugin from './plugins/core/modulo/modulo';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
-import fibPlugin from './plugins/core/fibonacci/fib';
 import polynomialPlugin from './plugins/core/polynomials/polynomial';
 import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import roundPlugin from './plugins/core/round/round-plugin';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis-plugin/analysis-plugin';
+import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -42,21 +40,19 @@ const plugins = [
     nderivePlugin,
     minmaxPlugin,
     absPlugin,
-    fractionPlugin,
     crossPlugin,
     statisticsPlugin,
     rootsPlugin,
     physicalConstantsPlugin,
     ifThenElsePlugin,
     tablePlugin,
-    moduloPlugin,
     inverseMatrixPlugin,
-    fibPlugin,
     polynomialPlugin,
     tensorPlugin,
     roundPlugin,
     listmodPlugin,
     analysisPlugin,
+    discreteMathPlugin,
 ];
 
 let defaultContext: Context;

@@ -1,12 +1,5 @@
 import { integrationTest, integrationTestThrow } from '../../../utils/integration-test-utils';
 
-// fact
-integrationTest('fact(0)', '1');
-integrationTest('fact(1)', '1');
-integrationTest('fact(7)', '5040');
-integrationTestThrow('fact(-1)');
-integrationTestThrow('fact(0.1)');
-
 // normal
 integrationTest('normal(0.23)', '0.388529');
 integrationTest('normal(-0.23)', '0.388529');
@@ -14,17 +7,6 @@ integrationTest('normal(-0.23)', '0.388529');
 // cnormal
 integrationTest('cnormal(0.23)', '0.590954');
 integrationTest('cnormal(-0.23)', '0.409046');
-
-// binco
-integrationTest('binco(5, 0)', '1');
-integrationTest('binco(5, 1)', '5');
-integrationTest('binco(7,4)', '35');
-integrationTestThrow('binco(-3, 5)');
-integrationTestThrow('binco(3, -5)');
-integrationTestThrow('binco(5, 0.5)');
-integrationTestThrow('binco(5.4, 2)');
-integrationTestThrow('binco(3, 5)');
-integrationTestThrow('binco(2, 3)');
 
 // binom
 integrationTest('binom(10, 0.87, 9)', '0.371207');

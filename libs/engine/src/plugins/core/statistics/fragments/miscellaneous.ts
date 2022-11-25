@@ -5,7 +5,7 @@ import { PluginFragment } from '../../../../utils/plugin-builder-v2';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 
-const miscellaneousFragment = new PluginFragment().addFunction(
+const miscellaneousStatisticsFragment = new PluginFragment().addFunction(
     'erf',
     singleNumberHeader,
     'Gaussian error function',
@@ -16,4 +16,4 @@ const miscellaneousFragment = new PluginFragment().addFunction(
     },
 );
 
-export default miscellaneousFragment;
+export default miscellaneousStatisticsFragment;
