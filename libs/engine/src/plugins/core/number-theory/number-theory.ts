@@ -9,6 +9,7 @@ import { FunctionHeaderItem, NumberNode } from '../../../types/SyntaxTreeNodes';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 import createNumberNode from '../../../create/create-number-node';
 import createVector from '../../../create/create-vector';
+<<<<<<< HEAD
 import { getNthPrimeNumber, isPrime, isPrimeNumber, sieveOfEratosthenes } from './utils/prime-number-utils';
 import createBooleanNode from '../../../create/create-boolean-node';
 import { greatestCommonDivisor } from '../../../utils/float-utils';
@@ -16,6 +17,8 @@ import { extendedEuclideanGreatestCommonDivisor } from './utils/gcd-extended';
 import createEquals from '../../../create/create-equals';
 import createPlus from '../../../create/create-plus';
 import createTimes from '../../../create/create-times';
+import { getNthPrimeNumber, isPrimeNumber, sieveOfEratosthenes } from './utils/prime-number-utils';
+import createBooleanNode from '../../../create/create-boolean-node';
 
 const numberTheoryPlugin = createPlugin('core/number-theory');
 addPluginDescription(numberTheoryPlugin, 'brings many functions for calculation on integers and in number theory');
