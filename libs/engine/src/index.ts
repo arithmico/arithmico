@@ -11,7 +11,7 @@ import nsolvePlugin from './plugins/core/nsolve/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
 import nderivePlugin from './plugins/core/nderive/nderive';
-import minmaxPlugin from './plugins/core/minmax/minmax';
+import minmaxPlugin from './plugins/core/analysis/fragments/minmax';
 import absPlugin from './plugins/core/analysis/fragments/abs';
 import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
@@ -37,8 +37,6 @@ const plugins = [
     lsolvePlugin,
     nintegratePlugin,
     nderivePlugin,
-    minmaxPlugin,
-    absPlugin,
     crossPlugin,
     statisticsPlugin,
     physicalConstantsPlugin,

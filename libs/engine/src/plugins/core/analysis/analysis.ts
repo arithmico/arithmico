@@ -5,6 +5,7 @@ import trigonometryFragment from './fragments/trigonometry';
 import rootsFragment from './fragments/roots';
 import roundFragment from './fragments/round';
 import absFragment from "./fragments/abs";
+import minmaxFragment from "./fragments/minmax";
 
 const analysisPlugin = createPluginV2('analysis', 'core', 'common analysis functions')
     .addFragment(expFragment)
@@ -13,6 +14,7 @@ const analysisPlugin = createPluginV2('analysis', 'core', 'common analysis funct
     .addFragment(rootsFragment)
     .addFragment(roundFragment)
     .addFragment(absFragment)
+    .addFragment(minmaxFragment)
     .build();
 
 export default analysisPlugin;

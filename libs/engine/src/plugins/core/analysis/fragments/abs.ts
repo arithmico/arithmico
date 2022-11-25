@@ -26,7 +26,6 @@ const absFragment = new PluginFragment()
                 if (value.type !== 'number') {
                     throw typeError(`expected number got ${value.type}`);
                 }
-                ZZZ;
                 return Math.pow(value.value, 2);
             });
 
