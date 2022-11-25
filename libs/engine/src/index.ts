@@ -6,7 +6,7 @@ import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
 import { insertStackObject } from './utils/context-utils';
-import nsolvePlugin from './plugins/core/nsolve/nsolve';
+import nsolvePlugin from './plugins/core/numeric-methods/fragments/nsolve';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
 import nderivePlugin from './plugins/core/nderive/nderive';
@@ -23,11 +23,11 @@ import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
+import numericMethodsPlugin from './plugins/core/numeric-methods/numeric-methods';
 
 export { serializeStack } from './utils/context-utils';
 
 const plugins = [
-    nsolvePlugin,
     lsolvePlugin,
     nintegratePlugin,
     nderivePlugin,
@@ -41,6 +41,7 @@ const plugins = [
     listmodPlugin,
     analysisPlugin,
     discreteMathPlugin,
+    numericMethodsPlugin,
 ];
 
 let defaultContext: Context;

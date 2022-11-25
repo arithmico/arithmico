@@ -7,7 +7,6 @@ init();
 
 const defaultStack = getDefaultContext().stack;
 const germanTextContext = createTestContext(defaultStack, createOptions({ decimalSeparator: ',' }));
-const radiansTestContext = createTestContext(defaultStack, createOptions({ angleUnit: 'radians' }));
 
 integrationTest('1', '1');
 integrationTest('[1,2,3]', '[1, 2, 3]');
@@ -48,13 +47,6 @@ integrationTest('((x)->x^2)(2)', '4');
 integrationTest('((x: number) -> x+1)(3)', '4');
 integrationTest('((x: number) -> x) + ((y: number) -> y^2)', '(x: number) → x + x^2');
 integrationTest('((x: number) -> x) + ((x: number) -> x^2)', '(x: number) → x + x^2');
-integrationTest('nsolve(sin(x)=0) * 1/ pi', '[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6]', radiansTestContext);
-integrationTest('nsolve(sin(x)=0, -180, -1) * 1 / 180', '[-1]');
-integrationTest('nsolve(1/x=0)', '[]');
-integrationTest('nsolve(x^3 -4*x^2 +3=0)', '[-0.791288, 1, 3.791288]');
-integrationTest('nsolve(x^(34)-1234.32323=0)', '[-1.23289, 1.23289]');
-integrationTest('nsolve((1+n)*n/2=34)', '[-8.761356, 7.761356]');
-integrationTest('nsolve(x^3+x^2-17*x+15=0)', '[-5, 1, 3]');
 integrationTest('lsolve(2*x+3*y=-6, -3*x-4*y=7)', '[x = 3, y = -4]');
 integrationTest('lsolve(x=2, x=3-y)', '[x = 2, y = 1]');
 integrationTest('nintegrate((x)->x^2,0,1)', '0.333333');

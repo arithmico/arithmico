@@ -1,7 +1,7 @@
-import { NumberNode } from '../../../../types/SyntaxTreeNodes';
-import evaluate from '../../../../eval';
-import { Context, SyntaxTreeNode } from '../../../../types';
-import { Point } from '../types';
+import { NumberNode } from '../../../../../types/SyntaxTreeNodes';
+import evaluate from '../../../../../eval';
+import { Context, SyntaxTreeNode } from '../../../../../types';
+import { Point } from './nsolve-types';
 
 const SCAN_COUNT = 1000;
 

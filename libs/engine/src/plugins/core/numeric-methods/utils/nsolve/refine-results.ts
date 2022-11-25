@@ -1,4 +1,4 @@
-import { closeTo } from '../../../../utils/float-utils';
+import { closeTo } from '../../../../../utils/float-utils';
 
 const ACCURACY_COEFFICIENT = 1e4;
 
