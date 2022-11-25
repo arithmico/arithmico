@@ -202,6 +202,9 @@ integrationTest('[1;2;3]', '[1; 2; 3]', germanTextContext);
 integrationTest('1,2+1,3', '2,5', germanTextContext);
 integrationTest('((x; y) -> x + y)(1;2)', '3', germanTextContext);
 integrationTest('((x; y) -> x + y)', '(x: any; y: any) → x + y', germanTextContext);
+integrationTest('\\sqrt {4}', '2');
+integrationTest('\\sqrt [3] {8}', '2');
+integrationTest('\\frac {4} {8}', '0.5');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
