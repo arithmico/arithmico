@@ -111,6 +111,12 @@ integrationTest('fact(7)', '5040');
 integrationTestThrow('fact(-1)');
 integrationTestThrow('fact(0.1)');
 
+// fraction
+integrationTest('fraction(1/3)', '1 / 3');
+integrationTest('fraction(1/3+1/3)', '2 / 3');
+integrationTest('fraction(1/3-1/3)', '0');
+
+
 // fib
 integrationTest('fib(1)', '1');
 integrationTest('fib(2)', '1');

@@ -13,7 +13,6 @@ import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
 import nderivePlugin from './plugins/core/nderive/nderive';
 import minmaxPlugin from './plugins/core/minmax/minmax';
 import absPlugin from './plugins/core/abs/abs';
-import fractionPlugin from './plugins/core/fraction/fraction';
 import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
 import rootsPlugin from './plugins/core/roots/roots';
@@ -41,7 +40,6 @@ const plugins = [
     nderivePlugin,
     minmaxPlugin,
     absPlugin,
-    fractionPlugin,
     crossPlugin,
     statisticsPlugin,
     rootsPlugin,
