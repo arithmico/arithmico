@@ -3,8 +3,8 @@ import primeNumberFragment from './fragments/prime-numbers';
 import gcdLcmFragment from './fragments/gcd-lcm';
 import coprimeFragment from './fragments/coprime';
 
-const numberTheoryPlugin = createPluginV2(
-    'core/number-theory',
+const discreteMathPlugin = createPluginV2(
+    'core/discrete-math',
     'brings many functions for calculation on integers and in number theory',
     'core',
 )
@@ -13,4 +13,4 @@ const numberTheoryPlugin = createPluginV2(
     .addFragment(coprimeFragment)
     .build();
 
-export default numberTheoryPlugin;
+export default discreteMathPlugin;
