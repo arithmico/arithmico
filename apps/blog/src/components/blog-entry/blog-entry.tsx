@@ -56,6 +56,10 @@ const Section = styled.section`
     margin: 0;
     padding: 0;
   }
+
+  & ul > li {
+    margin: 1rem 0;
+  }
 `;
 
 interface BlogEntryProps {
