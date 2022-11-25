@@ -79,7 +79,7 @@ const samplingStatisticsFragment = new PluginFragment()
             const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
 
             if (xs.length < 2) {
-                throw runtimeError('Needs 2 or more parameters.');
+                throw runtimeError('At least two parameters are required.');
             }
 
             return createNumberNode(calculateQuantile(0.5, xs));
@@ -103,7 +103,7 @@ const samplingStatisticsFragment = new PluginFragment()
             }
 
             if (xs.values.length < 2) {
-                throw runtimeError('Needs 2 or more parameters.');
+                throw runtimeError('At least two parameters are required.');
             }
 
             return createNumberNode(

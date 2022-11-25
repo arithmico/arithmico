@@ -20,16 +20,6 @@ const binomHeader: FunctionHeaderItem[] = [
 
 const distributionFragment = new PluginFragment()
     .addFunction(
-        'erf',
-        singleNumberHeader,
-        'Gaussian error function',
-        'Gaußsche Fehlerfunktion',
-        ({ getParameter }) => {
-            const x = (<NumberNode>getParameter('x')).value;
-            return createNumberNode(calculateErf(x));
-        },
-    )
-    .addFunction(
         'fact',
         singleNumberHeader,
         'Calculates the factorial of x.',
@@ -69,19 +59,19 @@ const distributionFragment = new PluginFragment()
             const k = (<NumberNode>getParameter('k')).value;
 
             if (n < 0) {
-                throw runtimeError('n < 0');
+                throw runtimeError('n must be greater than or equal to 0');
             }
             if (k < 0) {
-                throw runtimeError('k < 0');
+                throw runtimeError('k must be greater than or equal to 0');
             }
             if (n % 1 !== 0) {
                 throw runtimeError('n has to be an integer');
             }
             if (k % 1 !== 0) {
-                throw runtimeError('n has to be an integer.');
+                throw runtimeError('k has to be an integer.');
             }
             if (n < k) {
-                throw runtimeError('n < k');
+                throw runtimeError('n must be greater than or equal to n');
             }
 
             return createNumberNode(binco(n, k));
@@ -101,19 +91,19 @@ const distributionFragment = new PluginFragment()
                 throw runtimeError('p is not between 0 and 1');
             }
             if (n < 0) {
-                throw runtimeError('n < 0');
+                throw runtimeError('n must be greater than or equal to 0');
             }
             if (k < 0) {
-                throw runtimeError('k < 0');
+                throw runtimeError('k must be greater than or equal to 0');
             }
             if (n % 1 !== 0) {
                 throw runtimeError('n has to be an integer');
             }
             if (k % 1 !== 0) {
-                throw runtimeError('n has to be an integer.');
+                throw runtimeError('k has to be an integer.');
             }
             if (n < k) {
-                throw runtimeError('n < k');
+                throw runtimeError('n must be greater than or equal to n');
             }
 
             return createNumberNode(calculateBinom(n, p, k));
@@ -133,19 +123,19 @@ const distributionFragment = new PluginFragment()
                 throw runtimeError('p is not between 0 and 1');
             }
             if (n < 0) {
-                throw runtimeError('n < 0');
+                throw runtimeError('n must be greater than or equal to 0');
             }
             if (k < 0) {
-                throw runtimeError('k < 0');
+                throw runtimeError('k must be greater than or equal to 0');
             }
             if (n % 1 !== 0) {
                 throw runtimeError('n has to be an integer');
             }
             if (k % 1 !== 0) {
-                throw runtimeError('n has to be an integer.');
+                throw runtimeError('k has to be an integer.');
             }
             if (n < k) {
-                throw runtimeError('n < k');
+                throw runtimeError('n must be greater than or equal to n');
             }
 
             return createNumberNode(calculateCBinom(n, p, k));
