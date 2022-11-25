@@ -57,3 +57,10 @@ integrationTest('floor(2)', '2');
 integrationTest('ceil(-1.1)', '-1');
 integrationTest('ceil(1.2)', '2');
 integrationTest('ceil(1)', '1');
+
+// abs
+integrationTest('abs(-7)', '7');
+integrationTest('abs(7)', '7');
+
+// length
+integrationTest('length([1,2,2])', '3');
