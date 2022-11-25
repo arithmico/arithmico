@@ -54,6 +54,12 @@ export class PluginFragment {
         return this.functions;
     }
 
+    addFragment(fragment: PluginFragment) {
+        this.functions = this.functions.concat(fragment.getFunctions());
+        this.constants = this.constants.concat(fragment.getConstants());
+        return this;
+    }
+
     addConstant(
         name: string,
         descriptionEn: string,
@@ -148,12 +154,6 @@ class PluginBuilder extends PluginFragment {
         this.name = name;
         this.author = author;
         this.description = description;
-    }
-
-    addFragment(fragment: PluginFragment) {
-        this.functions = this.functions.concat(fragment.getFunctions());
-        this.constants = this.constants.concat(fragment.getConstants());
-        return this;
     }
 
     build(): Plugin {
