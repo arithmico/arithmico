@@ -3,7 +3,7 @@ import createNumberNode from '../create/create-number-node';
 import createTimes from '../create/create-times';
 import createSymbolNode from '../create/create-symbol-node';
 import createPower from '../create/create-power';
-import { getDegreeFromPolynomial } from '../plugins/core/polynomials/utils/polynomial-utils';
+import { getDegreeFromPolynomial } from '../plugins/core/algebra/utils/polynomial-utils';
 import createNegate from '../create/create-negate';
 import createMinus from '../create/create-minus';
 import createPlus from '../create/create-plus';
