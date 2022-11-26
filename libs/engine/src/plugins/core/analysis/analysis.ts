@@ -8,7 +8,7 @@ import absFragment from './fragments/abs';
 import minmaxFragment from './fragments/minmax';
 import tableFragment from './fragments/table';
 
-const analysisPlugin = createPluginV2('analysis', 'core', 'common analysis functions')
+const analysisPlugin = createPluginV2('core/analysis', 'core', 'common analysis functions')
     .addFragment(expFragment)
     .addFragment(logFragment)
     .addFragment(trigonometryFragment)

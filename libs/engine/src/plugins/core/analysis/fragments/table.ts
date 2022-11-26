@@ -19,9 +19,9 @@ const tableFragment = new PluginFragment().addFunction(
     'table(f, u?, v?, w?) Erstellt zu der Funktion f eine Wertetabelle mit Wertepaaren [x; f(x)] für x-Werte aus dem Intervall [u; v]. Dabei gibt w die Schrittweite der x-Werte an.',
     ({ getParameter, typeError, context }) => {
         const f = <FunctionNode>getParameter('f');
-        const u = (<NumberNode>getParameter('u')).value ?? -10;
-        const v = (<NumberNode>getParameter('v')).value ?? 10;
-        const width = (<NumberNode>getParameter('w')).value ?? 1;
+        const u = (<NumberNode>getParameter('u', createNumberNode(-10))).value;
+        const v = (<NumberNode>getParameter('v', createNumberNode(10))).value;
+        const width = (<NumberNode>getParameter('w', createNumberNode(1))).value;
         const start = Math.min(u, v);
         const stop = Math.max(u, v);
         const values: Vector[] = [];

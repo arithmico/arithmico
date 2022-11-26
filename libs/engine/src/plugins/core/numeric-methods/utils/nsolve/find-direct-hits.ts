@@ -1,4 +1,4 @@
-import { Point } from '../types';
+import { Point } from './nsolve-types';
 
 export default function findDirectHits(points: Point[]): number[] {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
