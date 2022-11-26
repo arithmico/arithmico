@@ -63,6 +63,12 @@ integrationTest('\\sqrt {4}', '2');
 integrationTest('\\sqrt [3] {8}', '2');
 integrationTest('\\frac {4} {8}', '0.5');
 integrationTest('\\frac {4} {\\sqrt { 4 } }', '2');
+integrationTest('\\log_{4} (8)', '1.5');
+integrationTest('\\log (10)', '1');
+integrationTest('\\log(10)', '1');
+integrationTest('\\log ( \\sqrt{100} ) ', '1');
+integrationTest('\\ln(10)', '2.302585');
+integrationTest('\\ln(\\sqrt{\\frac{300}{3}}) ', '2.302585');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
