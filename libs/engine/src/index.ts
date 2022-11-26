@@ -9,7 +9,6 @@ import { insertStackObject } from './utils/context-utils';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
-import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
@@ -21,6 +20,7 @@ import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
 import numericMethodsPlugin from './plugins/core/numeric-methods/numeric-methods';
+import physicsPlugin from './plugins/core/physics/physics';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -28,7 +28,6 @@ const plugins = [
     lsolvePlugin,
     crossPlugin,
     statisticsPlugin,
-    physicalConstantsPlugin,
     ifThenElsePlugin,
     inverseMatrixPlugin,
     polynomialPlugin,
@@ -37,6 +36,7 @@ const plugins = [
     analysisPlugin,
     discreteMathPlugin,
     numericMethodsPlugin,
+    physicsPlugin,
 ];
 
 let defaultContext: Context;
