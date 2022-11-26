@@ -19,7 +19,7 @@ import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
-import numericMethodsPlugin from './plugins/core/numeric-methods/numeric-methods';
+import numericMethodsPlugin from './plugins/core/numerics/numerics';
 import physicsPlugin from './plugins/core/physics/physics';
 
 export { serializeStack } from './utils/context-utils';
