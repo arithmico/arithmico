@@ -8,7 +8,7 @@ import {
     det,
     tensorToMatrix,
     transpose,
-} from '../../../../utils/matrix-utils';
+} from '../utils/matrix-utils';
 import createDivided from '../../../../create/create-divided';
 import { reduceFraction } from '../../../../utils/float-utils';
 import createNegate from '../../../../create/create-negate';

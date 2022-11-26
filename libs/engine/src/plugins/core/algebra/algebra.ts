@@ -3,6 +3,7 @@ import lsolveFragment from './fragments/lsolve';
 import crossFragment from './fragments/cross';
 import inverseMatrixFragment from './fragments/inverse-matrix';
 import polynomialFragment from './fragments/polynomial';
+import tensorFragment from "./fragments/tensor";
 
 const algebraPlugin = createPluginV2(
     'core/algebra',
@@ -13,6 +14,7 @@ const algebraPlugin = createPluginV2(
     .addFragment(crossFragment)
     .addFragment(inverseMatrixFragment)
     .addFragment(polynomialFragment)
+    .addFragment(tensorFragment)
     .build();
 
 export default algebraPlugin;

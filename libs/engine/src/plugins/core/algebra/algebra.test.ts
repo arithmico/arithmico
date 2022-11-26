@@ -95,3 +95,17 @@ integrationTestThrow('polynomial:div(2*x + y, -2*y + 3*x)');
 integrationTestThrow('polynomial:div(-2*y + 3*x, 2*x + y)');
 integrationTestThrow('polynomial:div(x^2 + 2*x + y -3, -2*x^3 + 3*x)');
 integrationTestThrow('polynomial:div(x^2 + 2*x + y -3, 0)');
+
+// tensor:rank
+integrationTest('tensor:rank([])', '1');
+integrationTest('tensor:rank([1])', '1');
+integrationTest('tensor:rank([1, 2])', '1');
+integrationTest('tensor:rank([[1,2],[3,4]])', '2');
+integrationTestThrow('tensor:rank([1,[2,3]])');
+
+// tensor:dims
+integrationTest('tensor:dims([])', '[0]');
+integrationTest('tensor:dims([1])', '[1]');
+integrationTest('tensor:dims([1, 2])', '[2]');
+integrationTest('tensor:dims([[1,2],[3,4]])', '[2, 2]');
+integrationTestThrow('tensor:dims([1,[2,3]])');

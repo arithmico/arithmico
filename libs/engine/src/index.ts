@@ -6,16 +6,11 @@ import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
 import { insertStackObject } from './utils/context-utils';
-import lsolvePlugin from './plugins/core/algebra/fragments/lsolve';
-import crossFragment from './plugins/core/algebra/fragments/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
-import inverseMatrixPlugin from './plugins/core/algebra/fragments/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
-import polynomialPlugin from './plugins/core/algebra/fragments/polynomial';
-import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
@@ -28,7 +23,6 @@ export { serializeStack } from './utils/context-utils';
 const plugins = [
     statisticsPlugin,
     ifThenElsePlugin,
-    tensorPlugin,
     listmodPlugin,
     analysisPlugin,
     discreteMathPlugin,

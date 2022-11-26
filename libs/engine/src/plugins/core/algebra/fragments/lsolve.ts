@@ -8,7 +8,7 @@ import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/Sy
 import { addPluginAuthor, addPluginDescription, createPlugin } from '../../../../utils/plugin-builder';
 import { isEquationLinear } from '../utils/check-linear';
 import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from '../utils/get-coefficients';
-import { cramerSolver, det } from '../../../../utils/matrix-utils';
+import { cramerSolver, det } from '../utils/matrix-utils';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';
 
 const lsolvePlugin = createPlugin('core/lsolve');

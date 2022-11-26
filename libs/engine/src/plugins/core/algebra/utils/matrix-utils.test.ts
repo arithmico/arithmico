@@ -1,4 +1,4 @@
-import { addColumn, det, getColumn, getSubMatrix } from '../../utils/matrix-utils';
+import { addColumn, det, getColumn, getSubMatrix } from './matrix-utils';
 
 test('1x1 det', () => {
     expect(det([[7]])).toBe(7);
