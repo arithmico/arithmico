@@ -4,7 +4,7 @@ import {
     haveTwoPolynomialsSameBase,
     isEverySummandOfPolynomialBaseSame,
     isPolynomialDegreeValid,
-} from '../../../../utils/polynomial-syntax-tree-utils';
+} from '../utils/polynomial-syntax-tree-utils';
 import normalize from '../../../../normalize';
 import {
     calculatePolynomialAddition,
@@ -12,8 +12,8 @@ import {
     calculatePolynomialMultiplication,
     calculatePolynomialSubtraction,
     getDegreeFromPolynomial,
-} from '../utils/polynomial-utils';
-import { getSyntaxTreeNodeFromPolynomial } from '../../../../utils/polynomial-type-utils';
+    getSyntaxTreeNodeFromPolynomial,
+} from '../utils/polynomial-type-utils';
 import createNumberNode from '../../../../create/create-number-node';
 import createVector from '../../../../create/create-vector';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';

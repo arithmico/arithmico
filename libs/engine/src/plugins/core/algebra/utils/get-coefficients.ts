@@ -1,7 +1,7 @@
 import createNumberNode from '../../../../create/create-number-node';
 import { Context, Equals, NumberNode } from '../../../../types';
 import { getVariableNames } from '../../../../utils/symbolic-utils';
-import { getMonomialCoefficientFromSummand, getSummands } from '../../../../utils/polynomial-syntax-tree-utils';
+import { getMonomialCoefficientFromSummand, getSummands } from './polynomial-syntax-tree-utils';
 
 export function getVariableNamesFromEquations(equations: Equals[], context: Context): string[] {
     return [
