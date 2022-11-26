@@ -1,4 +1,4 @@
-import {integrationTest} from "../../../utils/integration-test-utils";
+import { integrationTest } from '../../../utils/integration-test-utils';
 
 // constants
 integrationTest('physics:c', '2.997925 * 10^8');

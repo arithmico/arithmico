@@ -1,5 +1,5 @@
 import createNumberNode from '../../../../create/create-number-node';
-import {PluginFragment} from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder-v2';
 
 const physicalConstantsFragment = new PluginFragment()
 
