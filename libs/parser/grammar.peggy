@@ -158,7 +158,7 @@ LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}
         left,
         right
     }
-} 
+}
 
 // logic
 Or = left:And _ "|" _ right:Or {
@@ -248,6 +248,15 @@ Negate = _ "-" _ value:Power {
     return {
         type: "negate",
         value
+    };
+} / MethodCall
+
+MethodCall = object:Value _ "." _ method:Symbol _ "(" _ parameters:List? _ ")" {
+    return {
+        type: "methodCall", 
+        object,
+        method: method.name,
+        parameters: parameters ? parameters : []
     };
 } / Value
 

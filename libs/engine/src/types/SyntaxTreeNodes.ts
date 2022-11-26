@@ -22,7 +22,8 @@ export type SyntaxTreeNode =
     | StringNode
     | FunctionNode
     | Lambda
-    | Define;
+    | Define
+    | MethodCall;
 
 export type BinarySyntaxTreeNode =
     | Or
@@ -170,4 +171,11 @@ export interface SymbolNode {
 export interface StringNode {
     type: 'string';
     value: string;
+}
+
+export interface MethodCall {
+    type: 'methodCall';
+    object: SyntaxTreeNode;
+    method: string;
+    parameters: SyntaxTreeNode[];
 }
