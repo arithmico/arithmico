@@ -76,7 +76,6 @@ integrationTest('polynomial:sub(x,y)', 'x - y');
 integrationTest('polynomial:sub(2*x + y, -2*y + 3*x)', '(-x) + 3 * y');
 integrationTest('polynomial:sub(-2*y + 3*x, 2*x + y)', 'x - 3 * y');
 integrationTest('polynomial:sub(x^2 + 2*x + y -3, -2*y + 3*x)', 'x^2 - x + 3 * y - 3');
-integrationTest('polynomial:sub(1, 2)', '-1');
 integrationTest('polynomial:sub(x^7 - x^6 - x^5 - x^4 - x^3 - x, 0)', 'x^7 - x^6 - x^5 - x^4 - x^3 - x');
 
 // polynomial:mul
