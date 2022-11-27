@@ -1,13 +1,8 @@
-import { addPluginAuthor, addPluginDescription, createPlugin } from '../../../../utils/plugin-builder';
 import { NumberNode } from '../../../../types';
 import { FunctionHeaderItem } from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';
 import { euclideanDivision } from '../utils/euclidean-division';
-
-const moduloPlugin = createPlugin('core/modulo');
-addPluginDescription(moduloPlugin, 'adds modulo and integer division');
-addPluginAuthor(moduloPlugin, 'core');
 
 const twoNumberHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },

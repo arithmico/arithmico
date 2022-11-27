@@ -5,16 +5,10 @@ import createVector from '../../../../create/create-vector';
 import normalize from '../../../../normalize';
 import serialize from '../../../../serialize';
 import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
-import { addPluginAuthor, addPluginDescription, createPlugin } from '../../../../utils/plugin-builder';
 import { isEquationLinear } from '../utils/check-linear';
 import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from '../utils/get-coefficients';
 import { cramerSolver, det } from '../utils/matrix-utils';
 import { PluginFragment } from '../../../../utils/plugin-builder-v2';
-
-const lsolvePlugin = createPlugin('core/lsolve');
-
-addPluginAuthor(lsolvePlugin, 'core');
-addPluginDescription(lsolvePlugin, 'adds lsolve function');
 
 const lsolveHeader: FunctionHeaderItem[] = [{ type: 'equals', name: 'equation', evaluate: false, repeat: true }];
 
