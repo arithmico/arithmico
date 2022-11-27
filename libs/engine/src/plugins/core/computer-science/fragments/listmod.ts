@@ -86,7 +86,7 @@ const listModFragment = new PluginFragment()
         ({ getParameter, runtimeError, typeError, context }) => {
             const reduceFunction = <FunctionNode>getParameter('f');
             const list = <Vector>getParameter('l');
-            const startAcc = <SyntaxTreeNode>getParameter('start_acc');
+            const startAcc = getParameter('start_acc');
 
             if (reduceFunction.header.length !== 2) {
                 throw typeError('Invalid reduce function signature');
