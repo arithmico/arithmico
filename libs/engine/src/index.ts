@@ -9,18 +9,17 @@ import { insertStackObject } from './utils/context-utils';
 import lsolvePlugin from './plugins/core/lsolve/lsolve';
 import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
-import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
 import polynomialPlugin from './plugins/core/polynomials/polynomial';
 import tensorPlugin from './plugins/core/tensor/tensor-plugin';
-import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
 import numericMethodsPlugin from './plugins/core/numerics/numerics';
 import physicsPlugin from './plugins/core/physics/physics';
+import computerSciencePlugin from './plugins/core/computer-science/computer-science';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -28,15 +27,14 @@ const plugins = [
     lsolvePlugin,
     crossPlugin,
     statisticsPlugin,
-    ifThenElsePlugin,
     inverseMatrixPlugin,
     polynomialPlugin,
     tensorPlugin,
-    listmodPlugin,
     analysisPlugin,
     discreteMathPlugin,
     numericMethodsPlugin,
     physicsPlugin,
+    computerSciencePlugin,
 ];
 
 let defaultContext: Context;
