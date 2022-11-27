@@ -5,6 +5,9 @@ integrationTest('lsolve(2*x+3*y=-6, -3*x-4*y=7)', '[x = 3, y = -4]');
 integrationTest('lsolve(x=2, x=3-y)', '[x = 2, y = 1]');
 integrationTestThrow('lsolve(x+y=1,2*x+2*y=1)');
 
+// length
+integrationTest('length([1,2,2])', '3');
+
 // cross
 integrationTest('cross([1,2,3],[-7,8,9])', '[-6, -30, 22]');
 integrationTest('cross([1,0,0],[0,1,0])', '[0, 0, 1]');
