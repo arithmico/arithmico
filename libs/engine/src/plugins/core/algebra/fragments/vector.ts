@@ -4,7 +4,7 @@ import evaluate from '../../../../eval';
 import createVector from '../../../../create/create-vector';
 import createMinus from '../../../../create/create-minus';
 import createTimes from '../../../../create/create-times';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 import createNumberNode from '../../../../create/create-number-node';
 
 const lengthHeader: FunctionHeaderItem[] = [{ name: 'v', type: 'vector', evaluate: true }];

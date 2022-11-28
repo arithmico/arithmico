@@ -1,6 +1,6 @@
 import createNumberNode from '../../../../create/create-number-node';
 import { FunctionHeaderItem, NumberNode, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const header: FunctionHeaderItem[] = [{ name: 'v', type: 'number', evaluate: true, repeat: true }];
 

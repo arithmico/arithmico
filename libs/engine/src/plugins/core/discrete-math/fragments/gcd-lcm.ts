@@ -5,7 +5,7 @@ import { extendedEuclideanGreatestCommonDivisor } from '../utils/gcd-extended-ut
 import createEquals from '../../../../create/create-equals';
 import createPlus from '../../../../create/create-plus';
 import createTimes from '../../../../create/create-times';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const doubleNumberHeader: FunctionHeaderItem[] = [
     { name: 'a', type: 'number', evaluate: true },
