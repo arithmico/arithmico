@@ -7,6 +7,7 @@ import {
     Plugin,
     PluginConstant,
     PluginFunction,
+    PluginMethod,
     SymbolNode,
     SyntaxTreeNode,
 } from '../types';
@@ -40,10 +41,12 @@ interface PluginFunctionProps {
 export class PluginFragment {
     protected constants: PluginConstant[];
     protected functions: PluginFunction[];
+    protected methods: PluginMethod<SyntaxTreeNode>[];
 
     constructor() {
         this.constants = [];
         this.functions = [];
+        this.methods = [];
     }
 
     getConstants() {
@@ -54,10 +57,26 @@ export class PluginFragment {
         return this.functions;
     }
 
+    getMethods() {
+        return this.methods;
+    }
+
     addFragment(fragment: PluginFragment) {
         this.functions = this.functions.concat(fragment.getFunctions());
         this.constants = this.constants.concat(fragment.getConstants());
         return this;
+    }
+
+    addMethod<T extends SyntaxTreeNode>(
+        name: string,
+        target: T['type'],
+        evaluator: (node: T, context: Context) => SyntaxTreeNode,
+    ) {
+        this.methods.push({
+            name,
+            targetType: target,
+            evaluator,
+        });
     }
 
     addConstant(
@@ -163,6 +182,7 @@ class PluginBuilder extends PluginFragment {
             description: this.description,
             constants: this.constants,
             functions: this.functions,
+            methods: this.methods,
             inlineDefinitions: [],
         };
     }
