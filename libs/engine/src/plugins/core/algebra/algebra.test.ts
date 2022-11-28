@@ -8,6 +8,9 @@ integrationTestThrow('lsolve(x+y=1,2*x+2*y=1)');
 // length
 integrationTest('length([1,2,2])', '3');
 
+// <vector>.length
+integrationTest('[1,2,2].length()', '3');
+
 // cross
 integrationTest('cross([1,2,3],[-7,8,9])', '[-6, -30, 22]');
 integrationTest('cross([1,0,0],[0,1,0])', '[0, 0, 1]');

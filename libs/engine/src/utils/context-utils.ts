@@ -90,7 +90,7 @@ export function loadMethod(context: Context, method: PluginMethod<SyntaxTreeNode
         methods: new Map(context.methods),
     };
 
-    const targetMethods = newContext.methods.get(method.targetType);
+    const targetMethods = newContext.methods.get(method.targetType) ?? new Map();
 
     if (targetMethods.has(method.name)) {
         throw `LoadingError: method "${method.name}" has already been loaded for type "${method.targetType}"`;

@@ -72,11 +72,14 @@ export class PluginFragment {
             targetType: target,
             evaluator,
         });
+
+        return this;
     }
 
     addFragment(fragment: PluginFragment) {
         this.functions = this.functions.concat(fragment.getFunctions());
         this.constants = this.constants.concat(fragment.getConstants());
+        this.methods = this.methods.concat(fragment.methods);
         return this;
     }
 
