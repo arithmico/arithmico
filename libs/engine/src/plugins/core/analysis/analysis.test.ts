@@ -67,9 +67,6 @@ integrationTest('ceil(1)', '1');
 integrationTest('abs(-7)', '7');
 integrationTest('abs(7)', '7');
 
-// length
-integrationTest('length([1,2,2])', '3');
-
 // min
 integrationTest('min(-1,1,2,3)', '-1');
 

@@ -83,10 +83,10 @@ const listModFragment = new PluginFragment()
         reduceHeader,
         'Reduces a list to a single value with the specified reducer function',
         'Reduziert eine Liste mithilfe der übergebenen Reduzierfunktion',
-        ({ getParameter, runtimeError, typeError, context }) => {
+        ({ getParameter, getNullableParameter, runtimeError, typeError, context }) => {
             const reduceFunction = <FunctionNode>getParameter('f');
             const list = <Vector>getParameter('l');
-            const startAcc = getParameter('start_acc');
+            const startAcc = <SyntaxTreeNode>getNullableParameter('start_acc');
 
             if (reduceFunction.header.length !== 2) {
                 throw typeError('Invalid reduce function signature');

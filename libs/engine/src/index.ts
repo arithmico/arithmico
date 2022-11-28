@@ -6,35 +6,27 @@ import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
 import { insertStackObject } from './utils/context-utils';
-import lsolvePlugin from './plugins/core/lsolve/lsolve';
-import crossPlugin from './plugins/core/cross/cross';
 import statisticsPlugin from './plugins/core/statistics/statistics';
-import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
-import polynomialPlugin from './plugins/core/polynomials/polynomial';
-import tensorPlugin from './plugins/core/tensor/tensor-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
 import numericMethodsPlugin from './plugins/core/numerics/numerics';
 import physicsPlugin from './plugins/core/physics/physics';
 import computerSciencePlugin from './plugins/core/computer-science/computer-science';
+import algebraPlugin from './plugins/core/algebra/algebra';
 
 export { serializeStack } from './utils/context-utils';
 
 const plugins = [
-    lsolvePlugin,
-    crossPlugin,
     statisticsPlugin,
-    inverseMatrixPlugin,
-    polynomialPlugin,
-    tensorPlugin,
     analysisPlugin,
     discreteMathPlugin,
     numericMethodsPlugin,
     physicsPlugin,
     computerSciencePlugin,
+    algebraPlugin,
 ];
 
 let defaultContext: Context;

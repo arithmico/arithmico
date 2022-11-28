@@ -1,20 +1,38 @@
-import { FunctionHeaderItem, Vector } from '../../../types/SyntaxTreeNodes';
-import { getTensorRank, isVectorHomogeneous } from '../../../utils/tensor-utils';
-import evaluate from '../../../eval';
-import createVector from '../../../create/create-vector';
-import createMinus from '../../../create/create-minus';
-import createTimes from '../../../create/create-times';
-import createPluginV2 from '../../../utils/plugin-builder-v2';
+import { FunctionHeaderItem, Vector } from '../../../../types/SyntaxTreeNodes';
+import { getTensorRank, isVectorHomogeneous } from '../../../../utils/tensor-utils';
+import evaluate from '../../../../eval';
+import createVector from '../../../../create/create-vector';
+import createMinus from '../../../../create/create-minus';
+import createTimes from '../../../../create/create-times';
+import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import createNumberNode from '../../../../create/create-number-node';
 
-const header: FunctionHeaderItem[] = [
+const lengthHeader: FunctionHeaderItem[] = [{ name: 'v', type: 'vector', evaluate: true }];
+const crossHeader: FunctionHeaderItem[] = [
     { name: 'a', type: 'vector', evaluate: true },
     { name: 'b', type: 'vector', evaluate: true },
 ];
 
-const crossPlugin = createPluginV2('cross', 'core', 'adds cross function')
+const vectorFragment = new PluginFragment()
+    .addFunction(
+        'length',
+        lengthHeader,
+        'Computes the length of a vector',
+        'Berechnet die Länge eines Vektors',
+        ({ getParameter, typeError }) => {
+            const values = (<Vector>getParameter('v')).values.map((value) => {
+                if (value.type !== 'number') {
+                    throw typeError(`expected number got ${value.type}`);
+                }
+                return Math.pow(value.value, 2);
+            });
+
+            return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
+        },
+    )
     .addFunction(
         'cross',
-        header,
+        crossHeader,
         'Calculate the vector product of a and b',
         'Berechnet das Kreuzprodukt der Vektoren a und b.',
         ({ getParameter, runtimeError, context }) => {
@@ -48,7 +66,6 @@ const crossPlugin = createPluginV2('cross', 'core', 'adds cross function')
                 context,
             );
         },
-    )
-    .build();
+    );
 
-export default crossPlugin;
+export default vectorFragment;
