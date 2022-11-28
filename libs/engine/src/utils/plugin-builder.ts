@@ -58,6 +58,10 @@ export class PluginFragment {
         return this.functions;
     }
 
+    getMethods() {
+        return this.methods;
+    }
+
     addFragment(fragment: PluginFragment) {
         this.functions = this.functions.concat(fragment.getFunctions());
         this.constants = this.constants.concat(fragment.getConstants());
