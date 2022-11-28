@@ -1,61 +1,34 @@
 import { GlobalDocumentationItem } from './types/Plugin';
-import { parse } from './parse/parser';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { parse } from '@arithmico/parser';
 import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
-import trigonometryPlugin from './plugins/core/trigonometry/trigonometry';
 import { insertStackObject } from './utils/context-utils';
-import nsolvePlugin from './plugins/core/nsolve/nsolve';
-import lsolvePlugin from './plugins/core/lsolve/lsolve';
-import nintegratePlugin from './plugins/core/nintegrate/nintegrate';
-import nderivePlugin from './plugins/core/nderive/nderive';
-import expPlugin from './plugins/core/exp/exp';
-import minmaxPlugin from './plugins/core/minmax/minmax';
-import absPlugin from './plugins/core/abs/abs';
-import fractionPlugin from './plugins/core/fraction/fraction';
-import crossPlugin from './plugins/core/cross/cross';
-import { transformEnglish2German, transformGerman2English } from './language-transform';
 import statisticsPlugin from './plugins/core/statistics/statistics';
-import rootsPlugin from './plugins/core/roots/roots';
-import physicalConstantsPlugin from './plugins/core/physical-constants/physical-constants';
 import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
-import tablePlugin from './plugins/core/table/table';
-import moduloPlugin from './plugins/core/modulo/modulo';
-import inverseMatrixPlugin from './plugins/core/inverse-matrix/inverse-matrix';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
-import fibPlugin from './plugins/core/fibonacci/fib';
-import polynomialPlugin from './plugins/core/polynomials/polynomial';
-import tensorPlugin from './plugins/core/tensor/tensor-plugin';
-import roundPlugin from './plugins/core/round/round-plugin';
 import listmodPlugin from './plugins/core/listmod/listmod-plugin';
+import analysisPlugin from './plugins/core/analysis/analysis';
+import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
+import numericMethodsPlugin from './plugins/core/numerics/numerics';
+import physicsPlugin from './plugins/core/physics/physics';
+import algebraPlugin from './plugins/core/algebra/algebra';
 
 export { serializeStack } from './utils/context-utils';
 
 const plugins = [
-    trigonometryPlugin,
-    expPlugin,
-    nsolvePlugin,
-    lsolvePlugin,
-    nintegratePlugin,
-    nderivePlugin,
-    minmaxPlugin,
-    absPlugin,
-    fractionPlugin,
-    crossPlugin,
     statisticsPlugin,
-    rootsPlugin,
-    physicalConstantsPlugin,
     ifThenElsePlugin,
-    tablePlugin,
-    moduloPlugin,
-    inverseMatrixPlugin,
-    fibPlugin,
-    polynomialPlugin,
-    tensorPlugin,
-    roundPlugin,
     listmodPlugin,
+    analysisPlugin,
+    discreteMathPlugin,
+    numericMethodsPlugin,
+    physicsPlugin,
+    algebraPlugin,
 ];
 
 let defaultContext: Context;
@@ -109,11 +82,9 @@ export default function evaluate(input: string, context: Context = defaultContex
     let nodeTree;
 
     try {
-        if (context.options.decimalSeparator === ',') {
-            nodeTree = parse(transformGerman2English(input));
-        } else {
-            nodeTree = parse(input);
-        }
+        nodeTree = parse(input, {
+            language: context.options.decimalSeparator === ',' ? 'de' : 'en',
+        });
     } catch (syntaxError) {
         throw syntaxError.message;
     }
@@ -124,13 +95,13 @@ export default function evaluate(input: string, context: Context = defaultContex
     if (result.type === 'define') {
         const value = result.value;
         return {
-            result: context.options.decimalSeparator === ',' ? transformEnglish2German(resultString) : resultString,
+            result: resultString,
             context: insertStackObject(result.name, value, context),
         };
     }
 
     return {
-        result: context.options.decimalSeparator === ',' ? transformEnglish2German(resultString) : resultString,
+        result: resultString,
         context,
     };
 }

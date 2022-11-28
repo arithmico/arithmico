@@ -19,5 +19,7 @@ export default function serializeFunction(node: FunctionNode, options: Options) 
         ? `${serialize(node.expression, options)}`
         : serialize(node.expression, options);
 
-    return `(${node.header.map(serializeHeaderItem).join(', ')}) → ${serializedChild}`;
+    return `(${node.header
+        .map(serializeHeaderItem)
+        .join(options.decimalSeparator === '.' ? ', ' : '; ')}) → ${serializedChild}`;
 }

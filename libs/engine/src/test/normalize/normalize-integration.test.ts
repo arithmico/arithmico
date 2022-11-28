@@ -1,5 +1,7 @@
 import { Context } from '../../types';
-import { parse } from '../../parse/parser';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { parse } from '@arithmico/parser';
 import normalize from '../../normalize';
 import serialize from '../../serialize';
 import { createOptions } from '../../utils/context-utils';
@@ -20,7 +22,7 @@ let lastId = 0;
 
 function normalizeTest(input: string, expectedOutput: string, context: Context = testContext) {
     test(`normalize integration test #${++lastId}`, () => {
-        const node = parse(input, testOptions);
+        const node = parse(input, { language: 'en' });
         const normalizedNode = normalize(node, context);
         expect(serialize(normalizedNode, context.options)).toBe(expectedOutput);
     });
