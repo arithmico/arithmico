@@ -1,8 +1,8 @@
-import createPluginV2 from '../../../utils/plugin-builder-v2';
+import createPlugin from '../../../utils/plugin-builder';
 import ifThenElseFragment from './fragments/if-then-else';
 import listModFragment from './fragments/listmod';
 
-const computerSciencePlugin = createPluginV2(
+const computerSciencePlugin = createPlugin(
     'core/computer-science',
     'core',
     'Contains typical logical functions from computer science.',

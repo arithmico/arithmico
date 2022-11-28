@@ -1,7 +1,7 @@
 import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
 import { fib } from '../utils/fib-utils';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 import { calculateFact } from '../utils/fact';
 import { binco } from '../../../../utils/binco';
 import { getLowestFraction } from '../utils/fraction-utils';

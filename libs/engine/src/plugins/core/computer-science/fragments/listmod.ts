@@ -3,7 +3,7 @@ import createNumberNode from '../../../../create/create-number-node';
 import createVector from '../../../../create/create-vector';
 import evaluate from '../../../../eval';
 import { FunctionHeaderItem, FunctionNode, NumberNode, SyntaxTreeNode, Vector } from '../../../../types';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singleListHeader: FunctionHeaderItem[] = [{ name: 'l', type: 'vector', evaluate: true }];
 const twoListsHeader: FunctionHeaderItem[] = [

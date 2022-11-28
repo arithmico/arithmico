@@ -16,7 +16,7 @@ import {
 } from '../utils/polynomial-type-utils';
 import createNumberNode from '../../../../create/create-number-node';
 import createVector from '../../../../create/create-vector';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singlePolynomialHeader: FunctionHeaderItem[] = [{ name: 'p', type: 'any', evaluate: false }];
 const doublePolynomialHeader: FunctionHeaderItem[] = [

@@ -1,6 +1,6 @@
 import createNumberNode from '../../../../create/create-number-node';
 import { FunctionHeaderItem, NumberNode } from '../../../../types';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const expHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 

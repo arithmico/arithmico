@@ -1,7 +1,7 @@
 import evaluate from '../../../../eval';
 import { BooleanNode, SyntaxTreeNode } from '../../../../types';
 import { FunctionHeaderItem } from '../../../../types/SyntaxTreeNodes';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const iteHeader: FunctionHeaderItem[] = [
     {

@@ -1,7 +1,7 @@
-import createPluginV2 from '../../../utils/plugin-builder-v2';
+import createPlugin from '../../../utils/plugin-builder';
 import physicalConstantsFragment from './fragments/physical-constants';
 
-const physicsPlugin = createPluginV2('core/physics', 'core', 'Contains physical constants.')
+const physicsPlugin = createPlugin('core/physics', 'core', 'Contains physical constants.')
     .addFragment(physicalConstantsFragment)
     .build();
 

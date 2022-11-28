@@ -3,7 +3,7 @@ import createVector from '../../../../create/create-vector';
 import createNumberNode from '../../../../create/create-number-node';
 import evaluate from '../../../../eval';
 import createFunctionCall from '../../../../create/create-function-call';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const tableHeader: FunctionHeaderItem[] = [
     { name: 'f', type: 'function', evaluate: true },

@@ -8,7 +8,7 @@ import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/Sy
 import { isEquationLinear } from '../utils/check-linear';
 import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from '../utils/get-coefficients';
 import { cramerSolver, det } from '../utils/matrix-utils';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const lsolveHeader: FunctionHeaderItem[] = [{ type: 'equals', name: 'equation', evaluate: false, repeat: true }];
 

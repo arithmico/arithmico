@@ -2,7 +2,7 @@ import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNode
 import createNumberNode from '../../../../create/create-number-node';
 import { calculateCNormal, calculateNormal } from '../utils/normal';
 import { calculateBinom, calculateCBinom } from '../utils/binomial';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 const binomHeader: FunctionHeaderItem[] = [

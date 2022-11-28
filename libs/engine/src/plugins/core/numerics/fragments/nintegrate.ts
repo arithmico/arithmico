@@ -3,7 +3,7 @@ import createNumberNode from '../../../../create/create-number-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import { closeTo } from '../../../../utils/float-utils';
 import { integrateIntervall } from '../utils/nintegrate-utils';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const INTERVALLS = 128;
 

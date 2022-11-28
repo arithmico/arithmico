@@ -7,7 +7,7 @@ import {calculateQuantile} from '../utils/quantile';
 import {isEveryElementNumber} from '../../../../utils/tensor-utils';
 import {calculateCovariance} from '../utils/covariance';
 import {calculateCorrelationCoefficient} from '../utils/corr';
-import {PluginFragment} from '../../../../utils/plugin-builder-v2';
+import {PluginFragment} from '../../../../utils/plugin-builder';
 
 const numberSeriesHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true, repeat: true }];
 const quantileHeader: FunctionHeaderItem[] = [
