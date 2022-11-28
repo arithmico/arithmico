@@ -62,6 +62,18 @@ export class PluginFragment {
         return this.methods;
     }
 
+    addMethod<T extends SyntaxTreeNode>(
+        name: string,
+        target: SyntaxTreeNode['type'],
+        evaluator: (node: T, context: Context) => SyntaxTreeNode,
+    ) {
+        this.methods.push({
+            name,
+            targetType: target,
+            evaluator,
+        });
+    }
+
     addFragment(fragment: PluginFragment) {
         this.functions = this.functions.concat(fragment.getFunctions());
         this.constants = this.constants.concat(fragment.getConstants());
