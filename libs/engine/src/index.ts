@@ -6,27 +6,27 @@ import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
 import { insertStackObject } from './utils/context-utils';
-import statisticsPlugin from './plugins/core/statistics/statistics';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
 import analysisPlugin from './plugins/core/analysis/analysis';
+import numericsPlugin from './plugins/core/numerics/numerics';
+import algebraPlugin from './plugins/core/algebra/algebra';
+import statisticsPlugin from './plugins/core/statistics/statistics';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
-import numericMethodsPlugin from './plugins/core/numerics/numerics';
 import physicsPlugin from './plugins/core/physics/physics';
 import computerSciencePlugin from './plugins/core/computer-science/computer-science';
-import algebraPlugin from './plugins/core/algebra/algebra';
 
 export { serializeStack } from './utils/context-utils';
 
 const plugins = [
-    statisticsPlugin,
     analysisPlugin,
+    numericsPlugin,
+    algebraPlugin,
+    statisticsPlugin,
     discreteMathPlugin,
-    numericMethodsPlugin,
     physicsPlugin,
     computerSciencePlugin,
-    algebraPlugin,
 ];
 
 let defaultContext: Context;
