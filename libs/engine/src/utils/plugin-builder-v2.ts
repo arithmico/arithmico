@@ -32,6 +32,7 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
 
 interface PluginFunctionProps {
     getParameter(name: string, fallback?: SyntaxTreeNode): SyntaxTreeNode | SyntaxTreeNode[];
+    getNullableParameter(name: string): SyntaxTreeNode | SyntaxTreeNode[] | null;
     runtimeError(message: string): void;
     typeError(message: string): void;
     context: Context;
@@ -127,6 +128,16 @@ export class PluginFragment {
                         return parameter;
                     };
 
+                    const getNullableParameter = (name: string): SyntaxTreeNode | SyntaxTreeNode[] | null => {
+                        const parameter = parameterMap.get(name);
+
+                        if (parameter) {
+                            return parameter;
+                        }
+
+                        return null;
+                    };
+
                     const runtimeError = (message: string) => {
                         return `RuntimeError: ${name}: ${message}`;
                     };
@@ -135,7 +146,7 @@ export class PluginFragment {
                         return `TypeError: ${name}: ${message}`;
                     };
 
-                    return evaluator({ getParameter, runtimeError, typeError, context });
+                    return evaluator({ getParameter, getNullableParameter, runtimeError, typeError, context });
                 },
             },
         });
