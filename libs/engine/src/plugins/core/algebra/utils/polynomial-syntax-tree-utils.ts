@@ -1,10 +1,10 @@
-import { NumberNode, SymbolNode, SyntaxTreeNode } from '../types/SyntaxTreeNodes';
-import { convertOperatorChainToList } from './symbolic-utils';
+import { NumberNode, SymbolNode, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
+import { convertOperatorChainToList } from '../../../../utils/symbolic-utils';
 import {
+    compareMonomials,
     createConstantMonomial,
     createNonConstantMonomial,
     Polynomial,
-    compareMonomials,
 } from './polynomial-type-utils';
 
 export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
@@ -108,26 +108,8 @@ export function isPolynomialDegreeValid(node: SyntaxTreeNode) {
     });
 }
 
-function checkEverySummandsHasSymbolBase(summands: SyntaxTreeNode[], symbol: string) {
-    return summands.every((summand) => getMonomialBaseFromSummand(summand) === symbol || isSummandConstant(summand));
-}
-
-export function isEverySummandOfPolynomialBaseSame(node: SyntaxTreeNode) {
+function getAllBasesAsSet(node: SyntaxTreeNode) {
     const summands = getSummands(node);
-    if (summands.length === 1) {
-        return isSummandConstant(summands[0]) || getMonomialBaseFromSummand(summands[0]) !== undefined;
-    }
-
-    if (summands.length >= 2) {
-        const symbol = getMonomialBaseFromSummand(summands[1]);
-        return checkEverySummandsHasSymbolBase(summands, symbol);
-    }
-
-    return false;
-}
-
-export function haveTwoPolynomialsSameBase(node1: SyntaxTreeNode, node2: SyntaxTreeNode) {
-    const summands = [...getSummands(node1), ...getSummands(node2)];
     const bases = new Set<string>();
     summands.forEach((summand) => {
         if (isSummandConstant(summand)) {
@@ -136,7 +118,15 @@ export function haveTwoPolynomialsSameBase(node1: SyntaxTreeNode, node2: SyntaxT
 
         bases.add(getMonomialBaseFromSummand(summand));
     });
-    return bases.size <= 1;
+    return bases;
+}
+
+export function isEverySummandOfPolynomialBaseSame(node: SyntaxTreeNode) {
+    return getAllBasesAsSet(node).size <= 1;
+}
+
+export function haveTwoPolynomialsSameBase(node1: SyntaxTreeNode, node2: SyntaxTreeNode) {
+    return new Set([...getAllBasesAsSet(node1), ...getAllBasesAsSet(node2)]).size <= 1;
 }
 
 function summandToMonomial(summand: SyntaxTreeNode) {

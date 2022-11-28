@@ -1,33 +1,22 @@
-import {
-    addPluginAuthor,
-    addPluginDescription,
-    addPluginFunction,
-    createPlugin,
-    createPluginFunction,
-} from '../../../utils/plugin-builder';
-import { FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
-import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
+import { FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
 import {
     getPolynomial,
     haveTwoPolynomialsSameBase,
     isEverySummandOfPolynomialBaseSame,
     isPolynomialDegreeValid,
-} from '../../../utils/polynomial-syntax-tree-utils';
-import normalize from '../../../normalize';
+} from '../utils/polynomial-syntax-tree-utils';
+import normalize from '../../../../normalize';
 import {
     calculatePolynomialAddition,
     calculatePolynomialDivision,
     calculatePolynomialMultiplication,
     calculatePolynomialSubtraction,
     getDegreeFromPolynomial,
-} from './utils/polynomial-utils';
-import { getSyntaxTreeNodeFromPolynomial } from '../../../utils/polynomial-type-utils';
-import createNumberNode from '../../../create/create-number-node';
-import createVector from '../../../create/create-vector';
-
-const polynomialPlugin = createPlugin('core/polynomial');
-addPluginDescription(polynomialPlugin, 'Adds polynomial division and another functions on polynoms.');
-addPluginAuthor(polynomialPlugin, 'core');
+    getSyntaxTreeNodeFromPolynomial,
+} from '../utils/polynomial-type-utils';
+import createNumberNode from '../../../../create/create-number-node';
+import createVector from '../../../../create/create-vector';
+import { PluginFragment } from '../../../../utils/plugin-builder-v2';
 
 const singlePolynomialHeader: FunctionHeaderItem[] = [{ name: 'p', type: 'any', evaluate: false }];
 const doublePolynomialHeader: FunctionHeaderItem[] = [
@@ -35,117 +24,88 @@ const doublePolynomialHeader: FunctionHeaderItem[] = [
     { name: 'q', type: 'any', evaluate: false },
 ];
 
-addPluginFunction(
-    polynomialPlugin,
-    createPluginFunction(
+const polynomialFragment = new PluginFragment()
+    .addFunction(
         'polynomial:deg',
         singlePolynomialHeader,
         'Calculates the degree of given polynomial p.',
         'Berechnet den Grad eines gegebenen Polynoms p.',
-        (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame(
-                'polynomial:deg',
-                parameters,
-                singlePolynomialHeader,
-                context,
-            );
-            const polynomialSyntaxTreeNode = parameterStackFrame.get('p');
+        ({ getParameter, runtimeError, context }) => {
+            const polynomialSyntaxTreeNode = <SyntaxTreeNode>getParameter('p');
 
             const normalizedPolynomialSyntaxTreeNode = normalize(polynomialSyntaxTreeNode, context);
 
             if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode)) {
-                throw 'RuntimeError: polynomial:deg: Polynomial is not mathematically correct. Every monomial must have an integer degree >= 0.';
+                throw runtimeError(
+                    'Polynomial is not mathematically correct. Every monomial must have an integer degree >= 0.',
+                );
             }
 
             if (!isEverySummandOfPolynomialBaseSame(normalizedPolynomialSyntaxTreeNode)) {
-                throw 'RuntimeError: polynomial:deg: Polynomial is not mathematically correct. Every monomial must have the same base.';
+                throw runtimeError('Polynomial is not mathematically correct. Every monomial must have the same base.');
             }
 
             const polynomial = getPolynomial(normalizedPolynomialSyntaxTreeNode);
 
             return createNumberNode(getDegreeFromPolynomial(polynomial));
         },
-    ),
-);
-
-addPluginFunction(
-    polynomialPlugin,
-    createPluginFunction(
+    )
+    .addFunction(
         'polynomial:add',
         doublePolynomialHeader,
         'Adds two polynomials p and q.',
         'Addiert zwei Polynome p und q.',
-        (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame(
-                'polynomial:add',
-                parameters,
-                doublePolynomialHeader,
-                context,
-            );
-            const polynomialSyntaxTreeNode1 = parameterStackFrame.get('p');
-            const polynomialSyntaxTreeNode2 = parameterStackFrame.get('q');
+        ({ getParameter, context }) => {
+            const polynomialSyntaxTreeNode1 = <SyntaxTreeNode>getParameter('p');
+            const polynomialSyntaxTreeNode2 = <SyntaxTreeNode>getParameter('q');
 
             const polynomial1 = getPolynomial(normalize(polynomialSyntaxTreeNode1, context));
             const polynomial2 = getPolynomial(normalize(polynomialSyntaxTreeNode2, context));
 
             return getSyntaxTreeNodeFromPolynomial(calculatePolynomialAddition(polynomial1, polynomial2));
         },
-    ),
-);
-
-addPluginFunction(
-    polynomialPlugin,
-    createPluginFunction(
+    )
+    .addFunction(
         'polynomial:sub',
         doublePolynomialHeader,
         'Subtracts two polynomials p and q.',
         'Subtrahiert zwei Polynome p und q.',
-        (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame(
-                'polynomial:sub',
-                parameters,
-                doublePolynomialHeader,
-                context,
-            );
-            const polynomialSyntaxTreeNode1 = parameterStackFrame.get('p');
-            const polynomialSyntaxTreeNode2 = parameterStackFrame.get('q');
+        ({ getParameter, context }) => {
+            const polynomialSyntaxTreeNode1 = <SyntaxTreeNode>getParameter('p');
+            const polynomialSyntaxTreeNode2 = <SyntaxTreeNode>getParameter('q');
 
             const polynomial1 = getPolynomial(normalize(polynomialSyntaxTreeNode1, context));
             const polynomial2 = getPolynomial(normalize(polynomialSyntaxTreeNode2, context));
 
             return getSyntaxTreeNodeFromPolynomial(calculatePolynomialSubtraction(polynomial1, polynomial2));
         },
-    ),
-);
-
-addPluginFunction(
-    polynomialPlugin,
-    createPluginFunction(
+    )
+    .addFunction(
         'polynomial:mul',
         doublePolynomialHeader,
         'Multiplicates two polynomials p and q.',
         'Multipliziert zwei Polynome p und q.',
-        (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame(
-                'polynomial:mul',
-                parameters,
-                doublePolynomialHeader,
-                context,
-            );
-            const polynomialSyntaxTreeNode1 = parameterStackFrame.get('p');
-            const polynomialSyntaxTreeNode2 = parameterStackFrame.get('q');
+        ({ getParameter, runtimeError, context }) => {
+            const polynomialSyntaxTreeNode1 = <SyntaxTreeNode>getParameter('p');
+            const polynomialSyntaxTreeNode2 = <SyntaxTreeNode>getParameter('q');
 
             const normalizedPolynomialSyntaxTreeNode1 = normalize(polynomialSyntaxTreeNode1, context);
             const normalizedPolynomialSyntaxTreeNode2 = normalize(polynomialSyntaxTreeNode2, context);
 
             if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode1)) {
-                throw 'RuntimeError: polynomial:mul: Polynomial p is not mathematically correct. Every monomial must have an integer degree >= 0.';
+                throw runtimeError(
+                    'Polynomial p is not mathematically correct. Every monomial must have an integer degree >= 0.',
+                );
             }
             if (!isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode2)) {
-                throw 'RuntimeError: polynomial:mul: Polynomial p is not mathematically correct. Every monomial must have an integer degree >= 0.';
+                throw runtimeError(
+                    'Polynomial p is not mathematically correct. Every monomial must have an integer degree >= 0.',
+                );
             }
             if (!haveTwoPolynomialsSameBase(normalizedPolynomialSyntaxTreeNode1, normalizedPolynomialSyntaxTreeNode2)) {
-                throw 'RuntimeError: Polynomial:mul: Polynomials p and q are not mathematically correct. Every monomial must have the same base.';
+                throw runtimeError(
+                    'Polynomials p and q are not mathematically correct. Every monomial must have the same base.',
+                );
             }
 
             const polynomial1 = getPolynomial(normalizedPolynomialSyntaxTreeNode1);
@@ -153,25 +113,15 @@ addPluginFunction(
 
             return getSyntaxTreeNodeFromPolynomial(calculatePolynomialMultiplication(polynomial1, polynomial2));
         },
-    ),
-);
-
-addPluginFunction(
-    polynomialPlugin,
-    createPluginFunction(
+    )
+    .addFunction(
         'polynomial:div',
         doublePolynomialHeader,
         'Divides two polynomials, the dividend p must have an equal or higher degree than the divisor q. The result is returned as [quotient, remainder].',
         'Dividiert zwei Polynome, der Dividiend p muss einen gleichen oder höheren Grad als der Divisor q aufweisen. Das Ergebnis als [Quotient, Rest].',
-        (parameters, context) => {
-            const parameterStackFrame = mapParametersToStackFrame(
-                'polynomial:div',
-                parameters,
-                doublePolynomialHeader,
-                context,
-            );
-            const polynomialSyntaxTreeNode1 = parameterStackFrame.get('p');
-            const polynomialSyntaxTreeNode2 = parameterStackFrame.get('q');
+        ({ getParameter, runtimeError, context }) => {
+            const polynomialSyntaxTreeNode1 = <SyntaxTreeNode>getParameter('p');
+            const polynomialSyntaxTreeNode2 = <SyntaxTreeNode>getParameter('q');
 
             const normalizedPolynomialSyntaxTreeNode1 = normalize(polynomialSyntaxTreeNode1, context);
             const normalizedPolynomialSyntaxTreeNode2 = normalize(polynomialSyntaxTreeNode2, context);
@@ -180,22 +130,22 @@ addPluginFunction(
                 !isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode1) ||
                 !isPolynomialDegreeValid(normalizedPolynomialSyntaxTreeNode2)
             ) {
-                throw 'RuntimeError: Polynomial:div: Every monomial must have an integer degree >= 0.';
+                throw runtimeError('Every monomial must have an integer degree >= 0.');
             }
 
             if (!haveTwoPolynomialsSameBase(normalizedPolynomialSyntaxTreeNode1, normalizedPolynomialSyntaxTreeNode2)) {
-                throw 'RuntimeError: Polynomial:div: Every monomial must have the same base.';
+                throw runtimeError('Every monomial must have the same base.');
             }
 
             const polynomial1 = getPolynomial(normalizedPolynomialSyntaxTreeNode1);
             const polynomial2 = getPolynomial(normalizedPolynomialSyntaxTreeNode2);
 
             if (getDegreeFromPolynomial(polynomial1) < getDegreeFromPolynomial(polynomial2)) {
-                throw 'RuntimeError: polynomial:div: Divisor q must not have a greater or equal degree as dividend p';
+                throw runtimeError('Divisor q must not have a greater or equal degree as dividend p');
             }
 
             if (polynomial2.length === 1 && polynomial2[0].type === 'constant' && polynomial2[0].coefficient === 0) {
-                throw 'RuntimeError: Polynomial:div: divisor q must not be 0';
+                throw runtimeError('Divisor q must not be 0.');
             }
 
             const quotientRemainder = calculatePolynomialDivision(polynomial1, polynomial2);
@@ -205,7 +155,6 @@ addPluginFunction(
                 getSyntaxTreeNodeFromPolynomial(quotientRemainder[1]),
             ]);
         },
-    ),
-);
+    );
 
-export default polynomialPlugin;
+export default polynomialFragment;
