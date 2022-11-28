@@ -10,13 +10,9 @@ import createSymbolNode from '../../create/create-symbol-node';
 import createTimes from '../../create/create-times';
 import createVector from '../../create/create-vector';
 import evaluate from '../../eval';
-import { Context } from '../../types';
-import { createOptions } from '../../utils/context-utils';
+import { createContext } from '../../utils/context-utils';
 
-const testContext: Context = {
-    options: createOptions(),
-    stack: [new Map([['a', createNumberNode(42)]])],
-};
+const testContext = createContext({ stack: [new Map([['a', createNumberNode(42)]])] });
 
 describe('evaluate plus node', () => {
     test('evaluate plus', () => {

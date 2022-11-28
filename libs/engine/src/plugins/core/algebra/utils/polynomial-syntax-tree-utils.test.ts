@@ -1,7 +1,6 @@
 import { getPolynomial } from './polynomial-syntax-tree-utils';
 import normalize from '../../../../normalize';
-import { createOptions } from '../../../../utils/context-utils';
-import { Context } from '../../../../types/Context';
+import { createContext } from '../../../../utils/context-utils';
 import createNumberNode from '../../../../create/create-number-node';
 import createNegate from '../../../../create/create-negate';
 import createPlus from '../../../../create/create-plus';
@@ -11,12 +10,7 @@ import createTimes from '../../../../create/create-times';
 import createMinus from '../../../../create/create-minus';
 import { createConstantMonomial, createNonConstantMonomial } from './polynomial-type-utils';
 
-const testOptions = createOptions();
-
-const testContext: Context = {
-    options: testOptions,
-    stack: [new Map()],
-};
+const testContext = createContext();
 
 test('getPolynomial() 2', () => {
     expect(getPolynomial(normalize(createNumberNode(2), testContext))).toStrictEqual([createConstantMonomial(2)]);

@@ -1,3 +1,4 @@
+import { Context } from 'vm';
 import { SyntaxTreeNode, FunctionNode } from './SyntaxTreeNodes';
 
 export interface GlobalDocumentationItem {
@@ -30,11 +31,18 @@ export interface PluginConstant {
     };
 }
 
+export interface PluginMethod<T extends SyntaxTreeNode> {
+    name: string;
+    targetType: T['type'];
+    evaluator: (node: T, parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode;
+}
+
 export interface Plugin {
     name: string;
     description: string;
     author: string;
     functions: PluginFunction[];
     constants: PluginConstant[];
+    methods: PluginMethod<SyntaxTreeNode>[];
     inlineDefinitions: string[];
 }

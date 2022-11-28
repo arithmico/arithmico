@@ -30,6 +30,16 @@ const vectorFragment = new PluginFragment()
             return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
         },
     )
+    .addMethod<Vector>('length', 'vector', (node) => {
+        const values = node.values.map((value) => {
+            if (value.type !== 'number') {
+                throw 'RuntimeError: <vector>.length: expected number';
+            }
+            return Math.pow(value.value, 2);
+        });
+
+        return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
+    })
     .addFunction(
         'cross',
         crossHeader,
