@@ -29,6 +29,7 @@ export default function useEvaluate() {
           magnitudeThresholdForScientificNotation: decimalPlaces,
           operators: defaultContext.options.operators,
         },
+        methods: defaultContext.methods,
         stack,
       })
     );
