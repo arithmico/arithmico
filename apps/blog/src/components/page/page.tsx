@@ -3,13 +3,6 @@ import styled from "styled-components";
 import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
 import packageData from "@workspace-package.json";
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr;
-`;
-
 const Content = styled.main`
   margin-top: 1.5rem;
 `;
@@ -26,7 +19,7 @@ interface PageProps {
 
 export default function Page({ children }: PageProps) {
   return (
-    <Container>
+    <div className="w-full h-full grid grid-rows-[auto_1fr]">
       <HeaderNavBar
         title="Arithmico"
         subTitle="Blog"
@@ -45,6 +38,6 @@ export default function Page({ children }: PageProps) {
       <ScrollWrapper>
         <Content>{children}</Content>
       </ScrollWrapper>
-    </Container>
+    </div>
   );
 }
