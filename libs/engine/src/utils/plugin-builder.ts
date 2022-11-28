@@ -33,8 +33,8 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
 interface PluginFunctionProps {
     getParameter(name: string, fallback?: SyntaxTreeNode): SyntaxTreeNode | SyntaxTreeNode[];
     getNullableParameter(name: string): SyntaxTreeNode | SyntaxTreeNode[] | null;
-    runtimeError(message: string): void;
-    typeError(message: string): void;
+    runtimeError(message: string): string;
+    typeError(message: string): string;
     context: Context;
 }
 
@@ -156,9 +156,9 @@ export class PluginFragment {
 }
 
 class PluginBuilder extends PluginFragment {
-    private name: string;
-    private author: string;
-    private description: string;
+    private readonly name: string;
+    private readonly author: string;
+    private readonly description: string;
 
     constructor(name: string, author: string, description: string) {
         super();
