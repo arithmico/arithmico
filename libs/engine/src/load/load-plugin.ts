@@ -1,5 +1,5 @@
 import { Context, Plugin, Profile, SyntaxTreeNode } from '../types';
-import { existsOnStack, insertStackObject } from '../utils/context-utils';
+import { existsOnStack, insertStackObject, loadMethod } from '../utils/context-utils';
 
 function loadPluginObject(name: string, object: SyntaxTreeNode, context: Context, profile: Profile) {
     if (existsOnStack(name, context)) {
@@ -25,5 +25,10 @@ export default function loadPlugin(plugin: Plugin, context: Context, profile: Pr
         contextWithConstants,
     );
 
-    return contextWithConstantsAndFunctions;
+    const contextWithConstantsAndFunctionsAndMethods = plugin.methods.reduce(
+        (context, method) => loadMethod(context, method),
+        contextWithConstantsAndFunctions,
+    );
+
+    return contextWithConstantsAndFunctionsAndMethods;
 }

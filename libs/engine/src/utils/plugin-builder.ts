@@ -65,7 +65,7 @@ export class PluginFragment {
     addMethod<T extends SyntaxTreeNode>(
         name: string,
         target: SyntaxTreeNode['type'],
-        evaluator: (node: T, context: Context) => SyntaxTreeNode,
+        evaluator: PluginMethod<T>['evaluator'],
     ) {
         this.methods.push({
             name,

@@ -1,5 +1,5 @@
 import serialize from '../serialize';
-import { Context, Options, SyntaxTreeNode } from '../types';
+import { Context, Options, PluginMethod, SyntaxTreeNode } from '../types';
 
 export const defaultOptions: Options = {
     decimalPlaces: 6,
@@ -63,8 +63,34 @@ export const defaultOptions: Options = {
 export function createContextWithOptions(options: Options): Context {
     return {
         options,
+        methods: new Map(),
         stack: [new Map()],
     };
+}
+
+export function existsMethod(methodName: string, nodeType: SyntaxTreeNode['type'], context: Context) {
+    if (!context.methods.has(nodeType)) {
+        return false;
+    }
+    return context.methods.get(nodeType).has(methodName);
+}
+
+export function loadMethod(context: Context, method: PluginMethod<SyntaxTreeNode>): Context {
+    const newContext = {
+        ...context,
+        methods: new Map(context.methods),
+    };
+
+    const targetMethods = newContext.methods.get(method.targetType);
+
+    if (targetMethods.has(method.name)) {
+        throw `LoadingError: method "${method.name}" has already been loaded for type "${method.targetType}"`;
+    }
+
+    targetMethods.set(method.name, method.evaluator);
+    newContext.methods.set(method.targetType, targetMethods);
+
+    return newContext;
 }
 
 export function createOptions(options?: Partial<Options>): Options {
