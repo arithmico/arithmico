@@ -1,6 +1,6 @@
 import createNumberNode from '../../../../create/create-number-node';
 import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const absHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 

@@ -1,7 +1,7 @@
 import { NumberNode } from '../../../../types';
 import { FunctionHeaderItem } from '../../../../types/SyntaxTreeNodes';
 import createNumberNode from '../../../../create/create-number-node';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 import { euclideanDivision } from '../utils/euclidean-division';
 
 const twoNumberHeader: FunctionHeaderItem[] = [

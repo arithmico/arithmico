@@ -3,7 +3,7 @@ import createNumberNode from '../../../../create/create-number-node';
 import evaluate from '../../../../eval';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import { binco } from '../../../../utils/binco';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const H_COEFFICIENT = 1e-6;
 

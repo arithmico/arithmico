@@ -6,29 +6,27 @@ import evaluateNode from './eval';
 import serialize from './serialize';
 import { Context, Profile } from './types';
 import { insertStackObject } from './utils/context-utils';
-import statisticsPlugin from './plugins/core/statistics/statistics';
-import ifThenElsePlugin from './plugins/core/if-then-else/if-then-else';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
-import listmodPlugin from './plugins/core/listmod/listmod-plugin';
 import analysisPlugin from './plugins/core/analysis/analysis';
-import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
-import numericMethodsPlugin from './plugins/core/numerics/numerics';
-import physicsPlugin from './plugins/core/physics/physics';
+import numericsPlugin from './plugins/core/numerics/numerics';
 import algebraPlugin from './plugins/core/algebra/algebra';
+import statisticsPlugin from './plugins/core/statistics/statistics';
+import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
+import physicsPlugin from './plugins/core/physics/physics';
+import computerSciencePlugin from './plugins/core/computer-science/computer-science';
 
 export { serializeStack } from './utils/context-utils';
 
 const plugins = [
-    statisticsPlugin,
-    ifThenElsePlugin,
-    listmodPlugin,
     analysisPlugin,
-    discreteMathPlugin,
-    numericMethodsPlugin,
-    physicsPlugin,
+    numericsPlugin,
     algebraPlugin,
+    statisticsPlugin,
+    discreteMathPlugin,
+    physicsPlugin,
+    computerSciencePlugin,
 ];
 
 let defaultContext: Context;
