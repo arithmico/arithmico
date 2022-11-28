@@ -7,6 +7,7 @@ import {
     Plugin,
     PluginConstant,
     PluginFunction,
+    PluginMethod,
     SymbolNode,
     SyntaxTreeNode,
 } from '../types';
@@ -41,10 +42,12 @@ interface PluginFunctionProps {
 export class PluginFragment {
     protected constants: PluginConstant[];
     protected functions: PluginFunction[];
+    protected methods: PluginMethod<SyntaxTreeNode>[];
 
     constructor() {
         this.constants = [];
         this.functions = [];
+        this.methods = [];
     }
 
     getConstants() {
@@ -174,6 +177,7 @@ class PluginBuilder extends PluginFragment {
             description: this.description,
             constants: this.constants,
             functions: this.functions,
+            methods: this.methods,
             inlineDefinitions: [],
         };
     }
