@@ -60,6 +60,15 @@ export const defaultOptions: Options = {
     },
 };
 
+export function createContext(partial?: Partial<Context>): Context {
+    return {
+        options: createOptions(),
+        methods: new Map(),
+        stack: [new Map()],
+        ...partial,
+    };
+}
+
 export function createContextWithOptions(options: Options): Context {
     return {
         options,

@@ -2,13 +2,9 @@ import createBooleanNode from '../../create/create-boolean-node';
 import createNumberNode from '../../create/create-number-node';
 import createSymbolNode from '../../create/create-symbol-node';
 import evaluate from '../../eval';
-import { Context } from '../../types';
-import { createOptions } from '../../utils/context-utils';
+import { createContext } from '../../utils/context-utils';
 
-const testContext: Context = {
-    options: createOptions(),
-    stack: [new Map([['a', createNumberNode(42)]])],
-};
+const testContext = createContext({ stack: [new Map([['a', createNumberNode(42)]])] });
 
 test('evaluate number', () => {
     expect(evaluate(createNumberNode(42), testContext)).toStrictEqual(createNumberNode(42));

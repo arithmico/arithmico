@@ -8,13 +8,9 @@ import createLessOrEquals from '../../create/create-less-or-equals';
 import createNumberNode from '../../create/create-number-node';
 import createOr from '../../create/create-or';
 import evaluate from '../../eval';
-import { Context } from '../../types';
-import { createOptions } from '../../utils/context-utils';
+import { createContext } from '../../utils/context-utils';
 
-const testContext: Context = {
-    options: createOptions(),
-    stack: [new Map()],
-};
+const testContext = createContext();
 
 describe('evaluate or', () => {
     test('evalaute or - true', () => {

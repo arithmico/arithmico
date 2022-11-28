@@ -8,11 +8,10 @@ import createNegate from '../../create/create-negate';
 import createLambda from '../../create/create-lambda';
 import createSymbolNode from '../../create/create-symbol-node';
 import createFunctionCall from '../../create/create-function-call';
-import { createOptions } from '../../utils/context-utils';
+import { createContext } from '../../utils/context-utils';
 import createFunction from '../../create/create-function';
 
-const testContext: Context = {
-    options: createOptions(),
+const testContext = createContext({
     stack: [
         new Map<string, SyntaxTreeNode>([
             ['a', createNumberNode(42)],
@@ -27,7 +26,7 @@ const testContext: Context = {
             ],
         ]),
     ],
-};
+});
 
 test('evaluate vector', () => {
     expect(evaluate(createVector([createPlus(createNumberNode(1), createNumberNode(2))]), testContext)).toStrictEqual(

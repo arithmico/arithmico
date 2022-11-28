@@ -10,6 +10,7 @@ const testContext: Context = {
         angleUnit: 'degrees',
     }),
     stack: [new Map()],
+    methods: new Map(),
 };
 
 test('insert stack object', () => {
