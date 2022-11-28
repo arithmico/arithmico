@@ -1,6 +1,6 @@
 import { Context, Equals, SyntaxTreeNode } from '../../../../types';
 import { containsVariables, getVariableNames } from '../../../../utils/symbolic-utils';
-import { getFactors, getSummands } from '../../../../utils/polynomial-syntax-tree-utils';
+import { getFactors, getSummands } from './polynomial-syntax-tree-utils';
 
 function isSummandLinear(summand: SyntaxTreeNode, context: Context): boolean {
     const factors = getFactors(summand);

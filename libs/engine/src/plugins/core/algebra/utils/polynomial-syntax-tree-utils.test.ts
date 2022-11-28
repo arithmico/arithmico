@@ -1,15 +1,15 @@
-import { getPolynomial } from '../../utils/polynomial-syntax-tree-utils';
-import normalize from '../../normalize';
-import { createOptions } from '../../utils/context-utils';
-import { Context } from '../../types/Context';
-import createNumberNode from '../../create/create-number-node';
-import createNegate from '../../create/create-negate';
-import createPlus from '../../create/create-plus';
-import createPower from '../../create/create-power';
-import createSymbolNode from '../../create/create-symbol-node';
-import createTimes from '../../create/create-times';
-import createMinus from '../../create/create-minus';
-import { createConstantMonomial, createNonConstantMonomial } from '../../utils/polynomial-type-utils';
+import { getPolynomial } from './polynomial-syntax-tree-utils';
+import normalize from '../../../../normalize';
+import { createOptions } from '../../../../utils/context-utils';
+import { Context } from '../../../../types/Context';
+import createNumberNode from '../../../../create/create-number-node';
+import createNegate from '../../../../create/create-negate';
+import createPlus from '../../../../create/create-plus';
+import createPower from '../../../../create/create-power';
+import createSymbolNode from '../../../../create/create-symbol-node';
+import createTimes from '../../../../create/create-times';
+import createMinus from '../../../../create/create-minus';
+import { createConstantMonomial, createNonConstantMonomial } from './polynomial-type-utils';
 
 const testOptions = createOptions();
 
