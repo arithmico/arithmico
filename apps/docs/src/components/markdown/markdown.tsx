@@ -1,73 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import styled from "styled-components";
 import { MathJax } from "better-react-mathjax";
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Textfield = styled.input.attrs({ type: "text" })`
-  border: none;
-  font-size: 1.5rem;
-  outline: none;
-  background-color: rgba(0, 0, 0, 0.15);
-  padding: 0.75rem;
-  border-radius: 0.25rem;
-  color: black;
-  font-family: Source Code Pro, Monospace, Sans;
-`;
-
-const Label = styled.label`
-  margin-top: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  font-size: 0.75rem;
-
-  & > span {
-    margin-left: 0.75rem;
-    margin-bottom: 0.25rem;
-  }
-`;
-/*
-const Button = styled.a`
-  font-size: 1rem;
-  outline: none;
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  background-color: rgba(0, 0, 0, 0.15);
-  color: black;
-  margin-left: auto;
-  text-decoration: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.25);
-  }
-`;
-*/
-
-const Strong = styled.strong`
-  font-weight: 500;
-`;
-
-const Paragraph = styled.p`
-  text-align: justify;
-`;
-
-const Link = styled.a`
-  color: black;
-  text-decoration: none;
-  opacity: 0.5;
-  font-weight: 500;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
 
 interface MarkdownProps {
   content: string;
@@ -78,9 +11,16 @@ export default function Markdown({ content }: MarkdownProps) {
     <MathJax inline>
       <ReactMarkdown
         components={{
-          a: ({ ...props }) => <Link {...props} />,
-          p: ({ children }) => <Paragraph>{children}</Paragraph>,
-          strong: ({ children }) => <Strong>{children}</Strong>,
+          a: ({ ...props }) => (
+            <a
+              className="text-black opacity-50 font-medium hover:opacity-100"
+              {...props}
+            />
+          ),
+          p: ({ children }) => <p className="text-justify">{children}</p>,
+          strong: ({ children }) => (
+            <strong className="font-medium">{children}</strong>
+          ),
           code: ({ node, inline, className, children, ...props }) => {
             const child = node.children[0];
 
@@ -95,24 +35,26 @@ export default function Markdown({ content }: MarkdownProps) {
             }
 
             return (
-              <Form>
-                <Label>
-                  <span>Eingabe</span>
-                  <Textfield value={lines[0]} readOnly />
-                </Label>
-                <Label>
-                  <span>Ausgabe</span>
-                  <Textfield value={lines[1]} readOnly />
-                </Label>
-                {/*<Button
-                  href={`https://arithmico.com/examples/${encodeURIComponent(
-                    lines[0]
-                  )}`}
-                  target="_blank"
-                >
-                  Ausprobieren
-                </Button>*/}
-              </Form>
+              <div className="flex flex-col">
+                <label className="mt-3 flex flex-col text-xs">
+                  <span className="ml-3 mb-1">Eingabe</span>
+                  <input
+                    value={lines[0]}
+                    type="text"
+                    readOnly
+                    className="text-2xl bg-black/20 p-3 rounded text-black font-mono"
+                  />
+                </label>
+                <label className="mt-3 flex flex-col text-xs">
+                  <span className="ml-3 mb-1">Ausgabe</span>
+                  <input
+                    value={lines[1]}
+                    type="text"
+                    readOnly
+                    className="text-2xl bg-black/20 p-3 rounded text-black font-mono"
+                  />
+                </label>
+              </div>
             );
           },
         }}

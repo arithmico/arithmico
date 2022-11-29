@@ -1,29 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 import Markdown from "../../components/markdown/markdown";
 import Page from "../../components/page/page";
-
-const Toolbar = styled.div`
-  display: flex;
-  margin: 2rem 0;
-`;
-
-const StyledLink = styled(Link)`
-  color: black;
-  text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.15);
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.25);
-  }
-`;
-
-const RightLink = styled(StyledLink)`
-  margin-left: auto;
-`;
+import { Link } from "react-router-dom";
 
 interface chapterProps {
   contentUrl: string;
@@ -52,18 +30,24 @@ export default function Chapter({
     <Page>
       <h1>{title}</h1>
       <Markdown content={content} />
-      <Toolbar>
+      <div className="flex my-8 mx-0">
         {Number.isFinite(previousChapter) && (
-          <StyledLink to={`/chapters/${previousChapter}`}>
+          <Link
+            to={`/chapters/${previousChapter}`}
+            className="text-black bg-black/20 py-2 px-4 rounded hover:bg-black/30"
+          >
             Vorheriges Kapitel
-          </StyledLink>
+          </Link>
         )}
         {Number.isFinite(nextChapter) && (
-          <RightLink to={`/chapters/${nextChapter}`}>
+          <Link
+            to={`/chapters/${nextChapter}`}
+            className="text-black bg-black/20 py-2 px-4 rounded ml-auto hover:bg-black/30"
+          >
             Nächstes Kapitel
-          </RightLink>
+          </Link>
         )}
-      </Toolbar>
+      </div>
     </Page>
   );
 }
