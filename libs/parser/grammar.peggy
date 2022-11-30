@@ -128,7 +128,50 @@ LambdaWithOneUntypedParameter = parameter:Symbol _ ("->" / "→") _ expr:Express
 
 Expression = Or / LatexExpression
 
-LatexExpression = LatexSqrtWithDegree / LatexSqrt / LatexFrac
+// ============= Define LatexExpressions ordered by Name =========================
+
+LatexExpression = LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexSqrt / LatexSqrtWithDegree
+
+LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}" {
+    return {
+        type: "divided",
+        left,
+        right
+    }
+}
+
+LatexLog = "\\log" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "lg"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexLogN = "\\ln" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "ln"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexLogWithBase = "\\log" _ "_{" _ base:Expression _ "}" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "log"
+        },
+        parameters: [expr, base]
+    }
+}
 
 LatexSqrt = "\\sqrt" _ "{" _ expr:Expression _ "}" {
     return {
@@ -152,13 +195,6 @@ LatexSqrtWithDegree = "\\sqrt" _ "[" _ degree:Expression _ "]" _ "{" _ expr:Expr
     }
 }
 
-LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}" {
-    return {
-        type: "divided",
-        left,
-        right
-    }
-}
 
 // logic
 Or = left:And _ "|" _ right:Or {
@@ -253,7 +289,7 @@ Negate = _ "-" _ value:Power {
 
 MethodCall = object:Value _ "." _ method:Symbol _ "(" _ parameters:List? _ ")" {
     return {
-        type: "methodCall", 
+        type: "methodCall",
         object,
         method: method.name,
         parameters: parameters ? parameters : []
