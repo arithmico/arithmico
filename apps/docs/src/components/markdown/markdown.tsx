@@ -11,11 +11,11 @@ export default function Markdown({ content }: MarkdownProps) {
     <MathJax inline>
       <ReactMarkdown
         components={{
-          a: ({ ...props }) => (
+          a: ({ href, children }) => (
             <a
               className="text-black opacity-50 font-medium hover:opacity-100"
-              {...props}
-            />
+              href={href}
+            >{children}</a>
           ),
           p: ({ children }) => <p className="text-justify">{children}</p>,
           strong: ({ children }) => (
