@@ -126,77 +126,12 @@ LambdaWithOneUntypedParameter = parameter:Symbol _ ("->" / "→") _ expr:Express
     }
 }
 
-Expression = Or / LatexExpression
+Expression = Or
 
-// ============= Define LatexExpressions ordered by Name =========================
+// ===============================================================================
+// |             Logic Expressions                                               |
+// ===============================================================================
 
-LatexExpression = LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexSqrt / LatexSqrtWithDegree
-
-LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}" {
-    return {
-        type: "divided",
-        left,
-        right
-    }
-}
-
-LatexLog = "\\log" _ "(" _ expr:Expression _ ")" {
-    return {
-        type: "functionCall",
-        function: {
-            type: "symbol",
-            name: "lg"
-        },
-        parameters: [expr]
-    }
-}
-
-LatexLogN = "\\ln" _ "(" _ expr:Expression _ ")" {
-    return {
-        type: "functionCall",
-        function: {
-            type: "symbol",
-            name: "ln"
-        },
-        parameters: [expr]
-    }
-}
-
-LatexLogWithBase = "\\log" _ "_{" _ base:Expression _ "}" _ "(" _ expr:Expression _ ")" {
-    return {
-        type: "functionCall",
-        function: {
-            type: "symbol",
-            name: "log"
-        },
-        parameters: [expr, base]
-    }
-}
-
-LatexSqrt = "\\sqrt" _ "{" _ expr:Expression _ "}" {
-    return {
-        type: "functionCall",
-        function: {
-            type: "symbol",
-            name: "sqrt"
-        },
-        parameters: [expr]
-    }
-}
-
-LatexSqrtWithDegree = "\\sqrt" _ "[" _ degree:Expression _ "]" _ "{" _ expr:Expression _ "}" {
-    return {
-        type: "functionCall",
-        function: {
-            type: "symbol",
-            name: "root"
-        },
-        parameters: [expr, degree]
-    }
-}
-
-
-// logic
 Or = left:And _ "|" _ right:Or {
     return {
         type: "or",
@@ -227,7 +162,10 @@ RelationChainElement = _ relationSymbol:("=" / "<=" / ">=" / "<" / ">") _ term:T
 }
 
 
-// arithmetic
+// ===============================================================================
+// |             Arithmetic Expressions                                          |
+// ===============================================================================
+
 Term = Plus
 
 Plus = left:Minus _ "+" _ right:Plus {
@@ -296,7 +234,9 @@ MethodCall = object:Value _ "." _ method:Symbol _ "(" _ parameters:List? _ ")" {
     };
 } / Value / LatexExpression
 
-// values
+// ===============================================================================
+// |             Primitive and Subexpressions                                    |
+// ===============================================================================
 Value = Boolean
 / FunctionCall 
 / DefineLambdaFunction
@@ -382,7 +322,80 @@ SingleQuotesStringContent = (StringCharacter / "\\'" / '"')*
 
 StringCharacter = [^\'\"\\] / "\\\\"
 
-// misc
+// ===============================================================================
+// |             Latex Expressions                                               |
+// ===============================================================================
+
+LatexExpression = LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexSqrt / LatexSqrtWithDegree
+
+LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}" {
+    return {
+        type: "divided",
+        left,
+        right
+    }
+}
+
+LatexLog = "\\log" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "lg"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexLogN = "\\ln" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "ln"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexLogWithBase = "\\log" _ "_{" _ base:Expression _ "}" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "log"
+        },
+        parameters: [expr, base]
+    }
+}
+
+LatexSqrt = "\\sqrt" _ "{" _ expr:Expression _ "}" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "sqrt"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexSqrtWithDegree = "\\sqrt" _ "[" _ degree:Expression _ "]" _ "{" _ expr:Expression _ "}" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "root"
+        },
+        parameters: [expr, degree]
+    }
+}
+
+
+// ===============================================================================
+// |             Miscellaneous                                                   |
+// ===============================================================================
+
 _ "whitespace"
   	= [ \t\n\r]*
 
