@@ -15,13 +15,15 @@ export default function Markdown({ content }: MarkdownProps) {
             <a
               className="text-black opacity-50 font-medium hover:opacity-100"
               href={href}
-            >{children}</a>
+            >
+              {children}
+            </a>
           ),
           p: ({ children }) => <p className="text-justify">{children}</p>,
           strong: ({ children }) => (
             <strong className="font-medium">{children}</strong>
           ),
-          code: ({ node, inline, className, children, ...props }) => {
+          code: ({ node, inline, className, children }) => {
             const child = node.children[0];
 
             if (child.type !== "text") {

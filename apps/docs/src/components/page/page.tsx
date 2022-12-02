@@ -9,7 +9,7 @@ interface PageProps {
 
 export default function Page({ children }: PageProps) {
   return (
-    <div className="w-full h-full grid">
+    <div className="grid grid-rows-1">
       <HeaderNavBar
         title="Arithmico"
         subTitle="Docs"
