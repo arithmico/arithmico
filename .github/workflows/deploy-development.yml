@@ -5,7 +5,7 @@ on:
   push:
     branches: [dev]
 
-env: 
+env:
   CI: true
   VITE_DEV_MODE: true
   BUCKET_ID: ${{ secrets.BUCKET_ID }}
@@ -19,91 +19,106 @@ jobs:
     name: Deploy Calculator Online Dev
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: npm ci
-    - name: Build
-      run: |
-        export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
-        npm run build:calc
-    - name: Test
-      run: npm run test:all
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-central-1
-    - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./apps/calc/dist/ s3://$BUCKET_ID/dev/calculator --delete
-    - name: Invalidate Cloundfront distrubution
-      run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_DEV_DIST --paths '/*'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: |
+          export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
+          npm run build:calc
+      - name: Test
+        run: npm run test:all
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync ./apps/calc/dist/ s3://$BUCKET_ID/dev/calculator --delete
+      - name: Invalidate Cloundfront distrubution
+        run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_DEV_DIST --paths '/*'
 
   deploy_documentation_dev:
     name: Deploy Documentation Dev
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: npm ci
-    - name: Build
-      run: npm run build:docs
-    - name: Test
-      run: npm run test:all
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-central-1
-    - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./apps/docs/dist/ s3://$BUCKET_ID/dev/documentation --delete
-    - name: Invalidate Cloundfront distrubution
-      run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DEV_DIST --paths '/*'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build:docs
+      - name: Test
+        run: npm run test:all
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync ./apps/docs/dist/ s3://$BUCKET_ID/dev/documentation --delete
+      - name: Invalidate Cloundfront distrubution
+        run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DEV_DIST --paths '/*'
 
   deploy_blog_dev:
     name: Deploy Blog Dev
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: npm ci
-    - name: Build
-      run: npm run build:blog
-    - name: Test
-      run: npm run test:all
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-central-1
-    - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./apps/blog/dist/ s3://$BUCKET_ID/dev/blog --delete
-    - name: Invalidate Cloundfront distrubution
-      run: aws cloudfront create-invalidation --distribution-id $BLOG_DEV_DIST --paths '/*'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build:blog
+      - name: Test
+        run: npm run test:all
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync ./apps/blog/dist/ s3://$BUCKET_ID/dev/blog --delete
+      - name: Invalidate Cloundfront distrubution
+        run: aws cloudfront create-invalidation --distribution-id $BLOG_DEV_DIST --paths '/*'
 
   deploy_config_dev:
     name: Deploy Config Dev
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: npm ci
-    - name: Build
-      run: |
-        export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
-        npm run build:config
-    - name: Test
-      run: npm run test:all
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-central-1
-    - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./apps/config/dist/ s3://$BUCKET_ID/dev/config --delete
-    - name: Invalidate Cloundfront distrubution
-      run: aws cloudfront create-invalidation --distribution-id $CONFIG_DEV_DIST --paths '/*'
-
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: |
+          export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
+          npm run build:config
+      - name: Test
+        run: npm run test:all
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync ./apps/config/dist/ s3://$BUCKET_ID/dev/config --delete
+      - name: Invalidate Cloundfront distrubution
+        run: aws cloudfront create-invalidation --distribution-id $CONFIG_DEV_DIST --paths '/*'
