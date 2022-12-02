@@ -294,7 +294,7 @@ MethodCall = object:Value _ "." _ method:Symbol _ "(" _ parameters:List? _ ")" {
         method: method.name,
         parameters: parameters ? parameters : []
     };
-} / Value
+} / Value / LatexExpression
 
 // values
 Value = Boolean
