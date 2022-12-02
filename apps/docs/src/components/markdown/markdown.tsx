@@ -23,6 +23,24 @@ export default function Markdown({ content }: MarkdownProps) {
           strong: ({ children }) => (
             <strong className="font-medium">{children}</strong>
           ),
+          h1: ({ children }) => (
+            <h1 className="mt-4 mb-1 font-normal text-4xl">{children}</h1>
+          ),
+          h2: ({ children }) => (
+            <h2 className="mt-4 mb-1 font-normal text-3xl">{children}</h2>
+          ),
+          h3: ({ children }) => (
+            <h3 className="mt-4 mb-1 font-normal text-2xl">{children}</h3>
+          ),
+          h4: ({ children }) => (
+            <h4 className="mt-4 mb-1 font-normal text-xl">{children}</h4>
+          ),
+          h5: ({ children }) => (
+            <h5 className="mt-4 mb-1 font-normal text-lg">{children}</h5>
+          ),
+          h6: ({ children }) => (
+            <h6 className="mt-4 mb-1 font-normal text-base">{children}</h6>
+          ),
           code: ({ node, inline, className, children }) => {
             const child = node.children[0];
 
