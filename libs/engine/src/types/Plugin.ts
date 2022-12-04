@@ -35,6 +35,9 @@ export interface PluginMethod<T extends SyntaxTreeNode> {
     name: string;
     targetType: T['type'];
     evaluator: (node: T, parameters: SyntaxTreeNode[], context: Context) => SyntaxTreeNode;
+    documentation: {
+        [key in Language]?: Documentation;
+    };
 }
 
 export interface Plugin {

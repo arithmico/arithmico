@@ -65,12 +65,27 @@ export class PluginFragment {
     addMethod<T extends SyntaxTreeNode>(
         name: string,
         target: SyntaxTreeNode['type'],
+        header: FunctionHeaderItem[],
+        descriptionEn: string,
+        descriptionDe: string,
         evaluator: PluginMethod<T>['evaluator'],
     ) {
+        const synopsis = `<${target}>.${name}(${convertHeaderToSymbolList(header)})`;
+
         this.methods.push({
             name,
             targetType: target,
             evaluator,
+            documentation: {
+                en: {
+                    synopsis,
+                    description: descriptionEn,
+                },
+                de: {
+                    synopsis: synopsis.replace(',', ';').replace('.', ','),
+                    description: descriptionDe,
+                },
+            },
         });
 
         return this;
