@@ -36,7 +36,7 @@ const vectorFragment = new PluginFragment()
         [],
         'Computes the length of a vector',
         'Berechnet die Länge eines Vektors',
-        (node) => {
+        ({ node }) => {
             const values = node.values.map((value) => {
                 if (value.type !== 'number') {
                     throw 'RuntimeError: <vector>.length: expected number';

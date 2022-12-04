@@ -49,7 +49,7 @@ export interface PluginMethod<T extends SyntaxTreeNode> {
 }
 
 export interface PluginMethodProps<T extends SyntaxTreeNode> extends PluginFunctionProps {
-    getNode: () => T;
+    node: T;
 }
 
 export interface Plugin {

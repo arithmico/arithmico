@@ -8,6 +8,7 @@ import {
     PluginFunction,
     PluginFunctionProps,
     PluginMethod,
+    PluginMethodProps,
     SymbolNode,
     SyntaxTreeNode,
 } from '../types';
@@ -98,14 +99,22 @@ export class PluginFragment {
         header: FunctionHeaderItem[],
         descriptionEn: string,
         descriptionDe: string,
-        evaluator: PluginMethod<T>['evaluator'],
+        evaluator: (props: PluginMethodProps<T>) => SyntaxTreeNode,
     ) {
         const synopsis = `<${target}>.${name}(${convertHeaderToSymbolList(header)})`;
 
         this.methods.push({
             name,
             targetType: target,
-            evaluator,
+            evaluator: (...args: Parameters<PluginMethod<T>['evaluator']>) => {
+                const [node, parameters, context] = args;
+                const parameterMap = getParameterMap(name, parameters, header, context);
+
+                const { getNullableParameter, getParameter } = createGetParameterFunctions(name, parameterMap);
+                const { runtimeError, typeError } = createErrorFunctions(name);
+
+                return evaluator({ getParameter, getNullableParameter, runtimeError, typeError, node, context });
+            },
             documentation: {
                 en: {
                     synopsis,
