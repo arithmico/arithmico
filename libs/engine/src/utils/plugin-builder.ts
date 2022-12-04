@@ -1,13 +1,14 @@
 import createFunctionCall from '../create/create-function-call';
 import createSymbolNode from '../create/create-symbol-node';
 import {
-    Context,
     FunctionHeaderItem,
     FunctionNode,
     Plugin,
     PluginConstant,
     PluginFunction,
+    PluginFunctionProps,
     PluginMethod,
+    PluginMethodProps,
     SymbolNode,
     SyntaxTreeNode,
 } from '../types';
@@ -31,12 +32,42 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
     return result;
 }
 
-interface PluginFunctionProps {
-    getParameter(name: string, fallback?: SyntaxTreeNode): SyntaxTreeNode | SyntaxTreeNode[];
-    getNullableParameter(name: string): SyntaxTreeNode | SyntaxTreeNode[] | null;
-    runtimeError(message: string): string;
-    typeError(message: string): string;
-    context: Context;
+function createErrorFunctions(name: string) {
+    return {
+        runtimeError: (message: string) => {
+            return `RuntimeError: ${name}: ${message}`;
+        },
+        typeError: (message: string) => {
+            return `TypeError: ${name}: ${message}`;
+        },
+    };
+}
+
+function createGetParameterFunctions(name: string, parameterMap: ReturnType<typeof getParameterMap>) {
+    return {
+        getParameter: (name: string, fallback?: SyntaxTreeNode) => {
+            const parameter = parameterMap.get(name);
+
+            if (!parameter && !fallback) {
+                throw `RuntimeError: ${name}: No parameter fallback available`;
+            }
+
+            if (!parameter) {
+                return fallback;
+            }
+
+            return parameter;
+        },
+        getNullableParameter: (name: string): SyntaxTreeNode | SyntaxTreeNode[] | null => {
+            const parameter = parameterMap.get(name);
+
+            if (parameter) {
+                return parameter;
+            }
+
+            return null;
+        },
+    };
 }
 
 export class PluginFragment {
@@ -65,12 +96,35 @@ export class PluginFragment {
     addMethod<T extends SyntaxTreeNode>(
         name: string,
         target: SyntaxTreeNode['type'],
-        evaluator: PluginMethod<T>['evaluator'],
+        header: FunctionHeaderItem[],
+        descriptionEn: string,
+        descriptionDe: string,
+        evaluator: (props: PluginMethodProps<T>) => SyntaxTreeNode,
     ) {
+        const synopsis = `<${target}>.${name}(${convertHeaderToSymbolList(header)})`;
+
         this.methods.push({
             name,
             targetType: target,
-            evaluator,
+            evaluator: (...args: Parameters<PluginMethod<T>['evaluator']>) => {
+                const [node, parameters, context] = args;
+                const parameterMap = getParameterMap(name, parameters, header, context);
+
+                const { getNullableParameter, getParameter } = createGetParameterFunctions(name, parameterMap);
+                const { runtimeError, typeError } = createErrorFunctions(name);
+
+                return evaluator({ getParameter, getNullableParameter, runtimeError, typeError, node, context });
+            },
+            documentation: {
+                en: {
+                    synopsis,
+                    description: descriptionEn,
+                },
+                de: {
+                    synopsis: synopsis.replace(',', ';').replace('.', ','),
+                    description: descriptionDe,
+                },
+            },
         });
 
         return this;
@@ -136,38 +190,8 @@ export class PluginFragment {
                 header,
                 evaluator: (parameters, context) => {
                     const parameterMap = getParameterMap(name, parameters, header, context);
-                    const getParameter = (name: string, fallback?: SyntaxTreeNode) => {
-                        const parameter = parameterMap.get(name);
-
-                        if (!parameter && !fallback) {
-                            throw `RuntimeError: ${name}: No parameter fallback available`;
-                        }
-
-                        if (!parameter) {
-                            return fallback;
-                        }
-
-                        return parameter;
-                    };
-
-                    const getNullableParameter = (name: string): SyntaxTreeNode | SyntaxTreeNode[] | null => {
-                        const parameter = parameterMap.get(name);
-
-                        if (parameter) {
-                            return parameter;
-                        }
-
-                        return null;
-                    };
-
-                    const runtimeError = (message: string) => {
-                        return `RuntimeError: ${name}: ${message}`;
-                    };
-
-                    const typeError = (message: string) => {
-                        return `TypeError: ${name}: ${message}`;
-                    };
-
+                    const { getNullableParameter, getParameter } = createGetParameterFunctions(name, parameterMap);
+                    const { runtimeError, typeError } = createErrorFunctions(name);
                     return evaluator({ getParameter, getNullableParameter, runtimeError, typeError, context });
                 },
             },
