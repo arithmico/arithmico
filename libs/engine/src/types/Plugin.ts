@@ -2,7 +2,7 @@ import { Context } from './Context';
 import { SyntaxTreeNode, FunctionNode } from './SyntaxTreeNodes';
 
 export interface GlobalDocumentationItem {
-    type: 'constant' | 'function';
+    type: 'constant' | 'function' | 'method';
     plugin: string;
     documentation: {
         [key in Language]?: Documentation;
