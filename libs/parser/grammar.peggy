@@ -126,41 +126,12 @@ LambdaWithOneUntypedParameter = parameter:Symbol _ ("->" / "→") _ expr:Express
     }
 }
 
-Expression = Or / LatexExpression
+Expression = Or
 
-LatexExpression = LatexSqrtWithDegree / LatexSqrt / LatexFrac
+// ===============================================================================
+// |             Logic Expressions                                               |
+// ===============================================================================
 
-LatexSqrt = "\\sqrt" _ "{" _ expr:Expression _ "}" {
-    return {
-        type: "functionCall",
-        function: {
-            type: "symbol",
-            name: "sqrt"
-        },
-        parameters: [expr]
-    }
-}
-
-LatexSqrtWithDegree = "\\sqrt" _ "[" _ degree:Expression _ "]" _ "{" _ expr:Expression _ "}" {
-    return {
-        type: "functionCall",
-        function: {
-            type: "symbol",
-            name: "root"
-        },
-        parameters: [expr, degree]
-    }
-}
-
-LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}" {
-    return {
-        type: "divided",
-        left,
-        right
-    }
-} 
-
-// logic
 Or = left:And _ "|" _ right:Or {
     return {
         type: "or",
@@ -191,7 +162,10 @@ RelationChainElement = _ relationSymbol:("=" / "<=" / ">=" / "<" / ">") _ term:T
 }
 
 
-// arithmetic
+// ===============================================================================
+// |             Arithmetic Expressions                                          |
+// ===============================================================================
+
 Term = Plus
 
 Plus = left:Minus _ "+" _ right:Plus {
@@ -249,9 +223,20 @@ Negate = _ "-" _ value:Power {
         type: "negate",
         value
     };
-} / Value
+} / MethodCall
 
-// values
+MethodCall = object:Value _ "." _ method:Symbol _ "(" _ parameters:List? _ ")" {
+    return {
+        type: "methodCall",
+        object,
+        method: method.name,
+        parameters: parameters ? parameters : []
+    };
+} / Value / LatexExpression
+
+// ===============================================================================
+// |             Primitive and Subexpressions                                    |
+// ===============================================================================
 Value = Boolean
 / FunctionCall 
 / DefineLambdaFunction
@@ -337,7 +322,80 @@ SingleQuotesStringContent = (StringCharacter / "\\'" / '"')*
 
 StringCharacter = [^\'\"\\] / "\\\\"
 
-// misc
+// ===============================================================================
+// |             Latex Expressions                                               |
+// ===============================================================================
+
+LatexExpression = LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexSqrt / LatexSqrtWithDegree
+
+LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}" {
+    return {
+        type: "divided",
+        left,
+        right
+    }
+}
+
+LatexLog = "\\log" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "lg"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexLogN = "\\ln" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "ln"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexLogWithBase = "\\log" _ "_{" _ base:Expression _ "}" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "log"
+        },
+        parameters: [expr, base]
+    }
+}
+
+LatexSqrt = "\\sqrt" _ "{" _ expr:Expression _ "}" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "sqrt"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexSqrtWithDegree = "\\sqrt" _ "[" _ degree:Expression _ "]" _ "{" _ expr:Expression _ "}" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "root"
+        },
+        parameters: [expr, degree]
+    }
+}
+
+
+// ===============================================================================
+// |             Miscellaneous                                                   |
+// ===============================================================================
+
 _ "whitespace"
   	= [ \t\n\r]*
 

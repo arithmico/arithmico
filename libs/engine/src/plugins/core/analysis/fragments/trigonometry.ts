@@ -3,7 +3,7 @@ import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNode
 import { SyntaxTreeNode } from '../../../../types';
 import createNumberNode from '../../../../create/create-number-node';
 import { closeTo } from '../../../../utils/float-utils';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const trigonometryFragment = new PluginFragment().addConstant(
     'pi',

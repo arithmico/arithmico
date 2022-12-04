@@ -1,4 +1,4 @@
-import createPluginV2 from '../../../utils/plugin-builder-v2';
+import createPlugin from '../../../utils/plugin-builder';
 import expFragment from './fragments/exp';
 import logFragment from './fragments/log';
 import trigonometryFragment from './fragments/trigonometry';
@@ -8,7 +8,7 @@ import absFragment from './fragments/abs';
 import minmaxFragment from './fragments/minmax';
 import tableFragment from './fragments/table';
 
-const analysisPlugin = createPluginV2('core/analysis', 'core', 'common analysis functions')
+const analysisPlugin = createPlugin('core/analysis', 'core', 'common analysis functions')
     .addFragment(expFragment)
     .addFragment(logFragment)
     .addFragment(trigonometryFragment)

@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import "./App.css";
 import "@fontsource/roboto/100.css";
 import "@fontsource/roboto/300.css";
@@ -11,22 +11,16 @@ import Home from "./pages/home/home";
 import GlobalStyle from "@components/global-styles/global-styles";
 import Imprint from "./pages/imprint/imprint";
 
-const Container = styled.div`
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-`;
-
 function App() {
   return (
     <ThemeProvider theme={{ type: "light" }}>
       <GlobalStyle boldFont={false} fontSize="normal" />
-      <Container>
+      <div className="absolute w-full h-full">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/imprint" element={<Imprint />} />
         </Routes>
-      </Container>
+      </div>
     </ThemeProvider>
   );
 }

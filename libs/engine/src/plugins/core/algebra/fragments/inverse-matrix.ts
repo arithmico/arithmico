@@ -12,7 +12,7 @@ import {
 import createDivided from '../../../../create/create-divided';
 import { reduceFraction } from '../../../../utils/float-utils';
 import createNegate from '../../../../create/create-negate';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singleVectorHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];

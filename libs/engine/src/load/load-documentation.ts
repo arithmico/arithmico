@@ -25,5 +25,17 @@ export default function loadDocumentationFromPlugin(plugin: Plugin, profile: Pro
             documentation: func.documentation,
         }));
 
-    return [...constants, ...functions];
+    const methods: GlobalDocumentationItem[] = plugin.methods
+        .filter(
+            (method) =>
+                (profile.loadingMode === 'whitelist' && profile.loadingList.includes(method.name)) ||
+                (profile.loadingMode === 'blacklist' && !profile.loadingList.includes(method.name)),
+        )
+        .map((method) => ({
+            type: 'method',
+            plugin: plugin.name,
+            documentation: method.documentation,
+        }));
+
+    return [...constants, ...functions, ...methods];
 }

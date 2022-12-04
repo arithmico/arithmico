@@ -2,7 +2,7 @@ import createNumberNode from '../../../../create/create-number-node';
 import createVector from '../../../../create/create-vector';
 import { FunctionHeaderItem, Vector } from '../../../../types';
 import { getTensorDimensions, getTensorRank } from '../../../../utils/tensor-utils';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singleTensorHeader: FunctionHeaderItem[] = [{ name: 't', type: 'vector', evaluate: true }];
 

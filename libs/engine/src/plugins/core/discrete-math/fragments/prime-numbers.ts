@@ -3,7 +3,7 @@ import createVector from '../../../../create/create-vector';
 import { getNthPrimeNumber, isPrimeNumber, sieveOfAtkin } from '../utils/prime-number-utils';
 import createNumberNode from '../../../../create/create-number-node';
 import createBooleanNode from '../../../../create/create-boolean-node';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 

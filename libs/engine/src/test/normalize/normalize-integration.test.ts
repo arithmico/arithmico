@@ -4,19 +4,14 @@ import { Context } from '../../types';
 import { parse } from '@arithmico/parser';
 import normalize from '../../normalize';
 import serialize from '../../serialize';
-import { createOptions } from '../../utils/context-utils';
 import globalConsole from 'console';
+import { createContext } from '../../utils/context-utils';
 
 beforeEach(() => {
     global.console = globalConsole;
 });
 
-const testOptions = createOptions();
-
-const testContext: Context = {
-    options: testOptions,
-    stack: [new Map()],
-};
+const testContext = createContext();
 
 let lastId = 0;
 

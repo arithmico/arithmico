@@ -20,6 +20,7 @@ import evaluateTimes from './nodes/eval-times';
 import evaluateVector from './nodes/eval-vector';
 import evaluateDefine from './nodes/eval-define';
 import evaluateString from './nodes/eval-string';
+import evaluateMethodCall from './nodes/eval-method-call';
 
 export default function evaluate(node: SyntaxTreeNode, context: Context) {
     switch (node.type) {
@@ -88,6 +89,9 @@ export default function evaluate(node: SyntaxTreeNode, context: Context) {
 
         case 'define':
             return evaluateDefine(node, context);
+
+        case 'methodCall':
+            return evaluateMethodCall(node, context);
 
         default:
             throw `EvaluationError: unknown node type`;

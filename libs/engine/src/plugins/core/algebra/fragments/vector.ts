@@ -4,7 +4,7 @@ import evaluate from '../../../../eval';
 import createVector from '../../../../create/create-vector';
 import createMinus from '../../../../create/create-minus';
 import createTimes from '../../../../create/create-times';
-import { PluginFragment } from '../../../../utils/plugin-builder-v2';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 import createNumberNode from '../../../../create/create-number-node';
 
 const lengthHeader: FunctionHeaderItem[] = [{ name: 'v', type: 'vector', evaluate: true }];
@@ -23,6 +23,23 @@ const vectorFragment = new PluginFragment()
             const values = (<Vector>getParameter('v')).values.map((value) => {
                 if (value.type !== 'number') {
                     throw typeError(`expected number got ${value.type}`);
+                }
+                return Math.pow(value.value, 2);
+            });
+
+            return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
+        },
+    )
+    .addMethod<Vector>(
+        'length',
+        'vector',
+        [],
+        'Computes the length of a vector',
+        'Berechnet die Länge eines Vektors',
+        ({ node }) => {
+            const values = node.values.map((value) => {
+                if (value.type !== 'number') {
+                    throw 'RuntimeError: <vector>.length: expected number';
                 }
                 return Math.pow(value.value, 2);
             });

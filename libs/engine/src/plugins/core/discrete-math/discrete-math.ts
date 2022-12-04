@@ -1,11 +1,11 @@
-import createPluginV2 from '../../../utils/plugin-builder-v2';
+import createPlugin from '../../../utils/plugin-builder';
 import primeNumberFragment from './fragments/prime-numbers';
 import gcdLcmFragment from './fragments/gcd-lcm';
 import coprimeFragment from './fragments/coprime';
 import moduloFragment from './fragments/modulo';
 import miscellaneousDiscreteMathFragment from './fragments/miscellaneous';
 
-const discreteMathPlugin = createPluginV2(
+const discreteMathPlugin = createPlugin(
     'core/discrete-math',
     'brings many functions for calculation on integers and in number theory',
     'core',
