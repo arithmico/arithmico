@@ -31,6 +31,44 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
     return result;
 }
 
+function createErrorFunctions(name: string) {
+    return {
+        runtimeError: (message: string) => {
+            return `RuntimeError: ${name}: ${message}`;
+        },
+        typeError: (message: string) => {
+            return `TypeError: ${name}: ${message}`;
+        },
+    };
+}
+
+function createGetParameterFunctions(name: string, parameterMap: ReturnType<typeof getParameterMap>) {
+    return {
+        getParameter: (name: string, fallback?: SyntaxTreeNode) => {
+            const parameter = parameterMap.get(name);
+
+            if (!parameter && !fallback) {
+                throw `RuntimeError: ${name}: No parameter fallback available`;
+            }
+
+            if (!parameter) {
+                return fallback;
+            }
+
+            return parameter;
+        },
+        getNullableParameter: (name: string): SyntaxTreeNode | SyntaxTreeNode[] | null => {
+            const parameter = parameterMap.get(name);
+
+            if (parameter) {
+                return parameter;
+            }
+
+            return null;
+        },
+    };
+}
+
 export class PluginFragment {
     protected constants: PluginConstant[];
     protected functions: PluginFunction[];
@@ -143,38 +181,8 @@ export class PluginFragment {
                 header,
                 evaluator: (parameters, context) => {
                     const parameterMap = getParameterMap(name, parameters, header, context);
-                    const getParameter = (name: string, fallback?: SyntaxTreeNode) => {
-                        const parameter = parameterMap.get(name);
-
-                        if (!parameter && !fallback) {
-                            throw `RuntimeError: ${name}: No parameter fallback available`;
-                        }
-
-                        if (!parameter) {
-                            return fallback;
-                        }
-
-                        return parameter;
-                    };
-
-                    const getNullableParameter = (name: string): SyntaxTreeNode | SyntaxTreeNode[] | null => {
-                        const parameter = parameterMap.get(name);
-
-                        if (parameter) {
-                            return parameter;
-                        }
-
-                        return null;
-                    };
-
-                    const runtimeError = (message: string) => {
-                        return `RuntimeError: ${name}: ${message}`;
-                    };
-
-                    const typeError = (message: string) => {
-                        return `TypeError: ${name}: ${message}`;
-                    };
-
+                    const { getNullableParameter, getParameter } = createGetParameterFunctions(name, parameterMap);
+                    const { runtimeError, typeError } = createErrorFunctions(name);
                     return evaluator({ getParameter, getNullableParameter, runtimeError, typeError, context });
                 },
             },
