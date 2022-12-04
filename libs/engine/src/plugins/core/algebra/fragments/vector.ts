@@ -30,16 +30,23 @@ const vectorFragment = new PluginFragment()
             return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
         },
     )
-    .addMethod<Vector>('length', 'vector', (node) => {
-        const values = node.values.map((value) => {
-            if (value.type !== 'number') {
-                throw 'RuntimeError: <vector>.length: expected number';
-            }
-            return Math.pow(value.value, 2);
-        });
+    .addMethod<Vector>(
+        'length',
+        'vector',
+        [],
+        'Computes the length of a vector',
+        'Berechnet die Länge eines Vektors',
+        (node) => {
+            const values = node.values.map((value) => {
+                if (value.type !== 'number') {
+                    throw 'RuntimeError: <vector>.length: expected number';
+                }
+                return Math.pow(value.value, 2);
+            });
 
-        return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
-    })
+            return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
+        },
+    )
     .addFunction(
         'cross',
         crossHeader,
