@@ -1,4 +1,4 @@
-import { Context } from 'vm';
+import { Context } from './Context';
 import { SyntaxTreeNode, FunctionNode } from './SyntaxTreeNodes';
 
 export interface GlobalDocumentationItem {
@@ -21,6 +21,14 @@ export interface PluginFunction {
     documentation: {
         [key in Language]?: Documentation;
     };
+}
+
+export interface PluginFunctionProps {
+    getParameter(name: string, fallback?: SyntaxTreeNode): SyntaxTreeNode | SyntaxTreeNode[];
+    getNullableParameter(name: string): SyntaxTreeNode | SyntaxTreeNode[] | null;
+    runtimeError(message: string): string;
+    typeError(message: string): string;
+    context: Context;
 }
 
 export interface PluginConstant {

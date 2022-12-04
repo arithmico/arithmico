@@ -1,12 +1,12 @@
 import createFunctionCall from '../create/create-function-call';
 import createSymbolNode from '../create/create-symbol-node';
 import {
-    Context,
     FunctionHeaderItem,
     FunctionNode,
     Plugin,
     PluginConstant,
     PluginFunction,
+    PluginFunctionProps,
     PluginMethod,
     SymbolNode,
     SyntaxTreeNode,
@@ -29,14 +29,6 @@ function convertHeaderToSymbolList(header: FunctionHeaderItem[]): SymbolNode[] {
     });
 
     return result;
-}
-
-interface PluginFunctionProps {
-    getParameter(name: string, fallback?: SyntaxTreeNode): SyntaxTreeNode | SyntaxTreeNode[];
-    getNullableParameter(name: string): SyntaxTreeNode | SyntaxTreeNode[] | null;
-    runtimeError(message: string): string;
-    typeError(message: string): string;
-    context: Context;
 }
 
 export class PluginFragment {
