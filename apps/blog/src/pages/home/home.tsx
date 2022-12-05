@@ -1,8 +1,8 @@
 export default function Home() {
   return (
     <>
-      <div className="grid grid-cols-[2fr_1fr] ">
-        <div>
+      <div className="">
+        <div className="w-full max-w-2xl">
           <img
             className="absolute w-14 h-14 border-2 border-white p-0.5 rounded-full -ml-8 mb-8 -translate-x-full"
             src="/logo512.png"
@@ -16,22 +16,32 @@ export default function Home() {
           </h1>
           <p className="text-white font-light text-lg">
             Arithmico ist eine freie und umfangreiche Mathematiksoftware, die
-            von Anfang an mit dem Ziel der vollkommenden Barrierefreiheit
-            entwickelt wurde.
+            von Anfang an mit dem Ziel der Barrierefreiheit entwickelt wurde.
           </p>
         </div>
 
-        <div className="flex flex-col gap-8 mt-8">
-          <img
-            className="rounded-2xl rotate-6 border-2 border-white p-1"
-            src="/imgs/screenshot-02.png"
-            alt="screenshot light"
-          ></img>
-          <img
-            className="rounded-2xl rotate-6 border-2 border-white p-1"
-            src="/imgs/screenshot-01.png"
-            alt="screenshot dark"
-          ></img>
+        <div className="flex gap-16 left-0 justify-center mt-24 -mx-64  ">
+          <figure className="max-w-xl">
+            <img
+              className="rounded-2xl -rotate-3 border-zinc-600 border-2"
+              src="/imgs/screenshot-01.png"
+              alt="screenshot light"
+            ></img>
+          </figure>
+          <figure className="max-w-xl">
+            <img
+              className="rounded-2xl rotate-3 border-zinc-600 border-2"
+              src="/imgs/screenshot-01.png"
+              alt="screenshot light"
+            ></img>
+          </figure>
+          <figure className="max-w-xl">
+            <img
+              className="rounded-2xl -rotate-2 border-zinc-600 border-2"
+              src="/imgs/screenshot-01.png"
+              alt="screenshot dark"
+            ></img>
+          </figure>
         </div>
       </div>
     </>
