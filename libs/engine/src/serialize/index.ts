@@ -6,6 +6,7 @@ import serializeFunction from './nodes/serialize-function';
 import serializeFunctionCall from './nodes/serialize-function-call';
 import serializeGreater from './nodes/serialize-greater';
 import serializeGreaterOrEquals from './nodes/serialize-greater-or-equals';
+import serializeLambda from './nodes/serialize-lambda';
 import serializeLess from './nodes/serialize-less';
 import serializeLessOrEquals from './nodes/serialize-less-or-equal';
 import serializeMinus from './nodes/serialize-minus';
@@ -21,6 +22,7 @@ import serializeVector from './nodes/serialize-vector';
 const serializePrecedents: SyntaxTreeNode['type'][] = [
     'define',
     'function',
+    'lambda',
     'or',
     'and',
     'equals',
@@ -113,6 +115,9 @@ export default function serialize(node: SyntaxTreeNode, options: Options): strin
 
         case 'function':
             return serializeFunction(node, options);
+
+        case 'lambda':
+            return serializeLambda(node, options);
 
         case 'define':
             return serialize(node.value, options);
