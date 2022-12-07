@@ -31,7 +31,7 @@ export default function ArticlesPreview() {
       <h3 className="font-extralight text-3xl mb-6 uppercase text-center tracking-widest">
         Artikel
       </h3>
-      <ul className="grid grid-cols-2 gap-4 px-20">
+      <ul className="grid grid-cols-2 gap-y-4 gap-x-6 px-20">
         <ArticlePreview />
         <ArticlePreview />
         <ArticlePreview />
