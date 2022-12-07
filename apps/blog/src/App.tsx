@@ -16,7 +16,7 @@ function App() {
         </div>
       </div>
       <div className="absolute flex flex-col w-full h-full overflow-y-auto overflow-x-hidden items-center">
-        <div className="w-full max-w-7xl px-32">
+        <div className="w-full max-w-7xl px-32 text-white">
           <Header />
           <div className="flex align-center ">
             <main className=" ">

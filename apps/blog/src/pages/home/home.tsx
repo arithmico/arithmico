@@ -1,9 +1,6 @@
-import useContent from "../../hooks/use-content";
-import Markdown from "../../components/markdown";
+import ReleasesPreview from "../../components/releases-preview";
 
 export default function Home() {
-  const content = useContent("/assets/markdown/01-v1-3-changelog.md");
-
   return (
     <>
       <div className="">
@@ -49,9 +46,7 @@ export default function Home() {
           </figure>
         </div>
 
-        <section className="text-white mt-16">
-          <Markdown content={content} />
-        </section>
+        <ReleasesPreview />
       </div>
     </>
   );
