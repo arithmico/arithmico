@@ -29,9 +29,9 @@ export default function Header() {
     <header className="flex w-full justify-center mt-6 mb-16">
       <nav>
         <ul className="flex rounded-full px-3 text-sm font-medium  ring-1 backdrop-blur bg-zinc-800/90 text-zinc-200 ring-white/10">
-          <NavItem to="/">News</NavItem>
-          <NavItem to="/apps">Apps</NavItem>
-          <NavItem to="/downloads">Downloads</NavItem>
+          <NavItem to="/">Home</NavItem>
+          <NavItem to="/articles">Artikel</NavItem>
+          <NavItem to="/releases">Versionen</NavItem>
           <NavItem to="/imprint">Impressum</NavItem>
         </ul>
       </nav>

@@ -1,3 +1,4 @@
+import ArticlesPreview from "../../components/articles-preview";
 import ReleasesPreview from "../../components/releases-preview";
 
 export default function Home() {
@@ -46,6 +47,7 @@ export default function Home() {
           </figure>
         </div>
 
+        <ArticlesPreview />
         <ReleasesPreview />
       </div>
     </>
