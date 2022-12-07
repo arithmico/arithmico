@@ -15,7 +15,7 @@ export default function Markdown({ content }: MarkdownProps) {
           return <h2 className="mt-4 mb-1 font-normal text-3xl">{children}</h2>;
         },
         h3({ children }) {
-          return <h3 className="mt-4 mb-1 font-normal text-2xl">{children}</h3>;
+          return <h3 className="mt-4 mb-1 font-normal text-xl">{children}</h3>;
         },
         h4({ children }) {
           return <h4 className="mt-4 mb-1 font-normal text-xl">{children}</h4>;
@@ -31,7 +31,7 @@ export default function Markdown({ content }: MarkdownProps) {
         code({ children, inline }) {
           if (inline) {
             return (
-              <code className="bg-black/20 py-0.5 px-1 rounded-md font-mono">
+              <code className="bg-white/10 py-0.5 px-1 rounded-md font-mono">
                 {children}
               </code>
             );

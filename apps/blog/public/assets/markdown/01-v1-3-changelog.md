@@ -1,5 +1,5 @@
-# [v1.3] Changelog
-## Neue Funktionen
+### Neue Funktionen
+
 - Latex Eingabe
   - Auswertung von Latex-Befehl `\sqrt { ... }`
   - Auswertung von Latex-Befehl `\sqrt [ ... ] { ... }`
@@ -15,10 +15,12 @@
 - größter gemeinsamer Teiler mit erweitertem euklidischen Algorithmus `gcd:extended(a, b)`
 - kleinstes gemeinsames Vielfaches `lcm(a, b)`
 
-## Fehlerbehebungen
+### Fehlerbehebungen
+
 - falsche Reihenfolge beim Kopieren von Ein- und Ausgabe
 
-## Weitere Optimierungen
+### Weitere Optimierungen
+
 - neue Plugin Builder API
 - Parser in seperates Package ausgelagert
 - Parser Language Flags
