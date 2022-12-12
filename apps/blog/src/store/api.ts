@@ -62,7 +62,20 @@ export const contentApi = createApi({
           releaseDate: item.fields.releaseDate,
         })),
     }),
+    getChangelog: builder.query<Changelog, { id: string }>({
+      query: ({ id }) => ({
+        url: `/entries/${id}`,
+        method: "GET",
+      }),
+      transformResponse: (response: ChangelogResponse): Changelog => ({
+        id: response.sys.id,
+        version: `v${response.fields.majorVersion}.${response.fields.minorVersion}.${response.fields.patchVersion}`,
+        content: response.fields.content,
+        downloadUrl: response.fields.downloadUrl,
+        releaseDate: response.fields.releaseDate,
+      }),
+    }),
   }),
 });
 
-export const { useGetChangelogsQuery } = contentApi;
+export const { useGetChangelogsQuery, useGetChangelogQuery } = contentApi;

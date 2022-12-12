@@ -6,6 +6,7 @@ import "@fontsource/roboto/700.css";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/header";
 import Home from "./pages/home/home";
+import Releases from "./pages/releases/releases";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <main className=" ">
               <Routes>
                 <Route index path="/" element={<Home />} />
+                <Route path="/releases/*" element={<Releases />} />
               </Routes>
             </main>
           </div>
