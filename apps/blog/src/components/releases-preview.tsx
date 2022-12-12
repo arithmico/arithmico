@@ -1,15 +1,27 @@
 import { Link } from "react-router-dom";
-import useContent from "../hooks/use-content";
+import { useGetChangelogsQuery } from "../store/api";
 import Markdown from "./markdown";
 
-function ReleasePreview() {
-  const content = useContent("/assets/markdown/01-v1-3-changelog.md");
+interface ReleasePreviewProps {
+  version: string;
+  releaseDate: string;
+  content: string;
+  downloadUrl: string;
+}
 
+function ReleasePreview({
+  version,
+  releaseDate,
+  content,
+  downloadUrl,
+}: ReleasePreviewProps) {
   return (
     <li className="flex flex-col flex-1 p-4 rounded-md bg-neutral-800">
       <div className="flex items-baseline mb-2">
-        <h3 className="text-2xl font-semibold">Arithmico v1.3.2</h3>
-        <span className="ml-auto text-white/40 text-sm">10.12.2022</span>
+        <h3 className="text-2xl font-semibold">Arithmico {version}</h3>
+        <span className="ml-auto text-white/40 text-sm">
+          {new Date(releaseDate).toLocaleDateString("de-DE")}
+        </span>
       </div>
 
       <div className="">
@@ -30,15 +42,23 @@ function ReleasePreview() {
 }
 
 export default function ReleasesPreview() {
+  const { data: changelogs } = useGetChangelogsQuery({ limit: 3 });
+
   return (
     <section className="mt-32 mb-16">
       <h2 className="font-extralight text-3xl mb-6 uppercase text-center tracking-widest">
         Versionen
       </h2>
-      <ul className="flex gap-4">
-        <ReleasePreview />
-        <ReleasePreview />
-        <ReleasePreview />
+      <ul className="grid grid-cols-3 gap-4">
+        {changelogs?.slice(0, 3).map((changelog) => (
+          <ReleasePreview
+            version={changelog.version}
+            releaseDate={changelog.releaseDate}
+            content={changelog.content}
+            downloadUrl={changelog.downloadUrl}
+            key={changelog.id}
+          />
+        ))}
       </ul>
       <div className="flex mt-4 justify-center">
         <Link to="/releases" className="text-white/40">
