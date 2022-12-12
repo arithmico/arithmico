@@ -25,16 +25,7 @@ interface ChangelogResponse {
 export const contentApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://cdn.contentful.com/spaces/${
-      //@ts-ignore
-      import.meta.env.VITE_CONTENTFUL_SPACE_ID
-    }/environments/master`,
-    headers: {
-      Authorization: `Bearer ${
-        //@ts-ignore
-        import.meta.env.VITE_CONTENTFUL_API_KEY
-      }`,
-    },
+    baseUrl: `https://cdn.arithmico.com/environments/master`,
   }),
   endpoints: (builder) => ({
     getChangelogs: builder.query<Changelog[], { limit?: number }>({
