@@ -19,7 +19,7 @@ export default function Release() {
   const { data } = useGetChangelogQuery({ id: releaseId as string });
 
   return (
-    <>
+    <section className="mb-8">
       <div className="flex items-baseline border-b border-white/5 mb-4">
         <h1 className="text-4xl font-extralight">
           Arithmico <span className="font-semibold">{data?.version}</span>
@@ -28,7 +28,7 @@ export default function Release() {
           {new Date(data?.releaseDate ?? "").toLocaleDateString("de-DE")}
         </span>
       </div>
-      <div className="grid grid-cols-[1fr_3fr] gap-16 mb-32">
+      <div className="grid grid-cols-[1fr_3fr] gap-16 ">
         <div className="flex flex-col gap-4">
           <SideMenuButton>Offline Version</SideMenuButton>
           <SideMenuButton>Source Code</SideMenuButton>
@@ -39,6 +39,6 @@ export default function Release() {
           <ChangelogMarkdown content={data?.content ?? ""} />
         </div>
       </div>
-    </>
+    </section>
   );
 }
