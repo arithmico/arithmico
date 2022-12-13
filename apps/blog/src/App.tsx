@@ -6,6 +6,7 @@ import "@fontsource/roboto/700.css";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/header";
 import useScrollTop from "./hooks/use-scroll-top";
+import Articles from "./pages/articles/articles";
 import Home from "./pages/home/home";
 import Imprint from "./pages/imprint/imprint";
 import Releases from "./pages/releases/releases";
@@ -30,6 +31,7 @@ function App() {
             <main className=" ">
               <Routes>
                 <Route index path="/" element={<Home />} />
+                <Route path="/articles/*" element={<Articles />} />
                 <Route path="/releases/*" element={<Releases />} />
                 <Route path="/imprint" element={<Imprint />} />
               </Routes>

@@ -22,6 +22,49 @@ interface ChangelogResponse {
   };
 }
 
+export interface Article {
+  id: string;
+  title: string;
+  createdAt: string;
+  content: string;
+  authorIds: string[];
+}
+
+interface ArticleResponse {
+  sys: {
+    id: string;
+    createdAt: string;
+  };
+  fields: {
+    content: string;
+    title: string;
+    authors: {
+      sys: {
+        id: string;
+      };
+    }[];
+  };
+}
+
+export interface Author {
+  username: string;
+  firstname: string;
+  lastname: string;
+  roles: string[];
+}
+
+interface AuthorResponse {
+  sys: {
+    id: string;
+  };
+  fields: {
+    username: string;
+    firstname: string;
+    lastname: string;
+    roles: string[];
+  };
+}
+
 export const contentApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
@@ -75,7 +118,56 @@ export const contentApi = createApi({
         releaseDate: response.fields.releaseDate,
       }),
     }),
+    getAuthors: builder.query<Author[], { ids: string[] }>({
+      query: ({ ids }) => ({
+        url: `/entries/`,
+        method: "GET",
+        params: {
+          content_type: "user",
+          "sys.id[in]": ids.join(","),
+        },
+      }),
+      transformResponse: (response: { items: AuthorResponse[] }): Author[] =>
+        response.items.map((item) => ({
+          firstname: item.fields.firstname,
+          lastname: item.fields.lastname,
+          roles: item.fields.roles,
+          username: item.fields.username,
+        })),
+    }),
+    getArticles: builder.query<Article[], { limit?: number }>({
+      query: ({ limit }) => ({
+        url: "/entries",
+        method: "GET",
+        params: {
+          content_type: "article",
+          select: [
+            "sys.id",
+            "sys.createdAt",
+            "fields.title",
+            "fields.content",
+            "fields.authors",
+          ].join(","),
+        },
+      }),
+      transformResponse: (response: {
+        items: ArticleResponse[];
+      }): Article[] => {
+        return response.items.map((article) => ({
+          id: article.sys.id,
+          createdAt: article.sys.createdAt,
+          authorIds: article.fields.authors.map((author) => author.sys.id),
+          content: article.fields.content,
+          title: article.fields.title,
+        }));
+      },
+    }),
   }),
 });
 
-export const { useGetChangelogsQuery, useGetChangelogQuery } = contentApi;
+export const {
+  useGetChangelogsQuery,
+  useGetChangelogQuery,
+  useGetArticlesQuery,
+  useGetAuthorsQuery,
+} = contentApi;

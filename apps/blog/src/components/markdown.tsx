@@ -8,6 +8,9 @@ export default function Markdown({ content }: MarkdownProps) {
   return (
     <ReactMarkdown
       components={{
+        p({ children }) {
+          return <p className="mb-4">{children}</p>;
+        },
         h1({ children }) {
           return <h1 className="mt-4 mb-1 font-normal text-4xl">{children}</h1>;
         },
