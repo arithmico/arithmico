@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/header";
 import useScrollTop from "./hooks/use-scroll-top";
 import Home from "./pages/home/home";
+import Imprint from "./pages/imprint/imprint";
 import Releases from "./pages/releases/releases";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Routes>
                 <Route index path="/" element={<Home />} />
                 <Route path="/releases/*" element={<Releases />} />
+                <Route path="/imprint" element={<Imprint />} />
               </Routes>
             </main>
           </div>
