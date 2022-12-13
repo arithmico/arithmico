@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-interface Changelog {
+export interface Changelog {
   id: string;
   version: string;
   releaseDate: string;
