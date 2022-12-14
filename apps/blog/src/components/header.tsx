@@ -32,7 +32,7 @@ export default function Header() {
           <NavItem to="/">Home</NavItem>
           <NavItem to="/articles">Artikel</NavItem>
           <NavItem to="/releases">Versionen</NavItem>
-          <NavItem to="/imprint">Impressum</NavItem>
+          <NavItem to="/team">Team</NavItem>
         </ul>
       </nav>
     </header>
