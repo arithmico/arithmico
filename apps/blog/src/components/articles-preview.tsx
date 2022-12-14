@@ -5,7 +5,7 @@ import Markdown from "./markdown";
 
 function ArticlePreview({ title, content, createdAt, id }: Article) {
   return (
-    <li className="bg-neutral-800 rounded-md p-4 h-72 grid grid-rows-[1fr_0_auto]">
+    <li className="bg-neutral-850  rounded-md p-4 h-72 grid grid-rows-[1fr_0_auto] odd:translate-y-8">
       <div className="overflow-clip">
         <div className="flex items-baseline">
           <h3 className="text-3xl mb-4">{title}</h3>
@@ -13,9 +13,11 @@ function ArticlePreview({ title, content, createdAt, id }: Article) {
             {new Date(createdAt).toLocaleDateString("de-DE")}
           </span>
         </div>
-        <Markdown content={content} />
+        <div className="text-white/70">
+          <Markdown content={content} />
+        </div>
       </div>
-      <div className="-translate-y-[100%] w-full h-16 bg-gradient-to-b from-transparent to-neutral-800"></div>
+      <div className="-translate-y-[100%] w-full h-16 bg-gradient-to-b from-transparent to-neutral-850"></div>
       <Link
         className="text-white/50 mt-4 text-sm flex items-center"
         to={`/articles/${id}`}
@@ -39,7 +41,7 @@ export default function ArticlesPreview() {
           <ArticlePreview key={index} {...article} />
         ))}
       </ul>
-      <div className="flex mt-4 justify-center">
+      <div className="flex mt-16 justify-center">
         <Link to="/articles" className="text-white/40">
           mehr
         </Link>

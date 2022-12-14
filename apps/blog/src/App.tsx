@@ -17,8 +17,8 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col items-center fixed inset-0 bg-black">
-        <div className="w-full max-w-7xl bg-zinc-900 h-full px-32 ring-zinc-300/20"></div>
+      <div className="flex flex-col items-center fixed inset-0 bg-neutral-900/80">
+        <div className="w-full max-w-7xl bg-neutral-900 h-full px-32 border-x border-x-white/5"></div>
       </div>
       <div className="absolute flex flex-col w-full h-full overflow-y-auto overflow-x-hidden items-center">
         <div className="w-full max-w-7xl px-32 text-white">
@@ -38,8 +38,9 @@ function App() {
               </Routes>
             </main>
           </div>
-          <Footer />
         </div>
+        <div aria-hidden className="mt-auto"></div>
+        <Footer />
       </div>
     </>
   );

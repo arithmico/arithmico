@@ -1,6 +1,30 @@
 import ArticlesPreview from "../../components/articles-preview";
 import ReleasesPreview from "../../components/releases-preview";
 
+interface FigureProps {
+  src: string;
+  alt: string;
+  imgClassName: string;
+  figureClassName?: string;
+}
+
+function Figure({
+  src,
+  alt,
+  imgClassName,
+  figureClassName = "max-w-xl",
+}: FigureProps) {
+  return (
+    <figure className={figureClassName}>
+      <img
+        className={`rounded-2xl ${imgClassName} border-white/30 border-2 shadow-lg shadow-black`}
+        src={src}
+        alt={alt}
+      ></img>
+    </figure>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -23,28 +47,22 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex gap-16 left-0 justify-center mt-24 -mx-64  ">
-          <figure className="max-w-xl">
-            <img
-              className="rounded-2xl -rotate-3 border-zinc-600 border-2"
-              src="/imgs/screenshot-01.png"
-              alt="screenshot light"
-            ></img>
-          </figure>
-          <figure className="max-w-xl">
-            <img
-              className="rounded-2xl rotate-3 border-zinc-600 border-2"
-              src="/imgs/screenshot-01.png"
-              alt="screenshot light"
-            ></img>
-          </figure>
-          <figure className="max-w-xl">
-            <img
-              className="rounded-2xl -rotate-2 border-zinc-600 border-2"
-              src="/imgs/screenshot-01.png"
-              alt="screenshot dark"
-            ></img>
-          </figure>
+        <div className="grid grid-cols-[1fr_1.1fr_1fr] gap-16 justify-center items-center mt-24 -mx-64">
+          <Figure
+            src="/imgs/screenshot-01.png"
+            alt="screenshot light"
+            imgClassName="-rotate-3"
+          />
+          <Figure
+            src="/imgs/screenshot-01.png"
+            alt="screenshot light"
+            imgClassName="rotate-3"
+          />
+          <Figure
+            src="/imgs/screenshot-01.png"
+            alt="screenshot light"
+            imgClassName="-rotate-2"
+          />
         </div>
 
         <ArticlesPreview />

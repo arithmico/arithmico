@@ -12,15 +12,13 @@ export default function ArticleContent({
   return (
     <article className="mb-8 mx-20 border-b border-b-white/5">
       <div className="flex flex-col">
-        <div className="flex items-baseline">
-          <h1 className="text-3xl">{title}</h1>
+        <h1 className="text-3xl mb-1">{title}</h1>
+        <span className="text-white/40 mb-4 flex">
+          von{" "}
+          {authors?.map((author) => `${author.firstname} ${author.lastname}`)}
           <span className="text-white/40 ml-auto">
             {new Date(createdAt).toLocaleDateString("de-DE")}
           </span>
-        </div>
-        <span className="text-white/40 mb-4">
-          von{" "}
-          {authors?.map((author) => `${author.firstname} ${author.lastname}`)}
         </span>
       </div>
       <div className="">

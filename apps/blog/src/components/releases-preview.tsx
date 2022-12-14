@@ -19,7 +19,7 @@ function ReleasePreview({
   downloadUrl,
 }: ReleasePreviewProps) {
   return (
-    <li className="flex flex-col flex-1 p-4 rounded-md bg-neutral-800">
+    <li className="flex flex-col flex-1 p-4 rounded-md bg-neutral-850">
       <div className="flex items-baseline">
         <h3 className="text-2xl font-extralight">
           Arithmico <span className="font-semibold">{version}</span>
@@ -33,7 +33,7 @@ function ReleasePreview({
         <div className="w-full h-40 max-h-40 overflow-hidden">
           <ChangelogMarkdown content={content} />
         </div>
-        <div className="-translate-y-[100%] w-full h-4 bg-gradient-to-b from-transparent to-neutral-800"></div>
+        <div className="-translate-y-[100%] w-full h-4 bg-gradient-to-b from-transparent to-neutral-850"></div>
       </div>
 
       <Link
