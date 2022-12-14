@@ -71,6 +71,16 @@ integrationTest('\\log(10)', '1');
 integrationTest('\\log ( \\sqrt{100} ) ', '1');
 integrationTest('\\ln(10)', '2.302585');
 integrationTest('\\ln(\\sqrt{\\frac{300}{3}}) ', '2.302585');
+integrationTest('\\pi', `3.141593`);
+integrationTest('\\cos(90) ', '0');
+integrationTest('\\sin(90) ', '1');
+integrationTest('\\tan(45) ', '1');
+integrationTest('\\arcsin(1)', '90');
+integrationTest('\\arccos(0)', '90');
+integrationTest('\\arctan(1)', '45');
+integrationTest('\\cosh(5) ', '74.209949');
+integrationTest('\\sinh(5) ', '74.203211');
+integrationTest('\\tanh(5) ', '0.999909');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
