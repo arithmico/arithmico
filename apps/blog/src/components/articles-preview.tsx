@@ -37,6 +37,11 @@ export default function ArticlesPreview() {
         <ArticlePreview />
         <ArticlePreview />
       </ul>
+      <div className="flex mt-4 justify-center">
+        <Link to="/articles" className="text-white/40">
+          mehr
+        </Link>
+      </div>
     </section>
   );
 }
