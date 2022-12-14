@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ArrowRight from "../icons/right-arrow";
 import { Article, useGetArticlesQuery } from "../store/api";
 import Markdown from "./markdown";
 
@@ -15,8 +16,12 @@ function ArticlePreview({ title, content, createdAt, id }: Article) {
         <Markdown content={content} />
       </div>
       <div className="-translate-y-[100%] w-full h-16 bg-gradient-to-b from-transparent to-neutral-800"></div>
-      <Link className="text-white/50 mt-4 text-sm" to={`/articles/${id}`}>
-        {">"} Weiterlesen
+      <Link
+        className="text-white/50 mt-4 text-sm flex items-center"
+        to={`/articles/${id}`}
+      >
+        <ArrowRight className="fill-white/50 w-4 h-4" />
+        Weiterlesen
       </Link>
     </li>
   );

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ArrowRight from "../icons/right-arrow";
 import { useGetChangelogsQuery } from "../store/api";
 import ChangelogMarkdown from "./changelog-markdown";
 
@@ -35,8 +36,12 @@ function ReleasePreview({
         <div className="-translate-y-[100%] w-full h-4 bg-gradient-to-b from-transparent to-neutral-800"></div>
       </div>
 
-      <Link className="mb-4 text-white/50 text-sm" to={`/releases/${id}`}>
-        {">"} Mehr erfahren
+      <Link
+        className="mb-4 text-white/50 text-sm flex items-center"
+        to={`/releases/${id}`}
+      >
+        <ArrowRight className="fill-white/50 w-4 h-4" />
+        Mehr erfahren
       </Link>
       <a
         href={downloadUrl}
