@@ -135,6 +135,19 @@ export const contentApi = createApi({
           username: item.fields.username,
         })),
     }),
+    getArticle: builder.query<Article, { id: string }>({
+      query: ({ id }) => ({
+        url: `/entries/${id}`,
+        method: "GET",
+      }),
+      transformResponse: (response: ArticleResponse): Article => ({
+        id: response.sys.id,
+        createdAt: response.sys.createdAt,
+        authorIds: response.fields.authors.map((author) => author.sys.id),
+        content: response.fields.content,
+        title: response.fields.title,
+      }),
+    }),
     getArticles: builder.query<Article[], { limit?: number }>({
       query: ({ limit }) => ({
         url: "/entries",
@@ -170,5 +183,6 @@ export const {
   useGetChangelogsQuery,
   useGetChangelogQuery,
   useGetArticlesQuery,
+  useGetArticleQuery,
   useGetAuthorsQuery,
 } = contentApi;

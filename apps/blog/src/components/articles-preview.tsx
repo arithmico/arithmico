@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Article, useGetArticlesQuery } from "../store/api";
 import Markdown from "./markdown";
 
-function ArticlePreview({ title, content, createdAt }: Article) {
+function ArticlePreview({ title, content, createdAt, id }: Article) {
   return (
     <li className="bg-neutral-800 rounded-md p-4 h-72 grid grid-rows-[1fr_0_auto]">
       <div className="overflow-clip">
@@ -15,7 +15,7 @@ function ArticlePreview({ title, content, createdAt }: Article) {
         <Markdown content={content} />
       </div>
       <div className="-translate-y-[100%] w-full h-16 bg-gradient-to-b from-transparent to-neutral-800"></div>
-      <Link className="text-white/50 mt-4 text-sm" to="/articles/foo">
+      <Link className="text-white/50 mt-4 text-sm" to={`/articles/${id}`}>
         {">"} Weiterlesen
       </Link>
     </li>

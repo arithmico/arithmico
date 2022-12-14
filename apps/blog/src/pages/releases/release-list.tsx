@@ -6,8 +6,8 @@ export function ReleaseList() {
 
   return (
     <>
-      {releases?.map((release) => (
-        <ReleaseDetails data={release} />
+      {releases?.map((release, index) => (
+        <ReleaseDetails key={index} data={release} />
       ))}
     </>
   );
