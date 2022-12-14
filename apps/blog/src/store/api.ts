@@ -148,6 +148,7 @@ export const contentApi = createApi({
             "fields.content",
             "fields.authors",
           ].join(","),
+          limit,
         },
       }),
       transformResponse: (response: {
