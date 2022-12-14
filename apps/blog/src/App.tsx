@@ -4,6 +4,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Route, Routes } from "react-router-dom";
+import Footer from "./components/footer";
 import Header from "./components/header";
 import useScrollTop from "./hooks/use-scroll-top";
 import Articles from "./pages/articles/articles";
@@ -37,6 +38,7 @@ function App() {
               </Routes>
             </main>
           </div>
+          <Footer />
         </div>
       </div>
     </>
