@@ -5,8 +5,8 @@ import Markdown from "./markdown";
 
 function ArticlePreview({ title, content, createdAt, id }: Article) {
   return (
-    <li className="bg-neutral-850  rounded-md p-4 h-72 grid grid-rows-[1fr_0_auto] odd:translate-y-8">
-      <div className="overflow-clip">
+    <li className="bg-neutral-850 rounded-md p-4 h-72 max-h-72 grid grid-rows-[1fr_0_auto] odd:translate-y-8">
+      <div className="overflow-hidden">
         <div className="flex items-baseline">
           <h3 className="text-3xl mb-4">{title}</h3>
           <span className="ml-auto text-white/40">
