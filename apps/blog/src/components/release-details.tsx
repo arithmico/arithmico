@@ -40,10 +40,12 @@ export function ReleaseDetails({ data }: ReleaseDetailsProps) {
           <SideMenuButton>Source Code</SideMenuButton>
           <SideMenuButton>Github</SideMenuButton>
         </div>
-        <div className="rounded-md bg-neutral-800 p-4">
-          <h2 className="text-2xl font-semibold">Changelog</h2>
-          <ChangelogMarkdown content={data?.content ?? ""} />
-        </div>
+        {data?.content && (
+          <div className="rounded-md bg-neutral-800 p-4">
+            <h2 className="text-2xl font-semibold">Changelog</h2>
+            <ChangelogMarkdown content={data?.content ?? ""} />
+          </div>
+        )}
       </div>
     </section>
   );
