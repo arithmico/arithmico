@@ -3,13 +3,17 @@ import ChangelogMarkdown from "./changelog-markdown";
 
 interface SideMenuButtonProps {
   children: React.ReactNode;
+  href?: string;
 }
 
-function SideMenuButton({ children }: SideMenuButtonProps) {
+function SideMenuButton({ children, href }: SideMenuButtonProps) {
   return (
-    <button className="px-6 py-2 text-white/50 hover:text-white border border-white/50 hover:border-white">
+    <a
+      href={href}
+      className="text-center px-6 py-2 text-white/50 hover:text-white border border-white/50 hover:border-white"
+    >
       {children}
-    </button>
+    </a>
   );
 }
 
@@ -30,7 +34,9 @@ export function ReleaseDetails({ data }: ReleaseDetailsProps) {
       </div>
       <div className="grid grid-cols-[1fr_3fr] gap-16 ">
         <div className="flex flex-col gap-4">
-          <SideMenuButton>Offline Version</SideMenuButton>
+          <SideMenuButton href={data.downloadUrl}>
+            Offline Version
+          </SideMenuButton>
           <SideMenuButton>Source Code</SideMenuButton>
           <SideMenuButton>Github</SideMenuButton>
         </div>

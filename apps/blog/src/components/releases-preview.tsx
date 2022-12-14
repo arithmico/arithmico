@@ -38,9 +38,12 @@ function ReleasePreview({
       <Link className="mb-4 text-white/50 text-sm" to={`/releases/${id}`}>
         {">"} Mehr erfahren
       </Link>
-      <button className="border border-white/40 text-white/40 hover:border-white hover:text-white p-2">
+      <a
+        href={downloadUrl}
+        className="text-center border border-white/40 text-white/40 hover:border-white hover:text-white p-2"
+      >
         Download
-      </button>
+      </a>
     </li>
   );
 }
