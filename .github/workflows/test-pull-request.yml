@@ -1,7 +1,7 @@
 name: pull-request auto test
 on:
   pull_request:
-    branches: [ main, dev ]
+    branches: [main, dev]
 
 env:
   CI: true
@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
       - name: Install dependencies
         run: npm ci
       - name: Testing
@@ -23,6 +27,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
       - name: Install dependencies
         run: npm ci
       - name: Linting

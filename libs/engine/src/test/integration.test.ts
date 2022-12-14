@@ -59,6 +59,7 @@ integrationTest('[1;2;3]', '[1; 2; 3]', germanTextContext);
 integrationTest('1,2+1,3', '2,5', germanTextContext);
 integrationTest('((x; y) -> x + y)(1;2)', '3', germanTextContext);
 integrationTest('((x; y) -> x + y)', '(x: any; y: any) → x + y', germanTextContext);
+integrationTest('f := (x) -> (y -> y^2)', '(x: any) → (y: any) → y^2');
 integrationTest('\\sqrt {4}', '2');
 integrationTest('2 * \\sqrt {4}', '4');
 integrationTest('\\sqrt [3] {8}', '2');
