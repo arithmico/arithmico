@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ArrowRight from "../icons/arrow-right";
 import ChevronRight from "../icons/chevron-right";
 import { useGetChangelogsQuery } from "../store/api";
 import ChangelogMarkdown from "./changelog-markdown";
@@ -73,9 +74,9 @@ export default function ReleasesPreview() {
           />
         ))}
       </ul>
-      <div className="flex mt-4 justify-center">
-        <Link to="/releases" className="text-white/40">
-          mehr
+      <div className="flex mt-6 justify-center">
+        <Link to="/releases" className="text-white/40 flex items-center">
+          Alle Versionen <ArrowRight className="fill-white/50 w-4 h-4 ml-2" />
         </Link>
       </div>
     </section>
