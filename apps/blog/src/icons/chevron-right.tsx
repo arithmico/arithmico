@@ -2,7 +2,7 @@ interface ArrowRightProps {
   className?: string;
 }
 
-export default function ArrowRight({ className }: ArrowRightProps) {
+export default function ChevronRight({ className }: ArrowRightProps) {
   return (
     <svg
       aria-hidden

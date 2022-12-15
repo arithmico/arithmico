@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ArrowRight from "../icons/right-arrow";
+import ChevronRight from "../icons/chevron-right";
 
 interface FooterExternalLinkProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ function FooterExternalLink({ children, href }: FooterExternalLinkProps) {
   return (
     <li className="flex">
       <a className="flex items-center" href={href}>
-        <ArrowRight className="w-4 h-4 fill-white/50" />
+        <ChevronRight className="w-4 h-4 fill-white/50" />
         {children}
       </a>
     </li>
@@ -41,7 +41,7 @@ export default function Footer() {
             Github
           </FooterExternalLink>
           <Link className="text-white/40 flex items-center" to="/imprint">
-            <ArrowRight className="w-4 h-4 fill-white/50" />
+            <ChevronRight className="w-4 h-4 fill-white/50" />
             Impressum
           </Link>
         </ul>
