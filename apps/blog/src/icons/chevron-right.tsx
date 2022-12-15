@@ -1,8 +1,6 @@
-interface ArrowRightProps {
-  className?: string;
-}
+import { IconProps } from "./icon-props.types";
 
-export default function ArrowRight({ className }: ArrowRightProps) {
+export default function ChevronRight({ className }: IconProps) {
   return (
     <svg
       aria-hidden

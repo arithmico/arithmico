@@ -26,7 +26,7 @@ function NavItem({ to, children }: NavItemProps) {
 
 export default function Header() {
   return (
-    <header className="flex w-full justify-center mt-6 mb-16">
+    <header className="flex w-screen justify-center mt-6 absolute left-0">
       <nav>
         <ul className="flex rounded-full text-sm font-medium border border-white/5 backdrop-blur bg-neutral-800 text-white ">
           <NavItem to="/">Home</NavItem>

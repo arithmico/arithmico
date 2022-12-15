@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import ArrowRight from "../icons/right-arrow";
+import ArrowRight from "../icons/arrow-right";
+import ChevronRight from "../icons/chevron-right";
 import { Article, useGetArticlesQuery } from "../store/api";
 import Markdown from "./markdown";
 
@@ -22,7 +23,7 @@ function ArticlePreview({ title, content, createdAt, id }: Article) {
         className="text-white/50 mt-4 text-sm flex items-center"
         to={`/articles/${id}`}
       >
-        <ArrowRight className="fill-white/50 w-4 h-4" />
+        <ChevronRight className="fill-white/50 w-4 h-4" />
         Weiterlesen
       </Link>
     </li>
@@ -42,8 +43,8 @@ export default function ArticlesPreview() {
         ))}
       </ul>
       <div className="flex mt-16 justify-center">
-        <Link to="/articles" className="text-white/40">
-          mehr
+        <Link to="/articles" className="text-white/40 flex items-center">
+          Alle Artikel <ArrowRight className="fill-white/50 w-4 h-4 ml-2" />
         </Link>
       </div>
     </section>
