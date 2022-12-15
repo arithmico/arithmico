@@ -28,7 +28,7 @@ function App() {
             className="absolute w-0 h-0 opacity-0"
           ></div>
           <Header />
-          <div className="flex align-center ">
+          <div className="flex align-center mt-32">
             <main className=" ">
               <Routes>
                 <Route index path="/" element={<Home />} />
