@@ -21,79 +21,32 @@ import evaluateVector from './nodes/eval-vector';
 import evaluateDefine from './nodes/eval-define';
 import evaluateString from './nodes/eval-string';
 import evaluateMethodCall from './nodes/eval-method-call';
+import { forEachNode } from '../utils/for-each-node';
 
-export default function evaluate(node: SyntaxTreeNode, context: Context) {
-    switch (node.type) {
-        case 'number':
-            return evaluateNumber(node);
+const evaluate = forEachNode<[Context], SyntaxTreeNode>({
+    number: evaluateNumber,
+    boolean: evaluateBoolean,
+    symbol: evaluateSymbol,
+    string: evaluateString,
+    or: evaluateOr,
+    and: evaluateAnd,
+    equals: evaluateEquals,
+    less: evaluateLess,
+    greater: evaluateGreater,
+    lessOrEquals: evaluateLessOrEquals,
+    greaterOrEquals: evaluateGreaterOrEquals,
+    plus: evaluatePlus,
+    minus: evaluateMinus,
+    times: evaluateTimes,
+    divided: evaluateDivided,
+    power: evaluatePower,
+    negate: evaluateNegate,
+    vector: evaluateVector,
+    functionCall: evaluateFunctionCall,
+    lambda: evaluateLambda,
+    function: (node) => node,
+    define: evaluateDefine,
+    methodCall: evaluateMethodCall,
+});
 
-        case 'boolean':
-            return evaluateBoolean(node);
-
-        case 'symbol':
-            return evaluateSymbol(node, context);
-
-        case 'string':
-            return evaluateString(node);
-
-        case 'or':
-            return evaluateOr(node, context);
-
-        case 'and':
-            return evaluateAnd(node, context);
-
-        case 'equals':
-            return evaluateEquals(node, context);
-
-        case 'less':
-            return evaluateLess(node, context);
-
-        case 'greater':
-            return evaluateGreater(node, context);
-
-        case 'lessOrEquals':
-            return evaluateLessOrEquals(node, context);
-
-        case 'greaterOrEquals':
-            return evaluateGreaterOrEquals(node, context);
-
-        case 'plus':
-            return evaluatePlus(node, context);
-
-        case 'minus':
-            return evaluateMinus(node, context);
-
-        case 'times':
-            return evaluateTimes(node, context);
-
-        case 'divided':
-            return evaluateDivided(node, context);
-
-        case 'power':
-            return evaluatePower(node, context);
-
-        case 'negate':
-            return evaluateNegate(node, context);
-
-        case 'vector':
-            return evaluateVector(node, context);
-
-        case 'functionCall':
-            return evaluateFunctionCall(node, context);
-
-        case 'lambda':
-            return evaluateLambda(node, context);
-
-        case 'function':
-            return node;
-
-        case 'define':
-            return evaluateDefine(node, context);
-
-        case 'methodCall':
-            return evaluateMethodCall(node, context);
-
-        default:
-            throw `EvaluationError: unknown node type`;
-    }
-}
+export default evaluate;
