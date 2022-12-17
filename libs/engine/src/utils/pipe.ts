@@ -14,9 +14,8 @@ type PipeArgs<F extends AnyFunc[], Acc extends AnyFunc[] = []> = F extends [(...
     : Acc;
 
 export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
-    arg: Parameters<FirstFn>[0],
     firstFn: FirstFn,
     ...fns: PipeArgs<F> extends F ? F : PipeArgs<F>
-): LastFnReturnType<F, ReturnType<FirstFn>> {
-    return (fns as AnyFunc[]).reduce((acc, fn) => fn(acc), firstFn(arg));
+): (arg: Parameters<FirstFn>[0]) => LastFnReturnType<F, ReturnType<FirstFn>> {
+    return (arg: Parameters<FirstFn>[0]) => (fns as AnyFunc[]).reduce((acc, fn) => fn(acc), firstFn(arg));
 }
