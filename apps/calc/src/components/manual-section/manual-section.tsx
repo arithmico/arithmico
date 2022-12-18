@@ -1,16 +1,23 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import {Disclosure} from "@headlessui/react";
+import ExpandMore from "@components/icons/expand-more";
 
-const Container = styled.section`
-  margin-top: 3rem;
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
 `;
 
-const ManaulSectionHeading = styled.h1`
-  font-size: 2.5rem;
+const PluginTitle = styled.h1`
+  font-size: 2.5em;
   font-weight: var(--me-font-weight-normal);
+  color: var(--me-text-400);
+  margin: 0;
 `;
 
-const StyledDl = styled.dl`
+const PluginObjectsList = styled.dl`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 1rem;
@@ -18,20 +25,47 @@ const StyledDl = styled.dl`
   padding: 0;
 `;
 
+const DisclosureButton = styled(Disclosure.Button)<{
+  open: boolean;
+  children: React.ReactNode /* idk why styled components does not get the children property*/;
+}>`
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: ${({ open }) =>
+    open ? "none" : "1px solid var(--me-text-100)"};
+  outline: none;
+`;
+
+const ExpandMoreIcon = styled(ExpandMore)<{ open: boolean }>`
+  transform: rotate(${({ open }) => (open ? "180" : "0")}deg);
+  margin-left: auto;
+  transition: transform 0.25s;
+`;
 interface ManualSectionProps {
-  heading: string;
-  children: React.ReactChild | React.ReactChild[];
+  name: string;
+  children: React.ReactNode;
 }
 
-export default function ManualSection({ heading, children }: ManualSectionProps) {
-  if (!children || (children instanceof Array && children.length === 0)) {
-    return null;
-  }
-
+export default function ManualSection({ name, children }: ManualSectionProps) {
   return (
-    <Container>
-      <ManaulSectionHeading>{heading}</ManaulSectionHeading>
-      <StyledDl>{children}</StyledDl>
-    </Container>
+    <Section>
+      <Disclosure>
+        {({ open }) => (
+          <>
+            <DisclosureButton open={open}>
+              <PluginTitle>{name}</PluginTitle>
+              <ExpandMoreIcon open={open} />
+            </DisclosureButton>
+            <Disclosure.Panel>
+              <PluginObjectsList>{children}</PluginObjectsList>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </Section>
   );
 }

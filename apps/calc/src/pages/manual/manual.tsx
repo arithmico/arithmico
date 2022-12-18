@@ -1,16 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
-import { getDocumentation } from "@arithmico/engine";
-import { GlobalDocumentationItem } from "@arithmico/engine/lib/types/Plugin";
+import React, {useRef, useState} from "react";
+import {getDocumentation} from "@arithmico/engine";
+import {GlobalDocumentationItem} from "@arithmico/engine/lib/types/Plugin";
 import styled from "styled-components";
-import ManualSectionItem from "@local-components/manual-section-item/manual-section-item";
-import ManualSection from "@local-components/manual-section/manual-section";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import ExternalLink from "@local-components/external-link/external-link";
-import hotkeys from "../../hotkeys.json";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { CalculatorRootState } from "@stores/calculator-store";
+import {useSelector} from "react-redux";
+import {CalculatorRootState} from "@stores/calculator-store";
+import ManualPluginSection from "@local-components/manual-plugin-section/manual-plugin-section";
+import {useTranslation} from "react-i18next";
+import ManualHotkeySection from "@local-components/manual-hotkey-section/manual-hotkey-section";
 
 const DocumentationLink = styled(ExternalLink)`
   font-size: 2rem;
@@ -41,47 +40,23 @@ const SearchField = styled.input.attrs({ type: "search" })`
   }
 `;
 
-function matchDocumentation(
-  item: GlobalDocumentationItem,
-  rawSearchStr: string,
-  language: string
-) {
-  const searchStr = rawSearchStr.toLocaleLowerCase();
-  const doc = item.documentation[language as "en" | "de"];
-  if (doc) {
-    return (
-      doc.synopsis.toLowerCase().includes(searchStr) ||
-      doc.description.toLowerCase().includes(searchStr)
-    );
-  }
-
-  const fallbackDoc = item.documentation.en;
-
-  if (fallbackDoc) {
-    return (
-      fallbackDoc.synopsis.toLowerCase().includes(searchStr) ||
-      fallbackDoc.description.toLowerCase().includes(searchStr)
-    );
-  }
-
-  return false;
+function groupByPlugin(items: GlobalDocumentationItem[]) {
+  const result = new Map<string, GlobalDocumentationItem[]>();
+  items.forEach((item) => {
+    if (result.has(item.plugin)) {
+      result.get(item.plugin).push(item);
+    } else {
+      result.set(item.plugin, [item]);
+    }
+  });
+  return result;
 }
 
 export default function Manual() {
-  const language = useSelector(
-    (state: CalculatorRootState) => state.settings.language
-  );
-  const [documentation] = useState(() => getDocumentation());
+  const searchRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [t] = useTranslation();
-  const serachRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (serachRef.current) {
-      serachRef.current.focus();
-    }
-  }, [serachRef]);
 
   const onSearchEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -89,74 +64,32 @@ export default function Manual() {
     }
   };
 
+  const language = useSelector(
+    (state: CalculatorRootState) => state.settings.language
+  );
+
+  const plugins = groupByPlugin(getDocumentation());
+
   return (
     <WithScrollbars>
       <PageContainer>
         <SearchField
-          ref={serachRef}
+          ref={searchRef}
           placeholder={t("manual.search")}
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           onKeyPress={onSearchEnter}
         />
-        <ManualSection heading={t("manual.functions")}>
-          {documentation
-            .filter(
-              (item) =>
-                item.type === "function" &&
-                matchDocumentation(item, searchQuery, language)
-            )
-            .map((item) => (
-              <ManualSectionItem
-                key={item.documentation.en?.synopsis}
-                synopsis={item.documentation.en?.synopsis || ""}
-                description={
-                  (language === "de"
-                    ? item.documentation.de?.description
-                    : item.documentation.en?.description) || ""
-                }
-              />
-            ))}
-        </ManualSection>
-        <ManualSection heading={t("manual.constants")}>
-          {documentation
-            .filter(
-              (item) =>
-                item.type === "constant" &&
-                matchDocumentation(item, searchQuery, language)
-            )
-            .map((item) => (
-              <ManualSectionItem
-                key={item.documentation.en?.synopsis}
-                synopsis={item.documentation.en?.synopsis || ""}
-                description={
-                  (language === "de"
-                    ? item.documentation.de?.description
-                    : item.documentation.en?.description) || ""
-                }
-              />
-            ))}
-        </ManualSection>
-        <ManualSection heading={t("manual.hotkeys")}>
-          {Object.keys(hotkeys)
-            .filter(
-              (hotkey) =>
-                hotkey.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                t((hotkeys as Record<string, string>)[hotkey] as string)
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase())
-            )
-            .map((hotkey) => (
-              <ManualSectionItem
-                key={hotkey}
-                noCopy={true}
-                synopsis={(hotkey as string).toUpperCase()}
-                description={t(
-                  (hotkeys as Record<string, string>)[hotkey] as string
-                )}
-              />
-            ))}
-        </ManualSection>
+        {[...plugins.entries()].map(([pluginName, pluginItems], index) => (
+          <ManualPluginSection
+            pluginName={pluginName}
+            documentation={pluginItems}
+            language={language}
+            searchQuery={searchQuery}
+            key={index}
+          />
+        ))}
+        <ManualHotkeySection />
         <DocumentationLink href="https://docs.arithmico.com">
           {t("manual.fullDocumentation")}
         </DocumentationLink>
