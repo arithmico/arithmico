@@ -1,13 +1,13 @@
 import { getPolynomial } from './polynomial-syntax-tree-utils';
-import normalize from '../../../../normalize-node';
+import normalize from '../../../../node-operations/normalize-node';
 import { createContext } from '../../../../utils/context-utils';
-import createNumberNode from '../../../../create-node/create-number-node';
-import createNegate from '../../../../create-node/create-negate';
-import createPlus from '../../../../create-node/create-plus';
-import createPower from '../../../../create-node/create-power';
-import createSymbolNode from '../../../../create-node/create-symbol-node';
-import createTimes from '../../../../create-node/create-times';
-import createMinus from '../../../../create-node/create-minus';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import createNegate from '../../../../node-operations/create-node/create-negate';
+import createPlus from '../../../../node-operations/create-node/create-plus';
+import createPower from '../../../../node-operations/create-node/create-power';
+import createSymbolNode from '../../../../node-operations/create-node/create-symbol-node';
+import createTimes from '../../../../node-operations/create-node/create-times';
+import createMinus from '../../../../node-operations/create-node/create-minus';
 import { createConstantMonomial, createNonConstantMonomial } from './polynomial-type-utils';
 
 const testContext = createContext();

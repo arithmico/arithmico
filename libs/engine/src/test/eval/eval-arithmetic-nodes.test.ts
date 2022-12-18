@@ -1,15 +1,15 @@
-import createBooleanNode from '../../create-node/create-boolean-node';
-import createDivided from '../../create-node/create-divided';
-import createFunctionCall from '../../create-node/create-function-call';
-import createLambda from '../../create-node/create-lambda';
-import createMinus from '../../create-node/create-minus';
-import createNumberNode from '../../create-node/create-number-node';
-import createPlus from '../../create-node/create-plus';
-import createPower from '../../create-node/create-power';
-import createSymbolNode from '../../create-node/create-symbol-node';
-import createTimes from '../../create-node/create-times';
-import createVector from '../../create-node/create-vector';
-import evaluate from '../../evaluate-node';
+import createBooleanNode from '../../node-operations/create-node/create-boolean-node';
+import createDivided from '../../node-operations/create-node/create-divided';
+import createFunctionCall from '../../node-operations/create-node/create-function-call';
+import createLambda from '../../node-operations/create-node/create-lambda';
+import createMinus from '../../node-operations/create-node/create-minus';
+import createNumberNode from '../../node-operations/create-node/create-number-node';
+import createPlus from '../../node-operations/create-node/create-plus';
+import createPower from '../../node-operations/create-node/create-power';
+import createSymbolNode from '../../node-operations/create-node/create-symbol-node';
+import createTimes from '../../node-operations/create-node/create-times';
+import createVector from '../../node-operations/create-node/create-vector';
+import evaluate from '../../node-operations/evaluate-node';
 import { createContext } from '../../utils/context-utils';
 
 const testContext = createContext({ stack: [new Map([['a', createNumberNode(42)]])] });

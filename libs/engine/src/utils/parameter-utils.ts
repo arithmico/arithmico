@@ -1,6 +1,6 @@
 import { Context, StackFrame } from '../types/Context';
 import { SyntaxTreeNode, FunctionHeaderItem } from '../types/SyntaxTreeNodes';
-import evaluate from '../evaluate-node';
+import evaluate from '../node-operations/evaluate-node';
 
 export function mapParametersToStackFrame(
     name: string,

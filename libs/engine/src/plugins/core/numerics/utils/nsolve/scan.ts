@@ -1,5 +1,5 @@
 import { NumberNode } from '../../../../../types/SyntaxTreeNodes';
-import evaluate from '../../../../../evaluate-node';
+import evaluate from '../../../../../node-operations/evaluate-node';
 import { Context, SyntaxTreeNode } from '../../../../../types';
 import { Point } from './nsolve-types';
 

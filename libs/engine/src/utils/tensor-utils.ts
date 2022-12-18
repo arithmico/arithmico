@@ -1,5 +1,5 @@
-import createNumberNode from '../create-node/create-number-node';
-import createVector from '../create-node/create-vector';
+import createNumberNode from '../node-operations/create-node/create-number-node';
+import createVector from '../node-operations/create-node/create-vector';
 import { SyntaxTreeNode, Vector } from '../types/SyntaxTreeNodes';
 
 type VectorShape = number | (number | VectorShape)[];

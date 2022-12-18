@@ -1,11 +1,11 @@
 import { FunctionHeaderItem, NumberNode, Vector } from '../../../../types/SyntaxTreeNodes';
-import createNumberNode from '../../../../create-node/create-number-node';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../../utils/tensor-utils';
-import createVector from '../../../../create-node/create-vector';
+import createVector from '../../../../node-operations/create-node/create-vector';
 import { calculateCofactorMatrix, createIdentityMatrix, det, tensorToMatrix, transpose } from '../utils/matrix-utils';
-import createDivided from '../../../../create-node/create-divided';
+import createDivided from '../../../../node-operations/create-node/create-divided';
 import { reduceFraction } from '../../../../utils/float-utils';
-import createNegate from '../../../../create-node/create-negate';
+import createNegate from '../../../../node-operations/create-node/create-negate';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singleVectorHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];

@@ -1,11 +1,11 @@
 import { FunctionHeaderItem, Vector } from '../../../../types/SyntaxTreeNodes';
 import { getTensorRank, isVectorHomogeneous } from '../../../../utils/tensor-utils';
-import evaluate from '../../../../evaluate-node';
-import createVector from '../../../../create-node/create-vector';
-import createMinus from '../../../../create-node/create-minus';
-import createTimes from '../../../../create-node/create-times';
+import evaluate from '../../../../node-operations/evaluate-node';
+import createVector from '../../../../node-operations/create-node/create-vector';
+import createMinus from '../../../../node-operations/create-node/create-minus';
+import createTimes from '../../../../node-operations/create-node/create-times';
 import { PluginFragment } from '../../../../utils/plugin-builder';
-import createNumberNode from '../../../../create-node/create-number-node';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 
 const lengthHeader: FunctionHeaderItem[] = [{ name: 'v', type: 'vector', evaluate: true }];
 const crossHeader: FunctionHeaderItem[] = [

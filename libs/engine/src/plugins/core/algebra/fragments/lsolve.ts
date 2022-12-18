@@ -1,9 +1,9 @@
-import createEquals from '../../../../create-node/create-equals';
-import createNumberNode from '../../../../create-node/create-number-node';
-import createSymbolNode from '../../../../create-node/create-symbol-node';
-import createVector from '../../../../create-node/create-vector';
-import normalize from '../../../../normalize-node';
-import serialize from '../../../../serialize-node';
+import createEquals from '../../../../node-operations/create-node/create-equals';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import createSymbolNode from '../../../../node-operations/create-node/create-symbol-node';
+import createVector from '../../../../node-operations/create-node/create-vector';
+import normalize from '../../../../node-operations/normalize-node';
+import serialize from '../../../../node-operations/serialize-node';
 import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
 import { isEquationLinear } from '../utils/check-linear';
 import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from '../utils/get-coefficients';

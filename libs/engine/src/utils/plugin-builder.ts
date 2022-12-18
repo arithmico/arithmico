@@ -1,5 +1,5 @@
-import createFunctionCall from '../create-node/create-function-call';
-import createSymbolNode from '../create-node/create-symbol-node';
+import createFunctionCall from '../node-operations/create-node/create-function-call';
+import createSymbolNode from '../node-operations/create-node/create-symbol-node';
 import {
     FunctionHeaderItem,
     FunctionNode,

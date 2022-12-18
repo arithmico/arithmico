@@ -1,5 +1,5 @@
 import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
-import createNumberNode from '../../../../create-node/create-number-node';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { calculateErf } from '../utils/erf';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 

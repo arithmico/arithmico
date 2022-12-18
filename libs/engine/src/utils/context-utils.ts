@@ -1,4 +1,4 @@
-import serialize from '../serialize-node';
+import serialize from '../node-operations/serialize-node';
 import { Context, Options, PluginMethod, SyntaxTreeNode } from '../types';
 
 export const defaultOptions: Options = {

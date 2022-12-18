@@ -1,13 +1,13 @@
-import createAnd from '../../create-node/create-and';
-import createBooleanNode from '../../create-node/create-boolean-node';
-import createEquals from '../../create-node/create-equals';
-import createGreater from '../../create-node/create-greater';
-import createGreaterOrEquals from '../../create-node/create-greater-or-equals';
-import createLess from '../../create-node/create-less';
-import createLessOrEquals from '../../create-node/create-less-or-equals';
-import createNumberNode from '../../create-node/create-number-node';
-import createOr from '../../create-node/create-or';
-import evaluate from '../../evaluate-node';
+import createAnd from '../../node-operations/create-node/create-and';
+import createBooleanNode from '../../node-operations/create-node/create-boolean-node';
+import createEquals from '../../node-operations/create-node/create-equals';
+import createGreater from '../../node-operations/create-node/create-greater';
+import createGreaterOrEquals from '../../node-operations/create-node/create-greater-or-equals';
+import createLess from '../../node-operations/create-node/create-less';
+import createLessOrEquals from '../../node-operations/create-node/create-less-or-equals';
+import createNumberNode from '../../node-operations/create-node/create-number-node';
+import createOr from '../../node-operations/create-node/create-or';
+import evaluate from '../../node-operations/evaluate-node';
 import { createContext } from '../../utils/context-utils';
 
 const testContext = createContext();

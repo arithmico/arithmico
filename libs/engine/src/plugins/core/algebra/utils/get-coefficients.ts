@@ -1,4 +1,4 @@
-import createNumberNode from '../../../../create-node/create-number-node';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { Context, Equals, NumberNode } from '../../../../types';
 import { getVariableNames } from '../../../../utils/symbolic-utils';
 import { getMonomialCoefficientFromSummand, getSummands } from './polynomial-syntax-tree-utils';
