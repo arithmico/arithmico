@@ -3,7 +3,7 @@ import lsolveFragment from './fragments/lsolve';
 import vectorFragment from './fragments/vector';
 import inverseMatrixFragment from './fragments/inverse-matrix';
 import polynomialFragment from './fragments/polynomial';
-import tensorFragment from "./fragments/tensor";
+import tensorFragment from './fragments/tensor';
 
 const algebraPlugin = createPlugin(
     'core/algebra',

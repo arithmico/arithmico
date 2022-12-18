@@ -1,7 +1,7 @@
 import createPlugin from '../../../utils/plugin-builder';
 import distributionFragment from './fragments/distributions';
 import samplingStatisticsFragment from './fragments/sampling-statistics';
-import miscellaneousStatisticsFragment from "./fragments/miscellaneous";
+import miscellaneousStatisticsFragment from './fragments/miscellaneous';
 
 const statisticsPlugin = createPlugin(
     'core/statistics',
