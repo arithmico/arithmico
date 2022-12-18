@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { getDocumentation } from "@arithmico/engine";
 import { GlobalDocumentationItem } from "@arithmico/engine/lib/types/Plugin";
 import styled from "styled-components";
-import ManualSectionItem from "@local-components/manual-section-item/manual-section-item";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import ExternalLink from "@local-components/external-link/external-link";
-import hotkeys from "../../hotkeys.json";
-import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { CalculatorRootState } from "@stores/calculator-store";
 import ManualPluginSection from "@local-components/manual-plugin-section/manual-plugin-section";
+import {t} from "i18next";
 
 const DocumentationLink = styled(ExternalLink)`
   font-size: 2rem;
@@ -71,6 +69,9 @@ export default function Manual() {
             searchQuery={""}
           />
         ))}
+        <DocumentationLink href="https://docs.arithmico.com">
+          {t("manual.fullDocumentation")}
+        </DocumentationLink>
       </PageContainer>
     </WithScrollbars>
   );

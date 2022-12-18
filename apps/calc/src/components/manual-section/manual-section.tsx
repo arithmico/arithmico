@@ -19,9 +19,11 @@ const PluginTitle = styled.h1`
 `;
 
 const PluginObjectsList = styled.dl`
-  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 1rem;
+  grid-column-gap: 0;
   padding: 0;
-  margin: 0;
 `;
 
 const DisclosureButton = styled(Disclosure.Button)<{
