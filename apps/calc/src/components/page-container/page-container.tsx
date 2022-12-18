@@ -1,13 +1,17 @@
-import styled from 'styled-components';
+import React from "react";
 
-const PageContainer = styled.div`
-  padding: 50px 20%;
-  -ms-overflow-style: none; /* for Internet Explorer, Edge */
-  scrollbar-width: none; /* for Firefox */
+interface PageContainerProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
-  &::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
-  }
-`;
-
-export default PageContainer;
+export default function PageContainer({
+  children,
+  className,
+}: PageContainerProps) {
+  return (
+    <div className={`${className} py-14 px-[20%] overflow-hidden`}>
+      {children}
+    </div>
+  );
+}

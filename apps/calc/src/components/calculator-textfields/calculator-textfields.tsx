@@ -1,6 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import Textfield from "../textfield/textfield";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,25 +11,7 @@ import {
   resetOutput,
 } from "@stores/slices/calculator-session";
 import useEvaluate from "../../hooks/use-evaluate";
-
-const TextfieldsContainer = styled.main`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-`;
-
-const MathTextfield = styled(Textfield)`
-  width: 100%;
-  font-family: "Source Code Pro", monospace;
-  margin: 1rem;
-`;
-
-const ErrorTextfield = styled(MathTextfield)`
-  color: var(--me-error);
-  margin: 1rem;
-`;
+import classNames from "classnames";
 
 export default function CalculatorTextfields() {
   const dispatch = useDispatch();
@@ -123,8 +103,29 @@ export default function CalculatorTextfields() {
   };
 
   return (
-    <TextfieldsContainer>
-      <MathTextfield
+    <div
+      className={classNames(
+        "w-full",
+        "h-full",
+        "flex",
+        "flex-col",
+        "justify-center"
+      )}
+    >
+      <input
+        type="text"
+        className={classNames(
+          "w-full",
+          "text-4xl",
+          "outline-none",
+          "border",
+          "border-neutral-700",
+          "px-4",
+          "py-6",
+          "bg-neutral-100",
+          "rounded-md",
+          "font-mono"
+        )}
         ref={inputRef}
         placeholder={t("common.input")}
         value={input}
@@ -132,23 +133,33 @@ export default function CalculatorTextfields() {
         onKeyPress={onInputKeyPress}
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      {isError ? (
-        <ErrorTextfield
-          ref={outputRef}
-          placeholder={t("common.output")}
-          readOnly
-          value={output}
-          onKeyPress={onOutputKeyPress}
-        />
-      ) : (
-        <MathTextfield
-          ref={outputRef}
-          placeholder={t("common.output")}
-          readOnly
-          value={output}
-          onKeyPress={onOutputKeyPress}
-        />
-      )}
-    </TextfieldsContainer>
+
+      <input
+        type="text"
+        className={classNames(
+          "mt-4",
+          "w-full",
+          "text-4xl",
+          "outline-none",
+          "border",
+          {
+            "border-neutral-700": !isError,
+            "bg-neutral-100": !isError,
+            "border-red-700": isError,
+            "text-red-700": isError,
+            "bg-red-100": isError,
+          },
+          "px-4",
+          "py-6",
+          "rounded-md",
+          "font-mono"
+        )}
+        ref={outputRef}
+        placeholder={t("common.output")}
+        readOnly
+        value={output}
+        onKeyPress={onOutputKeyPress}
+      />
+    </div>
   );
 }
