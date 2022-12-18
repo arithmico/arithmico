@@ -1,14 +1,15 @@
-import React from "react";
-import { getDocumentation } from "@arithmico/engine";
-import { GlobalDocumentationItem } from "@arithmico/engine/lib/types/Plugin";
+import React, {useRef, useState} from "react";
+import {getDocumentation} from "@arithmico/engine";
+import {GlobalDocumentationItem} from "@arithmico/engine/lib/types/Plugin";
 import styled from "styled-components";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import ExternalLink from "@local-components/external-link/external-link";
-import { useSelector } from "react-redux";
-import { CalculatorRootState } from "@stores/calculator-store";
+import {useSelector} from "react-redux";
+import {CalculatorRootState} from "@stores/calculator-store";
 import ManualPluginSection from "@local-components/manual-plugin-section/manual-plugin-section";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
+import ManualHotkeySection from "@local-components/manual-hotkey-section/manual-hotkey-section";
 
 const DocumentationLink = styled(ExternalLink)`
   font-size: 2rem;
@@ -52,6 +53,17 @@ function groupByPlugin(items: GlobalDocumentationItem[]) {
 }
 
 export default function Manual() {
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [t] = useTranslation();
+
+  const onSearchEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearchQuery(searchValue);
+    }
+  };
+
   const language = useSelector(
     (state: CalculatorRootState) => state.settings.language
   );
@@ -61,14 +73,23 @@ export default function Manual() {
   return (
     <WithScrollbars>
       <PageContainer>
-        {[...plugins.entries()].map(([pluginName, pluginItems]) => (
+        <SearchField
+          ref={searchRef}
+          placeholder={t("manual.search")}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyPress={onSearchEnter}
+        />
+        {[...plugins.entries()].map(([pluginName, pluginItems], index) => (
           <ManualPluginSection
             pluginName={pluginName}
             documentation={pluginItems}
             language={language}
-            searchQuery={""}
+            searchQuery={searchQuery}
+            key={index}
           />
         ))}
+        <ManualHotkeySection />
         <DocumentationLink href="https://docs.arithmico.com">
           {t("manual.fullDocumentation")}
         </DocumentationLink>

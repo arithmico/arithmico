@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Disclosure } from "@headlessui/react";
+import {Disclosure} from "@headlessui/react";
 import ExpandMore from "@components/icons/expand-more";
-import ManualSectionItem from "@local-components/manual-section-item/manual-section-item";
 
 const Section = styled.section`
   display: flex;
@@ -45,7 +44,7 @@ const ExpandMoreIcon = styled(ExpandMore)<{ open: boolean }>`
   transform: rotate(${({ open }) => (open ? "180" : "0")}deg);
   margin-left: auto;
   transition: transform 0.25s;
-`
+`;
 interface ManualSectionProps {
   name: string;
   children: React.ReactNode;
@@ -62,9 +61,7 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
               <ExpandMoreIcon open={open} />
             </DisclosureButton>
             <Disclosure.Panel>
-              <PluginObjectsList>
-                {children}
-              </PluginObjectsList>
+              <PluginObjectsList>{children}</PluginObjectsList>
             </Disclosure.Panel>
           </>
         )}

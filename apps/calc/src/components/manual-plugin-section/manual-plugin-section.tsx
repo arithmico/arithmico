@@ -4,16 +4,16 @@ import { GlobalDocumentationItem } from "@arithmico/engine/lib/types/Plugin";
 import ManualSection from "@local-components/manual-section/manual-section";
 
 function matchDocumentation(
-    item: GlobalDocumentationItem,
-    rawSearchStr: string,
-    language: string
+  item: GlobalDocumentationItem,
+  rawSearchStr: string,
+  language: string
 ) {
   const searchStr = rawSearchStr.toLocaleLowerCase();
   const doc = item.documentation[language as "en" | "de"];
   if (doc) {
     return (
-        doc.synopsis.toLowerCase().includes(searchStr) ||
-        doc.description.toLowerCase().includes(searchStr)
+      doc.synopsis.toLowerCase().includes(searchStr) ||
+      doc.description.toLowerCase().includes(searchStr)
     );
   }
 
@@ -21,8 +21,8 @@ function matchDocumentation(
 
   if (fallbackDoc) {
     return (
-        fallbackDoc.synopsis.toLowerCase().includes(searchStr) ||
-        fallbackDoc.description.toLowerCase().includes(searchStr)
+      fallbackDoc.synopsis.toLowerCase().includes(searchStr) ||
+      fallbackDoc.description.toLowerCase().includes(searchStr)
     );
   }
 
