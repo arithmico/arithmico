@@ -8,12 +8,6 @@ module.exports = {
   theme: {
     extend: {},
   },
-  variants: {
-    extend: {
-      backgroundColor: themes,
-      borderColor: themes,
-    },
-  },
   plugins: [
     plugin(function ({ addVariant }) {
       themes.forEach((theme) => {
