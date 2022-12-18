@@ -25,6 +25,12 @@ function App() {
   );
 
   useEffect(() => {
+    (
+      document.getElementById("root") as HTMLElement
+    ).className = `theme-${theme}`;
+  }, [theme]);
+
+  useEffect(() => {
     if (language && i18n.language !== language) {
       i18n.changeLanguage(language);
     }

@@ -4,14 +4,20 @@ const themes = ["light", "dark"];
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {},
+  },
+  variants: {
+    extend: {
+      backgroundColor: themes,
+      borderColor: themes,
+    },
   },
   plugins: [
     plugin(function ({ addVariant }) {
       themes.forEach((theme) => {
-        addVariant(theme, `.theme-${theme} &`);
+        addVariant(`theme-${theme}`, `.theme-${theme} &`);
       });
     }),
   ],
