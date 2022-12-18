@@ -1,10 +1,10 @@
 import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
-import createNumberNode from '../../../../create/create-number-node';
+import createNumberNode from '../../../../create-node/create-number-node';
 import { greatestCommonDivisor } from '../../../../utils/float-utils';
 import { extendedEuclideanGreatestCommonDivisor } from '../utils/gcd-extended-utils';
-import createEquals from '../../../../create/create-equals';
-import createPlus from '../../../../create/create-plus';
-import createTimes from '../../../../create/create-times';
+import createEquals from '../../../../create-node/create-equals';
+import createPlus from '../../../../create-node/create-plus';
+import createTimes from '../../../../create-node/create-times';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const doubleNumberHeader: FunctionHeaderItem[] = [

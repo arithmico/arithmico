@@ -1,14 +1,14 @@
-import createBooleanNode from '../../create/create-boolean-node';
-import createDivided from '../../create/create-divided';
-import createFunctionCall from '../../create/create-function-call';
-import createLambda from '../../create/create-lambda';
-import createMinus from '../../create/create-minus';
-import createNumberNode from '../../create/create-number-node';
-import createPlus from '../../create/create-plus';
-import createPower from '../../create/create-power';
-import createSymbolNode from '../../create/create-symbol-node';
-import createTimes from '../../create/create-times';
-import createVector from '../../create/create-vector';
+import createBooleanNode from '../../create-node/create-boolean-node';
+import createDivided from '../../create-node/create-divided';
+import createFunctionCall from '../../create-node/create-function-call';
+import createLambda from '../../create-node/create-lambda';
+import createMinus from '../../create-node/create-minus';
+import createNumberNode from '../../create-node/create-number-node';
+import createPlus from '../../create-node/create-plus';
+import createPower from '../../create-node/create-power';
+import createSymbolNode from '../../create-node/create-symbol-node';
+import createTimes from '../../create-node/create-times';
+import createVector from '../../create-node/create-vector';
 import evaluate from '../../eval';
 import { createContext } from '../../utils/context-utils';
 

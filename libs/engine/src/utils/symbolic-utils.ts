@@ -1,8 +1,8 @@
 import { BinarySyntaxTreeNode, SymbolNode } from '../types/SyntaxTreeNodes';
 import { Context, SyntaxTreeNode } from '../types';
-import createNegate from '../create/create-negate';
-import createVector from '../create/create-vector';
-import createSymbolNode from '../create/create-symbol-node';
+import createNegate from '../create-node/create-negate';
+import createVector from '../create-node/create-vector';
+import createSymbolNode from '../create-node/create-symbol-node';
 import { existsOnStack } from './context-utils';
 
 export const binaryNodeTypes: BinarySyntaxTreeNode['type'][] = [

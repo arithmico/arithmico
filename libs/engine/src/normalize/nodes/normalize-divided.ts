@@ -1,10 +1,10 @@
 import normalize from '..';
-import createDivided from '../../create/create-divided';
-import createNegate from '../../create/create-negate';
-import createNumberNode from '../../create/create-number-node';
-import createPlus from '../../create/create-plus';
-import createPower from '../../create/create-power';
-import createTimes from '../../create/create-times';
+import createDivided from '../../create-node/create-divided';
+import createNegate from '../../create-node/create-negate';
+import createNumberNode from '../../create-node/create-number-node';
+import createPlus from '../../create-node/create-plus';
+import createPower from '../../create-node/create-power';
+import createTimes from '../../create-node/create-times';
 import evaluate from '../../eval';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
 import { containsVariables } from '../../utils/symbolic-utils';

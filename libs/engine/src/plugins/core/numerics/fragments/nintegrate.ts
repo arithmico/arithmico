@@ -1,5 +1,5 @@
-import createFunctionCall from '../../../../create/create-function-call';
-import createNumberNode from '../../../../create/create-number-node';
+import createFunctionCall from '../../../../create-node/create-function-call';
+import createNumberNode from '../../../../create-node/create-number-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import { closeTo } from '../../../../utils/float-utils';
 import { integrateIntervall } from '../utils/nintegrate-utils';

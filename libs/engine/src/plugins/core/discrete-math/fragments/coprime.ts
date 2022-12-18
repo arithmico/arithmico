@@ -1,7 +1,7 @@
 import { PluginFragment } from '../../../../utils/plugin-builder';
 import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
-import createNumberNode from '../../../../create/create-number-node';
-import createBooleanNode from '../../../../create/create-boolean-node';
+import createNumberNode from '../../../../create-node/create-number-node';
+import createBooleanNode from '../../../../create-node/create-boolean-node';
 import { greatestCommonDivisor } from '../../../../utils/float-utils';
 import { eulerPhiFunction } from '../utils/euler-phi-function-utils';
 

@@ -1,10 +1,10 @@
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
 import normalize from '..';
 import evaluate from '../../eval';
-import createPlus from '../../create/create-plus';
+import createPlus from '../../create-node/create-plus';
 import { containsVariables, convertListToOperatorChain, convertOperatorChainToList } from '../../utils/symbolic-utils';
 import { SyntaxTreeNode } from '../../types';
-import createNumberNode from '../../create/create-number-node';
+import createNumberNode from '../../create-node/create-number-node';
 import equals from '../../equals/equals';
 
 const evaluateIfPossible: PartialNormalizer = (node, context) => {

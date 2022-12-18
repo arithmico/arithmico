@@ -1,6 +1,6 @@
-import createBooleanNode from '../../create/create-boolean-node';
-import createNumberNode from '../../create/create-number-node';
-import createSymbolNode from '../../create/create-symbol-node';
+import createBooleanNode from '../../create-node/create-boolean-node';
+import createNumberNode from '../../create-node/create-number-node';
+import createSymbolNode from '../../create-node/create-symbol-node';
 import evaluate from '../../eval';
 import { createContext } from '../../utils/context-utils';
 

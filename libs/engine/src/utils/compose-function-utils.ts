@@ -1,5 +1,5 @@
-import createLambda from '../create/create-lambda';
-import createSymbolNode from '../create/create-symbol-node';
+import createLambda from '../create-node/create-lambda';
+import createSymbolNode from '../create-node/create-symbol-node';
 import evaluate from '../eval';
 import { Context, FunctionNode, SyntaxTreeNode } from '../types';
 import { compareFunctionHeaders } from './parameter-utils';

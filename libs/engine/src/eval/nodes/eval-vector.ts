@@ -1,5 +1,5 @@
 import evaluate from '..';
-import createVector from '../../create/create-vector';
+import createVector from '../../create-node/create-vector';
 import { Vector, Context, SyntaxTreeNode } from '../../types';
 
 export default function evaluateVector(node: Vector, context: Context): SyntaxTreeNode {

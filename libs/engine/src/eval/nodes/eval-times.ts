@@ -1,8 +1,8 @@
 import evaluate from '..';
-import createNumberNode from '../../create/create-number-node';
-import createPlus from '../../create/create-plus';
-import createTimes from '../../create/create-times';
-import createVector from '../../create/create-vector';
+import createNumberNode from '../../create-node/create-number-node';
+import createPlus from '../../create-node/create-plus';
+import createTimes from '../../create-node/create-times';
+import createVector from '../../create-node/create-vector';
 import { Times, Context, SyntaxTreeNode, Vector } from '../../types';
 import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 import { getTensorDimensions, getTensorElement } from '../../utils/tensor-utils';

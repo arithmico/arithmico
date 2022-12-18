@@ -1,15 +1,15 @@
 import { Context, FunctionNode, SyntaxTreeNode } from '../../types';
-import createBooleanNode from '../../create/create-boolean-node';
-import createNumberNode from '../../create/create-number-node';
+import createBooleanNode from '../../create-node/create-boolean-node';
+import createNumberNode from '../../create-node/create-number-node';
 import evaluate from '../../eval';
-import createPlus from '../../create/create-plus';
-import createVector from '../../create/create-vector';
-import createNegate from '../../create/create-negate';
-import createLambda from '../../create/create-lambda';
-import createSymbolNode from '../../create/create-symbol-node';
-import createFunctionCall from '../../create/create-function-call';
+import createPlus from '../../create-node/create-plus';
+import createVector from '../../create-node/create-vector';
+import createNegate from '../../create-node/create-negate';
+import createLambda from '../../create-node/create-lambda';
+import createSymbolNode from '../../create-node/create-symbol-node';
+import createFunctionCall from '../../create-node/create-function-call';
 import { createContext } from '../../utils/context-utils';
-import createFunction from '../../create/create-function';
+import createFunction from '../../create-node/create-function';
 
 const testContext = createContext({
     stack: [

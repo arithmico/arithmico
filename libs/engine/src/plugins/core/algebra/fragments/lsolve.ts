@@ -1,7 +1,7 @@
-import createEquals from '../../../../create/create-equals';
-import createNumberNode from '../../../../create/create-number-node';
-import createSymbolNode from '../../../../create/create-symbol-node';
-import createVector from '../../../../create/create-vector';
+import createEquals from '../../../../create-node/create-equals';
+import createNumberNode from '../../../../create-node/create-number-node';
+import createSymbolNode from '../../../../create-node/create-symbol-node';
+import createVector from '../../../../create-node/create-vector';
 import normalize from '../../../../normalize';
 import serialize from '../../../../serialize';
 import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';

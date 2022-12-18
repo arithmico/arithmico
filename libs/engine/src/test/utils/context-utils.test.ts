@@ -1,4 +1,4 @@
-import createNumberNode from '../../create/create-number-node';
+import createNumberNode from '../../create-node/create-number-node';
 import { Context } from '../../types';
 import { createOptions, insertStackObject, serializeStack } from '../../utils/context-utils';
 

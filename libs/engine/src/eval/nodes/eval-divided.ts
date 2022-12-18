@@ -1,7 +1,7 @@
 import evaluate from '..';
-import createDivided from '../../create/create-divided';
-import createNumberNode from '../../create/create-number-node';
-import createVector from '../../create/create-vector';
+import createDivided from '../../create-node/create-divided';
+import createNumberNode from '../../create-node/create-number-node';
+import createVector from '../../create-node/create-vector';
 import { Divided, Context, SyntaxTreeNode } from '../../types';
 import { createBinaryOperatorFunctionComposition } from '../../utils/compose-function-utils';
 

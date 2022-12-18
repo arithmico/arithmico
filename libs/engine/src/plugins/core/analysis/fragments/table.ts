@@ -1,8 +1,8 @@
 import { FunctionHeaderItem, FunctionNode, NumberNode, Vector } from '../../../../types/SyntaxTreeNodes';
-import createVector from '../../../../create/create-vector';
-import createNumberNode from '../../../../create/create-number-node';
+import createVector from '../../../../create-node/create-vector';
+import createNumberNode from '../../../../create-node/create-number-node';
 import evaluate from '../../../../eval';
-import createFunctionCall from '../../../../create/create-function-call';
+import createFunctionCall from '../../../../create-node/create-function-call';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const tableHeader: FunctionHeaderItem[] = [
