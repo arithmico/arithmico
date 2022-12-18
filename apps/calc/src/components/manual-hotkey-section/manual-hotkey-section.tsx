@@ -3,9 +3,7 @@ import { useTranslation } from "react-i18next";
 import hotkeys from "../../hotkeys.json";
 import ManualSection from "@local-components/manual-section/manual-section";
 
-interface ManualHotkeySectionProps {}
-
-export default function ManualHotkeySection({}: ManualHotkeySectionProps) {
+export default function ManualHotkeySection() {
   const [t] = useTranslation();
 
   return (
