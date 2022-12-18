@@ -119,17 +119,16 @@ export default function CalculatorTextfields() {
           "text-4xl",
           "outline-none",
           "border",
-          "theme-light:border-neutral-400",
-          "theme-light:focus:border-neutral-600",
-          "theme-light:bg-neutral-100",
-
-          "theme-dark:bg-neutral-800",
-          "theme-dark:border-neutral-500",
-          "theme-dark:focus:border-neutral-100",
           "px-4",
           "py-6",
           "rounded-md",
-          "font-mono"
+          "font-mono",
+          "theme-light:border-neutral-400",
+          "theme-light:focus:border-neutral-600",
+          "theme-light:bg-neutral-100",
+          "theme-dark:bg-neutral-800",
+          "theme-dark:border-neutral-500",
+          "theme-dark:focus:border-neutral-100"
         )}
         ref={inputRef}
         placeholder={t("common.input")}
@@ -147,6 +146,10 @@ export default function CalculatorTextfields() {
           "text-4xl",
           "outline-none",
           "border",
+          "px-4",
+          "py-6",
+          "rounded-md",
+          "font-mono",
           {
             "theme-dark:border-neutral-500": !isError,
             "theme-dark:focus:border-neutral-100": !isError,
@@ -163,11 +166,7 @@ export default function CalculatorTextfields() {
             "theme-light:focus:border-red-600": isError,
             "theme-light:text-red-700": isError,
             "theme-light:bg-red-100": isError,
-          },
-          "px-4",
-          "py-6",
-          "rounded-md",
-          "font-mono"
+          }
         )}
         ref={outputRef}
         placeholder={t("common.output")}
