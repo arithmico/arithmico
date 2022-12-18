@@ -1,10 +1,10 @@
 import { GlobalDocumentationItem } from './types/Plugin';
-import { Context, Profile } from './types';
+import { Context, EvaluationResult, Profile } from './types';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
-import evaluateInput from './evaluation-pipeline';
 import defaultPlugins from './plugins';
+import evaluationPipeline from './pipeline';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -43,15 +43,10 @@ export function getDefaultContext() {
     return defaultContext;
 }
 
-export interface EvaluateResult {
-    result: string;
-    context: Context;
-}
-
-export default function evaluate(input: string, context: Context = defaultContext): EvaluateResult {
+export default function evaluate(input: string, context: Context = defaultContext): EvaluationResult {
     if (!context) {
         throw 'InitializationError: Arithmico Engine was not initialized';
     }
 
-    return evaluateInput({ input, context });
+    return evaluationPipeline({ input, context });
 }
