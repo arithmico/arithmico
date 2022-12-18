@@ -3,40 +3,24 @@ import { Context, Profile } from './types';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
-import analysisPlugin from './plugins/core/analysis/analysis';
-import numericsPlugin from './plugins/core/numerics/numerics';
-import algebraPlugin from './plugins/core/algebra/algebra';
-import statisticsPlugin from './plugins/core/statistics/statistics';
-import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
-import physicsPlugin from './plugins/core/physics/physics';
-import computerSciencePlugin from './plugins/core/computer-science/computer-science';
 import evaluateInput from './evaluation-pipeline';
+import defaultPlugins from './plugins';
 
 export { serializeStack } from './utils/context-utils';
-
-const plugins = [
-    analysisPlugin,
-    numericsPlugin,
-    algebraPlugin,
-    statisticsPlugin,
-    discreteMathPlugin,
-    physicsPlugin,
-    computerSciencePlugin,
-];
 
 let defaultContext: Context;
 let loadingLog: string[] = [];
 let documentation: GlobalDocumentationItem[];
 
 export function init(profile: Profile = createProfile()) {
-    const loadingResult = load(plugins, profile);
+    const loadingResult = load(defaultPlugins, profile);
     defaultContext = loadingResult[0];
     documentation = loadingResult[1];
     loadingLog = loadingResult[2];
 }
 
 export function getPluginStructures() {
-    return loadPluginStructures(plugins);
+    return loadPluginStructures(defaultPlugins);
 }
 
 export function isInitialized() {
