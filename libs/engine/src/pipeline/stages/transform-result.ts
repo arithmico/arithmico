@@ -6,6 +6,7 @@ function createStringResult(node: SyntaxTreeNode, context: Context): EvaluationR
     return {
         type: 'string',
         value: serialize(node, context.options),
+        context,
     };
 }
 

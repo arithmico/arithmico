@@ -1,3 +1,5 @@
+import { Context } from './Context';
+
 interface AbstractResult {
     type: string;
 }
@@ -5,6 +7,7 @@ interface AbstractResult {
 export interface StringResult extends AbstractResult {
     type: 'string';
     value: string;
+    context: Context;
 }
 
 export interface ErrorResult extends AbstractResult {
