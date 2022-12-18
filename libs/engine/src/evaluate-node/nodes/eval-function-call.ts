@@ -1,5 +1,5 @@
 import evaluate from '..';
-import serialize from '../../serialize';
+import serialize from '../../serialize-node';
 import { FunctionCall, Context, SyntaxTreeNode } from '../../types';
 
 export default function evaluateFunctionCall(node: FunctionCall, context: Context): SyntaxTreeNode {

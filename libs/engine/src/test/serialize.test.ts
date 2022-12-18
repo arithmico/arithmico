@@ -1,6 +1,6 @@
 import createBooleanNode from '../create-node/create-boolean-node';
 import createNumberNode from '../create-node/create-number-node';
-import serialize from '../serialize';
+import serialize from '../serialize-node';
 import createSymbolNode from '../create-node/create-symbol-node';
 import createOr from '../create-node/create-or';
 import createAnd from '../create-node/create-and';

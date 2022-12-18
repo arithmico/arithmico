@@ -2,7 +2,7 @@ import { parse } from '@arithmico/parser';
 import { Context, SyntaxTreeNode } from './types';
 import evaluateNode from './evaluate-node';
 import { insertStackObject } from './utils/context-utils';
-import serialize from './serialize';
+import serialize from './serialize-node';
 import { pipe } from './utils/pipe';
 
 function pipeParseInput({ input, context }: { input: string; context: Context }) {

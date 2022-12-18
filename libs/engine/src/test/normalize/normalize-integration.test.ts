@@ -3,7 +3,7 @@ import { Context } from '../../types';
 // @ts-ignore
 import { parse } from '@arithmico/parser';
 import normalize from '../../normalize';
-import serialize from '../../serialize';
+import serialize from '../../serialize-node';
 import globalConsole from 'console';
 import { createContext } from '../../utils/context-utils';
 
