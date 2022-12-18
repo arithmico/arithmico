@@ -1,5 +1,5 @@
 import { getPolynomial } from './polynomial-syntax-tree-utils';
-import normalize from '../../../../normalize';
+import normalize from '../../../../normalize-node';
 import { createContext } from '../../../../utils/context-utils';
 import createNumberNode from '../../../../create-node/create-number-node';
 import createNegate from '../../../../create-node/create-negate';

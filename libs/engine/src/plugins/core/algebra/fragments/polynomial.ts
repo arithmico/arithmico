@@ -5,7 +5,7 @@ import {
     isEverySummandOfPolynomialBaseSame,
     isPolynomialDegreeValid,
 } from '../utils/polynomial-syntax-tree-utils';
-import normalize from '../../../../normalize';
+import normalize from '../../../../normalize-node';
 import {
     calculatePolynomialAddition,
     calculatePolynomialDivision,

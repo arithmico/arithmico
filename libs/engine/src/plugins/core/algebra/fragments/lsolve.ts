@@ -2,7 +2,7 @@ import createEquals from '../../../../create-node/create-equals';
 import createNumberNode from '../../../../create-node/create-number-node';
 import createSymbolNode from '../../../../create-node/create-symbol-node';
 import createVector from '../../../../create-node/create-vector';
-import normalize from '../../../../normalize';
+import normalize from '../../../../normalize-node';
 import serialize from '../../../../serialize-node';
 import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
 import { isEquationLinear } from '../utils/check-linear';
