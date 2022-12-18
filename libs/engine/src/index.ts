@@ -1,11 +1,5 @@
 import { GlobalDocumentationItem } from './types/Plugin';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { parse } from '@arithmico/parser';
-import evaluateNode from './eval';
-import serialize from './serialize';
 import { Context, Profile } from './types';
-import { insertStackObject } from './utils/context-utils';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
@@ -16,6 +10,7 @@ import statisticsPlugin from './plugins/core/statistics/statistics';
 import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
 import physicsPlugin from './plugins/core/physics/physics';
 import computerSciencePlugin from './plugins/core/computer-science/computer-science';
+import evaluateInput from './evaluation-pipeline';
 
 export { serializeStack } from './utils/context-utils';
 
@@ -71,35 +66,8 @@ export interface EvaluateResult {
 
 export default function evaluate(input: string, context: Context = defaultContext): EvaluateResult {
     if (!context) {
-        if (!defaultContext) {
-            throw 'InitializationError: NumberCruncher was not initialized';
-        }
-        context = defaultContext;
+        throw 'InitializationError: Arithmico Engine was not initialized';
     }
 
-    let nodeTree;
-
-    try {
-        nodeTree = parse(input, {
-            language: context.options.decimalSeparator === ',' ? 'de' : 'en',
-        });
-    } catch (syntaxError) {
-        throw syntaxError.message;
-    }
-
-    const result = evaluateNode(nodeTree, context);
-    const resultString = serialize(result, context.options);
-
-    if (result.type === 'define') {
-        const value = result.value;
-        return {
-            result: resultString,
-            context: insertStackObject(result.name, value, context),
-        };
-    }
-
-    return {
-        result: resultString,
-        context,
-    };
+    return evaluateInput({ input, context });
 }

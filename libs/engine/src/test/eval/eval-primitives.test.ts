@@ -1,7 +1,7 @@
-import createBooleanNode from '../../create/create-boolean-node';
-import createNumberNode from '../../create/create-number-node';
-import createSymbolNode from '../../create/create-symbol-node';
-import evaluate from '../../eval';
+import createBooleanNode from '../../node-operations/create-node/create-boolean-node';
+import createNumberNode from '../../node-operations/create-node/create-number-node';
+import createSymbolNode from '../../node-operations/create-node/create-symbol-node';
+import evaluate from '../../node-operations/evaluate-node';
 import { createContext } from '../../utils/context-utils';
 
 const testContext = createContext({ stack: [new Map([['a', createNumberNode(42)]])] });

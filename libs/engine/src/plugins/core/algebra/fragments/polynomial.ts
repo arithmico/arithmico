@@ -5,7 +5,7 @@ import {
     isEverySummandOfPolynomialBaseSame,
     isPolynomialDegreeValid,
 } from '../utils/polynomial-syntax-tree-utils';
-import normalize from '../../../../normalize';
+import normalize from '../../../../node-operations/normalize-node';
 import {
     calculatePolynomialAddition,
     calculatePolynomialDivision,
@@ -14,8 +14,8 @@ import {
     getDegreeFromPolynomial,
     getSyntaxTreeNodeFromPolynomial,
 } from '../utils/polynomial-type-utils';
-import createNumberNode from '../../../../create/create-number-node';
-import createVector from '../../../../create/create-vector';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import createVector from '../../../../node-operations/create-node/create-vector';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singlePolynomialHeader: FunctionHeaderItem[] = [{ name: 'p', type: 'any', evaluate: false }];

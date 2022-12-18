@@ -1,5 +1,5 @@
 import { getDefaultContext, init } from '..';
-import createNumberNode from '../create/create-number-node';
+import createNumberNode from '../node-operations/create-node/create-number-node';
 import { createOptions } from '../utils/context-utils';
 import { createTestContext, integrationTest, integrationTestThrow } from '../utils/integration-test-utils';
 
@@ -47,7 +47,7 @@ integrationTest('((x)->x^2)(2)', '4');
 integrationTest('((x: number) -> x+1)(3)', '4');
 integrationTest('((x: number) -> x) + ((y: number) -> y^2)', '(x: number) → x + x^2');
 integrationTest('((x: number) -> x) + ((x: number) -> x^2)', '(x: number) → x + x^2');
-integrationTest('foo:bar:=42', '42');
+integrationTest('foo:bar:=42', 'foo:bar := 42');
 integrationTest('[1, 2, 3]^3', '[14, 28, 42]');
 integrationTest('[1, 2, 3]^1', '[1, 2, 3]');
 integrationTest('[[1, 2], [3, 4]]^3', '[[37, 54], [81, 118]]');
@@ -59,7 +59,7 @@ integrationTest('[1;2;3]', '[1; 2; 3]', germanTextContext);
 integrationTest('1,2+1,3', '2,5', germanTextContext);
 integrationTest('((x; y) -> x + y)(1;2)', '3', germanTextContext);
 integrationTest('((x; y) -> x + y)', '(x: any; y: any) → x + y', germanTextContext);
-integrationTest('f := (x) -> (y -> y^2)', '(x: any) → (y: any) → y^2');
+integrationTest('f := (x) -> (y -> y^2)', 'f := (x: any) → (y: any) → y^2');
 integrationTest('\\sqrt {4}', '2');
 integrationTest('2 * \\sqrt {4}', '4');
 integrationTest('\\sqrt [3] {8}', '2');

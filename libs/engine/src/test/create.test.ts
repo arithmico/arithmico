@@ -1,25 +1,25 @@
 import { SyntaxTreeNode } from '../types/SyntaxTreeNodes';
-import createAnd from '../create/create-and';
-import createBooleanNode from '../create/create-boolean-node';
-import createDivided from '../create/create-divided';
-import createEquals from '../create/create-equals';
-import createFunctionCall from '../create/create-function-call';
-import createGreater from '../create/create-greater';
-import createGreaterOrEquals from '../create/create-greater-or-equals';
-import createLess from '../create/create-less';
-import createLessOrEquals from '../create/create-less-or-equals';
-import createMinus from '../create/create-minus';
-import createNegate from '../create/create-negate';
-import createNumberNode from '../create/create-number-node';
-import createOr from '../create/create-or';
-import createPlus from '../create/create-plus';
-import createPower from '../create/create-power';
-import createSymbolNode from '../create/create-symbol-node';
-import createTimes from '../create/create-times';
-import createVector from '../create/create-vector';
-import createFunction from '../create/create-function';
-import createDefine from '../create/create-define';
-import createLambda from '../create/create-lambda';
+import createAnd from '../node-operations/create-node/create-and';
+import createBooleanNode from '../node-operations/create-node/create-boolean-node';
+import createDivided from '../node-operations/create-node/create-divided';
+import createEquals from '../node-operations/create-node/create-equals';
+import createFunctionCall from '../node-operations/create-node/create-function-call';
+import createGreater from '../node-operations/create-node/create-greater';
+import createGreaterOrEquals from '../node-operations/create-node/create-greater-or-equals';
+import createLess from '../node-operations/create-node/create-less';
+import createLessOrEquals from '../node-operations/create-node/create-less-or-equals';
+import createMinus from '../node-operations/create-node/create-minus';
+import createNegate from '../node-operations/create-node/create-negate';
+import createNumberNode from '../node-operations/create-node/create-number-node';
+import createOr from '../node-operations/create-node/create-or';
+import createPlus from '../node-operations/create-node/create-plus';
+import createPower from '../node-operations/create-node/create-power';
+import createSymbolNode from '../node-operations/create-node/create-symbol-node';
+import createTimes from '../node-operations/create-node/create-times';
+import createVector from '../node-operations/create-node/create-vector';
+import createFunction from '../node-operations/create-node/create-function';
+import createDefine from '../node-operations/create-node/create-define';
+import createLambda from '../node-operations/create-node/create-lambda';
 
 describe('create primitives nodes', () => {
     test('create number', () => {

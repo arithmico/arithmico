@@ -1,4 +1,4 @@
-import createNumberNode from '../../../../create/create-number-node';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { FunctionHeaderItem, NumberNode, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 

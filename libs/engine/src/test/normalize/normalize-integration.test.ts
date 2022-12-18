@@ -2,8 +2,8 @@ import { Context } from '../../types';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { parse } from '@arithmico/parser';
-import normalize from '../../normalize';
-import serialize from '../../serialize';
+import normalize from '../../node-operations/normalize-node';
+import serialize from '../../node-operations/serialize-node';
 import globalConsole from 'console';
 import { createContext } from '../../utils/context-utils';
 

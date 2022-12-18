@@ -1,4 +1,4 @@
-import evaluate from '../../../../eval';
+import evaluate from '../../../../node-operations/evaluate-node';
 import { BooleanNode, SyntaxTreeNode } from '../../../../types';
 import { FunctionHeaderItem } from '../../../../types/SyntaxTreeNodes';
 import { PluginFragment } from '../../../../utils/plugin-builder';
