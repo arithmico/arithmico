@@ -112,24 +112,25 @@ const calculatorSessionSlice = createSlice({
       const newIndex = getMathAndErrorItems(state.protocol).length;
       state.historyIndex = newIndex;
 
-      try {
-        const result = evaluateInput(state.input, action.payload);
+      const result = evaluateInput(state.input, action.payload);
+
+      if (result.type === "string") {
         state.stack = result.context.stack;
         state.protocol.push({
           type: "math",
           input: state.input,
-          output: result.result,
+          output: result.value,
         });
-        state.output = result.result;
+        state.output = result.value;
         state.error = false;
-      } catch (e) {
+      } else if (result.type === "error") {
         state.protocol.push({
           type: "error",
           input: state.input,
-          error: e as string,
+          error: result.message,
         });
+        state.output = result.message;
         state.error = true;
-        state.output = e as string;
       }
     },
   },
