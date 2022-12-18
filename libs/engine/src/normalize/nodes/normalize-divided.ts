@@ -5,7 +5,7 @@ import createNumberNode from '../../create-node/create-number-node';
 import createPlus from '../../create-node/create-plus';
 import createPower from '../../create-node/create-power';
 import createTimes from '../../create-node/create-times';
-import evaluate from '../../eval';
+import evaluate from '../../evaluate-node';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
 import { containsVariables } from '../../utils/symbolic-utils';
 

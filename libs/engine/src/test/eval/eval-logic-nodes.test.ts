@@ -7,7 +7,7 @@ import createLess from '../../create-node/create-less';
 import createLessOrEquals from '../../create-node/create-less-or-equals';
 import createNumberNode from '../../create-node/create-number-node';
 import createOr from '../../create-node/create-or';
-import evaluate from '../../eval';
+import evaluate from '../../evaluate-node';
 import { createContext } from '../../utils/context-utils';
 
 const testContext = createContext();

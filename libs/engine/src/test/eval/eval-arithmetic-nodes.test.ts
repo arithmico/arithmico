@@ -9,7 +9,7 @@ import createPower from '../../create-node/create-power';
 import createSymbolNode from '../../create-node/create-symbol-node';
 import createTimes from '../../create-node/create-times';
 import createVector from '../../create-node/create-vector';
-import evaluate from '../../eval';
+import evaluate from '../../evaluate-node';
 import { createContext } from '../../utils/context-utils';
 
 const testContext = createContext({ stack: [new Map([['a', createNumberNode(42)]])] });

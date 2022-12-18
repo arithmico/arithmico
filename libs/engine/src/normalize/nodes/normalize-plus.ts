@@ -1,6 +1,6 @@
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
 import normalize from '..';
-import evaluate from '../../eval';
+import evaluate from '../../evaluate-node';
 import createPlus from '../../create-node/create-plus';
 import { containsVariables, convertListToOperatorChain, convertOperatorChainToList } from '../../utils/symbolic-utils';
 import { SyntaxTreeNode } from '../../types';

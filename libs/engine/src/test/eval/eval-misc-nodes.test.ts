@@ -1,7 +1,7 @@
 import { Context, FunctionNode, SyntaxTreeNode } from '../../types';
 import createBooleanNode from '../../create-node/create-boolean-node';
 import createNumberNode from '../../create-node/create-number-node';
-import evaluate from '../../eval';
+import evaluate from '../../evaluate-node';
 import createPlus from '../../create-node/create-plus';
 import createVector from '../../create-node/create-vector';
 import createNegate from '../../create-node/create-negate';

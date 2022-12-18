@@ -3,7 +3,7 @@ import { SyntaxTreeNode } from '../../types/SyntaxTreeNodes';
 import normalize from '..';
 import createPlus from '../../create-node/create-plus';
 import createTimes from '../../create-node/create-times';
-import evaluate from '../../eval';
+import evaluate from '../../evaluate-node';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';
 import { containsVariables, convertListToOperatorChain, convertOperatorChainToList } from '../../utils/symbolic-utils';
 import createPower from '../../create-node/create-power';

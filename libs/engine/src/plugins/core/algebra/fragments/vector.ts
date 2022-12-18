@@ -1,6 +1,6 @@
 import { FunctionHeaderItem, Vector } from '../../../../types/SyntaxTreeNodes';
 import { getTensorRank, isVectorHomogeneous } from '../../../../utils/tensor-utils';
-import evaluate from '../../../../eval';
+import evaluate from '../../../../evaluate-node';
 import createVector from '../../../../create-node/create-vector';
 import createMinus from '../../../../create-node/create-minus';
 import createTimes from '../../../../create-node/create-times';

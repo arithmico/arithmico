@@ -1,6 +1,6 @@
 import { parse } from '@arithmico/parser';
 import { Context, SyntaxTreeNode } from './types';
-import evaluateNode from './eval';
+import evaluateNode from './evaluate-node';
 import { insertStackObject } from './utils/context-utils';
 import serialize from './serialize';
 import { pipe } from './utils/pipe';

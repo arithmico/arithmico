@@ -1,6 +1,6 @@
 import createFunctionCall from '../../../../create-node/create-function-call';
 import createNumberNode from '../../../../create-node/create-number-node';
-import evaluate from '../../../../eval';
+import evaluate from '../../../../evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../../types/SyntaxTreeNodes';
 import { binco } from '../../../../utils/binco';
 import { PluginFragment } from '../../../../utils/plugin-builder';

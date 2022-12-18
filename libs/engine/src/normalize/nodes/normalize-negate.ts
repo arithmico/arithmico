@@ -1,5 +1,5 @@
 import normalize from '..';
-import evaluate from '../../eval';
+import evaluate from '../../evaluate-node';
 import createNegate from '../../create-node/create-negate';
 import { containsVariables } from '../../utils/symbolic-utils';
 import { combineNormalizers, PartialNormalizer } from '../../utils/normalize-utils';

@@ -1,7 +1,7 @@
 import createFunctionCall from '../../../../create-node/create-function-call';
 import createNumberNode from '../../../../create-node/create-number-node';
 import createVector from '../../../../create-node/create-vector';
-import evaluate from '../../../../eval';
+import evaluate from '../../../../evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode, SyntaxTreeNode, Vector } from '../../../../types';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 

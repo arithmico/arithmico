@@ -1,5 +1,5 @@
 import normalize from '..';
-import evaluate from '../../eval';
+import evaluate from '../../evaluate-node';
 import createMinus from '../../create-node/create-minus';
 import createNegate from '../../create-node/create-negate';
 import createPlus from '../../create-node/create-plus';
