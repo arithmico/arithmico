@@ -11,18 +11,8 @@ import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import useExportProtocol from "../../hooks/use-export-protocol";
 import useHotkey from "../../hooks/use-hotkey";
-
-const ToolbarContainer = styled.aside`
-  display: grid;
-  width: 100%;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  grid-auto-flow: column;
-`;
 
 const CalculatorToolbarButton = forwardRef<
   HTMLButtonElement,
@@ -70,7 +60,9 @@ export default function CalculatorToolbar() {
   );
 
   return (
-    <ToolbarContainer>
+    <div
+      className={classNames("grid", "grid-rows-2", "gap-2", "grid-flow-col")}
+    >
       <CalculatorToolbarButton onClick={() => dispatch(resetInput())}>
         {t("toolbar.resetInput")}
       </CalculatorToolbarButton>
@@ -98,6 +90,6 @@ export default function CalculatorToolbar() {
       <CalculatorToolbarButton onClick={() => dispatch(resetAll())}>
         {t("toolbar.resetAll")}
       </CalculatorToolbarButton>
-    </ToolbarContainer>
+    </div>
   );
 }
