@@ -1,14 +1,14 @@
-import React, {useRef, useState} from "react";
-import {getDocumentation} from "@arithmico/engine";
-import {GlobalDocumentationItem} from "@arithmico/engine/lib/types/Plugin";
+import React, { useRef, useState } from "react";
+import { getDocumentation } from "@arithmico/engine";
+import { GlobalDocumentationItem } from "@arithmico/engine/lib/types/Plugin";
 import styled from "styled-components";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import ExternalLink from "@local-components/external-link/external-link";
-import {useSelector} from "react-redux";
-import {CalculatorRootState} from "@stores/calculator-store";
+import { useSelector } from "react-redux";
+import { CalculatorRootState } from "@stores/calculator-store";
 import ManualPluginSection from "@local-components/manual-plugin-section/manual-plugin-section";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ManualHotkeySection from "@local-components/manual-hotkey-section/manual-hotkey-section";
 
 const DocumentationLink = styled(ExternalLink)`
@@ -43,8 +43,9 @@ const SearchField = styled.input.attrs({ type: "search" })`
 function groupByPlugin(items: GlobalDocumentationItem[]) {
   const result = new Map<string, GlobalDocumentationItem[]>();
   items.forEach((item) => {
-    if (result.has(item.plugin)) {
-      result.get(item.plugin).push(item);
+    const resultEntry = result.get(item.plugin);
+    if (resultEntry) {
+      resultEntry.push(item);
     } else {
       result.set(item.plugin, [item]);
     }
