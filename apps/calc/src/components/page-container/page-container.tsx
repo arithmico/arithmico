@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 interface PageContainerProps {
@@ -10,7 +11,9 @@ export default function PageContainer({
   className,
 }: PageContainerProps) {
   return (
-    <div className={`${className} py-14 px-[20%] overflow-hidden`}>
+    <div
+      className={classNames(className, "py-14", "px-[20%]", "overflow-hidden")}
+    >
       {children}
     </div>
   );
