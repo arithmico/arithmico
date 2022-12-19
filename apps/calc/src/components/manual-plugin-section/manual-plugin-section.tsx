@@ -42,25 +42,29 @@ export default function ManualPluginSection({
   language,
   searchQuery,
 }: ManualPluginSectionProps) {
+  const filteredItems = documentation.filter(
+    (item) =>
+      (item.type === "function" || item.type === "constant") &&
+      matchDocumentation(item, searchQuery, language)
+  );
+
+  if (filteredItems.length === 0) {
+    return <></>;
+  }
+
   return (
     <ManualSection name={pluginName}>
-      {documentation
-        .filter(
-          (item) =>
-            (item.type === "function" || item.type === "constant") &&
-            matchDocumentation(item, searchQuery, language)
-        )
-        .map((item) => (
-          <ManualSectionItem
-            key={item.documentation.en?.synopsis}
-            synopsis={item.documentation.en?.synopsis || ""}
-            description={
-              (language === "de"
-                ? item.documentation.de?.description
-                : item.documentation.en?.description) || ""
-            }
-          />
-        ))}
+      {filteredItems.map((item) => (
+        <ManualSectionItem
+          key={item.documentation.en?.synopsis}
+          synopsis={item.documentation.en?.synopsis || ""}
+          description={
+            (language === "de"
+              ? item.documentation.de?.description
+              : item.documentation.en?.description) || ""
+          }
+        />
+      ))}
     </ManualSection>
   );
 }
