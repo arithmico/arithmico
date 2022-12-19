@@ -2,31 +2,13 @@ import { CalculatorRootState } from "@stores/calculator-store";
 import React from "react";
 import { useSelector } from "react-redux";
 import useNumberFormat from "../../hooks/use-number-format";
-import styled from "styled-components";
+import classNames from "classnames";
 
 interface ManualSectionItemProps {
   synopsis: string;
   description: string;
   noCopy?: boolean;
 }
-
-const StyledDt = styled.dt`
-  font-size: 2rem;
-  background-color: var(--me-background-100);
-  margin: 0;
-  padding: 1rem;
-  border-radius: 0.25rem 0 0 0.25rem;
-  font-weight: var(--me-font-weight-normal);
-`;
-
-const StyledDd = styled.dd`
-  font-size: 2rem;
-  background-color: var(--me-background-100);
-  margin: 0;
-  padding: 1rem;
-  border-radius: 0 0.25rem 0.25rem 0;
-  font-weight: var(--me-font-weight-normal);
-`;
 
 export default function ManualSectionItem({
   synopsis,
@@ -47,15 +29,34 @@ export default function ManualSectionItem({
 
   return (
     <>
-      <StyledDt onClick={onClick}>
+      <dt
+        className={classNames(
+          "p-4",
+          "text-xl",
+          "border-t",
+          "theme-dark:border-white/5",
+          "theme-light:border-black/10"
+        )}
+        onClick={onClick}
+      >
         {numberFormat === "de"
           ? synopsis
               .replaceAll(",", ";")
               .replaceAll(".", ",")
               .replaceAll(",,,", "...")
           : synopsis}
-      </StyledDt>
-      <StyledDd>{description}</StyledDd>
+      </dt>
+      <dd
+        className={classNames(
+          "p-4",
+          "text-xl",
+          "border-t",
+          "theme-dark:border-white/5",
+          "theme-light:border-black/10"
+        )}
+      >
+        {description}
+      </dd>
     </>
   );
 }

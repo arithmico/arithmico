@@ -54,6 +54,7 @@ export default function Manual() {
             "px-4",
             "py-6",
             "rounded-md",
+            "mb-12",
             "theme-light:border-neutral-400",
             "theme-light:focus:border-neutral-600",
             "theme-light:bg-neutral-100",
