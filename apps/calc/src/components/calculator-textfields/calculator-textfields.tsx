@@ -122,7 +122,6 @@ export default function CalculatorTextfields() {
           "px-4",
           "py-6",
           "rounded-md",
-          "font-mono",
           "theme-light:border-neutral-400",
           "theme-light:focus:border-neutral-600",
           "theme-light:bg-neutral-100",
@@ -149,7 +148,6 @@ export default function CalculatorTextfields() {
           "px-4",
           "py-6",
           "rounded-md",
-          "font-mono",
           {
             "theme-dark:border-neutral-500": !isError,
             "theme-dark:focus:border-neutral-100": !isError,
