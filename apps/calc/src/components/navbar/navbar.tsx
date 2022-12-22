@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 
 interface NavbarContainerProps {
@@ -86,14 +87,24 @@ function NavbarNavigationItem({ to, children }: NavbarNavigationItemProps) {
 }
 
 export default function Navbar() {
+  const [t] = useTranslation();
+
   return (
     <NavbarContainer>
       <NavbarTitle title="Arithmico" subtitle="Calc" />
       <NavbarNavigation>
-        <NavbarNavigationItem to="/">Calculator</NavbarNavigationItem>
-        <NavbarNavigationItem to="/settings">Settings</NavbarNavigationItem>
-        <NavbarNavigationItem to="/manual">Manual</NavbarNavigationItem>
-        <NavbarNavigationItem to="/About">about</NavbarNavigationItem>
+        <NavbarNavigationItem to="/">
+          {t("nav.calculator")}
+        </NavbarNavigationItem>
+        <NavbarNavigationItem to="/settings">
+          {t("nav.settings")}
+        </NavbarNavigationItem>
+        <NavbarNavigationItem to="/manual">
+          {t("nav.manual")}
+        </NavbarNavigationItem>
+        <NavbarNavigationItem to="/About">
+          {t("nav.about")}
+        </NavbarNavigationItem>
       </NavbarNavigation>
     </NavbarContainer>
   );
