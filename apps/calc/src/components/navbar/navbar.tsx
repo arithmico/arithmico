@@ -15,7 +15,8 @@ function NavbarContainer({ children }: NavbarContainerProps) {
         "px-12",
         "2xl:px-[20%]",
         "theme-dark:shadow-neutral-900",
-        "shadow-[0_0_10px]",
+        "theme-light:shadow-white",
+        "shadow-[0_0_20px]",
         "z-10"
       )}
     >
@@ -31,9 +32,20 @@ interface NavbarTitleProps {
 
 function NavbarTitle({ title, subtitle }: NavbarTitleProps) {
   return (
-    <h1 className={classNames("text-5xl")}>
+    <h1
+      className={classNames(
+        "text-base",
+        "py-2",
+        "lg:text-5xl",
+        "md:text-2xl",
+        "md:flex-row",
+        "flex",
+        "flex-col",
+        "mr-4"
+      )}
+    >
       <span className={classNames("font-extralight")}>{title}</span>
-      <span className={classNames("pl-2")}>{subtitle}</span>
+      <span className={classNames("md:pl-2")}>{subtitle}</span>
     </h1>
   );
 }
@@ -60,9 +72,9 @@ function NavbarNavigationItem({ to, children }: NavbarNavigationItemProps) {
     <NavLink
       className={({ isActive }) =>
         classNames(
-          "2xl:w-40",
-          "xl:w-36",
-          "w-32",
+          "2xl:px-12",
+          "xl:px-10",
+          "px-8",
           "h-full",
           "flex",
           "items-center",

@@ -47,7 +47,8 @@ function App() {
           "absolute",
           "inset-0",
           "grid",
-          "grid-rows-[5rem_1fr]"
+          "lg:grid-rows-[5rem_1fr]",
+          "grid-rows-[3rem_1fr]"
         )}
       >
         <Router>

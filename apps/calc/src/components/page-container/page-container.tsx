@@ -14,7 +14,8 @@ export default function PageContainer({
     <div
       className={classNames(
         className,
-        "py-14",
+        "py-4",
+        "lg:py-14",
         "px-12",
         "2xl:px-[20%]",
         "overflow-hidden",

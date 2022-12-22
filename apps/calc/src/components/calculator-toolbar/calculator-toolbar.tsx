@@ -31,7 +31,8 @@ const CalculatorToolbarButton = forwardRef<
       "theme-light:hover:bg-neutral-300",
       "theme-light:border-black/10",
       "border",
-      "p-4",
+      "lg:p-4",
+      "md:p-1",
       "rounded-sm",
       "text-left"
     )}
