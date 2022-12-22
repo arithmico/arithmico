@@ -37,26 +37,24 @@ function App() {
   }, [language]);
 
   return (
-    <ThemeProvider theme={{ type: theme }}>
-      <div
-        className={classNames(
-          "theme-dark:bg-neutral-900",
-          "theme-dark:text-white",
-          "theme-light:bg-white",
-          "theme-light:text-black",
-          "absolute",
-          "inset-0",
-          "grid",
-          "lg:grid-rows-[5rem_1fr]",
-          "grid-rows-[3rem_1fr]"
-        )}
-      >
-        <Router>
-          <Navbar />
-          <AppRoutes />
-        </Router>
-      </div>
-    </ThemeProvider>
+    <div
+      className={classNames(
+        "theme-dark:bg-neutral-900",
+        "theme-dark:text-white",
+        "theme-light:bg-white",
+        "theme-light:text-black",
+        "absolute",
+        "inset-0",
+        "grid",
+        "lg:grid-rows-[5rem_1fr]",
+        "grid-rows-[3rem_1fr]"
+      )}
+    >
+      <Router>
+        <Navbar />
+        <AppRoutes />
+      </Router>
+    </div>
   );
 }
 
