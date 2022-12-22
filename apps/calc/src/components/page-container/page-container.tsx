@@ -16,7 +16,8 @@ export default function PageContainer({
         className,
         "py-4",
         "lg:py-14",
-        "px-12",
+        "px-4",
+        "lg:px-12",
         "2xl:px-[20%]",
         "overflow-hidden",
         "z-0"

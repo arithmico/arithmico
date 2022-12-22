@@ -12,7 +12,8 @@ function NavbarContainer({ children }: NavbarContainerProps) {
       className={classNames(
         "flex",
         "items-center",
-        "px-12",
+        "px-4",
+        "lg:px-12",
         "2xl:px-[20%]",
         "theme-dark:shadow-neutral-900",
         "theme-light:shadow-white",
