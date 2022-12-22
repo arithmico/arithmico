@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import i18n from "./i18n/index";
-import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 import AppRoutes from "@local-components/app-routes/app-routes";
 import { CalculatorRootState } from "@stores/calculator-store";
