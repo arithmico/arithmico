@@ -3,10 +3,10 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import i18n from "./i18n/index";
 import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
-import GlobalStyle from "@components/global-styles/global-styles";
 import AppRoutes from "@local-components/app-routes/app-routes";
-import AppHeaderNavBar from "@local-components/app-header-nav-bar/app-header-nav-bar";
 import { CalculatorRootState } from "@stores/calculator-store";
+import Navbar from "./components/navbar/navbar";
+import classNames from "classnames";
 
 const Router = import.meta.env.VITE_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
@@ -38,11 +38,23 @@ function App() {
 
   return (
     <ThemeProvider theme={{ type: theme }}>
-      <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
-      <Router>
-        <AppHeaderNavBar />
-        <AppRoutes />
-      </Router>
+      <div
+        className={classNames(
+          "theme-dark:bg-neutral-900",
+          "theme-dark:text-white",
+          "theme-light:bg-white",
+          "theme-light:text-black",
+          "absolute",
+          "inset-0",
+          "grid",
+          "grid-rows-[5rem_1fr]"
+        )}
+      >
+        <Router>
+          <Navbar />
+          <AppRoutes />
+        </Router>
+      </div>
     </ThemeProvider>
   );
 }

@@ -12,7 +12,14 @@ export default function PageContainer({
 }: PageContainerProps) {
   return (
     <div
-      className={classNames(className, "py-14", "px-[20%]", "overflow-hidden")}
+      className={classNames(
+        className,
+        "py-14",
+        "px-12",
+        "2xl:px-[20%]",
+        "overflow-hidden",
+        "z-0"
+      )}
     >
       {children}
     </div>

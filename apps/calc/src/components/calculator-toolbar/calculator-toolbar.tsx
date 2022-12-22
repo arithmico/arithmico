@@ -24,8 +24,8 @@ const CalculatorToolbarButton = forwardRef<
   <button
     ref={ref}
     className={classNames(
-      "theme-dark:bg-neutral-900",
-      "theme-dark:hover:bg-neutral-800",
+      "theme-dark:bg-neutral-800",
+      "theme-dark:hover:bg-neutral-700",
       "theme-dark:border-white/5",
       "theme-light:bg-neutral-200",
       "theme-light:hover:bg-neutral-300",
