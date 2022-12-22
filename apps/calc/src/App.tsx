@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import i18n from "./i18n/index";
 import { useSelector } from "react-redux";
@@ -38,6 +38,9 @@ function App() {
   return (
     <div
       className={classNames(
+        `font-size-${fontSize}`,
+        `theme-${theme}`,
+        { "bold-font": boldFont },
         "theme-dark:bg-neutral-900",
         "theme-dark:text-white",
         "theme-light:bg-white",
