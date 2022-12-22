@@ -1,12 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import packageJsonData from "@workspace-package.json";
-import AboutContact from "@local-components/about-contact/about-contact";
-import ExternalLink from "@local-components/external-link/external-link";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
+import classNames from "classnames";
 
 const version: string = import.meta.env.VITE_DEV_MODE
   ? "dev"
@@ -17,12 +15,9 @@ interface PackageInformation {
   license: string;
   author: {
     name: string;
-    email: string;
-    url: string;
   };
   contributors: {
     name: string;
-    email?: string;
   }[];
   bugs: {
     url: string;
@@ -31,126 +26,93 @@ interface PackageInformation {
 
 const packageJson = packageJsonData as PackageInformation;
 
-const Container = styled(PageContainer)`
-  font-size: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+interface ChildProps {
+  children: React.ReactNode;
+}
 
-  & > h1 {
-    font-size: 2.5rem;
-    font-weight: var(--me-font-weight-normal);
-    text-align: center;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-  }
+function DD({ children }: ChildProps) {
+  return (
+    <dd className={classNames("col-start-1", "text-xl", "py-2")}>{children}</dd>
+  );
+}
 
-  & ul,
-  p {
-    margin: 0;
-  }
-
-  & li {
-    margin-bottom: 1rem;
-  }
-`;
-
-const StyledDl = styled.dl`
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-
-  & > dd {
-    font-size: 1.5rem;
-    text-align: right;
-  }
-
-  & > dt {
-    grid-column-start: 2;
-    font-weight: var(--me-font-weight-normal);
-    font-size: 1.5rem;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  color: var(--me-text-400);
-  font-weight: var(--me-font-weight-normal);
-`;
-
-const StyledExternalLink = styled(ExternalLink)`
-  color: var(--me-text-400);
-  opacity: 1;
-  text-decoration: underline;
-  font-weight: var(--me-font-weight-normal);
-`;
+function DT({ children }: ChildProps) {
+  return (
+    <dt className={classNames("col-start-2", "text-xl", "py-2")}>{children}</dt>
+  );
+}
 
 export default function About() {
   const [t] = useTranslation();
 
   return (
     <WithScrollbars>
-      <Container>
-        <h1>{t("about.general")}</h1>
-        <StyledDl>
-          <dd>{t("about.version")}</dd>
-          <dt>{version}</dt>
-          <dd>{t("about.license")}</dd>
-          <dt>{packageJson.license}</dt>
+      <PageContainer>
+        <h2 className={classNames("text-3xl", "mb-4")}>{t("about.general")}</h2>
+        <dl
+          className={classNames(
+            "grid",
+            "grid-cols-[auto_1fr]",
+            "gap-x-4",
+            "my-4",
+            "pl-8"
+          )}
+        >
+          <DD>{t("about.version")}</DD>
+          <DT>{version}</DT>
+          <DD>{t("about.license")}</DD>
+          <DT>{packageJson.license}</DT>
+          <DD>{t("about.reportBugs")}</DD>
+          <DT>
+            <a href={packageJson.bugs.url}>{packageJson.bugs.url}</a>
+          </DT>
+          <DD>{t("about.website")}</DD>
+          <DT>
+            <a href="https://blog.arithmico.com">Arithmico Blog</a>
+          </DT>
+          <DD>{t("about.contact")}</DD>
+          <DT>
+            <a href="mailto:team@arithmico.com">team@arithmico.com</a>
+          </DT>
+        </dl>
 
-          <dd>{t("about.author")}</dd>
-          <dt>
-            <AboutContact
-              name={packageJson.author.name}
-              email={packageJson.author.email}
-              url={packageJson.author.url}
-            />
-          </dt>
-
-          <dd>{t("about.contributors")}</dd>
-          {packageJson.contributors.map((contributor) => (
-            <dt key={contributor.name}>
-              <AboutContact
-                name={contributor.name || "n. a."}
-                email={
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  contributor?.email || ""
-                }
-              />
-            </dt>
+        <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
+          {t("about.team")}
+        </h2>
+        <ul className={classNames("pl-8")}>
+          {[
+            packageJson.author.name,
+            ...packageJson.contributors.map((c) => c.name),
+          ].map((name) => (
+            <li className={classNames("text-xl", "py-2")}>{name}</li>
           ))}
+        </ul>
 
-          <dd>{t("about.reportBugs")}</dd>
-          <dt>
-            <ExternalLink href={packageJson.bugs.url}>
-              {packageJson.bugs.url}
-            </ExternalLink>
-          </dt>
-        </StyledDl>
-        <h1>{t("about.furtherInformation")}</h1>
-        <ul>
+        <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
+          {t("about.furtherInformation")}
+        </h2>
+        <ul className={classNames("pl-8", "[&>li]:py-2")}>
           <li>
-            <StyledExternalLink href="https://blob.arithmico.com/calculator/ArithmicoAnleitung.docx">
+            <a href="https://blob.arithmico.com/calculator/ArithmicoAnleitung.docx">
               {t("about.documentation")}
-            </StyledExternalLink>
+            </a>
           </li>
           <li>
-            <StyledExternalLink href="https://github.com/behrenle/arithmico-calculator/releases">
+            <a href="https://github.com/behrenle/arithmico-calculator/releases">
               {t("about.offlineVersion")}
-            </StyledExternalLink>
+            </a>
           </li>
           <li>
-            <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
+            <Link to="/terms-of-service">{t("about.terms-of-service")}</Link>
           </li>
           <li>
-            <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
+            <Link to="/privacy-policy">{t("about.privacy-policy")}</Link>
           </li>
           <li>
-            <StyledLink to="/imprint">Imprint</StyledLink>
+            <Link to="/imprint">{t("about.imprint")}</Link>
           </li>
         </ul>
-      </Container>
+      </PageContainer>
     </WithScrollbars>
   );
 }
