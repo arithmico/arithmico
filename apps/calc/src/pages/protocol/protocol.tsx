@@ -18,14 +18,16 @@ export default function Protocol() {
   );
 
   return (
-    <PageContainer className={classNames("flex", "flex-col")}>
+    <PageContainer className={classNames("grid")}>
       <div
         className={classNames(
           "grid",
           "grid-rows-[auto_1fr]",
           "theme-dark:bg-neutral-850",
+          "theme-light:bg-neutral-100",
           "border",
           "theme-dark:border-white/5",
+          "theme-light:border-black/10",
           "rounded-md",
           "h-full"
         )}
@@ -34,10 +36,12 @@ export default function Protocol() {
           className={classNames(
             "flex",
             "theme-dark:bg-neutral-800",
+            "theme-light:bg-neutral-200",
             "rounded-md",
             "items-center",
             "ring-1",
-            "ring-white/5"
+            "theme-dark:ring-white/5",
+            "theme-light:ring-black/10"
           )}
         >
           <h1 className={classNames("text-3xl", "px-4")}>{t("protocol")}</h1>
@@ -46,6 +50,7 @@ export default function Protocol() {
               "ml-auto",
               "p-6",
               "theme-dark:hover:bg-neutral-700",
+              "theme-light:hover:bg-neutral-300",
               "rounded-md"
             )}
             onClick={() => navigate("/")}
@@ -54,7 +59,26 @@ export default function Protocol() {
           </button>
         </div>
         <WithScrollbars>
-          <ul>
+          <ul
+            className={classNames(
+              "grid",
+              "grid-cols-1",
+              "[&>li]:border-b",
+              "[&>li:last]:border-b-0",
+              "[&>li]:theme-dark:border-white/5",
+              "[&>li]:theme-light:border-black/10",
+              "2xl:max-w-[60vw]",
+              "lg:max-w-[calc(100vw-6rem)]",
+              "max-w-[calc(100vw-2rem)]",
+              "[&>li]:grid",
+              "[&>li]:gap-4",
+              "[&>li]:p-4",
+              "[&>li]:break-words",
+              "[&>li]:break-all",
+              "[&>li]:grid-cols-[1fr_auto_1fr]",
+              "text-2xl"
+            )}
+          >
             {protocolItems.map((item, index) => {
               switch (item.type) {
                 case "math":

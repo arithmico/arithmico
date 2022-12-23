@@ -20,7 +20,8 @@ export default function PageContainer({
         "lg:px-12",
         "2xl:px-[20%]",
         "overflow-hidden",
-        "z-0"
+        "z-0",
+        "max-w-[100vw]"
       )}
     >
       {children}

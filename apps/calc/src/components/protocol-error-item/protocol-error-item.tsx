@@ -1,22 +1,4 @@
-import styled from "styled-components";
-
-const Container = styled.li<{ isError: boolean }>`
-  display: grid;
-  grid-template-columns: 1fr auto 2fr;
-  grid-gap: 1rem;
-  padding: 20px;
-  background-color: var(--me-background-100);
-  border-radius: 0.25rem;
-  list-style: none;
-  ${({ isError }) => isError && "border: thin solid var(--me-error);"}
-  color: ${({ isError }) =>
-    isError ? "var(--me-error)" : "var(--me-text-400)"};
-
-  & > span {
-    font-size: 2em;
-    font-family: "Source Code Pro", monospace;
-  }
-`;
+import classNames from "classnames";
 
 interface ProtocolErrorItemProps {
   input: string;
@@ -28,10 +10,12 @@ export default function ProtocolErrorItem({
   output,
 }: ProtocolErrorItemProps) {
   return (
-    <Container isError={true}>
+    <li
+      className={classNames("theme-dark:bg-red-900", "theme-light:bg-red-200")}
+    >
       <span>{input}</span>
-      <span>=</span>
+      <div className="flex justify-center">=</div>
       <span>{output}</span>
-    </Container>
+    </li>
   );
 }
