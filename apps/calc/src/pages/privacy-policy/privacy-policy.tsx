@@ -1,15 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
-import styled from "styled-components";
-import ExternalLink from "@local-components/external-link/external-link";
 import PageContainer from "@local-components/page-container/page-container";
 import classNames from "classnames";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
-
-const Link = styled(ExternalLink)`
-  opacity: 1;
-  text-decoration: underline;
-`;
 
 export default function PrivacyPolicy() {
   return (
@@ -47,13 +40,13 @@ export default function PrivacyPolicy() {
           shared and/or collect in Arithmico. This policy is not applicable to
           any information collected offline or via channels other than this
           website. Our Privacy Policy was created with the help of the{" "}
-          <Link href="https://www.privacypolicygenerator.info">
+          <a href="https://www.privacypolicygenerator.info">
             Privacy Policy Generator
-          </Link>{" "}
+          </a>{" "}
           and the{" "}
-          <Link href="https://www.privacypolicyonline.com">
+          <a href="https://www.privacypolicyonline.com">
             Free Privacy Policy Generator
-          </Link>
+          </a>
           .
         </p>
 
@@ -129,9 +122,9 @@ export default function PrivacyPolicy() {
 
         <p>
           For more general information on cookies, please read{" "}
-          <Link href="https://www.cookieconsent.com/what-are-cookies/">
+          <a href="https://www.cookieconsent.com/what-are-cookies/">
             "What Are Cookies" from Cookie Consent
-          </Link>
+          </a>
           .
         </p>
 
