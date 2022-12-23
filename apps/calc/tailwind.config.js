@@ -6,7 +6,11 @@ const themes = ["light", "dark"];
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "neutral-850": "rgb(32, 32, 32)",
+      },
+    },
   },
   plugins: [
     plugin(function ({ addVariant }) {

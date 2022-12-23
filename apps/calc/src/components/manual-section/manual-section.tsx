@@ -16,7 +16,7 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
         "flex-col",
         "mb-6",
         "rounded-md",
-        "theme-dark:bg-neutral-900",
+        "theme-dark:bg-neutral-850",
         "theme-light:bg-neutral-100"
       )}
     >
