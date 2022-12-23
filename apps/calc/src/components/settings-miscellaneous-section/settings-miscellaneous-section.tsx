@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import SettingsSection from "@components/settings-section/settings-section";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
+import { resetSettings } from "@stores/slices/settings";
 
 export default function SettingsMiscellaneousSection() {
   const dispatch = useDispatch();
@@ -18,9 +19,11 @@ export default function SettingsMiscellaneousSection() {
             "w-40",
             "rounded-md",
             "theme-dark:bg-neutral-700",
-            "theme-dark:hover:bg-neutral-600"
+            "theme-dark:hover:bg-neutral-600",
+            "theme-light:bg-neutral-300",
+            "theme-light:hover:bg-neutral-400"
           )}
-          onClick={() => dispatch({ type: "resetSettings" })}
+          onClick={() => dispatch(resetSettings())}
         >
           {t("settings.resetText")}
         </button>
