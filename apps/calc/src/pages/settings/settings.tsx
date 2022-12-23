@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import SettingsButton from "@components/settings-button/settings-button";
 import SettingsSection from "@components/settings-section/settings-section";
 import SettingsDecimalPlacesListbox from "@components/settings-decimal-places-listbox/settings-decimal-places-listbox";
 import PageContainer from "@local-components/page-container/page-container";
@@ -15,6 +14,7 @@ import {
   setNumberFormat,
 } from "@stores/slices/settings";
 import Listbox from "../../components/listbox/listbox";
+import SettingsMiscellaneousSection from "../../components/settings-miscellaneous-section/settings-miscellaneous-section";
 
 export default function Settings() {
   const dispatch = useDispatch();
@@ -64,13 +64,7 @@ export default function Settings() {
             value={angleUnit}
           />
         </SettingsSection>
-        <SettingsSection heading={t("settings.misc")}>
-          <SettingsButton
-            label={t("settings.resetLabel")}
-            text={t("settings.resetText")}
-            onClick={() => dispatch({ type: "resetSettings" })}
-          />
-        </SettingsSection>
+        <SettingsMiscellaneousSection />
       </PageContainer>
     </WithScrollbars>
   );
