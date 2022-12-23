@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import SettingsButton from "@components/settings-button/settings-button";
-import SettingsListbox from "@components/settings-listbox/settings-listbox";
 import SettingsSection from "@components/settings-section/settings-section";
 import SettingsDecimalPlacesListbox from "@components/settings-decimal-places-listbox/settings-decimal-places-listbox";
 import PageContainer from "@local-components/page-container/page-container";
@@ -15,6 +14,7 @@ import {
   setDecimalPlaces,
   setNumberFormat,
 } from "@stores/slices/settings";
+import Listbox from "../../components/listbox/listbox";
 
 export default function Settings() {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ export default function Settings() {
               .map((_, index) => ({ label: index + "", value: index }))}
             value={significantDecimalPlaces}
           />
-          <SettingsListbox
+          <Listbox
             onChange={(v: string) => dispatch(setNumberFormat(v))}
             label={t("settings.numberFormat")}
             options={[
@@ -54,7 +54,7 @@ export default function Settings() {
             ]}
             value={numberFormat}
           />
-          <SettingsListbox
+          <Listbox
             onChange={(v: string) => dispatch(setAngleUnit(v))}
             label={t("settings.angleUnit")}
             options={[
