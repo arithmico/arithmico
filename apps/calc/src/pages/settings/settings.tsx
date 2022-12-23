@@ -1,7 +1,5 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import SettingsSection from "@components/settings-section/settings-section";
-import SettingsDecimalPlacesListbox from "@components/settings-decimal-places-listbox/settings-decimal-places-listbox";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import InterfaceSettings from "@local-components/settings-interface-section/settings-interface-section";
@@ -15,6 +13,7 @@ import {
 } from "@stores/slices/settings";
 import Listbox from "../../components/listbox/listbox";
 import SettingsMiscellaneousSection from "../../components/settings-miscellaneous-section/settings-miscellaneous-section";
+import DecimalPlacesListbox from "../../components/decimal-places-listbox/decimal-places-listbox";
 
 export default function Settings() {
   const dispatch = useDispatch();
@@ -36,12 +35,8 @@ export default function Settings() {
         <InterfaceSettings />
         <AppearanceSettings />
         <SettingsSection heading={t("settings.calculator")}>
-          <SettingsDecimalPlacesListbox
+          <DecimalPlacesListbox
             onChange={(v: number) => dispatch(setDecimalPlaces(v))}
-            label={t("settings.significantDecimalPlaces")}
-            options={new Array(15)
-              .fill(0)
-              .map((_, index) => ({ label: index + "", value: index }))}
             value={significantDecimalPlaces}
           />
           <Listbox
