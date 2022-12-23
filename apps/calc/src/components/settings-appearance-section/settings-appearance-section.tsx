@@ -1,10 +1,10 @@
 import SettingsListbox from "@components/settings-listbox/settings-listbox";
 import { useSelector, useDispatch } from "react-redux";
 import SettingsSection from "@components/settings-section/settings-section";
-import SettingsSwitch from "@components/settings-switch/settings-switch";
 import { useTranslation } from "react-i18next";
 import { setBoldFont, setFontSize, setTheme } from "@stores/slices/settings";
 import { CalculatorRootState } from "@stores/calculator-store";
+import Switch from "../switch/switch";
 
 export default function SettingsAppearanceSection() {
   const [t] = useTranslation();
@@ -40,7 +40,7 @@ export default function SettingsAppearanceSection() {
         ]}
         value={fontSize}
       />
-      <SettingsSwitch
+      <Switch
         label={t("settings.boldFont")}
         enabled={boldFont}
         onChange={(boldFont: boolean) => dispatch(setBoldFont(boldFont))}

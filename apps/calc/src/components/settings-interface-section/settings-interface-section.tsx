@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SettingsListbox from "@components/settings-listbox/settings-listbox";
 import SettingsSection from "@components/settings-section/settings-section";
-import SettingsSwitch from "@components/settings-switch/settings-switch";
 import { useTranslation } from "react-i18next";
 import {
   setCopySynopsisOnClick,
@@ -10,6 +9,7 @@ import {
   setLanguage,
 } from "@stores/slices/settings";
 import { CalculatorRootState } from "@stores/calculator-store";
+import Switch from "../switch/switch";
 
 export default function SettingsInterfaceSection() {
   const [t] = useTranslation();
@@ -35,14 +35,14 @@ export default function SettingsInterfaceSection() {
         ]}
         value={language}
       />
-      <SettingsSwitch
+      <Switch
         label={t("settings.copyManualContentByClicking")}
         enabled={copySynopsisOnClick}
         onChange={(copySynopsisOnClick: boolean) =>
           dispatch(setCopySynopsisOnClick(copySynopsisOnClick))
         }
       />
-      <SettingsSwitch
+      <Switch
         label={t("settings.excludeInfoInProtocol")}
         enabled={excludeInfoInProtocol}
         onChange={(excludeInfoInProtocol) =>
