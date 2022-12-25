@@ -1,22 +1,4 @@
-import { Language, Plugin } from '../types';
-
-interface PluginStructureItem {
-    type: 'function' | 'constant' | 'method';
-    name: string;
-    synopsis: {
-        [key in Language]: string;
-    };
-    description: {
-        [key in Language]?: string;
-    };
-}
-
-export interface PluginStructure {
-    name: {
-        [key in Language]: string;
-    };
-    items: PluginStructureItem[];
-}
+import { Plugin, PluginStructure, PluginStructureItem } from '../types';
 
 function loadPluginStructure(plugin: Plugin): PluginStructure {
     const constants: PluginStructureItem[] = plugin.constants.map((constant) => ({

@@ -1,6 +1,24 @@
 import { Context } from './context.types';
 import { SyntaxTreeNode, FunctionNode } from './nodes.types';
 
+export interface PluginStructureItem {
+    type: 'function' | 'constant' | 'method';
+    name: string;
+    synopsis: {
+        [key in Language]: string;
+    };
+    description: {
+        [key in Language]?: string;
+    };
+}
+
+export interface PluginStructure {
+    name: {
+        [key in Language]: string;
+    };
+    items: PluginStructureItem[];
+}
+
 export interface GlobalDocumentationItem {
     type: 'constant' | 'function' | 'method';
     plugin: string;
