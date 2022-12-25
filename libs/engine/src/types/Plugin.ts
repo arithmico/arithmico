@@ -13,7 +13,7 @@ interface Documentation {
     description: string;
 }
 
-type Language = 'en' | 'de';
+export type Language = 'en' | 'de';
 
 export interface PluginFunction {
     name: string;
