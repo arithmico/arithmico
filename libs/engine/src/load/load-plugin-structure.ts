@@ -1,6 +1,6 @@
 import { Language, Plugin } from '../types';
 
-interface PluginItemStructure {
+interface PluginStructureItem {
     type: 'function' | 'constant' | 'method';
     name: string;
     synopsis: {
@@ -15,11 +15,11 @@ export interface PluginStructure {
     name: {
         [key in Language]: string;
     };
-    items: PluginItemStructure[];
+    items: PluginStructureItem[];
 }
 
 function loadPluginStructure(plugin: Plugin): PluginStructure {
-    const constants: PluginItemStructure[] = plugin.constants.map((constant) => ({
+    const constants: PluginStructureItem[] = plugin.constants.map((constant) => ({
         type: 'constant',
         name: constant.name,
         synopsis: {
@@ -32,7 +32,7 @@ function loadPluginStructure(plugin: Plugin): PluginStructure {
         },
     }));
 
-    const functions: PluginItemStructure[] = plugin.functions.map((pluginFunction) => ({
+    const functions: PluginStructureItem[] = plugin.functions.map((pluginFunction) => ({
         type: 'function',
         name: pluginFunction.name,
         synopsis: {
@@ -45,7 +45,7 @@ function loadPluginStructure(plugin: Plugin): PluginStructure {
         },
     }));
 
-    const methods: PluginItemStructure[] = plugin.methods.map((method) => ({
+    const methods: PluginStructureItem[] = plugin.methods.map((method) => ({
         type: 'method',
         name: method.name,
         synopsis: {
