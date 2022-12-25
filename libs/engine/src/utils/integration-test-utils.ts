@@ -1,4 +1,4 @@
-import evaluate, { init, isInitialized } from '..';
+import evaluate from '..';
 import { Context, Options, StringResult } from '../types';
 import { createContext, createOptions } from './context-utils';
 
@@ -11,20 +11,12 @@ export function createTestContext(stack: Context['stack'], options: Options = te
 }
 
 export function integrationTest(input: string, expectedOutput: string, context?: Context) {
-    if (!isInitialized()) {
-        init();
-    }
-
     test(`integration test #${++lastId}: ${input}`, () => {
         expect((<StringResult>evaluate(input, context)).value).toBe(expectedOutput);
     });
 }
 
 export function integrationTestThrow(input: string, context?: Context) {
-    if (!isInitialized()) {
-        init();
-    }
-
     test(`integration test (throw) #${++lastId}: ${input}`, () => {
         expect(evaluate(input, context).type).toStrictEqual('error');
     });
