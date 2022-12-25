@@ -1,7 +1,7 @@
-import { Options } from '../../../types/Context';
+import { Options } from '../../../types/context.types';
 import serialize, { needsBrackets } from '..';
 import { FunctionNode } from '../../../types';
-import { FunctionHeaderItem } from '../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem } from '../../../types/nodes.types';
 
 export function serializeHeaderItem(item: FunctionHeaderItem) {
     const suffix = ((optional: boolean, repeat: boolean) => {

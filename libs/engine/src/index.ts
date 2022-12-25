@@ -1,7 +1,6 @@
-import { GlobalDocumentationItem } from './types/Plugin';
+import { PluginStructure } from './types/plugin.types';
 import { Context, EvaluationResult, Profile } from './types';
 import load from './load';
-import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
 import defaultPlugins from './plugins';
 import evaluationPipeline from './pipeline';
@@ -9,30 +8,20 @@ import evaluationPipeline from './pipeline';
 export { serializeStack } from './utils/context-utils';
 
 let defaultContext: Context;
-let loadingLog: string[] = [];
-let documentation: GlobalDocumentationItem[];
+let documentation: PluginStructure[];
 
 export function init(profile: Profile = createProfile()) {
     const loadingResult = load(defaultPlugins, profile);
-    defaultContext = loadingResult[0];
-    documentation = loadingResult[1];
-    loadingLog = loadingResult[2];
-}
-
-export function getPluginStructures() {
-    return loadPluginStructures(defaultPlugins);
-}
-
-export function isInitialized() {
-    return !!defaultContext;
+    defaultContext = loadingResult.context;
+    documentation = loadingResult.documentation;
 }
 
 export function getDocumentation() {
-    return documentation;
-}
+    if (!documentation) {
+        init();
+    }
 
-export function getLoadingLog() {
-    return loadingLog;
+    return documentation;
 }
 
 export function getDefaultContext() {
@@ -43,9 +32,9 @@ export function getDefaultContext() {
     return defaultContext;
 }
 
-export default function evaluate(input: string, context: Context = defaultContext): EvaluationResult {
+export default function evaluate(input: string, context?: Context): EvaluationResult {
     if (!context) {
-        throw 'InitializationError: Arithmico Engine was not initialized';
+        context = getDefaultContext();
     }
 
     return evaluationPipeline({ input, context });

@@ -1,9 +1,7 @@
-import { getDefaultContext, init } from '..';
+import { getDefaultContext } from '..';
 import createNumberNode from '../node-operations/create-node/create-number-node';
 import { createOptions } from '../utils/context-utils';
 import { createTestContext, integrationTest, integrationTestThrow } from '../utils/integration-test-utils';
-
-init();
 
 const defaultStack = getDefaultContext().stack;
 const germanTextContext = createTestContext(defaultStack, createOptions({ decimalSeparator: ',' }));

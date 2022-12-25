@@ -1,4 +1,4 @@
-import { FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/nodes.types';
 import {
     getPolynomial,
     haveTwoPolynomialsSameBase,

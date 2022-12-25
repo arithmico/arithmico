@@ -1,4 +1,4 @@
-import { FunctionHeaderItem, FunctionNode, NumberNode, Vector } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, FunctionNode, NumberNode, Vector } from '../../../../types/nodes.types';
 import createVector from '../../../../node-operations/create-node/create-vector';
 import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import evaluate from '../../../../node-operations/evaluate-node';

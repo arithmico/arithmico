@@ -1,5 +1,5 @@
-import { Context, StackFrame } from '../types/Context';
-import { SyntaxTreeNode, FunctionHeaderItem } from '../types/SyntaxTreeNodes';
+import { Context, StackFrame } from '../types/context.types';
+import { SyntaxTreeNode, FunctionHeaderItem } from '../types/nodes.types';
 import evaluate from '../node-operations/evaluate-node';
 
 export function mapParametersToStackFrame(

@@ -1,4 +1,4 @@
-import { FunctionHeaderItem, Vector } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, Vector } from '../../../../types/nodes.types';
 import { getTensorRank, isVectorHomogeneous } from '../../../../utils/tensor-utils';
 import evaluate from '../../../../node-operations/evaluate-node';
 import createVector from '../../../../node-operations/create-node/create-vector';

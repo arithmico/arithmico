@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { getDocumentation } from "@arithmico/engine";
-import { GlobalDocumentationItem } from "@arithmico/engine/lib/types/Plugin";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import { useSelector } from "react-redux";
@@ -10,18 +9,7 @@ import { useTranslation } from "react-i18next";
 import ManualHotkeySection from "@local-components/manual-hotkey-section/manual-hotkey-section";
 import classNames from "classnames";
 
-function groupByPlugin(items: GlobalDocumentationItem[]) {
-  const result = new Map<string, GlobalDocumentationItem[]>();
-  items.forEach((item) => {
-    const resultEntry = result.get(item.plugin);
-    if (resultEntry) {
-      resultEntry.push(item);
-    } else {
-      result.set(item.plugin, [item]);
-    }
-  });
-  return result;
-}
+const documentation = getDocumentation();
 
 export default function Manual() {
   const searchRef = useRef<HTMLInputElement>(null);
@@ -38,8 +26,6 @@ export default function Manual() {
   const language = useSelector(
     (state: CalculatorRootState) => state.settings.language
   );
-
-  const plugins = groupByPlugin(getDocumentation());
 
   return (
     <WithScrollbars>
@@ -68,10 +54,9 @@ export default function Manual() {
           onChange={(e) => setSearchValue(e.target.value)}
           onKeyPress={onSearchEnter}
         />
-        {[...plugins.entries()].map(([pluginName, pluginItems], index) => (
+        {documentation.map((pluginStructure, index) => (
           <ManualPluginSection
-            pluginName={pluginName}
-            documentation={pluginItems}
+            pluginStructure={pluginStructure}
             language={language}
             searchQuery={searchQuery}
             key={index}

@@ -1,51 +1,43 @@
 import ManualSectionItem from "@local-components/manual-section-item/manual-section-item";
-import React from "react";
-import { GlobalDocumentationItem } from "@arithmico/engine/lib/types/Plugin";
 import ManualSection from "@local-components/manual-section/manual-section";
+import {
+  Language,
+  PluginStructure,
+  PluginStructureItem,
+} from "@arithmico/engine/lib/types";
 
 function matchDocumentation(
-  item: GlobalDocumentationItem,
+  item: PluginStructureItem,
   rawSearchStr: string,
   language: string
 ) {
   const searchStr = rawSearchStr.toLocaleLowerCase();
-  const doc = item.documentation[language as "en" | "de"];
-  if (doc) {
-    return (
-      doc.synopsis.toLowerCase().includes(searchStr) ||
-      doc.description.toLowerCase().includes(searchStr)
-    );
-  }
+  const synopsis = item.synopsis[language as Language] ?? item.synopsis.en;
+  const description =
+    item.description[language as Language] ?? (item.description.en as string);
 
-  const fallbackDoc = item.documentation.en;
-
-  if (fallbackDoc) {
-    return (
-      fallbackDoc.synopsis.toLowerCase().includes(searchStr) ||
-      fallbackDoc.description.toLowerCase().includes(searchStr)
-    );
-  }
-
-  return false;
+  return (
+    synopsis.toLowerCase().includes(searchStr) ||
+    description.toLowerCase().includes(searchStr)
+  );
 }
 
 interface ManualPluginSectionProps {
-  pluginName: string;
-  documentation: GlobalDocumentationItem[];
+  pluginStructure: PluginStructure;
   language: string;
   searchQuery: string;
 }
 
 export default function ManualPluginSection({
-  pluginName,
-  documentation,
+  pluginStructure,
   language,
   searchQuery,
 }: ManualPluginSectionProps) {
-  const filteredItems = documentation.filter(
+  const filteredItems = pluginStructure.items.filter(
     (item) =>
       (item.type === "function" || item.type === "constant") &&
-      matchDocumentation(item, searchQuery, language)
+      matchDocumentation(item, searchQuery, language) &&
+      item.enabled
   );
 
   if (filteredItems.length === 0) {
@@ -53,15 +45,18 @@ export default function ManualPluginSection({
   }
 
   return (
-    <ManualSection name={pluginName}>
+    <ManualSection
+      name={
+        language === "de" ? pluginStructure.name.de : pluginStructure.name.en
+      }
+    >
       {filteredItems.map((item) => (
         <ManualSectionItem
-          key={item.documentation.en?.synopsis}
-          synopsis={item.documentation.en?.synopsis || ""}
+          key={item.name}
+          synopsis={language === "de" ? item.synopsis.de : item.synopsis.en}
           description={
-            (language === "de"
-              ? item.documentation.de?.description
-              : item.documentation.en?.description) || ""
+            (language === "de" ? item.description.de : item.description.en) ||
+            ""
           }
         />
       ))}

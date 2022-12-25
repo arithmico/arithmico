@@ -1,4 +1,4 @@
-import { FunctionNode, Define, SyntaxTreeNode } from '../../types/SyntaxTreeNodes';
+import { FunctionNode, Define, SyntaxTreeNode } from '../../types/nodes.types';
 
 export default function createDefine(name: string, value: SyntaxTreeNode | FunctionNode): Define {
     return {

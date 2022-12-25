@@ -1,5 +1,5 @@
 import { NumberNode } from '../../../../types';
-import { FunctionHeaderItem } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem } from '../../../../types/nodes.types';
 import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 import { euclideanDivision } from '../utils/euclidean-division';

@@ -1,19 +1,31 @@
-import { Context } from './Context';
-import { SyntaxTreeNode, FunctionNode } from './SyntaxTreeNodes';
+import { Context } from './context.types';
+import { SyntaxTreeNode, FunctionNode } from './nodes.types';
 
-export interface GlobalDocumentationItem {
-    type: 'constant' | 'function' | 'method';
-    plugin: string;
-    documentation: {
-        [key in Language]?: Documentation;
+export interface PluginStructureItem {
+    type: 'function' | 'constant' | 'method';
+    enabled: boolean;
+    name: string;
+    synopsis: {
+        [key in Language]: string;
+    };
+    description: {
+        [key in Language]?: string;
     };
 }
+
+export interface PluginStructure {
+    name: {
+        [key in Language]: string;
+    };
+    items: PluginStructureItem[];
+}
+
 interface Documentation {
     synopsis: string;
     description: string;
 }
 
-type Language = 'en' | 'de';
+export type Language = 'en' | 'de';
 
 export interface PluginFunction {
     name: string;
@@ -53,11 +65,14 @@ export interface PluginMethodProps<T extends SyntaxTreeNode> extends PluginFunct
 }
 
 export interface Plugin {
-    name: string;
-    description: string;
+    name: {
+        [key in Language]: string;
+    };
+    description: {
+        [key in Language]?: string;
+    };
     author: string;
     functions: PluginFunction[];
     constants: PluginConstant[];
     methods: PluginMethod<SyntaxTreeNode>[];
-    inlineDefinitions: string[];
 }

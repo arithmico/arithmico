@@ -1,5 +1,5 @@
-import { Context } from '../../../../../types/Context';
-import { NumberNode } from '../../../../../types/SyntaxTreeNodes';
+import { Context } from '../../../../../types/context.types';
+import { NumberNode } from '../../../../../types/nodes.types';
 import { SyntaxTreeNode } from '../../../../../types';
 import { CandidateIntervall } from './nsolve-types';
 import evaluate from '../../../../../node-operations/evaluate-node';

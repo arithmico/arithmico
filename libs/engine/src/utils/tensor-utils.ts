@@ -1,6 +1,6 @@
 import createNumberNode from '../node-operations/create-node/create-number-node';
 import createVector from '../node-operations/create-node/create-vector';
-import { SyntaxTreeNode, Vector } from '../types/SyntaxTreeNodes';
+import { SyntaxTreeNode, Vector } from '../types/nodes.types';
 
 type VectorShape = number | (number | VectorShape)[];
 

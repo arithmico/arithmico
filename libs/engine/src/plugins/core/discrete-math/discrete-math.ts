@@ -5,11 +5,9 @@ import coprimeFragment from './fragments/coprime';
 import moduloFragment from './fragments/modulo';
 import miscellaneousDiscreteMathFragment from './fragments/miscellaneous';
 
-const discreteMathPlugin = createPlugin(
-    'core/discrete-math',
-    'brings many functions for calculation on integers and in number theory',
-    'core',
-)
+const discreteMathPlugin = createPlugin({ en: 'Discrete Mathematics', de: 'Diskrete Mathematik' }, 'core', {
+    en: 'brings many functions for calculation on integers and in number theory',
+})
     .addFragment(primeNumberFragment)
     .addFragment(gcdLcmFragment)
     .addFragment(coprimeFragment)

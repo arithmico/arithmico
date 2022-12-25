@@ -1,4 +1,4 @@
-import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, NumberNode } from '../../../../types/nodes.types';
 import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { fib } from '../utils/fib-utils';
 import { PluginFragment } from '../../../../utils/plugin-builder';
