@@ -1,4 +1,4 @@
-import { GlobalDocumentationItem } from './types/Plugin';
+import { GlobalDocumentationItem } from './types/plugin.types';
 import { Context, EvaluationResult, Profile } from './types';
 import load from './load';
 import loadPluginStructures from './load/load-plugin-structure';

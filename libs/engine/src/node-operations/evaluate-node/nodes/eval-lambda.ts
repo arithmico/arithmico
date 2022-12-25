@@ -1,5 +1,5 @@
-import { Context } from '../../../types/Context';
-import { StackFrame } from '../../../types/Context';
+import { Context } from '../../../types/context.types';
+import { StackFrame } from '../../../types/context.types';
 import evaluate from '..';
 import { SyntaxTreeNode, Lambda } from '../../../types';
 import createFunction from '../../create-node/create-function';

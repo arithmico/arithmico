@@ -1,4 +1,4 @@
-import { BinarySyntaxTreeNode, SymbolNode } from '../types/SyntaxTreeNodes';
+import { BinarySyntaxTreeNode, SymbolNode } from '../types/nodes.types';
 import { Context, SyntaxTreeNode } from '../types';
 import createNegate from '../node-operations/create-node/create-negate';
 import createVector from '../node-operations/create-node/create-vector';

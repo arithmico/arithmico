@@ -1,5 +1,5 @@
-import { Context } from './Context';
-import { SyntaxTreeNode, FunctionNode } from './SyntaxTreeNodes';
+import { Context } from './context.types';
+import { SyntaxTreeNode, FunctionNode } from './nodes.types';
 
 export interface GlobalDocumentationItem {
     type: 'constant' | 'function' | 'method';

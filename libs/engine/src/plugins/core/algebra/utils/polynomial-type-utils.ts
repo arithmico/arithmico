@@ -1,4 +1,4 @@
-import { SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
+import { SyntaxTreeNode } from '../../../../types/nodes.types';
 import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import createTimes from '../../../../node-operations/create-node/create-times';
 import createSymbolNode from '../../../../node-operations/create-node/create-symbol-node';

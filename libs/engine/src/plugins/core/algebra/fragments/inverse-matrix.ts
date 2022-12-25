@@ -1,4 +1,4 @@
-import { FunctionHeaderItem, NumberNode, Vector } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, NumberNode, Vector } from '../../../../types/nodes.types';
 import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { getTensorRank, isEveryElementNumber, isSquareMatrix } from '../../../../utils/tensor-utils';
 import createVector from '../../../../node-operations/create-node/create-vector';

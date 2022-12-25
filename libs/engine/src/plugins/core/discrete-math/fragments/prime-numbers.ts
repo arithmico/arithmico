@@ -1,4 +1,4 @@
-import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, NumberNode } from '../../../../types/nodes.types';
 import createVector from '../../../../node-operations/create-node/create-vector';
 import { getNthPrimeNumber, isPrimeNumber, sieveOfAtkin } from '../utils/prime-number-utils';
 import createNumberNode from '../../../../node-operations/create-node/create-number-node';

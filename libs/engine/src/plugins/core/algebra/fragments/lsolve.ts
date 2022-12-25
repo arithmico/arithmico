@@ -4,7 +4,7 @@ import createSymbolNode from '../../../../node-operations/create-node/create-sym
 import createVector from '../../../../node-operations/create-node/create-vector';
 import normalize from '../../../../node-operations/normalize-node';
 import serialize from '../../../../node-operations/serialize-node';
-import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
+import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../../types/nodes.types';
 import { isEquationLinear } from '../utils/check-linear';
 import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from '../utils/get-coefficients';
 import { cramerSolver, det } from '../utils/matrix-utils';

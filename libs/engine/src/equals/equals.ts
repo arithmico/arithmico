@@ -12,7 +12,7 @@ import {
     FunctionNode,
     Lambda,
     Vector,
-} from '../types/SyntaxTreeNodes';
+} from '../types/nodes.types';
 
 function compareAssociativeBinaryNodes(left: BinarySyntaxTreeNode, right: BinarySyntaxTreeNode): boolean {
     return (

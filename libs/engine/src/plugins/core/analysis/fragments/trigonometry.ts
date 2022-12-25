@@ -1,5 +1,5 @@
-import { Options } from '../../../../types/Context';
-import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
+import { Options } from '../../../../types/context.types';
+import { FunctionHeaderItem, NumberNode } from '../../../../types/nodes.types';
 import { SyntaxTreeNode } from '../../../../types';
 import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { closeTo } from '../../../../utils/float-utils';

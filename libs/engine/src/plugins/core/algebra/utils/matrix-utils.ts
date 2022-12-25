@@ -1,4 +1,4 @@
-import { NumberNode, Vector } from '../../../../types/SyntaxTreeNodes';
+import { NumberNode, Vector } from '../../../../types/nodes.types';
 
 function det2x2(matrix: number[][]): number {
     return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];

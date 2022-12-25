@@ -1,5 +1,5 @@
-import { Context } from '../../../types/Context';
-import { SyntaxTreeNode } from '../../../types/SyntaxTreeNodes';
+import { Context } from '../../../types/context.types';
+import { SyntaxTreeNode } from '../../../types/nodes.types';
 import normalize from '..';
 import createPlus from '../../create-node/create-plus';
 import createTimes from '../../create-node/create-times';

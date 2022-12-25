@@ -1,5 +1,5 @@
-import { PluginMethod } from './Plugin';
-import { SyntaxTreeNode } from './SyntaxTreeNodes';
+import { PluginMethod } from './plugin.types';
+import { SyntaxTreeNode } from './nodes.types';
 
 export interface Options {
     decimalPlaces: number;

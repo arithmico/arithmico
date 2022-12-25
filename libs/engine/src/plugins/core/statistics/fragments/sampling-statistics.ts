@@ -1,4 +1,4 @@
-import { FunctionHeaderItem, NumberNode, SyntaxTreeNode, Vector } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem, NumberNode, SyntaxTreeNode, Vector } from '../../../../types/nodes.types';
 import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { calculateAvg } from '../utils/avg';
 import { calculateBiasedSampleVariance, calculateUnbiasedSampleVariance } from '../utils/var';

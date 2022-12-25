@@ -1,4 +1,4 @@
-import { SyntaxTreeNode } from '../types/SyntaxTreeNodes';
+import { SyntaxTreeNode } from '../types/nodes.types';
 import createAnd from '../node-operations/create-node/create-and';
 import createBooleanNode from '../node-operations/create-node/create-boolean-node';
 import createDivided from '../node-operations/create-node/create-divided';
