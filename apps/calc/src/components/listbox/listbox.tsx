@@ -17,7 +17,15 @@ export default function Listbox({
   onChange,
 }: ListboxProps) {
   return (
-    <div className={classNames("flex", "items-center", "text-2xl", "h-16")}>
+    <li
+      className={classNames(
+        "flex",
+        "items-center",
+        "text-2xl",
+        "h-16",
+        "bold-font:font-bold"
+      )}
+    >
       <HeadlessuiListbox value={value} onChange={onChange}>
         <HeadlessuiListbox.Label>{label}</HeadlessuiListbox.Label>
         <div className={classNames("ml-auto", "relative", "flex", "flex-col")}>
@@ -31,6 +39,7 @@ export default function Listbox({
               "theme-dark:hover:bg-neutral-600",
               "theme-light:hover:bg-neutral-400",
               "p-2",
+              "bold-font:font-bold",
               "rounded-md"
             )}
           >
@@ -64,6 +73,7 @@ export default function Listbox({
                     "theme-light:bg-neutral-300",
                     "theme-dark:hover:bg-neutral-600",
                     "theme-light:hover:bg-neutral-400",
+                    "bold-font:font-bold",
                     "first:rounded-t-md",
                     "last:rounded-b-md"
                   )}
@@ -86,6 +96,6 @@ export default function Listbox({
           </div>
         </div>
       </HeadlessuiListbox>
-    </div>
+    </li>
   );
 }

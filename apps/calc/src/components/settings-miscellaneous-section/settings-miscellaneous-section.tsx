@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
-import SettingsSection from "@components/settings-section/settings-section";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
 import { resetSettings } from "@stores/slices/settings";
+import SettingsSection from "../settings-section/settings-section";
 
 export default function SettingsMiscellaneousSection() {
   const dispatch = useDispatch();
@@ -10,7 +10,14 @@ export default function SettingsMiscellaneousSection() {
 
   return (
     <SettingsSection heading={t("settings.misc")}>
-      <label className={classNames("flex", "items-center", "text-2xl")}>
+      <label
+        className={classNames(
+          "flex",
+          "items-center",
+          "text-2xl",
+          "bold-font:font-bold"
+        )}
+      >
         {t("settings.resetLabel")}
         <button
           className={classNames(

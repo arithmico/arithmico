@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SettingsSection from "@components/settings-section/settings-section";
 import { useTranslation } from "react-i18next";
 import {
   setCopySynopsisOnClick,
@@ -10,6 +9,7 @@ import {
 import { CalculatorRootState } from "@stores/calculator-store";
 import Switch from "../switch/switch";
 import Listbox from "../listbox/listbox";
+import SettingsSection from "../settings-section/settings-section";
 
 export default function SettingsInterfaceSection() {
   const [t] = useTranslation();

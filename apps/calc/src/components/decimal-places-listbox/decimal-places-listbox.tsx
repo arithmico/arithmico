@@ -12,7 +12,15 @@ export default function DecimalPlacesListbox({
   onChange,
 }: DecimalPlacesListboxProps) {
   return (
-    <div className={classNames("flex", "items-center", "text-2xl", "h-16")}>
+    <li
+      className={classNames(
+        "flex",
+        "items-center",
+        "text-2xl",
+        "h-16",
+        "bold-font:font-bold"
+      )}
+    >
       <HeadlessuiListbox value={value} onChange={onChange}>
         <HeadlessuiListbox.Label>{"label"}</HeadlessuiListbox.Label>
         <div className={classNames("ml-auto", "relative", "flex", "flex-col")}>
@@ -88,6 +96,6 @@ export default function DecimalPlacesListbox({
           </div>
         </div>
       </HeadlessuiListbox>
-    </div>
+    </li>
   );
 }

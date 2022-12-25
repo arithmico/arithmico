@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import SettingsSection from "@components/settings-section/settings-section";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import InterfaceSettings from "@local-components/settings-interface-section/settings-interface-section";
@@ -14,6 +13,7 @@ import {
 import Listbox from "../../components/listbox/listbox";
 import SettingsMiscellaneousSection from "../../components/settings-miscellaneous-section/settings-miscellaneous-section";
 import DecimalPlacesListbox from "../../components/decimal-places-listbox/decimal-places-listbox";
+import SettingsSection from "../../components/settings-section/settings-section";
 
 export default function Settings() {
   const dispatch = useDispatch();

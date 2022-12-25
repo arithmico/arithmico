@@ -9,7 +9,14 @@ interface SwitchProps {
 
 export default function Switch({ label, enabled, onChange }: SwitchProps) {
   return (
-    <div className={classNames("flex", "items-center", "h-16")}>
+    <li
+      className={classNames(
+        "flex",
+        "items-center",
+        "h-16",
+        "bold-font:font-bold"
+      )}
+    >
       <HeadlessuiSwitch.Group>
         <HeadlessuiSwitch.Label className={classNames("text-2xl")}>
           {label}
@@ -66,6 +73,6 @@ export default function Switch({ label, enabled, onChange }: SwitchProps) {
           />
         </HeadlessuiSwitch>
       </HeadlessuiSwitch.Group>
-    </div>
+    </li>
   );
 }
