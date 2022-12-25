@@ -17,6 +17,10 @@ export function init(profile: Profile = createProfile()) {
 }
 
 export function getDocumentation() {
+    if (!documentation) {
+        init();
+    }
+
     return documentation;
 }
 
