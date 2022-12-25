@@ -17,6 +17,7 @@ export default function SettingsSection({
           "mb-4",
           "border-b",
           "theme-light:border-black/10",
+          "theme-dark:border-white/10",
           "font-medium",
           "bold-font:font-bold"
         )}
