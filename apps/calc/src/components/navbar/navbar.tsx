@@ -86,6 +86,7 @@ function NavbarNavigationItem({ to, children }: NavbarNavigationItemProps) {
           "theme-light:text-neutral-700",
           "theme-dark:text-neutral-300",
           "theme-dark:hover:bg-neutral-800",
+          "bold-font:font-bold",
           {
             "theme-light:bg-neutral-300": isActive,
             "theme-dark:bg-neutral-800": isActive,

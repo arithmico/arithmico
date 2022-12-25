@@ -1,6 +1,7 @@
 const plugin = require("tailwindcss/plugin");
 
 const themes = ["light", "dark"];
+const classSettings = ["bold-font"];
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -16,6 +17,9 @@ module.exports = {
     plugin(function ({ addVariant }) {
       themes.forEach((theme) => {
         addVariant(`theme-${theme}`, `.theme-${theme} &`);
+      });
+      classSettings.forEach((classSetting) => {
+        addVariant(classSetting, `.${classSetting} &`);
       });
     }),
   ],
