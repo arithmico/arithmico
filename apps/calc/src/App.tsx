@@ -30,6 +30,16 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
+    if (fontSize === "small") {
+      document.documentElement.style.fontSize = "10px";
+    } else if (fontSize === "medium") {
+      document.documentElement.style.fontSize = "16px";
+    } else if (fontSize === "large") {
+      document.documentElement.style.fontSize = "20px";
+    }
+  }, [fontSize]);
+
+  useEffect(() => {
     if (language && i18n.language !== language) {
       i18n.changeLanguage(language);
     }
@@ -38,8 +48,6 @@ function App() {
   return (
     <div
       className={classNames(
-        `font-size-${fontSize}`,
-        `theme-${theme}`,
         { "bold-font": boldFont },
         "theme-dark:bg-neutral-900",
         "theme-dark:text-white",
