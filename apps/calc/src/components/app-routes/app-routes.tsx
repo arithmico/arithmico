@@ -7,7 +7,7 @@ import Protocol from "@pages/protocol/protocol";
 import Definitions from "@pages/definitions/definitions";
 import TermsOfService from "@pages/terms-of-service/terms-of-service";
 import PrivacyPolicy from "@pages/privacy-policy/privacy-policy";
-import ImprintContent from "@components/imprint-content/imprint-content";
+import Imprint from "../../pages/imprint/imprint";
 
 export default function AppRoutes() {
   return (
@@ -20,7 +20,7 @@ export default function AppRoutes() {
       <Route path="/definitions" element={<Definitions />} />
       <Route path="/terms-of-service" element={<TermsOfService />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/imprint" element={<ImprintContent />} />
+      <Route path="/imprint" element={<Imprint />} />
     </Routes>
   );
 }

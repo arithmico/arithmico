@@ -6,47 +6,42 @@ import {
   resetOutput,
   resetProtocol,
 } from "@stores/slices/calculator-session";
+import classNames from "classnames";
+import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import useExportProtocol from "../../hooks/use-export-protocol";
 import useHotkey from "../../hooks/use-hotkey";
 
-const ToolbarContainer = styled.aside`
-  display: grid;
-  width: 100%;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  grid-auto-flow: column;
-`;
-
-const Button = styled.button`
-  background-color: var(--me-background-100);
-  color: var(--me-text-400);
-  border-radius: 0.25em;
-  border: none;
-  outline: none;
-  flex: 1;
-  height: 70px;
-  font-size: 1.5em;
-  font-weight: var(--me-font-weight-normal);
-  text-align: left;
-  padding: 0 20px;
-
-  &:disabled {
-    color: var(--me-text-200);
+const CalculatorToolbarButton = forwardRef<
+  HTMLButtonElement,
+  {
+    onClick: () => void;
+    children: React.ReactNode;
   }
-
-  &:enabled:hover {
-    background-color: var(--me-background-300);
-  }
-
-  &:enabled:focus {
-    border: 1px solid var(--me-text-400);
-  }
-`;
+>((props, ref) => (
+  <button
+    ref={ref}
+    className={classNames(
+      "theme-dark:bg-neutral-800",
+      "theme-dark:hover:bg-neutral-700",
+      "theme-dark:border-white/5",
+      "theme-light:bg-neutral-200",
+      "theme-light:hover:bg-neutral-300",
+      "theme-light:border-black/10",
+      "bold-font:font-bold",
+      "border",
+      "lg:p-4",
+      "md:p-1",
+      "rounded-sm",
+      "text-left"
+    )}
+    {...props}
+  >
+    {props.children}
+  </button>
+));
 
 export default function CalculatorToolbar() {
   const dispatch = useDispatch();
@@ -67,32 +62,36 @@ export default function CalculatorToolbar() {
   );
 
   return (
-    <ToolbarContainer>
-      <Button onClick={() => dispatch(resetInput())}>
+    <div
+      className={classNames("grid", "grid-rows-2", "gap-2", "grid-flow-col")}
+    >
+      <CalculatorToolbarButton onClick={() => dispatch(resetInput())}>
         {t("toolbar.resetInput")}
-      </Button>
-      <Button onClick={() => dispatch(resetOutput)}>
+      </CalculatorToolbarButton>
+      <CalculatorToolbarButton onClick={() => dispatch(resetOutput)}>
         {t("toolbar.resetOutput")}
-      </Button>
+      </CalculatorToolbarButton>
 
-      <Button onClick={() => navigate("/definitions")}>
+      <CalculatorToolbarButton onClick={() => navigate("/definitions")}>
         {t("toolbar.showDefinitions")}
-      </Button>
-      <Button onClick={() => dispatch(resetDefinitions())}>
+      </CalculatorToolbarButton>
+      <CalculatorToolbarButton onClick={() => dispatch(resetDefinitions())}>
         {t("toolbar.resetDefinitions")}
-      </Button>
+      </CalculatorToolbarButton>
 
-      <Button onClick={() => navigate("/protocol")}>
+      <CalculatorToolbarButton onClick={() => navigate("/protocol")}>
         {t("toolbar.showProtocol")}
-      </Button>
-      <Button onClick={() => dispatch(resetProtocol())}>
+      </CalculatorToolbarButton>
+      <CalculatorToolbarButton onClick={() => dispatch(resetProtocol())}>
         {t("toolbar.resetProtocol")}
-      </Button>
+      </CalculatorToolbarButton>
 
-      <Button onClick={exportProtocol}>{t("toolbar.exportProtocol")}</Button>
-      <Button onClick={() => dispatch(resetAll())}>
+      <CalculatorToolbarButton onClick={exportProtocol}>
+        {t("toolbar.exportProtocol")}
+      </CalculatorToolbarButton>
+      <CalculatorToolbarButton onClick={() => dispatch(resetAll())}>
         {t("toolbar.resetAll")}
-      </Button>
-    </ToolbarContainer>
+      </CalculatorToolbarButton>
+    </div>
   );
 }

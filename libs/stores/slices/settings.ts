@@ -23,6 +23,10 @@ const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
+    resetSettings: () => {
+      console.log("reset");
+      return initialState;
+    },
     setLanguage: (state, action: PayloadAction<string>) => {
       if (languages.includes(action.payload)) {
         state.language = action.payload;
@@ -79,4 +83,5 @@ export const {
   setFontSize,
   setNumberFormat,
   setTheme,
+  resetSettings,
 } = settingsSlice.actions;

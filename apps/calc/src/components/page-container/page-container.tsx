@@ -1,13 +1,30 @@
-import styled from 'styled-components';
+import classNames from "classnames";
+import React from "react";
 
-const PageContainer = styled.div`
-  padding: 50px 20%;
-  -ms-overflow-style: none; /* for Internet Explorer, Edge */
-  scrollbar-width: none; /* for Firefox */
+interface PageContainerProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
-  &::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
-  }
-`;
-
-export default PageContainer;
+export default function PageContainer({
+  children,
+  className,
+}: PageContainerProps) {
+  return (
+    <div
+      className={classNames(
+        className,
+        "py-4",
+        "lg:py-14",
+        "px-4",
+        "lg:px-12",
+        "2xl:px-[20%]",
+        "overflow-hidden",
+        "z-0",
+        "max-w-[100vw]"
+      )}
+    >
+      {children}
+    </div>
+  );
+}
