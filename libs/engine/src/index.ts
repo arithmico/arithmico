@@ -10,7 +10,7 @@ export { serializeStack } from './utils/context-utils';
 let defaultContext: Context;
 let documentation: PluginStructure[];
 
-function init(profile: Profile = createProfile()) {
+export function init(profile: Profile = createProfile()) {
     const loadingResult = load(defaultPlugins, profile);
     defaultContext = loadingResult.context;
     documentation = loadingResult.documentation;
