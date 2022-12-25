@@ -202,11 +202,11 @@ export class PluginFragment {
 }
 
 class PluginBuilder extends PluginFragment {
-    private readonly name: string;
+    private readonly name: Plugin['name'];
     private readonly author: string;
-    private readonly description: string;
+    private readonly description: Plugin['description'];
 
-    constructor(name: string, author: string, description: string) {
+    constructor(name: Plugin['name'], author: string, description: Plugin['description']) {
         super();
         this.name = name;
         this.author = author;
@@ -221,11 +221,10 @@ class PluginBuilder extends PluginFragment {
             constants: this.constants,
             functions: this.functions,
             methods: this.methods,
-            inlineDefinitions: [],
         };
     }
 }
 
-export default function createPlugin(name: string, author: string, description: string) {
+export default function createPlugin(name: Plugin['name'], author: string, description: Plugin['description']) {
     return new PluginBuilder(name, author, description);
 }

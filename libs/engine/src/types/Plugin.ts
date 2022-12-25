@@ -53,11 +53,14 @@ export interface PluginMethodProps<T extends SyntaxTreeNode> extends PluginFunct
 }
 
 export interface Plugin {
-    name: string;
-    description: string;
+    name: {
+        [key in Language]: string;
+    };
+    description: {
+        [key in Language]?: string;
+    };
     author: string;
     functions: PluginFunction[];
     constants: PluginConstant[];
     methods: PluginMethod<SyntaxTreeNode>[];
-    inlineDefinitions: string[];
 }

@@ -6,9 +6,14 @@ import polynomialFragment from './fragments/polynomial';
 import tensorFragment from './fragments/tensor';
 
 const algebraPlugin = createPlugin(
-    'core/algebra',
+    {
+        en: 'Algebra',
+        de: 'Algebra',
+    },
     'core',
-    'Contains functions to solve linear equations, work with vectors and another algebraic functions.',
+    {
+        en: 'Contains functions to solve linear equations, work with vectors and another algebraic functions.',
+    },
 )
     .addFragment(lsolveFragment)
     .addFragment(vectorFragment)
