@@ -15,7 +15,8 @@ export default function TermsOfService() {
           "[&>h2]:font-bold",
           "[&>h2]:mt-4",
           "[&>h2]:mb-2",
-          "[&>a]:underline"
+          "[&>a]:underline",
+          "bold-font:font-bold"
         )}
       >
         <h1>Website Terms and Conditions of Use</h1>

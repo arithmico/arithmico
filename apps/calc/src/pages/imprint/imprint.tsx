@@ -19,7 +19,8 @@ export default function Imprint() {
           "[&_h3]:mt-4",
           "[&_h3]:mb-2",
           "[&_h3]:text-xl",
-          "[&_a]:underline"
+          "[&_a]:underline",
+          "bold-font:font-bold"
         )}
       >
         <h1>Impressum</h1>

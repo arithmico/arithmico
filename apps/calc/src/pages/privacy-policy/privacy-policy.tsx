@@ -17,7 +17,8 @@ export default function PrivacyPolicy() {
           "[&>h2]:font-bold",
           "[&>h2]:mt-4",
           "[&>h2]:mb-2",
-          "[&>a]:underline"
+          "[&>a]:underline",
+          "bold-font:font-bold"
         )}
       >
         <h1>Privacy Policy for Arithmico</h1>

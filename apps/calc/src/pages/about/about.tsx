@@ -47,7 +47,7 @@ export default function About() {
 
   return (
     <WithScrollbars>
-      <PageContainer>
+      <PageContainer className={classNames("bold-font:font-bold")}>
         <h2 className={classNames("text-3xl", "mb-4")}>{t("about.general")}</h2>
         <dl
           className={classNames(
