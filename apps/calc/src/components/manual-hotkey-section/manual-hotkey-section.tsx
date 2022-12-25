@@ -7,7 +7,7 @@ export default function ManualHotkeySection() {
   const [t] = useTranslation();
 
   return (
-    <ManualSection name={t("hotkeys")}>
+    <ManualSection name={t("manual.hotkeys")}>
       {Object.entries(hotkeys as Record<string, string>).map(
         ([key, value], index) => (
           <ManualSectionItem
