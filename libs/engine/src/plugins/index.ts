@@ -1,11 +1,11 @@
 import { Plugin } from '../types';
-import algebraPlugin from './core/algebra/algebra';
-import analysisPlugin from './core/analysis/analysis';
-import computerSciencePlugin from './core/computer-science/computer-science';
-import discreteMathPlugin from './core/discrete-math/discrete-math';
-import numericsPlugin from './core/numerics/numerics';
-import physicsPlugin from './core/physics/physics';
-import statisticsPlugin from './core/statistics/statistics';
+import algebraPlugin from './algebra/algebra';
+import analysisPlugin from './analysis/analysis';
+import computerSciencePlugin from './computer-science/computer-science';
+import discreteMathPlugin from './discrete-math/discrete-math';
+import numericsPlugin from './numerics/numerics';
+import physicsPlugin from './physics/physics';
+import statisticsPlugin from './statistics/statistics';
 
 const defaultPlugins: Plugin[] = [
     analysisPlugin,
