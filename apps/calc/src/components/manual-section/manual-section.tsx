@@ -21,7 +21,7 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
         "bold-font:font-bold"
       )}
     >
-      <Disclosure>
+      <Disclosure defaultOpen>
         {({ open }) => (
           <>
             <Disclosure.Button
