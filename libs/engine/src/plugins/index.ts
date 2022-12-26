@@ -3,6 +3,7 @@ import algebraPlugin from './algebra/algebra';
 import analysisPlugin from './analysis/analysis';
 import computerSciencePlugin from './computer-science/computer-science';
 import discreteMathPlugin from './discrete-math/discrete-math';
+import graphicsPlugin from './graphics/graphics';
 import numericsPlugin from './numerics/numerics';
 import physicsPlugin from './physics/physics';
 import statisticsPlugin from './statistics/statistics';
@@ -15,6 +16,7 @@ const defaultPlugins: Plugin[] = [
     discreteMathPlugin,
     physicsPlugin,
     computerSciencePlugin,
+    graphicsPlugin,
 ];
 
 export default defaultPlugins;
