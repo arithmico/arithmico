@@ -23,7 +23,8 @@ export type SyntaxTreeNode =
     | FunctionNode
     | Lambda
     | Define
-    | MethodCall;
+    | MethodCall
+    | GraphicNode;
 
 export type BinarySyntaxTreeNode =
     | Or
@@ -178,4 +179,8 @@ export interface MethodCall {
     object: SyntaxTreeNode;
     method: string;
     parameters: SyntaxTreeNode[];
+}
+
+export interface GraphicNode {
+    type: 'graphic';
 }

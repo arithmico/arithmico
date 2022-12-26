@@ -1,5 +1,5 @@
 import serialize from '../../node-operations/serialize-node';
-import { Context, EvaluationResult, SyntaxTreeNode } from '../../types';
+import { Context, EvaluationResult, GraphicResult, SyntaxTreeNode } from '../../types';
 import { createLookupTableFunction, LookupTableFunction } from '../../utils/lookup-table-function';
 
 function createStringResult(node: SyntaxTreeNode, context: Context): EvaluationResult {
@@ -38,6 +38,7 @@ const transformResultLookupFunction = createLookupTableFunction<
         function: createStringResult,
         define: createStringResult,
         methodCall: createStringResult,
+        graphic: (node) => node as GraphicResult,
     },
     (node) => node.type,
 );

@@ -1,18 +1,21 @@
 import { Context } from './context.types';
+import { GraphicNode } from './nodes.types';
 
-interface AbstractResult {
-    type: string;
+interface AbstractResult<T extends string> {
+    type: T;
 }
 
-export interface StringResult extends AbstractResult {
-    type: 'string';
+export interface StringResult extends AbstractResult<'string'> {
     value: string;
     context: Context;
 }
 
-export interface ErrorResult extends AbstractResult {
-    type: 'error';
+export interface GraphicResult extends AbstractResult<'graphic'> {
+    graphic: GraphicNode;
+}
+
+export interface ErrorResult extends AbstractResult<'error'> {
     message: string;
 }
 
-export type EvaluationResult = StringResult | ErrorResult;
+export type EvaluationResult = StringResult | GraphicResult | ErrorResult;
