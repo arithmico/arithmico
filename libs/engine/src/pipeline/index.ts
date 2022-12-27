@@ -14,6 +14,7 @@ export default function evaluationPipeline({ input, context }: { input: string; 
         return {
             type: 'error',
             error: error,
+            context,
         };
     }
 }

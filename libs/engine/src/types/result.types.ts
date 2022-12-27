@@ -3,11 +3,11 @@ import { GraphicNode } from './graphics.types';
 
 interface AbstractResult<T extends string> {
     type: T;
+    context: Context;
 }
 
 export interface TextResult extends AbstractResult<'text'> {
     text: string;
-    context: Context;
 }
 
 export interface GraphicResult extends AbstractResult<'graphic'> {

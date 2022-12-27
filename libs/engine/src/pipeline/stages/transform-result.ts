@@ -10,10 +10,11 @@ function createTextResult(node: SyntaxTreeNode, context: Context): EvaluationRes
     };
 }
 
-function createGraphicResult(node: SyntaxTreeNode): EvaluationResult {
+function createGraphicResult(node: SyntaxTreeNode, context: Context): EvaluationResult {
     return {
         type: 'graphic',
         graphic: node as GraphicNode,
+        context,
     };
 }
 
