@@ -1,4 +1,5 @@
 import { Context } from './context.types';
+import { GraphicNode } from './graphics.types';
 
 export type SyntaxTreeNode =
     | Or
@@ -179,8 +180,4 @@ export interface MethodCall {
     object: SyntaxTreeNode;
     method: string;
     parameters: SyntaxTreeNode[];
-}
-
-export interface GraphicNode {
-    type: 'graphic';
 }

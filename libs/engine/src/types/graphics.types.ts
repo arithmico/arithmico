@@ -1,4 +1,4 @@
-import { GraphicNode } from './nodes.types';
+export type GraphicNode = Cartesian2DGraphic;
 
 export type Point2D = [x: number, y: number];
 export type Line2D = {
@@ -6,8 +6,9 @@ export type Line2D = {
     points: Point2D[];
 };
 
-export interface Cartesian2DGraphic extends GraphicNode {
-    graphicType: 'cartesian2DGraphic';
+export interface Cartesian2DGraphic {
+    type: 'graphic';
+    graphicType: 'cartesian2D';
     xMin: number;
     xMax: number;
     yMin: number;
