@@ -20,9 +20,6 @@ export default function CalculatorForm() {
   const input = useSelector(
     (state: CalculatorRootState) => state.session.input
   );
-  const output = useSelector(
-    (state: CalculatorRootState) => state.session.output
-  );
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLInputElement>(null);
   const [t] = useTranslation();
@@ -138,7 +135,6 @@ export default function CalculatorForm() {
 
       <CalculatorOutput
         ref={outputRef}
-        output={output}
         onEnterPressed={() => {
           setFocusNext("input");
         }}
