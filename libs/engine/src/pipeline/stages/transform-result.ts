@@ -1,12 +1,19 @@
 import serialize from '../../node-operations/serialize-node';
-import { Context, EvaluationResult, GraphicResult, SyntaxTreeNode } from '../../types';
+import { Context, EvaluationResult, GraphicNode, SyntaxTreeNode } from '../../types';
 import { createLookupTableFunction, LookupTableFunction } from '../../utils/lookup-table-function';
 
-function createStringResult(node: SyntaxTreeNode, context: Context): EvaluationResult {
+function createTextResult(node: SyntaxTreeNode, context: Context): EvaluationResult {
     return {
-        type: 'string',
-        value: serialize(node, context.options),
+        type: 'text',
+        text: serialize(node, context.options),
         context,
+    };
+}
+
+function createGraphicResult(node: SyntaxTreeNode): EvaluationResult {
+    return {
+        type: 'graphic',
+        graphic: node as GraphicNode,
     };
 }
 
@@ -15,30 +22,30 @@ const transformResultLookupFunction = createLookupTableFunction<
     LookupTableFunction<[SyntaxTreeNode, Context], EvaluationResult>
 >(
     {
-        number: createStringResult,
-        boolean: createStringResult,
-        symbol: createStringResult,
-        string: createStringResult,
-        or: createStringResult,
-        and: createStringResult,
-        equals: createStringResult,
-        less: createStringResult,
-        greater: createStringResult,
-        lessOrEquals: createStringResult,
-        greaterOrEquals: createStringResult,
-        plus: createStringResult,
-        minus: createStringResult,
-        times: createStringResult,
-        divided: createStringResult,
-        power: createStringResult,
-        negate: createStringResult,
-        vector: createStringResult,
-        functionCall: createStringResult,
-        lambda: createStringResult,
-        function: createStringResult,
-        define: createStringResult,
-        methodCall: createStringResult,
-        graphic: (node) => node as GraphicResult,
+        number: createTextResult,
+        boolean: createTextResult,
+        symbol: createTextResult,
+        string: createTextResult,
+        or: createTextResult,
+        and: createTextResult,
+        equals: createTextResult,
+        less: createTextResult,
+        greater: createTextResult,
+        lessOrEquals: createTextResult,
+        greaterOrEquals: createTextResult,
+        plus: createTextResult,
+        minus: createTextResult,
+        times: createTextResult,
+        divided: createTextResult,
+        power: createTextResult,
+        negate: createTextResult,
+        vector: createTextResult,
+        functionCall: createTextResult,
+        lambda: createTextResult,
+        function: createTextResult,
+        define: createTextResult,
+        methodCall: createTextResult,
+        graphic: createGraphicResult,
     },
     (node) => node.type,
 );

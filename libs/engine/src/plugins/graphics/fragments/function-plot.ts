@@ -49,7 +49,7 @@ const functionPlotFragment = new PluginFragment().addFunction(
 
         return {
             type: 'graphic',
-            graphicType: 'cartesian2DGraphic',
+            graphicType: 'cartesian2D',
             xMax,
             xMin,
             yMin,
