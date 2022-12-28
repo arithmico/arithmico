@@ -1,6 +1,7 @@
 import { GraphicResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
+import Graphic from "../graphic/graphic";
 
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;
@@ -8,7 +9,7 @@ interface CalculatorGraphicOutputProps {
 }
 
 const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
-  ({ onEnterPressed }, ref) => {
+  ({ onEnterPressed, output }, ref) => {
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
         onEnterPressed();
@@ -34,7 +35,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "theme-light:bg-neutral-100"
         )}
       >
-        graphic output
+        <Graphic graphic={output.graphic} />
       </div>
     );
   }
