@@ -1,4 +1,5 @@
 import { GraphicResult } from "@arithmico/engine/lib/types";
+import classNames from "classnames";
 import { forwardRef } from "react";
 
 interface CalculatorGraphicOutputProps {
@@ -15,7 +16,24 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
     };
 
     return (
-      <div ref={ref} onKeyDown={onKeyDown}>
+      <div
+        tabIndex={0}
+        ref={ref}
+        onKeyDown={onKeyDown}
+        className={classNames(
+          "mt-4",
+          "p-4",
+          "border",
+          "h-full",
+          "rounded-md",
+          "theme-dark:border-neutral-500",
+          "theme-dark:focus:border-neutral-100",
+          "theme-dark:bg-neutral-800",
+          "theme-light:border-neutral-400",
+          "theme-light:focus:border-neutral-600",
+          "theme-light:bg-neutral-100"
+        )}
+      >
         graphic output
       </div>
     );
