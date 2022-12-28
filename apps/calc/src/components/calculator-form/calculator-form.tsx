@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 export default function CalculatorForm() {
   const dispatch = useDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
-  const outputRef = useRef<HTMLInputElement>(null);
+  const outputRef = useRef<HTMLElement>(null);
   const [focusNext, setFocusNext] = useState<"input" | "output" | null>(null);
 
   useEffect(() => {

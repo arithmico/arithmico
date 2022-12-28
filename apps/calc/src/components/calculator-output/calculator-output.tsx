@@ -1,14 +1,15 @@
-import { forwardRef } from "react";
+import { forwardRef, RefObject } from "react";
 import { useSelector } from "react-redux";
 import { CalculatorRootState } from "@stores/calculator-store";
 import CalculatorErrorOutput from "./calculator-error-output";
 import CalculatorTextOutput from "./calculator-text-output";
+import GraphicOutput from "./calculator-graphic-output";
 
 interface CalculatorOutputProps {
   onEnterPressed: () => void;
 }
 
-const CalculatorOutput = forwardRef<HTMLInputElement, CalculatorOutputProps>(
+const CalculatorOutput = forwardRef<HTMLElement, CalculatorOutputProps>(
   ({ onEnterPressed }, ref) => {
     const output = useSelector(
       (state: CalculatorRootState) => state.session.output
@@ -18,7 +19,7 @@ const CalculatorOutput = forwardRef<HTMLInputElement, CalculatorOutputProps>(
       case "text":
         return (
           <CalculatorTextOutput
-            ref={ref}
+            ref={ref as RefObject<HTMLInputElement>}
             onEnterPressed={onEnterPressed}
             output={output}
           />
@@ -27,7 +28,16 @@ const CalculatorOutput = forwardRef<HTMLInputElement, CalculatorOutputProps>(
       case "error":
         return (
           <CalculatorErrorOutput
-            ref={ref}
+            ref={ref as RefObject<HTMLInputElement>}
+            onEnterPressed={onEnterPressed}
+            output={output}
+          />
+        );
+
+      case "graphic":
+        return (
+          <GraphicOutput
+            ref={ref as RefObject<HTMLDivElement>}
             onEnterPressed={onEnterPressed}
             output={output}
           />
