@@ -44,7 +44,7 @@ const CalculatorTextOutput = forwardRef<
       placeholder={t("common.output")}
       readOnly
       value={output.text}
-      onKeyPress={onOutputKeyPress}
+      onKeyDown={onOutputKeyPress}
     />
   );
 });
