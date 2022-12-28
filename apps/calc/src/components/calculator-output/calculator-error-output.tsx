@@ -45,7 +45,7 @@ const CalculatorErrorOutput = forwardRef<
       placeholder={t("common.output")}
       readOnly
       value={output.error}
-      onKeyPress={onOutputKeyPress}
+      onKeyDown={onOutputKeyPress}
     />
   );
 });

@@ -30,11 +30,7 @@ const CalculatorInput = forwardRef<HTMLInputElement, CalculatorInputProps>(
       } else if (e.key === "ArrowDown") {
         dispatch(moveForwardInHistory());
         e.preventDefault();
-      }
-    };
-
-    const onInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter" && input.length > 0) {
+      } else if (e.key === "Enter" && input.length > 0) {
         evaluate();
         onEnterPressed();
       }
@@ -63,7 +59,6 @@ const CalculatorInput = forwardRef<HTMLInputElement, CalculatorInputProps>(
         placeholder={t("common.input")}
         value={input}
         onChange={(e) => dispatch(setInput(e.target.value))}
-        onKeyPress={onInputKeyPress}
         onKeyDown={(e) => handleKeyDown(e)}
       />
     );
