@@ -27,6 +27,8 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "border",
           "h-full",
           "rounded-md",
+          "max-h-full",
+          "overflow-hidden",
           "theme-dark:border-neutral-500",
           "theme-dark:focus:border-neutral-100",
           "theme-dark:bg-neutral-800",

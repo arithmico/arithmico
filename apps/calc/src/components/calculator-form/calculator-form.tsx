@@ -74,7 +74,9 @@ export default function CalculatorForm() {
         "h-full",
         "flex",
         "flex-col",
-        "justify-center"
+        "justify-center",
+        "max-h-full",
+        "overflow-hidden"
       )}
     >
       <CalculatorInput
