@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import "@fontsource/roboto/100.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -11,24 +11,19 @@ import GlobalStyle from "@components/global-styles/global-styles";
 import Imprint from "./pages/imprint/imprint";
 import { Provider } from "react-redux";
 import configStore from "@stores/config-store";
-
-const Container = styled.div`
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-`;
+import classNames from "classnames";
 
 function App() {
   return (
     <Provider store={configStore}>
       <ThemeProvider theme={{ type: "light" }}>
         <GlobalStyle boldFont={false} fontSize="normal" />
-        <Container>
+        <div className={classNames("absolute", "w-screen", "h-screen")}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/imprint" element={<Imprint />} />
           </Routes>
-        </Container>
+        </div>
       </ThemeProvider>
     </Provider>
   );

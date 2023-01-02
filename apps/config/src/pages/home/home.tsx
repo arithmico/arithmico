@@ -3,6 +3,7 @@ import DefaultSettings from "../../components/default-settings/default-settings"
 import PluginsConfig from "../../components/plugins-config/plugins-config";
 import styled from "styled-components";
 import useDownloadProfile from "../../hooks/use-download-profile";
+import classNames from "classnames";
 
 const Button = styled.button`
   position: relative;
@@ -24,11 +25,6 @@ const Button = styled.button`
   }
 `;
 
-const ToolbarContainer = styled.div`
-  display: flex;
-  justify-content: end;
-`;
-
 export default function Home() {
   const download = useDownloadProfile();
 
@@ -36,9 +32,35 @@ export default function Home() {
     <Page>
       <DefaultSettings />
       <PluginsConfig />
-      <ToolbarContainer>
-        <Button onClick={download}>Download Profile</Button>
-      </ToolbarContainer>
+      <div className={classNames("flex", "justify-end")}>
+        <button
+          className={classNames(
+            "relative",
+            "flex",
+            "items-center",
+            "theme-light:bg-neutral-300",
+            "theme-dark:bg-neutral-700",
+            "outline-none",
+            "border-none",
+            "rounded",
+            "text-4xl",
+            "theme-light:text-black",
+            "theme-dark:text-white",
+            "justify-center",
+            "py-4",
+            "px-8",
+            "my-8",
+            "bold-font:font-bold",
+            "theme-light:text-black",
+            "theme-dark:text-white",
+            "hover:theme-light:bg-neutral-200",
+            "hover:theme-dark:bg-neutral-800"
+          )}
+          onClick={download}
+        >
+          Download Profile
+        </button>
+      </div>
     </Page>
   );
 }
