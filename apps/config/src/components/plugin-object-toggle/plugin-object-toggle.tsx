@@ -1,6 +1,6 @@
 import React from "react";
-import { Switch } from "@headlessui/react";
-import styled from "styled-components";
+import { Switch as HeadlessuiSwitch } from "@headlessui/react";
+import classNames from "classnames";
 
 interface PluginObjectToggleProps {
   onChange: (enabled: boolean) => void;
@@ -8,57 +8,78 @@ interface PluginObjectToggleProps {
   label: string;
 }
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  //height: 3rem;
-  padding: 1rem;
-  background-color: var(--me-background-100);
-  border-radius: 0.5rem;
-  margin: 0.5rem 0;
-`;
-
-const SwitchLabel = styled(Switch.Label)`
-  font-size: 2em;
-  font-weight: var(--me-font-weight-normal);
-`;
-
-const StyledSwitch = styled(Switch)<{ checked: boolean }>`
-  display: flex;
-  align-items: center;
-  padding: 4px 2px;
-  margin-left: auto;
-  background-color: ${({ checked }) =>
-    checked ? "var(--me-enabled)" : "var(--me-background-300)"};
-  border: none;
-  width: 70px;
-  height: 35px;
-  border-radius: calc(35px / 2);
-  transition: background-color 0.25s;
-`;
-
-const SwitchIndicator = styled.div<{ enabled: boolean }>`
-  width: 27px;
-  height: 27px;
-  border-radius: 14px;
-  margin-left: ${({ enabled }) => (enabled ? "36px" : "2px")};
-  background-color: var(--me-switch-handle);
-  transition: margin 0.25s;
-`;
-
 export default function PluginObjectToggle({
   label,
   enabled,
   onChange,
 }: PluginObjectToggleProps) {
   return (
-    <Container>
-      <Switch.Group>
-        <SwitchLabel>{label}</SwitchLabel>
-        <StyledSwitch checked={enabled} onChange={onChange}>
-          <SwitchIndicator enabled={enabled} aria-hidden="true" />
-        </StyledSwitch>
-      </Switch.Group>
-    </Container>
+    <div
+      className={classNames(
+        "flex",
+        "items-center",
+        "p-4",
+        "my-2",
+        "theme-dark:bg-neutral-800",
+        "theme-light:bg-neutral-200"
+      )}
+    >
+      <HeadlessuiSwitch.Group>
+        <HeadlessuiSwitch.Label className={classNames("text-2xl")}>
+          {label}
+        </HeadlessuiSwitch.Label>
+        <HeadlessuiSwitch
+          checked={enabled}
+          onChange={onChange}
+          className={classNames(
+            {
+              "bg-blue-800": enabled,
+              "theme-dark:bg-neutral-700": !enabled,
+              "theme-light:bg-neutral-900": !enabled,
+            },
+            "ml-auto",
+            "relative",
+            "inline-flex",
+            "items-center",
+            "h-[38px]",
+            "w-[74px]",
+            "shrink-0",
+            "cursor-pointer",
+            "rounded-full",
+            "border-2",
+            "border-transparent",
+            "transition-colors",
+            "duration-200",
+            "ease-in-out",
+            "focus:outline-none",
+            "focus-visible:ring-2",
+            "focus-visible:ring-white",
+            "focus-visible:ring-opacity-75"
+          )}
+        >
+          <span className="sr-only">Use setting</span>
+          <span
+            aria-hidden="true"
+            className={classNames(
+              {
+                "translate-x-9": enabled,
+                "translate-x-0": !enabled,
+              },
+              "pointer-events-none",
+              "inline-block",
+              "h-[34px]",
+              "w-[34px]",
+              "transform",
+              "rounded-full",
+              "bg-white",
+              "shadow-lg",
+              "transition",
+              "duration-200",
+              "ease-in-out"
+            )}
+          />
+        </HeadlessuiSwitch>
+      </HeadlessuiSwitch.Group>
+    </div>
   );
 }

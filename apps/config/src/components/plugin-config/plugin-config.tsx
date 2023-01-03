@@ -1,52 +1,12 @@
 import React from "react";
 import PluginObjectToggle from "../plugin-object-toggle/plugin-object-toggle";
-import styled from "styled-components";
 import { Disclosure } from "@headlessui/react";
 import ExpandMore from "@components/icons/expand-more";
 import { useDispatch, useSelector } from "react-redux";
 import { ConfigRootState } from "@stores/config-store";
 import { toggleObject } from "@stores/slices/config-profile";
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  margin-top: 2em;
-  margin-bottom: 0.5em;
-`;
-
-const PluginTitle = styled.h1`
-  font-size: 2.5em;
-  font-weight: var(--me-font-weight-normal);
-  color: var(--me-text-400);
-  margin: 0;
-`;
-
-const PluginObjectsList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const DisclosureButton = styled(Disclosure.Button)<{
-  open: boolean;
-  children: React.ReactNode /* idk why styled components does not get the children property*/;
-}>`
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  border: none;
-  border-bottom: ${({ open }) =>
-    open ? "none" : "1px solid var(--me-text-100)"};
-  outline: none;
-`;
-
-const ExpandMoreIcon = styled(ExpandMore)<{ open: boolean }>`
-  transform: rotate(${({ open }) => (open ? "180" : "0")}deg);
-  margin-left: auto;
-  transition: transform 0.25s;
-`;
+import classNames from "classnames";
+import {CalculatorRootState} from "@stores/calculator-store";
 
 interface PluginItemProps {
   name: string;
@@ -65,29 +25,65 @@ export default function PluginConfig({ name, items }: PluginConfigProps) {
   const dispatch = useDispatch();
 
   return (
-    <Section>
+    <section className={classNames("flex", "flex-col", "mt-8", "mb-4")}>
       <Disclosure>
         {({ open }) => (
           <>
-            <DisclosureButton open={open}>
-              <PluginTitle>{name}</PluginTitle>
-              <ExpandMoreIcon open={open} />
-            </DisclosureButton>
+            <Disclosure.Button
+              className={classNames(
+                "flex",
+                "theme-dark:bg-neutral-800",
+                "theme-light:bg-neutral-200",
+                "border",
+                "theme-dark:border-white/5",
+                "theme-light:border-black/10",
+                "px-4",
+                "py-2",
+                "items-center",
+                "rounded-t-md",
+                {
+                  "rounded-b-md": !open,
+                  "border-b-0": open,
+                }
+              )}
+            >
+              <h1
+                className={classNames(
+                  "text-4xl",
+                  "m-0",
+                  "bold-font:font-bold",
+                  "theme-light:text-black",
+                  "theme-dark:text-white"
+                )}
+              >
+                {name}
+              </h1>
+              <ExpandMore
+                className={classNames(
+                  "theme-dark:fill-white/50",
+                  "theme-light:fill-black/50",
+                  "ml-auto",
+                  {
+                    "rotate-180": open,
+                  }
+                )}
+              />
+            </Disclosure.Button>
             <Disclosure.Panel>
-              <PluginObjectsList>
+              <ul className={classNames("p-0", "m-0", "list-none")}>
                 {items.map((item, index) => (
                   <PluginObjectToggle
                     key={index}
-                    enabled={enabledObjects.includes(item.name)}
                     label={item.synopsis}
-                    onChange={() => dispatch(toggleObject(item.name))}
+                    enabled={enabledObjects.includes(item.name)}
+                    onChange={() => dispatch(toggleObject(item.name) || false)}
                   ></PluginObjectToggle>
                 ))}
-              </PluginObjectsList>
+              </ul>
             </Disclosure.Panel>
           </>
         )}
       </Disclosure>
-    </Section>
+    </section>
   );
 }

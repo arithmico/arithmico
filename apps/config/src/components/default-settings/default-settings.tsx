@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Heading from "../heading/heading";
 import SettingsListbox from "@components/settings-listbox/settings-listbox";
 import SettingsSwitch from "@components/settings-switch/settings-switch";
@@ -16,10 +15,6 @@ import {
   setTheme,
 } from "@stores/slices/settings";
 import { ConfigRootState } from "@stores/config-store";
-
-const Section = styled.section`
-  font-size: inherit;
-`;
 
 const decimalPlacesOptions = new Array(15)
   .fill(0)
@@ -54,7 +49,7 @@ export default function DefaultSettings() {
   );
 
   return (
-    <Section>
+    <section>
       <Heading>Default Settings</Heading>
       <Heading type={2}>Interface</Heading>
       <SettingsListbox
@@ -129,6 +124,6 @@ export default function DefaultSettings() {
           { label: "Radians", value: "radians" },
         ]}
       />
-    </Section>
+    </section>
   );
 }

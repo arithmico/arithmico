@@ -1,23 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import HeaderNavBar from "@components/header-nav-bar/header-nav-bar";
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr;
-`;
-
-const Content = styled.main`
-  margin-top: 1.5rem;
-`;
-
-const ScrollWrapper = styled.div`
-  overflow-y: auto;
-  display: grid;
-  padding: 0 15%;
-`;
+import classNames from "classnames";
 
 interface PageProps {
   children: React.ReactNode;
@@ -25,7 +8,9 @@ interface PageProps {
 
 export default function Page({ children }: PageProps) {
   return (
-    <Container>
+    <div
+      className={classNames("w-full", "h-full", "grid", "grid-rows-[auto 1fr]")}
+    >
       <HeaderNavBar
         title="Arithmico"
         subTitle="Config"
@@ -40,9 +25,9 @@ export default function Page({ children }: PageProps) {
           },
         ]}
       />
-      <ScrollWrapper>
-        <Content>{children}</Content>
-      </ScrollWrapper>
-    </Container>
+      <div className={classNames("overflow-y-auto", "grid", "px-[15%]")}>
+        <main className={classNames("mt-6")}>{children}</main>
+      </div>
+    </div>
   );
 }
