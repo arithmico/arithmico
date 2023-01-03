@@ -1,12 +1,11 @@
 import React from "react";
 import PluginObjectToggle from "../plugin-object-toggle/plugin-object-toggle";
-import { Disclosure } from "@headlessui/react";
+import {Disclosure} from "@headlessui/react";
 import ExpandMore from "@components/icons/expand-more";
-import { useDispatch, useSelector } from "react-redux";
-import { ConfigRootState } from "@stores/config-store";
-import { toggleObject } from "@stores/slices/config-profile";
+import {useDispatch, useSelector} from "react-redux";
+import {ConfigRootState} from "@stores/config-store";
+import {toggleObject} from "@stores/slices/config-profile";
 import classNames from "classnames";
-import {CalculatorRootState} from "@stores/calculator-store";
 
 interface PluginItemProps {
   name: string;
