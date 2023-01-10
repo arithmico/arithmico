@@ -42,11 +42,7 @@ export default function Graphic({ graphic }: GraphicProps) {
         "justify-center"
       )}
     >
-      <svg
-        viewBox={viewBox}
-        preserveAspectRatio="meet"
-        className={classNames("max-h-full")}
-      >
+      <svg viewBox={viewBox} className={classNames("max-h-full")}>
         <CoordinateGrid
           limits={limits}
           xTicks={graphic.xTicks}
