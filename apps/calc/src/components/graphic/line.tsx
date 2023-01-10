@@ -8,10 +8,12 @@ interface LineProps {
 }
 
 export default function Line({ points, limits }: LineProps) {
-  const pathString = points.map(([x, y], index) => {
-    const [viewX, viewY] = convertToViewPortCoordinates([x, y], limits);
-    return `${index === 0 ? "M" : "L"} ${viewX} ${viewY}`;
-  });
+  const pathString = points
+    .map(([x, y], index) => {
+      const [viewX, viewY] = convertToViewPortCoordinates([x, y], limits);
+      return `${index === 0 ? "M" : "L"} ${viewX} ${viewY}`;
+    })
+    .join(" ");
 
   return (
     <path
