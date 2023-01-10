@@ -1,6 +1,7 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import CoordinateGrid from "./coordinate-grid";
+import Line from "./line";
 
 const viewBoxPadding = 10;
 const viewBoxHeight = 210;
@@ -57,6 +58,9 @@ export default function Graphic({ graphic }: GraphicProps) {
           xTicks={graphic.xTicks}
           yTicks={graphic.yTicks}
         />
+        {graphic.lines.map(({ points }, index) => (
+          <Line points={points} limits={limits} key={index} />
+        ))}
       </svg>
     </div>
   );
