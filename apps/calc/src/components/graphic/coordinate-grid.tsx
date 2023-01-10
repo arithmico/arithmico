@@ -17,8 +17,8 @@ export default function CoordinateGrid({
 
   return (
     <>
-      {xMin <= 0 && xMax >= 0 && <XAxis limits={limits} xTicks={xTicks} />}
-      {yMin <= 0 && yMax >= 0 && <YAxis limits={limits} yTicks={yTicks} />}
+      {yMin <= 0 && yMax >= 0 && <XAxis limits={limits} xTicks={xTicks} />}
+      {xMin <= 0 && xMax >= 0 && <YAxis limits={limits} yTicks={yTicks} />}
     </>
   );
 }
