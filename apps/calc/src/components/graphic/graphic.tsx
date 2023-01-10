@@ -1,17 +1,41 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
+import CoordinateGrid from "./coordinate-grid";
 
-const viewBoxHeight = 1;
-const viewBoxWidth = Math.SQRT2;
-const viewBox = `${-viewBoxWidth / 2} ${-viewBoxHeight / 2} ${
-  viewBoxWidth / 2
-} ${viewBoxHeight / 2}`;
+const viewBoxPadding = 5;
+const viewBoxHeight = 210;
+const viewBoxWidth = 297;
+const viewBox = `${-viewBoxWidth / 2} ${
+  -viewBoxHeight / 2
+} ${viewBoxWidth} ${viewBoxHeight}`;
+
+export type Limits = [number, number, number, number];
+
+export function convertToViewPortCoordinates(
+  [x, y]: [number, number],
+  [xMin, yMin, xMax, yMax]: Limits
+): [number, number] {
+  const vWidth = viewBoxWidth - 2 * viewBoxPadding;
+  const vHeight = viewBoxHeight - 2 * viewBoxPadding;
+  const w = xMax - xMin;
+  const h = yMax - yMin;
+  return [
+    ((x - xMin) / w) * vWidth - vWidth / 2,
+    -((y - yMin) / h) * vHeight + vHeight / 2,
+  ];
+}
 
 interface GraphicProps {
   graphic: GraphicNode;
 }
 
 export default function Graphic({ graphic }: GraphicProps) {
+  const limits: Limits = [
+    graphic.xMin,
+    graphic.yMin,
+    graphic.xMax,
+    graphic.yMax,
+  ];
   return (
     <div
       className={classNames(
@@ -26,9 +50,13 @@ export default function Graphic({ graphic }: GraphicProps) {
       <svg
         viewBox={viewBox}
         preserveAspectRatio="meet"
-        className={classNames("border", "border-blue-700", "max-h-full")}
+        className={classNames("max-h-full")}
       >
-        {graphic.graphicType}
+        <CoordinateGrid
+          limits={limits}
+          xTicks={graphic.xTicks}
+          yTicks={graphic.yTicks}
+        />
       </svg>
     </div>
   );

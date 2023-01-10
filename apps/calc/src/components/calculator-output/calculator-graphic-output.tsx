@@ -23,7 +23,6 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         onKeyDown={onKeyDown}
         className={classNames(
           "mt-4",
-          "p-4",
           "border",
           "h-full",
           "rounded-md",
