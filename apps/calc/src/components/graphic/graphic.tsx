@@ -1,4 +1,4 @@
-import { GraphicNode } from "@arithmico/engine/lib/types";
+import { GraphicNode, Limits } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import CoordinateGrid from "./coordinate-grid";
 import Line from "./line";
@@ -9,8 +9,6 @@ const viewBoxWidth = 297;
 const viewBox = `${-viewBoxWidth / 2} ${
   -viewBoxHeight / 2
 } ${viewBoxWidth} ${viewBoxHeight}`;
-
-export type Limits = [number, number, number, number];
 
 export function convertToViewPortCoordinates(
   [x, y]: [number, number],
@@ -31,12 +29,8 @@ interface GraphicProps {
 }
 
 export default function Graphic({ graphic }: GraphicProps) {
-  const limits: Limits = [
-    graphic.xMin,
-    graphic.yMin,
-    graphic.xMax,
-    graphic.yMax,
-  ];
+  const limits = graphic.limits;
+  console.log(graphic);
   return (
     <div
       className={classNames(
