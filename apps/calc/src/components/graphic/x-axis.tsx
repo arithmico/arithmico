@@ -10,9 +10,9 @@ export default function XAxis({ limits, xTicks }: XAxisProps) {
   const startPoint = convertToViewPortCoordinates([limits[0], 0], limits);
   const endPoint = convertToViewPortCoordinates([limits[2], 0], limits);
   const arrowPoints = [
-    [endPoint[0] - 5, endPoint[1] - 3],
-    [endPoint[0] - 5, endPoint[1] + 3],
-    [endPoint[0] + 5, endPoint[1]],
+    [endPoint[0], endPoint[1] - 3],
+    [endPoint[0], endPoint[1] + 3],
+    [endPoint[0] + 10, endPoint[1]],
   ]
     .map((p) => p.join(","))
     .join(" ");

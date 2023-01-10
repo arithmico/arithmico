@@ -2,7 +2,7 @@ import { GraphicNode } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import CoordinateGrid from "./coordinate-grid";
 
-const viewBoxPadding = 5;
+const viewBoxPadding = 10;
 const viewBoxHeight = 210;
 const viewBoxWidth = 297;
 const viewBox = `${-viewBoxWidth / 2} ${
