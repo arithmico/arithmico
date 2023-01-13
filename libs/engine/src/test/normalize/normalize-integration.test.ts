@@ -1,6 +1,4 @@
 import { Context } from '../../types';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { parse } from '@arithmico/parser';
 import normalize from '../../node-operations/normalize-node';
 import serialize from '../../node-operations/serialize-node';
