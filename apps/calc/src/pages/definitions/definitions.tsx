@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { Context, Options } from "@arithmico/engine/lib/types";
 import PageContainer from "@local-components/page-container/page-container";
@@ -8,40 +7,7 @@ import { createOptions } from "@arithmico/engine/lib/utils/context-utils";
 import { serializeStack } from "@arithmico/engine";
 import { useSelector } from "react-redux";
 import { CalculatorRootState } from "@stores/calculator-store";
-
-const Heading = styled.h1`
-  font-weight: var(--me-font-weight-normal);
-  font-size: 2.5em;
-  margin-top: 2em;
-  color: var(--me-text-400);
-`;
-
-const DefinitionList = styled.dl`
-  display: grid;
-  grid-row-gap: 2rem;
-  grid-template-columns: auto 5fr;
-
-  & > dt,
-  dd {
-    font-size: 2rem;
-    font-weight: var(--me-font-weight-normal);
-    font-family: "Source Code Pro", monospace;
-    padding-left: 5rem;
-  }
-
-  & > dd {
-    padding: 0;
-  }
-
-  & > dd {
-  }
-
-  & > dd::before {
-    content: ":=";
-    font-family: "Source Code Pro", monospace;
-    padding-right: 2rem;
-  }
-`;
+import classNames from "classnames";
 
 export default function Definitions() {
   const context: Context = useSelector((state: CalculatorRootState) => ({
@@ -62,8 +28,20 @@ export default function Definitions() {
   return (
     <WithScrollbars>
       <PageContainer>
-        <Heading>{t("definitions")}</Heading>
-        <DefinitionList>
+        <h1
+          className={classNames(
+            "bold-font:font-bold",
+            "font-light",
+            "text-4xl",
+            "mt-8",
+            "pb-6",
+            "theme-light:text-black",
+            "theme-dark:text-white"
+          )}
+        >
+          {t("definitions")}
+        </h1>
+        <dl className={classNames("grid", "gap-y-8", "grid-cols-[auto_5fr]")}>
           {Object.entries(definitions).map(([name, definition]) => (
             <DefinitionListItem
               key={name}
@@ -71,7 +49,7 @@ export default function Definitions() {
               definition={definition}
             />
           ))}
-        </DefinitionList>
+        </dl>
       </PageContainer>
     </WithScrollbars>
   );
