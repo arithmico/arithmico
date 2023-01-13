@@ -22,7 +22,9 @@ export default function DecimalPlacesListbox({
       )}
     >
       <HeadlessuiListbox value={value} onChange={onChange}>
-        <HeadlessuiListbox.Label>{"Significant decimal places"}</HeadlessuiListbox.Label>
+        <HeadlessuiListbox.Label>
+          {"Significant decimal places"}
+        </HeadlessuiListbox.Label>
         <div className={classNames("ml-auto", "relative", "flex", "flex-col")}>
           <HeadlessuiListbox.Button
             className={classNames(

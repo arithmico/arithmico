@@ -2,24 +2,23 @@ import React from "react";
 import { Switch as HeadlessuiSwitch } from "@headlessui/react";
 import classNames from "classnames";
 
-interface PluginObjectToggleProps {
+interface SwitchProps {
   onChange: (enabled: boolean) => void;
   enabled: boolean;
   label: string;
 }
 
-export default function PluginObjectToggle({
+export default function Switch({
   label,
   enabled,
   onChange,
-}: PluginObjectToggleProps) {
+}: SwitchProps) {
   return (
     <div
       className={classNames(
         "flex",
         "items-center",
-        "p-4",
-        "my-2",
+        "h-16",
         "theme-dark:bg-neutral-800",
         "theme-light:bg-neutral-200"
       )}
@@ -35,18 +34,17 @@ export default function PluginObjectToggle({
             {
               "bg-blue-800": enabled,
               "theme-dark:bg-neutral-700": !enabled,
-              "theme-light:bg-neutral-900": !enabled,
+              "theme-light:bg-neutral-300": !enabled,
             },
             "ml-auto",
             "relative",
             "inline-flex",
             "items-center",
-            "h-[38px]",
-            "w-[74px]",
+            "h-10",
+            "w-24",
             "shrink-0",
             "cursor-pointer",
             "rounded-full",
-            "border-2",
             "border-transparent",
             "transition-colors",
             "duration-200",
@@ -62,13 +60,13 @@ export default function PluginObjectToggle({
             aria-hidden="true"
             className={classNames(
               {
-                "translate-x-9": enabled,
+                "translate-x-12": enabled,
                 "translate-x-0": !enabled,
               },
               "pointer-events-none",
               "inline-block",
-              "h-[34px]",
-              "w-[34px]",
+              "h-12",
+              "w-12",
               "transform",
               "rounded-full",
               "bg-white",

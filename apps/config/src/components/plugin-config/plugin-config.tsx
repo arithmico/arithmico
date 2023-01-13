@@ -1,10 +1,10 @@
 import React from "react";
-import PluginObjectToggle from "../plugin-object-toggle/plugin-object-toggle";
-import {Disclosure} from "@headlessui/react";
+import Switch from "../switch/switch";
+import { Disclosure } from "@headlessui/react";
 import ExpandMore from "@components/icons/expand-more";
-import {useDispatch, useSelector} from "react-redux";
-import {ConfigRootState} from "@stores/config-store";
-import {toggleObject} from "@stores/slices/config-profile";
+import { useDispatch, useSelector } from "react-redux";
+import { ConfigRootState } from "@stores/config-store";
+import { toggleObject } from "@stores/slices/config-profile";
 import classNames from "classnames";
 
 interface PluginItemProps {
@@ -48,7 +48,7 @@ export default function PluginConfig({ name, items }: PluginConfigProps) {
             >
               <h1
                 className={classNames(
-                  "text-4xl",
+                  "text-2xl",
                   "m-0",
                   "bold-font:font-bold",
                   "theme-light:text-black",
@@ -71,12 +71,12 @@ export default function PluginConfig({ name, items }: PluginConfigProps) {
             <Disclosure.Panel>
               <ul className={classNames("p-0", "m-0", "list-none")}>
                 {items.map((item, index) => (
-                  <PluginObjectToggle
+                  <Switch
                     key={index}
                     label={item.synopsis}
                     enabled={enabledObjects.includes(item.name)}
                     onChange={() => dispatch(toggleObject(item.name) || false)}
-                  ></PluginObjectToggle>
+                  ></Switch>
                 ))}
               </ul>
             </Disclosure.Panel>

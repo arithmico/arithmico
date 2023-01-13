@@ -8,7 +8,7 @@ const pluginStructures = getDocumentation();
 export default function PluginsConfig() {
   return (
     <section>
-      <Heading>Functions and constants</Heading>
+      <Heading type={2}>Functions and constants</Heading>
       {pluginStructures.map((pluginStructure) => (
         <PluginConfig
           key={pluginStructure.name.en}

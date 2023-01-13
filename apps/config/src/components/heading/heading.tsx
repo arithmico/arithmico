@@ -8,7 +8,7 @@ interface HeadingProps {
 export default function Heading({ type, children }: HeadingProps) {
   if (!type) {
     return (
-      <h1 className={classNames("bold-font:font-bold", "text-6xl")}>
+      <h1 className={classNames("bold-font:font-bold", "text-4xl")}>
         {children}
       </h1>
     );
@@ -17,31 +17,31 @@ export default function Heading({ type, children }: HeadingProps) {
   switch (type) {
     case 1:
       return (
-        <h1 className={classNames("bold-font:font-bold", "text-6xl")}>
+        <h1 className={classNames("bold-font:font-bold", "text-4xl")}>
           {children}
         </h1>
       );
     case 2:
       return (
-        <h2 className={classNames("bold-font:font-bold", "text-5xl")}>
+        <h2 className={classNames("bold-font:font-bold", "text-3xl")}>
           {children}
         </h2>
       );
     case 3:
       return (
-        <h3 className={classNames("bold-font:font-bold", "text-4xl")}>
+        <h3 className={classNames("bold-font:font-bold", "text-2xl")}>
           {children}
         </h3>
       );
     case 4:
       return (
-        <h4 className={classNames("bold-font:font-bold", "text-3xl")}>
+        <h4 className={classNames("bold-font:font-bold", "text-xl")}>
           {children}
         </h4>
       );
     case 5:
       return (
-        <h5 className={classNames("bold-font:font-bold", "text-2xl")}>
+        <h5 className={classNames("bold-font:font-bold", "text-lg")}>
           {children}
         </h5>
       );
