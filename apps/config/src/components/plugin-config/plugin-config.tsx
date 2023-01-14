@@ -69,7 +69,17 @@ export default function PluginConfig({ name, items }: PluginConfigProps) {
               />
             </Disclosure.Button>
             <Disclosure.Panel>
-              <ul className={classNames("p-0", "mx-4", "list-none")}>
+              <ul
+                className={classNames(
+                  "p-0",
+                  "px-4",
+                  "list-none",
+                  "bg-neutral-100",
+                  "rounded-b-md",
+                  "border",
+                  "theme-light:border-black/10"
+                )}
+              >
                 {items.map((item, index) => (
                   <Switch
                     key={index}
