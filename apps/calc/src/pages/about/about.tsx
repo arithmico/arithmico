@@ -19,9 +19,7 @@ interface PackageInformation {
   contributors: {
     name: string;
   }[];
-  bugs: {
-    url: string;
-  };
+  homepage: string;
 }
 
 const packageJson = packageJsonData as PackageInformation;
@@ -62,9 +60,9 @@ export default function About() {
           <DT>{version}</DT>
           <DD>{t("about.license")}</DD>
           <DT>{packageJson.license}</DT>
-          <DD>{t("about.reportBugs")}</DD>
+          <DD>{t("about.sourceCode")}</DD>
           <DT>
-            <a href={packageJson.bugs.url}>{packageJson.bugs.url}</a>
+            <a href={packageJson.homepage}>{packageJson.bugs.url}</a>
           </DT>
           <DD>{t("about.website")}</DD>
           <DT>
@@ -72,7 +70,7 @@ export default function About() {
           </DT>
           <DD>{t("about.contact")}</DD>
           <DT>
-            <a href="mailto:team@arithmico.com">team@arithmico.com</a>
+            <a href="mailto:dev.behrenle@posteo.de">team@arithmico.com</a>
           </DT>
         </dl>
 
