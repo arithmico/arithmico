@@ -19,9 +19,7 @@ interface PackageInformation {
   contributors: {
     name: string;
   }[];
-  sourceCode: {
-    url: string;
-  };
+  homepage: string;
 }
 
 const packageJson = packageJsonData as PackageInformation;
@@ -64,7 +62,7 @@ export default function About() {
           <DT>{packageJson.license}</DT>
           <DD>{t("about.sourceCode")}</DD>
           <DT>
-            <a href={packageJson.sourceCode.url}>{packageJson.bugs.url}</a>
+            <a href={packageJson.homepage}>{packageJson.bugs.url}</a>
           </DT>
           <DD>{t("about.website")}</DD>
           <DT>
