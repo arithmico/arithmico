@@ -8,21 +8,9 @@ interface SwitchProps {
   label: string;
 }
 
-export default function Switch({
-  label,
-  enabled,
-  onChange,
-}: SwitchProps) {
+export default function Switch({ label, enabled, onChange }: SwitchProps) {
   return (
-    <div
-      className={classNames(
-        "flex",
-        "items-center",
-        "h-16",
-        "theme-dark:bg-neutral-800",
-        "theme-light:bg-neutral-100"
-      )}
-    >
+    <div className={classNames("flex", "items-center", "h-16")}>
       <HeadlessuiSwitch.Group>
         <HeadlessuiSwitch.Label className={classNames("text-2xl")}>
           {label}
