@@ -15,9 +15,19 @@ import Navbar from "./components/navbar/navbar";
 function App() {
   return (
     <Provider store={configStore}>
-      <div className={classNames("absolute", "w-screen", "h-screen", "theme-light")}>
+      <div
+        className={classNames(
+          "absolute",
+          "w-screen",
+          "h-screen",
+          "theme-light",
+          "grid",
+          "lg:grid-rows-[5rem_1fr]",
+          "grid-rows-[3rem_1fr]"
+        )}
+      >
         <Navbar />
-          <Routes>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/imprint" element={<Imprint />} />
         </Routes>

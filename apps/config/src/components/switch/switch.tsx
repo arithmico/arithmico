@@ -20,11 +20,11 @@ export default function Switch({
         "items-center",
         "h-16",
         "theme-dark:bg-neutral-800",
-        "theme-light:bg-neutral-200"
+        "theme-light:bg-neutral-100"
       )}
     >
       <HeadlessuiSwitch.Group>
-        <HeadlessuiSwitch.Label className={classNames("text-xl")}>
+        <HeadlessuiSwitch.Label className={classNames("text-2xl")}>
           {label}
         </HeadlessuiSwitch.Label>
         <HeadlessuiSwitch
