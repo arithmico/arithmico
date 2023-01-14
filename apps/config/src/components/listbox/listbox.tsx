@@ -21,7 +21,7 @@ export default function Listbox({
       className={classNames(
         "flex",
         "items-center",
-        "text-2xl",
+        "text-xl",
         "h-16",
         "bold-font:font-bold"
       )}

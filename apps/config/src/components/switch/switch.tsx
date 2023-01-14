@@ -24,7 +24,7 @@ export default function Switch({
       )}
     >
       <HeadlessuiSwitch.Group>
-        <HeadlessuiSwitch.Label className={classNames("text-2xl")}>
+        <HeadlessuiSwitch.Label className={classNames("text-xl")}>
           {label}
         </HeadlessuiSwitch.Label>
         <HeadlessuiSwitch

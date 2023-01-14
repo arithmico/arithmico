@@ -8,7 +8,7 @@ interface HeadingProps {
 export default function Heading({ type, children }: HeadingProps) {
   if (!type) {
     return (
-      <h1 className={classNames("bold-font:font-bold", "text-4xl")}>
+      <h1 className={classNames("bold-font:font-bold", "text-4xl", "pb-4")}>
         {children}
       </h1>
     );

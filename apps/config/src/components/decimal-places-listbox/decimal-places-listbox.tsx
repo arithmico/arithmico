@@ -16,7 +16,7 @@ export default function DecimalPlacesListbox({
       className={classNames(
         "flex",
         "items-center",
-        "text-2xl",
+        "text-xl",
         "h-16",
         "bold-font:font-bold"
       )}

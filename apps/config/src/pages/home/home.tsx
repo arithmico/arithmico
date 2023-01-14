@@ -20,7 +20,7 @@ export default function Home() {
             "outline-none",
             "border-none",
             "rounded",
-            "text-base",
+            "text-lg",
             "justify-center",
             "py-2",
             "px-4",
