@@ -1,19 +1,21 @@
 import { Listbox as HeadlessuiListbox } from "@headlessui/react";
 import classNames from "classnames";
 import ExpandMore from "@components/icons//expand-more";
-import {useTranslation} from "react-i18next";
+import DoneIcon from "@components/icons/done-icon";
 
-interface DecimalPlacesListboxProps {
+interface ListboxProps {
+  label: string;
   value: string | number;
+  options: { label: string; value: string | number }[];
   onChange: ((value: number) => void) | ((value: string) => void);
 }
 
-export default function DecimalPlacesListbox({
+export default function Listbox({
+  label,
   value,
+  options,
   onChange,
-}: DecimalPlacesListboxProps) {
-  const [t] = useTranslation();
-
+}: ListboxProps) {
   return (
     <li
       className={classNames(
@@ -25,7 +27,7 @@ export default function DecimalPlacesListbox({
       )}
     >
       <HeadlessuiListbox value={value} onChange={onChange}>
-        <HeadlessuiListbox.Label>{t("settings.significantDecimalPlaces")}</HeadlessuiListbox.Label>
+        <HeadlessuiListbox.Label>{label}</HeadlessuiListbox.Label>
         <div className={classNames("ml-auto", "relative", "flex", "flex-col")}>
           <HeadlessuiListbox.Button
             className={classNames(
@@ -37,10 +39,11 @@ export default function DecimalPlacesListbox({
               "theme-dark:hover:bg-neutral-600",
               "theme-light:hover:bg-neutral-400",
               "p-2",
+              "bold-font:font-bold",
               "rounded-md"
             )}
           >
-            {value}
+            {options.find((option) => option.value === value)?.label}
             <ExpandMore
               className={classNames(
                 "ml-auto",
@@ -53,46 +56,40 @@ export default function DecimalPlacesListbox({
           </HeadlessuiListbox.Button>
           <div>
             <HeadlessuiListbox.Options
-              className={classNames(
-                "absolute",
-                "w-40",
-                "z-20",
-                "mt-2",
-                "grid",
-                "grid-cols-5",
-                "[&>*:nth-child(1)]:rounded-tl-md",
-                "[&>*:nth-child(5)]:rounded-tr-md",
-                "[&>*:nth-child(11)]:rounded-bl-md",
-                "[&>*:nth-child(15)]:rounded-br-md",
-                "[&>*:nth-child(11)]:rounded-bl-md",
-                "[&>*:nth-child(5n)]:border-l-0"
-              )}
+              className={classNames("absolute", "w-40", "z-20", "mt-2")}
             >
-              {new Array(15).fill(0).map((_, index) => (
+              {options.map((options, index) => (
                 <HeadlessuiListbox.Option
                   key={index}
-                  value={index}
+                  value={options.value}
                   className={classNames(
                     "flex",
-                    "items-center",
-                    "justify-center",
                     "p-2",
                     "first:border-t-0",
                     "border-t",
-                    "border-l",
                     "theme-dark:border-white/5",
                     "theme-light:border-black/10",
                     "theme-dark:bg-neutral-700",
                     "theme-light:bg-neutral-300",
                     "theme-dark:hover:bg-neutral-600",
                     "theme-light:hover:bg-neutral-400",
-                    {
-                      "theme-dark:bg-neutral-600": index === value,
-                      "theme-light:bg-neutral-400": index === value,
-                    }
+                    "bold-font:font-bold",
+                    "first:rounded-t-md",
+                    "last:rounded-b-md"
                   )}
                 >
-                  {index}
+                  {options.label}{" "}
+                  {options.value === value && (
+                    <DoneIcon
+                      className={classNames(
+                        "w-6",
+                        "h-6",
+                        "ml-auto",
+                        "theme-light:fill-black/50",
+                        "theme-dark:fill-white/50"
+                      )}
+                    />
+                  )}
                 </HeadlessuiListbox.Option>
               ))}
             </HeadlessuiListbox.Options>
