@@ -55,8 +55,8 @@
     "url": "git+https://github.com/behrenle/arithmico.git"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/behrenle/arithmico/issues"
+  "sourceCode": {
+    "url": "https://github.com/behrenle/arithmico"
   },
   "homepage": "https://github.com/behrenle/arithmico#readme",
   "devDependencies": {
