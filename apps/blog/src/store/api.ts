@@ -68,7 +68,7 @@ interface AuthorResponse {
 export const contentApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://cdn.arithmico.com/environments/master`,
+    baseUrl: `https://cdn.arithmico.com/`,
   }),
   endpoints: (builder) => ({
     getChangelogs: builder.query<Changelog[], { limit?: number }>({
