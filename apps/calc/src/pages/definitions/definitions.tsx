@@ -5,7 +5,7 @@ import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import DefinitionListItem from "@local-components/definition-list-item/definition-list-item";
 import { createOptions } from "@arithmico/engine/lib/utils/context-utils";
-import { serializeStack } from "@arithmico/engine";
+import { getDefaultContext, serializeStack } from "@arithmico/engine";
 import { useSelector } from "react-redux";
 import { CalculatorRootState } from "@stores/calculator-store";
 
@@ -46,6 +46,7 @@ const DefinitionList = styled.dl`
 export default function Definitions() {
   const context: Context = useSelector((state: CalculatorRootState) => ({
     stack: state.session.stack,
+    methods: getDefaultContext().methods,
     options: createOptions({
       decimalPlaces: state.settings.decimalPlaces,
       decimalSeparator: state.settings.numberFormat === "de" ? "," : ".",
@@ -55,7 +56,7 @@ export default function Definitions() {
   }));
   const definitions = serializeStack({
     ...context,
-    stack: [context.stack.at(-1) ?? {}],
+    stack: [context.stack.at(-1) ?? new Map()],
   });
   const [t] = useTranslation();
 
