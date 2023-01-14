@@ -41,6 +41,18 @@ jobs:
           git switch dev
           git merge origin/main
           git push
+      - name: Save latest version information
+        run: |
+          mkdir meta
+          npm pkg get version | cut -d '"' -f 2 > ./meta/latest_version.txt
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Upload latest version information
+        run: aws s3 sync ./meta s3://$BUCKET_ID/prod/meta --delete
 
   deploy_calculator_online:
     name: Deploy Calculator Online Version
