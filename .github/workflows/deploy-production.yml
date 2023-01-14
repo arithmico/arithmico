@@ -13,6 +13,7 @@ env:
   DOCUMENTATION_DIST: ${{ secrets.DOCUMENTATION_DIST }}
   CONFIG_DIST: ${{ secrets.CONFIG_DIST }}
   BLOG_DIST: ${{ secrets.BLOG_DIST }}
+  CDN_DIST: ${{ secrets.CDN_DIST }}
 
 jobs:
   bump_version:
@@ -53,6 +54,8 @@ jobs:
           aws-region: eu-central-1
       - name: Upload latest version information
         run: aws s3 sync ./meta s3://$BUCKET_ID/prod/meta --delete
+      - name: Invalidate Cloundfront distrubution
+        run: aws cloudfront create-invalidation --distribution-id $CDN_DIST --paths '/meta/*'
 
   deploy_calculator_online:
     name: Deploy Calculator Online Version
