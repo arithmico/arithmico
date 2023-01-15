@@ -17,7 +17,9 @@ function NavbarContainer({ children }: NavbarContainerProps) {
         "theme-dark:shadow-neutral-900",
         "theme-light:shadow-white",
         "shadow-[0_0_20px]",
-        "z-10"
+        "z-10",
+        "col-span-2",
+        "overflow-hidden"
       )}
     >
       {children}
@@ -104,8 +106,8 @@ export default function Navbar() {
     <NavbarContainer>
       <NavbarTitle title="Arithmico" subtitle="Docs" />
       <NavbarNavigation>
-        <NavbarNavigationItem to="/">{"Home"}</NavbarNavigationItem>
-        <NavbarNavigationItem to="/imprint">{"Imprint"}</NavbarNavigationItem>
+        <NavbarNavigationItem to="/">Home</NavbarNavigationItem>
+        <NavbarNavigationItem to="/imprint">Imprint</NavbarNavigationItem>
       </NavbarNavigation>
     </NavbarContainer>
   );

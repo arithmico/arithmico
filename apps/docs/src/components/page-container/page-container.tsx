@@ -14,17 +14,14 @@ export default function PageContainer({
     <div
       className={classNames(
         className,
-        "py-4",
-        "lg:py-14",
-        "px-4",
-        "lg:px-12",
-        "2xl:px-[20%]",
-        "overflow-hidden",
         "z-0",
-        "max-w-[100vw]"
+        "w-full",
+        "h-full",
+        "border-2",
+        "border-blue-800"
       )}
     >
-      {children}
+      <main>{children}</main>
     </div>
   );
 }
