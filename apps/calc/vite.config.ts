@@ -4,7 +4,7 @@ import path from "path";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
 export default defineConfig(({ command, mode, ssrBuild }) => ({
-  base: ".",
+  base: "./",
   plugins: mode === "offline" ? [react(), viteSingleFile()] : [react()],
   resolve: {
     alias: {

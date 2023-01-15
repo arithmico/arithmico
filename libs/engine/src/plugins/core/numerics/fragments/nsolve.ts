@@ -1,8 +1,8 @@
-import createMinus from '../../../../create/create-minus';
-import createNumberNode from '../../../../create/create-number-node';
-import createVector from '../../../../create/create-vector';
+import createMinus from '../../../../node-operations/create-node/create-minus';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import createVector from '../../../../node-operations/create-node/create-vector';
 import { Context, Equals, NumberNode } from '../../../../types';
-import { FunctionHeaderItem } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem } from '../../../../types/nodes.types';
 import { getVariableNames } from '../../../../utils/symbolic-utils';
 import checkCandidates from '../utils/nsolve/check-candidates';
 import findCandidates from '../utils/nsolve/find-candidates';

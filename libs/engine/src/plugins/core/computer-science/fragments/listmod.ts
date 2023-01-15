@@ -1,7 +1,7 @@
-import createFunctionCall from '../../../../create/create-function-call';
-import createNumberNode from '../../../../create/create-number-node';
-import createVector from '../../../../create/create-vector';
-import evaluate from '../../../../eval';
+import createFunctionCall from '../../../../node-operations/create-node/create-function-call';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import createVector from '../../../../node-operations/create-node/create-vector';
+import evaluate from '../../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode, SyntaxTreeNode, Vector } from '../../../../types';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 

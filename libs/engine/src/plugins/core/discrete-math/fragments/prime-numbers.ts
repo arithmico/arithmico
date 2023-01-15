@@ -1,8 +1,8 @@
-import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
-import createVector from '../../../../create/create-vector';
+import { FunctionHeaderItem, NumberNode } from '../../../../types/nodes.types';
+import createVector from '../../../../node-operations/create-node/create-vector';
 import { getNthPrimeNumber, isPrimeNumber, sieveOfAtkin } from '../utils/prime-number-utils';
-import createNumberNode from '../../../../create/create-number-node';
-import createBooleanNode from '../../../../create/create-boolean-node';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import createBooleanNode from '../../../../node-operations/create-node/create-boolean-node';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];

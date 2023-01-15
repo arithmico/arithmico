@@ -1,4 +1,4 @@
-import { NumberNode, SymbolNode, SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
+import { NumberNode, SymbolNode, SyntaxTreeNode } from '../../../../types/nodes.types';
 import { convertOperatorChainToList } from '../../../../utils/symbolic-utils';
 import {
     compareMonomials,

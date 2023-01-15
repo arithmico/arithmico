@@ -1,59 +1,27 @@
-import { GlobalDocumentationItem } from './types/Plugin';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { parse } from '@arithmico/parser';
-import evaluateNode from './eval';
-import serialize from './serialize';
-import { Context, Profile } from './types';
-import { insertStackObject } from './utils/context-utils';
+import { PluginStructure } from './types/plugin.types';
+import { Context, EvaluationResult, Profile } from './types';
 import load from './load';
-import loadPluginStructures from './load/load-plugin-structure';
 import { createProfile } from './utils/profile-utils';
-import analysisPlugin from './plugins/core/analysis/analysis';
-import numericsPlugin from './plugins/core/numerics/numerics';
-import algebraPlugin from './plugins/core/algebra/algebra';
-import statisticsPlugin from './plugins/core/statistics/statistics';
-import discreteMathPlugin from './plugins/core/discrete-math/discrete-math';
-import physicsPlugin from './plugins/core/physics/physics';
-import computerSciencePlugin from './plugins/core/computer-science/computer-science';
+import defaultPlugins from './plugins';
+import evaluationPipeline from './pipeline';
 
 export { serializeStack } from './utils/context-utils';
 
-const plugins = [
-    analysisPlugin,
-    numericsPlugin,
-    algebraPlugin,
-    statisticsPlugin,
-    discreteMathPlugin,
-    physicsPlugin,
-    computerSciencePlugin,
-];
-
 let defaultContext: Context;
-let loadingLog: string[] = [];
-let documentation: GlobalDocumentationItem[];
+let documentation: PluginStructure[];
 
 export function init(profile: Profile = createProfile()) {
-    const loadingResult = load(plugins, profile);
-    defaultContext = loadingResult[0];
-    documentation = loadingResult[1];
-    loadingLog = loadingResult[2];
-}
-
-export function getPluginStructures() {
-    return loadPluginStructures(plugins);
-}
-
-export function isInitialized() {
-    return !!defaultContext;
+    const loadingResult = load(defaultPlugins, profile);
+    defaultContext = loadingResult.context;
+    documentation = loadingResult.documentation;
 }
 
 export function getDocumentation() {
-    return documentation;
-}
+    if (!documentation) {
+        init();
+    }
 
-export function getLoadingLog() {
-    return loadingLog;
+    return documentation;
 }
 
 export function getDefaultContext() {
@@ -64,42 +32,10 @@ export function getDefaultContext() {
     return defaultContext;
 }
 
-export interface EvaluateResult {
-    result: string;
-    context: Context;
-}
-
-export default function evaluate(input: string, context: Context = defaultContext): EvaluateResult {
+export default function evaluate(input: string, context?: Context): EvaluationResult {
     if (!context) {
-        if (!defaultContext) {
-            throw 'InitializationError: NumberCruncher was not initialized';
-        }
-        context = defaultContext;
+        context = getDefaultContext();
     }
 
-    let nodeTree;
-
-    try {
-        nodeTree = parse(input, {
-            language: context.options.decimalSeparator === ',' ? 'de' : 'en',
-        });
-    } catch (syntaxError) {
-        throw syntaxError.message;
-    }
-
-    const result = evaluateNode(nodeTree, context);
-    const resultString = serialize(result, context.options);
-
-    if (result.type === 'define') {
-        const value = result.value;
-        return {
-            result: resultString,
-            context: insertStackObject(result.name, value, context),
-        };
-    }
-
-    return {
-        result: resultString,
-        context,
-    };
+    return evaluationPipeline({ input, context });
 }

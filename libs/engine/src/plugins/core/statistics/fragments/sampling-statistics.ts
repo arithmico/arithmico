@@ -1,13 +1,13 @@
-import {FunctionHeaderItem, NumberNode, SyntaxTreeNode, Vector} from '../../../../types/SyntaxTreeNodes';
-import createNumberNode from '../../../../create/create-number-node';
-import {calculateAvg} from '../utils/avg';
-import {calculateBiasedSampleVariance, calculateUnbiasedSampleVariance} from '../utils/var';
-import {calculateBiasedStandartDeviation, calculateUnbiasedStandardDeviation} from '../utils/sd';
-import {calculateQuantile} from '../utils/quantile';
-import {isEveryElementNumber} from '../../../../utils/tensor-utils';
-import {calculateCovariance} from '../utils/covariance';
-import {calculateCorrelationCoefficient} from '../utils/corr';
-import {PluginFragment} from '../../../../utils/plugin-builder';
+import { FunctionHeaderItem, NumberNode, SyntaxTreeNode, Vector } from '../../../../types/nodes.types';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import { calculateAvg } from '../utils/avg';
+import { calculateBiasedSampleVariance, calculateUnbiasedSampleVariance } from '../utils/var';
+import { calculateBiasedStandartDeviation, calculateUnbiasedStandardDeviation } from '../utils/sd';
+import { calculateQuantile } from '../utils/quantile';
+import { isEveryElementNumber } from '../../../../utils/tensor-utils';
+import { calculateCovariance } from '../utils/covariance';
+import { calculateCorrelationCoefficient } from '../utils/corr';
+import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const numberSeriesHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true, repeat: true }];
 const quantileHeader: FunctionHeaderItem[] = [

@@ -1,5 +1,5 @@
-import createNumberNode from '../../../../create/create-number-node';
-import createVector from '../../../../create/create-vector';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import createVector from '../../../../node-operations/create-node/create-vector';
 import { FunctionHeaderItem, Vector } from '../../../../types';
 import { getTensorDimensions, getTensorRank } from '../../../../utils/tensor-utils';
 import { PluginFragment } from '../../../../utils/plugin-builder';

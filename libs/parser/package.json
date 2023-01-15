@@ -2,6 +2,7 @@
   "name": "@arithmico/parser",
   "type": "module",
   "main": "lib/main.js",
+  "types": "./index.d.ts",
   "scripts": {
     "install": "npm run build",
     "build": "node build.js",

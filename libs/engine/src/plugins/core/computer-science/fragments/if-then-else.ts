@@ -1,6 +1,6 @@
-import evaluate from '../../../../eval';
+import evaluate from '../../../../node-operations/evaluate-node';
 import { BooleanNode, SyntaxTreeNode } from '../../../../types';
-import { FunctionHeaderItem } from '../../../../types/SyntaxTreeNodes';
+import { FunctionHeaderItem } from '../../../../types/nodes.types';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 
 const iteHeader: FunctionHeaderItem[] = [

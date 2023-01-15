@@ -326,7 +326,62 @@ StringCharacter = [^\'\"\\] / "\\\\"
 // |             Latex Expressions                                               |
 // ===============================================================================
 
-LatexExpression = LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexSqrt / LatexSqrtWithDegree
+LatexExpression = LatexArccos / LatexArcsin / LatexArctan / LatexCos / LatexCosh / LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexPi / LatexSin / LatexSinh / LatexSqrt / LatexSqrtWithDegree / LatexTan / LatexTanh
+
+LatexArccos = "\\arccos" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "acos"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexArcsin = "\\arcsin" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "asin"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexArctan = "\\arctan" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "atan"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexCos = "\\cos" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "cos"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexCosh = "\\cosh" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "cosh"
+        },
+        parameters: [expr]
+    }
+}
 
 LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}" {
     return {
@@ -369,6 +424,35 @@ LatexLogWithBase = "\\log" _ "_{" _ base:Expression _ "}" _ "(" _ expr:Expressio
     }
 }
 
+LatexPi = "\\pi" {
+    return {
+        type: "symbol",
+        name: "pi"
+    }
+}
+
+LatexSin = "\\sin" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "sin"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexSinh = "\\sinh" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "sinh"
+        },
+        parameters: [expr]
+    }
+}
+
 LatexSqrt = "\\sqrt" _ "{" _ expr:Expression _ "}" {
     return {
         type: "functionCall",
@@ -388,6 +472,28 @@ LatexSqrtWithDegree = "\\sqrt" _ "[" _ degree:Expression _ "]" _ "{" _ expr:Expr
             name: "root"
         },
         parameters: [expr, degree]
+    }
+}
+
+LatexTan = "\\tan" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "tan"
+        },
+        parameters: [expr]
+    }
+}
+
+LatexTanh = "\\tanh" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "tanh"
+        },
+        parameters: [expr]
     }
 }
 

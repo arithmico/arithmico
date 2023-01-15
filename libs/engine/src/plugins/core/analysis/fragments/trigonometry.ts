@@ -1,7 +1,7 @@
-import { Options } from '../../../../types/Context';
-import { FunctionHeaderItem, NumberNode } from '../../../../types/SyntaxTreeNodes';
+import { Options } from '../../../../types/context.types';
+import { FunctionHeaderItem, NumberNode } from '../../../../types/nodes.types';
 import { SyntaxTreeNode } from '../../../../types';
-import createNumberNode from '../../../../create/create-number-node';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
 import { closeTo } from '../../../../utils/float-utils';
 import { PluginFragment } from '../../../../utils/plugin-builder';
 

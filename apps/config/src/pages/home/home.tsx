@@ -1,44 +1,43 @@
-import Page from "../../components/page/page";
 import DefaultSettings from "../../components/default-settings/default-settings";
 import PluginsConfig from "../../components/plugins-config/plugins-config";
-import styled from "styled-components";
 import useDownloadProfile from "../../hooks/use-download-profile";
-
-const Button = styled.button`
-  position: relative;
-  display: flex;
-  align-items: center;
-  background-color: var(--me-background-300);
-  outline: none;
-  border: none;
-  border-radius: 0.25rem;
-  font-size: 2rem;
-  color: var(--me-text-400);
-  justify-content: center;
-  padding: 1rem 2rem;
-  font-weight: var(--me-font-weight-normal);
-  margin: 2rem 0;
-
-  &:hover {
-    background-color: var(--me-background-400);
-  }
-`;
-
-const ToolbarContainer = styled.div`
-  display: flex;
-  justify-content: end;
-`;
+import classNames from "classnames";
+import PageContainer from "../../components/page-container/page-container";
+import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
 
 export default function Home() {
   const download = useDownloadProfile();
 
   return (
-    <Page>
-      <DefaultSettings />
-      <PluginsConfig />
-      <ToolbarContainer>
-        <Button onClick={download}>Download Profile</Button>
-      </ToolbarContainer>
-    </Page>
+    <WithScrollbars>
+      <PageContainer className={classNames("flex", "flex-col")}>
+        <DefaultSettings />
+        <PluginsConfig />
+        <div className={classNames("flex", "justify-end")}>
+          <button
+            className={classNames(
+              "relative",
+              "flex",
+              "items-center",
+              "outline-none",
+              "border-none",
+              "rounded",
+              "text-lg",
+              "justify-center",
+              "py-2",
+              "px-4",
+              "my-8",
+              "bold-font:font-bold",
+              "bg-neutral-300",
+              "text-black",
+              "hover:bg-neutral-200"
+            )}
+            onClick={download}
+          >
+            Download Profile
+          </button>
+        </div>
+      </PageContainer>
+    </WithScrollbars>
   );
 }

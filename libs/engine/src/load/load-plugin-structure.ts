@@ -1,36 +1,58 @@
-import { Plugin } from '../types';
+import { Plugin, PluginStructure, PluginStructureItem, Profile } from '../types';
+import { createOptions } from '../utils/context-utils';
 
-interface PluginItemStructure {
-    name: string;
-    synopsis: string;
-    description: {
-        [key: string]: string;
+type Element<ArrayType extends readonly unknown[]> = ArrayType extends readonly (infer ElementType)[]
+    ? ElementType
+    : never;
+
+function loadPluginStructureItem(
+    item: Element<Plugin['functions']> | Element<Plugin['constants']> | Element<Plugin['methods']>,
+    profile: Profile,
+): Omit<PluginStructureItem, 'type'> {
+    return {
+        name: item.name,
+        enabled:
+            (profile.loadingMode === 'whitelist' && profile.loadingList.includes(item.name)) ||
+            (profile.loadingMode === 'blacklist' && !profile.loadingList.includes(item.name)),
+        synopsis: {
+            en: item.documentation.en.synopsis,
+            de: item.documentation.de.synopsis,
+        },
+        description: {
+            en: item.documentation.en.description,
+            de: item.documentation.de.description,
+        },
     };
 }
 
-export interface PluginStructure {
-    name: string;
-    items: PluginItemStructure[];
+function loadPluginStructure(plugin: Plugin, profile: Profile): PluginStructure {
+    const constants: PluginStructureItem[] = plugin.constants.map((constant) => ({
+        type: 'constant',
+        ...loadPluginStructureItem(constant, profile),
+    }));
+
+    const functions: PluginStructureItem[] = plugin.functions.map((pluginFunction) => ({
+        type: 'function',
+        ...loadPluginStructureItem(pluginFunction, profile),
+    }));
+
+    const methods: PluginStructureItem[] = plugin.methods.map((method) => ({
+        type: 'method',
+        ...loadPluginStructureItem(method, profile),
+    }));
+
+    return {
+        name: plugin.name,
+        items: [...constants, ...functions, ...methods],
+    };
 }
 
-export default function loadPluginStructures(plugins: Plugin[]): PluginStructure[] {
-    return plugins.map((plugin) => ({
-        name: plugin.name,
-        items: [
-            ...plugin.constants.map((pluginConstant) => ({
-                name: pluginConstant.name,
-                synopsis: pluginConstant.documentation.en.synopsis,
-                description: {
-                    en: pluginConstant.documentation.en.description,
-                },
-            })),
-            ...plugin.functions.map((pluginFunction) => ({
-                name: pluginFunction.name,
-                synopsis: pluginFunction.documentation.en.synopsis,
-                description: {
-                    en: pluginFunction.documentation.en.description,
-                },
-            })),
-        ],
-    }));
+const allowAllProfile: Profile = {
+    loadingMode: 'blacklist',
+    loadingList: [],
+    options: createOptions(),
+};
+
+export default function loadPluginStructures(plugins: Plugin[], profile: Profile = allowAllProfile): PluginStructure[] {
+    return plugins.map((plugin) => loadPluginStructure(plugin, profile));
 }

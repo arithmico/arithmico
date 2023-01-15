@@ -1,11 +1,11 @@
-import { SyntaxTreeNode } from '../../../../types/SyntaxTreeNodes';
-import createNumberNode from '../../../../create/create-number-node';
-import createTimes from '../../../../create/create-times';
-import createSymbolNode from '../../../../create/create-symbol-node';
-import createPower from '../../../../create/create-power';
-import createNegate from '../../../../create/create-negate';
-import createMinus from '../../../../create/create-minus';
-import createPlus from '../../../../create/create-plus';
+import { SyntaxTreeNode } from '../../../../types/nodes.types';
+import createNumberNode from '../../../../node-operations/create-node/create-number-node';
+import createTimes from '../../../../node-operations/create-node/create-times';
+import createSymbolNode from '../../../../node-operations/create-node/create-symbol-node';
+import createPower from '../../../../node-operations/create-node/create-power';
+import createNegate from '../../../../node-operations/create-node/create-negate';
+import createMinus from '../../../../node-operations/create-node/create-minus';
+import createPlus from '../../../../node-operations/create-node/create-plus';
 
 export type Polynomial = Monomial[];
 

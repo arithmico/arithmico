@@ -1,4 +1,4 @@
-import evaluate from '../../../../eval';
+import evaluate from '../../../../node-operations/evaluate-node';
 import { Context, NumberNode, SyntaxTreeNode } from '../../../../types';
 
 const positionWheightPairs = [
