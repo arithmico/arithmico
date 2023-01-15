@@ -62,7 +62,7 @@ export default function About() {
           <DT>{packageJson.license}</DT>
           <DD>{t("about.sourceCode")}</DD>
           <DT>
-            <a href={packageJson.homepage}>{packageJson.bugs.url}</a>
+            <a href={packageJson.homepage}>{packageJson.homepage}</a>
           </DT>
           <DD>{t("about.website")}</DD>
           <DT>
@@ -70,7 +70,7 @@ export default function About() {
           </DT>
           <DD>{t("about.contact")}</DD>
           <DT>
-            <a href="mailto:dev.behrenle@posteo.de">team@arithmico.com</a>
+            <a href="mailto:dev.behrenle@posteo.de">dev.behrenle@posteo.de</a>
           </DT>
         </dl>
 
