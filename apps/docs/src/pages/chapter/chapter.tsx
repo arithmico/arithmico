@@ -3,12 +3,15 @@ import Markdown from "../../components/markdown/markdown";
 import { Link } from "react-router-dom";
 import PageContainer from "../../components/page-container/page-container";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
+import Nav from "../../components/nav/nav";
+import chaptersDe from "../../chapters/index";
 
 interface chapterProps {
   contentUrl: string;
   title: string;
   nextChapter?: number;
   previousChapter?: number;
+  children: React.ReactNode;
 }
 
 export default function Chapter({
@@ -16,6 +19,7 @@ export default function Chapter({
   title,
   nextChapter,
   previousChapter,
+  children,
 }: chapterProps) {
   const [content, setContent] = useState("");
 

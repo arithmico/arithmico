@@ -102,7 +102,7 @@ function NavbarNavigationItem({ to, children }: NavbarNavigationItemProps) {
 export default function Navbar() {
   return (
     <NavbarContainer>
-      <NavbarTitle title="Arithmico" subtitle="Config" />
+      <NavbarTitle title="Arithmico" subtitle="Docs" />
       <NavbarNavigation>
         <NavbarNavigationItem to="/">{"Home"}</NavbarNavigationItem>
         <NavbarNavigationItem to="/imprint">{"Imprint"}</NavbarNavigationItem>
