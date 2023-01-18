@@ -76,5 +76,8 @@
   "hotkeys.resetOutput": "Reset output field",
   "hotkeys.resetDefinitions": "Reset input field",
   "hotkeys.resetAll": "Reset all",
-  "hotkeys.copyInputAndOutput": "Copy current input and output"
+  "hotkeys.copyInputAndOutput": "Copy current input and output",
+
+  "new-version-available.title": "New version available",
+  "new-version-available.text": "Arithmico v{{version}} is available. You can download the offline version <1>here</1>."
 }
