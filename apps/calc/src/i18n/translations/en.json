@@ -79,5 +79,6 @@
   "hotkeys.copyInputAndOutput": "Copy current input and output",
 
   "new-version-available.title": "New version available",
-  "new-version-available.text": "Arithmico v{{version}} is available. You can download the offline version <1>here</1>."
+  "new-version-available.text": "Arithmico v{{version}} is available. You can download the offline version <1>here</1>.",
+  "new-version-available.back": "Back"
 }

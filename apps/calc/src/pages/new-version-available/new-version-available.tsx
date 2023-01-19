@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import PageContainer from "../../components/page-container/page-container";
 
 export default function NewVersionAvailable() {
@@ -16,7 +17,7 @@ export default function NewVersionAvailable() {
   }, [setLatestVersion]);
 
   return (
-    <PageContainer>
+    <PageContainer className={classNames("flex, flex-col")}>
       <h1 className={classNames("text-3xl", "font-medium", "mb-4")}>
         {t("new-version-available.title")}
       </h1>
@@ -33,6 +34,11 @@ export default function NewVersionAvailable() {
           </a>
         </Trans>
       </p>
+      <div className={classNames("mt-4")}>
+        <Link className={classNames("border", "px-4", "py-2")} to="/">
+          {t("new-version-available.back")}
+        </Link>
+      </div>
     </PageContainer>
   );
 }
