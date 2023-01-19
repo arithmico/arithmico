@@ -76,5 +76,9 @@
   "hotkeys.resetOutput": "Ausgabefeld löschen",
   "hotkeys.resetDefinitions": "Definitionen löschen",
   "hotkeys.resetAll": "Alles löschen",
-  "hotkeys.copyInputAndOutput": "Eingabe und Ausgabe kopieren"
+  "hotkeys.copyInputAndOutput": "Eingabe und Ausgabe kopieren",
+
+  "new-version-available.title": "Neue Version verfügbar",
+  "new-version-available.text": "Arithmico v{{version}} ist jetzt verfügbar. Sie können die Offline-Version <1>hier</1> herunterladen.",
+  "new-version-available.back": "Zurück"
 }
