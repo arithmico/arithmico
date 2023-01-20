@@ -79,6 +79,12 @@ integrationTest('\\arctan(1)', '45');
 integrationTest('\\cosh(5) ', '74.209949');
 integrationTest('\\sinh(5) ', '74.203211');
 integrationTest('\\tanh(5) ', '0.999909');
+integrationTest('2²', '4');
+integrationTest('2^{2}', '4');
+integrationTest('2^{2+2}', '16');
+integrationTest('2^{2+2}+2', '18');
+integrationTest('(2+1)^{2}', '9');
+integrationTest('(2+1)^{2+2}', '81');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');

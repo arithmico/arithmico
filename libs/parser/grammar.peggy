@@ -326,7 +326,7 @@ StringCharacter = [^\'\"\\] / "\\\\"
 // |             Latex Expressions                                               |
 // ===============================================================================
 
-LatexExpression = LatexArccos / LatexArcsin / LatexArctan / LatexCos / LatexCosh / LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexPi / LatexSin / LatexSinh / LatexSqrt / LatexSqrtWithDegree / LatexTan / LatexTanh
+LatexExpression = LatexArccos / LatexArcsin / LatexArctan / LatexCos / LatexCosh / LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexPi / LatexPower / LatexSin / LatexSinh / LatexSqrt / LatexSqrtWithDegree / LatexTan / LatexTanh
 
 LatexArccos = "\\arccos" _ "(" _ expr:Expression _ ")" {
     return {
@@ -428,6 +428,14 @@ LatexPi = "\\pi" {
     return {
         type: "symbol",
         name: "pi"
+    }
+}
+
+LatexPower = left:Expression "^{" _ right:Expression _ "}" {
+    return {
+        type: "power",
+        left,
+        right
     }
 }
 
