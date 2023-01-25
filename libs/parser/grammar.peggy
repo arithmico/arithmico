@@ -326,7 +326,7 @@ StringCharacter = [^\'\"\\] / "\\\\"
 // |             Latex Expressions                                               |
 // ===============================================================================
 
-LatexExpression = LatexArccos / LatexArcsin / LatexArctan / LatexCos / LatexCosh / LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexPi / LatexSin / LatexSinh / LatexSqrt / LatexSqrtWithDegree / LatexTan / LatexTanh
+LatexExpression = LatexArccos / LatexArcsin / LatexArctan / LatexCos / LatexCosh / LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexPi / LatexSin / LatexSinh / LatexSqrt / LatexSqrtWithDegree / LatexTan / LatexTanh / LatexSubExpression
 
 LatexArccos = "\\arccos" _ "(" _ expr:Expression _ ")" {
     return {
@@ -496,6 +496,11 @@ LatexTanh = "\\tanh" _ "(" _ expr:Expression _ ")" {
         parameters: [expr]
     }
 }
+
+LatexSubExpression = "{" _ expr:Expression _ "}" {
+    return expr;
+}
+
 
 
 // ===============================================================================
