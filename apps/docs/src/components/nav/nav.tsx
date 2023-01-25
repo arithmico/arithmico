@@ -8,13 +8,13 @@ interface NavProps {
 
 export default function Nav({ chapters }: NavProps) {
   return (
-    <nav className="mt-6">
+    <nav className="">
       <ul className="m-0 p-0">
         {chapters.map((chapter, index) => (
-          <li key={index} className="flex m-0 p-0">
+          <li key={index} className="m-0 flex p-0">
             <Link
               to={`/chapters/${index}`}
-              className="text-black py-2 px-4 flex-1 hover:hover:bg-black/20"
+              className="flex-1 py-2 px-4 text-black hover:hover:bg-black/20"
             >
               {chapter.title}
             </Link>

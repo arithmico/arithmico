@@ -1,5 +1,5 @@
-import evaluate, { init, isInitialized } from '..';
-import { Context, Options } from '../types';
+import evaluate from '..';
+import { Context, Options, TextResult } from '../types';
 import { createContext, createOptions } from './context-utils';
 
 let lastId = 0;
@@ -11,21 +11,13 @@ export function createTestContext(stack: Context['stack'], options: Options = te
 }
 
 export function integrationTest(input: string, expectedOutput: string, context?: Context) {
-    if (!isInitialized()) {
-        init();
-    }
-
     test(`integration test #${++lastId}: ${input}`, () => {
-        expect(evaluate(input, context).result).toBe(expectedOutput);
+        expect((<TextResult>evaluate(input, context)).text).toBe(expectedOutput);
     });
 }
 
 export function integrationTestThrow(input: string, context?: Context) {
-    if (!isInitialized()) {
-        init();
-    }
-
     test(`integration test (throw) #${++lastId}: ${input}`, () => {
-        expect(() => evaluate(input, context)).toThrow();
+        expect(evaluate(input, context).type).toStrictEqual('error');
     });
 }

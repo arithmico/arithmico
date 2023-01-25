@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import i18n from "./i18n/index";
-import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
-import GlobalStyle from "@components/global-styles/global-styles";
 import AppRoutes from "@local-components/app-routes/app-routes";
-import AppHeaderNavBar from "@local-components/app-header-nav-bar/app-header-nav-bar";
 import { CalculatorRootState } from "@stores/calculator-store";
+import Navbar from "./components/navbar/navbar";
+import classNames from "classnames";
 
 const Router = import.meta.env.VITE_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
@@ -25,19 +24,47 @@ function App() {
   );
 
   useEffect(() => {
+    (
+      document.getElementById("root") as HTMLElement
+    ).className = `theme-${theme}`;
+  }, [theme]);
+
+  useEffect(() => {
+    if (fontSize === "small") {
+      document.documentElement.style.fontSize = "10px";
+    } else if (fontSize === "medium") {
+      document.documentElement.style.fontSize = "16px";
+    } else if (fontSize === "large") {
+      document.documentElement.style.fontSize = "20px";
+    }
+  }, [fontSize]);
+
+  useEffect(() => {
     if (language && i18n.language !== language) {
       i18n.changeLanguage(language);
     }
   }, [language]);
 
   return (
-    <ThemeProvider theme={{ type: theme }}>
-      <GlobalStyle fontSize={fontSize} boldFont={boldFont} />
+    <div
+      className={classNames(
+        { "bold-font": boldFont },
+        "theme-dark:bg-neutral-900",
+        "theme-dark:text-white",
+        "theme-light:bg-white",
+        "theme-light:text-black",
+        "absolute",
+        "inset-0",
+        "grid",
+        "lg:grid-rows-[5rem_1fr]",
+        "grid-rows-[3rem_1fr]"
+      )}
+    >
       <Router>
-        <AppHeaderNavBar />
+        <Navbar />
         <AppRoutes />
       </Router>
-    </ThemeProvider>
+    </div>
   );
 }
 

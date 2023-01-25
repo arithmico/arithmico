@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Markdown from "../../components/markdown/markdown";
-import Page from "../../components/page/page";
 import { Link } from "react-router-dom";
 
 interface chapterProps {
@@ -26,15 +25,17 @@ export default function Chapter({
       .then((text) => setContent(text));
   }, [contentUrl]);
 
+  console.log(content);
+
   return (
-    <Page>
+    <div className="w-fullborder-2 h-full max-h-full pr-[25%]">
       <h1>{title}</h1>
       <Markdown content={content} />
-      <div className="flex my-8 mx-0">
+      <div className="my-8 mx-0 flex">
         {Number.isFinite(previousChapter) && (
           <Link
             to={`/chapters/${previousChapter}`}
-            className="text-black bg-black/20 py-2 px-4 rounded hover:bg-black/30"
+            className="rounded bg-black/20 py-2 px-4 text-black hover:bg-black/30"
           >
             Vorheriges Kapitel
           </Link>
@@ -42,12 +43,12 @@ export default function Chapter({
         {Number.isFinite(nextChapter) && (
           <Link
             to={`/chapters/${nextChapter}`}
-            className="text-black bg-black/20 py-2 px-4 rounded ml-auto hover:bg-black/30"
+            className="ml-auto rounded bg-black/20 py-2 px-4 text-black hover:bg-black/30"
           >
             Nächstes Kapitel
           </Link>
         )}
       </div>
-    </Page>
+    </div>
   );
 }
