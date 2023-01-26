@@ -48,4 +48,4 @@ npm run build:engine
   ```
 
 4. Serve the files under `<project-root>/apps/<app-name>/dist/*` on a web server
-5. For local testing you can use `npn run start:calc` or create the offline-version with `npm run build:offline -w apps/calc/`
+5. For local testing you can use `npm run start:calc` or create the offline-version with `npm run build:offline -w apps/calc/`
