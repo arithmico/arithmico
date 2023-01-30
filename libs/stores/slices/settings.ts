@@ -16,7 +16,7 @@ export const initialState = defaultProfile.settings;
 
 export const themes = ["light", "dark"];
 export const fontSizes = ["small", "medium", "large"];
-export const languages = ["de", "en"];
+export const languages = ["de", "en", "it"];
 export const numberFormats = ["de", "en", "default"];
 
 const settingsSlice = createSlice({
