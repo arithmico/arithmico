@@ -1,5 +1,5 @@
 # Arithmico Project
-This repository contains the source code of for the Arithmico Engine and the following web applications
+This repository contains the source code for the Arithmico Engine and the following web applications
 - Arithmico Calc
 - Arithmico Docs
 - Arithmico Config
