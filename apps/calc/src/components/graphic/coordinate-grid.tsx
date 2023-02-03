@@ -64,7 +64,15 @@ function GridRow({ start, stop, xTicks, y, limits }: GridRowProps) {
   return (
     <>
       {points.map(([x, y]) => (
-        <circle cx={x} cy={y} r={0.5} className={classNames("fill-white")} />
+        <circle
+          cx={x}
+          cy={y}
+          r={0.5}
+          className={classNames(
+            "theme-dark:fill-white",
+            "theme-light:fill-black"
+          )}
+        />
       ))}
       ;
     </>

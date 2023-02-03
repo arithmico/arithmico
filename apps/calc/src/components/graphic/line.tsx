@@ -18,7 +18,12 @@ export default function Line({ points, limits }: LineProps) {
   return (
     <path
       d={pathString}
-      className={classNames("stroke-1", "stroke-white", "fill-none")}
+      className={classNames(
+        "stroke-1",
+        "fill-none",
+        "theme-dark:stroke-white",
+        "theme-light:stroke-black"
+      )}
     />
   );
 }

@@ -24,9 +24,19 @@ export default function YAxis({ limits, yTicks }: YAxisProps) {
         y1={startPoint[1]}
         x2={endPoint[0]}
         y2={endPoint[1]}
-        className={classNames("stroke-white", "stroke-1")}
+        className={classNames(
+          "stroke-1",
+          "theme-light:stroke-black",
+          "theme-dark:stroke-white"
+        )}
       />
-      <polygon points={arrowPoints} className={classNames("fill-white")} />
+      <polygon
+        points={arrowPoints}
+        className={classNames(
+          "theme-light:fill-black",
+          "theme-dark:fill-white"
+        )}
+      />
     </>
   );
 }
