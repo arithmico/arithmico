@@ -1,13 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import PageContainer from "@local-components/page-container/page-container";
-import ProtocolMathItem from "@local-components/protocol-math-item/protocol-math-item";
 import { useSelector } from "react-redux";
 import { CalculatorRootState } from "@stores/calculator-store";
-import ProtocolInfoItem from "@local-components/protocol-info-item/info-protocol-item";
-import ProtocolErrorItem from "@local-components/protocol-error-item/protocol-error-item";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
 import classNames from "classnames";
+import ProtocolListItem from "../../components/protocol-list-item/protocol-list-item";
 
 export default function Protocol() {
   const navigate = useNavigate();
@@ -16,6 +14,8 @@ export default function Protocol() {
   const protocolItems = useSelector(
     (state: CalculatorRootState) => state.session.protocol
   );
+
+  console.log(protocolItems);
 
   return (
     <PageContainer className={classNames("grid")}>
@@ -63,48 +63,15 @@ export default function Protocol() {
             className={classNames(
               "grid",
               "grid-cols-1",
-              "[&>li]:border-b",
-              "[&>li:last]:border-b-0",
-              "[&>li]:theme-dark:border-white/5",
-              "[&>li]:theme-light:border-black/10",
               "2xl:max-w-[60vw]",
               "lg:max-w-[calc(100vw-6rem)]",
               "max-w-[calc(100vw-2rem)]",
-              "[&>li]:grid",
-              "[&>li]:gap-4",
-              "[&>li]:p-4",
-              "[&>li]:break-words",
-              "[&>li]:break-all",
-              "[&>li]:grid-cols-[1fr_auto_1fr]",
               "text-2xl"
             )}
           >
-            {protocolItems.map((item, index) => {
-              switch (item.type) {
-                case "math":
-                  return (
-                    <ProtocolMathItem
-                      input={item.input}
-                      output={item.output}
-                      key={index}
-                    />
-                  );
-
-                case "info":
-                  return <ProtocolInfoItem message={item.info} key={index} />;
-
-                case "error":
-                  return (
-                    <ProtocolErrorItem
-                      input={item.input}
-                      output={item.error}
-                      key={index}
-                    />
-                  );
-                default:
-                  return null;
-              }
-            })}
+            {protocolItems.map((item) => (
+              <ProtocolListItem item={item} />
+            ))}
           </ul>
         </WithScrollbars>
       </div>

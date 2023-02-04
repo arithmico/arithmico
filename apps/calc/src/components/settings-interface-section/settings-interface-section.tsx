@@ -1,11 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import {
-  setCopySynopsisOnClick,
-  setExcludeInfoInProtocol,
-  setLanguage,
-} from "@stores/slices/settings";
+import { setCopySynopsisOnClick, setLanguage } from "@stores/slices/settings";
 import { CalculatorRootState } from "@stores/calculator-store";
 import Switch from "../switch/switch";
 import Listbox from "../listbox/listbox";
@@ -19,9 +15,6 @@ export default function SettingsInterfaceSection() {
   );
   const copySynopsisOnClick = useSelector(
     (state: CalculatorRootState) => state.settings.copySynopsisOnClick
-  );
-  const excludeInfoInProtocol = useSelector(
-    (state: CalculatorRootState) => state.settings.excludeInfoInProtocol
   );
 
   return (
@@ -41,13 +34,6 @@ export default function SettingsInterfaceSection() {
         enabled={copySynopsisOnClick}
         onChange={(copySynopsisOnClick: boolean) =>
           dispatch(setCopySynopsisOnClick(copySynopsisOnClick))
-        }
-      />
-      <Switch
-        label={t("settings.excludeInfoInProtocol")}
-        enabled={excludeInfoInProtocol}
-        onChange={(excludeInfoInProtocol) =>
-          dispatch(setExcludeInfoInProtocol(excludeInfoInProtocol))
         }
       />
     </SettingsSection>
