@@ -8,7 +8,6 @@ export interface SettingsState {
   theme: string;
   fontSize: string;
   boldFont: boolean;
-  excludeInfoInProtocol: boolean;
   copySynopsisOnClick: boolean;
 }
 
@@ -63,9 +62,6 @@ const settingsSlice = createSlice({
     setBoldFont: (state, action: PayloadAction<boolean>) => {
       state.boldFont = !!action.payload;
     },
-    setExcludeInfoInProtocol: (state, action: PayloadAction<boolean>) => {
-      state.excludeInfoInProtocol = !!action.payload;
-    },
     setCopySynopsisOnClick: (state, action: PayloadAction<boolean>) => {
       state.copySynopsisOnClick = !!action.payload;
     },
@@ -79,7 +75,6 @@ export const {
   setBoldFont,
   setCopySynopsisOnClick,
   setDecimalPlaces,
-  setExcludeInfoInProtocol,
   setFontSize,
   setNumberFormat,
   setTheme,
