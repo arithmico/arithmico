@@ -5,7 +5,6 @@ import {
   setBoldFont,
   setCopySynopsisOnClick,
   setDecimalPlaces,
-  setExcludeInfoInProtocol,
   setFontSize,
   setLanguage,
   setNumberFormat,
@@ -26,9 +25,6 @@ export default function DefaultSettings() {
   );
   const copySynopsisOnClick = useSelector(
     (state: ConfigRootState) => state.settings.copySynopsisOnClick
-  );
-  const excludeInfoInProtocol = useSelector(
-    (state: ConfigRootState) => state.settings.excludeInfoInProtocol
   );
   const theme = useSelector((state: ConfigRootState) => state.settings.theme);
   const fontSize = useSelector(
@@ -66,11 +62,6 @@ export default function DefaultSettings() {
         enabled={copySynopsisOnClick}
         label="Copy manual content by clicking"
         onChange={(v: boolean) => dispatch(setCopySynopsisOnClick(v))}
-      />
-      <Switch
-        enabled={excludeInfoInProtocol}
-        label="Exclude info in protocol"
-        onChange={(v: boolean) => dispatch(setExcludeInfoInProtocol(v))}
       />
 
       <Heading type={2}>Appearance</Heading>
