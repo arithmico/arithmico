@@ -2,6 +2,8 @@
   "common.input": "Input",
   "common.output": "Output",
   "common.back": "Back",
+  "common.expand": "Expand",
+  "common.collapse": "Collapse",
 
   "protocol": "Protocol",
 

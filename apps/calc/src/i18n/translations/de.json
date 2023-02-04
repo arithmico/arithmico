@@ -2,6 +2,8 @@
   "common.input": "Eingabe",
   "common.output": "Ausgabe",
   "common.back": "Zurück",
+  "common.expand": "Ausklappen",
+  "common.collapse": "Einklappen",
 
   "protocol": "Protokoll",
 
