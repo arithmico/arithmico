@@ -65,8 +65,6 @@
   "devDependencies": {
     "@arithmico/engine": "file:./libs/engine",
     "@arithmico/parser": "file:./libs/parser",
-    "@fontsource/roboto": "^4.5.8",
-    "@fontsource/source-code-pro": "^4.5.12",
     "@headlessui/react": "1.5",
     "@reduxjs/toolkit": "^1.9.1",
     "@swc/cli": "^0.1.61",
