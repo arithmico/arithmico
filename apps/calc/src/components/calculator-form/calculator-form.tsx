@@ -49,7 +49,7 @@ export default function CalculatorForm() {
   );
 
   useHotkeys(
-    "ctrl + alt + i",
+    "ctrl + i",
     () => {
       dispatch(resetInput());
       if (inputRef.current) {
@@ -60,8 +60,9 @@ export default function CalculatorForm() {
   );
 
   useHotkeys(
-    "ctrl + alt + o",
-    () => {
+    "ctrl + o",
+    (event) => {
+      event.preventDefault();
       dispatch(resetOutput());
     },
     { enableOnTags: ["INPUT"] }
