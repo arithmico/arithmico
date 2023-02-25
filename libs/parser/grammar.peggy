@@ -410,14 +410,14 @@ LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}
     }
 }
 
-LatexGcd = "\\gcd" _ "(" _ expr:Expression _ ")" {
+LatexGcd = "\\gcd" _ "(" _ left:Expression _ ItemSeparator _ right:Expression _ ")" {
     return {
         type: "functionCall",
         function: {
             type: "symbol",
             name: "gcd"
         },
-        parameters: [expr]
+        parameters: [left, right]
     }
 }
 
@@ -443,25 +443,25 @@ LatexLogN = "\\ln" _ "(" _ expr:Expression _ ")" {
     }
 }
 
-LatexMax = "\\max" _ "(" _ expr:Expression _ ")" {
+LatexMax = "\\max" _ "(" _ expr:List _ ")" {
     return {
         type: "functionCall",
         function: {
             type: "symbol",
             name: "max"
         },
-        parameters: [expr]
+        parameters: expr
     }
 }
 
-LatexMin = "\\min" _ "(" _ expr:Expression _ ")" {
+LatexMin = "\\min" _ "(" _ expr:List _ ")" {
     return {
         type: "functionCall",
         function: {
             type: "symbol",
             name: "min"
         },
-        parameters: [expr]
+        parameters: expr
     }
 }
 
