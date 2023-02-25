@@ -10,7 +10,7 @@
         "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
         "pretty": "prettier 'src/**/*' --check",
         "prebuild": "node -e \"fs.rm('lib', { recursive: true, force: true, force: true }, () => {});\"",
-        "build": "npm run prebuild && npm run build:types && npm run build:js",
+        "build": "npm run build:types && npm run build:js",
         "build:types": "tsc --emitDeclarationOnly",
         "build:js": "swc ./src -d lib"
     }
