@@ -443,25 +443,25 @@ LatexLogN = "\\ln" _ "(" _ expr:Expression _ ")" {
     }
 }
 
-LatexMax = "\\max" _ "(" _ expr:List _ ")" {
+LatexMax = "\\max" _ "(" _ parameters:List _ ")" {
     return {
         type: "functionCall",
         function: {
             type: "symbol",
             name: "max"
         },
-        parameters: expr
+        parameters: parameters
     }
 }
 
-LatexMin = "\\min" _ "(" _ expr:List _ ")" {
+LatexMin = "\\min" _ "(" _ parameters:List _ ")" {
     return {
         type: "functionCall",
         function: {
             type: "symbol",
             name: "min"
         },
-        parameters: expr
+        parameters: parameters
     }
 }
 
