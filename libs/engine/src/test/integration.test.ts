@@ -1,7 +1,7 @@
-import { getDefaultContext } from '..';
+import {getDefaultContext} from '..';
 import createNumberNode from '../node-operations/create-node/create-number-node';
-import { createOptions } from '../utils/context-utils';
-import { createTestContext, integrationTest, integrationTestThrow } from '../utils/integration-test-utils';
+import {createOptions} from '../utils/context-utils';
+import {createTestContext, integrationTest, integrationTestThrow} from '../utils/integration-test-utils';
 
 const defaultStack = getDefaultContext().stack;
 const germanTextContext = createTestContext(defaultStack, createOptions({ decimalSeparator: ',' }));
@@ -85,6 +85,9 @@ integrationTest('2^{2+2}', '16');
 integrationTest('2^{2+2}+2', '18');
 integrationTest('(2+1)^{2}', '9');
 integrationTest('(2+1)^{2+2}', '81');
+integrationTest('\\gcd(2, 12)', '2');
+integrationTest('\\max(1, 2, 3)', '3');
+integrationTest('\\min(1, 2, 3)', '1');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
