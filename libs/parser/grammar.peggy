@@ -326,7 +326,26 @@ StringCharacter = [^\'\"\\] / "\\\\"
 // |             Latex Expressions                                               |
 // ===============================================================================
 
-LatexExpression = LatexArccos / LatexArcsin / LatexArctan / LatexCos / LatexCosh / LatexFrac / LatexLog / LatexLogN / LatexLogWithBase / LatexPi / LatexSin / LatexSinh / LatexSqrt / LatexSqrtWithDegree / LatexTan / LatexTanh / LatexSubExpression
+LatexExpression = LatexArccos
+/ LatexArcsin
+/ LatexArctan
+/ LatexCos
+/ LatexCosh
+/ LatexFrac
+/ LatexGcd
+/ LatexLog
+/ LatexLogN
+/ LatexLogWithBase
+/ LatexMax
+/ LatexMin
+/ LatexPi
+/ LatexSin
+/ LatexSinh
+/ LatexSqrt
+/ LatexSqrtWithDegree
+/ LatexTan
+/ LatexTanh
+/ LatexSubExpression
 
 LatexArccos = "\\arccos" _ "(" _ expr:Expression _ ")" {
     return {
@@ -391,6 +410,17 @@ LatexFrac = "\\frac" _ "{" _ left:Expression _ "}" _ "{" _ right:Expression _ "}
     }
 }
 
+LatexGcd = "\\gcd" _ "(" _ left:Expression _ ItemSeparator _ right:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "gcd"
+        },
+        parameters: [left, right]
+    }
+}
+
 LatexLog = "\\log" _ "(" _ expr:Expression _ ")" {
     return {
         type: "functionCall",
@@ -410,6 +440,28 @@ LatexLogN = "\\ln" _ "(" _ expr:Expression _ ")" {
             name: "ln"
         },
         parameters: [expr]
+    }
+}
+
+LatexMax = "\\max" _ "(" _ parameters:List _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "max"
+        },
+        parameters: parameters
+    }
+}
+
+LatexMin = "\\min" _ "(" _ parameters:List _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "min"
+        },
+        parameters: parameters
     }
 }
 
