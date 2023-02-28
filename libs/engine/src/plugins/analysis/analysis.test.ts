@@ -40,6 +40,7 @@ integrationTestThrow('sqrt(-1)');
 integrationTest('root(8,3)', '2');
 integrationTestThrow('root(-1, 2)');
 integrationTestThrow('root(1, -2)');
+integrationTest('root(-27, 3)', '-3');
 
 // table
 integrationTest('table((x)->x^2,0,2,1)', '[[0, 0], [1, 1], [2, 4]]');

@@ -1,6 +1,7 @@
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
-import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
-import { PluginFragment } from '../../../utils/plugin-builder';
+import {FunctionHeaderItem, NumberNode} from '../../../types/nodes.types';
+import {PluginFragment} from '../../../utils/plugin-builder';
+import createNegate from '../../../node-operations/create-node/create-negate';
 
 const sqrtHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 const rootHeader: FunctionHeaderItem[] = [
@@ -32,6 +33,10 @@ const rootsFragment = new PluginFragment()
         ({ getParameter, runtimeError }) => {
             const x = (<NumberNode>getParameter('x')).value;
             const n = (<NumberNode>getParameter('n')).value;
+
+            if (n % 2 === 1 && x < 0) {
+                return createNegate(createNumberNode(Math.pow(-x, 1 / n)));
+            }
 
             if (x < 0) {
                 throw runtimeError('x must be greater than or equal to 0');
