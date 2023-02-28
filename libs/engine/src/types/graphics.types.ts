@@ -6,7 +6,12 @@ export type Line2D = {
     points: Point2D[];
 };
 
-export type Limits = [xMin: number, yMin: number, xMax: number, yMax: number];
+export type Limits = {
+    xMin: number;
+    yMin: number;
+    xMax: number;
+    yMax: number;
+};
 
 export interface Cartesian2DGraphic {
     type: 'graphic';
