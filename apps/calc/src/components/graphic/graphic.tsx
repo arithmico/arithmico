@@ -75,7 +75,7 @@ function getTicks(limits: Limits) {
 
 export function convertToViewPortCoordinates(
   [x, y]: [number, number],
-  [xMin, yMin, xMax, yMax]: Limits
+  { xMin, yMin, xMax, yMax }: Limits
 ): [number, number] {
   const vWidth = viewBoxWidth - 2 * viewBoxPadding;
   const vHeight = viewBoxHeight - 2 * viewBoxPadding;
@@ -109,16 +109,8 @@ export default function Graphic({ graphic }: GraphicProps) {
       <svg viewBox={viewBox} className={classNames("max-h-full")}>
         <CoordinateGrid
           limits={limits}
-          xTicks={
-            graphic.xTicks === "auto"
-              ? ticks.xTicks
-              : graphic.xTicks
-          }
-          yTicks={
-            graphic.yTicks === "auto"
-              ? ticks.yTicks
-              : graphic.yTicks
-          }
+          xTicks={graphic.xTicks === "auto" ? ticks.xTicks : graphic.xTicks}
+          yTicks={graphic.yTicks === "auto" ? ticks.yTicks : graphic.yTicks}
         />
         {graphic.lines.map(({ points }, index) => (
           <Line points={points} limits={limits} key={index} />

@@ -7,8 +7,8 @@ interface YAxisProps {
 }
 
 export default function YAxis({ limits, yTicks }: YAxisProps) {
-  const startPoint = convertToViewPortCoordinates([0, limits[1]], limits);
-  const endPoint = convertToViewPortCoordinates([0, limits[3]], limits);
+  const startPoint = convertToViewPortCoordinates([0, limits.yMin], limits);
+  const endPoint = convertToViewPortCoordinates([0, limits.yMax], limits);
   const arrowPoints = [
     [endPoint[0], endPoint[1] - 10],
     [endPoint[0] - 3, endPoint[1]],
