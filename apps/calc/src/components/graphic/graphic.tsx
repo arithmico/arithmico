@@ -2,13 +2,16 @@ import { GraphicNode, Limits } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import CoordinateGrid from "./coordinate-grid";
 import Line from "./line";
+import { useEffect, useRef, useState } from "react";
 
+/*
 const viewBoxPadding = 10;
 const viewBoxHeight = 210;
 const viewBoxWidth = 297;
 const viewBox = `${-viewBoxWidth / 2} ${
   -viewBoxHeight / 2
 } ${viewBoxWidth} ${viewBoxHeight}`;
+ */
 
 const tickSizes = [
   1 / 2,
@@ -75,7 +78,10 @@ function getTicks(limits: Limits) {
 
 export function convertToViewPortCoordinates(
   [x, y]: [number, number],
-  { xMin, yMin, xMax, yMax }: Limits
+  { xMin, yMin, xMax, yMax }: Limits,
+  viewBoxWidth: number,
+  viewBoxHeight: number,
+  viewBoxPadding: number
 ): [number, number] {
   const vWidth = viewBoxWidth - 2 * viewBoxPadding;
   const vHeight = viewBoxHeight - 2 * viewBoxPadding;
@@ -94,9 +100,20 @@ interface GraphicProps {
 export default function Graphic({ graphic }: GraphicProps) {
   const limits = graphic.limits;
   const ticks = getTicks(limits);
-  
+
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current.offsetWidth;
+  }, [ref.current]);
+  const [viewBoxHeight, setViewBoxHeight] = useState(0);
+  const [viewBoxWidth, setViewBoxWidth] = useState(0);
+  const viewBox = `${-viewBoxWidth / 2} ${
+    -viewBoxHeight / 2
+  } ${viewBoxWidth} ${viewBoxHeight}`;
+
   return (
     <div
+      ref={ref}
       className={classNames(
         "flex",
         "w-full",
