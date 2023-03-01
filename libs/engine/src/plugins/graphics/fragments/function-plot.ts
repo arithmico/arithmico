@@ -4,7 +4,6 @@ import evaluate from '../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types';
 import { Cartesian2DGraphic, Point2D } from '../../../types/graphics.types';
 import { PluginFragment } from '../../../utils/plugin-builder';
-import { getLimitsAndTicks } from '../utils/view-port-utils';
 
 const plotResolution = 1000;
 
@@ -47,14 +46,13 @@ const functionPlotFragment = new PluginFragment().addFunction(
 
         const yMin = points.map(([, y]) => y).reduce((a, b) => Math.min(a, b));
         const yMax = points.map(([, y]) => y).reduce((a, b) => Math.max(a, b));
-        const { limits, xTicks, yTicks } = getLimitsAndTicks(xMin, yMin, xMax, yMax);
 
         return {
             type: 'graphic',
             graphicType: 'cartesian2D',
-            limits,
-            xTicks,
-            yTicks,
+            limits: { xMin, yMin, xMax, yMax },
+            xTicks: 'auto',
+            yTicks: 'auto',
             lines: [
                 {
                     type: 'line',
