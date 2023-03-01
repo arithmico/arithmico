@@ -15,7 +15,7 @@ export default function CoordinateGrid({
   xTicks,
   yTicks,
 }: CoordinateGridProps) {
-  const [xMin, yMin, xMax, yMax] = limits;
+  const { xMin, yMin, xMax, yMax } = limits;
   const rowStartX = xMin % xTicks === 0 ? xMin : xMin - (xMin % xTicks);
   const rowStopX = xMax % xTicks === 0 ? xMax : xMax - (xMax % xTicks);
   const rowStartY = yMin % yTicks === 0 ? yMin : yMin - (yMin % yTicks);
