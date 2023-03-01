@@ -24,7 +24,7 @@ const tickSizes = [
 ];
 
 function getMagnitude(x: number) {
-  return x === 0 ? 1 : Math.floor(Math.log10(x));
+  return x === 0 ? 1 : Math.floor(Math.log10(Math.abs(x)));
 }
 
 function getXTicks(width: number, preferredTickCount = 14) {
@@ -94,7 +94,7 @@ interface GraphicProps {
 export default function Graphic({ graphic }: GraphicProps) {
   const limits = graphic.limits;
   const ticks = getTicks(limits);
-  console.log(graphic);
+  
   return (
     <div
       className={classNames(
