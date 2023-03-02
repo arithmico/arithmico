@@ -1,7 +1,7 @@
 import { GraphicNode, Limits } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import SVGComponent from "@local-components/calculator-output/SVGComponent";
+import SVGComponent from "@local-components/graphic/SVGComponent";
 
 interface GraphicContainerProps {
   graphic: GraphicNode;

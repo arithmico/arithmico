@@ -1,14 +1,32 @@
 import classNames from "classnames";
-import { convertToViewPortCoordinates, Limits } from "./graphicContainer";
+import { Limits } from "@arithmico/engine/lib/types/graphics.types";
+import {convertToViewPortCoordinates} from "@local-components/graphic/graphic-utils";
 
 interface YAxisProps {
   limits: Limits;
   yTicks: number;
+  viewBoxWidth: number;
+  viewBoxHeight: number;
 }
 
-export default function YAxis({ limits, yTicks }: YAxisProps) {
-  const startPoint = convertToViewPortCoordinates([0, limits.yMin], limits);
-  const endPoint = convertToViewPortCoordinates([0, limits.yMax], limits);
+export default function YAxis({
+  limits,
+  yTicks,
+  viewBoxWidth,
+  viewBoxHeight,
+}: YAxisProps) {
+  const startPoint = convertToViewPortCoordinates(
+    [0, limits.yMin],
+    limits,
+    viewBoxWidth,
+    viewBoxHeight
+  );
+  const endPoint = convertToViewPortCoordinates(
+    [0, limits.yMax],
+    limits,
+    viewBoxWidth,
+    viewBoxHeight
+  );
   const arrowPoints = [
     [endPoint[0], endPoint[1] - 10],
     [endPoint[0] - 3, endPoint[1]],

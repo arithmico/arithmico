@@ -1,14 +1,32 @@
 import classNames from "classnames";
-import { convertToViewPortCoordinates, Limits } from "./graphicContainer";
+import { Limits } from "@arithmico/engine/lib/types/graphics.types";
+import {convertToViewPortCoordinates} from "@local-components/graphic/graphic-utils";
 
 interface XAxisProps {
   limits: Limits;
   xTicks: number;
+  viewBoxWidth: number;
+  viewBoxHeight: number;
 }
 
-export default function XAxis({ limits, xTicks }: XAxisProps) {
-  const startPoint = convertToViewPortCoordinates([limits.xMin, 0], limits);
-  const endPoint = convertToViewPortCoordinates([limits.xMax, 0], limits);
+export default function XAxis({
+  limits,
+  xTicks,
+  viewBoxWidth,
+  viewBoxHeight,
+}: XAxisProps) {
+  const startPoint = convertToViewPortCoordinates(
+    [limits.xMin, 0],
+    limits,
+    viewBoxWidth,
+    viewBoxHeight
+  );
+  const endPoint = convertToViewPortCoordinates(
+    [limits.xMax, 0],
+    limits,
+    viewBoxWidth,
+    viewBoxHeight
+  );
   const arrowPoints = [
     [endPoint[0], endPoint[1] - 3],
     [endPoint[0], endPoint[1] + 3],
