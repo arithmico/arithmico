@@ -18,6 +18,7 @@ export default function GraphicContainer({ graphic }: GraphicContainerProps) {
       setViewBoxHeight(ref.current.offsetHeight);
     }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(setDimensions, [ref.current]);
 
   return (
