@@ -38,6 +38,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         )}
       >
         <GraphicContainer graphic={output.graphic} />
+
       </div>
     );
   }
