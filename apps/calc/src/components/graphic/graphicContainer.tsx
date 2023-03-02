@@ -1,7 +1,7 @@
-import { GraphicNode, Limits } from "@arithmico/engine/lib/types";
+import { GraphicNode } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import SVGComponent from "@local-components/graphic/SVGComponent";
+import SvgComponent from "@local-components/graphic/svgComponent";
 
 interface GraphicContainerProps {
   graphic: GraphicNode;
@@ -33,7 +33,7 @@ export default function GraphicContainer({ graphic }: GraphicContainerProps) {
         "justify-center"
       )}
     >
-      <SVGComponent
+      <SvgComponent
         graphic={graphic}
         viewBoxWidth={viewBoxWidth}
         viewBoxHeight={viewBoxHeight}

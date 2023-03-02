@@ -2,7 +2,7 @@ import { Limits } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import XAxis from "./x-axis";
 import YAxis from "./y-axis";
-import {convertToViewPortCoordinates} from "@local-components/graphic/graphic-utils";
+import { convertToViewPortCoordinates } from "@local-components/graphic/graphic-utils";
 
 interface CoordinateGridProps {
   limits: Limits;

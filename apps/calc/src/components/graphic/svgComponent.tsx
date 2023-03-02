@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import CoordinateGrid from "@local-components/graphic/coordinate-grid";
 import Line from "@local-components/graphic/line";
-import {GraphicNode,} from "@arithmico/engine/lib/types/graphics.types";
+import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 
 const tickSizes = [
   1 / 2,
@@ -60,7 +60,7 @@ interface SVGComponentProps {
   viewBoxHeight: number;
 }
 
-export default function SVGComponent({
+export default function SvgComponent({
   graphic,
   viewBoxWidth,
   viewBoxHeight,
