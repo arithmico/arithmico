@@ -2,6 +2,7 @@ import { GraphicResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
 import GraphicContainer from "../graphic/graphicContainer";
+import ExportButton from "@local-components/graphic/export-button";
 
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;
@@ -38,7 +39,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         )}
       >
         <GraphicContainer graphic={output.graphic} />
-
+        <ExportButton />
       </div>
     );
   }

@@ -1,15 +1,15 @@
 import classNames from "classnames";
 
-export default function exportButton() {
+export default function ExportButton() {
   return (
     <button
+      onClick={() => console.log("exported")}
       className={classNames(
         "bold-font:font-bold",
         "border",
-        "lg:p-4",
-        "md:p-1",
+        "p-4",
         "rounded-sm",
-        "text-left",
+        "text-center",
         "theme-light:bg-neutral-200",
         "theme-light:hover:bg-neutral-300",
         "theme-light:border-black/10",
@@ -18,7 +18,7 @@ export default function exportButton() {
         "theme-dark:border-white/5"
       )}
     >
-      {"Export as pdf"}
+      Export as pdf
     </button>
   );
 }
