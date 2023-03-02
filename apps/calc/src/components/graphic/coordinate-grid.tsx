@@ -1,6 +1,6 @@
 import { Limits } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
-import { convertToViewPortCoordinates } from "./graphic";
+import { convertToViewPortCoordinates } from "./graphicContainer";
 import XAxis from "./x-axis";
 import YAxis from "./y-axis";
 

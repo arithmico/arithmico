@@ -1,6 +1,6 @@
 import { Limits, Point2D } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
-import { convertToViewPortCoordinates } from "./graphic";
+import { convertToViewPortCoordinates } from "./graphicContainer";
 
 interface LineProps {
   points: Point2D[];

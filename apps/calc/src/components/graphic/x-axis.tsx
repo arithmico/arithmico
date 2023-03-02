@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { convertToViewPortCoordinates, Limits } from "./graphic";
+import { convertToViewPortCoordinates, Limits } from "./graphicContainer";
 
 interface XAxisProps {
   limits: Limits;

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { Output } from "../../../../../libs/stores/slices/calculator-session";
-import Graphic from "../graphic/graphic";
+import GraphicContainer from "../graphic/graphicContainer";
 
 interface ProtocolListItemOutputProps {
   output: Output;
@@ -35,7 +35,7 @@ export default function ProtocolListItemOutput({
       );
 
     case "graphic":
-      return <Graphic graphic={output.graphic} />;
+      return <GraphicContainer graphic={output.graphic} />;
 
     default:
       // @ts-ignore

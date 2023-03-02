@@ -1,18 +1,12 @@
-import { GraphicNode, Limits } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
-import CoordinateGrid from "./coordinate-grid";
-import Line from "./line";
-import { useEffect, useRef, useState } from "react";
+import CoordinateGrid from "@local-components/graphic/coordinate-grid";
+import Line from "@local-components/graphic/line";
+import {
+  GraphicNode,
+  Limits,
+} from "@arithmico/engine/lib/types/graphics.types";
 
-/*
 const viewBoxPadding = 10;
-const viewBoxHeight = 210;
-const viewBoxWidth = 297;
-const viewBox = `${-viewBoxWidth / 2} ${
-  -viewBoxHeight / 2
-} ${viewBoxWidth} ${viewBoxHeight}`;
- */
-
 const tickSizes = [
   1 / 2,
   5 / 2,
@@ -93,46 +87,32 @@ export function convertToViewPortCoordinates(
   ];
 }
 
-interface GraphicProps {
+interface SVGComponentProps {
   graphic: GraphicNode;
+  viewBoxWidth: number;
+  viewBoxHeight: number;
 }
 
-export default function Graphic({ graphic }: GraphicProps) {
-  const limits = graphic.limits;
-  const ticks = getTicks(limits);
-
-  const ref = useRef(null);
-  useEffect(() => {
-    ref.current.offsetWidth;
-  }, [ref.current]);
-  const [viewBoxHeight, setViewBoxHeight] = useState(0);
-  const [viewBoxWidth, setViewBoxWidth] = useState(0);
+export default function SVGComponent({
+  graphic,
+  viewBoxWidth,
+  viewBoxHeight,
+}: SVGComponentProps) {
   const viewBox = `${-viewBoxWidth / 2} ${
     -viewBoxHeight / 2
   } ${viewBoxWidth} ${viewBoxHeight}`;
 
+  const limits = graphic.limits;
+  const ticks = getTicks(limits);
+  const xTicks = graphic.xTicks === "auto" ? ticks.xTicks : graphic.xTicks;
+  const yTicks = graphic.yTicks === "auto" ? ticks.yTicks : graphic.yTicks;
+
   return (
-    <div
-      ref={ref}
-      className={classNames(
-        "flex",
-        "w-full",
-        "h-full",
-        "max-h-full",
-        "items-center",
-        "justify-center"
-      )}
-    >
-      <svg viewBox={viewBox} className={classNames("max-h-full")}>
-        <CoordinateGrid
-          limits={limits}
-          xTicks={graphic.xTicks === "auto" ? ticks.xTicks : graphic.xTicks}
-          yTicks={graphic.yTicks === "auto" ? ticks.yTicks : graphic.yTicks}
-        />
-        {graphic.lines.map(({ points }, index) => (
-          <Line points={points} limits={limits} key={index} />
-        ))}
-      </svg>
-    </div>
+    <svg viewBox={viewBox} className={classNames("max-h-full")}>
+      <CoordinateGrid limits={limits} xTicks={xTicks} yTicks={yTicks} />
+      {graphic.lines.map(({ points }, index) => (
+        <Line points={points} limits={limits} key={index} />
+      ))}
+    </svg>
   );
 }
