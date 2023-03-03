@@ -1,6 +1,9 @@
 import { Limits, Point2D } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
-import {convertToViewPortCoordinates, ViewBoxDimension} from "@local-components/graphic/graphic-utils";
+import {
+  convertToViewPortCoordinates,
+  ViewBoxDimension,
+} from "@local-components/graphic/graphic-utils";
 
 interface LineProps {
   points: Point2D[];
@@ -10,7 +13,7 @@ interface LineProps {
 
 export default function Line({ points, limits, viewBoxDimension }: LineProps) {
   const pathString = points
-    .map(([x, y], index) => {
+    .map(({ x, y }, index) => {
       const { x: viewX, y: viewY } = convertToViewPortCoordinates(
         { x, y },
         limits,
