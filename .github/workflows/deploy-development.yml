@@ -28,7 +28,7 @@ jobs:
         run: npm ci
       - name: Build
         run: |
-          export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
+          export ARITHMICO_FEATURES=$(cat libs/engine/features.json) 
           npm run build:calc
       - name: Test
         run: npm run test:all
