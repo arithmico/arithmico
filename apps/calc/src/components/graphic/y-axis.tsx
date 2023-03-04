@@ -1,6 +1,9 @@
 import classNames from "classnames";
 import { Limits } from "@arithmico/engine/lib/types/graphics.types";
-import {convertToViewPortCoordinates, ViewBoxDimension} from "@local-components/graphic/graphic-utils";
+import {
+  convertToViewPortCoordinates,
+  ViewBoxDimension,
+} from "@local-components/graphic/graphic-utils";
 
 interface YAxisProps {
   limits: Limits;

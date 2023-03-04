@@ -56,6 +56,7 @@ export default function CoordinateGrid({
           xTicks={xTicks}
           limits={limits}
           viewBoxDimension={viewBoxDimension}
+          key={y}
         />
       ))}
     </>
@@ -89,11 +90,12 @@ function GridRow({
 
   return (
     <>
-      {points.map(({ x, y }) => (
+      {points.map(({ x, y }, index) => (
         <circle
           cx={x}
           cy={y}
           r={0.5}
+          key={index}
           className={classNames(
             "theme-dark:fill-white",
             "theme-light:fill-black"
