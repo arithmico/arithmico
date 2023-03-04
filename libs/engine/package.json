@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "install": "npm run build",
-        "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+        "build:full-features": "ARITHMICO_FEATURES=$(cat ./features.json) npm run build",
+        "test": "npm run build:full-features && NODE_OPTIONS=--experimental-vm-modules jest",
         "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
         "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
         "pretty": "prettier 'src/**/*' --check",

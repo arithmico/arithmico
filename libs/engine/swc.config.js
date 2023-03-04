@@ -20,7 +20,8 @@ function createFeatureMap(enabledFeatures, availableFeatures) {
 }
 
 // eslint-disable-next-line no-undef
-const enabledFeatures = JSON.parse(process.env.ARITHMICO_FEATURES ?? '{}');
+const enabledFeatures = JSON.parse(process.env.ARITHMICO_FEATURES || '{}');
+console.log(enabledFeatures);
 const objects = createFeatureMap(enabledFeatures.objects ?? [], features.objects);
 const operators = createFeatureMap(enabledFeatures.operators ?? [], features.operators);
 const functions = createFeatureMap(enabledFeatures.functions ?? [], features.functions);
