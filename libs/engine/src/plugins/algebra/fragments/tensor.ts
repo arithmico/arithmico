@@ -6,8 +6,10 @@ import { PluginFragment } from '../../../utils/plugin-builder';
 
 const singleTensorHeader: FunctionHeaderItem[] = [{ name: 't', type: 'vector', evaluate: true }];
 
-const tensorFragment = new PluginFragment()
-    .addFunction(
+const tensorFragment = new PluginFragment();
+
+__FUNCTIONS.tensorRank &&
+    tensorFragment.addFunction(
         'tensor:rank',
         singleTensorHeader,
         'Computes the rank of the tensor',
@@ -20,8 +22,10 @@ const tensorFragment = new PluginFragment()
                 throw runtimeError('invalid tensor shape');
             }
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.tensorDims &&
+    tensorFragment.addFunction(
         'tensor:dims',
         singleTensorHeader,
         'Computes the dimensions of the tensor',

@@ -1,9 +1,7 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 export default {
-    transform: {
-        '^.+\\.(t|j)s$': '@swc/jest',
-    },
-    testPathIgnorePatterns: ['./node_modules/', './lib/'],
+    transform: {},
+    testPathIgnorePatterns: ['./node_modules/', './src/'],
     extensionsToTreatAsEsm: ['.ts'],
     verbose: true,
 };

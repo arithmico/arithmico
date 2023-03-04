@@ -11,8 +11,10 @@ import { PluginFragment } from '../../../utils/plugin-builder';
 const singleVectorHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'vector', evaluate: true }];
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 
-const inverseMatrixFragment = new PluginFragment()
-    .addFunction(
+const inverseMatrixFragment = new PluginFragment();
+
+__FUNCTIONS.matrixInverse &&
+    inverseMatrixFragment.addFunction(
         'matrix:inverse',
         singleVectorHeader,
         'inverse a given square matrix if possible',
@@ -59,8 +61,10 @@ const inverseMatrixFragment = new PluginFragment()
                 ),
             );
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.matrixAdj &&
+    inverseMatrixFragment.addFunction(
         'matrix:adj',
         singleVectorHeader,
         'calculates the adjugate matrix',
@@ -81,8 +85,10 @@ const inverseMatrixFragment = new PluginFragment()
                 adjunct.map((value) => createVector(value.map((element) => createNumberNode(element)))),
             );
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.matrixCof &&
+    inverseMatrixFragment.addFunction(
         'matrix:cof',
         singleVectorHeader,
         'calculates the cofactor matrix',
@@ -103,8 +109,10 @@ const inverseMatrixFragment = new PluginFragment()
                 cofactorMatrix.map((value) => createVector(value.map((element) => createNumberNode(element)))),
             );
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.matrixTranspose &&
+    inverseMatrixFragment.addFunction(
         'matrix:transpose',
         singleVectorHeader,
         'transposes a matrix',
@@ -122,8 +130,10 @@ const inverseMatrixFragment = new PluginFragment()
                 transposed.map((value) => createVector(value.map((element) => createNumberNode(element)))),
             );
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.matrixDet &&
+    inverseMatrixFragment.addFunction(
         'matrix:det',
         singleVectorHeader,
         'calculates the determinant of a matrix',
@@ -142,8 +152,10 @@ const inverseMatrixFragment = new PluginFragment()
 
             return createNumberNode(det(matrix));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.matrixId &&
+    inverseMatrixFragment.addFunction(
         'matrix:id',
         singleNumberHeader,
         'creates an n x n identity matrix',

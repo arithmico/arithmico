@@ -5,12 +5,15 @@ import createNumberNode from '../../../node-operations/create-node/create-number
 import { closeTo } from '../../../utils/float-utils';
 import { PluginFragment } from '../../../utils/plugin-builder';
 
-const trigonometryFragment = new PluginFragment().addConstant(
-    'pi',
-    "π is commonly defined as the ratio of a circle's circumference to its diameter.",
-    'Die Kreiszahl π ist allgemein definiert als das Verhältnis des Umfangs eines Kreises zu seinem Durchmesser.',
-    createNumberNode(Math.PI),
-);
+const trigonometryFragment = new PluginFragment();
+
+__CONSTANTS.pi &&
+    trigonometryFragment.addConstant(
+        'pi',
+        "π is commonly defined as the ratio of a circle's circumference to its diameter.",
+        'Die Kreiszahl π ist allgemein definiert als das Verhältnis des Umfangs eines Kreises zu seinem Durchmesser.',
+        createNumberNode(Math.PI),
+    );
 
 type TrigonometryEvaluator = (v: number, angleUnit: Options['angleUnit']) => number;
 
@@ -58,18 +61,20 @@ function addTrigonometryFunction(name: string, func: TrigonometryEvaluator, enNa
     );
 }
 
-addTrigonometryFunction('sin', resolveAngleUnitInput(Math.sin), 'sine', 'Sinus');
-addTrigonometryFunction('cos', resolveAngleUnitInput(Math.cos), 'cosine', 'Cosinus');
-addTrigonometryFunction('tan', resolveAngleUnitInput(Math.tan), 'tangent', 'Tangens');
-addTrigonometryFunction('asin', resolveAngleUnitOutput(Math.asin), 'arcsine', 'Arkussinus');
-addTrigonometryFunction('acos', resolveAngleUnitOutput(Math.acos), 'arc cosine', 'Arkuscosinus');
-addTrigonometryFunction('atan', resolveAngleUnitOutput(Math.atan), 'arctangent', 'Arkustangens');
+__FUNCTIONS.sin && addTrigonometryFunction('sin', resolveAngleUnitInput(Math.sin), 'sine', 'Sinus');
+__FUNCTIONS.cos && addTrigonometryFunction('cos', resolveAngleUnitInput(Math.cos), 'cosine', 'Cosinus');
+__FUNCTIONS.tan && addTrigonometryFunction('tan', resolveAngleUnitInput(Math.tan), 'tangent', 'Tangens');
+__FUNCTIONS.asin && addTrigonometryFunction('asin', resolveAngleUnitOutput(Math.asin), 'arcsine', 'Arkussinus');
+__FUNCTIONS.acos && addTrigonometryFunction('acos', resolveAngleUnitOutput(Math.acos), 'arc cosine', 'Arkuscosinus');
+__FUNCTIONS.atan && addTrigonometryFunction('atan', resolveAngleUnitOutput(Math.atan), 'arctangent', 'Arkustangens');
 
-addTrigonometryFunction('sinh', Math.sinh, 'hyperbolic sine', 'Sinus hyperbolicus');
-addTrigonometryFunction('cosh', Math.cosh, 'hyperbolic cosine', 'Cosinus hyperbolicus');
-addTrigonometryFunction('tanh', Math.tanh, 'hyperbolic tangent', 'Tanges hyperbolicus');
-addTrigonometryFunction('asinh', Math.asinh, 'inverse hyperbolic sine', 'Areasinus hyperbolicus');
-addTrigonometryFunction('acosh', Math.acosh, 'inverse hyperbolic cosine', 'Areacosinus hyperbolicus');
-addTrigonometryFunction('atanh', Math.atanh, 'inverse hyperbolic tangent', 'Areatangens hyperbolicus');
+__FUNCTIONS.sinh && addTrigonometryFunction('sinh', Math.sinh, 'hyperbolic sine', 'Sinus hyperbolicus');
+__FUNCTIONS.cosh && addTrigonometryFunction('cosh', Math.cosh, 'hyperbolic cosine', 'Cosinus hyperbolicus');
+__FUNCTIONS.tanh && addTrigonometryFunction('tanh', Math.tanh, 'hyperbolic tangent', 'Tanges hyperbolicus');
+__FUNCTIONS.asinh && addTrigonometryFunction('asinh', Math.asinh, 'inverse hyperbolic sine', 'Areasinus hyperbolicus');
+__FUNCTIONS.acosh &&
+    addTrigonometryFunction('acosh', Math.acosh, 'inverse hyperbolic cosine', 'Areacosinus hyperbolicus');
+__FUNCTIONS.atanh &&
+    addTrigonometryFunction('atanh', Math.atanh, 'inverse hyperbolic tangent', 'Areatangens hyperbolicus');
 
 export default trigonometryFragment;

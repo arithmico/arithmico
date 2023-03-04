@@ -8,8 +8,10 @@ const logHeader: FunctionHeaderItem[] = [
     { name: 'base', type: 'number', evaluate: true },
 ];
 
-const logFragment = new PluginFragment()
-    .addFunction(
+const logFragment = new PluginFragment();
+
+__FUNCTIONS.lg &&
+    logFragment.addFunction(
         'lg',
         singleNumberHeader,
         'Logarithm of x to base 10.',
@@ -21,8 +23,10 @@ const logFragment = new PluginFragment()
             }
             return createNumberNode(Math.log10(x));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.ln &&
+    logFragment.addFunction(
         'ln',
         singleNumberHeader,
         'Logarithm of x to base e.',
@@ -36,8 +40,10 @@ const logFragment = new PluginFragment()
 
             return createNumberNode(Math.log(x));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.log &&
+    logFragment.addFunction(
         'log',
         logHeader,
         'Logarithm of x to the given base.',

@@ -3,6 +3,10 @@ import { Context, MethodCall, SyntaxTreeNode } from '../../../types';
 import { existsMethod } from '../../../utils/context-utils';
 
 export default function evaluateMethodCall(node: MethodCall, context: Context): SyntaxTreeNode {
+    if (!__OPERATORS.methodCall) {
+        throw `RuntimeError: methods are disabled in this configuration`;
+    }
+
     const object = evaluate(node.object, context);
 
     if (!existsMethod(node.method, object.type, context)) {

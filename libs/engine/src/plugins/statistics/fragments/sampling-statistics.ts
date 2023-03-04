@@ -19,8 +19,10 @@ const doubleVectorHeader: FunctionHeaderItem[] = [
     { name: 'ys', type: 'vector', evaluate: true },
 ];
 
-const samplingStatisticsFragment = new PluginFragment()
-    .addFunction(
+const samplingStatisticsFragment = new PluginFragment();
+
+__FUNCTIONS.avg &&
+    samplingStatisticsFragment.addFunction(
         'avg',
         numberSeriesHeader,
         'Calculates the arithmetic mean',
@@ -29,8 +31,10 @@ const samplingStatisticsFragment = new PluginFragment()
             const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateAvg(xs));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.var &&
+    samplingStatisticsFragment.addFunction(
         'var',
         numberSeriesHeader,
         'Calculates the biased sample variance divided by n.',
@@ -39,8 +43,10 @@ const samplingStatisticsFragment = new PluginFragment()
             const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateBiasedSampleVariance(xs));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.unbiasedVar &&
+    samplingStatisticsFragment.addFunction(
         'unbiased:var',
         numberSeriesHeader,
         'Calculates the unbiased sample variance divided by n - 1.',
@@ -49,8 +55,10 @@ const samplingStatisticsFragment = new PluginFragment()
             const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateUnbiasedSampleVariance(xs));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.sd &&
+    samplingStatisticsFragment.addFunction(
         'sd',
         numberSeriesHeader,
         'Calculates the standard deviation based on biased sample variance',
@@ -59,8 +67,10 @@ const samplingStatisticsFragment = new PluginFragment()
             const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateBiasedStandartDeviation(xs));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.unbiasedSd &&
+    samplingStatisticsFragment.addFunction(
         'unbiased:sd',
         numberSeriesHeader,
         'Calculates the standard deviation based on unbiased sample variance',
@@ -69,8 +79,10 @@ const samplingStatisticsFragment = new PluginFragment()
             const xs = (<SyntaxTreeNode[]>getParameter('x')).map((x) => (<NumberNode>x).value);
             return createNumberNode(calculateUnbiasedStandardDeviation(xs));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.median &&
+    samplingStatisticsFragment.addFunction(
         'median',
         numberSeriesHeader,
         'Calculates the median.',
@@ -84,8 +96,10 @@ const samplingStatisticsFragment = new PluginFragment()
 
             return createNumberNode(calculateQuantile(0.5, xs));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.quantile &&
+    samplingStatisticsFragment.addFunction(
         'quantile',
         quantileHeader,
         'Calculates the p-quantile, i.e. p (between 0 and 1) divides the quantity into a part p less than or equal to and another part 1-p is greater than or equal to the quantile.',
@@ -113,8 +127,10 @@ const samplingStatisticsFragment = new PluginFragment()
                 ),
             );
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.cov &&
+    samplingStatisticsFragment.addFunction(
         'cov',
         doubleVectorHeader,
         'Calculates the covariance of two vectors of the same size.',
@@ -140,8 +156,10 @@ const samplingStatisticsFragment = new PluginFragment()
 
             return createNumberNode(calculateCovariance(xValues, yValues));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.corr &&
+    samplingStatisticsFragment.addFunction(
         'corr',
         doubleVectorHeader,
         'Calculates the Pearson correlation coefficient of two vectors of the same size.',

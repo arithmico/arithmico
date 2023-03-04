@@ -11,8 +11,10 @@ const doubleNumberHeader: FunctionHeaderItem[] = [
     { name: 'b', type: 'number', evaluate: true },
 ];
 
-const coprimeFragment = new PluginFragment()
-    .addFunction(
+const coprimeFragment = new PluginFragment();
+
+__FUNCTIONS.coprime &&
+    coprimeFragment.addFunction(
         'coprime',
         doubleNumberHeader,
         'Checks if a and b are divisor independent (coprime).',
@@ -30,8 +32,10 @@ const coprimeFragment = new PluginFragment()
 
             return createBooleanNode(greatestCommonDivisor(a, b) === 1);
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.eulerPhi &&
+    coprimeFragment.addFunction(
         'euler:phi',
         singleNumberHeader,
         'Specifies how many positive natural numbers, which are coprime to n, that are not greater than n.',

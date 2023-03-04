@@ -13,47 +13,50 @@ const nintegrateHeader: FunctionHeaderItem[] = [
     { type: 'number', name: 'stop', evaluate: true },
 ];
 
-const nintegrateFragment = new PluginFragment().addFunction(
-    'nintegrate',
-    nintegrateHeader,
-    'Calculates the definite integral of the function for the given limits.',
-    'Berechnet das bestimmte Integral von f zwischen u und v.',
-    ({ getParameter, runtimeError, context }) => {
-        const f = <FunctionNode>getParameter('f');
-        const start = <NumberNode>getParameter('start');
-        const stop = <NumberNode>getParameter('stop');
+const nintegrateFragment = new PluginFragment();
 
-        if (f.header.length !== 1 || (f.header[0].type !== 'number' && f.header[0].type !== 'any')) {
-            throw runtimeError('Invalid function header.');
-        }
+__FUNCTIONS.nintegrate &&
+    nintegrateFragment.addFunction(
+        'nintegrate',
+        nintegrateHeader,
+        'Calculates the definite integral of the function for the given limits.',
+        'Berechnet das bestimmte Integral von f zwischen u und v.',
+        ({ getParameter, runtimeError, context }) => {
+            const f = <FunctionNode>getParameter('f');
+            const start = <NumberNode>getParameter('start');
+            const stop = <NumberNode>getParameter('stop');
 
-        const value = createNumberNode(0);
-        const expression = createFunctionCall(f, [value]);
-        const intervallIntegrals: number[] = [];
-        const leftLimit = Math.min(start.value, stop.value);
-        const rightLimit = Math.max(start.value, stop.value);
-        const intervallWidth = (rightLimit - leftLimit) / INTERVALLS;
+            if (f.header.length !== 1 || (f.header[0].type !== 'number' && f.header[0].type !== 'any')) {
+                throw runtimeError('Invalid function header.');
+            }
 
-        for (let i = 0; i < INTERVALLS; i++) {
-            intervallIntegrals.push(
-                integrateIntervall(
-                    intervallWidth * i + leftLimit,
-                    intervallWidth * (i + 1) + leftLimit,
-                    expression,
-                    value,
-                    context,
-                ),
-            );
-        }
+            const value = createNumberNode(0);
+            const expression = createFunctionCall(f, [value]);
+            const intervallIntegrals: number[] = [];
+            const leftLimit = Math.min(start.value, stop.value);
+            const rightLimit = Math.max(start.value, stop.value);
+            const intervallWidth = (rightLimit - leftLimit) / INTERVALLS;
 
-        const result = intervallIntegrals.reduce((a, b) => a + b);
+            for (let i = 0; i < INTERVALLS; i++) {
+                intervallIntegrals.push(
+                    integrateIntervall(
+                        intervallWidth * i + leftLimit,
+                        intervallWidth * (i + 1) + leftLimit,
+                        expression,
+                        value,
+                        context,
+                    ),
+                );
+            }
 
-        if (closeTo(result, 0)) {
-            return createNumberNode(0);
-        }
+            const result = intervallIntegrals.reduce((a, b) => a + b);
 
-        return createNumberNode(result);
-    },
-);
+            if (closeTo(result, 0)) {
+                return createNumberNode(0);
+            }
+
+            return createNumberNode(result);
+        },
+    );
 
 export default nintegrateFragment;

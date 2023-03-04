@@ -24,8 +24,10 @@ const doublePolynomialHeader: FunctionHeaderItem[] = [
     { name: 'q', type: 'any', evaluate: false },
 ];
 
-const polynomialFragment = new PluginFragment()
-    .addFunction(
+const polynomialFragment = new PluginFragment();
+
+__FUNCTIONS.polynomialDeg &&
+    polynomialFragment.addFunction(
         'polynomial:deg',
         singlePolynomialHeader,
         'Calculates the degree of given polynomial p.',
@@ -49,8 +51,10 @@ const polynomialFragment = new PluginFragment()
 
             return createNumberNode(getDegreeFromPolynomial(polynomial));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.polynomialAdd &&
+    polynomialFragment.addFunction(
         'polynomial:add',
         doublePolynomialHeader,
         'Adds two polynomials p and q.',
@@ -64,8 +68,10 @@ const polynomialFragment = new PluginFragment()
 
             return getSyntaxTreeNodeFromPolynomial(calculatePolynomialAddition(polynomial1, polynomial2));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.polynomialSub &&
+    polynomialFragment.addFunction(
         'polynomial:sub',
         doublePolynomialHeader,
         'Subtracts two polynomials p and q.',
@@ -79,8 +85,10 @@ const polynomialFragment = new PluginFragment()
 
             return getSyntaxTreeNodeFromPolynomial(calculatePolynomialSubtraction(polynomial1, polynomial2));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.polynomialMul &&
+    polynomialFragment.addFunction(
         'polynomial:mul',
         doublePolynomialHeader,
         'Multiplicates two polynomials p and q.',
@@ -113,8 +121,10 @@ const polynomialFragment = new PluginFragment()
 
             return getSyntaxTreeNodeFromPolynomial(calculatePolynomialMultiplication(polynomial1, polynomial2));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.polynomialDiv &&
+    polynomialFragment.addFunction(
         'polynomial:div',
         doublePolynomialHeader,
         'Divides two polynomials, the dividend p must have an equal or higher degree than the divisor q. The result is returned as [quotient, remainder].',

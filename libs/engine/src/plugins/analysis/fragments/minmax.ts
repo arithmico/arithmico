@@ -4,8 +4,10 @@ import { PluginFragment } from '../../../utils/plugin-builder';
 
 const header: FunctionHeaderItem[] = [{ name: 'v', type: 'number', evaluate: true, repeat: true }];
 
-const minmaxFragment = new PluginFragment()
-    .addFunction(
+const minmaxFragment = new PluginFragment();
+
+__FUNCTIONS.min &&
+    minmaxFragment.addFunction(
         'min',
         header,
         'returns the minimum of all passed parameters',
@@ -14,8 +16,10 @@ const minmaxFragment = new PluginFragment()
             const values = (<SyntaxTreeNode[]>getParameter('v')).map((value) => (<NumberNode>value).value);
             return createNumberNode(Math.min(...values));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.max &&
+    minmaxFragment.addFunction(
         'max',
         header,
         'returns the maximum of all passed parameters',

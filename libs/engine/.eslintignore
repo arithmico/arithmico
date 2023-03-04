@@ -1,1 +1,3 @@
 src/parse/parser.js
+.swcrc
+swc.config.js

@@ -2,7 +2,7 @@ import evaluate from '..';
 import { Context, Define, SyntaxTreeNode } from '../../../types';
 
 export default function evaluateDefine(node: Define, context: Context): SyntaxTreeNode {
-    if (!context.options.operators.define) {
+    if (!__OPERATORS.define) {
         throw `RuntimeError: definitions are disabled in this configuration`;
     }
 

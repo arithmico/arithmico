@@ -12,7 +12,11 @@ export function createTestContext(stack: Context['stack'], options: Options = te
 
 export function integrationTest(input: string, expectedOutput: string, context?: Context) {
     test(`integration test #${++lastId}: ${input}`, () => {
-        expect((<TextResult>evaluate(input, context)).text).toBe(expectedOutput);
+        const result = evaluate(input, context);
+        if (result.type === 'error') {
+            throw result.error;
+        }
+        expect((<TextResult>result).text).toBe(expectedOutput);
     });
 }
 
