@@ -2,7 +2,7 @@ import classNames from "classnames";
 import CoordinateGrid from "@local-components/graphic/coordinate-grid";
 import Line from "@local-components/graphic/line";
 import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
-import {ViewBoxDimension} from "@local-components/graphic/graphic-utils";
+import { ViewBoxDimension } from "@local-components/graphic/graphic-utils";
 
 const tickSizes = [
   1 / 2,
@@ -55,15 +55,15 @@ function getYTicks(height: number, xTicks: number) {
     .sort((a, b) => a.maxAspectRatio - b.maxAspectRatio)[0].tickSize;
 }
 
-interface Svg2dGraphicProps {
+interface GraphicRendererProps {
   graphic: GraphicNode;
   viewBoxDimension: ViewBoxDimension;
 }
 
-export default function Svg2dGraphic({
+export default function GraphicRenderer({
   graphic,
   viewBoxDimension,
-}: Svg2dGraphicProps) {
+}: GraphicRendererProps) {
   const { viewBoxWidth, viewBoxHeight } = viewBoxDimension;
   const viewBox = `${-viewBoxWidth / 2} ${
     -viewBoxHeight / 2

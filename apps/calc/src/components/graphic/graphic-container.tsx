@@ -1,7 +1,7 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import Svg2dGraphic from "@local-components/graphic/svg2d-graphic";
+import GraphicRenderer from "@local-components/graphic/graphic-renderer";
 import { ViewBoxDimension } from "@local-components/graphic/graphic-utils";
 
 interface GraphicContainerProps {
@@ -40,7 +40,7 @@ export default function GraphicContainer({ graphic }: GraphicContainerProps) {
         "justify-center"
       )}
     >
-      <Svg2dGraphic graphic={graphic} viewBoxDimension={viewBoxDimension} />
+      <GraphicRenderer graphic={graphic} viewBoxDimension={viewBoxDimension} />
     </div>
   );
 }
