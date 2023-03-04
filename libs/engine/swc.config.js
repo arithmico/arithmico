@@ -204,9 +204,6 @@ const operators = {
     powerFunctionFunction: true,
 };
 
-// eslint-disable-next-line no-undef
-const profile = process.env.ARITHMICO_PROFILE ? JSON.parse(process.env.ARITHMICO_PROFILE) : defaultProfile;
-
 const swcConfigContent = {
     jsc: {
         transform: {
@@ -214,7 +211,6 @@ const swcConfigContent = {
                 simplify: true,
                 globals: {
                     vars: {
-                        __PROFILE: serializeObject(profile),
                         __OBJECTS: serializeObject(objects),
                         __OPERATORS: serializeObject(operators),
                         __FUNCTIONS: serializeObject(functions),

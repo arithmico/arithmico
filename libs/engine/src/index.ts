@@ -2,17 +2,12 @@ import { Context, EvaluationResult } from './types';
 import load from './load';
 import defaultPlugins from './plugins';
 import evaluationPipeline from './pipeline';
+import { createOptions } from './utils/context-utils';
 
 export { serializeStack } from './utils/context-utils';
-const loadingResult = load(defaultPlugins, __PROFILE);
+const loadingResult = load(defaultPlugins, createOptions());
 const defaultContext = loadingResult.context;
 const documentation = loadingResult.documentation;
-
-function foo(a: boolean, b: boolean) {
-    return a && b;
-}
-
-export const bar = foo(true, false);
 
 export function init() {
     console.warn('init is deprecated');

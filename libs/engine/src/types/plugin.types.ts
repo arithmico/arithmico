@@ -3,7 +3,6 @@ import { SyntaxTreeNode, FunctionNode } from './nodes.types';
 
 export interface PluginStructureItem {
     type: 'function' | 'constant' | 'method';
-    enabled: boolean;
     name: string;
     synopsis: {
         [key in Language]: string;
