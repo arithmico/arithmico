@@ -17,44 +17,47 @@ const nsolveHeader: FunctionHeaderItem[] = [
     { type: 'number', name: 'stop', evaluate: true, optional: true },
 ];
 
-const nsolveFragment = new PluginFragment().addFunction(
-    'nsolve',
-    nsolveHeader,
-    'If possible, solve the equation within the limits.',
-    'Sucht nach Lösungen für die gegebene Gleichung in den Grenzen start und stop.',
-    ({ getParameter, runtimeError, context }) => {
-        const leftLimit = (<NumberNode>getParameter('start', createNumberNode(-20))).value;
-        const rightLimit = (<NumberNode>getParameter('stop', createNumberNode(20))).value;
-        const equation = <Equals>getParameter('equation');
-        const expression = createMinus(equation.left, equation.right);
-        const variableNames = getVariableNames(expression, context);
+const nsolveFragment = new PluginFragment();
 
-        if (variableNames.length !== 1) {
-            throw runtimeError(`Invalid number of variables expected 1 got ${variableNames.length}`);
-        }
+__FUNCTIONS.nsolve &&
+    nsolveFragment.addFunction(
+        'nsolve',
+        nsolveHeader,
+        'If possible, solve the equation within the limits.',
+        'Sucht nach Lösungen für die gegebene Gleichung in den Grenzen start und stop.',
+        ({ getParameter, runtimeError, context }) => {
+            const leftLimit = (<NumberNode>getParameter('start', createNumberNode(-20))).value;
+            const rightLimit = (<NumberNode>getParameter('stop', createNumberNode(20))).value;
+            const equation = <Equals>getParameter('equation');
+            const expression = createMinus(equation.left, equation.right);
+            const variableNames = getVariableNames(expression, context);
 
-        const value = createNumberNode(leftLimit);
-        const localStackFrame = new Map();
-        localStackFrame.set(variableNames[0], value);
-        const localContext: Context = {
-            ...context,
-            stack: [...context.stack, localStackFrame],
-        };
-
-        const points = scan(expression, leftLimit, rightLimit, value, localContext);
-        const directHits = findDirectHits(points);
-        const candidates = findCandidates(points);
-        const solutions = checkCandidates(expression, candidates, value, localContext);
-
-        const results: number[] = [];
-        refineResults([...directHits, ...solutions], leftLimit, rightLimit).forEach((solution) => {
-            if (!results.includes(solution)) {
-                results.push(solution);
+            if (variableNames.length !== 1) {
+                throw runtimeError(`Invalid number of variables expected 1 got ${variableNames.length}`);
             }
-        });
 
-        return createVector(results.sort((a, b) => a - b).map((solution) => createNumberNode(solution)));
-    },
-);
+            const value = createNumberNode(leftLimit);
+            const localStackFrame = new Map();
+            localStackFrame.set(variableNames[0], value);
+            const localContext: Context = {
+                ...context,
+                stack: [...context.stack, localStackFrame],
+            };
+
+            const points = scan(expression, leftLimit, rightLimit, value, localContext);
+            const directHits = findDirectHits(points);
+            const candidates = findCandidates(points);
+            const solutions = checkCandidates(expression, candidates, value, localContext);
+
+            const results: number[] = [];
+            refineResults([...directHits, ...solutions], leftLimit, rightLimit).forEach((solution) => {
+                if (!results.includes(solution)) {
+                    results.push(solution);
+                }
+            });
+
+            return createVector(results.sort((a, b) => a - b).map((solution) => createNumberNode(solution)));
+        },
+    );
 
 export default nsolveFragment;

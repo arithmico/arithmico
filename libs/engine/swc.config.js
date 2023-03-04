@@ -94,10 +94,36 @@ const functions = {
     primeNth: true,
     primeIs: true,
     primePi: true,
+
+    plot: true,
+
+    nderive: true,
+    nintegrate: true,
+    nsolve: true,
 };
 
 const constants = {
     e: true,
+    pi: true,
+    physicsC: true,
+    physicsM_P: true,
+    physicsM_N: true,
+    physicsM_E: true,
+    physicsM_MU: true,
+    physicsA_0: true,
+    physicsH: true,
+    physicsMU_N: true,
+    physicsMU_B: true,
+    physicsAlpha: true,
+    physicsR_inf: true,
+    physicsF: true,
+    physicsE: true,
+    physicsN_A: true,
+    physicsK: true,
+    physicsR: true,
+    physicsEpsilon_0: true,
+    physicsMU_0: true,
+    physicsG: true,
 };
 
 const objects = {

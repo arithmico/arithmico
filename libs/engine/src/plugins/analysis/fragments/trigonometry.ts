@@ -5,12 +5,15 @@ import createNumberNode from '../../../node-operations/create-node/create-number
 import { closeTo } from '../../../utils/float-utils';
 import { PluginFragment } from '../../../utils/plugin-builder';
 
-const trigonometryFragment = new PluginFragment().addConstant(
-    'pi',
-    "π is commonly defined as the ratio of a circle's circumference to its diameter.",
-    'Die Kreiszahl π ist allgemein definiert als das Verhältnis des Umfangs eines Kreises zu seinem Durchmesser.',
-    createNumberNode(Math.PI),
-);
+const trigonometryFragment = new PluginFragment();
+
+__CONSTANTS.pi &&
+    trigonometryFragment.addConstant(
+        'pi',
+        "π is commonly defined as the ratio of a circle's circumference to its diameter.",
+        'Die Kreiszahl π ist allgemein definiert als das Verhältnis des Umfangs eines Kreises zu seinem Durchmesser.',
+        createNumberNode(Math.PI),
+    );
 
 type TrigonometryEvaluator = (v: number, angleUnit: Options['angleUnit']) => number;
 

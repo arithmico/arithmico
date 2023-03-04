@@ -13,54 +13,57 @@ const plotHeader: FunctionHeaderItem[] = [
     { type: 'number', name: 'xMax', evaluate: true, optional: true },
 ];
 
-const functionPlotFragment = new PluginFragment().addFunction(
-    'plot',
-    plotHeader,
-    '',
-    '',
-    ({ getParameter, typeError, runtimeError, context }): Cartesian2DGraphic => {
-        const f = getParameter('f') as FunctionNode;
-        const xMinNode = getParameter('xMin', createNumberNode(-10)) as NumberNode;
-        const xMaxNode = getParameter('xMax', createNumberNode(10)) as NumberNode;
-        const xMin = Math.min(xMinNode.value, xMaxNode.value);
-        const xMax = Math.max(xMinNode.value, xMaxNode.value);
+const functionPlotFragment = new PluginFragment();
 
-        if (f.header.length !== 1 || !['number', 'any'].includes(f.header.at(0).type)) {
-            throw typeError('invalid function signature');
-        }
+__FUNCTIONS.plot &&
+    functionPlotFragment.addFunction(
+        'plot',
+        plotHeader,
+        '',
+        '',
+        ({ getParameter, typeError, runtimeError, context }): Cartesian2DGraphic => {
+            const f = getParameter('f') as FunctionNode;
+            const xMinNode = getParameter('xMin', createNumberNode(-10)) as NumberNode;
+            const xMaxNode = getParameter('xMax', createNumberNode(10)) as NumberNode;
+            const xMin = Math.min(xMinNode.value, xMaxNode.value);
+            const xMax = Math.max(xMinNode.value, xMaxNode.value);
 
-        if (xMin === xMax) {
-            throw runtimeError('xMax must be greater than xMin');
-        }
-
-        const points: Point2D[] = [];
-
-        for (let i = 0; i <= plotResolution; i++) {
-            const x = xMin + ((xMax - xMin) * i) / plotResolution;
-            const yNode = evaluate(createFunctionCall(f, [createNumberNode(x)]), context);
-            if (yNode.type !== 'number') {
-                throw runtimeError(`invalid return type expected number got ${yNode.type}`);
+            if (f.header.length !== 1 || !['number', 'any'].includes(f.header.at(0).type)) {
+                throw typeError('invalid function signature');
             }
-            points.push([x, yNode.value]);
-        }
 
-        const yMin = points.map(([, y]) => y).reduce((a, b) => Math.min(a, b));
-        const yMax = points.map(([, y]) => y).reduce((a, b) => Math.max(a, b));
+            if (xMin === xMax) {
+                throw runtimeError('xMax must be greater than xMin');
+            }
 
-        return {
-            type: 'graphic',
-            graphicType: 'cartesian2D',
-            limits: { xMin, yMin, xMax, yMax },
-            xTicks: 'auto',
-            yTicks: 'auto',
-            lines: [
-                {
-                    type: 'line',
-                    points,
-                },
-            ],
-        };
-    },
-);
+            const points: Point2D[] = [];
+
+            for (let i = 0; i <= plotResolution; i++) {
+                const x = xMin + ((xMax - xMin) * i) / plotResolution;
+                const yNode = evaluate(createFunctionCall(f, [createNumberNode(x)]), context);
+                if (yNode.type !== 'number') {
+                    throw runtimeError(`invalid return type expected number got ${yNode.type}`);
+                }
+                points.push([x, yNode.value]);
+            }
+
+            const yMin = points.map(([, y]) => y).reduce((a, b) => Math.min(a, b));
+            const yMax = points.map(([, y]) => y).reduce((a, b) => Math.max(a, b));
+
+            return {
+                type: 'graphic',
+                graphicType: 'cartesian2D',
+                limits: { xMin, yMin, xMax, yMax },
+                xTicks: 'auto',
+                yTicks: 'auto',
+                lines: [
+                    {
+                        type: 'line',
+                        points,
+                    },
+                ],
+            };
+        },
+    );
 
 export default functionPlotFragment;
