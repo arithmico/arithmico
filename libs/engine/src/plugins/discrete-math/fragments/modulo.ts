@@ -9,8 +9,10 @@ const twoNumberHeader: FunctionHeaderItem[] = [
     { name: 'm', type: 'number', evaluate: true },
 ];
 
-const moduloFragment = new PluginFragment()
-    .addFunction(
+const moduloFragment = new PluginFragment();
+
+__FUNCTIONS.mod &&
+    moduloFragment.addFunction(
         'mod',
         twoNumberHeader,
         'Calculates the remainder of n/m (mathematical variant).',
@@ -25,8 +27,10 @@ const moduloFragment = new PluginFragment()
 
             return createNumberNode(((n % m) + m) % m);
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.idiv &&
+    moduloFragment.addFunction(
         'idiv',
         twoNumberHeader,
         'calculates the euclidean division of n/m',

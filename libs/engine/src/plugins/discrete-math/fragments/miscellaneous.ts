@@ -13,8 +13,10 @@ const bincoHeader: FunctionHeaderItem[] = [
 ];
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 
-const miscellaneousDiscreteMathFragment = new PluginFragment()
-    .addFunction(
+const miscellaneousDiscreteMathFragment = new PluginFragment();
+
+__FUNCTIONS.binco &&
+    miscellaneousDiscreteMathFragment.addFunction(
         'binco',
         bincoHeader,
         'Computes n choose k (binomial coefficient)',
@@ -41,34 +43,39 @@ const miscellaneousDiscreteMathFragment = new PluginFragment()
 
             return createNumberNode(binco(n, k));
         },
-    )
-    .addFunction(
-        'fact',
-        singleNumberHeader,
-        'Calculates the factorial of n.',
-        'Berechnet die Fakultät von n.',
-        ({ getParameter }) => {
-            const n = (<NumberNode>getParameter('n')).value;
-            return createNumberNode(calculateFact(n));
-        },
-    )
-    .addFunction(
-        'fraction',
-        singleNumberHeader,
-        'Calculates the nearest fraction',
-        'Berechnet den nächsten Bruch zu n.',
-        ({ getParameter }) => {
-            const value = (<NumberNode>getParameter('n')).value;
+    );
 
-            if (value === 0) {
-                return createNumberNode(0);
-            }
+__FUNCTIONS.fact &&
+    miscellaneousDiscreteMathFragment
+        .addFunction(
+            'fact',
+            singleNumberHeader,
+            'Calculates the factorial of n.',
+            'Berechnet die Fakultät von n.',
+            ({ getParameter }) => {
+                const n = (<NumberNode>getParameter('n')).value;
+                return createNumberNode(calculateFact(n));
+            },
+        )
+        .addFunction(
+            'fraction',
+            singleNumberHeader,
+            'Calculates the nearest fraction',
+            'Berechnet den nächsten Bruch zu n.',
+            ({ getParameter }) => {
+                const value = (<NumberNode>getParameter('n')).value;
 
-            const [left, right] = getLowestFraction(value);
-            return createDivided(createNumberNode(left), createNumberNode(right));
-        },
-    )
-    .addFunction(
+                if (value === 0) {
+                    return createNumberNode(0);
+                }
+
+                const [left, right] = getLowestFraction(value);
+                return createDivided(createNumberNode(left), createNumberNode(right));
+            },
+        );
+
+__FUNCTIONS.fib &&
+    miscellaneousDiscreteMathFragment.addFunction(
         'fib',
         singleNumberHeader,
         'calculates the n-th fibonacci number',

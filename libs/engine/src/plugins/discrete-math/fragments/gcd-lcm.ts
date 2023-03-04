@@ -12,8 +12,10 @@ const doubleNumberHeader: FunctionHeaderItem[] = [
     { name: 'b', type: 'number', evaluate: true },
 ];
 
-const gcdLcmFragment = new PluginFragment()
-    .addFunction(
+const gcdLcmFragment = new PluginFragment();
+
+__FUNCTIONS.gcd &&
+    gcdLcmFragment.addFunction(
         'gcd',
         doubleNumberHeader,
         'Calculates the greatest common divisor (gcd).',
@@ -31,8 +33,10 @@ const gcdLcmFragment = new PluginFragment()
 
             return createNumberNode(greatestCommonDivisor(a, b));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.gcdExtended &&
+    gcdLcmFragment.addFunction(
         'gcd:extended',
         doubleNumberHeader,
         'Calculates the greatest common divisor (gcd) with extended euclidean algorithm.',
@@ -61,8 +65,10 @@ const gcdLcmFragment = new PluginFragment()
                 ),
             );
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.lcm &&
+    gcdLcmFragment.addFunction(
         'lcm',
         doubleNumberHeader,
         'Calculates the least common multiple (lcm).',

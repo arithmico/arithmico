@@ -65,6 +65,35 @@ const functions = {
     asinh: true,
     acosh: true,
     atanh: true,
+
+    ite: true,
+
+    listFilter: true,
+    listMap: true,
+    listReduce: true,
+    listReverse: true,
+    listSort: true,
+    listConcat: true,
+    listRange: true,
+
+    coprime: true,
+    eulerPhi: true,
+
+    gcd: true,
+    gcdExtended: true,
+    lcm: true,
+
+    binco: true,
+    fact: true,
+    fib: true,
+
+    mod: true,
+    idiv: true,
+
+    primeRange: true,
+    primeNth: true,
+    primeIs: true,
+    primePi: true,
 };
 
 const constants = {

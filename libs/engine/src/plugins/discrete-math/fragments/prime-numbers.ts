@@ -7,8 +7,10 @@ import { PluginFragment } from '../../../utils/plugin-builder';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 
-const primeNumberFragment = new PluginFragment()
-    .addFunction(
+const primeNumberFragment = new PluginFragment();
+
+__FUNCTIONS.primeRange &&
+    primeNumberFragment.addFunction(
         'prime:range',
         singleNumberHeader,
         'Returns all prime numbers in the interval (1, n].',
@@ -25,8 +27,10 @@ const primeNumberFragment = new PluginFragment()
 
             return createVector(sieveOfAtkin(n).map((value) => createNumberNode(value)));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.primeNth &&
+    primeNumberFragment.addFunction(
         'prime:nth',
         singleNumberHeader,
         'Returns the nth prime number.',
@@ -43,8 +47,10 @@ const primeNumberFragment = new PluginFragment()
 
             return createNumberNode(getNthPrimeNumber(n));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.primeIs &&
+    primeNumberFragment.addFunction(
         'prime:is',
         singleNumberHeader,
         'Returns true if the given number is a prime number, otherwise returns false.',
@@ -53,8 +59,10 @@ const primeNumberFragment = new PluginFragment()
             const n = (<NumberNode>getParameter('n')).value;
             return createBooleanNode(isPrimeNumber(n));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.primePi &&
+    primeNumberFragment.addFunction(
         'prime:pi',
         singleNumberHeader,
         'The pi function specifies the number of prime numbers in the interval (1, n].',

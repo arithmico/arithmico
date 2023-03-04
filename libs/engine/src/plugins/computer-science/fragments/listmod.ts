@@ -25,8 +25,10 @@ const rangeHeader: FunctionHeaderItem[] = [
     { name: 'step_size', type: 'number', evaluate: true, optional: true },
 ];
 
-const listModFragment = new PluginFragment()
-    .addFunction(
+const listModFragment = new PluginFragment();
+
+__FUNCTIONS.listFilter &&
+    listModFragment.addFunction(
         'list:filter',
         functionAndListHeader,
         'Filter a list l with a filter function f',
@@ -55,8 +57,10 @@ const listModFragment = new PluginFragment()
 
             return createVector(resultValues);
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.listMap &&
+    listModFragment.addFunction(
         'list:map',
         functionAndListHeader,
         'Maps each element x of list l to f(x).',
@@ -77,8 +81,10 @@ const listModFragment = new PluginFragment()
 
             return createVector(resultValues);
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.listReduce &&
+    listModFragment.addFunction(
         'list:reduce',
         reduceHeader,
         'Reduces a list to a single value with the specified reducer function',
@@ -111,8 +117,10 @@ const listModFragment = new PluginFragment()
                 evaluate(createFunctionCall(reduceFunction, [acc, value]), context),
             );
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.listReverse &&
+    listModFragment.addFunction(
         'list:reverse',
         singleListHeader,
         'Creates a new list with the elements of l in reverse order.',
@@ -121,8 +129,10 @@ const listModFragment = new PluginFragment()
             const values = (<Vector>getParameter('l')).values;
             return createVector([...values].reverse());
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.listSort &&
+    listModFragment.addFunction(
         'list:sort',
         singleListHeader,
         'Creates a new sorted list with the elements of l.',
@@ -137,8 +147,10 @@ const listModFragment = new PluginFragment()
             });
             return createVector([...values].sort().map((value) => createNumberNode(value)));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.listConcat &&
+    listModFragment.addFunction(
         'list:concat',
         twoListsHeader,
         'Creates a new list with the elements of l1 and l2 concatenated.',
@@ -148,8 +160,10 @@ const listModFragment = new PluginFragment()
             const secondListValues = (<Vector>getParameter('l2')).values;
             return createVector([...firstListValues, ...secondListValues]);
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.listRange &&
+    listModFragment.addFunction(
         'list:range',
         rangeHeader,
         'Generates a list with numbers from "start" to "stop" in ascending order with a spacing of "step_size".',
