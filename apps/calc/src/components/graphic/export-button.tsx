@@ -1,9 +1,46 @@
+import { Document, Page, pdf, Text, View } from "@react-pdf/renderer";
 import classNames from "classnames";
+import GraphicRenderer from "@local-components/graphic/graphic-renderer";
+import { ViewBoxDimension } from "@local-components/graphic/graphic-utils";
+import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
+import FileSaver from "file-saver";
 
-export default function ExportButton() {
+interface ExportButtonProps {
+  graphic: GraphicNode;
+}
+
+export default function ExportButton({ graphic }: ExportButtonProps) {
+  console.log(graphic);
+  const viewBoxDimension: ViewBoxDimension = {
+    viewBoxWidth: 38 * 10,
+    viewBoxHeight: 38 * 10,
+  };
+
+  const GraphicDOM = (
+    <Document>
+      <Page size="A4">
+        <View>
+          <GraphicRenderer
+            graphic={graphic}
+            viewBoxDimension={viewBoxDimension}
+          />
+        </View>
+        <View>
+          <Text>Hello World!</Text>
+        </View>
+      </Page>
+    </Document>
+  );
+
+  const onClickExportPDF = () => {
+    pdf(GraphicDOM)
+      .toBlob()
+      .then((blob) => FileSaver.saveAs(blob, "export.pdf"));
+  };
+
   return (
     <button
-      onClick={() => console.log("exported")}
+      onClick={onClickExportPDF}
       className={classNames(
         "bold-font:font-bold",
         "border",

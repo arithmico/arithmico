@@ -113,6 +113,6 @@
     "vite-plugin-singlefile": "^0.13.3"
   },
   "dependencies": {
-    "@pdfme/generator": "^1.1.5"
+    "@react-pdf/renderer": "^3.1.6"
   }
 }

@@ -13,7 +13,7 @@ interface LineProps {
 
 export default function Line({ points, limits, viewBoxDimension }: LineProps) {
   const pathString = points
-    .map(([ x, y ], index) => {
+    .map(({ x, y }, index) => {
       const { x: viewX, y: viewY } = convertToViewPortCoordinates(
         { x, y },
         limits,

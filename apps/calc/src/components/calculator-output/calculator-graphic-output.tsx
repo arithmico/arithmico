@@ -41,7 +41,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         )}
       >
         <GraphicContainer graphic={output.graphic} />
-        <GraphicOutputToolbar />
+        <GraphicOutputToolbar graphic={output.graphic} />
       </div>
     );
   }
