@@ -14,18 +14,10 @@ export function init() {
 }
 
 export function getDocumentation() {
-    if (!documentation) {
-        init();
-    }
-
     return documentation;
 }
 
 export function getDefaultContext() {
-    if (!defaultContext) {
-        init();
-    }
-
     return defaultContext;
 }
 
