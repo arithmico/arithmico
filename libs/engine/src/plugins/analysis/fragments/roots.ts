@@ -1,6 +1,6 @@
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
-import {FunctionHeaderItem, NumberNode} from '../../../types/nodes.types';
-import {PluginFragment} from '../../../utils/plugin-builder';
+import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
+import { PluginFragment } from '../../../utils/plugin-builder';
 import createNegate from '../../../node-operations/create-node/create-negate';
 
 const sqrtHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
@@ -9,8 +9,10 @@ const rootHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
 ];
 
-const rootsFragment = new PluginFragment()
-    .addFunction(
+const rootsFragment = new PluginFragment();
+
+__FUNCTIONS.sqrt &&
+    rootsFragment.addFunction(
         'sqrt',
         sqrtHeader,
         'Calculates the square root of x',
@@ -24,8 +26,10 @@ const rootsFragment = new PluginFragment()
 
             return createNumberNode(Math.sqrt(x));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.root &&
+    rootsFragment.addFunction(
         'root',
         rootHeader,
         'Computes the nth root of x',

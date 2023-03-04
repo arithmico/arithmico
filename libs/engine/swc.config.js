@@ -15,6 +15,62 @@ const defaultProfile = {
     },
 };
 
+const functions = {
+    matrixInverse: true,
+    matrixId: true,
+    matrixAdj: true,
+    matrixCof: true,
+    matrixTranspose: true,
+    matrixDet: true,
+
+    lsolve: true,
+
+    polynomialDeg: true,
+    polynomialAdd: true,
+    polynomialSub: true,
+    polynomialMul: true,
+    polynomialDiv: true,
+
+    tensorRank: true,
+    tensorDims: true,
+
+    abs: true,
+
+    exp: true,
+
+    lg: true,
+    ln: true,
+    log: true,
+
+    min: true,
+    max: true,
+
+    sqrt: true,
+    root: true,
+
+    round: true,
+    floor: true,
+    ceil: true,
+    table: true,
+
+    sin: true,
+    cos: true,
+    tan: true,
+    asin: true,
+    acos: true,
+    atan: true,
+    sinh: true,
+    cosh: true,
+    tanh: true,
+    asinh: true,
+    acosh: true,
+    atanh: true,
+};
+
+const constants = {
+    e: true,
+};
+
 const objects = {
     boolean: true,
     number: true,
@@ -91,6 +147,8 @@ const swcConfigContent = {
                         __PROFILE: serializeObject(profile),
                         __OBJECTS: serializeObject(objects),
                         __OPERATORS: serializeObject(operators),
+                        __FUNCTIONS: serializeObject(functions),
+                        __CONSTANTS: serializeObject(constants),
                     },
                 },
             },

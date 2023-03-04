@@ -8,6 +8,12 @@ const loadingResult = load(defaultPlugins, __PROFILE);
 const defaultContext = loadingResult.context;
 const documentation = loadingResult.documentation;
 
+function foo(a: boolean, b: boolean) {
+    return a && b;
+}
+
+export const bar = foo(true, false);
+
 export function init() {
     console.warn('init is deprecated');
 }

@@ -6,8 +6,6 @@ import { createTestContext, integrationTest, integrationTestThrow } from '../uti
 const defaultStack = getDefaultContext().stack;
 const germanTextContext = createTestContext(defaultStack, createOptions({ decimalSeparator: ',' }));
 
-console.debug(JSON.stringify(createOptions(), null, 2));
-
 integrationTest('1', '1');
 integrationTest('[1,2,3]', '[1, 2, 3]');
 integrationTest('1 + 2', '3');

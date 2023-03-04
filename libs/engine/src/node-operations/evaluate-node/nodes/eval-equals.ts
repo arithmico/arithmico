@@ -10,7 +10,7 @@ export default function evaluateEquals(node: Equals, context: Context): SyntaxTr
 
     if (
         (leftChild.type === 'boolean' && rightChild.type === 'boolean' && __OPERATORS.equalsBooleanBoolean) ||
-        (leftChild.type === 'number' && rightChild.type === 'number' && context.options.operators.equalsNumberNumber)
+        (leftChild.type === 'number' && rightChild.type === 'number' && __OPERATORS.equalsNumberNumber)
     ) {
         return createBooleanNode(leftChild.value === rightChild.value);
     } else if (leftChild.type === 'function' && rightChild.type === 'function' && __OPERATORS.equalsFunctionFunction) {

@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "install": "npm run build",
-        "test": " jest",
+        "test": "NODE_OPTIONS=--experimental-vm-modules jest",
         "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
         "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
         "pretty": "prettier 'src/**/*' --check",

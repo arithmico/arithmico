@@ -4,8 +4,10 @@ import { PluginFragment } from '../../../utils/plugin-builder';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 
-const roundFragment = new PluginFragment()
-    .addFunction(
+const roundFragment = new PluginFragment();
+
+__FUNCTIONS.round &&
+    roundFragment.addFunction(
         'round',
         singleNumberHeader,
         'Returns the value of a number rounded to the nearest integer',
@@ -14,8 +16,10 @@ const roundFragment = new PluginFragment()
             const value = (<NumberNode>getParameter('x')).value;
             return createNumberNode(Math.round(value));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.floor &&
+    roundFragment.addFunction(
         'floor',
         singleNumberHeader,
         'Returns the largest integer less than or equal to a given number',
@@ -24,8 +28,10 @@ const roundFragment = new PluginFragment()
             const value = (<NumberNode>getParameter('x')).value;
             return createNumberNode(Math.floor(value));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.ceil &&
+    roundFragment.addFunction(
         'ceil',
         singleNumberHeader,
         'Returns the smallest integer greater than or equal to a given number',

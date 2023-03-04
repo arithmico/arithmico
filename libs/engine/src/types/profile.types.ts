@@ -14,4 +14,10 @@ declare global {
     const __OBJECTS: {
         [key: string]: boolean;
     };
+    const __FUNCTIONS: {
+        [key: string]: boolean;
+    };
+    const __CONSTANTS: {
+        [key: string]: boolean;
+    };
 }
