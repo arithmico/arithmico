@@ -1,18 +1,32 @@
 import classNames from "classnames";
-import { convertToViewPortCoordinates, Limits } from "./graphic";
+import { Limits } from "@arithmico/engine/lib/types/graphics.types";
+import {convertToViewPortCoordinates, ViewBoxDimension} from "@local-components/graphic/graphic-utils";
 
 interface YAxisProps {
   limits: Limits;
   yTicks: number;
+  viewBoxDimension: ViewBoxDimension;
 }
 
-export default function YAxis({ limits, yTicks }: YAxisProps) {
-  const startPoint = convertToViewPortCoordinates([0, limits.yMin], limits);
-  const endPoint = convertToViewPortCoordinates([0, limits.yMax], limits);
+export default function YAxis({
+  limits,
+  yTicks,
+  viewBoxDimension,
+}: YAxisProps) {
+  const startPoint = convertToViewPortCoordinates(
+    { x: 0, y: limits.yMin },
+    limits,
+    viewBoxDimension
+  );
+  const endPoint = convertToViewPortCoordinates(
+    { x: 0, y: limits.yMax },
+    limits,
+    viewBoxDimension
+  );
   const arrowPoints = [
-    [endPoint[0], endPoint[1] - 10],
-    [endPoint[0] - 3, endPoint[1]],
-    [endPoint[0] + 3, endPoint[1]],
+    [endPoint.x, endPoint.y - 10],
+    [endPoint.x - 3, endPoint.y],
+    [endPoint.x + 3, endPoint.y],
   ]
     .map((p) => p.join(","))
     .join(" ");
@@ -20,10 +34,10 @@ export default function YAxis({ limits, yTicks }: YAxisProps) {
   return (
     <>
       <line
-        x1={startPoint[0]}
-        y1={startPoint[1]}
-        x2={endPoint[0]}
-        y2={endPoint[1]}
+        x1={startPoint.x}
+        y1={startPoint.y}
+        x2={endPoint.x}
+        y2={endPoint.y}
         className={classNames(
           "stroke-1",
           "theme-light:stroke-black",

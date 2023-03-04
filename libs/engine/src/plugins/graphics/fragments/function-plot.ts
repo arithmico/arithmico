@@ -44,11 +44,11 @@ __FUNCTIONS.plot &&
                 if (yNode.type !== 'number') {
                     throw runtimeError(`invalid return type expected number got ${yNode.type}`);
                 }
-                points.push([x, yNode.value]);
+                points.push({ x: x, y: yNode.value });
             }
 
-            const yMin = points.map(([, y]) => y).reduce((a, b) => Math.min(a, b));
-            const yMax = points.map(([, y]) => y).reduce((a, b) => Math.max(a, b));
+            const yMin = points.map((point) => point.y).reduce((a, b) => Math.min(a, b));
+            const yMax = points.map((point) => point.y).reduce((a, b) => Math.max(a, b));
 
             return {
                 type: 'graphic',
