@@ -35,7 +35,6 @@ export default function GraphicContainer({ graphic }: GraphicContainerProps) {
         "flex",
         "w-full",
         "h-full",
-        "max-h-full",
         "items-center",
         "justify-center"
       )}

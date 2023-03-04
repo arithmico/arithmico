@@ -7,7 +7,8 @@ export default function ExportButton() {
       className={classNames(
         "bold-font:font-bold",
         "border",
-        "p-4",
+        "p-2",
+        "w-full",
         "rounded-sm",
         "text-center",
         "theme-light:bg-neutral-200",

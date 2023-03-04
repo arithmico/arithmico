@@ -1,8 +1,8 @@
 import { GraphicResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
-import ExportButton from "@local-components/graphic/export-button";
 import GraphicContainer from "../graphic/graphic-container";
+import GraphicOutputToolbar from "@local-components/graphic/graphic-output-toolbar";
 
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;
@@ -28,6 +28,8 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "h-full",
           "rounded-md",
           "max-h-full",
+          "grid",
+          "grid-cols-[7fr_1fr]",
           "overflow-hidden",
           "outline-none",
           "theme-dark:border-neutral-500",
@@ -39,7 +41,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         )}
       >
         <GraphicContainer graphic={output.graphic} />
-        <ExportButton />
+        <GraphicOutputToolbar />
       </div>
     );
   }
