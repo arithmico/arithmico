@@ -5,15 +5,18 @@ import { PluginFragment } from '../../../utils/plugin-builder';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 
-const miscellaneousStatisticsFragment = new PluginFragment().addFunction(
-    'erf',
-    singleNumberHeader,
-    'Gaussian error function',
-    'Gaußsche Fehlerfunktion',
-    ({ getParameter }) => {
-        const x = (<NumberNode>getParameter('x')).value;
-        return createNumberNode(calculateErf(x));
-    },
-);
+const miscellaneousStatisticsFragment = new PluginFragment();
+
+__FUNCTIONS.erf &&
+    miscellaneousStatisticsFragment.addFunction(
+        'erf',
+        singleNumberHeader,
+        'Gaussian error function',
+        'Gaußsche Fehlerfunktion',
+        ({ getParameter }) => {
+            const x = (<NumberNode>getParameter('x')).value;
+            return createNumberNode(calculateErf(x));
+        },
+    );
 
 export default miscellaneousStatisticsFragment;

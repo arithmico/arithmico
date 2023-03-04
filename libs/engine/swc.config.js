@@ -100,6 +100,21 @@ const functions = {
     nderive: true,
     nintegrate: true,
     nsolve: true,
+
+    normal: true,
+    cnormal: true,
+    binom: true,
+    cbinom: true,
+    erf: true,
+    avg: true,
+    var: true,
+    unbiasedVar: true,
+    sd: true,
+    unbiasedSd: true,
+    median: true,
+    quantile: true,
+    cov: true,
+    corr: true,
 };
 
 const constants = {

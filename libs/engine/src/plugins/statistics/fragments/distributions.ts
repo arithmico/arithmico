@@ -11,8 +11,10 @@ const binomHeader: FunctionHeaderItem[] = [
     { name: 'k', type: 'number', evaluate: true },
 ];
 
-const distributionFragment = new PluginFragment()
-    .addFunction(
+const distributionFragment = new PluginFragment();
+
+__FUNCTIONS.normal &&
+    distributionFragment.addFunction(
         'normal',
         singleNumberHeader,
         'standard normal distribution',
@@ -21,8 +23,10 @@ const distributionFragment = new PluginFragment()
             const x = (<NumberNode>getParameter('x')).value;
             return createNumberNode(calculateNormal(x));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.cnormal &&
+    distributionFragment.addFunction(
         'cnormal',
         singleNumberHeader,
         'Cumulative standard normal distribution',
@@ -31,8 +35,10 @@ const distributionFragment = new PluginFragment()
             const x = (<NumberNode>getParameter('x')).value;
             return createNumberNode(calculateCNormal(x));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.binom &&
+    distributionFragment.addFunction(
         'binom',
         binomHeader,
         'Binomial distribution',
@@ -63,8 +69,10 @@ const distributionFragment = new PluginFragment()
 
             return createNumberNode(calculateBinom(n, p, k));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.cbinom &&
+    distributionFragment.addFunction(
         'cbinom',
         binomHeader,
         'Cumulative binomial distribution',
