@@ -2,24 +2,26 @@ import { Limits } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import XAxis from "./x-axis";
 import YAxis from "./y-axis";
-import { convertToViewPortCoordinates } from "@local-components/graphic/graphic-utils";
+import {
+  convertToViewPortCoordinates,
+  Coordinate, ViewBoxDimension,
+} from "@local-components/graphic/graphic-utils";
 
 interface CoordinateGridProps {
   limits: Limits;
   xTicks: number;
   yTicks: number;
-  viewBoxWidth: number;
-  viewBoxHeight: number;
+  viewBoxDimension: ViewBoxDimension;
 }
 
 export default function CoordinateGrid({
   limits,
   xTicks,
   yTicks,
-  viewBoxWidth,
-  viewBoxHeight,
+  viewBoxDimension,
 }: CoordinateGridProps) {
   const { xMin, yMin, xMax, yMax } = limits;
+
   const rowStartX = xMin % xTicks === 0 ? xMin : xMin - (xMin % xTicks);
   const rowStopX = xMax % xTicks === 0 ? xMax : xMax - (xMax % xTicks);
   const rowStartY = yMin % yTicks === 0 ? yMin : yMin - (yMin % yTicks);
@@ -36,16 +38,14 @@ export default function CoordinateGrid({
         <XAxis
           limits={limits}
           xTicks={xTicks}
-          viewBoxWidth={viewBoxWidth}
-          viewBoxHeight={viewBoxHeight}
+          viewBoxDimension={viewBoxDimension}
         />
       )}
       {xMin <= 0 && xMax >= 0 && (
         <YAxis
           limits={limits}
           yTicks={yTicks}
-          viewBoxWidth={viewBoxWidth}
-          viewBoxHeight={viewBoxHeight}
+          viewBoxDimension={viewBoxDimension}
         />
       )}
       {rowLevels.map((y) => (
@@ -55,8 +55,7 @@ export default function CoordinateGrid({
           y={y}
           xTicks={xTicks}
           limits={limits}
-          viewBoxWidth={viewBoxWidth}
-          viewBoxHeight={viewBoxHeight}
+          viewBoxDimension={viewBoxDimension}
         />
       ))}
     </>
@@ -69,8 +68,7 @@ interface GridRowProps {
   xTicks: number;
   y: number;
   limits: Limits;
-  viewBoxWidth: number;
-  viewBoxHeight: number;
+  viewBoxDimension: ViewBoxDimension;
 }
 
 function GridRow({
@@ -79,21 +77,19 @@ function GridRow({
   xTicks,
   y,
   limits,
-  viewBoxWidth,
-  viewBoxHeight,
+  viewBoxDimension,
 }: GridRowProps) {
-  const points: [number, number][] = [];
-  console.log(start, stop, xTicks);
+  const points: Coordinate[] = [];
 
   for (let x = start; x <= stop; x += xTicks) {
     points.push(
-      convertToViewPortCoordinates([x, y], limits, viewBoxWidth, viewBoxHeight)
+      convertToViewPortCoordinates({ x, y }, limits, viewBoxDimension)
     );
   }
 
   return (
     <>
-      {points.map(([x, y]) => (
+      {points.map(({ x, y }) => (
         <circle
           cx={x}
           cy={y}

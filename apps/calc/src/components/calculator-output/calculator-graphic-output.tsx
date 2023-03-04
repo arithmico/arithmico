@@ -1,8 +1,8 @@
 import { GraphicResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
-import GraphicContainer from "../graphic/graphicContainer";
 import ExportButton from "@local-components/graphic/export-button";
+import GraphicContainer from "../graphic/graphic-container";
 
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;

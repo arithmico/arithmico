@@ -1,36 +1,32 @@
 import classNames from "classnames";
 import { Limits } from "@arithmico/engine/lib/types/graphics.types";
-import { convertToViewPortCoordinates } from "@local-components/graphic/graphic-utils";
+import {convertToViewPortCoordinates, ViewBoxDimension} from "@local-components/graphic/graphic-utils";
 
 interface XAxisProps {
   limits: Limits;
   xTicks: number;
-  viewBoxWidth: number;
-  viewBoxHeight: number;
+  viewBoxDimension: ViewBoxDimension;
 }
 
 export default function XAxis({
   limits,
   xTicks,
-  viewBoxWidth,
-  viewBoxHeight,
+  viewBoxDimension,
 }: XAxisProps) {
   const startPoint = convertToViewPortCoordinates(
-    [limits.xMin, 0],
+    { x: limits.xMin, y: 0 },
     limits,
-    viewBoxWidth,
-    viewBoxHeight
+    viewBoxDimension
   );
   const endPoint = convertToViewPortCoordinates(
-    [limits.xMax, 0],
+    { x: limits.xMax, y: 0 },
     limits,
-    viewBoxWidth,
-    viewBoxHeight
+    viewBoxDimension
   );
   const arrowPoints = [
-    [endPoint[0], endPoint[1] - 3],
-    [endPoint[0], endPoint[1] + 3],
-    [endPoint[0] + 10, endPoint[1]],
+    [endPoint.x, endPoint.y - 3],
+    [endPoint.x, endPoint.y + 3],
+    [endPoint.x + 10, endPoint.y],
   ]
     .map((p) => p.join(","))
     .join(" ");
@@ -38,10 +34,10 @@ export default function XAxis({
   return (
     <>
       <line
-        x1={startPoint[0]}
-        y1={startPoint[1]}
-        x2={endPoint[0]}
-        y2={endPoint[1]}
+        x1={startPoint.x}
+        y1={startPoint.y}
+        x2={endPoint.x}
+        y2={endPoint.y}
         className={classNames(
           "stroke-1",
           "theme-light:stroke-black",
