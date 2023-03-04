@@ -1,6 +1,6 @@
 export type GraphicNode = Cartesian2DGraphic;
 
-export type Point2D = [x: number, y: number];
+export type Point2D = { x: number; y: number };
 export type Line2D = {
     type: 'line';
     points: Point2D[];
