@@ -1,19 +1,15 @@
-import { PluginStructure } from './types/plugin.types';
-import { Context, EvaluationResult, Profile } from './types';
+import { Context, EvaluationResult } from './types';
 import load from './load';
-import { createProfile } from './utils/profile-utils';
 import defaultPlugins from './plugins';
 import evaluationPipeline from './pipeline';
 
 export { serializeStack } from './utils/context-utils';
+const loadingResult = load(defaultPlugins, __PROFILE);
+const defaultContext = loadingResult.context;
+const documentation = loadingResult.documentation;
 
-let defaultContext: Context;
-let documentation: PluginStructure[];
-
-export function init(profile: Profile = createProfile()) {
-    const loadingResult = load(defaultPlugins, profile);
-    defaultContext = loadingResult.context;
-    documentation = loadingResult.documentation;
+export function init() {
+    console.warn('init is deprecated');
 }
 
 export function getDocumentation() {

@@ -5,8 +5,8 @@ import { SyntaxTreeNode, Lambda } from '../../../types';
 import createFunction from '../../create-node/create-function';
 import { mapParametersToStackFrame } from '../../../utils/parameter-utils';
 
-export default function evaluateLambda(node: Lambda, context: Context): SyntaxTreeNode {
-    if (!context.options.operators.lambda) {
+export default function evaluateLambda(node: Lambda): SyntaxTreeNode {
+    if (!__OPERATORS.lambda) {
         throw `RuntimeError: lambdas are disabled in this configuration`;
     }
 

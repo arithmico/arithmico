@@ -10,11 +10,11 @@ import { Negate, Context, SyntaxTreeNode } from '../../../types';
 export default function evaluateNegate(node: Negate, context: Context): SyntaxTreeNode {
     const value = evaluate(node.value, context);
 
-    if (value.type === 'boolean' && context.options.operators.negateBoolean) {
+    if (value.type === 'boolean' && __OPERATORS.negateBoolean) {
         return createBooleanNode(!value.value);
-    } else if (value.type === 'number' && context.options.operators.negateNumber) {
+    } else if (value.type === 'number' && __OPERATORS.negateNumber) {
         return createNumberNode(-value.value);
-    } else if (value.type === 'function' && context.options.operators.negateFunction) {
+    } else if (value.type === 'function' && __OPERATORS.negateFunction) {
         return evaluate(
             createLambda(
                 value.header,
