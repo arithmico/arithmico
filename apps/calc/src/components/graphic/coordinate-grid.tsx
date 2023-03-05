@@ -1,17 +1,20 @@
 import { Limits } from "@arithmico/engine/lib/types";
-import classNames from "classnames";
 import XAxis from "./x-axis";
 import YAxis from "./y-axis";
 import {
   convertToViewPortCoordinates,
-  Coordinate, ViewBoxDimension,
+  Coordinate,
+  ViewBoxDimension,
 } from "@local-components/graphic/graphic-utils";
+import GraphicCircle from "@local-components/graphic/graphic-components/graphic-circle";
+import { Target } from "@local-components/graphic/graphic-container";
 
 interface CoordinateGridProps {
   limits: Limits;
   xTicks: number;
   yTicks: number;
   viewBoxDimension: ViewBoxDimension;
+  target: Target;
 }
 
 export default function CoordinateGrid({
@@ -19,6 +22,7 @@ export default function CoordinateGrid({
   xTicks,
   yTicks,
   viewBoxDimension,
+  target,
 }: CoordinateGridProps) {
   const { xMin, yMin, xMax, yMax } = limits;
 
@@ -39,6 +43,7 @@ export default function CoordinateGrid({
           limits={limits}
           xTicks={xTicks}
           viewBoxDimension={viewBoxDimension}
+          target={target}
         />
       )}
       {xMin <= 0 && xMax >= 0 && (
@@ -46,6 +51,7 @@ export default function CoordinateGrid({
           limits={limits}
           yTicks={yTicks}
           viewBoxDimension={viewBoxDimension}
+          target={target}
         />
       )}
       {rowLevels.map((y) => (
@@ -57,6 +63,7 @@ export default function CoordinateGrid({
           limits={limits}
           viewBoxDimension={viewBoxDimension}
           key={y}
+          target={target}
         />
       ))}
     </>
@@ -70,6 +77,7 @@ interface GridRowProps {
   y: number;
   limits: Limits;
   viewBoxDimension: ViewBoxDimension;
+  target: Target;
 }
 
 function GridRow({
@@ -79,6 +87,7 @@ function GridRow({
   y,
   limits,
   viewBoxDimension,
+  target,
 }: GridRowProps) {
   const points: Coordinate[] = [];
 
@@ -91,16 +100,7 @@ function GridRow({
   return (
     <>
       {points.map(({ x, y }, index) => (
-        <circle
-          cx={x}
-          cy={y}
-          r={0.5}
-          key={index}
-          className={classNames(
-            "theme-dark:fill-white",
-            "theme-light:fill-black"
-          )}
-        />
+        <GraphicCircle cx={x} cy={y} r={0.5} key={index} target={target} />
       ))}
       ;
     </>

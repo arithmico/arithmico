@@ -10,10 +10,9 @@ interface ExportButtonProps {
 }
 
 export default function ExportButton({ graphic }: ExportButtonProps) {
-  console.log(graphic);
   const viewBoxDimension: ViewBoxDimension = {
-    viewBoxWidth: 38 * 10,
-    viewBoxHeight: 38 * 10,
+    viewBoxWidth: 30,
+    viewBoxHeight: 30,
   };
 
   const GraphicDOM = (
@@ -23,6 +22,7 @@ export default function ExportButton({ graphic }: ExportButtonProps) {
           <GraphicRenderer
             graphic={graphic}
             viewBoxDimension={viewBoxDimension}
+            target={"pdf"}
           />
         </View>
         <View>

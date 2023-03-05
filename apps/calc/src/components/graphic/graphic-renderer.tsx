@@ -1,8 +1,9 @@
-import classNames from "classnames";
 import CoordinateGrid from "@local-components/graphic/coordinate-grid";
 import Line from "@local-components/graphic/line";
 import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 import { ViewBoxDimension } from "@local-components/graphic/graphic-utils";
+import { Target } from "@local-components/graphic/graphic-container";
+import GraphicSvg from "@local-components/graphic/graphic-components/graphic-svg";
 
 const tickSizes = [
   1 / 2,
@@ -58,11 +59,13 @@ function getYTicks(height: number, xTicks: number) {
 interface GraphicRendererProps {
   graphic: GraphicNode;
   viewBoxDimension: ViewBoxDimension;
+  target: Target;
 }
 
 export default function GraphicRenderer({
   graphic,
   viewBoxDimension,
+  target,
 }: GraphicRendererProps) {
   const { viewBoxWidth, viewBoxHeight } = viewBoxDimension;
   const viewBox = `${-viewBoxWidth / 2} ${
@@ -76,13 +79,14 @@ export default function GraphicRenderer({
   const yTicks =
     graphic.yTicks === "auto" ? getYTicks(height, xTicks) : graphic.yTicks;
 
-  return (
-    <svg viewBox={viewBox} className={classNames("max-h-full")}>
+  const children = (
+    <>
       <CoordinateGrid
         limits={limits}
         xTicks={xTicks}
         yTicks={yTicks}
         viewBoxDimension={viewBoxDimension}
+        target={target}
       />
       {graphic.lines.map(({ points }, index) => (
         <Line
@@ -90,8 +94,11 @@ export default function GraphicRenderer({
           limits={limits}
           viewBoxDimension={viewBoxDimension}
           key={index}
+          target={target}
         />
       ))}
-    </svg>
+    </>
   );
+
+  return <GraphicSvg viewBox={viewBox} target={target} children={children} />;
 }

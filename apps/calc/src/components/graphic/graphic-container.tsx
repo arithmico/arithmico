@@ -8,6 +8,8 @@ interface GraphicContainerProps {
   graphic: GraphicNode;
 }
 
+export type Target = "web" | "pdf";
+
 export default function GraphicContainer({ graphic }: GraphicContainerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [viewBoxWidth, setViewBoxWidth] = useState(1);
@@ -35,11 +37,16 @@ export default function GraphicContainer({ graphic }: GraphicContainerProps) {
         "flex",
         "w-full",
         "h-full",
+        "max-h-full",
         "items-center",
         "justify-center"
       )}
     >
-      <GraphicRenderer graphic={graphic} viewBoxDimension={viewBoxDimension} />
+      <GraphicRenderer
+        graphic={graphic}
+        viewBoxDimension={viewBoxDimension}
+        target={"web"}
+      />
     </div>
   );
 }

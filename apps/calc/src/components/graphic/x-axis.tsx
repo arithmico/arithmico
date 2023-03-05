@@ -1,20 +1,24 @@
-import classNames from "classnames";
 import { Limits } from "@arithmico/engine/lib/types/graphics.types";
 import {
   convertToViewPortCoordinates,
   ViewBoxDimension,
 } from "@local-components/graphic/graphic-utils";
+import GraphicLine from "@local-components/graphic/graphic-components/graphic-line";
+import { Target } from "@local-components/graphic/graphic-container";
+import GraphicPolygon from "@local-components/graphic/graphic-components/graphic-polygon";
 
 interface XAxisProps {
   limits: Limits;
   xTicks: number;
   viewBoxDimension: ViewBoxDimension;
+  target: Target;
 }
 
 export default function XAxis({
   limits,
   xTicks,
   viewBoxDimension,
+  target,
 }: XAxisProps) {
   const startPoint = convertToViewPortCoordinates(
     { x: limits.xMin, y: 0 },
@@ -36,24 +40,14 @@ export default function XAxis({
 
   return (
     <>
-      <line
+      <GraphicLine
         x1={startPoint.x}
         y1={startPoint.y}
         x2={endPoint.x}
         y2={endPoint.y}
-        className={classNames(
-          "stroke-1",
-          "theme-light:stroke-black",
-          "theme-dark:stroke-white"
-        )}
+        target={target}
       />
-      <polygon
-        points={arrowPoints}
-        className={classNames(
-          "theme-light:fill-black",
-          "theme-dark:fill-white"
-        )}
-      />
+      <GraphicPolygon points={arrowPoints} target={target} />
     </>
   );
 }
