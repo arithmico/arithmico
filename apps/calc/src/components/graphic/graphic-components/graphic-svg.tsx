@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import {Target} from "@local-components/graphic/graphic-container";
-import {Svg} from "@react-pdf/renderer";
+import { Target } from "@local-components/graphic/graphic-container";
+import { Svg } from "@react-pdf/renderer";
 
 interface GraphicSvgProps {
   viewBox: string;
@@ -24,9 +24,12 @@ export default function GraphicSvg({
       return (
         <Svg
           viewBox={viewBox}
-          style={{ backgroundColor: "black", borderColor: "black" }}
-          width={"10cm"}
-          height={"20cm"}
+          style={{
+            borderColor: "black",
+            borderWidth: 1,
+          }}
+          width={"auto"}
+          height={"400px"}
         >
           {children}
         </Svg>

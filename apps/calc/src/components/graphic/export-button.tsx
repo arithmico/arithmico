@@ -11,22 +11,25 @@ interface ExportButtonProps {
 
 export default function ExportButton({ graphic }: ExportButtonProps) {
   const viewBoxDimension: ViewBoxDimension = {
-    viewBoxWidth: 30,
-    viewBoxHeight: 30,
+    viewBoxWidth: 400,
+    viewBoxHeight: 400,
   };
 
   const GraphicDOM = (
     <Document>
-      <Page size="A4">
+      <Page
+        size="A4"
+        style={{ display: "flex", flexDirection: "column", padding: "2cm" }}
+      >
+        <View style={{ marginBottom: "1cm" }}>
+          <Text style={{ fontSize: "30px" }}>Graphic export</Text>
+        </View>
         <View>
           <GraphicRenderer
             graphic={graphic}
             viewBoxDimension={viewBoxDimension}
             target={"pdf"}
           />
-        </View>
-        <View>
-          <Text>Hello World!</Text>
         </View>
       </Page>
     </Document>

@@ -22,6 +22,6 @@ export default function GraphicPath({ d, target }: GraphicPathProps) {
         />
       );
     case "pdf":
-      return <Path d={d} />;
+      return <Path d={d} style={{ stroke: "black", strokeWidth: "1" }} />;
   }
 }

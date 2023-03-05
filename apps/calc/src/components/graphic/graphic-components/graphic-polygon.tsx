@@ -23,6 +23,6 @@ export default function GraphicPolygon({
         />
       );
     case "pdf":
-      return <Polygon points={points} />;
+      return <Polygon points={points} style={{ fill: "black" }} />;
   }
 }

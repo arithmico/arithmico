@@ -9,7 +9,12 @@ interface GraphicCircleProps {
   target: Target;
 }
 
-export default function GraphicCircle({ cx, cy, r, target }: GraphicCircleProps) {
+export default function GraphicCircle({
+  cx,
+  cy,
+  r,
+  target,
+}: GraphicCircleProps) {
   switch (target) {
     case "web":
       return (
@@ -24,6 +29,6 @@ export default function GraphicCircle({ cx, cy, r, target }: GraphicCircleProps)
         />
       );
     case "pdf":
-      return <Circle cx={cx} cy={cy} r={r} />;
+      return <Circle cx={cx} cy={cy} r={r} style={{ fill: "black" }} />;
   }
 }
