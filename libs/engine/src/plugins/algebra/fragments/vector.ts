@@ -13,8 +13,10 @@ const crossHeader: FunctionHeaderItem[] = [
     { name: 'b', type: 'vector', evaluate: true },
 ];
 
-const vectorFragment = new PluginFragment()
-    .addFunction(
+const vectorFragment = new PluginFragment();
+
+__FUNCTIONS.length &&
+    vectorFragment.addFunction(
         'length',
         lengthHeader,
         'Computes the length of a vector',
@@ -29,8 +31,10 @@ const vectorFragment = new PluginFragment()
 
             return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
         },
-    )
-    .addMethod<Vector>(
+    );
+
+__METHODS.length &&
+    vectorFragment.addMethod<Vector>(
         'length',
         'vector',
         [],
@@ -46,8 +50,10 @@ const vectorFragment = new PluginFragment()
 
             return createNumberNode(Math.sqrt(values.reduce((a, b) => a + b)));
         },
-    )
-    .addFunction(
+    );
+
+__FUNCTIONS.cross &&
+    vectorFragment.addFunction(
         'cross',
         crossHeader,
         'Calculate the vector product of a and b',
