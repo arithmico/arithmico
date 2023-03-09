@@ -4,6 +4,7 @@
 An extension to the great Arithmico Engine with a plugin enabling excel function names.
 This repository hosts and contains the source code of the plugin enabling excel functions as far as possible for the Arithmico Engine and the following web applications
 - Excelator Calc
+This is the  summer 2023 term project in the software engineering course at Hochschule Pforzeim led by Prof. Dr. Raphael Volz inspired by a request from Johannes Weingartner at BBI, Vienna.
 
 # Deployments
 
