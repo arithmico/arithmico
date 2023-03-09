@@ -105,7 +105,7 @@ export default function Navbar() {
 
   return (
     <NavbarContainer>
-      <NavbarTitle title="Arithmico" subtitle="Calc" />
+      <NavbarTitle title="Excelator" subtitle="Calc" />
       <NavbarNavigation>
         <NavbarNavigationItem to="/">
           {t("nav.calculator")}
