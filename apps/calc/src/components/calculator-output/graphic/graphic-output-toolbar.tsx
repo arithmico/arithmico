@@ -1,4 +1,4 @@
-import ExportButton from "@local-components/graphic/export-button";
+import ExportButton from "./export-button";
 import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 
 interface GraphicOutputToolbarProps {

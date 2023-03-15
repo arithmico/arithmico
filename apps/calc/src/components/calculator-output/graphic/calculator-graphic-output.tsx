@@ -1,8 +1,8 @@
 import { GraphicResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
-import GraphicDynamicSizeHandler from "../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
-import GraphicOutputToolbar from "@local-components/graphic/graphic-output-toolbar";
+import GraphicDynamicSizeHandler from "../../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
+import GraphicOutputToolbar from "./graphic-output-toolbar";
 
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;

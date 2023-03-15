@@ -1,9 +1,9 @@
 import { forwardRef, RefObject } from "react";
 import { useSelector } from "react-redux";
 import { CalculatorRootState } from "@stores/calculator-store";
-import CalculatorErrorOutput from "./calculator-error-output";
-import CalculatorTextOutput from "./calculator-text-output";
-import GraphicOutput from "./calculator-graphic-output";
+import CalculatorErrorOutput from "./error/calculator-error-output";
+import CalculatorTextOutput from "./text/calculator-text-output";
+import GraphicOutput from "./graphic/calculator-graphic-output";
 
 interface CalculatorOutputProps {
   onEnterPressed: () => void;
