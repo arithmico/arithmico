@@ -4,19 +4,10 @@ import App from "./App";
 import "overlayscrollbars/css/OverlayScrollbars.css";
 import OverlayScrollbars from "overlayscrollbars";
 import "./index.css";
-import { init } from "@arithmico/engine";
 import { Provider } from "react-redux";
 import calculatorStore from "@stores/calculator-store";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
-import defaultProfile from "@stores/profile";
-import { createOptions } from "@arithmico/engine/lib/utils/context-utils";
-
-init({
-  loadingMode: defaultProfile.loadingMode,
-  loadingList: defaultProfile.loadingList,
-  options: createOptions(),
-});
 
 const persistor = persistStore(calculatorStore);
 
