@@ -1,19 +1,19 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
-import SvgGraphicContainer from "./components/svg-graphic-container";
-import { GraphicDimensions, RenderTarget } from "./graphic-renderer.types";
-import Cartesian2DGraphic from "./graphics/cartesian-2d-graphic";
+import SvgGraphicContainer from "../components/svg-graphic-container";
+import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
+import Cartesian2DGraphic from "../graphics/cartesian-2d-graphic";
 
-export interface GraphicDimensionsNormalizerProps {
+export interface GraphicFixedSizeHandlerProps {
   target: RenderTarget;
   dimensions: GraphicDimensions;
   graphic: GraphicNode;
 }
 
-export default function GraphicDimensionsNormalizer({
+export default function GraphicFixedSizeHandler({
   target,
   dimensions,
   graphic,
-}: GraphicDimensionsNormalizerProps) {
+}: GraphicFixedSizeHandlerProps) {
   const normalizedDimensions: GraphicDimensions = {
     width: 1,
     height: dimensions.height / dimensions.width,

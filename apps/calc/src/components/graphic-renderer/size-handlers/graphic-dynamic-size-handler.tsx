@@ -1,15 +1,17 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import GraphicDimensionsNormalizer from "./graphic-dimensions-normalizer";
+import GraphicFixedSizeHandler from "./graphic-fixed-size-handler";
 
-interface GraphicContainerProps {
+interface GraphicDynamicSizeHandlerProps {
   graphic: GraphicNode;
 }
 
 export type Target = "web" | "pdf";
 
-export default function GraphicContainer({ graphic }: GraphicContainerProps) {
+export default function GraphicDynamicSizeHandler({
+  graphic,
+}: GraphicDynamicSizeHandlerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [viewBoxWidth, setViewBoxWidth] = useState(1);
   const [viewBoxHeight, setViewBoxHeight] = useState(1);
@@ -50,7 +52,7 @@ export default function GraphicContainer({ graphic }: GraphicContainerProps) {
         "justify-center"
       )}
     >
-      <GraphicDimensionsNormalizer
+      <GraphicFixedSizeHandler
         graphic={graphic}
         dimensions={{
           width: viewBoxWidth,

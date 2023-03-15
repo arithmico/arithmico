@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { Output } from "../../../../../libs/stores/slices/calculator-session";
-import GraphicContainer from "../graphic-renderer/graphic-renderer";
+import GraphicDynamicSizeHandler from "../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
 
 interface ProtocolListItemOutputProps {
   output: Output;
@@ -35,7 +35,7 @@ export default function ProtocolListItemOutput({
       );
 
     case "graphic":
-      return <GraphicContainer graphic={output.graphic} />;
+      return <GraphicDynamicSizeHandler graphic={output.graphic} />;
 
     default:
       // @ts-ignore
