@@ -27,6 +27,21 @@ const excelConstantsFragment = new PluginFragment().addConstant(
       return createNumberNode(Math.sqrt(n));
     },
   )
+    .addFunction(
+        'abs',
+        singleNumberHeader,
+        'Absolute number',
+        'Absolute Zahl',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+
+            if (n < 0) {
+                return createNumberNode(-n);
+            } else {
+                return createNumberNode(n);
+            }
+        },
+    )
 
 ;
 export default excelConstantsFragment;
