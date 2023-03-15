@@ -43,5 +43,16 @@ const excelConstantsFragment = new PluginFragment().addConstant(
         },
     )
 
+  .addFunction(
+    'abrunden',
+    singleNumberHeader,
+    'Absolute number',
+    'Absolute Zahl',
+    ({ getParameter, runtimeError }) => {
+      const n = (<NumberNode>getParameter('n')).value;
+      return createNumberNode(Math.floor(n));
+    },
+  )
+
 ;
 export default excelConstantsFragment;
