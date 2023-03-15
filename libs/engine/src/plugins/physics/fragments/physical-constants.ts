@@ -13,7 +13,7 @@ __CONSTANTS.physicsC &&
     );
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?mp
-__CONSTANTS.physicsM_P &&
+__CONSTANTS.physicsM_p &&
     physicalConstantsFragment.addConstant(
         'physics:m_p',
         'proton mass in kg',
@@ -22,7 +22,7 @@ __CONSTANTS.physicsM_P &&
     );
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?mn
-__CONSTANTS.physicsM_N &&
+__CONSTANTS.physicsM_n &&
     physicalConstantsFragment.addConstant(
         'physics:m_n',
         'neutron mass in kg',
@@ -31,7 +31,7 @@ __CONSTANTS.physicsM_N &&
     );
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?me
-__CONSTANTS.physicsM_E &&
+__CONSTANTS.physicsM_e &&
     physicalConstantsFragment.addConstant(
         'physics:m_e',
         'electron mass in kg',
@@ -40,7 +40,7 @@ __CONSTANTS.physicsM_E &&
     );
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?mmu
-__CONSTANTS.physicsM_MU &&
+__CONSTANTS.physicsM_mu &&
     physicalConstantsFragment.addConstant(
         'physics:m_mu',
         'muon mass in kg',
@@ -67,7 +67,7 @@ __CONSTANTS.physicsH &&
     );
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?mun|search_for=nuclear+magneton
-__CONSTANTS.physicsMU_N &&
+__CONSTANTS.physicsMu_N &&
     physicalConstantsFragment.addConstant(
         'physics:mu_N',
         'nuclear magneton in J/T is a constant of magnetic moment',
@@ -76,7 +76,7 @@ __CONSTANTS.physicsMU_N &&
     );
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?mub
-__CONSTANTS.physicsMU_B &&
+__CONSTANTS.physicsMu_B &&
     physicalConstantsFragment.addConstant(
         'physics:mu_B',
         'Bohr magneton in J/T the magnitude of the magnetic moment of an electron with orbital angular momentum quantum number ℓ = 1',
@@ -158,7 +158,7 @@ __CONSTANTS.physicsEpsilon_0 &&
     );
 
 // source: https://physics.nist.gov/cgi-bin/cuu/Value?mu0
-__CONSTANTS.physicsMU_0 &&
+__CONSTANTS.physicsMu_0 &&
     physicalConstantsFragment.addConstant(
         'physics:mu_0',
         'magnetic field constant in N/(A^2) gives the ratio of the magnetic flux density to the magnetic field strength in vacuum',

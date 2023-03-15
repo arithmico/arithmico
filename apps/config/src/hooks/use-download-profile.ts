@@ -10,13 +10,12 @@ function saveFile(text: string, filename: string) {
 
 export default function useDownloadProfile() {
   const settings = useSelector((state: ConfigRootState) => state.settings);
-  const objects = useSelector(
-    (state: ConfigRootState) => state.profile.objects
+  const features = useSelector(
+    (state: ConfigRootState) => state.engineFeatures
   );
 
   const profile: CalculatorProfile = {
-    loadingMode: "whitelist",
-    loadingList: objects,
+    features,
     settings,
   };
 

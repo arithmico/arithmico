@@ -32,7 +32,6 @@ declare global {
     const __CONSTANTS: {
         [key: string]: boolean;
     };
-
     const __METHODS: {
         [key: string]: boolean;
     };

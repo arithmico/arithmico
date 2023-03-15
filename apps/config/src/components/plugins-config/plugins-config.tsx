@@ -13,11 +13,7 @@ export default function PluginsConfig() {
         <PluginConfig
           key={pluginStructure.name.en}
           name={pluginStructure.name.en}
-          items={pluginStructure.items.map((item) => ({
-            name: item.name,
-            description: item.description.en || "",
-            synopsis: item.synopsis.en,
-          }))}
+          items={pluginStructure.items}
         />
       ))}
     </section>

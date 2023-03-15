@@ -1,18 +1,15 @@
-import { Profile } from "@arithmico/engine/lib/types";
 import { SettingsState } from "./slices/settings";
+import { engineFeaturesState } from "./slices/engine-features";
 
 export interface CalculatorProfile {
   settings: SettingsState;
-  loadingMode: Profile["loadingMode"];
-  loadingList: Profile["loadingList"];
+  features: engineFeaturesState;
 }
 
 const defaultProfile: CalculatorProfile = JSON.parse(
   // @ts-ignore
   import.meta.env.VITE_CALCULATOR_PROFILE ?? "null"
 ) ?? {
-  loadingMode: "blacklist",
-  loadingList: [],
   settings: {
     language: "de",
     numberFormat: "de",
