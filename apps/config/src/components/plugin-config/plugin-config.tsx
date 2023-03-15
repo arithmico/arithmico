@@ -31,7 +31,7 @@ function convertToCamelCase(name: string): string {
   }
 
   // eslint-disable-next-line no-throw-literal
-  return "error";
+  throw "NameError: invalid name";
 }
 
 interface PluginConfigProps {
