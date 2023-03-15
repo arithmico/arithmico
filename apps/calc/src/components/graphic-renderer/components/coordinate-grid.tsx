@@ -64,7 +64,13 @@ export default function CoordinateGrid({
       return (
         <g>
           {gridPoints.map(({ x, y }) => (
-            <circle cx={x} cy={y} r={0.0025} style={{ fill: "yellow" }} />
+            <circle
+              key={`${x}-${y}`}
+              cx={x}
+              cy={y}
+              r={0.0025}
+              style={{ fill: "yellow" }}
+            />
           ))}
         </g>
       );
@@ -73,7 +79,13 @@ export default function CoordinateGrid({
       return (
         <G>
           {gridPoints.map(({ x, y }) => (
-            <Circle cx={x} cy={y} r={0.0025} style={{ fill: "yellow" }} />
+            <Circle
+              key={`${x}-${y}`}
+              cx={x}
+              cy={y}
+              r={0.0025}
+              style={{ fill: "yellow" }}
+            />
           ))}
         </G>
       );
