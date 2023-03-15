@@ -1,17 +1,61 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface engineFeaturesState {
+  objects: string[];
   functions: string[];
   constants: string[];
   methods: string[];
+  operators: string[];
 }
 
 const engineFeaturesSlice = createSlice({
   name: "engine-features",
   initialState: (): engineFeaturesState => ({
+    objects: ["boolean", "number", "string", "symbol", "vector"],
     functions: [],
     constants: [],
     methods: [],
+    operators: [
+      "define",
+      "lambda",
+      "functionCall",
+      "methodCall",
+      "orBooleanBoolean",
+      "orFunctionFunction",
+      "andBooleanBoolean",
+      "andFunctionFunction",
+      "negateNumber",
+      "negateBoolean",
+      "negateFunction",
+      "equalsNumberNumber",
+      "equalsBooleanBoolean",
+      "equalsFunctionFunction",
+      "lessNumberNumber",
+      "lessFunctionFunction",
+      "lessOrEqualsNumberNumber",
+      "lessOrEqualsFunctionFunction",
+      "greaterNumberNumber",
+      "greaterFunctionFunction",
+      "greaterOrEqualsNumberNumber",
+      "greaterOrEqualsFunctionFunction",
+      "plusNumberNumber",
+      "plusVectorVector",
+      "plusFunctionFunction",
+      "minusNumberNumber",
+      "minusVectorVector",
+      "minusFunctionFunction",
+      "timesNumberNumber",
+      "timesNumberVector",
+      "timesVectorVector",
+      "timesVectorMatrix",
+      "timesMatrixMatrix",
+      "timesFunctionFunction",
+      "dividedNumberNumber",
+      "dividedVectorNumber",
+      "dividedFunctionFunction",
+      "powerNumberNumber",
+      "powerFunctionFunction",
+    ],
   }),
   reducers: {
     toggleFunction: (state, action: PayloadAction<string>) => {
@@ -39,5 +83,5 @@ const engineFeaturesSlice = createSlice({
 });
 
 export default engineFeaturesSlice;
-export const { toggleConstant, toggleFunction, toggleMethod } =
+export const { toggleFunction, toggleConstant, toggleMethod } =
   engineFeaturesSlice.actions;
