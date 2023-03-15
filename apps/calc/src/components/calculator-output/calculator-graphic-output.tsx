@@ -28,6 +28,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "h-full",
           "rounded-md",
           "max-h-full",
+          "max-w-full",
           "grid",
           "grid-cols-[7fr_1fr]",
           "overflow-hidden",

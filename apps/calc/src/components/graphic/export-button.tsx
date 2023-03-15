@@ -1,9 +1,9 @@
 import { Document, Page, pdf, Text, View } from "@react-pdf/renderer";
 import classNames from "classnames";
-import GraphicRenderer from "@local-components/graphic/graphic-renderer";
 import { ViewBoxDimension } from "@local-components/graphic/graphic-utils";
 import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 import FileSaver from "file-saver";
+import GraphicRenderer from "../graphic-renderer/graphic-renderer";
 
 interface ExportButtonProps {
   graphic: GraphicNode;
@@ -11,8 +11,8 @@ interface ExportButtonProps {
 
 export default function ExportButton({ graphic }: ExportButtonProps) {
   const viewBoxDimension: ViewBoxDimension = {
-    viewBoxWidth: 400,
-    viewBoxHeight: 400,
+    viewBoxWidth: 1000,
+    viewBoxHeight: 1200,
   };
 
   const GraphicDOM = (
@@ -27,7 +27,10 @@ export default function ExportButton({ graphic }: ExportButtonProps) {
         <View>
           <GraphicRenderer
             graphic={graphic}
-            viewBoxDimension={viewBoxDimension}
+            dimensions={{
+              width: viewBoxDimension.viewBoxWidth,
+              height: viewBoxDimension.viewBoxHeight,
+            }}
             target={"pdf"}
           />
         </View>

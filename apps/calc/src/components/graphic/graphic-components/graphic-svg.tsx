@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { Target } from "@local-components/graphic/graphic-container";
 import { Svg } from "@react-pdf/renderer";
 
@@ -15,22 +14,10 @@ export default function GraphicSvg({
 }: GraphicSvgProps) {
   switch (target) {
     case "web":
-      return (
-        <svg viewBox={viewBox} className={classNames("max-h-full")}>
-          {children}
-        </svg>
-      );
+      return <svg viewBox={viewBox}>{children}</svg>;
     case "pdf":
       return (
-        <Svg
-          viewBox={viewBox}
-          style={{
-            borderColor: "black",
-            borderWidth: 1,
-          }}
-          width={"auto"}
-          height={"400px"}
-        >
+        <Svg viewBox={viewBox} width={"auto"}>
           {children}
         </Svg>
       );

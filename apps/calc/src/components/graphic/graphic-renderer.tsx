@@ -79,20 +79,25 @@ export default function GraphicRenderer({
   const yTicks =
     graphic.yTicks === "auto" ? getYTicks(height, xTicks) : graphic.yTicks;
 
+  const normalizedViewBoxDimensions: ViewBoxDimension = {
+    viewBoxWidth: 1000,
+    viewBoxHeight: (1000 * viewBoxHeight) / viewBoxWidth,
+  };
+
   const children = (
     <>
       <CoordinateGrid
         limits={limits}
         xTicks={xTicks}
         yTicks={yTicks}
-        viewBoxDimension={viewBoxDimension}
+        viewBoxDimension={normalizedViewBoxDimensions}
         target={target}
       />
       {graphic.lines.map(({ points }, index) => (
         <Line
           points={points}
           limits={limits}
-          viewBoxDimension={viewBoxDimension}
+          viewBoxDimension={normalizedViewBoxDimensions}
           key={index}
           target={target}
         />
