@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface engineFeaturesState {
-  objects: string[];
+  types: string[];
   functions: string[];
   constants: string[];
   methods: string[];
@@ -11,7 +11,7 @@ export interface engineFeaturesState {
 const engineFeaturesSlice = createSlice({
   name: "engine-features",
   initialState: (): engineFeaturesState => ({
-    objects: ["boolean", "number", "string", "symbol", "vector"],
+    types: ["boolean", "number", "string", "symbol", "vector"],
     functions: [],
     constants: [],
     methods: [],
