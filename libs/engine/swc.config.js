@@ -22,7 +22,7 @@ function createFeatureMap(enabledFeatures, availableFeatures) {
 // eslint-disable-next-line no-undef
 const enabledFeatures = JSON.parse(process.env.ARITHMICO_FEATURES || '{}');
 console.log(enabledFeatures);
-const objects = createFeatureMap(enabledFeatures.objects ?? [], features.objects);
+const types = createFeatureMap(enabledFeatures.types ?? [], features.types);
 const operators = createFeatureMap(enabledFeatures.operators ?? [], features.operators);
 const functions = createFeatureMap(enabledFeatures.functions ?? [], features.functions);
 const methods = createFeatureMap(enabledFeatures.methods ?? [], features.methods);
@@ -35,7 +35,7 @@ const swcConfigContent = {
                 simplify: true,
                 globals: {
                     vars: {
-                        __OBJECTS: serializeObject(objects),
+                        __OBJECTS: serializeObject(types),
                         __OPERATORS: serializeObject(operators),
                         __FUNCTIONS: serializeObject(functions),
                         __METHODS: serializeObject(methods),
