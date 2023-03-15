@@ -1,7 +1,8 @@
 import { GraphicResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
-import GraphicContainer from "../graphic/graphic-container";
+import GraphicDynamicSizeHandler from "../../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
+import GraphicOutputToolbar from "./graphic-output-toolbar";
 
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;
@@ -27,6 +28,9 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "h-full",
           "rounded-md",
           "max-h-full",
+          "max-w-full",
+          "grid",
+          "grid-cols-[7fr_1fr]",
           "overflow-hidden",
           "outline-none",
           "theme-dark:border-neutral-500",
@@ -37,7 +41,8 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "theme-light:bg-neutral-100"
         )}
       >
-        <GraphicContainer graphic={output.graphic} />
+        <GraphicDynamicSizeHandler graphic={output.graphic} />
+        <GraphicOutputToolbar graphic={output.graphic} />
       </div>
     );
   }
