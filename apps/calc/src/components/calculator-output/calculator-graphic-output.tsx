@@ -1,7 +1,7 @@
 import { GraphicResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
-import GraphicContainer from "../graphic/graphic-container";
+import GraphicContainer from "../graphic-renderer/graphic-renderer";
 import GraphicOutputToolbar from "@local-components/graphic/graphic-output-toolbar";
 
 interface CalculatorGraphicOutputProps {

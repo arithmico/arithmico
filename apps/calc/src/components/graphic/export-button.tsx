@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { ViewBoxDimension } from "@local-components/graphic/graphic-utils";
 import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 import FileSaver from "file-saver";
-import GraphicRenderer from "../graphic-renderer/graphic-renderer";
+import GraphicDimensionsNormalizer from "../graphic-renderer/graphic-dimensions-normalizer";
 
 interface ExportButtonProps {
   graphic: GraphicNode;
@@ -25,7 +25,7 @@ export default function ExportButton({ graphic }: ExportButtonProps) {
           <Text style={{ fontSize: "30px" }}>Graphic export</Text>
         </View>
         <View>
-          <GraphicRenderer
+          <GraphicDimensionsNormalizer
             graphic={graphic}
             dimensions={{
               width: viewBoxDimension.viewBoxWidth,

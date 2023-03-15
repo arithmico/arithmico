@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { Output } from "../../../../../libs/stores/slices/calculator-session";
-import GraphicContainer from "../graphic/graphic-container";
+import GraphicContainer from "../graphic-renderer/graphic-renderer";
 
 interface ProtocolListItemOutputProps {
   output: Output;
