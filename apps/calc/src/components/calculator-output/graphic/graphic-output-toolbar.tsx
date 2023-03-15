@@ -1,4 +1,4 @@
-import ExportButton from "./export-button";
+import GraphicExportButton from "./graphic-export-button";
 import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 
 interface GraphicOutputToolbarProps {
@@ -10,7 +10,7 @@ export default function GraphicOutputToolbar({
 }: GraphicOutputToolbarProps) {
   return (
     <div>
-      <ExportButton graphic={graphic} />
+      <GraphicExportButton graphic={graphic} />
     </div>
   );
 }

@@ -4,11 +4,13 @@ import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 import FileSaver from "file-saver";
 import PdfGraphic from "../../pdf-graphic/pdf-graphic";
 
-interface ExportButtonProps {
+interface GraphicExportButtonProps {
   graphic: GraphicNode;
 }
 
-export default function ExportButton({ graphic }: ExportButtonProps) {
+export default function GraphicExportButton({
+  graphic,
+}: GraphicExportButtonProps) {
   const onClickExportPDF = () => {
     pdf(<PdfGraphic graphic={graphic} />)
       .toBlob()
