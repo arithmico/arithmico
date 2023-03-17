@@ -7,19 +7,19 @@ import { Path } from "@react-pdf/renderer";
 import classNames from "classnames";
 import { transformToSvgViewport } from "@local-components/graphic-renderer/graphic-utils";
 
-interface PlotGraphProps {
+interface PlotLineProps {
   points: Point2D[];
   limits: Limits;
   dimension: GraphicDimensions;
   target: RenderTarget;
 }
 
-export default function PlotGraph({
+export default function PlotLine({
   points,
   limits,
   dimension,
   target,
-}: PlotGraphProps) {
+}: PlotLineProps) {
   const pathString = points
     .map(({ x, y }, index) => {
       const { x: viewX, y: viewY } = transformToSvgViewport(
@@ -36,7 +36,12 @@ export default function PlotGraph({
       return (
         <path
           d={pathString}
-          className={classNames("stroke-[0.005]", "fill-none", "stroke-black")}
+          className={classNames(
+            "stroke-[0.005]",
+            "fill-none",
+            "theme-light:stroke-black",
+            "theme-dark:stroke-white"
+          )}
         />
       );
 

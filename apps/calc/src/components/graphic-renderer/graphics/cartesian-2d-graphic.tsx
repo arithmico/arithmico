@@ -1,7 +1,7 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
 import CoordinateGrid from "../components/coordinate-grid";
 import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
-import PlotGraph from "@local-components/graphic-renderer/components/plot-graph";
+import PlotLine from "@local-components/graphic-renderer/components/plot-line";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -23,7 +23,7 @@ export default function Cartesian2DGraphic({
         ticks={{ xTicks: 1, yTicks: 1 }}
       />
       {graphic.lines.map(({ points }, index) => (
-        <PlotGraph
+        <PlotLine
           points={points}
           limits={graphic.limits}
           dimension={dimensions}

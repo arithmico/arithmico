@@ -1,5 +1,5 @@
-import {Svg} from "@react-pdf/renderer";
-import {GraphicDimensions, RenderTarget} from "../graphic-renderer.types";
+import { Svg } from "@react-pdf/renderer";
+import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
 
 export interface SvgGraphicContainerProps {
   target: RenderTarget;
