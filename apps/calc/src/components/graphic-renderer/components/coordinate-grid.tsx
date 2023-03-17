@@ -19,13 +19,14 @@ function getTickNumbers(min: number, max: number, spacing: number) {
     min + (spacing - (min % spacing)) >= min
       ? min + (spacing - (min % spacing))
       : min + (spacing - (min % spacing)) + spacing;
+
   const end =
     max - (max % spacing) <= max
       ? max - (max % spacing)
       : max - (max % spacing) - spacing;
 
   const result = [];
-  for (let i = start; i <= end; i += spacing) {
+  for (let i = start - spacing; i <= end; i += spacing) {
     result.push(i);
   }
   return result;
@@ -41,7 +42,8 @@ function transformToSvgViewport(
 
   return {
     x: ((x - limits.xMin) / width) * dimensions.width - dimensions.width / 2,
-    y: ((y - limits.yMin) / height) * dimensions.height - dimensions.height / 2,
+    y:
+      -((y - limits.yMin) / height) * dimensions.height + dimensions.height / 2,
   };
 }
 
