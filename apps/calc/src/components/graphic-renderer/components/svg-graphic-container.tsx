@@ -1,6 +1,8 @@
 import { Svg } from "@react-pdf/renderer";
 import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
 
+const minPadding = 0.025;
+
 export interface SvgGraphicContainerProps {
   target: RenderTarget;
   dimensions: GraphicDimensions;
@@ -14,9 +16,17 @@ export default function SvgGraphicContainer({
   absoluteDimensions,
   children,
 }: SvgGraphicContainerProps) {
-  const viewBox = `${-0.5} ${-dimensions.height / dimensions.width / 2} ${1} ${
-    dimensions.height / dimensions.width
-  }`;
+  const minDimension = Math.min(dimensions.width, dimensions.height);
+  const [xPadding, yPadding] = [
+    (dimensions.width / minDimension) * minPadding,
+    (dimensions.height / minDimension) * minPadding,
+  ];
+
+  const viewBox = `${-0.5 - xPadding} ${
+    -dimensions.height / dimensions.width / 2 - yPadding
+  } ${1 + 2 * xPadding} ${dimensions.height / dimensions.width + 2 * yPadding}`;
+
+  console.log(dimensions, absoluteDimensions);
 
   switch (target) {
     case "web":
