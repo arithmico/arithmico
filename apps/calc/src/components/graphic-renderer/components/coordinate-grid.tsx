@@ -40,8 +40,7 @@ export function transformToSvgViewport(
 
   return {
     x: ((x - limits.xMin) / width) * dimensions.width - dimensions.width / 2,
-    y:
-      -((y - limits.yMin) / height) * dimensions.height + dimensions.height / 2,
+    y: ((y - limits.yMin) / height) * dimensions.height + dimensions.height / 2,
   };
 }
 

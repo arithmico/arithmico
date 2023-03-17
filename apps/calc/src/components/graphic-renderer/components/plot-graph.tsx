@@ -4,8 +4,8 @@ import {
   RenderTarget,
 } from "@local-components/graphic-renderer/graphic-renderer.types";
 import { Path } from "@react-pdf/renderer";
-import { transformToSvgViewport } from "@local-components/graphic-renderer/components/coordinate-grid";
 import classNames from "classnames";
+import { transformToSvgViewport } from "@local-components/graphic-renderer/components/coordinate-grid";
 
 interface PlotGraphProps {
   points: Point2D[];
@@ -31,9 +31,15 @@ export default function PlotGraph({
     })
     .join(" ");
 
+  console.log(pathString);
   switch (target) {
     case "web":
-      return <path d={pathString} className={classNames("stroke-1")} />;
+      return (
+        <path
+          d={pathString}
+          className={classNames("stroke-1", "fill-none", "stroke-black")}
+        />
+      );
 
     case "pdf":
       return <Path d={pathString} />;
