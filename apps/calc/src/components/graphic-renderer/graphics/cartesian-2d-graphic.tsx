@@ -2,6 +2,7 @@ import { GraphicNode } from "@arithmico/engine/lib/types";
 import CoordinateGrid from "../components/coordinate-grid";
 import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
 import PlotLine from "@local-components/graphic-renderer/components/plot-line";
+import { calculateAutoTicks } from "./calculate-auto-ticks";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -14,13 +15,15 @@ export default function Cartesian2DGraphic({
   graphic,
   dimensions,
 }: Cartesian2DGraphicProps): JSX.Element {
+  const autoTicks = calculateAutoTicks({ graphic, dimensions });
+
   return (
     <>
       <CoordinateGrid
         dimensions={dimensions}
         target={target}
         limits={graphic.limits}
-        ticks={{ xTicks: 1, yTicks: 1 }}
+        ticks={autoTicks}
       />
       {graphic.lines.map(({ points }, index) => (
         <PlotLine

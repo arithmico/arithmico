@@ -21,7 +21,7 @@ export default function GraphicFixedSizeHandler({
 
   return (
     <SvgGraphicContainer
-      dimensions={dimensions}
+      dimensions={normalizedDimensions}
       absoluteDimensions={dimensions}
       target={target}
     >

@@ -20,13 +20,14 @@ function getTickNumbers(min: number, max: number, spacing: number) {
     min + (spacing - (min % spacing)) >= min
       ? min + (spacing - (min % spacing))
       : min + (spacing - (min % spacing)) + spacing;
+
   const end =
     max - (max % spacing) <= max
       ? max - (max % spacing)
       : max - (max % spacing) - spacing;
 
   const result = [];
-  for (let i = start; i <= end; i += spacing) {
+  for (let i = start - spacing; i <= end; i += spacing) {
     result.push(i);
   }
   return result;
