@@ -3,7 +3,8 @@ import { integrationTest, integrationTestThrow } from '../../utils/integration-t
 // lsolve
 integrationTest('lsolve(2*x+3*y=-6, -3*x-4*y=7)', '[x = 3, y = -4]');
 integrationTest('lsolve(x=2, x=3-y)', '[x = 2, y = 1]');
-integrationTestThrow('lsolve(x+y=1,2*x+2*y=1)');
+integrationTestThrow('lsolve(x + y = 3; 2 * x + 2*y = 4)'); // no solution
+integrationTestThrow('lsolve(-6*x + 4*y = 2; 3*x - 2*y = -1)'); // infinite solutions
 
 // length
 integrationTest('length([1,2,2])', '3');
