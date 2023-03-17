@@ -32,7 +32,7 @@ export default function SvgGraphicContainer({
 
     case "pdf":
       return (
-        <Svg viewBox={viewBox} style={{ border: "2px solid yellow" }}>
+        <Svg viewBox={viewBox} style={{ border: "2px solid black" }}>
           {children}
         </Svg>
       );

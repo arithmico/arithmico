@@ -1,4 +1,5 @@
 import { Circle, G } from "@react-pdf/renderer";
+import classNames from "classnames";
 import {
   GraphicDimensions,
   GraphicLimits,
@@ -69,7 +70,10 @@ export default function CoordinateGrid({
               cx={x}
               cy={y}
               r={0.0025}
-              style={{ fill: "yellow" }}
+              className={classNames(
+                "theme-light:fill-black",
+                "theme-dark:fill-white"
+              )}
             />
           ))}
         </g>
@@ -84,7 +88,7 @@ export default function CoordinateGrid({
               cx={x}
               cy={y}
               r={0.0025}
-              style={{ fill: "yellow" }}
+              style={{ fill: "black" }}
             />
           ))}
         </G>
