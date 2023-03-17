@@ -6,6 +6,7 @@ import {
   RenderTarget,
   Ticks,
 } from "../graphic-renderer.types";
+import { transformToSvgViewport } from "@local-components/graphic-renderer/graphic-utils";
 
 export interface CoordinateGridProps {
   target: RenderTarget;
@@ -29,20 +30,6 @@ function getTickNumbers(min: number, max: number, spacing: number) {
     result.push(i);
   }
   return result;
-}
-
-export function transformToSvgViewport(
-  { x, y }: { x: number; y: number },
-  dimensions: GraphicDimensions,
-  limits: GraphicLimits
-) {
-  const width = Math.abs(limits.xMin - limits.xMax);
-  const height = Math.abs(limits.yMin - limits.yMax);
-
-  return {
-    x: ((x - limits.xMin) / width) * dimensions.width - dimensions.width / 2,
-    y: ((y - limits.yMin) / height) * dimensions.height + dimensions.height / 2,
-  };
 }
 
 export default function CoordinateGrid({

@@ -5,7 +5,7 @@ import {
 } from "@local-components/graphic-renderer/graphic-renderer.types";
 import { Path } from "@react-pdf/renderer";
 import classNames from "classnames";
-import { transformToSvgViewport } from "@local-components/graphic-renderer/components/coordinate-grid";
+import { transformToSvgViewport } from "@local-components/graphic-renderer/graphic-utils";
 
 interface PlotGraphProps {
   points: Point2D[];
@@ -31,18 +31,22 @@ export default function PlotGraph({
     })
     .join(" ");
 
-  console.log(pathString);
   switch (target) {
     case "web":
       return (
         <path
           d={pathString}
-          className={classNames("stroke-1", "fill-none", "stroke-black")}
+          className={classNames("stroke-[0.005]", "fill-none", "stroke-black")}
         />
       );
 
     case "pdf":
-      return <Path d={pathString} />;
+      return (
+        <Path
+          d={pathString}
+          style={{ strokeWidth: 0.005, stroke: "black", fill: "none" }}
+        />
+      );
 
     default:
       // eslint-disable-next-line no-throw-literal
