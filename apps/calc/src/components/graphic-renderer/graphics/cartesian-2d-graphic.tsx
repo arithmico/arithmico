@@ -14,14 +14,14 @@ export default function Cartesian2DGraphic({
   graphic,
   dimensions,
 }: Cartesian2DGraphicProps): JSX.Element {
-  const ticks = calculateAutoTicks({ graphic, dimensions });
+  const autoTicks = calculateAutoTicks({ graphic, dimensions });
 
   return (
     <CoordinateGrid
       dimensions={dimensions}
       target={target}
       limits={graphic.limits}
-      ticks={ticks}
+      ticks={autoTicks}
     />
   );
 }
