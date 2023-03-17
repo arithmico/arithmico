@@ -76,7 +76,7 @@ export default function CalculatorToolbar() {
       <CalculatorToolbarButton onClick={() => dispatch(resetInput())}>
         {t("toolbar.resetInput")}
       </CalculatorToolbarButton>
-      <CalculatorToolbarButton onClick={() => dispatch(resetOutput)}>
+      <CalculatorToolbarButton onClick={() => dispatch(resetOutput())}>
         {t("toolbar.resetOutput")}
       </CalculatorToolbarButton>
 
