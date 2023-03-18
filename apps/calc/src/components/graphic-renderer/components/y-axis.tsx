@@ -6,7 +6,11 @@ import {
   RenderTarget,
   Ticks,
 } from "../graphic-renderer.types";
-import { transformToSvgViewport } from "../graphic-utils";
+import {
+  getTickNumbers,
+  TICK_LINE_LENGTH,
+  transformToSvgViewport,
+} from "../graphic-utils";
 import { GRAPHIC_MIN_PADDING } from "./svg-graphic-container";
 
 export interface YAxisProps {
@@ -23,9 +27,14 @@ export default function YAxis({
   target,
 }: YAxisProps) {
   if (limits.xMin > 0 || limits.xMax < 0) {
-    console.log("early return");
     return <></>;
   }
+
+  const tickPositions = getTickNumbers(
+    limits.yMin,
+    limits.yMax - limits.yMax * Number.EPSILON,
+    ticks.yTicks
+  ).map((y) => transformToSvgViewport({ x: 0, y }, dimensions, limits));
 
   const startPoint = transformToSvgViewport(
     {
@@ -73,6 +82,19 @@ export default function YAxis({
               "theme-dark:fill-white"
             )}
           />
+          {tickPositions.map(({ x, y }) => (
+            <line
+              y1={y}
+              y2={y}
+              x1={x + TICK_LINE_LENGTH / 2}
+              x2={x - TICK_LINE_LENGTH / 2}
+              className={classNames(
+                "theme-light:stroke-black",
+                "theme-dark:stroke-white",
+                "stroke-[0.005]"
+              )}
+            />
+          ))}
         </g>
       );
 
@@ -95,6 +117,18 @@ export default function YAxis({
               fill: "black",
             }}
           />
+          {tickPositions.map(({ x, y }) => (
+            <Line
+              y1={y}
+              y2={y}
+              x1={x + TICK_LINE_LENGTH / 2}
+              x2={x - TICK_LINE_LENGTH / 2}
+              style={{
+                stroke: "black",
+                strokeWidth: "0.005",
+              }}
+            />
+          ))}
         </G>
       );
   }

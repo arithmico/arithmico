@@ -3,6 +3,8 @@ import {
   GraphicLimits,
 } from "@local-components/graphic-renderer/graphic-renderer.types";
 
+export const TICK_LINE_LENGTH = 0.02;
+
 export function transformToSvgViewport(
   { x, y }: { x: number; y: number },
   dimensions: GraphicDimensions,

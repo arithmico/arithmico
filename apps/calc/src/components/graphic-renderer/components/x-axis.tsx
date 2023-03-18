@@ -6,7 +6,11 @@ import {
   RenderTarget,
   Ticks,
 } from "../graphic-renderer.types";
-import { transformToSvgViewport } from "../graphic-utils";
+import {
+  getTickNumbers,
+  TICK_LINE_LENGTH,
+  transformToSvgViewport,
+} from "../graphic-utils";
 import { GRAPHIC_MIN_PADDING } from "./svg-graphic-container";
 
 export interface XAxisProps {
@@ -23,9 +27,14 @@ export default function XAxis({
   target,
 }: XAxisProps) {
   if (limits.yMin > 0 || limits.yMax < 0) {
-    console.log("early return");
     return <></>;
   }
+
+  const tickPositions = getTickNumbers(
+    limits.xMin,
+    limits.xMax - limits.xMax * Number.EPSILON,
+    ticks.xTicks
+  ).map((x) => transformToSvgViewport({ x, y: 0 }, dimensions, limits));
 
   const startPoint = transformToSvgViewport(
     {
@@ -73,6 +82,19 @@ export default function XAxis({
               "theme-dark:fill-white"
             )}
           />
+          {tickPositions.map(({ x, y }) => (
+            <line
+              x1={x}
+              x2={x}
+              y1={y + TICK_LINE_LENGTH / 2}
+              y2={y - TICK_LINE_LENGTH / 2}
+              className={classNames(
+                "theme-light:stroke-black",
+                "theme-dark:stroke-white",
+                "stroke-[0.005]"
+              )}
+            />
+          ))}
         </g>
       );
 
@@ -95,6 +117,18 @@ export default function XAxis({
               fill: "black",
             }}
           />
+          {tickPositions.map(({ x, y }) => (
+            <Line
+              x1={x}
+              x2={x}
+              y1={y + TICK_LINE_LENGTH / 2}
+              y2={y - TICK_LINE_LENGTH / 2}
+              style={{
+                stroke: "black",
+                strokeWidth: "0.005",
+              }}
+            />
+          ))}
         </G>
       );
   }
