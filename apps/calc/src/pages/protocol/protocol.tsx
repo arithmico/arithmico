@@ -29,7 +29,8 @@ export default function Protocol() {
           "theme-dark:border-white/5",
           "theme-light:border-black/10",
           "rounded-md",
-          "h-full"
+          "h-full",
+          "overflow-x-hidden"
         )}
       >
         <div

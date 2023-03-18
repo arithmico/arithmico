@@ -6,13 +6,15 @@ import PdfGraphic from "../../pdf-graphic/pdf-graphic";
 
 interface GraphicExportButtonProps {
   graphic: GraphicNode;
+  input: string;
 }
 
 export default function GraphicExportButton({
   graphic,
+  input,
 }: GraphicExportButtonProps) {
   const onClickExportPDF = () => {
-    pdf(<PdfGraphic graphic={graphic} />)
+    pdf(<PdfGraphic graphic={graphic} input={input} />)
       .toBlob()
       .then((blob) => FileSaver.saveAs(blob, "export.pdf"));
   };

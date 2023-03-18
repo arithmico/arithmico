@@ -6,7 +6,7 @@ import GraphicOutputToolbar from "./graphic-output-toolbar";
 
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;
-  output: GraphicResult;
+  output: GraphicResult & { input: string };
 }
 
 const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
@@ -42,7 +42,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         )}
       >
         <GraphicDynamicSizeHandler graphic={output.graphic} />
-        <GraphicOutputToolbar graphic={output.graphic} />
+        <GraphicOutputToolbar graphic={output.graphic} input={output.input} />
       </div>
     );
   }

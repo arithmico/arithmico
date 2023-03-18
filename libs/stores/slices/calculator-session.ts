@@ -6,9 +6,10 @@ import {
 } from "@arithmico/engine/lib/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type Output =
+export type Output = (
   | Exclude<EvaluationResult, TextResult>
-  | Omit<TextResult, "context">;
+  | Omit<TextResult, "context">
+) & { input: string };
 
 export interface ProtocolItem {
   input: string;
@@ -25,7 +26,7 @@ interface CalculatorSessionState {
   protocol: Protocol;
 }
 
-const emptyTextOutput: Output = { type: "text", text: "" };
+const emptyTextOutput: Output = { type: "text", text: "", input: "" };
 
 const initialState = (): CalculatorSessionState => ({
   input: "",
@@ -40,7 +41,7 @@ const calculatorSessionSlice = createSlice({
   initialState,
   reducers: {
     setInput: (state, action: PayloadAction<string>) => {
-      state.input = action.payload;
+      state.input = action.payload.replaceAll("->", "→");
     },
     resetProtocol: (state) => {
       state.protocol = initialState().protocol;
@@ -98,13 +99,17 @@ const calculatorSessionSlice = createSlice({
       }
 
       const result = evaluateInput(state.input, action.payload);
+      const output = {
+        ...result,
+        input: state.input,
+      };
 
       state.historyIndex = state.protocol.length;
       state.stack = result.context.stack;
-      state.output = result;
+      state.output = output;
       state.protocol.push({
         input: state.input,
-        output: result,
+        output: output,
       });
     },
   },

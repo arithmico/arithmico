@@ -84,6 +84,7 @@ export default function XAxis({
           />
           {tickPositions.map(({ x, y }) => (
             <line
+              key={x}
               x1={x}
               x2={x}
               y1={y + TICK_LINE_LENGTH / 2}
@@ -119,6 +120,7 @@ export default function XAxis({
           />
           {tickPositions.map(({ x, y }) => (
             <Line
+              key={x}
               x1={x}
               x2={x}
               y1={y + TICK_LINE_LENGTH / 2}

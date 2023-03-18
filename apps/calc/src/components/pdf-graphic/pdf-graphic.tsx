@@ -2,12 +2,14 @@ import { GraphicNode } from "@arithmico/engine/lib/types";
 import { Document, Image, Link, Page, Text, View } from "@react-pdf/renderer";
 import { GraphicDimensions } from "../graphic-renderer/graphic-renderer.types";
 import GraphicFixedSizeHandler from "../graphic-renderer/size-handlers/graphic-fixed-size-handler";
+import PdfArrowIcon from "../pdf-arrow-icon/pdf-arrow-icon";
 
 export interface PdfGraphicProps {
   graphic: GraphicNode;
+  input: string;
 }
 
-export default function PdfGraphic({ graphic }: PdfGraphicProps) {
+export default function PdfGraphic({ graphic, input }: PdfGraphicProps) {
   const graphicDimensions: GraphicDimensions = {
     width: 1000,
     height: 1200,
@@ -24,8 +26,22 @@ export default function PdfGraphic({ graphic }: PdfGraphicProps) {
           paddingVertical: "1.69cm",
         }}
       >
-        <View style={{ marginBottom: "1cm" }}>
-          <Text style={{ fontSize: "26px" }}>Arithmico Graphic Export</Text>
+        <View
+          style={{
+            marginBottom: "1cm",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          {input.split("→").map((chunk, index) => {
+            return (
+              <>
+                {index !== 0 && <PdfArrowIcon />}
+                <Text style={{ fontSize: "26px" }}>{chunk}</Text>
+              </>
+            );
+          })}
         </View>
         <View>
           <GraphicFixedSizeHandler

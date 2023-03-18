@@ -13,6 +13,7 @@ export default function ProtocolListItem({ item }: ProtocolItemProps) {
     <li
       className={classNames(
         "p-4",
+        "max-w-full",
         "border-b",
         "theme-light:border-black/10",
         "theme-dark:border-white/5",
@@ -22,7 +23,14 @@ export default function ProtocolListItem({ item }: ProtocolItemProps) {
         }
       )}
     >
-      <dl className={classNames("grid", "grid-cols-[auto_1fr]", "gap-4")}>
+      <dl
+        className={classNames(
+          "grid",
+          "grid-cols-[auto_1fr]",
+          "gap-4",
+          "max-w-full"
+        )}
+      >
         <dd
           className={classNames(
             "theme-light:text-black/40",
@@ -40,7 +48,11 @@ export default function ProtocolListItem({ item }: ProtocolItemProps) {
         >
           {t("common.output")}:
         </dd>
-        <dt>
+        <dt
+          className={classNames("max-w-full", "overflow-x-hidden", {
+            "h-96": item.output.type === "graphic",
+          })}
+        >
           <ProtocolListItemOutput output={item.output} />
         </dt>
       </dl>
