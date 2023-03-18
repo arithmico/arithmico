@@ -17,3 +17,21 @@ export function transformToSvgViewport(
       -((y - limits.yMin) / height) * dimensions.height + dimensions.height / 2,
   };
 }
+
+export function getTickNumbers(min: number, max: number, spacing: number) {
+  const start =
+    min + (spacing - (min % spacing)) >= min
+      ? min + (spacing - (min % spacing))
+      : min + (spacing - (min % spacing)) + spacing;
+
+  const end =
+    max - (max % spacing) <= max
+      ? max - (max % spacing)
+      : max - (max % spacing) - spacing;
+
+  const result = [];
+  for (let i = start - spacing; i <= end; i += spacing) {
+    result.push(i);
+  }
+  return result;
+}
