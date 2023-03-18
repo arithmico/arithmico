@@ -44,7 +44,14 @@ export default function CoordinateGrid({
   const gridPoints: { x: number; y: number }[] = [];
   xTickNumbers.forEach((x) => {
     yTickNumbers.forEach((y) => {
-      gridPoints.push(transformToSvgViewport({ x, y }, dimensions, limits));
+      if (
+        x >= limits.xMin &&
+        x <= limits.xMax &&
+        y >= limits.yMin &&
+        y <= limits.yMax
+      ) {
+        gridPoints.push(transformToSvgViewport({ x, y }, dimensions, limits));
+      }
     });
   });
 
