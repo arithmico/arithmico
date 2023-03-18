@@ -84,6 +84,7 @@ export default function YAxis({
           />
           {tickPositions.map(({ x, y }) => (
             <line
+              key={y}
               y1={y}
               y2={y}
               x1={x + TICK_LINE_LENGTH / 2}
@@ -119,6 +120,7 @@ export default function YAxis({
           />
           {tickPositions.map(({ x, y }) => (
             <Line
+              key={y}
               y1={y}
               y2={y}
               x1={x + TICK_LINE_LENGTH / 2}
