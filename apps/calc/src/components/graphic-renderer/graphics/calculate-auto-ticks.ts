@@ -38,10 +38,11 @@ export function calculateAutoTicks({
     .sort((x, y) => x.desiredTickSizeError - y.desiredTickSizeError)
     .at(0)!.tickSize;
 
-  const heightMagnitudeCorrection = getMagnitude(
-    scaledGraphicWidth / scaledGraphicHeight
-  );
-  const heightMagnitude = widthMagnitude + heightMagnitudeCorrection;
+  const heightMagnitudeCorrection =
+    getMagnitude(scaledGraphicWidth / scaledGraphicHeight) + 1;
+
+  const heightMagnitude = widthMagnitude - heightMagnitudeCorrection;
+  console.log(widthMagnitude, heightMagnitude, heightMagnitudeCorrection);
   const autoYTicks = [heightMagnitude - 1, heightMagnitude, heightMagnitude + 1]
     .flatMap((m) => applyMagnitudeToAutoTickSizes(m))
     .map((tickSize) => {

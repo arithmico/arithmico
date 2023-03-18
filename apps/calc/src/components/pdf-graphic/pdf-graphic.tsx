@@ -25,7 +25,7 @@ export default function PdfGraphic({ graphic }: PdfGraphicProps) {
         }}
       >
         <View style={{ marginBottom: "1cm" }}>
-          <Text style={{ fontSize: "30px" }}>Graphic export</Text>
+          <Text style={{ fontSize: "26px" }}>Arithmico Graphic Export</Text>
         </View>
         <View>
           <GraphicFixedSizeHandler

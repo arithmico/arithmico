@@ -49,11 +49,19 @@ __FUNCTIONS.plot &&
 
             const yMin = points.map((point) => point.y).reduce((a, b) => Math.min(a, b));
             const yMax = points.map((point) => point.y).reduce((a, b) => Math.max(a, b));
+            const height = yMax - yMin;
+            const bottomPadding = Math.max(0, yMin);
+            const topPadding = Math.abs(Math.min(yMax, 0));
 
             return {
                 type: 'graphic',
                 graphicType: 'cartesian2D',
-                limits: { xMin, yMin, xMax, yMax },
+                limits: {
+                    xMin,
+                    yMin: bottomPadding / height <= 0.1 ? yMin - bottomPadding : yMin,
+                    xMax,
+                    yMax: topPadding / height <= 0.1 ? yMax + topPadding : yMax,
+                },
                 xTicks: 'auto',
                 yTicks: 'auto',
                 lines: [
