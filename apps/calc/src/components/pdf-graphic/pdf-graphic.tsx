@@ -5,9 +5,10 @@ import GraphicFixedSizeHandler from "../graphic-renderer/size-handlers/graphic-f
 
 export interface PdfGraphicProps {
   graphic: GraphicNode;
+  input: string;
 }
 
-export default function PdfGraphic({ graphic }: PdfGraphicProps) {
+export default function PdfGraphic({ graphic, input }: PdfGraphicProps) {
   const graphicDimensions: GraphicDimensions = {
     width: 1000,
     height: 1200,
@@ -25,7 +26,7 @@ export default function PdfGraphic({ graphic }: PdfGraphicProps) {
         }}
       >
         <View style={{ marginBottom: "1cm" }}>
-          <Text style={{ fontSize: "26px" }}>Arithmico Graphic Export</Text>
+          <Text style={{ fontSize: "26px" }}>{input}</Text>
         </View>
         <View>
           <GraphicFixedSizeHandler
