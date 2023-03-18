@@ -26,8 +26,6 @@ export default function SvgGraphicContainer({
     -dimensions.height / dimensions.width / 2 - yPadding
   } ${1 + 2 * xPadding} ${dimensions.height / dimensions.width + 2 * yPadding}`;
 
-  console.log(dimensions, absoluteDimensions);
-
   switch (target) {
     case "web":
       return (
