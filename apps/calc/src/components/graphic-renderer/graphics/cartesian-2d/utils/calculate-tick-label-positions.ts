@@ -5,7 +5,8 @@ import {
 } from "../../../graphic-renderer.types";
 import { getTickNumbers, transformToSvgViewport } from "../../../graphic-utils";
 
-export const TICK_LABEL_OFFSET = 0.03;
+export const X_TICK_LABEL_OFFSET = 0.03;
+export const Y_TICK_LABEL_OFFSET = 0.015;
 
 export enum TickLabelPositionType {
   Primary,
@@ -49,7 +50,7 @@ export function calculateTickLabelPositions({
         value: x,
         position: {
           x: position.x,
-          y: position.y + TICK_LABEL_OFFSET,
+          y: position.y + X_TICK_LABEL_OFFSET,
         },
       },
       {
@@ -57,7 +58,7 @@ export function calculateTickLabelPositions({
         value: x,
         position: {
           x: position.x,
-          y: position.y - TICK_LABEL_OFFSET,
+          y: position.y - X_TICK_LABEL_OFFSET,
         },
       },
     ];
@@ -74,7 +75,7 @@ export function calculateTickLabelPositions({
         type: TickLabelPositionType.Primary,
         value: y,
         position: {
-          x: position.x - TICK_LABEL_OFFSET,
+          x: position.x - Y_TICK_LABEL_OFFSET,
           y: position.y,
         },
       },
@@ -82,7 +83,7 @@ export function calculateTickLabelPositions({
         type: TickLabelPositionType.Secondary,
         value: y,
         position: {
-          x: position.x + TICK_LABEL_OFFSET,
+          x: position.x + Y_TICK_LABEL_OFFSET,
           y: position.y,
         },
       },
