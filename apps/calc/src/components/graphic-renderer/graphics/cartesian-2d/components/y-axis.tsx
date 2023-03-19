@@ -1,9 +1,9 @@
 import { G, Line, Polygon } from "@react-pdf/renderer";
 import classNames from "classnames";
-import { RenderTarget } from "../graphic-renderer.types";
-import { TICK_LINE_LENGTH } from "../graphic-utils";
-import { SingleAxisPositions } from "../graphics/cartesian-2d/utils/calculate-axis-positions";
-import { GRAPHIC_MIN_PADDING } from "./svg-graphic-container";
+import { GRAPHIC_MIN_PADDING } from "../../../components/svg-graphic-container";
+import { RenderTarget } from "../../../graphic-renderer.types";
+import { TICK_LINE_LENGTH } from "../../../graphic-utils";
+import { SingleAxisPositions } from "../utils/calculate-axis-positions";
 
 export type YAxisProps = SingleAxisPositions & { target: RenderTarget };
 

@@ -1,6 +1,6 @@
 import { Circle, G } from "@react-pdf/renderer";
 import classNames from "classnames";
-import { RenderTarget } from "../graphic-renderer.types";
+import { RenderTarget } from "../../../graphic-renderer.types";
 
 export interface CoordinateGridProps {
   target: RenderTarget;

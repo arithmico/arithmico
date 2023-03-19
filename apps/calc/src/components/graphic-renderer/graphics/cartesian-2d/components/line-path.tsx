@@ -1,7 +1,7 @@
 import { RenderTarget } from "@local-components/graphic-renderer/graphic-renderer.types";
 import { Path } from "@react-pdf/renderer";
 import classNames from "classnames";
-import { LinePathPositions } from "../graphics/cartesian-2d/utils/calculate-line-paths";
+import { LinePathPositions } from "../utils/calculate-line-paths";
 
 export type LinePathProps = LinePathPositions & {
   target: RenderTarget;
