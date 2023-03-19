@@ -2,9 +2,10 @@ import { GraphicNode } from "@arithmico/engine/lib/types";
 import CoordinateGrid from "../../components/coordinate-grid";
 import { GraphicDimensions, RenderTarget } from "../../graphic-renderer.types";
 import PlotLine from "@local-components/graphic-renderer/components/plot-line";
-import { calculateAutoTicks } from "./calculate-auto-ticks";
+import { calculateAutoTicks } from "./utils/calculate-auto-ticks";
 import XAxis from "../../components/x-axis";
 import YAxis from "../../components/y-axis";
+import { calculateGridPointPositions } from "./utils/calculate-grid-point-positions";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -18,15 +19,15 @@ export default function Cartesian2DGraphic({
   dimensions,
 }: Cartesian2DGraphicProps): JSX.Element {
   const autoTicks = calculateAutoTicks({ graphic, dimensions });
+  const gridPointPositions = calculateGridPointPositions({
+    limits: graphic.limits,
+    ticks: autoTicks,
+    dimensions,
+  });
 
   return (
     <>
-      <CoordinateGrid
-        dimensions={dimensions}
-        target={target}
-        limits={graphic.limits}
-        ticks={autoTicks}
-      />
+      <CoordinateGrid target={target} points={gridPointPositions} />
       <XAxis
         dimensions={dimensions}
         limits={graphic.limits}

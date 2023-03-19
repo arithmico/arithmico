@@ -1,50 +1,21 @@
 import { Circle, G } from "@react-pdf/renderer";
 import classNames from "classnames";
-import {
-  GraphicDimensions,
-  GraphicLimits,
-  RenderTarget,
-  Ticks,
-} from "../graphic-renderer.types";
-import {
-  getTickNumbers,
-  transformToSvgViewport,
-} from "@local-components/graphic-renderer/graphic-utils";
+import { RenderTarget } from "../graphic-renderer.types";
 
 export interface CoordinateGridProps {
   target: RenderTarget;
-  ticks: Ticks;
-  limits: GraphicLimits;
-  dimensions: GraphicDimensions;
+  points: { x: number; y: number }[];
 }
 
 export default function CoordinateGrid({
   target,
-  ticks,
-  limits,
-  dimensions,
+  points,
 }: CoordinateGridProps) {
-  const xTickNumbers = getTickNumbers(limits.xMin, limits.xMax, ticks.xTicks);
-  const yTickNumbers = getTickNumbers(limits.yMin, limits.yMax, ticks.yTicks);
-  const gridPoints: { x: number; y: number }[] = [];
-  xTickNumbers.forEach((x) => {
-    yTickNumbers.forEach((y) => {
-      if (
-        x >= limits.xMin &&
-        x <= limits.xMax &&
-        y >= limits.yMin &&
-        y <= limits.yMax
-      ) {
-        gridPoints.push(transformToSvgViewport({ x, y }, dimensions, limits));
-      }
-    });
-  });
-
   switch (target) {
     case "web":
       return (
         <g>
-          {gridPoints.map(({ x, y }) => (
+          {points.map(({ x, y }) => (
             <circle
               key={`${x}-${y}`}
               cx={x}
@@ -62,7 +33,7 @@ export default function CoordinateGrid({
     case "pdf":
       return (
         <G>
-          {gridPoints.map(({ x, y }) => (
+          {points.map(({ x, y }) => (
             <Circle
               key={`${x}-${y}`}
               cx={x}
