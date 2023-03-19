@@ -19,7 +19,7 @@ export default function PdfExportWatermark() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          opacity: 0.4,
+          opacity: 0.45,
         }}
       >
         <Text
@@ -43,15 +43,25 @@ export default function PdfExportWatermark() {
           </Link>
         </Text>
       </View>
-      <Image
+      <View
         style={{
           width: "30px",
           height: "30px",
           border: "1.5px solid black",
-          padding: "2px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        src="./arithmico-qr-code.png"
-      />
+      >
+        <Image
+          style={{
+            opacity: 0.45,
+            width: "26px",
+            height: "26px",
+          }}
+          src="./arithmico-qr-code.png"
+        />
+      </View>
     </View>
   );
 }
