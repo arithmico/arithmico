@@ -7,6 +7,8 @@ import { getTickNumbers, transformToSvgViewport } from "../../../graphic-utils";
 
 export const X_TICK_LABEL_OFFSET = 0.035;
 export const Y_TICK_LABEL_OFFSET = 0.02;
+export const TICK_LABEL_HITBOX_HEIGHT = 0.035;
+export const TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER = 0.025;
 
 export enum TickLabelPositionType {
   Primary,
@@ -19,6 +21,12 @@ export interface TickLabelPosition {
   position: {
     x: number;
     y: number;
+  };
+  hitbox: {
+    x: number;
+    y: number;
+    wdith: number;
+    height: number;
   };
 }
 
@@ -42,9 +50,11 @@ export function calculateTickLabelPositions({
     limits.xMin,
     limits.xMax,
     ticks.xTicks
-  ).flatMap((x) => {
+  ).flatMap((x): TickLabelPosition[] => {
     const position = transformToSvgViewport({ x, y: 0 }, dimensions, limits);
     const value = Math.round(x * Math.pow(10, 10)) * Math.pow(10, -10);
+    const hitboxWidth =
+      value.toString().length * TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER;
     return [
       {
         type: TickLabelPositionType.Primary,
@@ -52,6 +62,12 @@ export function calculateTickLabelPositions({
         position: {
           x: position.x,
           y: position.y + X_TICK_LABEL_OFFSET,
+        },
+        hitbox: {
+          x: position.x - hitboxWidth / 2,
+          y: position.y - TICK_LABEL_HITBOX_HEIGHT / 2 + X_TICK_LABEL_OFFSET,
+          wdith: hitboxWidth,
+          height: TICK_LABEL_HITBOX_HEIGHT,
         },
       },
       {
@@ -61,6 +77,12 @@ export function calculateTickLabelPositions({
           x: position.x,
           y: position.y - X_TICK_LABEL_OFFSET,
         },
+        hitbox: {
+          x: position.x - hitboxWidth / 2,
+          y: position.y - TICK_LABEL_HITBOX_HEIGHT / 2 - X_TICK_LABEL_OFFSET,
+          wdith: hitboxWidth,
+          height: TICK_LABEL_HITBOX_HEIGHT,
+        },
       },
     ];
   });
@@ -69,9 +91,11 @@ export function calculateTickLabelPositions({
     limits.yMin,
     limits.yMax,
     ticks.yTicks
-  ).flatMap((y) => {
+  ).flatMap((y): TickLabelPosition[] => {
     const position = transformToSvgViewport({ x: 0, y }, dimensions, limits);
     const value = Math.round(y * Math.pow(10, 10)) * Math.pow(10, -10);
+    const hitboxWidth =
+      value.toString().length * TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER;
     return [
       {
         type: TickLabelPositionType.Primary,
@@ -80,6 +104,12 @@ export function calculateTickLabelPositions({
           x: position.x - Y_TICK_LABEL_OFFSET,
           y: position.y,
         },
+        hitbox: {
+          x: position.x - hitboxWidth - Y_TICK_LABEL_OFFSET,
+          y: position.y - TICK_LABEL_HITBOX_HEIGHT / 2,
+          wdith: hitboxWidth,
+          height: TICK_LABEL_HITBOX_HEIGHT,
+        },
       },
       {
         type: TickLabelPositionType.Secondary,
@@ -87,6 +117,12 @@ export function calculateTickLabelPositions({
         position: {
           x: position.x + Y_TICK_LABEL_OFFSET,
           y: position.y,
+        },
+        hitbox: {
+          x: position.x + Y_TICK_LABEL_OFFSET,
+          y: position.y - TICK_LABEL_HITBOX_HEIGHT / 2,
+          wdith: hitboxWidth,
+          height: TICK_LABEL_HITBOX_HEIGHT,
         },
       },
     ];
