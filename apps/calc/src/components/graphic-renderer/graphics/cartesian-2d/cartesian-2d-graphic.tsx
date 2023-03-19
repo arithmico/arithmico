@@ -8,9 +8,13 @@ import { calculateAxisPrositions } from "./utils/calculate-axis-positions";
 import { calculateLinePaths } from "./utils/calculate-line-paths";
 import YAxis from "./components/y-axis";
 import XAxis from "./components/x-axis";
-import { calculateTickLabelPositions } from "./utils/calculate-tick-label-positions";
+import {
+  calculateTickLabelPositions,
+  TickLabelPositions,
+} from "./utils/calculate-tick-label-positions";
 import XTickLabels from "./components/x-tick-labels";
 import YTickLabels from "./components/y-tick-labels";
+import { filterTickLabelCollisions } from "./utils/compute-collisions";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -44,6 +48,22 @@ export default function Cartesian2DGraphic({
     ticks: autoTicks,
     dimensions,
   });
+  const collisionPoints = linePaths.flatMap((linePath) => linePath.points);
+  const remainingTickLabelPositions: TickLabelPositions = {
+    xAxis: tickLabelPositions.xAxis
+      ? filterTickLabelCollisions({
+          tickLabelPositions: tickLabelPositions.xAxis,
+          collisionPoints,
+        })
+      : [],
+    yAxis: tickLabelPositions.yAxis
+      ? filterTickLabelCollisions({
+          tickLabelPositions: tickLabelPositions.yAxis,
+          collisionPoints,
+        })
+      : [],
+  };
+
   console.log(tickLabelPositions);
 
   return (
@@ -58,16 +78,16 @@ export default function Cartesian2DGraphic({
       {linePaths.map((linePathProps, index) => (
         <LinePath {...linePathProps} target={target} key={index} />
       ))}
-      {tickLabelPositions.xAxis && (
+      {remainingTickLabelPositions.xAxis && (
         <XTickLabels
           target={target}
-          tickLabelPositions={tickLabelPositions.xAxis}
+          tickLabelPositions={remainingTickLabelPositions.xAxis}
         />
       )}
-      {tickLabelPositions.yAxis && (
+      {remainingTickLabelPositions.yAxis && (
         <YTickLabels
           target={target}
-          tickLabelPositions={tickLabelPositions.yAxis}
+          tickLabelPositions={remainingTickLabelPositions.yAxis}
         />
       )}
     </>
