@@ -1,10 +1,10 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
-import CoordinateGrid from "../components/coordinate-grid";
-import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
+import CoordinateGrid from "../../components/coordinate-grid";
+import { GraphicDimensions, RenderTarget } from "../../graphic-renderer.types";
 import PlotLine from "@local-components/graphic-renderer/components/plot-line";
 import { calculateAutoTicks } from "./calculate-auto-ticks";
-import XAxis from "../components/x-axis";
-import YAxis from "../components/y-axis";
+import XAxis from "../../components/x-axis";
+import YAxis from "../../components/y-axis";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
