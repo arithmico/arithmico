@@ -69,7 +69,6 @@ export function selectTickLabelPositions({
   }
 
   if (tickLabelPositions.yAxis) {
-    console.log(tickLabelPositions.yAxis.tickLabelPositions);
     const allYAxisTicks = filterTickLabelCollisions({
       tickLabelPositions: tickLabelPositions.yAxis.tickLabelPositions,
       collisionPoints,
