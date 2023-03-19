@@ -9,6 +9,7 @@ import { calculateLinePaths } from "./utils/calculate-line-paths";
 import YAxis from "./components/y-axis";
 import XAxis from "./components/x-axis";
 import { calculateTickLabelPositions } from "./utils/calculate-tick-label-positions";
+import XTickLabels from "./components/x-tick-labels";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -56,6 +57,12 @@ export default function Cartesian2DGraphic({
       {linePaths.map((linePathProps, index) => (
         <LinePath {...linePathProps} target={target} key={index} />
       ))}
+      {tickLabelPositions.xAxis && (
+        <XTickLabels
+          target={target}
+          tickLabelPositions={tickLabelPositions.xAxis}
+        />
+      )}
     </>
   );
 }

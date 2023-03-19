@@ -5,7 +5,7 @@ import {
 } from "../../../graphic-renderer.types";
 import { getTickNumbers, transformToSvgViewport } from "../../../graphic-utils";
 
-export const TICK_LABEL_OFFSET = 0.05;
+export const TICK_LABEL_OFFSET = 0.03;
 
 export enum TickLabelPositionType {
   Primary,
