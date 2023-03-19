@@ -19,8 +19,8 @@ __FUNCTIONS.plot &&
     functionPlotFragment.addFunction(
         'plot',
         plotHeader,
-        '',
-        '',
+        'Creates a plot of the function f in the range xMin to xMax on the x-axis. Default value for xMin is -10 and for xMax is 10.',
+        'Erzeugt einen Plot der Funktion f im Bereich xMin bis xMax auf der x-Achse. Der Standardwert für xMin ist -10 und für xMax ist 10.',
         ({ getParameter, typeError, runtimeError, context }): Cartesian2DGraphic => {
             const f = getParameter('f') as FunctionNode;
             const xMinNode = getParameter('xMin', createNumberNode(-10)) as NumberNode;
