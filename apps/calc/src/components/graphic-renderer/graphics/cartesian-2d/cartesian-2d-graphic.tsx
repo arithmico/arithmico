@@ -11,7 +11,10 @@ import XAxis from "./components/x-axis";
 import { calculateTickLabelPositions } from "./utils/calculate-tick-label-positions";
 import XTickLabels from "./components/x-tick-labels";
 import YTickLabels from "./components/y-tick-labels";
-import { selectTickLabelPositions } from "./utils/select-tick-label-positions";
+import {
+  selectTickLabelPositions,
+  TickLabelPositionsWithAxisPositions,
+} from "./utils/select-tick-label-positions";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -41,11 +44,32 @@ export default function Cartesian2DGraphic({
     dimensions,
   });
   const tickLabelPositions = selectTickLabelPositions({
-    tickLabelPositions: calculateTickLabelPositions({
-      limits: graphic.limits,
-      ticks: autoTicks,
-      dimensions,
-    }),
+    tickLabelPositions: (() => {
+      const result: TickLabelPositionsWithAxisPositions = {};
+      const tickLabelPositions = calculateTickLabelPositions({
+        limits: graphic.limits,
+        ticks: autoTicks,
+        dimensions,
+      });
+
+      if (axisPositions.xAxis && tickLabelPositions.xAxis) {
+        result.xAxis = {
+          axisStartPosition: axisPositions.xAxis.startPosition,
+          axisEndPosition: axisPositions.xAxis.endPosition,
+          tickLabelPositions: tickLabelPositions.xAxis,
+        };
+      }
+
+      if (axisPositions.yAxis && tickLabelPositions.yAxis) {
+        result.yAxis = {
+          axisStartPosition: axisPositions.yAxis.startPosition,
+          axisEndPosition: axisPositions.yAxis.endPosition,
+          tickLabelPositions: tickLabelPositions.yAxis,
+        };
+      }
+
+      return result;
+    })(),
     collisionPoints: linePaths.flatMap((linePath) => linePath.points),
   });
 
