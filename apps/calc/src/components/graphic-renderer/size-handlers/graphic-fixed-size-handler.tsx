@@ -1,7 +1,7 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
 import SvgGraphicContainer from "../components/svg-graphic-container";
 import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
-import Cartesian2DGraphic from "../graphics/cartesian-2d-graphic";
+import Cartesian2DGraphic from "../graphics/cartesian-2d/cartesian-2d-graphic";
 
 export interface GraphicFixedSizeHandlerProps {
   target: RenderTarget;

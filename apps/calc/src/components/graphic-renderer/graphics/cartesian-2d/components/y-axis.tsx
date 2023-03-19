@@ -1,74 +1,33 @@
 import { G, Line, Polygon } from "@react-pdf/renderer";
 import classNames from "classnames";
-import {
-  GraphicDimensions,
-  GraphicLimits,
-  RenderTarget,
-  Ticks,
-} from "../graphic-renderer.types";
-import {
-  getTickNumbers,
-  TICK_LINE_LENGTH,
-  transformToSvgViewport,
-} from "../graphic-utils";
-import { GRAPHIC_MIN_PADDING } from "./svg-graphic-container";
+import { GRAPHIC_MIN_PADDING } from "../../../components/svg-graphic-container";
+import { RenderTarget } from "../../../graphic-renderer.types";
+import { TICK_LINE_LENGTH } from "../../../graphic-utils";
+import { SingleAxisPositions } from "../utils/calculate-axis-positions";
 
-export interface YAxisProps {
-  dimensions: GraphicDimensions;
-  limits: GraphicLimits;
-  ticks: Ticks;
-  target: RenderTarget;
-}
+export type YAxisProps = SingleAxisPositions & { target: RenderTarget };
 
 export default function YAxis({
-  dimensions,
-  limits,
-  ticks,
+  startPosition,
+  endPosition,
+  tickPositions,
   target,
 }: YAxisProps) {
-  if (limits.xMin > 0 || limits.xMax < 0) {
-    return <></>;
-  }
-
-  const tickPositions = getTickNumbers(
-    limits.yMin,
-    limits.yMax - limits.yMax * Number.EPSILON,
-    ticks.yTicks
-  ).map((y) => transformToSvgViewport({ x: 0, y }, dimensions, limits));
-
-  const startPoint = transformToSvgViewport(
-    {
-      x: 0,
-      y: limits.yMin,
-    },
-    dimensions,
-    limits
-  );
-
-  const endPoint = transformToSvgViewport(
-    {
-      x: 0,
-      y: limits.yMax,
-    },
-    dimensions,
-    limits
-  );
-
-  const trianglePoints = `${endPoint.x - GRAPHIC_MIN_PADDING / 2},${
-    endPoint.y + GRAPHIC_MIN_PADDING
-  } ${endPoint.x + GRAPHIC_MIN_PADDING / 2},${
-    endPoint.y + GRAPHIC_MIN_PADDING
-  } ${endPoint.x},${endPoint.y - GRAPHIC_MIN_PADDING}`;
+  const trianglePoints = `${endPosition.x - GRAPHIC_MIN_PADDING / 4},${
+    endPosition.y
+  } ${endPosition.x + GRAPHIC_MIN_PADDING / 4},${endPosition.y} ${
+    endPosition.x
+  },${endPosition.y - GRAPHIC_MIN_PADDING}`;
 
   switch (target) {
     case "web":
       return (
         <g>
           <line
-            x1={startPoint.x}
-            y1={startPoint.y}
-            x2={endPoint.x}
-            y2={endPoint.y}
+            x1={startPosition.x}
+            y1={startPosition.y}
+            x2={endPosition.x}
+            y2={endPosition.y}
             className={classNames(
               "theme-light:stroke-black",
               "theme-dark:stroke-white",
@@ -103,10 +62,10 @@ export default function YAxis({
       return (
         <G>
           <Line
-            x1={startPoint.x}
-            y1={startPoint.y}
-            x2={endPoint.x}
-            y2={endPoint.y}
+            x1={startPosition.x}
+            y1={startPosition.y}
+            x2={endPosition.x}
+            y2={endPosition.y}
             style={{
               stroke: "black",
               strokeWidth: "0.005",

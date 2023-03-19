@@ -11,8 +11,6 @@ import classNames from "classnames";
 
 const documentation = getDocumentation();
 
-console.log(documentation);
-
 export default function Manual() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState("");

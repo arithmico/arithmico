@@ -1,34 +1,15 @@
-import { Limits, Point2D } from "@arithmico/engine/lib/types/graphics.types";
-import {
-  GraphicDimensions,
-  RenderTarget,
-} from "@local-components/graphic-renderer/graphic-renderer.types";
+import { RenderTarget } from "@local-components/graphic-renderer/graphic-renderer.types";
 import { Path } from "@react-pdf/renderer";
 import classNames from "classnames";
-import { transformToSvgViewport } from "@local-components/graphic-renderer/graphic-utils";
+import { LinePathPositions } from "../utils/calculate-line-paths";
 
-interface PlotLineProps {
-  points: Point2D[];
-  limits: Limits;
-  dimension: GraphicDimensions;
+export type LinePathProps = LinePathPositions & {
   target: RenderTarget;
-}
+};
 
-export default function PlotLine({
-  points,
-  limits,
-  dimension,
-  target,
-}: PlotLineProps) {
+export default function LinePath({ points, target }: LinePathProps) {
   const pathString = points
-    .map(({ x, y }, index) => {
-      const { x: viewX, y: viewY } = transformToSvgViewport(
-        { x, y },
-        dimension,
-        limits
-      );
-      return `${index === 0 ? "M" : "L"} ${viewX} ${viewY}`;
-    })
+    .map(({ x, y }, index) => `${index === 0 ? "M" : "L"} ${x} ${y}`)
     .join(" ");
 
   switch (target) {

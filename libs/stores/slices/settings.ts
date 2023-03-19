@@ -23,7 +23,6 @@ const settingsSlice = createSlice({
   initialState,
   reducers: {
     resetSettings: () => {
-      console.log("reset");
       return initialState;
     },
     setLanguage: (state, action: PayloadAction<string>) => {

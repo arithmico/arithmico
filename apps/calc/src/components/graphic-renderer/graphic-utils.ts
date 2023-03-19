@@ -3,7 +3,7 @@ import {
   GraphicLimits,
 } from "@local-components/graphic-renderer/graphic-renderer.types";
 
-export const TICK_LINE_LENGTH = 0.02;
+export const TICK_LINE_LENGTH = 0.03;
 
 export function transformToSvgViewport(
   { x, y }: { x: number; y: number },
@@ -33,7 +33,9 @@ export function getTickNumbers(min: number, max: number, spacing: number) {
 
   const result = [];
   for (let i = start - spacing; i <= end; i += spacing) {
-    result.push(i);
+    if (i !== max) {
+      result.push(i);
+    }
   }
   return result;
 }
