@@ -20,7 +20,7 @@ export default function CoordinateGrid({
               key={`${x}-${y}`}
               cx={x}
               cy={y}
-              r={0.0025}
+              r={0.0035}
               className={classNames(
                 "theme-light:fill-black",
                 "theme-dark:fill-white"
