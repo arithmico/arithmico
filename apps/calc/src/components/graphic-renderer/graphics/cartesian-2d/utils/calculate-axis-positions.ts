@@ -27,13 +27,17 @@ export function calculateAxisPrositions({
   limits,
   dimensions,
 }: CalculateAxisPrositionsArgs) {
-  const xTickPositions = getTickNumbers(limits.xMin, limits.xMax, ticks.xTicks)
-    .filter((x) => x !== limits.xMax)
-    .map((x) => transformToSvgViewport({ x, y: 0 }, dimensions, limits));
+  const xTickPositions = getTickNumbers(
+    limits.xMin,
+    limits.xMax,
+    ticks.xTicks
+  ).map((x) => transformToSvgViewport({ x, y: 0 }, dimensions, limits));
 
-  const yTickPositions = getTickNumbers(limits.yMin, limits.yMax, ticks.yTicks)
-    .filter((y) => y !== limits.yMax)
-    .map((y) => transformToSvgViewport({ x: 0, y }, dimensions, limits));
+  const yTickPositions = getTickNumbers(
+    limits.yMin,
+    limits.yMax,
+    ticks.yTicks
+  ).map((y) => transformToSvgViewport({ x: 0, y }, dimensions, limits));
 
   const xAxisStartPosition = transformToSvgViewport(
     {

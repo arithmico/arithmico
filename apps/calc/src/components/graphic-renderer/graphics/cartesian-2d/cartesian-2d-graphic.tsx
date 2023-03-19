@@ -8,6 +8,7 @@ import { calculateAxisPrositions } from "./utils/calculate-axis-positions";
 import { calculateLinePaths } from "./utils/calculate-line-paths";
 import YAxis from "./components/y-axis";
 import XAxis from "./components/x-axis";
+import { calculateTickLabelPositions } from "./utils/calculate-tick-label-positions";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -36,6 +37,12 @@ export default function Cartesian2DGraphic({
     limits: graphic.limits,
     dimensions,
   });
+  const tickLabelPositions = calculateTickLabelPositions({
+    limits: graphic.limits,
+    ticks: autoTicks,
+    dimensions,
+  });
+  console.log(tickLabelPositions);
 
   return (
     <>
