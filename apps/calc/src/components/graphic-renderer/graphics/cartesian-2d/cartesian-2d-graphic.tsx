@@ -10,6 +10,7 @@ import YAxis from "./components/y-axis";
 import XAxis from "./components/x-axis";
 import { calculateTickLabelPositions } from "./utils/calculate-tick-label-positions";
 import XTickLabels from "./components/x-tick-labels";
+import YTickLabels from "./components/y-tick-labels";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -61,6 +62,12 @@ export default function Cartesian2DGraphic({
         <XTickLabels
           target={target}
           tickLabelPositions={tickLabelPositions.xAxis}
+        />
+      )}
+      {tickLabelPositions.yAxis && (
+        <YTickLabels
+          target={target}
+          tickLabelPositions={tickLabelPositions.yAxis}
         />
       )}
     </>
