@@ -42,7 +42,6 @@ export function calculateAutoTicks({
     getMagnitude(scaledGraphicWidth / scaledGraphicHeight) + 1;
 
   const heightMagnitude = widthMagnitude - heightMagnitudeCorrection;
-  console.log(widthMagnitude, heightMagnitude, heightMagnitudeCorrection);
   const autoYTicks = [heightMagnitude - 1, heightMagnitude, heightMagnitude + 1]
     .flatMap((m) => applyMagnitudeToAutoTickSizes(m))
     .map((tickSize) => {

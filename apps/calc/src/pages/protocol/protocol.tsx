@@ -15,8 +15,6 @@ export default function Protocol() {
     (state: CalculatorRootState) => state.session.protocol
   );
 
-  console.log(protocolItems);
-
   return (
     <PageContainer className={classNames("grid")}>
       <div
