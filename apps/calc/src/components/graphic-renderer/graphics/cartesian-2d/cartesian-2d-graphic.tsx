@@ -1,12 +1,13 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
 import CoordinateGrid from "../../components/coordinate-grid";
 import { GraphicDimensions, RenderTarget } from "../../graphic-renderer.types";
-import PlotLine from "@local-components/graphic-renderer/components/plot-line";
+import LinePath from "@local-components/graphic-renderer/components/line-path";
 import { calculateAutoTicks } from "./utils/calculate-auto-ticks";
 import XAxis from "../../components/x-axis";
 import YAxis from "../../components/y-axis";
 import { calculateGridPointPositions } from "./utils/calculate-grid-point-positions";
 import { calculateAxisPrositions } from "./utils/calculate-axis-positions";
+import { calculateLinePaths } from "./utils/calculate-line-paths";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -30,6 +31,11 @@ export default function Cartesian2DGraphic({
     ticks: autoTicks,
     dimensions,
   });
+  const linePaths = calculateLinePaths({
+    lines: graphic.lines,
+    limits: graphic.limits,
+    dimensions,
+  });
 
   return (
     <>
@@ -40,15 +46,8 @@ export default function Cartesian2DGraphic({
       {axisPositions.yAxis && (
         <YAxis {...axisPositions.yAxis} target={target} />
       )}
-
-      {graphic.lines.map(({ points }, index) => (
-        <PlotLine
-          points={points}
-          limits={graphic.limits}
-          dimension={dimensions}
-          target={target}
-          key={index}
-        />
+      {linePaths.map((linePathProps, index) => (
+        <LinePath {...linePathProps} target={target} key={index} />
       ))}
     </>
   );
