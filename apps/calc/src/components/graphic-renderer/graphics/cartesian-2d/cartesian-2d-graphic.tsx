@@ -6,6 +6,7 @@ import { calculateAutoTicks } from "./utils/calculate-auto-ticks";
 import XAxis from "../../components/x-axis";
 import YAxis from "../../components/y-axis";
 import { calculateGridPointPositions } from "./utils/calculate-grid-point-positions";
+import { calculateAxisPrositions } from "./utils/calculate-axis-positions";
 
 export interface Cartesian2DGraphicProps {
   target: RenderTarget;
@@ -24,22 +25,22 @@ export default function Cartesian2DGraphic({
     ticks: autoTicks,
     dimensions,
   });
+  const axisPositions = calculateAxisPrositions({
+    limits: graphic.limits,
+    ticks: autoTicks,
+    dimensions,
+  });
 
   return (
     <>
       <CoordinateGrid target={target} points={gridPointPositions} />
-      <XAxis
-        dimensions={dimensions}
-        limits={graphic.limits}
-        ticks={autoTicks}
-        target={target}
-      />
-      <YAxis
-        dimensions={dimensions}
-        limits={graphic.limits}
-        ticks={autoTicks}
-        target={target}
-      />
+      {axisPositions.xAxis && (
+        <XAxis {...axisPositions.xAxis} target={target} />
+      )}
+      {axisPositions.yAxis && (
+        <YAxis {...axisPositions.yAxis} target={target} />
+      )}
+
       {graphic.lines.map(({ points }, index) => (
         <PlotLine
           points={points}
