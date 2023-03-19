@@ -44,10 +44,11 @@ export function calculateTickLabelPositions({
     ticks.xTicks
   ).flatMap((x) => {
     const position = transformToSvgViewport({ x, y: 0 }, dimensions, limits);
+    const value = Math.round(x * Math.pow(10, 10)) * Math.pow(10, -10);
     return [
       {
         type: TickLabelPositionType.Primary,
-        value: x,
+        value,
         position: {
           x: position.x,
           y: position.y + X_TICK_LABEL_OFFSET,
@@ -55,7 +56,7 @@ export function calculateTickLabelPositions({
       },
       {
         type: TickLabelPositionType.Secondary,
-        value: x,
+        value,
         position: {
           x: position.x,
           y: position.y - X_TICK_LABEL_OFFSET,
@@ -70,10 +71,11 @@ export function calculateTickLabelPositions({
     ticks.yTicks
   ).flatMap((y) => {
     const position = transformToSvgViewport({ x: 0, y }, dimensions, limits);
+    const value = Math.round(y * Math.pow(10, 10)) * Math.pow(10, -10);
     return [
       {
         type: TickLabelPositionType.Primary,
-        value: y,
+        value,
         position: {
           x: position.x - Y_TICK_LABEL_OFFSET,
           y: position.y,
@@ -81,7 +83,7 @@ export function calculateTickLabelPositions({
       },
       {
         type: TickLabelPositionType.Secondary,
-        value: y,
+        value,
         position: {
           x: position.x + Y_TICK_LABEL_OFFSET,
           y: position.y,
