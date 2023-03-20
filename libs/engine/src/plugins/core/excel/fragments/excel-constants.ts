@@ -11,48 +11,22 @@ const excelConstantsFragment = new PluginFragment().addConstant(
     'Test output five',
     'Test output fünf',
     createNumberNode(5),
-)
-  .addFunction(
-    'wurzel',
-    singleNumberHeader,
-    'square root.',
-    'Quadratwurzel',
-    ({ getParameter, runtimeError }) => {
-      const n = (<NumberNode>getParameter('n')).value;
-
-      if (n < 0) {
-        throw runtimeError('Numbers smaller than 0 are not allowed.');
-      }
-
-      return createNumberNode(Math.sqrt(n));
-    },
   )
     .addFunction(
-        'abs',
-        singleNumberHeader,
-        'Absolute number',
-        'Absolute Zahl',
-        ({ getParameter, runtimeError }) => {
-            const n = (<NumberNode>getParameter('n')).value;
+      'wurzel',
+      singleNumberHeader,
+      'square root.',
+      'Quadratwurzel',
+      ({ getParameter, runtimeError }) => {
+        const n = (<NumberNode>getParameter('n')).value;
 
-            if (n < 0) {
-                return createNumberNode(-n);
-            } else {
-                return createNumberNode(n);
-            }
-        },
+        if (n < 0) {
+          throw runtimeError('Numbers smaller than 0 are not allowed.');
+        }
+
+        return createNumberNode(Math.sqrt(n));
+      },
     )
-
-  .addFunction(
-    'abrunden',
-    singleNumberHeader,
-    'Absolute number',
-    'Absolute Zahl',
-    ({ getParameter, runtimeError }) => {
-      const n = (<NumberNode>getParameter('n')).value;
-      return createNumberNode(Math.floor(n));
-    },
-  )
 
 ;
 export default excelConstantsFragment;
