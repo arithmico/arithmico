@@ -27,6 +27,20 @@ const excelConstantsFragment = new PluginFragment().addConstant(
         return createNumberNode(Math.sqrt(n));
       },
     )
+  .addFunction(
+    'abrunden',
+    singleNumberHeader,
+    'square root.',
+    'Abrunden ohne Nachkomma stelle',
+    ({ getParameter, runtimeError }) => {
+      const n = (<NumberNode>getParameter('n')).value;
+      if (isNaN(n)) {
+        throw runtimeError('Function abrunden only works with numbers.');
+      }
+
+      return createNumberNode(Math.floor(n));
+    },
+  )
 
 ;
 export default excelConstantsFragment;
