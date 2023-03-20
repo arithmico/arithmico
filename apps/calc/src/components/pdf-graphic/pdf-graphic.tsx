@@ -1,9 +1,19 @@
 import { GraphicNode } from "@arithmico/engine/lib/types";
-import { Document, Page, View } from "@react-pdf/renderer";
+import { Document, Page, View, Font } from "@react-pdf/renderer";
 import { GraphicDimensions } from "../graphic-renderer/graphic-renderer.types";
 import GraphicFixedSizeHandler from "../graphic-renderer/size-handlers/graphic-fixed-size-handler";
 import PdfExportTitle from "./components/pdf-export-title";
 import PdfExportWatermark from "./components/pdf-export-watermark";
+
+Font.register({
+  family: "Apple Braille",
+  fonts: [
+    {
+      src: "./fonts/apple-braille-web.ttf",
+      fontWeight: "normal",
+    },
+  ],
+});
 
 export interface PdfGraphicProps {
   graphic: GraphicNode;
