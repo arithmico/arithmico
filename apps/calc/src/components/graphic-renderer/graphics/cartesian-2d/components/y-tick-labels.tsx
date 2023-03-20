@@ -31,10 +31,6 @@ export default function YTickLabels({
                     "theme-dark:fill-neutral-800",
                     "theme-light:fill-neutral-100"
                   )}
-                  style={{
-                    stroke: "yellow",
-                    strokeWidth: 0.001,
-                  }}
                 />
                 <text
                   key={index}
@@ -53,7 +49,7 @@ export default function YTickLabels({
                     fontSize: 0.04,
                   }}
                 >
-                  {value}
+                  {value.toString().replace(".", ",")}
                 </text>
               </g>
             )
@@ -74,8 +70,6 @@ export default function YTickLabels({
                   height={hitbox.height}
                   style={{
                     fill: "white",
-                    stroke: "yellow",
-                    strokeWidth: 0.001,
                   }}
                 />
                 <Text
@@ -90,7 +84,7 @@ export default function YTickLabels({
                     fontSize: 0.04,
                   }}
                 >
-                  {value}
+                  {value.toString().replace(".", ",")}
                 </Text>
               </G>
             )
