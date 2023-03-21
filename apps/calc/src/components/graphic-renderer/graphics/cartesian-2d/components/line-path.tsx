@@ -23,7 +23,7 @@ export default function LinePath({ points, target }: LinePathProps) {
             className={classNames(
               "stroke-[0.015]",
               "fill-none",
-              "theme-light:stroke-white",
+              "theme-light:stroke-neutral-100",
               "theme-dark:stroke-neutral-800"
             )}
           />
