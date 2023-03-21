@@ -8,16 +8,12 @@ export default function evaluateLessOrEquals(node: LessOrEquals, context: Contex
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
 
-    if (
-        leftChild.type === 'number' &&
-        rightChild.type === 'number' &&
-        context.options.operators.lessOrEqualsNumberNumber
-    ) {
+    if (leftChild.type === 'number' && rightChild.type === 'number' && __OPERATORS.lessOrEqualsNumberNumber) {
         return createBooleanNode(leftChild.value <= rightChild.value);
     } else if (
         leftChild.type === 'function' &&
         rightChild.type === 'function' &&
-        context.options.operators.lessOrEqualsFunctionFunction
+        __OPERATORS.lessOrEqualsFunctionFunction
     ) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createLessOrEquals, context);
     }

@@ -21,7 +21,6 @@ const defaultProfile: CalculatorProfile = JSON.parse(
     theme: "light",
     fontSize: "medium",
     boldFont: false,
-    excludeInfoInProtocol: true,
     copySynopsisOnClick: false,
   },
 };

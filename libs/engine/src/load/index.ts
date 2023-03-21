@@ -1,15 +1,15 @@
-import { Plugin, Profile } from '../types';
+import { Options, Plugin } from '../types';
 import { createContextWithOptions } from '../utils/context-utils';
 import loadPlugin from './load-plugin';
 import loadPluginStructures from './load-plugin-structure';
 
-export default function load(plugins: Plugin[], profile: Profile) {
-    const context = createContextWithOptions(profile.options);
-    const pluginStructure = loadPluginStructures(plugins, profile);
+export default function load(plugins: Plugin[], options: Options) {
+    const context = createContextWithOptions(options);
+    const pluginStructure = loadPluginStructures(plugins);
 
     const contextWithLoadedPlugins = plugins.reduce((context, plugin) => {
         try {
-            return loadPlugin(plugin, context, profile);
+            return loadPlugin(plugin, context);
         } catch (errorMessage) {
             throw `LoadingError: Failed to load plugin "${plugin.name}"\n${errorMessage}`;
         }

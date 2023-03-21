@@ -36,8 +36,7 @@ export default function ManualPluginSection({
   const filteredItems = pluginStructure.items.filter(
     (item) =>
       (item.type === "function" || item.type === "constant") &&
-      matchDocumentation(item, searchQuery, language) &&
-      item.enabled
+      matchDocumentation(item, searchQuery, language)
   );
 
   if (filteredItems.length === 0) {

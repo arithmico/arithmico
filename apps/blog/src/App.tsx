@@ -1,8 +1,3 @@
-import "@fontsource/roboto/100.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/footer";
 import Header from "./components/header";
@@ -17,18 +12,18 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col items-center fixed inset-0 bg-neutral-900/80">
-        <div className="w-full max-w-7xl bg-neutral-900 h-full px-32 border-x border-x-white/5"></div>
+      <div className="fixed inset-0 flex flex-col items-center bg-neutral-900/80">
+        <div className="h-full w-full max-w-7xl border-x border-x-white/5 bg-neutral-900 px-32"></div>
       </div>
-      <div className="absolute flex flex-col w-full h-full overflow-y-auto overflow-x-hidden items-center">
+      <div className="absolute flex h-full w-full flex-col items-center overflow-y-auto overflow-x-hidden">
         <div className="w-full max-w-7xl px-32 text-white">
           <div
             aria-hidden
             id="scroll-anchor"
-            className="absolute w-0 h-0 opacity-0"
+            className="absolute h-0 w-0 opacity-0"
           ></div>
           <Header />
-          <div className="flex align-center mt-32">
+          <div className="align-center mt-32 flex">
             <main className=" ">
               <Routes>
                 <Route index path="/" element={<Home />} />

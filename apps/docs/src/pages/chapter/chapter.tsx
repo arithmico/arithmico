@@ -19,13 +19,10 @@ export default function Chapter({
 
   useEffect(() => {
     const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}${contentUrl}`;
-    console.log(url);
     fetch(url)
       .then((response) => response.text())
       .then((text) => setContent(text));
   }, [contentUrl]);
-
-  console.log(content);
 
   return (
     <div className="w-fullborder-2 h-full max-h-full pr-[25%]">
