@@ -46,6 +46,7 @@ export default function Cartesian2DGraphic({
     dimensions,
   });
   const tickLabelPositions = selectTickLabelPositions({
+    braille,
     tickLabelPositions: (() => {
       const result: TickLabelPositionsWithAxisPositions = {};
       const tickLabelPositions = calculateTickLabelPositions({

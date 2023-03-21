@@ -40,16 +40,16 @@ export default function PdfExportTitle({
           alignItems: "center",
         }}
       >
-        <Text
-          style={{
-            fontFamily: "Apple Braille",
-            fontSize: "36pt",
-            paddingLeft: "2px",
-            paddingRight: "2px",
-          }}
-        >
-          {brailleStr}
-        </Text>
+        {[...brailleStr].map((char, key) => (
+          <Text
+            style={{
+              fontFamily: "Apple Braille",
+              fontSize: "36pt",
+            }}
+          >
+            {char}
+          </Text>
+        ))}
       </View>
     );
   }

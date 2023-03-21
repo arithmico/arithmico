@@ -39,12 +39,15 @@ function checkHitboxCollision(
 
 export interface FilterTickLabelCollisionsArgs {
   tickLabelPositions: TickLabelPosition[];
+  otherTickLabelPositions: TickLabelPosition[];
   collisionPoints: { x: number; y: number }[];
+  braille: boolean;
 }
-
-export function filterTickLabelCollisions({
+export function filterTickLabelCollisionsWithPoints({
   tickLabelPositions,
+  otherTickLabelPositions,
   collisionPoints,
+  braille,
 }: FilterTickLabelCollisionsArgs) {
   const filteredTicks = tickLabelPositions.filter(({ hitbox }) => {
     return !collisionPoints.some(({ x: px, y: py }) => {
@@ -56,11 +59,21 @@ export function filterTickLabelCollisions({
       );
     });
   });
+
   const result: TickLabelPosition[] = [];
   filteredTicks.forEach((tick) => {
+    const hitbox: TickLabelPosition["hitbox"] = {
+      x: tick.hitbox.x,
+      y: tick.hitbox.y,
+      wdith: braille ? tick.hitbox.wdith * 1.25 : tick.hitbox.wdith,
+      height: braille ? tick.hitbox.height * 1.5 : tick.hitbox.height,
+    };
     if (
       !result.some((otherTick) =>
-        checkHitboxCollision(tick.hitbox, otherTick.hitbox)
+        checkHitboxCollision(hitbox, otherTick.hitbox)
+      ) &&
+      !otherTickLabelPositions.some((otherTick) =>
+        checkHitboxCollision(hitbox, otherTick.hitbox)
       )
     ) {
       result.push(tick);

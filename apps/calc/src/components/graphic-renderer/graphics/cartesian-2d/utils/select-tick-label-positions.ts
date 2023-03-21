@@ -3,7 +3,7 @@ import {
   TickLabelPositions,
   TickLabelPositionType,
 } from "./calculate-tick-label-positions";
-import { filterTickLabelCollisions } from "./compute-collisions";
+import { filterTickLabelCollisionsWithPoints } from "./compute-collisions";
 
 interface AxisPositions {
   axisStartPosition: { x: number; y: number };
@@ -18,18 +18,22 @@ export interface TickLabelPositionsWithAxisPositions {
 export interface SelectTickLabelPositionsArgs {
   tickLabelPositions: TickLabelPositionsWithAxisPositions;
   collisionPoints: { x: number; y: number }[];
+  braille: boolean;
 }
 
 export function selectTickLabelPositions({
   tickLabelPositions,
   collisionPoints,
+  braille,
 }: SelectTickLabelPositionsArgs): TickLabelPositions {
   const result: TickLabelPositions = {};
 
   if (tickLabelPositions.xAxis) {
-    const allXAxisTicks = filterTickLabelCollisions({
+    const allXAxisTicks = filterTickLabelCollisionsWithPoints({
       tickLabelPositions: tickLabelPositions.xAxis.tickLabelPositions,
+      otherTickLabelPositions: [],
       collisionPoints,
+      braille,
     }).filter(({ position: { x, y } }) => {
       if (!tickLabelPositions.yAxis) {
         return true;
@@ -69,9 +73,11 @@ export function selectTickLabelPositions({
   }
 
   if (tickLabelPositions.yAxis) {
-    const allYAxisTicks = filterTickLabelCollisions({
+    const allYAxisTicks = filterTickLabelCollisionsWithPoints({
       tickLabelPositions: tickLabelPositions.yAxis.tickLabelPositions,
+      otherTickLabelPositions: result.xAxis ?? [],
       collisionPoints,
+      braille,
     }).filter(({ position: { x, y } }) => {
       if (!tickLabelPositions.xAxis) {
         return true;
