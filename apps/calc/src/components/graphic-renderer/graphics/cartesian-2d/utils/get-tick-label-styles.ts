@@ -8,3 +8,12 @@ export function getTickLabelStyles(braille: boolean) {
         fontSize: 0.04,
       };
 }
+
+export function getTickLabelDebugStyles(debug: boolean) {
+  return debug
+    ? {
+        stroke: "yellow",
+        strokeWidth: 0.001,
+      }
+    : {};
+}

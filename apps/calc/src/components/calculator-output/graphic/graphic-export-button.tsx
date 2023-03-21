@@ -13,31 +13,52 @@ export default function GraphicExportButton({
   graphic,
   input,
 }: GraphicExportButtonProps) {
-  const onClickExportPDF = () => {
-    pdf(<PdfGraphic graphic={graphic} input={input} braille={true} />)
+  const exportPdf = (braille: boolean) => {
+    pdf(<PdfGraphic graphic={graphic} input={input} braille={braille} />)
       .toBlob()
       .then((blob) => FileSaver.saveAs(blob, "export.pdf"));
   };
 
   return (
-    <button
-      onClick={onClickExportPDF}
-      className={classNames(
-        "bold-font:font-bold",
-        "border",
-        "p-2",
-        "w-full",
-        "rounded-sm",
-        "text-center",
-        "theme-light:bg-neutral-200",
-        "theme-light:hover:bg-neutral-300",
-        "theme-light:border-black/10",
-        "theme-dark:bg-neutral-800",
-        "theme-dark:hover:bg-neutral-700",
-        "theme-dark:border-white/5"
-      )}
-    >
-      Export as pdf
-    </button>
+    <>
+      <button
+        onClick={() => exportPdf(false)}
+        className={classNames(
+          "bold-font:font-bold",
+          "border",
+          "p-2",
+          "w-full",
+          "rounded-sm",
+          "text-left",
+          "theme-light:bg-neutral-200",
+          "theme-light:hover:bg-neutral-300",
+          "theme-light:border-black/10",
+          "theme-dark:bg-neutral-800",
+          "theme-dark:hover:bg-neutral-700",
+          "theme-dark:border-white/5"
+        )}
+      >
+        Export PDF
+      </button>
+      <button
+        onClick={() => exportPdf(true)}
+        className={classNames(
+          "bold-font:font-bold",
+          "border",
+          "p-2",
+          "w-full",
+          "rounded-sm",
+          "text-left",
+          "theme-light:bg-neutral-200",
+          "theme-light:hover:bg-neutral-300",
+          "theme-light:border-black/10",
+          "theme-dark:bg-neutral-800",
+          "theme-dark:hover:bg-neutral-700",
+          "theme-dark:border-white/5"
+        )}
+      >
+        Export PDF (braille)
+      </button>
+    </>
   );
 }

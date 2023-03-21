@@ -3,7 +3,10 @@ import classNames from "classnames";
 import { convertToBraille } from "../../../../../utils/convert-to-braille";
 import { RenderTarget } from "../../../graphic-renderer.types";
 import { TickLabelPosition } from "../utils/calculate-tick-label-positions";
-import { getTickLabelStyles } from "../utils/get-tick-label-styles";
+import {
+  getTickLabelDebugStyles,
+  getTickLabelStyles,
+} from "../utils/get-tick-label-styles";
 
 export interface XTickLabelsProps {
   tickLabelPositions: TickLabelPosition[];
@@ -17,6 +20,7 @@ export default function XTickLabels({
   braille,
 }: XTickLabelsProps) {
   const fontStyles = getTickLabelStyles(braille);
+  const debugStyles = getTickLabelDebugStyles(false);
 
   switch (target) {
     case "web":
@@ -33,10 +37,7 @@ export default function XTickLabels({
                     y={hitbox.y}
                     width={hitbox.wdith}
                     height={hitbox.height}
-                    style={{
-                      stroke: "yellow",
-                      strokeWidth: 0.001,
-                    }}
+                    style={debugStyles}
                     className={classNames(
                       "theme-dark:fill-neutral-800",
                       "theme-light:fill-neutral-100"
@@ -79,8 +80,7 @@ export default function XTickLabels({
                     height={hitbox.height}
                     style={{
                       fill: "white",
-                      stroke: "yellow",
-                      strokeWidth: 0.001,
+                      ...debugStyles,
                     }}
                   />
                   <Text
