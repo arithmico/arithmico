@@ -18,9 +18,14 @@ Font.register({
 export interface PdfGraphicProps {
   graphic: GraphicNode;
   input: string;
+  braille: boolean;
 }
 
-export default function PdfGraphic({ graphic, input }: PdfGraphicProps) {
+export default function PdfGraphic({
+  graphic,
+  input,
+  braille,
+}: PdfGraphicProps) {
   const graphicDimensions: GraphicDimensions = {
     width: 1000,
     height: 1200,
@@ -37,12 +42,13 @@ export default function PdfGraphic({ graphic, input }: PdfGraphicProps) {
           paddingVertical: "1.69cm",
         }}
       >
-        <PdfExportTitle title={input} />
+        <PdfExportTitle title={input} braille={braille} />
         <View>
           <GraphicFixedSizeHandler
             graphic={graphic}
             dimensions={graphicDimensions}
             target={"pdf"}
+            braille={braille}
           />
         </View>
         <PdfExportWatermark />

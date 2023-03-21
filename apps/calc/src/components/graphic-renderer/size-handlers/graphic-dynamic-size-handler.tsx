@@ -5,12 +5,14 @@ import GraphicFixedSizeHandler from "./graphic-fixed-size-handler";
 
 interface GraphicDynamicSizeHandlerProps {
   graphic: GraphicNode;
+  braille: boolean;
 }
 
 export type Target = "web" | "pdf";
 
 export default function GraphicDynamicSizeHandler({
   graphic,
+  braille,
 }: GraphicDynamicSizeHandlerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [viewBoxWidth, setViewBoxWidth] = useState(1);
@@ -59,6 +61,7 @@ export default function GraphicDynamicSizeHandler({
           height: viewBoxHeight,
         }}
         target={"web"}
+        braille={braille}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import { Svg } from "@react-pdf/renderer";
 import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
 
-export const GRAPHIC_MIN_PADDING = 0.05;
+export const GRAPHIC_MIN_PADDING = 0.08;
 
 export interface SvgGraphicContainerProps {
   target: RenderTarget;

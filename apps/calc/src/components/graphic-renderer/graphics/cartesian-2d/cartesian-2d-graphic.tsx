@@ -20,12 +20,14 @@ export interface Cartesian2DGraphicProps {
   target: RenderTarget;
   graphic: GraphicNode;
   dimensions: GraphicDimensions;
+  braille: boolean;
 }
 
 export default function Cartesian2DGraphic({
   target,
   graphic,
   dimensions,
+  braille,
 }: Cartesian2DGraphicProps): JSX.Element {
   const autoTicks = calculateAutoTicks({ graphic, dimensions });
   const gridPointPositions = calculateGridPointPositions({
@@ -44,12 +46,14 @@ export default function Cartesian2DGraphic({
     dimensions,
   });
   const tickLabelPositions = selectTickLabelPositions({
+    braille,
     tickLabelPositions: (() => {
       const result: TickLabelPositionsWithAxisPositions = {};
       const tickLabelPositions = calculateTickLabelPositions({
         limits: graphic.limits,
         ticks: autoTicks,
         dimensions,
+        braille,
       });
 
       if (axisPositions.xAxis && tickLabelPositions.xAxis) {
@@ -89,12 +93,14 @@ export default function Cartesian2DGraphic({
         <XTickLabels
           target={target}
           tickLabelPositions={tickLabelPositions.xAxis}
+          braille={braille}
         />
       )}
       {tickLabelPositions.yAxis && (
         <YTickLabels
           target={target}
           tickLabelPositions={tickLabelPositions.yAxis}
+          braille={braille}
         />
       )}
     </>
