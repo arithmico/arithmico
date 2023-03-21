@@ -41,7 +41,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "theme-light:bg-neutral-100"
         )}
       >
-        <GraphicDynamicSizeHandler graphic={output.graphic} />
+        <GraphicDynamicSizeHandler graphic={output.graphic} braille={true} />
         <GraphicOutputToolbar graphic={output.graphic} input={output.input} />
       </div>
     );

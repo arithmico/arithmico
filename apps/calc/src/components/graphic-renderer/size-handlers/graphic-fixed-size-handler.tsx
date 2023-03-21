@@ -7,12 +7,14 @@ export interface GraphicFixedSizeHandlerProps {
   target: RenderTarget;
   dimensions: GraphicDimensions;
   graphic: GraphicNode;
+  braille: boolean;
 }
 
 export default function GraphicFixedSizeHandler({
   target,
   dimensions,
   graphic,
+  braille,
 }: GraphicFixedSizeHandlerProps) {
   const normalizedDimensions: GraphicDimensions = {
     width: 1,
@@ -33,6 +35,7 @@ export default function GraphicFixedSizeHandler({
                 dimensions={normalizedDimensions}
                 graphic={graphic}
                 target={target}
+                braille={braille}
               />
             );
         }

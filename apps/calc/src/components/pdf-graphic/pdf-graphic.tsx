@@ -48,6 +48,7 @@ export default function PdfGraphic({
             graphic={graphic}
             dimensions={graphicDimensions}
             target={"pdf"}
+            braille={braille}
           />
         </View>
         <PdfExportWatermark />
