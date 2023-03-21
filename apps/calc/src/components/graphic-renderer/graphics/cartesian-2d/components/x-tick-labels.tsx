@@ -44,7 +44,7 @@ export default function XTickLabels({
                   />
                   <text
                     x={position.x}
-                    y={position.y + 0.04 / 3}
+                    y={position.y + fontStyles.fontSize / 3}
                     textAnchor="middle"
                     className={classNames(
                       "theme-light:fill-black",
@@ -85,7 +85,7 @@ export default function XTickLabels({
                   />
                   <Text
                     x={position.x}
-                    y={position.y + 0.04 / 3}
+                    y={position.y + fontStyles.fontSize / 3}
                     textAnchor="middle"
                     style={{
                       ...fontStyles,

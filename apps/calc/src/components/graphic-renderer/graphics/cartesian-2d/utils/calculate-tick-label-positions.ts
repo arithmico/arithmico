@@ -6,9 +6,12 @@ import {
 import { getTickNumbers, transformToSvgViewport } from "../../../graphic-utils";
 
 export const X_TICK_LABEL_OFFSET = 0.035;
+export const X_TICK_LABEL_OFFSET_BRAILLE = 0.05;
 export const Y_TICK_LABEL_OFFSET = 0.02;
 export const TICK_LABEL_HITBOX_HEIGHT = 0.035;
+export const TICK_LABEL_HITBOX_HEIGHT_BRAILLE = 0.06;
 export const TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER = 0.025;
+export const TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER_BRAILLE = 0.07;
 
 export enum TickLabelPositionType {
   Primary,
@@ -39,13 +42,22 @@ export interface CalculateTickLabelPrositionsArgs {
   dimensions: GraphicDimensions;
   limits: GraphicLimits;
   ticks: Ticks;
+  braille: boolean;
 }
 
 export function calculateTickLabelPositions({
   dimensions,
   limits,
   ticks,
+  braille,
 }: CalculateTickLabelPrositionsArgs): TickLabelPositions {
+  const charWidth = braille
+    ? TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER_BRAILLE
+    : TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER;
+  const hitboxHeight = braille
+    ? TICK_LABEL_HITBOX_HEIGHT_BRAILLE
+    : TICK_LABEL_HITBOX_HEIGHT;
+
   const xTickLabelPositions = getTickNumbers(
     limits.xMin,
     limits.xMax,
@@ -53,21 +65,24 @@ export function calculateTickLabelPositions({
   ).flatMap((x): TickLabelPosition[] => {
     const position = transformToSvgViewport({ x, y: 0 }, dimensions, limits);
     const value = Math.round(x * Math.pow(10, 10)) * Math.pow(10, -10);
-    const hitboxWidth =
-      value.toString().length * TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER;
+    const hitboxWidth = value.toString().length * charWidth;
+    const xTickOffset = braille
+      ? X_TICK_LABEL_OFFSET_BRAILLE
+      : X_TICK_LABEL_OFFSET;
+
     return [
       {
         type: TickLabelPositionType.Primary,
         value,
         position: {
           x: position.x,
-          y: position.y + X_TICK_LABEL_OFFSET,
+          y: position.y + xTickOffset,
         },
         hitbox: {
           x: position.x - hitboxWidth / 2,
-          y: position.y - TICK_LABEL_HITBOX_HEIGHT / 2 + X_TICK_LABEL_OFFSET,
+          y: position.y - hitboxHeight / 2 + xTickOffset,
           wdith: hitboxWidth,
-          height: TICK_LABEL_HITBOX_HEIGHT,
+          height: hitboxHeight,
         },
       },
       {
@@ -75,13 +90,13 @@ export function calculateTickLabelPositions({
         value,
         position: {
           x: position.x,
-          y: position.y - X_TICK_LABEL_OFFSET,
+          y: position.y - xTickOffset,
         },
         hitbox: {
           x: position.x - hitboxWidth / 2,
-          y: position.y - TICK_LABEL_HITBOX_HEIGHT / 2 - X_TICK_LABEL_OFFSET,
+          y: position.y - hitboxHeight / 2 - xTickOffset,
           wdith: hitboxWidth,
-          height: TICK_LABEL_HITBOX_HEIGHT,
+          height: hitboxHeight,
         },
       },
     ];
@@ -94,8 +109,8 @@ export function calculateTickLabelPositions({
   ).flatMap((y): TickLabelPosition[] => {
     const position = transformToSvgViewport({ x: 0, y }, dimensions, limits);
     const value = Math.round(y * Math.pow(10, 10)) * Math.pow(10, -10);
-    const hitboxWidth =
-      value.toString().length * TICK_LABEL_HITBOX_WIDTH_PER_CHARACTER;
+    const hitboxWidth = value.toString().length * charWidth;
+
     return [
       {
         type: TickLabelPositionType.Primary,
@@ -106,9 +121,9 @@ export function calculateTickLabelPositions({
         },
         hitbox: {
           x: position.x - hitboxWidth - Y_TICK_LABEL_OFFSET,
-          y: position.y - TICK_LABEL_HITBOX_HEIGHT / 2,
+          y: position.y - hitboxHeight / 2,
           wdith: hitboxWidth,
-          height: TICK_LABEL_HITBOX_HEIGHT,
+          height: hitboxHeight,
         },
       },
       {
@@ -120,9 +135,9 @@ export function calculateTickLabelPositions({
         },
         hitbox: {
           x: position.x + Y_TICK_LABEL_OFFSET,
-          y: position.y - TICK_LABEL_HITBOX_HEIGHT / 2,
+          y: position.y - hitboxHeight / 2,
           wdith: hitboxWidth,
-          height: TICK_LABEL_HITBOX_HEIGHT,
+          height: hitboxHeight,
         },
       },
     ];

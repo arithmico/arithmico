@@ -52,6 +52,7 @@ export default function Cartesian2DGraphic({
         limits: graphic.limits,
         ticks: autoTicks,
         dimensions,
+        braille,
       });
 
       if (axisPositions.xAxis && tickLabelPositions.xAxis) {
