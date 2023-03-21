@@ -14,7 +14,7 @@ export default function GraphicExportButton({
   input,
 }: GraphicExportButtonProps) {
   const onClickExportPDF = () => {
-    pdf(<PdfGraphic graphic={graphic} input={input} />)
+    pdf(<PdfGraphic graphic={graphic} input={input} braille={true} />)
       .toBlob()
       .then((blob) => FileSaver.saveAs(blob, "export.pdf"));
   };

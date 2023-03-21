@@ -1,5 +1,8 @@
 import { View, Text } from "@react-pdf/renderer";
 import PdfArrowIcon from "./pdf-arrow-icon";
+import rawBrailleMapping from "../../../braille-character-mapping.json";
+
+const brailleMapping = rawBrailleMapping as Record<string, string>;
 
 function splitBeforeAndAfterPattern(str: string, pattern: string) {
   return str
@@ -19,9 +22,42 @@ function splitBeforeAndAfterPatterns(str: string, patterns: string[]) {
 
 export interface PdfExportTitleProps {
   title: string;
+  braille: boolean;
 }
 
-export default function PdfExportTitle({ title }: PdfExportTitleProps) {
+export default function PdfExportTitle({
+  title,
+  braille,
+}: PdfExportTitleProps) {
+  if (braille) {
+    const brailleStr = [...title.replaceAll("→", "->")].map(
+      (c) => brailleMapping[c]
+    );
+
+    return (
+      <View
+        style={{
+          marginBottom: "1cm",
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "Apple Braille",
+            fontSize: "36pt",
+            paddingLeft: "2px",
+            paddingRight: "2px",
+          }}
+        >
+          {brailleStr}
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View
       style={{
