@@ -92,8 +92,6 @@ export function calculateAxisPrositions({
     };
   }
 
-  console.log(limits.yMin <= 0, limits.yMax >= 0, limits.yMin);
-  console.log(limits);
   if (limits.xMin <= 0 && limits.xMax >= 0) {
     result.yAxis = {
       startPosition: {
