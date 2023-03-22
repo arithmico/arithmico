@@ -94,7 +94,7 @@ export default function CalculatorToolbar() {
         {t("toolbar.resetProtocol")}
       </CalculatorToolbarButton>
 
-      <CalculatorToolbarButton onClick={exportProtocol}>
+      <CalculatorToolbarButton onClick={() => exportProtocol()}>
         {t("toolbar.exportProtocol")}
       </CalculatorToolbarButton>
       <CalculatorToolbarButton onClick={() => dispatch(resetAll())}>
