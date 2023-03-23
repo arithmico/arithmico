@@ -33,9 +33,7 @@ export function getTickNumbers(min: number, max: number, spacing: number) {
 
   const result = [];
   for (let i = start - spacing; i <= end; i += spacing) {
-    if (i !== max) {
-      result.push(i);
-    }
+    result.push(i);
   }
   return result;
 }

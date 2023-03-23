@@ -13,11 +13,13 @@ export default function XAxis({
   tickPositions,
   target,
 }: XAxisProps) {
-  const trianglePoints = `${endPosition.x},${
-    endPosition.y - GRAPHIC_MIN_PADDING / 4
-  } ${endPosition.x},${endPosition.y + GRAPHIC_MIN_PADDING / 4} ${
-    endPosition.x + GRAPHIC_MIN_PADDING
-  },${endPosition.y}`;
+  const arrowLength = (GRAPHIC_MIN_PADDING * 2) / 3;
+  const arrowHeight = arrowLength / 2;
+  const trianglePoints = `${endPosition.x},${endPosition.y - arrowHeight / 2} ${
+    endPosition.x
+  },${endPosition.y + arrowHeight / 2} ${endPosition.x + arrowLength},${
+    endPosition.y
+  }`;
 
   switch (target) {
     case "web":

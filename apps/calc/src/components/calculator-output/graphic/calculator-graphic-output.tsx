@@ -4,6 +4,8 @@ import { forwardRef } from "react";
 import GraphicDynamicSizeHandler from "../../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
 import GraphicOutputToolbar from "./graphic-output-toolbar";
 
+const enableToolbar = !import.meta.env.VITE_OFFLINE_MODE;
+
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;
   output: GraphicResult & { input: string };
@@ -30,7 +32,9 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "max-h-full",
           "max-w-full",
           "grid",
-          "grid-cols-[7fr_1fr]",
+          {
+            "grid-cols-[7fr_1fr]": enableToolbar,
+          },
           "overflow-hidden",
           "outline-none",
           "theme-dark:border-neutral-500",
@@ -42,7 +46,9 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         )}
       >
         <GraphicDynamicSizeHandler graphic={output.graphic} braille={false} />
-        <GraphicOutputToolbar graphic={output.graphic} input={output.input} />
+        {enableToolbar && (
+          <GraphicOutputToolbar graphic={output.graphic} input={output.input} />
+        )}
       </div>
     );
   }

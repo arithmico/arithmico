@@ -13,19 +13,22 @@ export default function useExportProtocol() {
     save(
       protocol
         .map((item) => {
-          switch (item.type) {
-            case "math":
+          switch (item.output.type) {
+            case "text":
               return `${t("common.input")}: ${item.input}\n${t(
                 "common.output"
-              )}: ${item.output}`;
-
-            case "info":
-              return `INFO: ${item.info}`;
+              )}: ${item.output.text}`;
 
             case "error":
               return `${t("common.input")}: ${item.input}\n${t(
                 "common.output"
-              )}: ${item.error}`;
+              )}: ${item.output.error}`;
+
+            case "graphic":
+              return `${t("common.input")}: ${item.input}\n${t(
+                "common.output"
+              )}: ${"[graphics]"}`;
+
             default:
               return "";
           }

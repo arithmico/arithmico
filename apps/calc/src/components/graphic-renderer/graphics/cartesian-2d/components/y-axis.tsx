@@ -13,11 +13,11 @@ export default function YAxis({
   tickPositions,
   target,
 }: YAxisProps) {
-  const trianglePoints = `${endPosition.x - GRAPHIC_MIN_PADDING / 4},${
-    endPosition.y
-  } ${endPosition.x + GRAPHIC_MIN_PADDING / 4},${endPosition.y} ${
-    endPosition.x
-  },${endPosition.y - GRAPHIC_MIN_PADDING}`;
+  const arrowHeight = (GRAPHIC_MIN_PADDING * 2) / 3;
+  const arrowWidth = arrowHeight / 2;
+  const trianglePoints = `${endPosition.x - arrowWidth / 2},${endPosition.y} ${
+    endPosition.x + arrowWidth / 2
+  },${endPosition.y} ${endPosition.x},${endPosition.y - arrowHeight}`;
 
   switch (target) {
     case "web":
