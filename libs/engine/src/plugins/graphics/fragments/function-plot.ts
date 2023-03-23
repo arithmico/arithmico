@@ -58,9 +58,9 @@ __FUNCTIONS.plot &&
                 graphicType: 'cartesian2D',
                 limits: {
                     xMin,
-                    yMin: bottomPadding / height <= 0.1 ? yMin - bottomPadding : yMin,
+                    yMin: bottomPadding / height <= 0.25 ? yMin - bottomPadding : yMin,
                     xMax,
-                    yMax: topPadding / height <= 0.1 ? yMax + topPadding : yMax,
+                    yMax: topPadding / height <= 0.25 ? yMax + topPadding : yMax,
                 },
                 xTicks: 'auto',
                 yTicks: 'auto',
