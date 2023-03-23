@@ -68,8 +68,8 @@ export default function Protocol() {
               "text-2xl"
             )}
           >
-            {protocolItems.map((item) => (
-              <ProtocolListItem item={item} />
+            {protocolItems.map((item, index) => (
+              <ProtocolListItem item={item} key={index} />
             ))}
           </ul>
         </WithScrollbars>
