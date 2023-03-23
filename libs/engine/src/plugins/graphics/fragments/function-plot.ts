@@ -36,19 +36,37 @@ __FUNCTIONS.plot &&
                 throw runtimeError('xMax must be greater than xMin');
             }
 
-            const points: Point2D[] = [];
+            const lines: Point2D[][] = [];
+            let currentLine: Point2D[] = [];
 
             for (let i = 0; i <= plotResolution; i++) {
-                const x = xMin + ((xMax - xMin) * i) / plotResolution;
-                const yNode = evaluate(createFunctionCall(f, [createNumberNode(x)]), context);
-                if (yNode.type !== 'number') {
-                    throw runtimeError(`invalid return type expected number got ${yNode.type}`);
+                try {
+                    const x = xMin + ((xMax - xMin) * i) / plotResolution;
+                    const yNode = evaluate(createFunctionCall(f, [createNumberNode(x)]), context);
+                    if (yNode.type !== 'number') {
+                        throw runtimeError(`invalid return type expected number got ${yNode.type}`);
+                    }
+                    currentLine.push({ x: x, y: yNode.value });
+                } catch (error) {
+                    if (currentLine.length > 0) {
+                        lines.push(currentLine);
+                        currentLine = [];
+                    }
                 }
-                points.push({ x: x, y: yNode.value });
+            }
+            if (currentLine.length > 0) {
+                lines.push(currentLine);
+                currentLine = [];
             }
 
-            const yMin = points.map((point) => point.y).reduce((a, b) => Math.min(a, b));
-            const yMax = points.map((point) => point.y).reduce((a, b) => Math.max(a, b));
+            const yMin = lines
+                .flatMap((x) => x)
+                .map((point) => point.y)
+                .reduce((a, b) => Math.min(a, b));
+            const yMax = lines
+                .flatMap((x) => x)
+                .map((point) => point.y)
+                .reduce((a, b) => Math.max(a, b));
             const height = yMax - yMin;
             const bottomPadding = Math.max(0, yMin);
             const topPadding = Math.abs(Math.min(yMax, 0));
@@ -64,12 +82,10 @@ __FUNCTIONS.plot &&
                 },
                 xTicks: 'auto',
                 yTicks: 'auto',
-                lines: [
-                    {
-                        type: 'line',
-                        points,
-                    },
-                ],
+                lines: lines.map((points) => ({
+                    type: 'line',
+                    points,
+                })),
             };
         },
     );
