@@ -2,7 +2,7 @@ import createFunctionCall from '../../../node-operations/create-node/create-func
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import evaluate from '../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types';
-import { Cartesian2DGraphic, Point2D } from '../../../types/graphics.types';
+import { Cartesian2DGraphic, GraphicNode, Point2D } from '../../../types/graphics.types';
 import { PluginFragment } from '../../../utils/plugin-builder';
 
 const plotResolution = 1000;
@@ -11,6 +11,8 @@ const plotHeader: FunctionHeaderItem[] = [
     { type: 'function', name: 'f', evaluate: true },
     { type: 'number', name: 'xMin', evaluate: true, optional: true },
     { type: 'number', name: 'xMax', evaluate: true, optional: true },
+    { type: 'number', name: 'yMin', evaluate: true, optional: true },
+    { type: 'number', name: 'yMax', evaluate: true, optional: true },
 ];
 
 const functionPlotFragment = new PluginFragment();
@@ -21,10 +23,12 @@ __FUNCTIONS.plot &&
         plotHeader,
         'Creates a plot of the function f in the range xMin to xMax on the x-axis. Default value for xMin is -10 and for xMax is 10.',
         'Erzeugt einen Plot der Funktion f im Bereich xMin bis xMax auf der x-Achse. Der Standardwert für xMin ist -10 und für xMax ist 10.',
-        ({ getParameter, typeError, runtimeError, context }): Cartesian2DGraphic => {
+        ({ getParameter, getNullableParameter, typeError, runtimeError, context }): Cartesian2DGraphic => {
             const f = getParameter('f') as FunctionNode;
             const xMinNode = getParameter('xMin', createNumberNode(-10)) as NumberNode;
             const xMaxNode = getParameter('xMax', createNumberNode(10)) as NumberNode;
+            const yMinNode = getNullableParameter('yMin') as NumberNode | null;
+            const yMaxNode = getNullableParameter('yMax') as NumberNode | null;
             const xMin = Math.min(xMinNode.value, xMaxNode.value);
             const xMax = Math.max(xMinNode.value, xMaxNode.value);
 
@@ -36,24 +40,52 @@ __FUNCTIONS.plot &&
                 throw runtimeError('xMax must be greater than xMin');
             }
 
-            const points: Point2D[] = [];
+            const lines: Point2D[][] = [];
+            let currentLine: Point2D[] = [];
 
             for (let i = 0; i <= plotResolution; i++) {
-                const x = xMin + ((xMax - xMin) * i) / plotResolution;
-                const yNode = evaluate(createFunctionCall(f, [createNumberNode(x)]), context);
-                if (yNode.type !== 'number') {
-                    throw runtimeError(`invalid return type expected number got ${yNode.type}`);
+                try {
+                    const x = xMin + ((xMax - xMin) * i) / plotResolution;
+                    const yNode = evaluate(createFunctionCall(f, [createNumberNode(x)]), context);
+                    if (yNode.type !== 'number') {
+                        throw runtimeError(`invalid return type expected number got ${yNode.type}`);
+                    }
+                    if (!Number.isFinite(yNode.value)) {
+                        throw runtimeError('cannot plot infinite values');
+                    }
+                    if ((yMaxNode && yNode.value > yMaxNode.value) || (yMinNode && yNode.value < yMinNode.value)) {
+                        throw runtimeError('out of bounds');
+                    }
+                    currentLine.push({ x: x, y: yNode.value });
+                } catch (error) {
+                    if (currentLine.length > 0) {
+                        lines.push(currentLine);
+                        currentLine = [];
+                    }
                 }
-                points.push({ x: x, y: yNode.value });
+            }
+            if (currentLine.length > 0) {
+                lines.push(currentLine);
+                currentLine = [];
             }
 
-            const yMin = points.map((point) => point.y).reduce((a, b) => Math.min(a, b));
-            const yMax = points.map((point) => point.y).reduce((a, b) => Math.max(a, b));
+            const yMin = yMinNode
+                ? yMinNode.value
+                : lines
+                      .flatMap((x) => x)
+                      .map((point) => point.y)
+                      .reduce((a, b) => Math.min(a, b));
+            const yMax = yMaxNode
+                ? yMaxNode.value
+                : lines
+                      .flatMap((x) => x)
+                      .map((point) => point.y)
+                      .reduce((a, b) => Math.max(a, b));
             const height = yMax - yMin;
             const bottomPadding = Math.max(0, yMin);
             const topPadding = Math.abs(Math.min(yMax, 0));
 
-            return {
+            const result: GraphicNode = {
                 type: 'graphic',
                 graphicType: 'cartesian2D',
                 limits: {
@@ -64,13 +96,12 @@ __FUNCTIONS.plot &&
                 },
                 xTicks: 'auto',
                 yTicks: 'auto',
-                lines: [
-                    {
-                        type: 'line',
-                        points,
-                    },
-                ],
+                lines: lines.map((points) => ({
+                    type: 'line',
+                    points,
+                })),
             };
+            return result;
         },
     );
 

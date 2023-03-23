@@ -42,6 +42,7 @@ export default function PdfExportTitle({
       >
         {[...brailleStr].map((char, key) => (
           <Text
+            key={key}
             style={{
               fontFamily: "Apple Braille",
               fontSize: "36pt",
@@ -65,11 +66,12 @@ export default function PdfExportTitle({
       }}
     >
       {splitBeforeAndAfterPatterns(title, ["+", "-", "*", "/", "^", "→"]).map(
-        (chunk, index) =>
+        (chunk, key) =>
           chunk === "→" ? (
-            <PdfArrowIcon />
+            <PdfArrowIcon key={key} />
           ) : (
             <Text
+              key={key}
               style={{
                 fontSize: "26px",
                 paddingLeft: "2px",
