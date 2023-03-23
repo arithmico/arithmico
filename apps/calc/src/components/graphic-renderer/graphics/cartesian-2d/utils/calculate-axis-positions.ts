@@ -1,3 +1,4 @@
+import { GRAPHIC_MIN_PADDING } from "../../../components/svg-graphic-container";
 import {
   GraphicDimensions,
   GraphicLimits,
@@ -77,18 +78,30 @@ export function calculateAxisPrositions({
 
   const result: AxisPositions = {};
 
-  if (limits.xMin <= 0 && limits.xMax >= 0) {
+  if (limits.yMin <= 0 && limits.yMax >= 0) {
     result.xAxis = {
-      startPosition: xAxisStartPosition,
-      endPosition: xAxisEndPosition,
+      startPosition: {
+        x: xAxisStartPosition.x - GRAPHIC_MIN_PADDING / 3,
+        y: xAxisStartPosition.y,
+      },
+      endPosition: {
+        x: xAxisEndPosition.x + GRAPHIC_MIN_PADDING / 3,
+        y: xAxisEndPosition.y,
+      },
       tickPositions: xTickPositions,
     };
   }
 
-  if (limits.yMin <= 0 && limits.yMax >= 0) {
+  if (limits.xMin <= 0 && limits.xMax >= 0) {
     result.yAxis = {
-      startPosition: yAxisStartPosition,
-      endPosition: yAxisEndPosition,
+      startPosition: {
+        x: yAxisStartPosition.x,
+        y: yAxisStartPosition.y + GRAPHIC_MIN_PADDING / 3,
+      },
+      endPosition: {
+        x: yAxisEndPosition.x,
+        y: yAxisEndPosition.y - GRAPHIC_MIN_PADDING / 3,
+      },
       tickPositions: yTickPositions,
     };
   }

@@ -1,5 +1,5 @@
 import { RenderTarget } from "@local-components/graphic-renderer/graphic-renderer.types";
-import { Path } from "@react-pdf/renderer";
+import { Circle, Path } from "@react-pdf/renderer";
 import classNames from "classnames";
 import { LinePathPositions } from "../utils/calculate-line-paths";
 
@@ -14,6 +14,9 @@ export default function LinePath({ points, target }: LinePathProps) {
     .map(({ x, y }, index) => `${index === 0 ? "M" : "L"} ${x} ${y}`)
     .join(" ");
 
+  const startPoint = points.at(0);
+  const endPoint = points.at(-1);
+
   switch (target) {
     case "web":
       return (
@@ -26,6 +29,7 @@ export default function LinePath({ points, target }: LinePathProps) {
               "theme-light:stroke-neutral-100",
               "theme-dark:stroke-neutral-800"
             )}
+            strokeLinecap="round"
           />
           <path
             d={pathString}
@@ -45,7 +49,27 @@ export default function LinePath({ points, target }: LinePathProps) {
         <>
           <Path
             d={pathString}
-            style={{ strokeWidth: 0.015, stroke: "white", fill: "none" }}
+            style={{
+              strokeWidth: 0.015,
+              stroke: "white",
+              fill: "none",
+            }}
+          />
+          <Circle
+            style={{
+              fill: "white",
+            }}
+            cx={startPoint!.x}
+            cy={startPoint!.y}
+            r={0.015 / 2}
+          />
+          <Circle
+            style={{
+              fill: "white",
+            }}
+            cx={endPoint!.x}
+            cy={endPoint!.y}
+            r={0.015 / 2}
           />
           <Path
             d={pathString}

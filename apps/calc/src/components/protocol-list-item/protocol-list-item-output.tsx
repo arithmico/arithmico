@@ -35,7 +35,9 @@ export default function ProtocolListItemOutput({
       );
 
     case "graphic":
-      return <GraphicDynamicSizeHandler graphic={output.graphic} />;
+      return (
+        <GraphicDynamicSizeHandler graphic={output.graphic} braille={false} />
+      );
 
     default:
       // @ts-ignore
