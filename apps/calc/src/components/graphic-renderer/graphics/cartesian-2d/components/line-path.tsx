@@ -1,5 +1,5 @@
 import { RenderTarget } from "@local-components/graphic-renderer/graphic-renderer.types";
-import { Circle, Path } from "@react-pdf/renderer";
+import { Circle, G, Path } from "@react-pdf/renderer";
 import classNames from "classnames";
 import { LinePathPositions } from "../utils/calculate-line-paths";
 
@@ -20,7 +20,7 @@ export default function LinePath({ points, target }: LinePathProps) {
   switch (target) {
     case "web":
       return (
-        <>
+        <g clipPath="url(#graphic-content-mask)">
           <path
             d={pathString}
             className={classNames(
@@ -41,12 +41,13 @@ export default function LinePath({ points, target }: LinePathProps) {
             )}
             strokeDasharray={DASH_ARRAY}
           />
-        </>
+        </g>
       );
 
     case "pdf":
       return (
-        <>
+        //@ts-ignore
+        <G clipPath="url(#graphic-content-mask)">
           <Path
             d={pathString}
             style={{
@@ -76,11 +77,7 @@ export default function LinePath({ points, target }: LinePathProps) {
             style={{ strokeWidth: 0.005, stroke: "black", fill: "none" }}
             strokeDasharray={DASH_ARRAY}
           />
-        </>
+        </G>
       );
-
-    default:
-      // eslint-disable-next-line no-throw-literal
-      throw `unknown render target "${target}"`;
   }
 }
