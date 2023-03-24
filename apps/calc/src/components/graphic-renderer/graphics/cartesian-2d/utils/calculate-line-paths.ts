@@ -10,6 +10,7 @@ interface CalculateLinePathsArgs {
 
 export interface LinePathPositions {
   points: { x: number; y: number }[];
+  style: Line2D["style"];
 }
 
 export function calculateLinePaths({
@@ -21,5 +22,6 @@ export function calculateLinePaths({
     points: line.points.map((point) =>
       transformToSvgViewport(point, dimensions, limits)
     ),
+    style: line.style,
   }));
 }

@@ -1,6 +1,6 @@
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types';
-import { Cartesian2DGraphic, GraphicNode } from '../../../types/graphics.types';
+import { Cartesian2DGraphic, GraphicNode, Line2D } from '../../../types/graphics.types';
 import { PluginFragment } from '../../../utils/plugin-builder';
 import { scanFunction } from './utils/scan-function';
 
@@ -39,18 +39,29 @@ __FUNCTIONS.plot &&
                 throw runtimeError('xMax must be greater than xMin');
             }
 
-            const lines = functions.flatMap((func) => scanFunction(func, xMin, xMax, context));
+            const lines: Line2D[] = functions
+                .flatMap((func, index) => ({
+                    lines: scanFunction(func, xMin, xMax, context),
+                    style: (index % 2 === 0 ? 'dashed' : 'solid') as Line2D['style'],
+                }))
+                .flatMap(({ lines, style }) =>
+                    lines.map((points) => ({
+                        type: 'line',
+                        style,
+                        points,
+                    })),
+                );
 
             const yMin = yMinNode
                 ? yMinNode.value
                 : lines
-                      .flatMap((x) => x)
+                      .flatMap((x) => x.points)
                       .map((point) => point.y)
                       .reduce((a, b) => Math.min(a, b));
             const yMax = yMaxNode
                 ? yMaxNode.value
                 : lines
-                      .flatMap((x) => x)
+                      .flatMap((x) => x.points)
                       .map((point) => point.y)
                       .reduce((a, b) => Math.max(a, b));
             const height = yMax - yMin;
@@ -68,10 +79,7 @@ __FUNCTIONS.plot &&
                 },
                 xTicks: 'auto',
                 yTicks: 'auto',
-                lines: lines.map((points) => ({
-                    type: 'line',
-                    points,
-                })),
+                lines,
             };
             return result;
         },

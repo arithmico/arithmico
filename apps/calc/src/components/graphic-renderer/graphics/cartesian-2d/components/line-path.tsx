@@ -10,7 +10,7 @@ export type LinePathProps = LinePathPositions & {
   target: RenderTarget;
 };
 
-export default function LinePath({ points, target }: LinePathProps) {
+export default function LinePath({ points, style, target }: LinePathProps) {
   const pathString = points
     .map(({ x, y }, index) => `${index === 0 ? "M" : "L"} ${x} ${y}`)
     .join(" ");
@@ -44,7 +44,7 @@ export default function LinePath({ points, target }: LinePathProps) {
               "theme-light:stroke-black",
               "theme-dark:stroke-white"
             )}
-            strokeDasharray={DASH_ARRAY}
+            strokeDasharray={style === "dashed" ? DASH_ARRAY : ""}
           />
         </g>
       );
@@ -80,7 +80,7 @@ export default function LinePath({ points, target }: LinePathProps) {
           <Path
             d={pathString}
             style={{ strokeWidth: LINE_WIDTH, stroke: "black", fill: "none" }}
-            strokeDasharray={DASH_ARRAY}
+            strokeDasharray={style === "dashed" ? DASH_ARRAY : ""}
           />
         </G>
       );

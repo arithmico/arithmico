@@ -3,6 +3,7 @@ export type GraphicNode = Cartesian2DGraphic;
 export type Point2D = { x: number; y: number };
 export type Line2D = {
     type: 'line';
+    style: 'dashed' | 'solid';
     points: Point2D[];
 };
 
