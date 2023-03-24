@@ -50,7 +50,8 @@ export default function CalculatorForm() {
 
   useHotkeys(
     "ctrl + i",
-    () => {
+    (event) => {
+      event.preventDefault();
       dispatch(resetInput());
       if (inputRef.current) {
         inputRef.current.focus();
