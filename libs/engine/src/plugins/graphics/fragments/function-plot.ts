@@ -53,9 +53,6 @@ __FUNCTIONS.plot &&
                     if (!Number.isFinite(yNode.value)) {
                         throw runtimeError('cannot plot infinite values');
                     }
-                    if ((yMaxNode && yNode.value > yMaxNode.value) || (yMinNode && yNode.value < yMinNode.value)) {
-                        throw runtimeError('out of bounds');
-                    }
                     currentLine.push({ x: x, y: yNode.value });
                 } catch (error) {
                     if (currentLine.length > 0) {
