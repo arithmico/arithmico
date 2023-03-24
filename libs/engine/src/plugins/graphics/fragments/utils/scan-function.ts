@@ -4,7 +4,7 @@ import evaluate from '../../../../node-operations/evaluate-node';
 import { Context, FunctionNode, Point2D } from '../../../../types';
 
 const PLOT_RESOLUTION = 1000;
-const DELTA_COEFFICIENT = 0.6;
+const DELTA_COEFFICIENT = 0.15;
 
 function splitLineAtJump(line: Point2D[]): Point2D[][] {
     const minY = line.reduce((acc, val) => Math.min(acc, val.y), line.at(0).y);
