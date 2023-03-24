@@ -1,11 +1,11 @@
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types';
-import { Cartesian2DGraphic, GraphicNode } from '../../../types/graphics.types';
+import { Cartesian2DGraphic, GraphicNode, Line2D } from '../../../types/graphics.types';
 import { PluginFragment } from '../../../utils/plugin-builder';
 import { scanFunction } from './utils/scan-function';
 
 const plotHeader: FunctionHeaderItem[] = [
-    { type: 'function', name: 'f', evaluate: true },
+    { type: 'function', name: 'f', evaluate: true, repeat: true },
     { type: 'number', name: 'xMin', evaluate: true, optional: true },
     { type: 'number', name: 'xMax', evaluate: true, optional: true },
     { type: 'number', name: 'yMin', evaluate: true, optional: true },
@@ -21,7 +21,7 @@ __FUNCTIONS.plot &&
         'Creates a plot of the function f in the optional range xMin to xMax on the x-axis and from yMin to yMax on the y-axis. Default value for xMin is -10. Default value for xMax is 10.',
         'Erzeugt einen Plot der Funktion f im optionalen Bereich xMin bis xMax auf der x-Achse und von yMin bis yMax auf der y-Achse. Der Standardwert für xMin ist -10. Der Standardwert für xMax ist 10,',
         ({ getParameter, getNullableParameter, typeError, runtimeError, context }): Cartesian2DGraphic => {
-            const f = getParameter('f') as FunctionNode;
+            const functions = getParameter('f') as FunctionNode[];
             const xMinNode = getParameter('xMin', createNumberNode(-10)) as NumberNode;
             const xMaxNode = getParameter('xMax', createNumberNode(10)) as NumberNode;
             const yMinNode = getNullableParameter('yMin') as NumberNode | null;
@@ -29,26 +29,39 @@ __FUNCTIONS.plot &&
             const xMin = Math.min(xMinNode.value, xMaxNode.value);
             const xMax = Math.max(xMinNode.value, xMaxNode.value);
 
-            if (f.header.length !== 1 || !['number', 'any'].includes(f.header.at(0).type)) {
-                throw typeError('invalid function signature');
-            }
+            functions.forEach((func, index) => {
+                if (func.header.length !== 1 || !['number', 'any'].includes(func.header.at(0).type)) {
+                    throw typeError(`invalid function signature in function #${index + 1}`);
+                }
+            });
 
             if (xMin === xMax) {
                 throw runtimeError('xMax must be greater than xMin');
             }
 
-            const lines = scanFunction(f, xMin, xMax, context);
+            const lines: Line2D[] = functions
+                .flatMap((func, index) => ({
+                    lines: scanFunction(func, xMin, xMax, context),
+                    style: (index % 2 === 0 ? 'dashed' : 'solid') as Line2D['style'],
+                }))
+                .flatMap(({ lines, style }) =>
+                    lines.map((points) => ({
+                        type: 'line',
+                        style,
+                        points,
+                    })),
+                );
 
             const yMin = yMinNode
                 ? yMinNode.value
                 : lines
-                      .flatMap((x) => x)
+                      .flatMap((x) => x.points)
                       .map((point) => point.y)
                       .reduce((a, b) => Math.min(a, b));
             const yMax = yMaxNode
                 ? yMaxNode.value
                 : lines
-                      .flatMap((x) => x)
+                      .flatMap((x) => x.points)
                       .map((point) => point.y)
                       .reduce((a, b) => Math.max(a, b));
             const height = yMax - yMin;
@@ -66,10 +79,7 @@ __FUNCTIONS.plot &&
                 },
                 xTicks: 'auto',
                 yTicks: 'auto',
-                lines: lines.map((points) => ({
-                    type: 'line',
-                    points,
-                })),
+                lines,
             };
             return result;
         },
