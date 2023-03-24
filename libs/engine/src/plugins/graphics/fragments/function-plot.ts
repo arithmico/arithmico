@@ -1,11 +1,8 @@
-import createFunctionCall from '../../../node-operations/create-node/create-function-call';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
-import evaluate from '../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types';
-import { Cartesian2DGraphic, GraphicNode, Point2D } from '../../../types/graphics.types';
+import { Cartesian2DGraphic, GraphicNode } from '../../../types/graphics.types';
 import { PluginFragment } from '../../../utils/plugin-builder';
-
-const plotResolution = 1000;
+import { scanFunction } from './utils/scan-function';
 
 const plotHeader: FunctionHeaderItem[] = [
     { type: 'function', name: 'f', evaluate: true },
@@ -40,31 +37,7 @@ __FUNCTIONS.plot &&
                 throw runtimeError('xMax must be greater than xMin');
             }
 
-            const lines: Point2D[][] = [];
-            let currentLine: Point2D[] = [];
-
-            for (let i = 0; i <= plotResolution; i++) {
-                try {
-                    const x = xMin + ((xMax - xMin) * i) / plotResolution;
-                    const yNode = evaluate(createFunctionCall(f, [createNumberNode(x)]), context);
-                    if (yNode.type !== 'number') {
-                        throw runtimeError(`invalid return type expected number got ${yNode.type}`);
-                    }
-                    if (!Number.isFinite(yNode.value)) {
-                        throw runtimeError('cannot plot infinite values');
-                    }
-                    currentLine.push({ x: x, y: yNode.value });
-                } catch (error) {
-                    if (currentLine.length > 0) {
-                        lines.push(currentLine);
-                        currentLine = [];
-                    }
-                }
-            }
-            if (currentLine.length > 0) {
-                lines.push(currentLine);
-                currentLine = [];
-            }
+            const lines = scanFunction(f, xMin, xMax, context);
 
             const yMin = yMinNode
                 ? yMinNode.value
