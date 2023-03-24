@@ -79,7 +79,11 @@ export default function LinePath({ points, style, target }: LinePathProps) {
           />
           <Path
             d={pathString}
-            style={{ strokeWidth: LINE_WIDTH, stroke: "black", fill: "none" }}
+            style={{
+              strokeWidth: LINE_WIDTH,
+              stroke: "black",
+              fill: "none",
+            }}
             strokeDasharray={style === "dashed" ? DASH_ARRAY : ""}
           />
         </G>
