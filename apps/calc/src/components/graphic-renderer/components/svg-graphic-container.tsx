@@ -1,4 +1,4 @@
-import { Svg } from "@react-pdf/renderer";
+import { ClipPath, Defs, Rect, Svg } from "@react-pdf/renderer";
 import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
 
 export const GRAPHIC_MIN_PADDING = 0.08;
@@ -34,15 +34,44 @@ export default function SvgGraphicContainer({
           height={absoluteDimensions.height}
           viewBox={viewBox}
         >
+          <defs>
+            <clipPath id="graphic-content-mask">
+              <rect
+                x={-dimensions.width / 2}
+                y={-dimensions.height / 2}
+                width={dimensions.width}
+                height={dimensions.height}
+                style={{
+                  fill: "white",
+                  stroke: "none",
+                }}
+              />
+            </clipPath>
+          </defs>
+
           {children}
         </svg>
       );
 
     case "pdf":
-      return <Svg viewBox={viewBox}>{children}</Svg>;
-
-    default:
-      // eslint-disable-next-line no-throw-literal
-      throw `unknown render target "${target}"`;
+      return (
+        <Svg viewBox={viewBox}>
+          <Defs>
+            <ClipPath id="graphic-content-mask">
+              <Rect
+                x={-dimensions.width / 2}
+                y={-dimensions.height / 2}
+                width={dimensions.width}
+                height={dimensions.height}
+                style={{
+                  fill: "white",
+                  stroke: "none",
+                }}
+              />
+            </ClipPath>
+          </Defs>
+          {children}
+        </Svg>
+      );
   }
 }
