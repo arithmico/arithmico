@@ -4,6 +4,29 @@ import evaluate from '../../../../node-operations/evaluate-node';
 import { Context, FunctionNode, Point2D } from '../../../../types';
 
 const PLOT_RESOLUTION = 1000;
+const DELTA_COEFFICIENT = 0.6;
+
+function splitLineAtJump(line: Point2D[]): Point2D[][] {
+    const minY = line.reduce((acc, val) => Math.min(acc, val.y), line.at(0).y);
+    const maxY = line.reduce((acc, val) => Math.max(acc, val.y), line.at(0).y);
+    const maxDellta = Math.abs(minY - maxY);
+    const result: Point2D[][] = [];
+    let currentLine: Point2D[] = [line.at(0)];
+
+    for (let i = 1; i < line.length; i++) {
+        const delta = Math.abs(line.at(i - 1).y - line.at(i).y);
+        if (delta > DELTA_COEFFICIENT * maxDellta && currentLine.length > 0) {
+            result.push(currentLine);
+            currentLine = [];
+        }
+        currentLine.push(line.at(i));
+    }
+    if (currentLine.length > 0) {
+        result.push(currentLine);
+    }
+
+    return result;
+}
 
 export function scanFunction(f: FunctionNode, xMin: number, xMax: number, context: Context) {
     const lines: Point2D[][] = [];
@@ -32,5 +55,5 @@ export function scanFunction(f: FunctionNode, xMin: number, xMax: number, contex
         currentLine = [];
     }
 
-    return lines;
+    return lines.flatMap((line) => splitLineAtJump(line));
 }
