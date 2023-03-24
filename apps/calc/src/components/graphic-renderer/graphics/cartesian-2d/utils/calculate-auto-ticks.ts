@@ -2,7 +2,7 @@ import { GraphicNode } from "@arithmico/engine/lib/types";
 import { GraphicDimensions } from "../../../graphic-renderer.types";
 
 const autoTickSizes = [1, 2, 2.5, 5];
-const desiredXTickCount = 10;
+const desiredXTickCount = 8;
 
 function applyMagnitudeToAutoTickSizes(m: number) {
   return autoTickSizes.map((x) => x * Math.pow(10, m));
