@@ -45,7 +45,7 @@ export default function PdfExportTitle({
             key={key}
             style={{
               fontFamily: "Apple Braille",
-              fontSize: "36pt",
+              fontSize: "32pt",
             }}
           >
             {char}

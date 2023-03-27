@@ -2,6 +2,7 @@ import { ClipPath, Defs, Rect, Svg } from "@react-pdf/renderer";
 import { GraphicDimensions, RenderTarget } from "../graphic-renderer.types";
 
 export const GRAPHIC_MIN_PADDING = 0.08;
+const MASK_OFFSET = 0.025;
 
 export interface SvgGraphicContainerProps {
   target: RenderTarget;
@@ -37,10 +38,10 @@ export default function SvgGraphicContainer({
           <defs>
             <clipPath id="graphic-content-mask">
               <rect
-                x={-dimensions.width / 2}
-                y={-dimensions.height / 2}
-                width={dimensions.width}
-                height={dimensions.height}
+                x={-dimensions.width / 2 - MASK_OFFSET / 2}
+                y={-dimensions.height / 2 - MASK_OFFSET / 2}
+                width={dimensions.width + MASK_OFFSET}
+                height={dimensions.height + MASK_OFFSET}
                 style={{
                   fill: "white",
                   stroke: "none",
@@ -59,10 +60,10 @@ export default function SvgGraphicContainer({
           <Defs>
             <ClipPath id="graphic-content-mask">
               <Rect
-                x={-dimensions.width / 2}
-                y={-dimensions.height / 2}
-                width={dimensions.width}
-                height={dimensions.height}
+                x={-dimensions.width / 2 - MASK_OFFSET / 2}
+                y={-dimensions.height / 2 - MASK_OFFSET / 2}
+                width={dimensions.width + MASK_OFFSET}
+                height={dimensions.height + MASK_OFFSET}
                 style={{
                   fill: "white",
                   stroke: "none",

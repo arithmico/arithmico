@@ -3,13 +3,14 @@ import { Circle, G, Path } from "@react-pdf/renderer";
 import classNames from "classnames";
 import { LinePathPositions } from "../utils/calculate-line-paths";
 
-const DASH_ARRAY = "0.01,0.005";
+const DASH_ARRAY = "0.02,0.01";
+const LINE_WIDTH = 0.0075;
 
 export type LinePathProps = LinePathPositions & {
   target: RenderTarget;
 };
 
-export default function LinePath({ points, target }: LinePathProps) {
+export default function LinePath({ points, style, target }: LinePathProps) {
   const pathString = points
     .map(({ x, y }, index) => `${index === 0 ? "M" : "L"} ${x} ${y}`)
     .join(" ");
@@ -22,9 +23,11 @@ export default function LinePath({ points, target }: LinePathProps) {
       return (
         <g clipPath="url(#graphic-content-mask)">
           <path
+            style={{
+              strokeWidth: 3 * LINE_WIDTH,
+            }}
             d={pathString}
             className={classNames(
-              "stroke-[0.015]",
               "fill-none",
               "theme-light:stroke-neutral-100",
               "theme-dark:stroke-neutral-800"
@@ -32,14 +35,16 @@ export default function LinePath({ points, target }: LinePathProps) {
             strokeLinecap="round"
           />
           <path
+            style={{
+              strokeWidth: LINE_WIDTH,
+            }}
             d={pathString}
             className={classNames(
-              "stroke-[0.005]",
               "fill-none",
               "theme-light:stroke-black",
               "theme-dark:stroke-white"
             )}
-            strokeDasharray={DASH_ARRAY}
+            strokeDasharray={style === "dashed" ? DASH_ARRAY : ""}
           />
         </g>
       );
@@ -51,7 +56,7 @@ export default function LinePath({ points, target }: LinePathProps) {
           <Path
             d={pathString}
             style={{
-              strokeWidth: 0.015,
+              strokeWidth: 3 * LINE_WIDTH,
               stroke: "white",
               fill: "none",
             }}
@@ -74,8 +79,12 @@ export default function LinePath({ points, target }: LinePathProps) {
           />
           <Path
             d={pathString}
-            style={{ strokeWidth: 0.005, stroke: "black", fill: "none" }}
-            strokeDasharray={DASH_ARRAY}
+            style={{
+              strokeWidth: LINE_WIDTH,
+              stroke: "black",
+              fill: "none",
+            }}
+            strokeDasharray={style === "dashed" ? DASH_ARRAY : ""}
           />
         </G>
       );
