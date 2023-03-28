@@ -41,7 +41,7 @@ const calculatorSessionSlice = createSlice({
   initialState,
   reducers: {
     setInput: (state, action: PayloadAction<string>) => {
-      state.input = action.payload.replaceAll("->", "→");
+      state.input = action.payload;
     },
     resetProtocol: (state) => {
       state.protocol = initialState().protocol;
