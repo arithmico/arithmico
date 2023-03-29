@@ -1,7 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { setBoldFont, setFontSize, setTheme } from "@stores/slices/settings";
-import { CalculatorRootState } from "@stores/calculator-store";
+import {
+  setBoldFont,
+  setFontSize,
+  setTheme,
+} from "../../store/slices/settings.slice";
+import { CalculatorRootState } from "../../store/store";
 import Switch from "../switch/switch";
 import Listbox from "../listbox/listbox";
 import SettingsSection from "../settings-section/settings-section";

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
-import { resetSettings } from "@stores/slices/settings";
+import { resetSettings } from "../../store/slices/settings.slice";
 import SettingsSection from "../settings-section/settings-section";
 
 export default function SettingsMiscellaneousSection() {

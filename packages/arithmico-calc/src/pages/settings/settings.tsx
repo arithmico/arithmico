@@ -4,16 +4,16 @@ import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import InterfaceSettings from "@local-components/settings-interface-section/settings-interface-section";
 import AppearanceSettings from "@local-components/settings-appearance-section/settings-appearance-section";
 import { useDispatch, useSelector } from "react-redux";
-import { CalculatorRootState } from "@stores/calculator-store";
 import {
   setAngleUnit,
   setDecimalPlaces,
   setNumberFormat,
-} from "@stores/slices/settings";
+} from "../../store/slices/settings.slice";
 import Listbox from "../../components/listbox/listbox";
 import SettingsMiscellaneousSection from "../../components/settings-miscellaneous-section/settings-miscellaneous-section";
 import DecimalPlacesListbox from "../../components/decimal-places-listbox/decimal-places-listbox";
 import SettingsSection from "../../components/settings-section/settings-section";
+import { CalculatorRootState } from "../../store/store";
 
 export default function Settings() {
   const dispatch = useDispatch();

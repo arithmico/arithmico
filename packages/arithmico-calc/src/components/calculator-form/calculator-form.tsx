@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-import { resetInput, resetOutput } from "@stores/slices/calculator-session";
 import classNames from "classnames";
 import CalculatorOutput from "../calculator-output/calculator-output";
 import CalculatorInput from "../calculator-input/calculator-input";
 import { useDispatch } from "react-redux";
+import { resetInput, resetOutput } from "../../store/slices/session.slice";
 
 export default function CalculatorForm() {
   const dispatch = useDispatch();

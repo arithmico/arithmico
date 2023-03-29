@@ -1,6 +1,6 @@
 import { getDefaultContext } from "@arithmico/engine";
 import { CalculatorRootState } from "@stores/calculator-store";
-import { evaluate } from "@stores/slices/calculator-session";
+import { evaluate } from "../store/slices/session.slice";
 import { useDispatch, useSelector } from "react-redux";
 import useNumberFormat from "./use-number-format";
 

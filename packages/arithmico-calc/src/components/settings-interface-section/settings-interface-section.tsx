@@ -1,8 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { setCopySynopsisOnClick, setLanguage } from "@stores/slices/settings";
-import { CalculatorRootState } from "@stores/calculator-store";
+import {
+  setCopySynopsisOnClick,
+  setLanguage,
+} from "../../store/slices/settings.slice";
+import { CalculatorRootState } from "../../store/store";
 import Switch from "../switch/switch";
 import Listbox from "../listbox/listbox";
 import SettingsSection from "../settings-section/settings-section";

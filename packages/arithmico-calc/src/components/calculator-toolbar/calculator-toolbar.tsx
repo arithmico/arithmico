@@ -5,7 +5,7 @@ import {
   resetInput,
   resetOutput,
   resetProtocol,
-} from "@stores/slices/calculator-session";
+} from "../../store/slices/session.slice";
 import classNames from "classnames";
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";

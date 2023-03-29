@@ -1,14 +1,14 @@
 import classNames from "classnames";
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CalculatorRootState } from "@stores/calculator-store";
+import { CalculatorRootState } from "../../store/store";
 import useEvaluate from "../../hooks/use-evaluate";
 import { useTranslation } from "react-i18next";
 import {
   moveBackInHistory,
   moveForwardInHistory,
   setInput,
-} from "@stores/slices/calculator-session";
+} from "../../store/slices/session.slice";
 
 interface CalculatorInputProps {
   onEnterPressed: () => void;
