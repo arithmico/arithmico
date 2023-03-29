@@ -38,7 +38,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./apps/calc/dist/ s3://$BUCKET_ID/dev/calculator --delete
+        run: aws s3 sync ./packages/arithmico-calc/dist/ s3://$BUCKET_ID/dev/calculator --delete
       - name: Invalidate Cloundfront distrubution
         run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_DEV_DIST --paths '/*'
 
@@ -64,7 +64,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./apps/docs/dist/ s3://$BUCKET_ID/dev/documentation --delete
+        run: aws s3 sync ./packages/arithmico-docs/dist/ s3://$BUCKET_ID/dev/documentation --delete
       - name: Invalidate Cloundfront distrubution
         run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DEV_DIST --paths '/*'
 
@@ -90,7 +90,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./apps/blog/dist/ s3://$BUCKET_ID/dev/blog --delete
+        run: aws s3 sync ../packages/arithmico-blog/dist/ s3://$BUCKET_ID/dev/blog --delete
       - name: Invalidate Cloundfront distrubution
         run: aws cloudfront create-invalidation --distribution-id $BLOG_DEV_DIST --paths '/*'
 
@@ -118,6 +118,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./apps/config/dist/ s3://$BUCKET_ID/dev/config --delete
+        run: aws s3 sync ./packages/arithmico-config/dist/ s3://$BUCKET_ID/dev/config --delete
       - name: Invalidate Cloundfront distrubution
         run: aws cloudfront create-invalidation --distribution-id $CONFIG_DEV_DIST --paths '/*'
