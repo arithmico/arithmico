@@ -1,4 +1,4 @@
-import rawBrailleMapping from "../braille-character-mapping.json";
+import rawBrailleMapping from "./braille-character-mapping.json";
 
 const brailleMapping = rawBrailleMapping as Record<string, string>;
 
