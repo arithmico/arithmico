@@ -3,9 +3,9 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import i18n from "./i18n/index";
 import { useSelector } from "react-redux";
 import AppRoutes from "@local-components/app-routes/app-routes";
-import { CalculatorRootState } from "@stores/calculator-store";
 import Navbar from "./components/navbar/navbar";
 import classNames from "classnames";
+import { CalculatorRootState } from "./store/store";
 
 const Router = import.meta.env.VITE_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
