@@ -1,4 +1,4 @@
-import ImprintContent from "@components/imprint-content/imprint-content";
+import { ImprintContent } from "@arithmico/frontend-components";
 import React from "react";
 import classNames from "classnames";
 import PageContainer from "../../components/page-container/page-container";
