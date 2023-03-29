@@ -1,0 +1,19 @@
+{
+  "name": "@arithmico/frontend-components",
+  "description": "",
+  "main": "dist/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "install": "npm run build",
+    "test": "echo \"no test specified\" && exit 0",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/behrenle/arithmico.git"
+  },
+  "bugs": {
+    "url": "https://github.com/behrenle/arithmico/issues"
+  },
+  "homepage": "https://github.com/behrenle/arithmico#readme"
+}
