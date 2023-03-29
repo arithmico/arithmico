@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function DoneIcon({ className }: { className?: string }) {
+export function DoneIcon({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden

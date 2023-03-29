@@ -1,6 +1,6 @@
 import React from "react";
 import { Disclosure } from "@headlessui/react";
-import ExpandMore from "@components/icons/expand-more";
+import { ExpandMore } from "@arithmico/frontend-components";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 

@@ -1,8 +1,6 @@
-import React from "react";
-
-export default function ImprintContent() {
+export function ImprintContent() {
   return (
-    <div>
+    <>
       <h1>Impressum</h1>
       <p>Angaben gemäß § 5 TMG</p>
       <p>
@@ -176,6 +174,6 @@ export default function ImprintContent() {
       >
         Kanzlei Hasselbach, Frankfurt
       </a>{" "}
-    </div>
+    </>
   );
 }

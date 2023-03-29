@@ -16,7 +16,8 @@
     "jsx": "react-jsx",
     "exactOptionalPropertyTypes": true,
     "baseUrl": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true
   },
   "include": ["src"]
 }

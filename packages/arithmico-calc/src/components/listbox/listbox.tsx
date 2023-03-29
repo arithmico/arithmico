@@ -1,7 +1,6 @@
 import { Listbox as HeadlessuiListbox } from "@headlessui/react";
 import classNames from "classnames";
-import ExpandMore from "@components/icons//expand-more";
-import DoneIcon from "@components/icons/done-icon";
+import { ExpandMore, DoneIcon } from "@arithmico/frontend-components";
 
 interface ListboxProps {
   label: string;

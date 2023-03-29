@@ -1,7 +1,7 @@
 import { Listbox as HeadlessuiListbox } from "@headlessui/react";
 import classNames from "classnames";
-import ExpandMore from "@components/icons//expand-more";
-import {useTranslation} from "react-i18next";
+import { ExpandMore } from "@arithmico/frontend-components";
+import { useTranslation } from "react-i18next";
 
 interface DecimalPlacesListboxProps {
   value: string | number;
@@ -25,7 +25,9 @@ export default function DecimalPlacesListbox({
       )}
     >
       <HeadlessuiListbox value={value} onChange={onChange}>
-        <HeadlessuiListbox.Label>{t("settings.significantDecimalPlaces")}</HeadlessuiListbox.Label>
+        <HeadlessuiListbox.Label>
+          {t("settings.significantDecimalPlaces")}
+        </HeadlessuiListbox.Label>
         <div className={classNames("ml-auto", "relative", "flex", "flex-col")}>
           <HeadlessuiListbox.Button
             className={classNames(

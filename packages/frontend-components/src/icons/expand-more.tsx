@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function ExpandMore({ className }: { className?: string }) {
+export function ExpandMore({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden
