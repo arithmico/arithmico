@@ -22,9 +22,7 @@
   ],
   "description": "",
   "workspaces": [
-    "./apps/*",
-    "./libs/engine",
-    "./libs/parser"
+    "packages/*"
   ],
   "scripts": {
     "start:config": "npm start -w apps/config",
