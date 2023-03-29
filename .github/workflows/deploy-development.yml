@@ -90,7 +90,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ../packages/arithmico-blog/dist/ s3://$BUCKET_ID/dev/blog --delete
+        run: aws s3 sync ./packages/arithmico-blog/dist/ s3://$BUCKET_ID/dev/blog --delete
       - name: Invalidate Cloundfront distrubution
         run: aws cloudfront create-invalidation --distribution-id $BLOG_DEV_DIST --paths '/*'
 
