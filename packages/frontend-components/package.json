@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "devDependencies": {},
   "scripts": {
+    "install": "npm run build",
     "test": "echo \"no test specified\" && exit 0",
     "build": "tsc"
   },
