@@ -3,6 +3,7 @@ import { IconProps } from "./types";
 export function CodeIcon({ className }: IconProps) {
   return (
     <svg
+      aria-hidden
       className={className}
       xmlns="http://www.w3.org/2000/svg"
       height="24px"

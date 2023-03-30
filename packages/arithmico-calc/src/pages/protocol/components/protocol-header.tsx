@@ -1,4 +1,8 @@
-import { ArrowBackIcon } from "@arithmico/frontend-components";
+import {
+  ArrowBackIcon,
+  DeleteIcon,
+  DownloadIcon,
+} from "@arithmico/frontend-components";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -35,7 +39,11 @@ export function ProtocolHeader() {
         <button
           onClick={() => downloadProtocol()}
           className={classNames(
-            "px-4",
+            "flex",
+            "items-center",
+            "space-x-2",
+            "px-2",
+            "sm:px-4",
             "opacity-60",
             "hover:opacity-100",
             "rounded-md",
@@ -43,13 +51,27 @@ export function ProtocolHeader() {
             "theme-light:hover:bg-neutral-300"
           )}
         >
-          <span aria-hidden>{t("history.download")}</span>
+          <DownloadIcon
+            className={classNames(
+              "w-6",
+              "h-6",
+              "theme-light:fill-black",
+              "theme-dark:fill-white"
+            )}
+          />
+          <span aria-hidden className={classNames("hidden", "sm:inline-block")}>
+            {t("history.download")}
+          </span>
           <span className="sr-only">{t("sr.history.download")}</span>
         </button>
         <button
           onClick={() => dispatch(resetProtocol())}
           className={classNames(
-            "px-4",
+            "flex",
+            "items-center",
+            "space-x-2",
+            "px-2",
+            "sm:px-4",
             "opacity-60",
             "hover:opacity-100",
             "rounded-md",
@@ -57,7 +79,17 @@ export function ProtocolHeader() {
             "theme-light:hover:bg-neutral-300"
           )}
         >
-          <span aria-hidden>{t("history.reset")}</span>
+          <DeleteIcon
+            className={classNames(
+              "w-6",
+              "h-6",
+              "theme-light:fill-black",
+              "theme-dark:fill-white"
+            )}
+          />
+          <span aria-hidden className={classNames("hidden", "sm:inline-block")}>
+            {t("history.reset")}
+          </span>
           <span className="sr-only">{t("sr.history.reset")}</span>
         </button>
       </div>
@@ -79,8 +111,8 @@ export function ProtocolHeader() {
           className={classNames(
             "theme-dark:fill-white",
             "theme-light:fill-black",
-            "w-8",
-            "h-8"
+            "w-6",
+            "h-6"
           )}
         />
         <span className="sr-only">{t("common.back")}</span>
