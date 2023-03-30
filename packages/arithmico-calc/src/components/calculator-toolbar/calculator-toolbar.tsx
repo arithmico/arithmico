@@ -87,7 +87,7 @@ export default function CalculatorToolbar() {
         {t("toolbar.resetDefinitions")}
       </CalculatorToolbarButton>
 
-      <CalculatorToolbarButton onClick={() => navigate("/protocol")}>
+      <CalculatorToolbarButton onClick={() => navigate("/history")}>
         {t("toolbar.history")}
       </CalculatorToolbarButton>
 

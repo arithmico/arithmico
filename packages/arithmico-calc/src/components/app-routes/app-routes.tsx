@@ -20,7 +20,7 @@ export default function AppRoutes() {
       <Route path="/settings" element={<Settings />} />
       <Route path="/manual" element={<Manual />} />
       <Route path="/about" element={<About />} />
-      <Route path="/protocol" element={<Protocol />} />
+      <Route path="/history" element={<Protocol />} />
       <Route path="/definitions" element={<Definitions />} />
       <Route path="/terms-of-service" element={<TermsOfService />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
