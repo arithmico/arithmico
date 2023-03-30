@@ -180,7 +180,7 @@ export class PluginFragment {
                     description: descriptionEn,
                 },
                 de: {
-                    synopsis: synopsis.replace(',', ';').replace('.', ','),
+                    synopsis: synopsis.replace(',', ';'),
                     description: descriptionDe,
                 },
             },

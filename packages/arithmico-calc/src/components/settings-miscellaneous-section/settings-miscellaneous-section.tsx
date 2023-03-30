@@ -14,7 +14,10 @@ export default function SettingsMiscellaneousSection() {
         className={classNames(
           "flex",
           "items-center",
-          "text-2xl",
+          "text-base",
+          "sm:text-lg",
+          "md:text-xl",
+          "lg:text-2xl",
           "bold-font:font-bold"
         )}
       >
