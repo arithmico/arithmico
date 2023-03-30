@@ -1,5 +1,5 @@
-import { CalculatorRootState } from "@stores/calculator-store";
 import { useSelector } from "react-redux";
+import { CalculatorRootState } from "../store/store";
 
 export default function useNumberFormat() {
   const numberFormat = useSelector(
