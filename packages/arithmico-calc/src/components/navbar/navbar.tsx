@@ -1,6 +1,9 @@
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import { DesktopNavigation } from "./desktop-navigation";
+import { MobileNavigation } from "./mobile-navigation";
+import { NavigationProps } from "./types";
 
 interface NavbarContainerProps {
   children: React.ReactNode;
@@ -40,9 +43,8 @@ function NavbarTitle({ title, subtitle }: NavbarTitleProps) {
         "py-2",
         "lg:text-5xl",
         "md:text-2xl",
-        "md:flex-row",
+        "flex-row",
         "flex",
-        "flex-col",
         "mr-4"
       )}
     >
@@ -52,15 +54,12 @@ function NavbarTitle({ title, subtitle }: NavbarTitleProps) {
   );
 }
 
-interface NavbarNavigationProps {
-  children: React.ReactNode;
-}
-
-function NavbarNavigation({ children }: NavbarNavigationProps) {
+function NavbarNavigation({ children }: NavigationProps) {
   return (
-    <nav className={classNames("ml-auto", "flex", "h-full")}>
-      <ul className={classNames("flex", "gap-2")}>{children}</ul>
-    </nav>
+    <>
+      <DesktopNavigation>{children}</DesktopNavigation>
+      <MobileNavigation>{children}</MobileNavigation>
+    </>
   );
 }
 
@@ -71,33 +70,41 @@ interface NavbarNavigationItemProps {
 
 function NavbarNavigationItem({ to, children }: NavbarNavigationItemProps) {
   return (
-    <NavLink
-      className={({ isActive }) =>
-        classNames(
-          "2xl:px-12",
-          "xl:px-10",
-          "px-8",
-          "h-full",
-          "flex",
-          "items-center",
-          "justify-center",
-          "text-xl",
-          "rounded-b-md",
-          "theme-light:hover:bg-neutral-300",
-          "theme-light:text-neutral-700",
-          "theme-dark:text-neutral-300",
-          "theme-dark:hover:bg-neutral-800",
-          "bold-font:font-bold",
-          {
-            "theme-light:bg-neutral-300": isActive,
-            "theme-dark:bg-neutral-800": isActive,
-          }
-        )
-      }
-      to={to}
-    >
-      {children}
-    </NavLink>
+    <li>
+      <NavLink
+        className={({ isActive }) =>
+          classNames(
+            "2xl:px-12",
+            "xl:px-10",
+            "px-4",
+            "md:px-8",
+            "h-full",
+            "flex",
+            "items-center",
+            "py-4",
+            "md:py-0",
+            "md:justify-center",
+            "text-base",
+            "md:text-xl",
+            "rounded-b-md",
+            "theme-light:hover:bg-neutral-300",
+            "theme-light:text-neutral-700",
+            "theme-dark:text-neutral-300",
+            "theme-dark:hover:bg-neutral-800",
+            "bold-font:font-bold",
+            {
+              "md:theme-light:bg-neutral-300": isActive,
+              "theme-light:bg-neutral-200": isActive,
+              "md:theme-dark:bg-neutral-800": isActive,
+              "theme-dark:bg-neutral-700": isActive,
+            }
+          )
+        }
+        to={to}
+      >
+        {children}
+      </NavLink>
+    </li>
   );
 }
 

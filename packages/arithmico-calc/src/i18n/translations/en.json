@@ -9,6 +9,7 @@
 
   "definitions": "Definitions",
 
+  "nav.menu": "Menu",
   "nav.calculator": "Calculator",
   "nav.settings": "Settings",
   "nav.manual": "Manual",
