@@ -18,11 +18,9 @@
   "toolbar.resetInput": "Reset Input",
   "toolbar.resetOutput": "Reset Output",
   "toolbar.resetDefinitions": "Reset Definitions",
-  "toolbar.resetProtocol": "Reset Protocol",
   "toolbar.resetAll": "Reset All",
   "toolbar.showDefinitions": "Show Definitions",
-  "toolbar.showProtocol": "Show Protocol",
-  "toolbar.exportProtocol": "Export Protocol",
+  "toolbar.history": "History",
 
   "settings.interface": "Interface",
   "settings.appearance": "Appearance",

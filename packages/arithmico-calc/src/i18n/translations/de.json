@@ -18,11 +18,9 @@
   "toolbar.resetInput": "Eingabe löschen",
   "toolbar.resetOutput": "Ausgabe löschen",
   "toolbar.resetDefinitions": "Definitionen löschen",
-  "toolbar.resetProtocol": "Protokoll löschen",
   "toolbar.resetAll": "Alles löschen",
   "toolbar.showDefinitions": "Zeige Definitionen",
-  "toolbar.showProtocol": "Zeige Protokoll",
-  "toolbar.exportProtocol": "Protokoll exportieren",
+  "toolbar.history": "Verlauf",
 
   "settings.interface": "Oberfläche",
   "settings.appearance": "Erscheinungsbild",
