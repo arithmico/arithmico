@@ -27,4 +27,7 @@ OverlayScrollbars(document.body, {
   nativeScrollbarsOverlaid: {
     showNativeScrollbars: false,
   },
+  overflowBehavior: {
+    x: "hidden",
+  },
 });
