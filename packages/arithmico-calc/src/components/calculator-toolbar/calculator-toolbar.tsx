@@ -1,18 +1,16 @@
-import { CalculatorRootState } from "@stores/calculator-store";
 import {
   resetAll,
   resetDefinitions,
   resetInput,
   resetOutput,
-  resetProtocol,
 } from "../../store/slices/session.slice";
 import classNames from "classnames";
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useExportProtocol from "../../hooks/use-export-protocol";
 import useHotkey from "../../hooks/use-hotkey";
+import { CalculatorRootState } from "../../store/store";
 
 const CalculatorToolbarButton = forwardRef<
   HTMLButtonElement,
@@ -53,8 +51,6 @@ export default function CalculatorToolbar() {
     (state: CalculatorRootState) => state.session.input
   );
   const [t] = useTranslation();
-  const exportProtocol = useExportProtocol();
-
   useHotkey("ctrl + alt + m", () => dispatch(resetDefinitions()));
   useHotkey("ctrl + alt + a", () => dispatch(resetAll()));
   useHotkey("alt + p", () => {
@@ -87,16 +83,10 @@ export default function CalculatorToolbar() {
         {t("toolbar.resetDefinitions")}
       </CalculatorToolbarButton>
 
-      <CalculatorToolbarButton onClick={() => navigate("/protocol")}>
-        {t("toolbar.showProtocol")}
-      </CalculatorToolbarButton>
-      <CalculatorToolbarButton onClick={() => dispatch(resetProtocol())}>
-        {t("toolbar.resetProtocol")}
+      <CalculatorToolbarButton onClick={() => navigate("/history")}>
+        {t("toolbar.history")}
       </CalculatorToolbarButton>
 
-      <CalculatorToolbarButton onClick={() => exportProtocol()}>
-        {t("toolbar.exportProtocol")}
-      </CalculatorToolbarButton>
       <CalculatorToolbarButton onClick={() => dispatch(resetAll())}>
         {t("toolbar.resetAll")}
       </CalculatorToolbarButton>

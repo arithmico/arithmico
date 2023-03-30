@@ -1,4 +1,6 @@
-export function CodeIcon({ className }: { className?: string }) {
+import { IconProps } from "./types";
+
+export function CodeIcon({ className }: IconProps) {
   return (
     <svg
       className={className}

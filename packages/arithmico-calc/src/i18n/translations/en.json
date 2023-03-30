@@ -18,11 +18,9 @@
   "toolbar.resetInput": "Reset Input",
   "toolbar.resetOutput": "Reset Output",
   "toolbar.resetDefinitions": "Reset Definitions",
-  "toolbar.resetProtocol": "Reset Protocol",
   "toolbar.resetAll": "Reset All",
   "toolbar.showDefinitions": "Show Definitions",
-  "toolbar.showProtocol": "Show Protocol",
-  "toolbar.exportProtocol": "Export Protocol",
+  "toolbar.history": "History",
 
   "settings.interface": "Interface",
   "settings.appearance": "Appearance",
@@ -84,5 +82,11 @@
 
   "new-version-available.title": "New version available",
   "new-version-available.text": "Arithmico v{{version}} is available. You can download the offline version <1>here</1>.",
-  "new-version-available.back": "Back"
+  "new-version-available.back": "Back",
+
+  "history.title": "History",
+  "history.download": "Download",
+  "sr.history.download": "download history as .txt file",
+  "history.reset": "Reset",
+  "sr.history.reset": "reset history"
 }

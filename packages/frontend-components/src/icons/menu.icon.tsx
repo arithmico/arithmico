@@ -1,4 +1,6 @@
-export function MenuIcon({ className }: { className?: string }) {
+import { IconProps } from "./types";
+
+export function MenuIcon({ className }: IconProps) {
   return (
     <svg
       aria-hidden
