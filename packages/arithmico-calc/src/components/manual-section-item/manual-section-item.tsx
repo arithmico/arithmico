@@ -1,8 +1,8 @@
-import { CalculatorRootState } from "@stores/calculator-store";
 import React from "react";
 import { useSelector } from "react-redux";
 import useNumberFormat from "../../hooks/use-number-format";
 import classNames from "classnames";
+import { CalculatorRootState } from "../../store/store";
 
 interface ManualSectionItemProps {
   synopsis: string;
