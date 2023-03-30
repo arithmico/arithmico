@@ -2,6 +2,7 @@ import { TextResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
+import { ResponsiveTextInput } from "../../responsive-text-input/responsive-text-input";
 
 interface CalculatorTextOutputProps {
   output: Omit<TextResult, "context">;
@@ -21,24 +22,9 @@ const CalculatorTextOutput = forwardRef<
   };
 
   return (
-    <input
-      type="text"
+    <ResponsiveTextInput
       className={classNames(
         "mt-4",
-        "w-full",
-        "text-xl",
-        "sm:text-2xl",
-        "md:text-3xl",
-        "lg:text-4xl",
-        "outline-none",
-        "border",
-        "px-4",
-        "py-2",
-        "sm:py-3",
-        "md:py-4",
-        "lg:py-6",
-        "rounded-md",
-        "bold-font:font-bold",
         "theme-dark:border-neutral-500",
         "theme-dark:focus:border-neutral-100",
         "theme-dark:bg-neutral-800",
