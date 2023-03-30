@@ -1,4 +1,6 @@
-export function ExpandMore({ className }: { className?: string }) {
+import { IconProps } from "./types";
+
+export function ExpandMore({ className }: IconProps) {
   return (
     <svg
       aria-hidden

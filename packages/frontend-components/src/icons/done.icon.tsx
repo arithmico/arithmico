@@ -1,4 +1,6 @@
-export function DoneIcon({ className }: { className?: string }) {
+import { IconProps } from "./types";
+
+export function DoneIcon({ className }: IconProps) {
   return (
     <svg
       aria-hidden
