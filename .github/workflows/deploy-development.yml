@@ -26,7 +26,7 @@ jobs:
           cache: "npm"
       - name: Install and Build
         run: |
-          export ARITHMICO_FEATURES=$(cat libs/engine/features.json) 
+          export ARITHMICO_FEATURES=$(cat packages/arithmico-engine/features.json) 
           npm ci
           npm run build:calc
       - name: Test
@@ -107,7 +107,6 @@ jobs:
         run: npm ci
       - name: Build
         run: |
-          export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
           npm run build:config
       - name: Test
         run: npm run test:all
