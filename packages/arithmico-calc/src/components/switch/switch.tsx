@@ -14,13 +14,15 @@ export default function Switch({ label, enabled, onChange }: SwitchProps) {
         "flex",
         "items-center",
         "h-16",
-        "bold-font:font-bold"
+        "bold-font:font-bold",
+        "text-base",
+        "sm:text-lg",
+        "md:text-xl",
+        "lg:text-2xl"
       )}
     >
       <HeadlessuiSwitch.Group>
-        <HeadlessuiSwitch.Label className={classNames("text-2xl")}>
-          {label}
-        </HeadlessuiSwitch.Label>
+        <HeadlessuiSwitch.Label>{label}</HeadlessuiSwitch.Label>
         <HeadlessuiSwitch
           checked={enabled}
           onChange={onChange}

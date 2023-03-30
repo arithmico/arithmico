@@ -19,9 +19,12 @@ export default function DecimalPlacesListbox({
       className={classNames(
         "flex",
         "items-center",
-        "text-2xl",
         "h-16",
-        "bold-font:font-bold"
+        "bold-font:font-bold",
+        "text-base",
+        "sm:text-lg",
+        "md:text-xl",
+        "lg:text-2xl"
       )}
     >
       <HeadlessuiListbox value={value} onChange={onChange}>
