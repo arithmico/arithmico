@@ -1,16 +1,12 @@
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import PageContainer from "@local-components/page-container/page-container";
 import { useSelector } from "react-redux";
-import { CalculatorRootState } from "@stores/calculator-store";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
 import classNames from "classnames";
 import ProtocolListItem from "../../components/protocol-list-item/protocol-list-item";
+import { CalculatorRootState } from "../../store/store";
+import { ProtocolHeader } from "./components/protocol-header";
 
 export default function Protocol() {
-  const navigate = useNavigate();
-  const [t] = useTranslation();
-
   const protocolItems = useSelector(
     (state: CalculatorRootState) => state.session.protocol
   );
@@ -31,32 +27,7 @@ export default function Protocol() {
           "overflow-x-hidden"
         )}
       >
-        <div
-          className={classNames(
-            "flex",
-            "theme-dark:bg-neutral-800",
-            "theme-light:bg-neutral-200",
-            "rounded-md",
-            "items-center",
-            "ring-1",
-            "theme-dark:ring-white/5",
-            "theme-light:ring-black/10"
-          )}
-        >
-          <h1 className={classNames("text-3xl", "px-4")}>{t("protocol")}</h1>
-          <button
-            className={classNames(
-              "ml-auto",
-              "p-6",
-              "theme-dark:hover:bg-neutral-700",
-              "theme-light:hover:bg-neutral-300",
-              "rounded-md"
-            )}
-            onClick={() => navigate("/")}
-          >
-            {t("common.back")}
-          </button>
-        </div>
+        <ProtocolHeader />
         <WithScrollbars>
           <ul
             className={classNames(
