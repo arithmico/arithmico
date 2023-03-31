@@ -15,8 +15,8 @@
   "nav.manual": "Hilfe",
   "nav.about": "Über",
 
-  "toolbar.resetInput": "Eingabe löschen",
-  "toolbar.resetOutput": "Ausgabe löschen",
+  "toolbar.resetInput": "Eingabefeld zurücksetzen",
+  "toolbar.resetOutput": "Ausgabefeld zurücksetzen",
   "toolbar.resetDefinitions": "Definitionen löschen",
   "toolbar.resetAll": "Alles löschen",
   "toolbar.showDefinitions": "Zeige Definitionen",

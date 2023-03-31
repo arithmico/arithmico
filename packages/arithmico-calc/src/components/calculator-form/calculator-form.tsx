@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetInput, resetOutput } from "../../store/slices/session.slice";
 import { ResetTextFieldButton } from "./reset-text-field-button";
 import { CalculatorRootState } from "../../store/store";
+import { useTranslation } from "react-i18next";
 
 export default function CalculatorForm() {
   const dispatch = useDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLElement>(null);
   const [focusNext, setFocusNext] = useState<"input" | "output" | null>(null);
+  const [t] = useTranslation();
   const currentOutput = useSelector(
     (state: CalculatorRootState) => state.session.output
   );
@@ -93,7 +95,7 @@ export default function CalculatorForm() {
           onEnterPressed={() => setFocusNext("output")}
         />
         <ResetTextFieldButton
-          text="reset input"
+          text={t("toolbar.resetInput")}
           onClick={() => dispatch(resetInput())}
         />
       </div>
@@ -105,7 +107,7 @@ export default function CalculatorForm() {
             onEnterPressed={() => setFocusNext("input")}
           />
           <ResetTextFieldButton
-            text="reset output"
+            text={t("toolbar.resetOutput")}
             onClick={() => dispatch(resetOutput())}
           />
         </div>
