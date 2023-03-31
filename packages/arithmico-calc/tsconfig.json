@@ -21,9 +21,7 @@
     "paths": {
       "@pages/*": ["./src/pages/*"],
       "@local-components/*": ["./src/components/*"],
-      "@components/*": ["../../libs/components/*"],
-      "@workspace-package.json": ["../../package.json"],
-      "@stores/*": ["../../libs/stores/*"]
+      "@workspace-package.json": ["../../package.json"]
     }
   },
   "include": ["src"]
