@@ -18,7 +18,10 @@ export default function DefinitionListItem({
           "bold-font:font-bold",
           "font-light",
           "font-mono",
-          "pl-8"
+          "pl-8",
+          "border-b",
+          "theme-light:border-black/10",
+          "theme-dark:border-white/5"
         )}
       >
         {name}
@@ -32,7 +35,10 @@ export default function DefinitionListItem({
           "pl-20",
           "before:content-[':=']",
           "before:text-mono",
-          "before:pr-8"
+          "before:pr-8",
+          "border-b",
+          "theme-light:border-black/10",
+          "theme-dark:border-white/5"
         )}
       >
         {definition}

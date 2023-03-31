@@ -7,7 +7,9 @@
 
   "protocol": "Protokoll",
 
-  "definitions": "Definitionen",
+  "definitions.title": "Definitionen",
+  "definitions.reset": "Zurücksetzen",
+  "sr.definitions.reset": "Definitionen zurücksetzen",
 
   "nav.menu": "Menü",
   "nav.calculator": "Rechner",
