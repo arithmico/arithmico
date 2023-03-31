@@ -1,9 +1,4 @@
-import {
-  resetAll,
-  resetDefinitions,
-  resetInput,
-  resetOutput,
-} from "../../store/slices/session.slice";
+import { resetAll, resetDefinitions } from "../../store/slices/session.slice";
 import classNames from "classnames";
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -67,15 +62,8 @@ export default function CalculatorToolbar() {
 
   return (
     <div
-      className={classNames("grid", "grid-rows-2", "gap-2", "grid-flow-col")}
+      className={classNames("grid", "grid-cols-4", "gap-2", "grid-flow-col")}
     >
-      <CalculatorToolbarButton onClick={() => dispatch(resetInput())}>
-        {t("toolbar.resetInput")}
-      </CalculatorToolbarButton>
-      <CalculatorToolbarButton onClick={() => dispatch(resetOutput())}>
-        {t("toolbar.resetOutput")}
-      </CalculatorToolbarButton>
-
       <CalculatorToolbarButton onClick={() => navigate("/definitions")}>
         {t("toolbar.showDefinitions")}
       </CalculatorToolbarButton>
