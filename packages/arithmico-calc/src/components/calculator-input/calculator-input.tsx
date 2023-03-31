@@ -43,6 +43,7 @@ const CalculatorInput = forwardRef<
     <ResponsiveTextInput
       ref={ref}
       type="text"
+      autoCapitalize="off"
       className={classNames(
         "pr-14",
         "theme-light:border-neutral-400",
