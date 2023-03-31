@@ -19,9 +19,8 @@
 
   "toolbar.resetInput": "reset input field",
   "toolbar.resetOutput": "reset output field",
-  "toolbar.resetDefinitions": "Reset Definitions",
   "toolbar.resetAll": "Reset All",
-  "toolbar.showDefinitions": "Show Definitions",
+  "toolbar.definitions": "Definitions",
   "toolbar.history": "History",
 
   "settings.interface": "Interface",

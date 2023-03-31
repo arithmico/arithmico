@@ -19,9 +19,8 @@
 
   "toolbar.resetInput": "Eingabefeld zurücksetzen",
   "toolbar.resetOutput": "Ausgabefeld zurücksetzen",
-  "toolbar.resetDefinitions": "Definitionen löschen",
-  "toolbar.resetAll": "Alles löschen",
-  "toolbar.showDefinitions": "Zeige Definitionen",
+  "toolbar.resetAll": "Alles zurücksetzen",
+  "toolbar.definitions": "Definitionen",
   "toolbar.history": "Verlauf",
 
   "settings.interface": "Oberfläche",
