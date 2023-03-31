@@ -44,7 +44,7 @@ const CalculatorInput = forwardRef<
       ref={ref}
       type="text"
       autoCapitalize="off"
-      inputMode="decimal"
+      inputMode="tel"
       className={classNames(
         "pr-14",
         "theme-light:border-neutral-400",
