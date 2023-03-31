@@ -62,13 +62,10 @@ export default function CalculatorToolbar() {
 
   return (
     <div
-      className={classNames("grid", "grid-cols-2", "sm:grid-cols-4", "gap-2")}
+      className={classNames("grid", "grid-cols-1", "sm:grid-cols-3", "gap-2")}
     >
       <CalculatorToolbarButton onClick={() => navigate("/definitions")}>
-        {t("toolbar.showDefinitions")}
-      </CalculatorToolbarButton>
-      <CalculatorToolbarButton onClick={() => dispatch(resetDefinitions())}>
-        {t("toolbar.resetDefinitions")}
+        {t("toolbar.definitions")}
       </CalculatorToolbarButton>
 
       <CalculatorToolbarButton onClick={() => navigate("/history")}>
