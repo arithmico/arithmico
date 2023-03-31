@@ -25,8 +25,8 @@ const CalculatorToolbarButton = forwardRef<
       "theme-light:border-black/10",
       "bold-font:font-bold",
       "border",
-      "lg:p-4",
-      "md:p-1",
+      "md:p-4",
+      "p-2",
       "rounded-sm",
       "text-left"
     )}
@@ -62,7 +62,7 @@ export default function CalculatorToolbar() {
 
   return (
     <div
-      className={classNames("grid", "grid-cols-4", "gap-2", "grid-flow-col")}
+      className={classNames("grid", "grid-cols-2", "sm:grid-cols-4", "gap-2")}
     >
       <CalculatorToolbarButton onClick={() => navigate("/definitions")}>
         {t("toolbar.showDefinitions")}
