@@ -23,7 +23,7 @@ export const ResponsiveTextInput = forwardRef<
         "sm:py-3",
         "md:py-4",
         "lg:py-6",
-        "rounded-md",
+        "rounded-sm",
         "bold-font:font-bold",
         props.className
       )}

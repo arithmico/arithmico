@@ -24,7 +24,8 @@ const CalculatorTextOutput = forwardRef<
   return (
     <ResponsiveTextInput
       className={classNames(
-        "mt-4",
+        "peer",
+        "pr-14",
         "theme-dark:border-neutral-500",
         "theme-dark:focus:border-neutral-100",
         "theme-dark:bg-neutral-800",

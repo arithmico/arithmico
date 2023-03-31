@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { forwardRef } from "react";
+import { forwardRef, HTMLProps } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CalculatorRootState } from "../../store/store";
 import useEvaluate from "../../hooks/use-evaluate";
@@ -9,66 +9,56 @@ import {
   moveForwardInHistory,
   setInput,
 } from "../../store/slices/session.slice";
+import { ResponsiveTextInput } from "../responsive-text-input/responsive-text-input";
 
 interface CalculatorInputProps {
   onEnterPressed: () => void;
 }
 
-const CalculatorInput = forwardRef<HTMLInputElement, CalculatorInputProps>(
-  ({ onEnterPressed }, ref) => {
-    const dispatch = useDispatch();
-    const evaluate = useEvaluate();
-    const [t] = useTranslation();
-    const input = useSelector(
-      (state: CalculatorRootState) => state.session.input
-    );
+const CalculatorInput = forwardRef<
+  HTMLInputElement,
+  HTMLProps<HTMLInputElement> & CalculatorInputProps
+>(({ onEnterPressed, className }, ref) => {
+  const dispatch = useDispatch();
+  const evaluate = useEvaluate();
+  const [t] = useTranslation();
+  const input = useSelector(
+    (state: CalculatorRootState) => state.session.input
+  );
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "ArrowUp") {
-        dispatch(moveBackInHistory());
-        e.preventDefault();
-      } else if (e.key === "ArrowDown") {
-        dispatch(moveForwardInHistory());
-        e.preventDefault();
-      } else if (e.key === "Enter" && input.length > 0) {
-        evaluate();
-        onEnterPressed();
-      }
-    };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowUp") {
+      dispatch(moveBackInHistory());
+      e.preventDefault();
+    } else if (e.key === "ArrowDown") {
+      dispatch(moveForwardInHistory());
+      e.preventDefault();
+    } else if (e.key === "Enter" && input.length > 0) {
+      evaluate();
+      onEnterPressed();
+    }
+  };
 
-    return (
-      <input
-        ref={ref}
-        type="text"
-        className={classNames(
-          "w-full",
-          "text-xl",
-          "sm:text-2xl",
-          "md:text-3xl",
-          "lg:text-4xl",
-          "outline-none",
-          "border",
-          "px-4",
-          "py-2",
-          "sm:py-3",
-          "md:py-4",
-          "lg:py-6",
-          "rounded-md",
-          "bold-font:font-bold",
-          "theme-light:border-neutral-400",
-          "theme-light:focus:border-neutral-600",
-          "theme-light:bg-neutral-100",
-          "theme-dark:bg-neutral-800",
-          "theme-dark:border-neutral-500",
-          "theme-dark:focus:border-neutral-100"
-        )}
-        placeholder={t("common.input")}
-        value={input}
-        onChange={(e) => dispatch(setInput(e.target.value))}
-        onKeyDown={(e) => handleKeyDown(e)}
-      />
-    );
-  }
-);
+  return (
+    <ResponsiveTextInput
+      ref={ref}
+      type="text"
+      className={classNames(
+        "pr-14",
+        "theme-light:border-neutral-400",
+        "theme-light:focus:border-neutral-600",
+        "theme-light:bg-neutral-100",
+        "theme-dark:bg-neutral-800",
+        "theme-dark:border-neutral-500",
+        "theme-dark:focus:border-neutral-100",
+        className
+      )}
+      placeholder={t("common.input")}
+      value={input}
+      onChange={(e) => dispatch(setInput(e.currentTarget.value))}
+      onKeyDown={(e) => handleKeyDown(e)}
+    />
+  );
+});
 
 export default CalculatorInput;

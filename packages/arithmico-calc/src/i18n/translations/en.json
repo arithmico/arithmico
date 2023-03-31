@@ -15,8 +15,8 @@
   "nav.manual": "Manual",
   "nav.about": "About",
 
-  "toolbar.resetInput": "Reset Input",
-  "toolbar.resetOutput": "Reset Output",
+  "toolbar.resetInput": "reset input field",
+  "toolbar.resetOutput": "reset output field",
   "toolbar.resetDefinitions": "Reset Definitions",
   "toolbar.resetAll": "Reset All",
   "toolbar.showDefinitions": "Show Definitions",
