@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import { Output } from "../../../../../libs/stores/slices/calculator-session";
 import GraphicDynamicSizeHandler from "../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
+import { Output } from "../../store/slices/session.slice";
 
 interface ProtocolListItemOutputProps {
   output: Output;
