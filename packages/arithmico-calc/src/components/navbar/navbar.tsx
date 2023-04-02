@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
 import { DesktopNavigation } from "./desktop-navigation";
 import { MobileNavigation } from "./mobile-navigation";
 import { NavigationProps } from "./types";
@@ -54,57 +53,12 @@ function NavbarTitle({ title, subtitle }: NavbarTitleProps) {
   );
 }
 
-function NavbarNavigation({ children }: NavigationProps) {
+function NavbarNavigation({ items }: NavigationProps) {
   return (
     <>
-      <DesktopNavigation>{children}</DesktopNavigation>
-      <MobileNavigation>{children}</MobileNavigation>
+      <DesktopNavigation items={items} />
+      <MobileNavigation items={items} />
     </>
-  );
-}
-
-interface NavbarNavigationItemProps {
-  to: string;
-  children: React.ReactNode;
-}
-
-function NavbarNavigationItem({ to, children }: NavbarNavigationItemProps) {
-  return (
-    <li>
-      <NavLink
-        className={({ isActive }) =>
-          classNames(
-            "2xl:px-12",
-            "xl:px-10",
-            "px-4",
-            "md:px-8",
-            "h-full",
-            "flex",
-            "items-center",
-            "py-4",
-            "md:py-0",
-            "md:justify-center",
-            "text-base",
-            "md:text-xl",
-            "rounded-b-md",
-            "theme-light:hover:bg-neutral-300",
-            "theme-light:text-neutral-700",
-            "theme-dark:text-neutral-300",
-            "theme-dark:hover:bg-neutral-800",
-            "bold-font:font-bold",
-            {
-              "md:theme-light:bg-neutral-300": isActive,
-              "theme-light:bg-neutral-200": isActive,
-              "md:theme-dark:bg-neutral-800": isActive,
-              "theme-dark:bg-neutral-700": isActive,
-            }
-          )
-        }
-        to={to}
-      >
-        {children}
-      </NavLink>
-    </li>
   );
 }
 
@@ -114,20 +68,26 @@ export default function Navbar() {
   return (
     <NavbarContainer>
       <NavbarTitle title="Arithmico" subtitle="Calc" />
-      <NavbarNavigation>
-        <NavbarNavigationItem to="/">
-          {t("nav.calculator")}
-        </NavbarNavigationItem>
-        <NavbarNavigationItem to="/settings">
-          {t("nav.settings")}
-        </NavbarNavigationItem>
-        <NavbarNavigationItem to="/manual">
-          {t("nav.manual")}
-        </NavbarNavigationItem>
-        <NavbarNavigationItem to="/About">
-          {t("nav.about")}
-        </NavbarNavigationItem>
-      </NavbarNavigation>
+      <NavbarNavigation
+        items={[
+          {
+            label: t("nav.calculator"),
+            to: "/",
+          },
+          {
+            label: t("nav.settings"),
+            to: "/settings",
+          },
+          {
+            label: t("nav.manual"),
+            to: "/manual",
+          },
+          {
+            label: t("nav.about"),
+            to: "/about",
+          },
+        ]}
+      />
     </NavbarContainer>
   );
 }
