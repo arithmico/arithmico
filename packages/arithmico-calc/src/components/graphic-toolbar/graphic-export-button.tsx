@@ -2,7 +2,7 @@ import { pdf } from "@react-pdf/renderer";
 import classNames from "classnames";
 import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 import FileSaver from "file-saver";
-import PdfGraphic from "../../pdf-graphic/pdf-graphic";
+import PdfGraphic from "../pdf-graphic/pdf-graphic";
 
 interface GraphicExportButtonProps {
   graphic: GraphicNode;
