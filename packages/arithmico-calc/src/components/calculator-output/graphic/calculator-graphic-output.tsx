@@ -28,7 +28,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
           "relative",
           "border",
           "h-full",
-          "rounded-md",
+          "rounded-sm",
           "max-h-full",
           "max-w-full",
           "flex",
