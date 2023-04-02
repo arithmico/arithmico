@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
-import { ProtocolItem } from "../../../../../libs/stores/slices/calculator-session";
 import ProtocolListItemOutput from "./protocol-list-item-output";
+import { ProtocolItem } from "../../store/slices/session.slice";
 
 interface ProtocolItemProps {
   item: ProtocolItem;
