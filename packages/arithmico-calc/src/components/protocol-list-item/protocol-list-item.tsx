@@ -50,7 +50,8 @@ export default function ProtocolListItem({ item }: ProtocolItemProps) {
         </dd>
         <dt
           className={classNames("max-w-full", "overflow-x-hidden", {
-            "h-96": item.output.type === "graphic",
+            "h-[32rem]": item.output.type === "graphic",
+            "col-span-2": item.output.type === "graphic",
           })}
         >
           <ProtocolListItemOutput output={item.output} />
