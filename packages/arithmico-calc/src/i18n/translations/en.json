@@ -89,5 +89,11 @@
   "history.download": "Download",
   "sr.history.download": "download history as .txt file",
   "history.reset": "Reset",
-  "sr.history.reset": "reset history"
+  "sr.history.reset": "reset history",
+
+  "graphic.toolbar.download.pdf": "PDF",
+  "graphic.toolbar.download.braille-pdf": "PDF (braille)",
+  "sr.graphic.toolbar.download": "download graphic",
+  "sr.graphic.toolbar.download.pdf": "download graphic as pdf",
+  "sr.graphic.toolbar.download.braille-pdf": "download grpahic as pdf with braille text"
 }

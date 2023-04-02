@@ -89,5 +89,11 @@
   "history.download": "Herunterladen",
   "sr.history.download": "Verlauf als TXT-Datei herunterladen",
   "history.reset": "Zurücksetzen",
-  "sr.history.reset": "Verlauf zurücksetzen"
+  "sr.history.reset": "Verlauf zurücksetzen",
+
+  "graphic.toolbar.download.pdf": "PDF",
+  "graphic.toolbar.download.braille-pdf": "PDF (Braille)",
+  "sr.graphic.toolbar.download": "Grafik herunterladen",
+  "sr.graphic.toolbar.download.pdf": "Grafik als PDF herunterladen",
+  "sr.graphic.toolbar.download.braille-pdf": "Grafik als PDF mit Braille-Beschriftungen herunterladen"
 }

@@ -5,6 +5,7 @@ import FileSaver from "file-saver";
 import PdfGraphic from "../pdf-graphic/pdf-graphic";
 import { Menu } from "@headlessui/react";
 import { DownloadIcon } from "@arithmico/frontend-components";
+import { useTranslation } from "react-i18next";
 
 interface GraphicToolbarExportMenuProps {
   graphic: GraphicNode;
@@ -15,6 +16,7 @@ export function GraphicToolbarExportMenu({
   graphic,
   input,
 }: GraphicToolbarExportMenuProps) {
+  const [t] = useTranslation();
   const exportPdf = (braille: boolean) => {
     pdf(<PdfGraphic graphic={graphic} input={input} braille={braille} />)
       .toBlob()
@@ -51,6 +53,7 @@ export function GraphicToolbarExportMenu({
                 "h-6"
               )}
             />
+            <span className="sr-only">{t("sr.graphic.toolbar.download")}</span>
           </Menu.Button>
           <Menu.Items
             className={classNames(
@@ -86,7 +89,10 @@ export function GraphicToolbarExportMenu({
                     "theme-dark:border-b-white/10"
                   )}
                 >
-                  PDF
+                  <span aria-hidden>{t("graphic.toolbar.download.pdf")}</span>
+                  <span className="sr-only">
+                    {t("sr.graphic.toolbar.download.pdf")}
+                  </span>
                 </button>
               )}
             </Menu.Item>
@@ -105,7 +111,12 @@ export function GraphicToolbarExportMenu({
                     "theme-dark:hover:bg-neutral-600"
                   )}
                 >
-                  PDF (braille)
+                  <span aria-hidden>
+                    {t("graphic.toolbar.download.braille-pdf")}
+                  </span>
+                  <span className="sr-only">
+                    {t("sr.graphic.toolbar.download.braille-pdf")}
+                  </span>
                 </button>
               )}
             </Menu.Item>
