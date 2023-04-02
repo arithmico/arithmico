@@ -49,8 +49,8 @@ export function GraphicToolbarExportMenu({
               className={classNames(
                 "theme-light:fill-black",
                 "theme-dark:fill-white",
-                "w-6",
-                "h-6"
+                "w-8",
+                "h-8"
               )}
             />
             <span className="sr-only">{t("sr.graphic.toolbar.download")}</span>
