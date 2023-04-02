@@ -2,7 +2,7 @@ import { GraphicResult } from "@arithmico/engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
 import GraphicDynamicSizeHandler from "../../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
-import GraphicOutputToolbar from "./graphic-output-toolbar";
+import { GraphicToolbar } from "../../graphic-toolbar/graphic-toolbar";
 
 const enableToolbar = !import.meta.env.VITE_OFFLINE_MODE;
 
@@ -25,15 +25,13 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         ref={ref}
         onKeyDown={onKeyDown}
         className={classNames(
+          "relative",
           "border",
           "h-full",
-          "rounded-md",
+          "rounded-sm",
           "max-h-full",
           "max-w-full",
-          "grid",
-          {
-            "grid-cols-[7fr_1fr]": enableToolbar,
-          },
+          "flex",
           "overflow-hidden",
           "outline-none",
           "theme-dark:border-neutral-500",
@@ -46,7 +44,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
       >
         <GraphicDynamicSizeHandler graphic={output.graphic} braille={false} />
         {enableToolbar && (
-          <GraphicOutputToolbar graphic={output.graphic} input={output.input} />
+          <GraphicToolbar graphic={output.graphic} input={output.input} />
         )}
       </div>
     );
