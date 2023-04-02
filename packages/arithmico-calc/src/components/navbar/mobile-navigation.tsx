@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { NavigationProps } from "./types";
-import { NavigationLink } from "./navbar";
+import { NavigationLink } from "./navigation-link";
 
 interface DisclosureContentProps {
   items: NavigationProps["items"];

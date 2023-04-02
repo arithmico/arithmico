@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { NavigationProps } from "./types";
-import { NavigationLink } from "./navbar";
+import { NavigationLink } from "./navigation-link";
 
 export function DesktopNavigation({ items }: NavigationProps) {
   return (
