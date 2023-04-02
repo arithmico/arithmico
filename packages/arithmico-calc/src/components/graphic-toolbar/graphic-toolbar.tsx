@@ -9,7 +9,7 @@ interface GraphicOutputToolbarProps {
 
 export function GraphicToolbar({ graphic, input }: GraphicOutputToolbarProps) {
   return (
-    <div className={classNames("absolute", "right-0", "top-0")}>
+    <div className={classNames("absolute", "right-0", "top-0", "mt-2", "mr-2")}>
       <GraphicToolbarExportMenu graphic={graphic} input={input} />
     </div>
   );
