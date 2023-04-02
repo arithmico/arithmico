@@ -68,10 +68,7 @@ interface NavbarNavigationItemProps {
   children: React.ReactNode;
 }
 
-export function NavbarNavigationItem({
-  to,
-  children,
-}: NavbarNavigationItemProps) {
+export function NavigationLink({ to, children }: NavbarNavigationItemProps) {
   return (
     <li>
       <NavLink

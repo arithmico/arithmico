@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { NavigationProps } from "./types";
-import { NavbarNavigationItem } from "./navbar";
+import { NavigationLink } from "./navbar";
 
 interface DisclosureContentProps {
   items: NavigationProps["items"];
@@ -56,7 +56,7 @@ function MenuContent({ items, close }: DisclosureContentProps) {
         >
           {items.map(({ label, to }) => (
             <ul>
-              <NavbarNavigationItem to={to}>{label}</NavbarNavigationItem>
+              <NavigationLink to={to}>{label}</NavigationLink>
             </ul>
           ))}
         </nav>
