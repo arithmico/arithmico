@@ -4,15 +4,15 @@ import { GraphicNode } from "@arithmico/engine/lib/types/graphics.types";
 import FileSaver from "file-saver";
 import PdfGraphic from "../pdf-graphic/pdf-graphic";
 
-interface GraphicExportButtonProps {
+interface GraphicToolbarExportMenuProps {
   graphic: GraphicNode;
   input: string;
 }
 
-export default function GraphicExportButton({
+export function GraphicToolbarExportMenu({
   graphic,
   input,
-}: GraphicExportButtonProps) {
+}: GraphicToolbarExportMenuProps) {
   const exportPdf = (braille: boolean) => {
     pdf(<PdfGraphic graphic={graphic} input={input} braille={braille} />)
       .toBlob()
