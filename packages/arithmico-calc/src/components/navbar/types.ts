@@ -1,3 +1,6 @@
 export interface NavigationProps {
-  children: React.ReactNode;
+  items: {
+    label: string;
+    to: string;
+  }[];
 }

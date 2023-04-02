@@ -1,17 +1,18 @@
 import { MenuIcon } from "@arithmico/frontend-components";
-import { Disclosure } from "@headlessui/react";
+import { Menu } from "@headlessui/react";
 import classNames from "classnames";
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { NavigationProps } from "./types";
+import { NavbarNavigationItem } from "./navbar";
 
 interface DisclosureContentProps {
-  children: ReactNode;
+  items: NavigationProps["items"];
   close: () => void;
 }
 
-function DisclosureContent({ children, close }: DisclosureContentProps) {
+function MenuContent({ items, close }: DisclosureContentProps) {
   const location = useLocation();
   const [t] = useTranslation();
 
@@ -21,7 +22,7 @@ function DisclosureContent({ children, close }: DisclosureContentProps) {
 
   return (
     <>
-      <Disclosure.Button
+      <Menu.Button
         className={classNames(
           "h-full",
           "outline-none",
@@ -40,8 +41,8 @@ function DisclosureContent({ children, close }: DisclosureContentProps) {
           )}
         />
         <span className="sr-only">{t("nav.menu")}</span>
-      </Disclosure.Button>
-      <Disclosure.Panel>
+      </Menu.Button>
+      <Menu.Items>
         <nav
           className={classNames(
             "absolute",
@@ -53,14 +54,18 @@ function DisclosureContent({ children, close }: DisclosureContentProps) {
             "theme-dark:bg-neutral-800"
           )}
         >
-          <ul>{children}</ul>
+          {items.map(({ label, to }) => (
+            <ul>
+              <NavbarNavigationItem to={to}>{label}</NavbarNavigationItem>
+            </ul>
+          ))}
         </nav>
-      </Disclosure.Panel>
+      </Menu.Items>
     </>
   );
 }
 
-export function MobileNavigation({ children }: NavigationProps) {
+export function MobileNavigation({ items }: NavigationProps) {
   return (
     <div
       className={classNames(
@@ -72,11 +77,9 @@ export function MobileNavigation({ children }: NavigationProps) {
         "justify-center"
       )}
     >
-      <Disclosure>
-        {({ close }) => (
-          <DisclosureContent close={close}>{children}</DisclosureContent>
-        )}
-      </Disclosure>
+      <Menu>
+        {({ open, close }) => <MenuContent close={close} items={items} />}
+      </Menu>
     </div>
   );
 }

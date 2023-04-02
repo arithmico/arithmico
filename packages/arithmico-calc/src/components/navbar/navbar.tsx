@@ -54,11 +54,11 @@ function NavbarTitle({ title, subtitle }: NavbarTitleProps) {
   );
 }
 
-function NavbarNavigation({ children }: NavigationProps) {
+function NavbarNavigation({ items }: NavigationProps) {
   return (
     <>
-      <DesktopNavigation>{children}</DesktopNavigation>
-      <MobileNavigation>{children}</MobileNavigation>
+      <DesktopNavigation items={items} />
+      <MobileNavigation items={items} />
     </>
   );
 }
@@ -68,7 +68,10 @@ interface NavbarNavigationItemProps {
   children: React.ReactNode;
 }
 
-function NavbarNavigationItem({ to, children }: NavbarNavigationItemProps) {
+export function NavbarNavigationItem({
+  to,
+  children,
+}: NavbarNavigationItemProps) {
   return (
     <li>
       <NavLink
@@ -114,20 +117,26 @@ export default function Navbar() {
   return (
     <NavbarContainer>
       <NavbarTitle title="Arithmico" subtitle="Calc" />
-      <NavbarNavigation>
-        <NavbarNavigationItem to="/">
-          {t("nav.calculator")}
-        </NavbarNavigationItem>
-        <NavbarNavigationItem to="/settings">
-          {t("nav.settings")}
-        </NavbarNavigationItem>
-        <NavbarNavigationItem to="/manual">
-          {t("nav.manual")}
-        </NavbarNavigationItem>
-        <NavbarNavigationItem to="/About">
-          {t("nav.about")}
-        </NavbarNavigationItem>
-      </NavbarNavigation>
+      <NavbarNavigation
+        items={[
+          {
+            label: t("nav.calculator"),
+            to: "/",
+          },
+          {
+            label: t("nav.settings"),
+            to: "/settings",
+          },
+          {
+            label: t("nav.manual"),
+            to: "/manual",
+          },
+          {
+            label: t("nav.about"),
+            to: "/about",
+          },
+        ]}
+      />
     </NavbarContainer>
   );
 }
