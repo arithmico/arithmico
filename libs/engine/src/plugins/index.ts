@@ -8,6 +8,8 @@ import numericsPlugin from './numerics/numerics';
 import physicsPlugin from './physics/physics';
 import statisticsPlugin from './statistics/statistics';
 
+import excelPlugin from './core/excel/excel';
+
 const defaultPlugins: Plugin[] = [
     analysisPlugin,
     numericsPlugin,
@@ -17,6 +19,7 @@ const defaultPlugins: Plugin[] = [
     physicsPlugin,
     computerSciencePlugin,
     graphicsPlugin,
+    excelPlugin,
 ];
 
 export default defaultPlugins;
