@@ -18,3 +18,18 @@ export interface Context {
     methods: Map<SyntaxTreeNode['type'], Map<string, PluginMethod<SyntaxTreeNode>['evaluator']>>;
     stack: StackFrame[];
 }
+
+declare global {
+    const __OPERATORS: {
+        [key: string]: boolean;
+    };
+    const __OBJECTS: {
+        [key: string]: boolean;
+    };
+    const __FUNCTIONS: {
+        [key: string]: boolean;
+    };
+    const __CONSTANTS: {
+        [key: string]: boolean;
+    };
+}

@@ -24,15 +24,15 @@ export default function evaluateTimes(node: Times, context: Context): SyntaxTree
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
 
-    if (leftChild.type === 'number' && rightChild.type === 'number' && context.options.operators.timesNumberNumber) {
+    if (leftChild.type === 'number' && rightChild.type === 'number' && __OPERATORS.timesNumberNumber) {
         return createNumberNode(leftChild.value * rightChild.value);
     }
 
-    if (leftChild.type === 'number' && rightChild.type === 'vector' && context.options.operators.timesNumberVector) {
+    if (leftChild.type === 'number' && rightChild.type === 'vector' && __OPERATORS.timesNumberVector) {
         return createVector(rightChild.values.map((value) => evaluate(createTimes(leftChild, value), context)));
     }
 
-    if (leftChild.type === 'vector' && rightChild.type === 'number' && context.options.operators.timesNumberVector) {
+    if (leftChild.type === 'vector' && rightChild.type === 'number' && __OPERATORS.timesNumberVector) {
         return createVector(leftChild.values.map((value) => evaluate(createTimes(rightChild, value), context)));
     }
 
@@ -43,7 +43,7 @@ export default function evaluateTimes(node: Times, context: Context): SyntaxTree
         const rightRank = rightDims.length;
 
         // vector scalar product
-        if (leftRank === 1 && rightRank === 1 && context.options.operators.timesVectorVector) {
+        if (leftRank === 1 && rightRank === 1 && __OPERATORS.timesVectorVector) {
             if (leftDims[0] !== rightDims[0]) {
                 throw 'ShapeError: incompatible vector shapes';
             }
@@ -60,7 +60,7 @@ export default function evaluateTimes(node: Times, context: Context): SyntaxTree
                 components.reduceRight((right, left) => createPlus(left, right)),
                 context,
             );
-        } else if (leftRank === 2 && rightRank === 2 && context.options.operators.timesMatrixMatrix) {
+        } else if (leftRank === 2 && rightRank === 2 && __OPERATORS.timesMatrixMatrix) {
             if (leftDims[1] !== rightDims[0]) {
                 throw 'ShapeError: incompatible vector shapes';
             }
@@ -76,7 +76,7 @@ export default function evaluateTimes(node: Times, context: Context): SyntaxTree
             }
 
             return evaluate(createVector(lines), context);
-        } else if (leftRank === 2 && rightRank === 1 && context.options.operators.timesVectorMatrix) {
+        } else if (leftRank === 2 && rightRank === 1 && __OPERATORS.timesVectorMatrix) {
             if (leftDims[1] !== rightDims[0]) {
                 throw 'ShapeError: incompatible vector shapes';
             }
@@ -87,7 +87,7 @@ export default function evaluateTimes(node: Times, context: Context): SyntaxTree
             ) as Vector;
 
             return createVector(result.values.map((vector: Vector) => vector.values[0]));
-        } else if (leftRank === 1 && rightRank === 2 && context.options.operators.timesVectorMatrix) {
+        } else if (leftRank === 1 && rightRank === 2 && __OPERATORS.timesVectorMatrix) {
             if (leftDims[0] !== rightDims[0]) {
                 throw 'ShapeError: incompatible vector shapes';
             }

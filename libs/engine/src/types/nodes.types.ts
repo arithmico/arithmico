@@ -1,4 +1,5 @@
 import { Context } from './context.types';
+import { GraphicNode } from './graphics.types';
 
 export type SyntaxTreeNode =
     | Or
@@ -23,7 +24,8 @@ export type SyntaxTreeNode =
     | FunctionNode
     | Lambda
     | Define
-    | MethodCall;
+    | MethodCall
+    | GraphicNode;
 
 export type BinarySyntaxTreeNode =
     | Or

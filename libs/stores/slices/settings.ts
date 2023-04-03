@@ -8,7 +8,6 @@ export interface SettingsState {
   theme: string;
   fontSize: string;
   boldFont: boolean;
-  excludeInfoInProtocol: boolean;
   copySynopsisOnClick: boolean;
 }
 
@@ -16,7 +15,7 @@ export const initialState = defaultProfile.settings;
 
 export const themes = ["light", "dark"];
 export const fontSizes = ["small", "medium", "large"];
-export const languages = ["de", "en"];
+export const languages = ["de", "en", "it"];
 export const numberFormats = ["de", "en", "default"];
 
 const settingsSlice = createSlice({
@@ -24,7 +23,6 @@ const settingsSlice = createSlice({
   initialState,
   reducers: {
     resetSettings: () => {
-      console.log("reset");
       return initialState;
     },
     setLanguage: (state, action: PayloadAction<string>) => {
@@ -63,9 +61,6 @@ const settingsSlice = createSlice({
     setBoldFont: (state, action: PayloadAction<boolean>) => {
       state.boldFont = !!action.payload;
     },
-    setExcludeInfoInProtocol: (state, action: PayloadAction<boolean>) => {
-      state.excludeInfoInProtocol = !!action.payload;
-    },
     setCopySynopsisOnClick: (state, action: PayloadAction<boolean>) => {
       state.copySynopsisOnClick = !!action.payload;
     },
@@ -79,7 +74,6 @@ export const {
   setBoldFont,
   setCopySynopsisOnClick,
   setDecimalPlaces,
-  setExcludeInfoInProtocol,
   setFontSize,
   setNumberFormat,
   setTheme,

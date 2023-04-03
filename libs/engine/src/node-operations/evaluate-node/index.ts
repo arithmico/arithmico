@@ -47,6 +47,7 @@ const evaluate = forEachNode<[Context], SyntaxTreeNode>({
     function: (node) => node,
     define: evaluateDefine,
     methodCall: evaluateMethodCall,
+    graphic: (node) => node,
 });
 
 export default evaluate;

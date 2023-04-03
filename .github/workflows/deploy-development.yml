@@ -24,11 +24,10 @@ jobs:
         with:
           node-version: 16
           cache: "npm"
-      - name: Install dependencies
-        run: npm ci
-      - name: Build
+      - name: Install and Build
         run: |
-          export VITE_CALCULATOR_PROFILE=$(cat profiles/default-profile.json) 
+          export ARITHMICO_FEATURES=$(cat libs/engine/features.json) 
+          npm ci
           npm run build:calc
       - name: Test
         run: npm run test:all

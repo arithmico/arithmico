@@ -13,7 +13,8 @@ export default function evaluationPipeline({ input, context }: { input: string; 
     } catch (error) {
         return {
             type: 'error',
-            message: error,
+            error: error,
+            context,
         };
     }
 }

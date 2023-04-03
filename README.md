@@ -1,20 +1,22 @@
-[Run the app in your browser](https://excelator.raphaelvolz.de)
-
-# Excelator Project
-An extension to the great Arithmico Engine with a plugin enabling excel function names.
-This repository hosts and contains the source code of the plugin enabling excel functions as far as possible for the Arithmico Engine and the following web applications
-
-- Excelator Calc
-
-This is the  summer 2023 term project in the software engineering course at Hochschule Pforzeim led by Prof. Dr. Raphael Volz inspired by a request from Johannes Weingartner at BBI, Vienna.
+# Arithmico Project
+This repository contains the source code for the Arithmico Engine and the following web applications
+- Arithmico Calc
+- Arithmico Docs
+- Arithmico Config
+- Arithmico Blog
 
 # Deployments
 
 ## Production Deployments
-- [Excelator Calc](https://excelator.raphaelvolz.de)
-- [Arithmico Calc - The original ](https://arithmico.com)
+- [Arithmico Calc](https://arithmico.com)
 - [Arithmico Docs](https://docs.arithmico.com)
 - [Arithmico Config](https://config.arithmico.com)
+
+## Development Deployments
+- [Arithmico Calc (dev)](https://dev-calc.arithmico.com)
+- [Arithmico Docs (dev)](https://dev-docs.arithmico.com)
+- [Arithmico Blog (dev)](https://dev-blog.arithmico.com/)
+- [Arithmico Config (dev)](https://dev-config.arithmico.com/)
 
 # Build Instructions
 1. Go to the project folder and run
@@ -45,5 +47,5 @@ npm run build:engine
   npm run build:config
   ```
 
-4. Serve the files under `<project-root>/apps/<app-name>/dist/*` on a web server, here on github copied to docs folder.
-5. For local testing you can use `npn run start:calc` or create the offline-version with `npm run build:offline -w apps/calc/`
+4. Serve the files under `<project-root>/apps/<app-name>/dist/*` on a web server
+5. For local testing you can use `npm run start:calc` or create the offline-version with `npm run build:offline -w apps/calc/`

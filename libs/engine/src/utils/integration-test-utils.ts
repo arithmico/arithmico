@@ -1,5 +1,5 @@
 import evaluate from '..';
-import { Context, Options, StringResult } from '../types';
+import { Context, Options, TextResult } from '../types';
 import { createContext, createOptions } from './context-utils';
 
 let lastId = 0;
@@ -12,7 +12,11 @@ export function createTestContext(stack: Context['stack'], options: Options = te
 
 export function integrationTest(input: string, expectedOutput: string, context?: Context) {
     test(`integration test #${++lastId}: ${input}`, () => {
-        expect((<StringResult>evaluate(input, context)).value).toBe(expectedOutput);
+        const result = evaluate(input, context);
+        if (result.type === 'error') {
+            throw result.error;
+        }
+        expect((<TextResult>result).text).toBe(expectedOutput);
     });
 }
 
