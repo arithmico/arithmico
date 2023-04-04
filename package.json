@@ -25,7 +25,7 @@
     "packages/*"
   ],
   "scripts": {
-    "start:desktop": "npm run build:calc && cp -r packages/arithmico-calc/dist packages/arithmico-desktop/web-dist && npm run start -w @arithmico/desktop",
+    "start:desktop": "npm run build:offline -w @arithmico/calc && cp -r packages/arithmico-calc/dist packages/arithmico-desktop/web-dist && npm run start -w @arithmico/desktop",
     "start:config": "npm start -w @arithmico/config",
     "start:calc": "npm start -w @arithmico/calc",
     "start:docs": "npm start -w @arithmico/docs",

@@ -8,6 +8,7 @@ const createWindow = () => {
   });
 
   win.loadFile("./web-dist/index.html").catch((e) => console.error(e));
+  win.setIcon("./web-dist/logo512.png");
   win.setMenu(null);
   win.maximize();
 };

@@ -4,8 +4,6 @@ import { forwardRef } from "react";
 import GraphicDynamicSizeHandler from "../../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
 import { GraphicToolbar } from "../../graphic-toolbar/graphic-toolbar";
 
-const enableToolbar = !import.meta.env.VITE_OFFLINE_MODE;
-
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;
   output: GraphicResult & { input: string };
@@ -43,9 +41,7 @@ const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
         )}
       >
         <GraphicDynamicSizeHandler graphic={output.graphic} braille={false} />
-        {enableToolbar && (
-          <GraphicToolbar graphic={output.graphic} input={output.input} />
-        )}
+        {<GraphicToolbar graphic={output.graphic} input={output.input} />}
       </div>
     );
   }
