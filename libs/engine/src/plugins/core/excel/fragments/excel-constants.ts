@@ -27,6 +27,7 @@ const excelConstantsFragment = new PluginFragment().addConstant(
         return createNumberNode(Math.sqrt(n));
       },
     )
+
   .addFunction(
     'abrunden',
     singleNumberHeader,
