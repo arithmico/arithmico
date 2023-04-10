@@ -54,18 +54,23 @@ __FUNCTIONS.plot &&
                     })),
                 );
 
-            let yMin = yMinNode
-                ? yMinNode.value
-                : lines
-                      .flatMap((x) => x.points)
-                      .map((point) => point.y)
-                      .reduce((a, b) => Math.min(a, b));
-            let yMax = yMaxNode
-                ? yMaxNode.value
-                : lines
-                      .flatMap((x) => x.points)
-                      .map((point) => point.y)
-                      .reduce((a, b) => Math.max(a, b));
+            const points = lines.flatMap((line) => line.points);
+            const yValues = points.map((point) => point.y);
+
+            let yMin = 0;
+            let yMax = 0;
+
+            if (yMinNode) {
+                yMin = yMinNode.value;
+            } else if (yValues.length > 0) {
+                yMin = yValues.reduce((a, b) => Math.min(a, b));
+            }
+
+            if (yMaxNode) {
+                yMax = yMaxNode.value;
+            } else if (yValues.length > 0) {
+                yMax = yValues.reduce((a, b) => Math.max(a, b));
+            }
 
             const height = yMax - yMin;
             if (height === 0) {
