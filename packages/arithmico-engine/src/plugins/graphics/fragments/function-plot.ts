@@ -4,6 +4,8 @@ import { Cartesian2DGraphic, GraphicNode, Line2D } from '../../../types/graphics
 import { PluginFragment } from '../../../utils/plugin-builder';
 import { scanFunction } from './utils/scan-function';
 
+const DEFAULT_HEIGHT = 10;
+
 const plotHeader: FunctionHeaderItem[] = [
     { type: 'function', name: 'f', evaluate: true, repeat: true },
     { type: 'number', name: 'xMin', evaluate: true, optional: true },
@@ -52,19 +54,25 @@ __FUNCTIONS.plot &&
                     })),
                 );
 
-            const yMin = yMinNode
+            let yMin = yMinNode
                 ? yMinNode.value
                 : lines
                       .flatMap((x) => x.points)
                       .map((point) => point.y)
                       .reduce((a, b) => Math.min(a, b));
-            const yMax = yMaxNode
+            let yMax = yMaxNode
                 ? yMaxNode.value
                 : lines
                       .flatMap((x) => x.points)
                       .map((point) => point.y)
                       .reduce((a, b) => Math.max(a, b));
+
             const height = yMax - yMin;
+            if (height === 0) {
+                yMax = yMax + DEFAULT_HEIGHT / 2;
+                yMin = yMin - DEFAULT_HEIGHT / 2;
+            }
+
             const bottomPadding = Math.max(0, yMin);
             const topPadding = Math.abs(Math.min(yMax, 0));
 
