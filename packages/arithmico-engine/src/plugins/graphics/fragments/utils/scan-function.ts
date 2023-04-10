@@ -31,6 +31,7 @@ function splitLineAtJump(line: Point2D[]): Point2D[][] {
 export function scanFunction(f: FunctionNode, xMin: number, xMax: number, context: Context) {
     const lines: Point2D[][] = [];
     let currentLine: Point2D[] = [];
+    let errorCount = 0;
 
     for (let i = 0; i < PLOT_RESOLUTION; i++) {
         try {
@@ -44,15 +45,21 @@ export function scanFunction(f: FunctionNode, xMin: number, xMax: number, contex
             }
             currentLine.push({ x: x, y: yNode.value });
         } catch (error) {
+            errorCount++;
             if (currentLine.length > 0) {
                 lines.push(currentLine);
                 currentLine = [];
             }
         }
     }
+
     if (currentLine.length > 0) {
         lines.push(currentLine);
         currentLine = [];
+    }
+
+    if (errorCount === PLOT_RESOLUTION) {
+        throw `plot: the function could not be evaluated in the given interval`;
     }
 
     return lines.flatMap((line) => splitLineAtJump(line));

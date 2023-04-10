@@ -20,6 +20,12 @@ export function integrationTest(input: string, expectedOutput: string, context?:
     });
 }
 
+export function integrationTestNotThrow(input: string, context?: Context) {
+    test(`integration test (not throw) #${++lastId}: ${input}`, () => {
+        expect(evaluate(input, context).type).not.toStrictEqual('error');
+    });
+}
+
 export function integrationTestThrow(input: string, context?: Context) {
     test(`integration test (throw) #${++lastId}: ${input}`, () => {
         expect(evaluate(input, context).type).toStrictEqual('error');
