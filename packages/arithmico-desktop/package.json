@@ -1,6 +1,10 @@
 {
-  "name": "@arithmico/desktop",
-  "version": "-",
+  "name": "arithmico-desktop",
+  "version": "0.0.1",
+  "author": {
+    "name": "Lennard Behrens"
+  },
+  "description": "Desktop client for Arithmico",
   "devDependencies": {
     "@electron-forge/cli": "^6.1.1",
     "@electron-forge/maker-deb": "^6.1.1",
