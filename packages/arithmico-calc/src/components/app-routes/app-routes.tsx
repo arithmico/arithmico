@@ -16,7 +16,7 @@ export default function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Calculator />} />
+      <Route index element={<Calculator />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/manual" element={<Manual />} />
       <Route path="/about" element={<About />} />
