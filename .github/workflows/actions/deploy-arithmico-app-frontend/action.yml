@@ -1,0 +1,57 @@
+name: "deploy arithmico app frontend"
+description: "deploy react app to s3 and invalidate cloudfront distribution"
+inputs:
+  CI:
+    required: true
+    description: ci environment variable
+
+  S3_BUCKET_ID:
+    required: true
+    description: s3 bucket id
+
+  CLOUDFRONT_DIST_ID:
+    required: true
+    description: cloudfront distribution id
+
+  WORKSPACE_PATH:
+    required: true
+    description: path to workspace
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: "npm"
+
+    - name: install dependencies
+      shell: bash
+      run: npm ci
+
+    - name: build engine with full features
+      shell: bash
+      run: npm run build:full-features -w @arithmico/engine
+
+    - name: build app
+      shell: bash
+      run: npm run build -w $(WORKSPACE_PATH)
+
+    - name: Test
+      shell: bash
+      run: npm run test:all
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+
+    - name: Deploy static site to S3 bucket
+      shell: bash
+      run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$S3_BUCKET_ID/dev/calculator --delete
+
+    - name: Invalidate Cloundfront distrubution
+      shell: bash
+      run: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST_ID --paths '/*'
