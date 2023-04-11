@@ -16,8 +16,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
         with:
-          BUCKET_ID: ${{ secrets.CALCULATOR_DEV_BUCKET_ID }}
-          CLOUDFRONT_DIST_ID: ${{ secrets.CALCULATOR_DEV_CLOUDFRONT_ID }}
+          BUCKET_ID: ${{ secrets.S3_CALCULATOR_DEV }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.CLOUDFRONT_CALCULATOR_DEV }}
           WORKSPACE_PATH: packages/arithmico-calc
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
