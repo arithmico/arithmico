@@ -43,7 +43,7 @@ runs:
 
     - name: build app
       shell: bash
-      run: npm run build -w $(WORKSPACE_PATH)
+      run: npm run build -w $WORKSPACE_PATH
 
     - name: Test
       shell: bash
