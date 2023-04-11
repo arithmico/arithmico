@@ -66,7 +66,7 @@ runs:
         WORKSPACE_PATH: ${{ inputs.WORKSPACE_PATH }}
         BUCKET_ID: ${{ inputs.BUCKET_ID }}
       shell: bash
-      run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$(echo $BUCKET_ID)/dev/calculator --delete
+      run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$(echo $BUCKET_ID) --delete
 
     - name: Invalidate Cloundfront distrubution
       env:
