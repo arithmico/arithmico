@@ -25,6 +25,7 @@ console.log(enabledFeatures);
 const objects = createFeatureMap(enabledFeatures.objects ?? [], features.objects);
 const operators = createFeatureMap(enabledFeatures.operators ?? [], features.operators);
 const functions = createFeatureMap(enabledFeatures.functions ?? [], features.functions);
+const methods = createFeatureMap(enabledFeatures.methods ?? [], features.methods);
 const constants = createFeatureMap(enabledFeatures.constants ?? [], features.constants);
 
 const swcConfigContent = {
@@ -37,6 +38,7 @@ const swcConfigContent = {
                         __OBJECTS: serializeObject(objects),
                         __OPERATORS: serializeObject(operators),
                         __FUNCTIONS: serializeObject(functions),
+                        __METHODS: serializeObject(methods),
                         __CONSTANTS: serializeObject(constants),
                     },
                 },

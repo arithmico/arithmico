@@ -104,6 +104,7 @@
         "cov",
         "corr"
     ],
+    "methods": [],
     "operators": [
         "define",
         "lambda",
