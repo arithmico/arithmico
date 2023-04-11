@@ -23,7 +23,7 @@ declare global {
     const __OPERATORS: {
         [key: string]: boolean;
     };
-    const __OBJECTS: {
+    const __TYPES: {
         [key: string]: boolean;
     };
     const __FUNCTIONS: {
