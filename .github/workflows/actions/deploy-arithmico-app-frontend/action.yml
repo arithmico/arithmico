@@ -1,7 +1,7 @@
 name: "deploy arithmico app frontend"
 description: "deploy react app to s3 and invalidate cloudfront distribution"
 inputs:
-  S3_BUCKET_ID:
+  BUCKET_ID:
     required: true
     description: s3 bucket id
 
@@ -64,9 +64,9 @@ runs:
     - name: Deploy static site to S3 bucket
       env:
         WORKSPACE_PATH: ${{ inputs.WORKSPACE_PATH }}
-        S3_BUCKET_ID: ${{ inputs.S3_BUCKET_ID }}
+        BUCKET_ID: ${{ inputs.BUCKET_ID }}
       shell: bash
-      run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$(echo S3_BUCKET_ID)/dev/calculator --delete
+      run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$(echo $BUCKET_ID)/dev/calculator --delete
 
     - name: Invalidate Cloundfront distrubution
       env:
