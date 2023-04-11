@@ -9,9 +9,10 @@ env:
   CI: true
 
 jobs:
-  deploy_calculator_online_dev:
-    name: deploy calculator online dev
+  deploy_arithmico_calc_dev:
+    name: deploy arithmico calc dev
     runs-on: ubuntu-latest
+    environment: development
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
