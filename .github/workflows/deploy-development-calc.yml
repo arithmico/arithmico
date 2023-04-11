@@ -7,8 +7,6 @@ on:
 
 env:
   CI: true
-  S3_BUCKET_ID: ${{ secrets.BUCKET_ID }}
-  CLOUDFRONT_DIST_ID: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
 
 jobs:
   deploy_calculator_online_dev:
@@ -18,7 +16,6 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
         with:
-          CI: true
           S3_BUCKET_ID: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
           CLOUDFRONT_DIST_ID: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
           WORKSPACE_PATH: packages/arithmico-calc

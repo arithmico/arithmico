@@ -15,33 +15,6 @@ env:
   CONFIG_DEV_DIST: ${{ secrets.CONFIG_DEV_DIST }}
 
 jobs:
-  deploy_calculator_online_dev:
-    name: Deploy Calculator Online Dev
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "npm"
-      - name: Install and Build
-        run: |
-          export ARITHMICO_FEATURES=$(cat packages/arithmico-engine/features.json) 
-          npm ci
-          npm run build:calc
-      - name: Test
-        run: npm run test:all
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./packages/arithmico-calc/dist/ s3://$BUCKET_ID/dev/calculator --delete
-      - name: Invalidate Cloundfront distrubution
-        run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_DEV_DIST --paths '/*'
-
   deploy_documentation_dev:
     name: Deploy Documentation Dev
     runs-on: ubuntu-latest
