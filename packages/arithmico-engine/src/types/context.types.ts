@@ -29,7 +29,7 @@ declare global {
     const __FUNCTIONS: {
         [key: string]: boolean;
     };
-    const __Methods: {
+    const __METHODS: {
         [key: string]: boolean;
     };
     const __CONSTANTS: {

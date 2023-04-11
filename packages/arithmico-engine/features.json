@@ -38,6 +38,8 @@
         "polynomialDiv",
         "tensorRank",
         "tensorDims",
+        "length",
+        "cross",
         "abs",
         "exp",
         "lg",
@@ -104,7 +106,7 @@
         "cov",
         "corr"
     ],
-    "methods": [],
+    "methods": ["length"],
     "operators": [
         "define",
         "lambda",
