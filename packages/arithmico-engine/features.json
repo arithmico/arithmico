@@ -93,7 +93,6 @@
         "cnormal",
         "binom",
         "cbinom",
-        "erf",
         "avg",
         "var",
         "unbiasedVar",
@@ -102,7 +101,9 @@
         "median",
         "quantile",
         "cov",
-        "corr"
+        "corr",
+        "erf",
+        "regressionsPolynomial"
     ],
     "operators": [
         "define",

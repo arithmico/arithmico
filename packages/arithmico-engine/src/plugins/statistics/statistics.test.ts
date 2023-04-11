@@ -72,3 +72,13 @@ integrationTestThrow('corr([18, 2, 42, 14, 22, 35, 45, 8], [22, b, 53, 30, 25, 3
 // erf
 integrationTest('erf(1)', '0.842701');
 integrationTest('erf(-1)', '-0.842701');
+
+// regressions:polynomial
+integrationTest('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])', 'y = 0.834783 + 0.532609 * x');
+integrationTest(
+    'regressions:polynomial([6, 9, 12, 14, 30, 35, 40, 47, 51, 55, 60], [14, 28, 50, 70, 89, 94, 90, 75, 59, 44, 27], 2)',
+    'y = (-18.25364) + 6.744358 * x - 0.1012 * x^2',
+);
+integrationTestThrow('regressions:polynomial([a, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])');
+integrationTestThrow('regressions:polynomial([-2, -1, 3, 4, 6], [a, 0.5, 2, 2, 5])');
+integrationTestThrow('regressions:polynomial([-2, -1, 3, 4], [0, 0.5, 2, 2, 5])');
