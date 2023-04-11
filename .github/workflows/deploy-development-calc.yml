@@ -1,4 +1,4 @@
-name: Deploy Development
+name: deploy development calc
 
 on:
   workflow_dispatch:
@@ -22,3 +22,5 @@ jobs:
           S3_BUCKET_ID: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
           CLOUDFRONT_DIST_ID: ${{ secrets.CALCULATOR_ONLINE_DEV_DIST }}
           WORKSPACE_PATH: packages/arithmico-calc
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
