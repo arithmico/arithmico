@@ -13,7 +13,7 @@ import {
     calculatePolynomialSubtraction,
     getDegreeFromPolynomial,
     getSyntaxTreeNodeFromPolynomial,
-} from '../utils/polynomial-type-utils';
+} from '../../../utils/math-utils/polynomial-type-utils';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import createVector from '../../../node-operations/create-node/create-vector';
 import { PluginFragment } from '../../../utils/plugin-builder';

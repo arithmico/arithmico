@@ -5,7 +5,7 @@ import {
     createConstantMonomial,
     createNonConstantMonomial,
     Polynomial,
-} from './polynomial-type-utils';
+} from '../../../utils/math-utils/polynomial-type-utils';
 
 export function getSummands(node: SyntaxTreeNode): SyntaxTreeNode[] {
     return convertOperatorChainToList('plus', node);

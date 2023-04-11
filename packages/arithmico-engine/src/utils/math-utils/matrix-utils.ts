@@ -1,4 +1,4 @@
-import {NumberNode, Vector} from '../../../types/nodes.types';
+import { NumberNode, Vector } from '../../types/nodes.types';
 
 function det2x2(matrix: number[][]): number {
     return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
@@ -13,12 +13,6 @@ function det3x3(matrix: number[][]): number {
         matrix[0][0] * matrix[1][2] * matrix[2][1] -
         matrix[0][1] * matrix[1][0] * matrix[2][2]
     );
-}
-
-export function getSubMatrix(matrix: number[][], excludedRowIndex: number, excludedColumnIndex: number) {
-    return matrix
-        .filter((_, rowIndex) => rowIndex !== excludedRowIndex)
-        .map((row) => row.filter((_, columnIndex) => columnIndex !== excludedColumnIndex));
 }
 
 export function det(matrix: number[][]): number {
@@ -36,10 +30,25 @@ export function det(matrix: number[][]): number {
     }
 }
 
+export function getSubMatrix(matrix: number[][], excludedRowIndex: number, excludedColumnIndex: number) {
+    return matrix
+        .filter((_, rowIndex) => rowIndex !== excludedRowIndex)
+        .map((row) => row.filter((_, columnIndex) => columnIndex !== excludedColumnIndex));
+}
+
 export function replaceColumn(matrix: number[][], column: number[], index: number): number[][] {
     return matrix.map((row, rowIndex) =>
         row.map((item, columnIndex) => (columnIndex === index ? column[rowIndex] : item)),
     );
+}
+
+export function cramerSolver(coefficients: number[][], constants: number[], coefficientsDet: number) {
+    const results: number[] = [];
+    for (let i = 0; i < coefficients.length; i++) {
+        const value = det(replaceColumn(coefficients, constants, i)) / coefficientsDet;
+        results.push(value);
+    }
+    return results;
 }
 
 export function createIdentityMatrix(n: number): number[][] {
