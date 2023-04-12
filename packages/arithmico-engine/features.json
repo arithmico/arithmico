@@ -1,5 +1,5 @@
 {
-    "objects": ["boolean", "number", "string", "symbol", "vector"],
+    "types": ["boolean", "number", "string", "symbol", "vector"],
     "constants": [
         "e",
         "pi",
@@ -38,6 +38,8 @@
         "polynomialDiv",
         "tensorRank",
         "tensorDims",
+        "length",
+        "cross",
         "abs",
         "exp",
         "lg",
@@ -104,6 +106,7 @@
         "cov",
         "corr"
     ],
+    "methods": ["length"],
     "operators": [
         "define",
         "lambda",
