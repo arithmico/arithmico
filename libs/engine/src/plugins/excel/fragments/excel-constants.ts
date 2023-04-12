@@ -16,8 +16,8 @@ const excelConstantsFragment = new PluginFragment()
             const n = (<NumberNode>getParameter('n')).value;
             if (isNaN(n)) {
                 throw runtimeError('Function only works with numbers.');
-            } else if (( n < -1 ) || (n > 1) ) {
-              throw runtimeError('Only defined in the interval [-1,1].');
+            } else if (n < -1 || n > 1) {
+                throw runtimeError('Only defined in the interval [-1,1].');
             }
             return createNumberNode(Math.acos(n));
         },
