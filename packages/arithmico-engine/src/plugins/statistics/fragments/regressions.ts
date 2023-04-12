@@ -12,6 +12,7 @@ import createEquals from '../../../node-operations/create-node/create-equals';
 import createSymbolNode from '../../../node-operations/create-node/create-symbol-node';
 import createTimes from '../../../node-operations/create-node/create-times';
 import createPower from '../../../node-operations/create-node/create-power';
+import createPlus from '../../../node-operations/create-node/create-plus';
 
 const regressionsPolynomialHeader: FunctionHeaderItem[] = [
     { name: 'xs', type: 'vector', evaluate: true },
@@ -104,14 +105,14 @@ __FUNCTIONS.regressionsExponential &&
                 1,
             );
 
-            const regressionVariableA = Math.exp(coefficients[0]);
-            const regressionVariableB = Math.exp(coefficients[1]);
-
             return createEquals(
                 createSymbolNode('y'),
-                createTimes(
-                    createNumberNode(regressionVariableA),
-                    createPower(createNumberNode(regressionVariableB), createSymbolNode('x')),
+                createPower(
+                    createSymbolNode('e'),
+                    createPlus(
+                        createNumberNode(coefficients[0]),
+                        createTimes(createNumberNode(coefficients[1]), createSymbolNode('x')),
+                    ),
                 ),
             );
         },
