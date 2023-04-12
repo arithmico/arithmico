@@ -57,9 +57,17 @@ export default function CalculatorToolbar() {
 
   useHotkey("ctrl + alt + m", () => dispatch(resetDefinitions()));
   useHotkey("ctrl + alt + a", () => dispatch(resetAll()));
-  useHotkey("alt + p", () =>
-    navigator.clipboard.writeText(currentInput + "\n" + currentOutput)
-  );
+  useHotkey("alt + p", () => {
+    let text = currentInput + "\n";
+    if (currentOutput.type === "text") {
+      text += currentOutput.text;
+    } else if (currentOutput.type === "error") {
+      text += currentOutput.error;
+    } else {
+      text += "non serializeable output";
+    }
+    navigator.clipboard.writeText(text);
+  });
 
   return (
     <div
@@ -68,7 +76,7 @@ export default function CalculatorToolbar() {
       <CalculatorToolbarButton onClick={() => dispatch(resetInput())}>
         {t("toolbar.resetInput")}
       </CalculatorToolbarButton>
-      <CalculatorToolbarButton onClick={() => dispatch(resetOutput)}>
+      <CalculatorToolbarButton onClick={() => dispatch(resetOutput())}>
         {t("toolbar.resetOutput")}
       </CalculatorToolbarButton>
 
@@ -86,7 +94,7 @@ export default function CalculatorToolbar() {
         {t("toolbar.resetProtocol")}
       </CalculatorToolbarButton>
 
-      <CalculatorToolbarButton onClick={exportProtocol}>
+      <CalculatorToolbarButton onClick={() => exportProtocol()}>
         {t("toolbar.exportProtocol")}
       </CalculatorToolbarButton>
       <CalculatorToolbarButton onClick={() => dispatch(resetAll())}>

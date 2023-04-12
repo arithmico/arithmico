@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import { getDocumentation } from "@arithmico/engine";
+import React, {useRef, useState} from "react";
+import {getDocumentation} from "@arithmico/engine";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
-import { useSelector } from "react-redux";
-import { CalculatorRootState } from "@stores/calculator-store";
+import {useSelector} from "react-redux";
+import {CalculatorRootState} from "@stores/calculator-store";
 import ManualPluginSection from "@local-components/manual-plugin-section/manual-plugin-section";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import ManualHotkeySection from "@local-components/manual-hotkey-section/manual-hotkey-section";
 import classNames from "classnames";
 
@@ -63,6 +63,7 @@ export default function Manual() {
           />
         ))}
         <ManualHotkeySection />
+        {/*}
         <a
           href="https://docs.arithmico.com"
           className={classNames(
@@ -74,6 +75,7 @@ export default function Manual() {
         >
           {t("manual.fullDocumentation")}
         </a>
+        {*/}
       </PageContainer>
     </WithScrollbars>
   );

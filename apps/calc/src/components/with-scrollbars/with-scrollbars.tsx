@@ -1,9 +1,20 @@
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import React from 'react';
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import React from "react";
 
-export default function WithScrollbars({ children }: { children: React.ReactNode }) {
+export default function WithScrollbars({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <OverlayScrollbarsComponent options={{ className: 'os-theme-dark os-theme-custom' }}>
+    <OverlayScrollbarsComponent
+      options={{
+        className: "os-theme-dark os-theme-custom",
+        overflowBehavior: {
+          x: "hidden",
+        },
+      }}
+    >
       {children}
     </OverlayScrollbarsComponent>
   );

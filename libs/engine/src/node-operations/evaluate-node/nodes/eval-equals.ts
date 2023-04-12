@@ -9,19 +9,13 @@ export default function evaluateEquals(node: Equals, context: Context): SyntaxTr
     const rightChild = evaluate(node.right, context);
 
     if (
-        (leftChild.type === 'boolean' &&
-            rightChild.type === 'boolean' &&
-            context.options.operators.equalsBooleanBoolean) ||
-        (leftChild.type === 'number' && rightChild.type === 'number' && context.options.operators.equalsNumberNumber)
+        (leftChild.type === 'boolean' && rightChild.type === 'boolean' && __OPERATORS.equalsBooleanBoolean) ||
+        (leftChild.type === 'number' && rightChild.type === 'number' && __OPERATORS.equalsNumberNumber)
     ) {
         return createBooleanNode(leftChild.value === rightChild.value);
-    } else if (
-        leftChild.type === 'function' &&
-        rightChild.type === 'function' &&
-        context.options.operators.equalsFunctionFunction
-    ) {
+    } else if (leftChild.type === 'function' && rightChild.type === 'function' && __OPERATORS.equalsFunctionFunction) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createEquals, context);
     }
 
-    throw `TypeError: <${leftChild.type}> & <${rightChild.type}> is not defined`;
+    throw `TypeError: <${leftChild.type}> = <${rightChild.type}> is not defined`;
 }

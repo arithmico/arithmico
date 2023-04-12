@@ -84,6 +84,7 @@ const serialize: (node: SyntaxTreeNode, options: Options) => string = forEachNod
     function: serializeFunction,
     define: serializeDefine,
     methodCall: serializeMethodCall,
+    graphic: () => '{{graphic}}',
 });
 
 export default serialize;

@@ -8,13 +8,9 @@ export default function evaluateOr(node: Or, context: Context): SyntaxTreeNode {
     const leftChild = evaluate(node.left, context);
     const rightChild = evaluate(node.right, context);
 
-    if (leftChild.type === 'boolean' && rightChild.type === 'boolean' && context.options.operators.orBooleanBoolean) {
+    if (leftChild.type === 'boolean' && rightChild.type === 'boolean' && __OPERATORS.orBooleanBoolean) {
         return createBooleanNode(leftChild.value || rightChild.value);
-    } else if (
-        leftChild.type === 'function' &&
-        rightChild.type === 'function' &&
-        context.options.operators.orFunctionFunction
-    ) {
+    } else if (leftChild.type === 'function' && rightChild.type === 'function' && __OPERATORS.orFunctionFunction) {
         return createBinaryOperatorFunctionComposition(leftChild, rightChild, createOr, context);
     }
 
