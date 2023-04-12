@@ -79,6 +79,17 @@ integrationTest(
     'regressions:polynomial([6, 9, 12, 14, 30, 35, 40, 47, 51, 55, 60], [14, 28, 50, 70, 89, 94, 90, 75, 59, 44, 27], 2)',
     'y = (-18.25364) + 6.744358 * x - 0.1012 * x^2',
 );
+integrationTestThrow('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5], 1.3)');
+integrationTestThrow('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5], -2)');
 integrationTestThrow('regressions:polynomial([a, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])');
 integrationTestThrow('regressions:polynomial([-2, -1, 3, 4, 6], [a, 0.5, 2, 2, 5])');
 integrationTestThrow('regressions:polynomial([-2, -1, 3, 4], [0, 0.5, 2, 2, 5])');
+
+// regressions:exponential
+integrationTest(
+    'regressions:exponential([1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [1, 3, 5, 7, 9, 12, 15, 19, 23, 28, 33, 38, 44, 50, 56, 64, 73, 84, 97, 113])',
+    'y = 2.668877 * 1.226421^x',
+);
+integrationTestThrow('regressions:exponential([a, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])');
+integrationTestThrow('regressions:exponential([-2, -1, 3, 4, 6], [a, 0.5, 2, 2, 5])');
+integrationTestThrow('regressions:exponential([ -1, 3, 4, 6], [0, 0.5, 2, 2, 5])');

@@ -103,7 +103,8 @@
         "cov",
         "corr",
         "erf",
-        "regressionsPolynomial"
+        "regressionsPolynomial",
+        "regressionsExponential"
     ],
     "operators": [
         "define",
