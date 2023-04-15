@@ -29,8 +29,8 @@ __FUNCTIONS.regressionsPolynomial &&
     regressionsFragment.addFunction(
         'regressions:polynomial',
         regressionsPolynomialHeader,
-        '',
-        '',
+        'Creates a polynomial regression of degree model from the dependent variable ys and the independent variable xs. The default value of degree is 1.',
+        'Erstellt aus der abhängigen Variable ys und der unabhängigen Variable xs ein einfaches polynomiales Regressionsmodell mit Grad degree. Der Standardwert für den Grad degree ist 1.',
         ({ getParameter, runtimeError, typeError }) => {
             const xs = <Vector>getParameter('xs');
             const ys = <Vector>getParameter('ys');
@@ -81,8 +81,8 @@ __FUNCTIONS.regressionsExponential &&
     regressionsFragment.addFunction(
         'regressions:exponential',
         regressionsHeader,
-        '',
-        '',
+        'Creates a simple exponential regression model from the dependent variable ys and the independent variable xs.',
+        'Erstellt ein einfaches exponentielles Regressionsmodell aus der abhängigen Variablen ys und der unabhängigen Variablen xs.',
         ({ getParameter, runtimeError, typeError }) => {
             const xs = <Vector>getParameter('xs');
             const ys = <Vector>getParameter('ys');
