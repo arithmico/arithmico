@@ -125,8 +125,8 @@ __FUNCTIONS.regressionsLogistic &&
     regressionsFragment.addFunction(
         'regressions:logistic',
         regressionsHeader,
-        '',
-        '',
+        'Creates a simple binary logistic regression model from the single binary dependent variable ys and the independent variable xs.',
+        'Erstellt ein einfaches binäres logistisches Regressionsmodell aus der einzelnen binären abhängigen Variablen ys und der unabhängigen Variablen xs.',
         ({ getParameter, runtimeError, typeError }) => {
             const xs = <Vector>getParameter('xs');
             const ys = <Vector>getParameter('ys');
