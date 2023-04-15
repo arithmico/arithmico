@@ -1,4 +1,4 @@
-name: deploy development calc
+name: deploy docs development
 
 on:
   workflow_dispatch:
@@ -9,16 +9,16 @@ env:
   CI: true
 
 jobs:
-  deploy_arithmico_calc_dev:
-    name: deploy arithmico calc dev
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
-    environment: development
+    environment: docs-development
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
         with:
-          BUCKET_ID: ${{ secrets.S3_CALCULATOR }}
-          CLOUDFRONT_DIST_ID: ${{ secrets.CLOUDFRONT_CALCULATOR }}
-          WORKSPACE_PATH: packages/arithmico-calc
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

@@ -1,5 +1,5 @@
 {
-  "name": "@arithmico/config",
+  "name": "@arithmico/manager",
   "homepage": ".",
   "scripts": {
     "start": "vite",
