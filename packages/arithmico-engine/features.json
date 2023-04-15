@@ -104,7 +104,8 @@
         "corr",
         "erf",
         "regressionsPolynomial",
-        "regressionsExponential"
+        "regressionsExponential",
+        "regressionsLogistic"
     ],
     "operators": [
         "define",
