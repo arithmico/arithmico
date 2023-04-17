@@ -55,7 +55,7 @@ runs:
       run: npm run test:all
 
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v2
       with:
         aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY }}
         aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
