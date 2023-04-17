@@ -1,0 +1,75 @@
+name: "deploy arithmico app frontend"
+description: "deploy react app to s3 and invalidate cloudfront distribution"
+inputs:
+  BUCKET_ID:
+    required: true
+    description: s3 bucket id
+
+  CLOUDFRONT_DIST_ID:
+    required: true
+    description: cloudfront distribution id
+
+  WORKSPACE_PATH:
+    required: true
+    description: path to workspace
+
+  AWS_ACCESS_KEY:
+    required: true
+    description: aws access key
+
+  AWS_SECRET_ACCESS_KEY:
+    required: true
+    description: aws secret access key
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: "npm"
+
+    - name: install dependencies
+      env:
+        CI: "true"
+      shell: bash
+      run: npm ci
+
+    - name: build engine with full features
+      env:
+        CI: "true"
+      shell: bash
+      run: npm run build:full-features -w @arithmico/engine
+
+    - name: build app
+      env:
+        CI: "true"
+        WORKSPACE_PATH: ${{ inputs.WORKSPACE_PATH }}
+      shell: bash
+      run: npm run build -w $WORKSPACE_PATH
+
+    - name: Test
+      env:
+        CI: "true"
+      shell: bash
+      run: npm run test:all
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+
+    - name: Deploy static site to S3 bucket
+      env:
+        WORKSPACE_PATH: ${{ inputs.WORKSPACE_PATH }}
+        BUCKET_ID: ${{ inputs.BUCKET_ID }}
+      shell: bash
+      run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$(echo $BUCKET_ID) --delete
+
+    - name: Invalidate Cloundfront distrubution
+      env:
+        CLOUDFRONT_DIST_ID: ${{ inputs.CLOUDFRONT_DIST_ID }}
+      shell: bash
+      run: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST_ID --paths '/*'

@@ -1,9 +1,9 @@
-name: deploy development
+name: deploy staging
 
 on:
   workflow_dispatch:
   push:
-    branches: [dev]
+    branches: [stage]
 
 env:
   CI: true
@@ -12,7 +12,7 @@ jobs:
   deploy_blog:
     name: deploy blog
     runs-on: ubuntu-latest
-    environment: blog-development
+    environment: blog-staging
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
@@ -26,7 +26,7 @@ jobs:
   deploy_calc:
     name: deploy calc
     runs-on: ubuntu-latest
-    environment: calc-development
+    environment: calc-staging
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
@@ -40,7 +40,7 @@ jobs:
   deploy_docs:
     name: deploy docs
     runs-on: ubuntu-latest
-    environment: docs-development
+    environment: docs-staging
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
@@ -54,7 +54,7 @@ jobs:
   deploy_manager:
     name: deploy manager
     runs-on: ubuntu-latest
-    environment: manager-development
+    environment: manager-staging
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend

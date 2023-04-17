@@ -1,4 +1,4 @@
-name: Deploy Production
+name: deploy production
 
 on:
   workflow_dispatch:
@@ -7,224 +7,60 @@ on:
 
 env:
   CI: true
-  BUCKET_ID: ${{ secrets.BUCKET_ID }}
-  CALCULATOR_ONLINE_DIST: ${{ secrets.CALCULATOR_ONLINE_DIST }}
-  CALCULATOR_OFFLINE_DIST: ${{ secrets.CALCULATOR_OFFLINE_DIST }}
-  DOCUMENTATION_DIST: ${{ secrets.DOCUMENTATION_DIST }}
-  CONFIG_DIST: ${{ secrets.CONFIG_DIST }}
-  BLOG_DIST: ${{ secrets.BLOG_DIST }}
-  CDN_DIST: ${{ secrets.CDN_DIST }}
 
 jobs:
-  bump_version:
-    name: Bump Version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "npm"
-      - name: Install dependencies
-        run: npm ci
-      - name: Test
-        run: npm run test:all
-      - name: Setup git
-        run: |
-          git config --global user.name 'Github Actions'
-          git config --global user.email 'dev.behrenle@posteo.de'
-      - name: Bump version
-        run: |
-          sh tools/auto-version.sh && git push
-          git fetch
-          git switch dev
-          git merge origin/main
-          git push
-      - name: Save latest version information
-        run: |
-          mkdir meta
-          npm pkg get version | cut -d '"' -f 2 > ./meta/latest_version.txt
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-      - name: Upload latest version information
-        run: aws s3 sync ./meta s3://$BUCKET_ID/prod/meta --delete
-      - name: Invalidate Cloundfront distrubution
-        run: aws cloudfront create-invalidation --distribution-id $CDN_DIST --paths '/meta/*'
-
-  deploy_calculator_online:
-    name: Deploy Calculator Online Version
-    needs: bump_version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "npm"
-      - name: fetch latest commits
-        run: git pull --no-rebase
-      - name: Install and Build
-        run: |
-          export ARITHMICO_FEATURES=$(cat libs/engine/features.json) 
-          npm ci
-          npm run build:calc
-      - name: Test
-        run: npm run test:all
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./apps/calc/dist s3://$BUCKET_ID/prod/calculator --delete
-      - name: Invalidate Cloundfront distrubution
-        run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_ONLINE_DIST --paths '/*'
-
-  deploy_documentation:
-    name: Deploy Documentation
-    needs: bump_version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "npm"
-      - name: fetch latest commits
-        run: git pull --no-rebase
-      - name: Install dependencies
-        run: npm ci
-      - name: Build
-        run: npm run build:docs
-      - name: Test
-        run: npm run test:all
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./apps/docs/dist s3://$BUCKET_ID/prod/documentation --delete
-      - name: Invalidate Cloundfront distrubution
-        run: aws cloudfront create-invalidation --distribution-id $DOCUMENTATION_DIST --paths '/*'
-
   deploy_blog:
-    name: Deploy Documentation
-    needs: bump_version
+    name: deploy blog
     runs-on: ubuntu-latest
+    environment: blog-production
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
         with:
-          node-version: 16
-          cache: "npm"
-      - name: fetch latest commits
-        run: git pull --no-rebase
-      - name: Install dependencies
-        run: npm ci
-      - name: Build
-        run: npm run build:blog
-      - name: Test
-        run: npm run test:all
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./apps/blog/dist s3://$BUCKET_ID/prod/blog --delete
-      - name: Invalidate Cloundfront distrubution
-        run: aws cloudfront create-invalidation --distribution-id $BLOG_DIST --paths '/*'
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  deploy_config:
-    name: Deploy Config
-    needs: bump_version
+  deploy_calc:
+    name: deploy calc
     runs-on: ubuntu-latest
+    environment: calc-production
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
         with:
-          node-version: 16
-          cache: "npm"
-      - name: fetch latest commits
-        run: git pull --no-rebase
-      - name: Install dependencies
-        run: npm ci
-      - name: Build
-        run: npm run build:engine && npm run build:config
-      - name: Test
-        run: npm run test:all
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./apps/config/dist s3://$BUCKET_ID/prod/config --delete
-      - name: Invalidate Cloundfront distrubution
-        run: aws cloudfront create-invalidation --distribution-id $CONFIG_DIST --paths '/*'
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  deploy_calculator_offline:
-    name: Deploy Calculator Offline Version
-    needs: bump_version
+  deploy_docs:
+    name: deploy docs
     runs-on: ubuntu-latest
+    environment: docs-production
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  deploy_manager:
+    name: deploy manager
+    runs-on: ubuntu-latest
+    environment: manager-production
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
         with:
-          node-version: 16
-          cache: "npm"
-      - name: fetch latest commits
-        run: git pull --no-rebase
-      - name: Install and Build
-        run: |
-          export ARITHMICO_FEATURES=$(cat libs/engine/features.json) 
-          npm ci 
-          npm run build:offline -w apps/calc/
-      - name: Test
-        run: npm run test:all
-      - name: Zip
-        run: |
-          mkdir deploy
-          VERSION_NUMBER=$(node -pe "require('./package.json')['version']")
-          cd ./apps/calc/dist && zip -r ../../../deploy/$(echo $VERSION_NUMBER).zip .
-      - name: Setup Vars
-        id: vars
-        run: |
-          VERSION_NUMBER=$(node -pe "require('./package.json')['version']") 
-          echo "release_tag=v$VERSION_NUMBER" >> $GITHUB_OUTPUT
-          echo "release_name=Arithmico v$VERSION_NUMBER" >> $GITHUB_OUTPUT
-          echo release_text="Download offline version [here](https://blob.arithmico.com/calculator/offline/$(echo $VERSION_NUMBER).zip)" >> $GITHUB_OUTPUT
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ steps.vars.outputs.release_tag }}
-          release_name: ${{ steps.vars.outputs.release_name }}
-          body: ${{ steps.vars.outputs.release_text }}
-          draft: false
-          prerelease: false
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./deploy/ s3://$BUCKET_ID/blob/calculator/offline/
-      - name: Invalidate Cloundfront distrubution
-        run: aws cloudfront create-invalidation --distribution-id $CALCULATOR_OFFLINE_DIST --paths '/*'
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
