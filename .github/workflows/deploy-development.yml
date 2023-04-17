@@ -1,0 +1,66 @@
+name: deploy development
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+
+env:
+  CI: true
+
+jobs:
+  deploy_blog:
+    name: deploy blog
+    runs-on: ubuntu-latest
+    environment: blog-development
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
+        with:
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  deploy_calc:
+    name: deploy calc
+    runs-on: ubuntu-latest
+    environment: calc-development
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
+        with:
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  deploy_docs:
+    name: deploy docs
+    runs-on: ubuntu-latest
+    environment: docs-development
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
+        with:
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  deploy_manager:
+    name: deploy manager
+    runs-on: ubuntu-latest
+    environment: manager-development
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
+        with:
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          CLOUDFRONT_DIST_ID: ${{ secrets.cloudfront_distribution_id }}
+          WORKSPACE_PATH: ${{ vars.app_path }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
