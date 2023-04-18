@@ -7,6 +7,7 @@ const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', e
 
 const excelConstantsFragment = new PluginFragment()
     .addConstant('excel:five', 'Test output five', 'Test output fünf', createNumberNode(5))
+
     .addFunction(
         'arccos',
         singleNumberHeader,
@@ -22,7 +23,10 @@ const excelConstantsFragment = new PluginFragment()
             return createNumberNode(Math.acos(n));
         },
     )
-    .addFunction('wurzel', singleNumberHeader, 'square root.', 'Quadratwurzel', ({ getParameter, runtimeError }) => {
+    .addFunction('wurzel', singleNumberHeader,
+        'square root.',
+        'Quadratwurzel',
+        ({ getParameter, runtimeError }) => {
         const n = (<NumberNode>getParameter('n')).value;
 
         if (n < 0) {
@@ -30,7 +34,8 @@ const excelConstantsFragment = new PluginFragment()
         }
 
         return createNumberNode(Math.sqrt(n));
-    })
+    }
+    )
 
     .addFunction(
         'abrunden',
@@ -45,5 +50,21 @@ const excelConstantsFragment = new PluginFragment()
 
             return createNumberNode(Math.floor(n));
         },
-    );
+    )
+
+.addFunction(
+    'Acosh',
+    singleNumberHeader,
+    'Returns the inverse hyperbolic cosine of a number',
+    'Gibt den umgekehrten hyperbolischen Kosinus einer Zahl zurück',
+    ({ getParameter, runtimeError }) => {
+        const n = (<NumberNode>getParameter('n')).value;
+        if (isNaN(n)) {
+            throw runtimeError('Function abrunden only works with numbers.');
+        }
+
+        return createNumberNode(Math.acosh(n));
+    },
+);
+
 export default excelConstantsFragment;
