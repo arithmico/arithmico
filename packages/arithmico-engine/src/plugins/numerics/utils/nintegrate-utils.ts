@@ -1,7 +1,7 @@
 import evaluate from '../../../node-operations/evaluate-node';
 import { Context, NumberNode, SyntaxTreeNode } from '../../../types';
 
-const positionWheightPairs = [
+const positionWeightPairs = [
     [0.9914553711208126, 0.022935322010529224],
     [0.9491079123427585, 0.06309209262997856],
     [0.8648644233597691, 0.10479001032225019],
@@ -19,11 +19,11 @@ const positionWheightPairs = [
     [-0.9914553711208126, 0.022935322010529224],
 ];
 
-function mapPositionWheightPairsToIntervall(leftLimit: number, rightLimit: number) {
-    return positionWheightPairs.map(([x, w]) => [((rightLimit - leftLimit) / 2) * x + (leftLimit + rightLimit) / 2, w]);
+function mapPositionWeightPairsToInterval(leftLimit: number, rightLimit: number) {
+    return positionWeightPairs.map(([x, w]) => [((rightLimit - leftLimit) / 2) * x + (leftLimit + rightLimit) / 2, w]);
 }
 
-export function integrateIntervall(
+export function integrateInterval(
     leftLimit: number,
     rightLimit: number,
     expression: SyntaxTreeNode,
@@ -31,8 +31,8 @@ export function integrateIntervall(
     context: Context,
 ): number {
     let errors = 0;
-    const positionWheightPairs = mapPositionWheightPairsToIntervall(leftLimit, rightLimit);
-    const values = positionWheightPairs.map(([x, w]) => {
+    const positionWeightPairs = mapPositionWeightPairsToInterval(leftLimit, rightLimit);
+    const values = positionWeightPairs.map(([x, w]) => {
         value.value = x;
         try {
             const result = evaluate(expression, context);
