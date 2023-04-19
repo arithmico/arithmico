@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import databaseConfig from './config/database';
-import configValidationSchema from './config/config-validation';
+import { UserModule } from './modules/user/user.module';
+import databaseConfig from './infrastructure/config/database';
+import configValidationSchema from './infrastructure/config/config-validation';
+import { RouterModule } from '@nestjs/core';
+import { DatabaseModule } from './infrastructure/database/database.module';
 
 @Module({
   imports: [
@@ -24,6 +27,14 @@ import configValidationSchema from './config/config-validation';
         allowUnknown: true,
       },
     }),
+    DatabaseModule,
+    UserModule,
+    RouterModule.register([
+      {
+        path: 'users',
+        module: UserModule,
+      },
+    ]),
   ],
   controllers: [],
   providers: [],
