@@ -60,9 +60,10 @@ const excelConstantsFragment = new PluginFragment()
     ({ getParameter, runtimeError }) => {
         const n = (<NumberNode>getParameter('n')).value;
         if (isNaN(n)) {
-            throw runtimeError('Function abrunden only works with numbers.');
+            throw runtimeError('Function acosh funktioniert nur mit Zahlen.');
+        }else if (n <1) {
+            throw runtimeError('Nur Zahlen größer als 1 möglich');
         }
-
         return createNumberNode(Math.acosh(n));
     },
 );
