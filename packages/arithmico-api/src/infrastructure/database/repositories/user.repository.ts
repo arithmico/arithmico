@@ -36,4 +36,19 @@ export class UserRepository {
     const result = await this.userModel.estimatedDocumentCount();
     return result !== 0;
   }
+
+  async setPasswordHash(
+    userId: string,
+    passwordHash: string,
+  ): Promise<UserDocument> {
+    return this.userModel
+      .findOneAndUpdate(
+        {
+          _id: userId,
+        },
+        { passwordHash },
+        { new: true },
+      )
+      .exec();
+  }
 }

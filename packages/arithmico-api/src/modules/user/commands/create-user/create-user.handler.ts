@@ -1,4 +1,5 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { UserActivationRepository } from '../../../../infrastructure/database/repositories/user-activation.repository';
 import { UserRepository } from '../../../../infrastructure/database/repositories/user.repository';
 import { SendActivationEmailEvent } from '../../../email/events/send-acitvation-email/send-activation-email.event';
 import { CreateUserCommand } from './create-user.command';
@@ -10,19 +11,28 @@ export class CreateUserCommandHandler
 {
   constructor(
     private userRepository: UserRepository,
+    private userActivationRepository: UserActivationRepository,
     private eventBus: EventBus,
   ) {}
 
   async execute(command: CreateUserCommand): Promise<CreateUserResponseDto> {
-    const result = await this.userRepository.create({
+    const user = await this.userRepository.create({
       username: command.username,
       email: command.email,
     });
 
-    this.eventBus.publish(
-      new SendActivationEmailEvent(command.email, command.username, '<url>'),
+    const userActivationDocument = await this.userActivationRepository.create(
+      user._id,
     );
 
-    return { username: result.username };
+    this.eventBus.publish(
+      new SendActivationEmailEvent(
+        command.email,
+        command.username,
+        userActivationDocument._id,
+      ),
+    );
+
+    return { username: user.username };
   }
 }
