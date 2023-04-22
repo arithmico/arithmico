@@ -1,9 +1,9 @@
 import createFunctionCall from '../../../node-operations/create-node/create-function-call';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
-import {FunctionHeaderItem, FunctionNode, NumberNode} from '../../../types/nodes.types';
-import {closeTo} from '../../../utils/float-utils';
-import {integrateIntervall} from '../utils/nintegrate-utils';
-import {PluginFragment} from '../../../utils/plugin-builder';
+import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/nodes.types';
+import { closeTo } from '../../../utils/float-utils';
+import { integrateIntervall } from '../utils/nintegrate-utils';
+import { PluginFragment } from '../../../utils/plugin-builder';
 
 const INTERVALLS = 128;
 

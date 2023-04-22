@@ -1,15 +1,15 @@
 import createMinus from '../../../node-operations/create-node/create-minus';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import createVector from '../../../node-operations/create-node/create-vector';
-import {Context, Equals, NumberNode} from '../../../types';
-import {FunctionHeaderItem} from '../../../types/nodes.types';
-import {getVariableNames} from '../../../utils/symbolic-utils';
+import { Context, Equals, NumberNode } from '../../../types';
+import { FunctionHeaderItem } from '../../../types/nodes.types';
+import { getVariableNames } from '../../../utils/symbolic-utils';
 import checkCandidates from '../utils/nsolve/check-candidates';
 import findCandidates from '../utils/nsolve/find-candidates';
 import findDirectHits from '../utils/nsolve/find-direct-hits';
 import refineResults from '../utils/nsolve/refine-results';
 import scan from '../utils/nsolve/scan';
-import {PluginFragment} from '../../../utils/plugin-builder';
+import { PluginFragment } from '../../../utils/plugin-builder';
 
 const nsolveHeader: FunctionHeaderItem[] = [
     { type: 'equals', name: 'equation', evaluate: false },
