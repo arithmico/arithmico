@@ -4,8 +4,9 @@ import evaluate from '../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/nodes.types';
 import { binco } from '../../../utils/math-utils/binco';
 import { PluginFragment } from '../../../utils/plugin-builder';
+import { calculateFunctionValue } from '../utils/nderive-utils';
 
-const H_COEFFICIENT = 1e-6;
+const EPSILON = 1e-12;
 
 const nderiveHeader: FunctionHeaderItem[] = [
     { type: 'function', name: 'f', evaluate: true },
@@ -37,10 +38,18 @@ __FUNCTIONS.nderive &&
             const value = createNumberNode(position);
             const expression = createFunctionCall(f, [value]);
             evaluate(expression, context);
-            const h = Math.abs(position >= 1 ? position : 1) * H_COEFFICIENT;
+
+            const functionResult = calculateFunctionValue(f, position, context);
+            const secondDerivative =
+                (calculateFunctionValue(f, position + EPSILON, context) -
+                    2 * functionResult +
+                    calculateFunctionValue(f, position - EPSILON, context)) /
+                EPSILON ** 2;
+            const hValue =
+                2 * Math.sqrt(EPSILON * Math.abs(functionResult / (secondDerivative === 0 ? 1e-16 : secondDerivative)));
+            const h = hValue === 0 ? 1e-16 : Math.pow(10, -Math.log10(Math.abs(functionResult))) * hValue;
 
             let result = 0;
-
             const cOuter = Math.pow(2 * h, -grade);
 
             for (let i = 0; i <= grade; i++) {
@@ -50,13 +59,13 @@ __FUNCTIONS.nderive &&
                 const y = evaluate(expression, context);
 
                 if (y.type !== 'number') {
-                    throw 'RuntimeError: nderive: cannot derive not scalar function';
+                    throw runtimeError('cannot derive not scalar function');
                 }
 
-                result += y.value * cInner * cOuter;
+                result += y.value * cInner;
             }
 
-            return createNumberNode(result);
+            return createNumberNode(result * cOuter);
         },
     );
 
