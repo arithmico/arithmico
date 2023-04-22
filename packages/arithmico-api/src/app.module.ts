@@ -8,7 +8,6 @@ import seedUserConfig from './infrastructure/config/seed-user';
 import configValidationSchema from './infrastructure/config/config-validation';
 import { RouterModule } from '@nestjs/core';
 import { DatabaseModule } from './infrastructure/database/database.module';
-import { EmailServiceModule } from './infrastructure/email-service/email.module';
 import { ReleaseModule } from './modules/release/release.module';
 import { EmailModule } from './modules/email/email.module';
 
@@ -40,7 +39,6 @@ import { EmailModule } from './modules/email/email.module';
         module: UserModule,
       },
     ]),
-    EmailServiceModule,
     ReleaseModule,
     EmailModule,
   ],

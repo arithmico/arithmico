@@ -1,6 +1,6 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { UserRepository } from '../../../../infrastructure/database/repositories/user.repository';
-import { EmailService } from '../../../../infrastructure/email-service/email.service';
+import { SendActivationEmailEvent } from '../../../email/events/send-acitvation-email/send-activation-email.event';
 import { CreateUserCommand } from './create-user.command';
 import { CreateUserResponseDto } from './create-user.response.dto';
 
@@ -10,7 +10,7 @@ export class CreateUserCommandHandler
 {
   constructor(
     private userRepository: UserRepository,
-    private emailService: EmailService,
+    private eventBus: EventBus,
   ) {}
 
   async execute(command: CreateUserCommand): Promise<CreateUserResponseDto> {
@@ -19,10 +19,8 @@ export class CreateUserCommandHandler
       email: command.email,
     });
 
-    await this.emailService.sendEmail(
-      result.email,
-      'Activate your Arithmico Account',
-      'Test',
+    this.eventBus.publish(
+      new SendActivationEmailEvent(command.email, command.username, '<url>'),
     );
 
     return { username: result.username };

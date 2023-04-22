@@ -27,7 +27,7 @@ export class EmailService {
           Data: subject,
         },
         Body: {
-          Text: {
+          Html: {
             Charset: 'UTF-8',
             Data: content,
           },
