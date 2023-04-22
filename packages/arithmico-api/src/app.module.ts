@@ -10,6 +10,7 @@ import { RouterModule } from '@nestjs/core';
 import { DatabaseModule } from './infrastructure/database/database.module';
 import { EmailServiceModule } from './infrastructure/email-service/email.module';
 import { ReleaseModule } from './modules/release/release.module';
+import { EmailModule } from './modules/email/email.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { ReleaseModule } from './modules/release/release.module';
     ]),
     EmailServiceModule,
     ReleaseModule,
+    EmailModule,
   ],
   controllers: [],
   providers: [],
