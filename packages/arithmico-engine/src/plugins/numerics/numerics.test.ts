@@ -26,4 +26,8 @@ integrationTest('nderive((x) -> x^2, 2, 1)', '4');
 integrationTest('nderive((x) -> x^2, 3, 2)', '2');
 integrationTest('nderive((x) -> x^2, pi^2, 2)', '2');
 integrationTest('nderive((x) -> x, 0)', '1');
+integrationTest('nderive(x -> x^2, 2, 3)', '0');
+integrationTest('nderive(x -> x^3, 4 , 4)', '0');
+integrationTest('nderive(x -> x^7, 3, 8)', '0');
+integrationTest('nderive(x -> (x + 1)/(x - 2 * x^4), 3/5)', '12.963115');
 integrationTestThrow('nderive((x) -> 1/x, 0)');
