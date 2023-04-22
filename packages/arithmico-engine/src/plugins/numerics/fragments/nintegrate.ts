@@ -2,10 +2,10 @@ import createFunctionCall from '../../../node-operations/create-node/create-func
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/nodes.types';
 import { closeTo } from '../../../utils/float-utils';
-import { integrateIntervall } from '../utils/nintegrate-utils';
+import { integrateInterval } from '../utils/nintegrate-utils';
 import { PluginFragment } from '../../../utils/plugin-builder';
 
-const INTERVALLS = 128;
+const INTERVALS = 128;
 
 const nintegrateHeader: FunctionHeaderItem[] = [
     { type: 'function', name: 'f', evaluate: true },
@@ -32,16 +32,16 @@ __FUNCTIONS.nintegrate &&
 
             const value = createNumberNode(0);
             const expression = createFunctionCall(f, [value]);
-            const intervallIntegrals: number[] = [];
+            const intervalIntegrals: number[] = [];
             const leftLimit = Math.min(start.value, stop.value);
             const rightLimit = Math.max(start.value, stop.value);
-            const intervallWidth = (rightLimit - leftLimit) / INTERVALLS;
+            const intervalWidth = (rightLimit - leftLimit) / INTERVALS;
 
-            for (let i = 0; i < INTERVALLS; i++) {
-                intervallIntegrals.push(
-                    integrateIntervall(
-                        intervallWidth * i + leftLimit,
-                        intervallWidth * (i + 1) + leftLimit,
+            for (let i = 0; i < INTERVALS; i++) {
+                intervalIntegrals.push(
+                    integrateInterval(
+                        intervalWidth * i + leftLimit,
+                        intervalWidth * (i + 1) + leftLimit,
                         expression,
                         value,
                         context,
@@ -49,7 +49,7 @@ __FUNCTIONS.nintegrate &&
                 );
             }
 
-            const result = intervallIntegrals.reduce((a, b) => a + b);
+            const result = intervalIntegrals.reduce((a, b) => a + b);
 
             if (closeTo(result, 0)) {
                 return createNumberNode(0);
