@@ -23,12 +23,17 @@ export class UserRepository {
     limit,
   }: GetUsersArgs): Promise<PagedResponse<UserDocument>> {
     const items = await this.userModel.find().skip(skip).limit(limit).exec();
-    const total = await this.userModel.find().count().exec();
+    const total = await this.userModel.find().countDocuments().exec();
     return {
       items,
       skip,
       limit,
       total,
     };
+  }
+
+  async hasUsers(): Promise<boolean> {
+    const result = await this.userModel.estimatedDocumentCount();
+    return result !== 0;
   }
 }

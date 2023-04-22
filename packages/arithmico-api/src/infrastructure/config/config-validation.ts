@@ -7,4 +7,8 @@ export default Joi.object({
   CORS_ENABLED: Joi.boolean().default(false),
   PORT: Joi.number().default(3000),
   MONGODB_URI: Joi.string().required(),
+  AWS_ACCESS_KEY_ID: Joi.string().required(),
+  AWS_SECRET_ACCESS_KEY: Joi.string().required(),
+  SEED_USERNAME: Joi.string().required(),
+  SEED_EMAIL: Joi.string().required(),
 });

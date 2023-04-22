@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './modules/user/user.module';
 import databaseConfig from './infrastructure/config/database';
+import awsConfig from './infrastructure/config/aws';
+import seedUserConfig from './infrastructure/config/seed-user';
 import configValidationSchema from './infrastructure/config/config-validation';
 import { RouterModule } from '@nestjs/core';
 import { DatabaseModule } from './infrastructure/database/database.module';
@@ -22,7 +24,7 @@ import { ReleaseModule } from './modules/release/release.module';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [databaseConfig],
+      load: [databaseConfig, awsConfig, seedUserConfig],
       validationSchema: configValidationSchema,
       validationOptions: {
         abortEarly: false,
