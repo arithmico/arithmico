@@ -47,7 +47,7 @@ __FUNCTIONS.nderive &&
                 EPSILON ** 2;
             const hValue =
                 2 * Math.sqrt(EPSILON * Math.abs(functionResult / (secondDerivative === 0 ? 1e-16 : secondDerivative)));
-            const h = hValue === 0 ? 1e-16 : 10 ** -(Math.log10(Math.abs(functionResult))) * hValue;
+            const h = hValue === 0 ? 1e-16 : Math.pow(10, -Math.log10(Math.abs(functionResult))) * hValue;
 
             let result = 0;
             const cOuter = Math.pow(2 * h, -grade);
