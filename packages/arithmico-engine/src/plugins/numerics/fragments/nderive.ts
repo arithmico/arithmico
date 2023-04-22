@@ -1,10 +1,10 @@
 import createFunctionCall from '../../../node-operations/create-node/create-function-call';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import evaluate from '../../../node-operations/evaluate-node';
-import {FunctionHeaderItem, FunctionNode, NumberNode} from '../../../types/nodes.types';
-import {binco} from '../../../utils/binco';
-import {PluginFragment} from '../../../utils/plugin-builder';
-import {calculateFunctionValue} from "../utils/nderive-utils";
+import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/nodes.types';
+import { binco } from '../../../utils/binco';
+import { PluginFragment } from '../../../utils/plugin-builder';
+import { calculateFunctionValue } from '../utils/nderive-utils';
 
 const EPSILON = 1e-12;
 
