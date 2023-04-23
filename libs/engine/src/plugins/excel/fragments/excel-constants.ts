@@ -66,6 +66,24 @@ const excelConstantsFragment = new PluginFragment()
         }
         return createNumberNode(Math.acosh(n));
     },
-);
+
+)
+    .addFunction(
+        'ungerade', singleNumberHeader,
+        'Rounds up a number to the nearest odd integer',
+        'Rundet eine Zahl auf die nächste ungerade ganze Zahl auf',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+
+            if (isNaN(n)) {
+                throw runtimeError('Funktion ungerade funktioniert nur mit Zahlen');
+            }
+
+            const gerundeteZahl = Math.ceil(n); // Rundet auf
+            const istGerade = gerundeteZahl % 2 === 0; // Überprüfen gerundete Zahl gerade?
+            const ungeradeZahl = istGerade ? gerundeteZahl + 1 : gerundeteZahl;
+            return createNumberNode (ungeradeZahl);
+        },
+    );
 
 export default excelConstantsFragment;
