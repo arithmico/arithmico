@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PagedResponse } from '../../../common/types/paged-response.dto';
@@ -40,7 +40,7 @@ export class UserRepository {
   async setPasswordHash(
     userId: string,
     passwordHash: string,
-  ): Promise<UserDocument> {
+  ): Promise<UserDocument | null> {
     return this.userModel
       .findOneAndUpdate(
         {
@@ -50,5 +50,28 @@ export class UserRepository {
         { new: true },
       )
       .exec();
+  }
+
+  async setPasswordHashOrThrow(
+    userId: string,
+    passwordHash: string,
+  ): Promise<UserDocument> {
+    const userDocument = await this.setPasswordHash(userId, passwordHash);
+    if (!userDocument) {
+      throw new NotFoundException();
+    }
+    return userDocument;
+  }
+
+  async getUserByUsername(username: string): Promise<UserDocument | null> {
+    return this.userModel.findOne({ username }).exec();
+  }
+
+  async getUserByUsernameOrThrow(username: string): Promise<UserDocument> {
+    const userDocument = await this.getUserByUsername(username);
+    if (!userDocument) {
+      throw new NotFoundException();
+    }
+    return userDocument;
   }
 }

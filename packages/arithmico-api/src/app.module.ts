@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './modules/user/user.module';
 import databaseConfig from './infrastructure/config/database';
 import awsConfig from './infrastructure/config/aws';
+import jwtConfig from './infrastructure/config/jwt';
 import seedUserConfig from './infrastructure/config/seed-user';
 import configValidationSchema from './infrastructure/config/config-validation';
 import { RouterModule } from '@nestjs/core';
@@ -25,7 +26,7 @@ import { AuthModule } from './modules/auth/auth.module';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [databaseConfig, awsConfig, seedUserConfig],
+      load: [databaseConfig, awsConfig, seedUserConfig, jwtConfig],
       validationSchema: configValidationSchema,
       validationOptions: {
         abortEarly: false,
@@ -33,13 +34,17 @@ import { AuthModule } from './modules/auth/auth.module';
       },
     }),
     DatabaseModule,
-    UserModule,
     RouterModule.register([
       {
         path: 'users',
         module: UserModule,
       },
+      {
+        path: 'auth',
+        module: AuthModule,
+      },
     ]),
+    UserModule,
     ReleaseModule,
     EmailModule,
     AuthModule,

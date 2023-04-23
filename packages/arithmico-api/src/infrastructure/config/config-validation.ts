@@ -11,4 +11,6 @@ export default Joi.object({
   AWS_SECRET_ACCESS_KEY: Joi.string().required(),
   SEED_USERNAME: Joi.string().required(),
   SEED_EMAIL: Joi.string().required(),
+  JWT_SECRET: Joi.string().required(),
+  JWT_COOKIE_DOMAIN: Joi.string().required(),
 });
