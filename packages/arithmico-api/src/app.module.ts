@@ -13,6 +13,7 @@ import { DatabaseModule } from './infrastructure/database/database.module';
 import { ReleaseModule } from './modules/release/release.module';
 import { EmailModule } from './modules/email/email.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -33,6 +34,10 @@ import { AuthModule } from './modules/auth/auth.module';
         abortEarly: false,
         allowUnknown: true,
       },
+    }),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 10000, // 10s
     }),
     DatabaseModule,
     RouterModule.register([
