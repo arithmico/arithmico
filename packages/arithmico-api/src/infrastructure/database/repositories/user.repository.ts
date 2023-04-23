@@ -18,6 +18,18 @@ export class UserRepository {
     return this.userModel.create(newUser);
   }
 
+  async getUserById(userId: string): Promise<UserDocument | null> {
+    return this.userModel.findById(userId);
+  }
+
+  async getUserByIdOrThrow(userId: string): Promise<UserDocument> {
+    const userDocument = await this.getUserById(userId);
+    if (!userDocument) {
+      throw new NotFoundException();
+    }
+    return userDocument;
+  }
+
   async getUsers({
     skip,
     limit,

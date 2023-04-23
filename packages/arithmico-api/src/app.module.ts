@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './modules/user/user.module';
+import appConfig from './infrastructure/config/app';
 import databaseConfig from './infrastructure/config/database';
 import awsConfig from './infrastructure/config/aws';
 import jwtConfig from './infrastructure/config/jwt';
@@ -26,7 +27,7 @@ import { AuthModule } from './modules/auth/auth.module';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [databaseConfig, awsConfig, seedUserConfig, jwtConfig],
+      load: [appConfig, databaseConfig, awsConfig, seedUserConfig, jwtConfig],
       validationSchema: configValidationSchema,
       validationOptions: {
         abortEarly: false,

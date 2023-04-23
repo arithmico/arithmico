@@ -5,6 +5,7 @@ import { UserRepository } from '../../../../infrastructure/database/repositories
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AccessTokenClaims, RefreshTokenClaims } from '../../types';
+import { ConfigService } from '@nestjs/config';
 
 interface Result {
   accessToken: string;
@@ -16,6 +17,7 @@ export class LoginCommandHandler implements ICommandHandler<LoginCommand> {
   constructor(
     private userRepository: UserRepository,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   async execute(command: LoginCommand): Promise<Result> {
@@ -46,11 +48,11 @@ export class LoginCommandHandler implements ICommandHandler<LoginCommand> {
     };
 
     const accessToken = this.jwtService.sign(accessTokenClaims, {
-      expiresIn: '1h',
+      expiresIn: this.configService.get<number>('jwt.accessTokenLifetime'),
     });
 
     const refreshToken = this.jwtService.sign(refreshTokenClaims, {
-      expiresIn: '7d',
+      expiresIn: this.configService.get<number>('jwt.refreshTokenLifetime'),
     });
 
     return { accessToken, refreshToken };

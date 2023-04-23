@@ -1,31 +1,41 @@
-import { Body, Controller, Logger, Post, Res } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Post,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
-import { Response } from 'express';
-import { LoginCommand } from './login.command';
-import { LoginRequestDto } from './login.request.dto';
-import { LoginResponseDto } from './login.response.dto';
+import { Request, Response } from 'express';
+import { RefreshCommand } from './refresh.command';
+import { RefreshResponseDto } from './refresh.response.dto';
 
-@Controller('/login')
-export class LoginController {
+@Controller('/refresh')
+export class RefreshController {
   constructor(
     private commandBus: CommandBus,
     private configService: ConfigService,
   ) {}
 
   @Post()
-  async login(
-    @Body() loginRequestDto: LoginRequestDto,
+  async refresh(
+    @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<void> {
+    const refreshToken = request.cookies['refreshToken'];
+
+    if (typeof refreshToken !== 'string' || !refreshToken) {
+      throw new BadRequestException();
+    }
+
     const result = await this.commandBus.execute(
-      new LoginCommand(loginRequestDto.username, loginRequestDto.password),
+      new RefreshCommand(refreshToken),
     );
 
-    const body: LoginResponseDto = {
+    const body: RefreshResponseDto = {
       accessToken: result.accessToken,
     };
-    Logger.log(this.configService.get('jwt.domain'));
     response.status(200);
     response.cookie('refreshToken', result.refreshToken, {
       httpOnly: true,
