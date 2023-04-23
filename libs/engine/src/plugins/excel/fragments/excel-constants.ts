@@ -79,7 +79,7 @@ const excelConstantsFragment = new PluginFragment()
                 throw runtimeError('Funktion ungerade funktioniert nur mit Zahlen');
             }
 
-            const gerundeteZahl = Math.ceil(n); // Rundet auf
+            const gerundeteZahl = Math.round(n); // Runden
             const istGerade = gerundeteZahl % 2 === 0; // Überprüfen gerundete Zahl gerade?
             const ungeradeZahl = istGerade ? gerundeteZahl + 1 : gerundeteZahl;
             return createNumberNode (ungeradeZahl);
