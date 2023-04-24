@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { EmailRepository } from './repositories/email.repository';
 import { UserActivationRepository } from './repositories/user-activation.repository';
 import { UserRepository } from './repositories/user.repository';
+import { Email, EmailSchema } from './schemas/email/email.schema';
 import {
   UserActivation,
   UserActivationSchema,
@@ -16,9 +18,13 @@ import { User, UserSchema } from './schemas/user/user.schema';
         name: UserActivation.name,
         schema: UserActivationSchema,
       },
+      {
+        name: Email.name,
+        schema: EmailSchema,
+      },
     ]),
   ],
-  providers: [UserRepository, UserActivationRepository],
-  exports: [UserRepository, UserActivationRepository],
+  providers: [UserRepository, UserActivationRepository, EmailRepository],
+  exports: [UserRepository, UserActivationRepository, EmailRepository],
 })
 export class DatabaseModule {}

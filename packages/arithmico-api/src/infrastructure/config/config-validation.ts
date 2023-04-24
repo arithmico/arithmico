@@ -17,4 +17,5 @@ export default Joi.object({
   JWT_REFRESH_TOKEN_LIFETIME: Joi.number().default(1000 * 60 * 60 * 24 * 7),
   REDIS_HOST: Joi.string().required(),
   REDIS_PORT: Joi.number().required(),
+  MAIL_BUCKET: Joi.string().required(),
 });

@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './modules/user/user.module';
 import appConfig from './infrastructure/config/app';
+import redisConfig from './infrastructure/config/redis';
+import mailConfig from './infrastructure/config/mail';
 import databaseConfig from './infrastructure/config/database';
 import awsConfig from './infrastructure/config/aws';
 import jwtConfig from './infrastructure/config/jwt';
@@ -15,6 +17,8 @@ import { EmailModule } from './modules/email/email.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { BullModule } from '@nestjs/bull';
+import { InboundEmailModule } from './modules/inbound-email/inbound-email.module';
+import { QueuesModule } from './infrastructure/queues/queues.module';
 
 @Module({
   imports: [
@@ -29,7 +33,15 @@ import { BullModule } from '@nestjs/bull';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [appConfig, databaseConfig, awsConfig, seedUserConfig, jwtConfig],
+      load: [
+        appConfig,
+        databaseConfig,
+        awsConfig,
+        seedUserConfig,
+        jwtConfig,
+        redisConfig,
+        mailConfig,
+      ],
       validationSchema: configValidationSchema,
       validationOptions: {
         abortEarly: false,
@@ -65,6 +77,8 @@ import { BullModule } from '@nestjs/bull';
     ReleaseModule,
     EmailModule,
     AuthModule,
+    InboundEmailModule,
+    QueuesModule,
   ],
   controllers: [],
   providers: [],
