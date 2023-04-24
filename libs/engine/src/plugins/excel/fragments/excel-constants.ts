@@ -128,7 +128,20 @@ const excelConstantsFragment = new PluginFragment()
         return createNumberNode(Math.asinh(n));
     },
 
-);
+)
+.addFunction(
+    'Aufrunden',
+    singleNumberHeader,
+    'Round up without decimal place',
+    'Aufrunden ohne Nachkommastelle',
+    ({ getParameter, runtimeError }) => {
+        const n = (<NumberNode>getParameter('n')).value;
+        if (isNaN(n)) {
+            throw runtimeError('Funktion Aufrunden funktioniert nur mit Zahlen.');
+        }
+        return createNumberNode(Math.ceil(n));
+    },
 
+);
 
 export default excelConstantsFragment;
