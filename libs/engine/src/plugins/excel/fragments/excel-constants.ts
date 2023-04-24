@@ -142,6 +142,19 @@ const excelConstantsFragment = new PluginFragment()
         return createNumberNode(Math.ceil(n));
     },
 
-);
+)
+.addFunction(
+    'Cos',
+    singleNumberHeader,
+    'Returns the cosine of a number.',
+    'Gibt den Kosinus einer Zahl zurück.',
+    ({ getParameter, runtimeError }) => {
+        const n = (<NumberNode>getParameter('n')).value;
+        if (isNaN(n)) {
+            throw runtimeError('Funktion Kosinus funktioniert nur mit Zahlen.');
+        }
+        return createNumberNode(Math.cos(n));
+    },
 
+);
 export default excelConstantsFragment;
