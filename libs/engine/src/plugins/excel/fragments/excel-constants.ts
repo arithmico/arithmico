@@ -85,7 +85,7 @@ const excelConstantsFragment = new PluginFragment()
             return createNumberNode (ungeradeZahl);
         },
     )
-.addFunction(
+    .addFunction(
     'ASin',
     singleNumberHeader,
     'Returns the arc sine or inverted sine of a number',
@@ -99,7 +99,21 @@ const excelConstantsFragment = new PluginFragment()
     },
 
 )
-.addFunction(
+    .addFunction(
+    'Atan',
+    singleNumberHeader,
+    'Returns the arc tangent or inverse tangent of a number.',
+    'Gibt den Arkustangens oder umgekehrten Tangens einer Zahl zurück.',
+    ({ getParameter, runtimeError }) => {
+        const n = (<NumberNode>getParameter('n')).value;
+        if (isNaN(n)) {
+            throw runtimeError('Funktion atan funktioniert nur mit Zahlen.');
+        }
+        return createNumberNode(Math.atan(n));
+    },
+
+)
+    .addFunction(
     'ASinh',
     singleNumberHeader,
     'Returns the inverse hyperbolic sine of a number.',
@@ -108,6 +122,8 @@ const excelConstantsFragment = new PluginFragment()
         const n = (<NumberNode>getParameter('n')).value;
         if (isNaN(n)) {
             throw runtimeError('Funktion asin funktioniert nur mit Zahlen.');
+        }else if (n <1) {
+            throw runtimeError('Nur Zahlen größer als 1 möglich');
         }
         return createNumberNode(Math.asinh(n));
     },
