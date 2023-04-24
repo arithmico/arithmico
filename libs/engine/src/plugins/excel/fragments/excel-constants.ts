@@ -84,6 +84,35 @@ const excelConstantsFragment = new PluginFragment()
             const ungeradeZahl = istGerade ? gerundeteZahl + 1 : gerundeteZahl;
             return createNumberNode (ungeradeZahl);
         },
-    );
+    )
+.addFunction(
+    'ASin',
+    singleNumberHeader,
+    'Returns the arc sine or inverted sine of a number',
+    'Gibt den Arkussinus oder umgekehrten Sinus einer Zahl zurück.',
+    ({ getParameter, runtimeError }) => {
+        const n = (<NumberNode>getParameter('n')).value;
+        if (isNaN(n)) {
+            throw runtimeError('Funktion asin funktioniert nur mit Zahlen.');
+        }
+        return createNumberNode(Math.asin(n));
+    },
+
+)
+.addFunction(
+    'ASinh',
+    singleNumberHeader,
+    'Returns the inverse hyperbolic sine of a number.',
+    'Gibt den umgekehrten hyperbolischen Sinus einer Zahl zurück.',
+    ({ getParameter, runtimeError }) => {
+        const n = (<NumberNode>getParameter('n')).value;
+        if (isNaN(n)) {
+            throw runtimeError('Funktion asin funktioniert nur mit Zahlen.');
+        }
+        return createNumberNode(Math.asinh(n));
+    },
+
+);
+
 
 export default excelConstantsFragment;
