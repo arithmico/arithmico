@@ -29,7 +29,7 @@ export class InboundEmailProducer {
 
   @Process('fetch-emails')
   async fetchEmails() {
-    Logger.log('scanning for emails');
+    Logger.log('scanning for emails', 'FetchEmails');
     const objects = (
       await this.s3client.send(
         new ListObjectsCommand({
@@ -38,9 +38,7 @@ export class InboundEmailProducer {
       )
     ).Contents;
 
-    Logger.log('found objects ' + objects.length);
     for (const obj of objects) {
-      Logger.log('get object: ' + obj.Key);
       const response = await this.s3client.send(
         new GetObjectCommand({
           Bucket: this.configService.get('mail.bucket'),
@@ -49,8 +47,6 @@ export class InboundEmailProducer {
       );
 
       const content = await response.Body.transformToString();
-
-      Logger.log('parsing email');
       try {
         const parsedEmail = await mailparser.simpleParser(content);
         this.emailRepository.create({
@@ -70,6 +66,6 @@ export class InboundEmailProducer {
         }),
       );
     }
-    Logger.log('exit');
+    Logger.log('finished', 'FetchEmails');
   }
 }
