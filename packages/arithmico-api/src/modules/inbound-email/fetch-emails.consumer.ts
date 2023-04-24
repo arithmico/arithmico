@@ -34,9 +34,15 @@ export class InboundEmailProducer {
       await this.s3client.send(
         new ListObjectsCommand({
           Bucket: this.configService.get('mail.bucket'),
+          MaxKeys: 100,
         }),
       )
     ).Contents;
+
+    if (!objects) {
+      Logger.log('no new emails', 'FetchEmails');
+      return;
+    }
 
     for (const obj of objects) {
       const response = await this.s3client.send(
@@ -66,6 +72,7 @@ export class InboundEmailProducer {
         }),
       );
     }
+
     Logger.log('finished', 'FetchEmails');
   }
 }
