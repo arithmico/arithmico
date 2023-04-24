@@ -122,8 +122,8 @@ const excelConstantsFragment = new PluginFragment()
         const n = (<NumberNode>getParameter('n')).value;
         if (isNaN(n)) {
             throw runtimeError('Funktion asin funktioniert nur mit Zahlen.');
-        }else if (n <1) {
-            throw runtimeError('Nur Zahlen größer als 1 möglich');
+        }else if (n <0) {
+            throw runtimeError('Nur Zahlen größer als 0 möglich');
         }
         return createNumberNode(Math.asinh(n));
     },
@@ -143,18 +143,21 @@ const excelConstantsFragment = new PluginFragment()
     },
 
 )
-.addFunction(
-    'Cos',
-    singleNumberHeader,
-    'Returns the cosine of a number.',
-    'Gibt den Kosinus einer Zahl zurück.',
-    ({ getParameter, runtimeError }) => {
-        const n = (<NumberNode>getParameter('n')).value;
-        if (isNaN(n)) {
-            throw runtimeError('Funktion Kosinus funktioniert nur mit Zahlen.');
-        }
-        return createNumberNode(Math.cos(n));
-    },
 
-);
+    .addFunction(
+        'BOGENMASS',
+        singleNumberHeader,
+        'Calculates the Radian to an angle',
+        'Berechnet das Bogenmaß eines Winkels',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion Bogenmaß funktioniert nur mit Zahlen.');
+            }else if (n <0) {
+                throw runtimeError('Nur Zahlen größer als 0 möglich');
+            }
+            return createNumberNode(n*Math.PI/180);
+        },
+
+    );
 export default excelConstantsFragment;
