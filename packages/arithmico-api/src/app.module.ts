@@ -14,6 +14,7 @@ import { ReleaseModule } from './modules/release/release.module';
 import { EmailModule } from './modules/email/email.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -34,6 +35,16 @@ import { CacheModule } from '@nestjs/cache-manager';
         abortEarly: false,
         allowUnknown: true,
       },
+    }),
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        redis: {
+          host: configService.get<string>('redis.host'),
+          port: configService.get<number>('redis.port'),
+        },
+      }),
     }),
     CacheModule.register({
       isGlobal: true,

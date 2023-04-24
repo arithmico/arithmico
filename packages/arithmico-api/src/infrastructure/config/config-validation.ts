@@ -15,4 +15,6 @@ export default Joi.object({
   JWT_COOKIE_DOMAIN: Joi.string().required(),
   JWT_ACCESS_TOKEN_LIFETIME: Joi.number().default(1000 * 60 * 60),
   JWT_REFRESH_TOKEN_LIFETIME: Joi.number().default(1000 * 60 * 60 * 24 * 7),
+  REDIS_HOST: Joi.string().required(),
+  REDIS_PORT: Joi.number().required(),
 });
