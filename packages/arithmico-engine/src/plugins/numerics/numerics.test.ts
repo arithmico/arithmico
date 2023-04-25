@@ -13,6 +13,13 @@ integrationTest('nsolve(x^3 -4*x^2 +3=0)', '[-0.791288, 1, 3.791288]');
 integrationTest('nsolve(x^(34)-1234.32323=0)', '[-1.23289, 1.23289]');
 integrationTest('nsolve((1+n)*n/2=34)', '[-8.761356, 7.761356]');
 integrationTest('nsolve(x^3+x^2-17*x+15=0)', '[-5, 1, 3]');
+integrationTest('nsolve(0 = root(x, 3))', '[0]');
+integrationTest('nsolve(10000 = 500 * (x^(25/4)-1) / (x^(1/4) * 1/x^(25/4)), 1, 2)', '[1.29976]');
+integrationTest('nsolve(10000 = 500 * (x^(25/4)-1)/(x^(1/4)-1)*1/x^(25/4), 1, 2)', '[1.07378]');
+integrationTest('nsolve(250000 = x * (1.022^15 - 1)/(1.022-1) * 1/1.022^(15-1), 10000, 30000)', '[19323.561949]');
+integrationTestThrow('nsolve(0 = 3)');
+integrationTestThrow('nsolve(0 = 3 * x + y)');
+
 
 // nintegrate
 integrationTest('nintegrate((x)->x^2,0,1)', '0.333333');

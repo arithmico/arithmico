@@ -4,7 +4,7 @@ import evaluate from '../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/nodes.types';
 import { binco } from '../../../utils/binco';
 import { PluginFragment } from '../../../utils/plugin-builder';
-import { calculateFunctionValue } from '../utils/nderive-utils';
+import { evaluateSyntaxTreeNodeWithPosition } from '../utils/evaluate-function-utils';
 
 const EPSILON = 1e-12;
 
@@ -39,11 +39,21 @@ __FUNCTIONS.nderive &&
             const expression = createFunctionCall(f, [value]);
             evaluate(expression, context);
 
-            const functionResult = calculateFunctionValue(f, position, context);
+            const functionResult = evaluateSyntaxTreeNodeWithPosition(f, createNumberNode(position), context, position);
             const secondDerivative =
-                (calculateFunctionValue(f, position + EPSILON, context) -
+                (evaluateSyntaxTreeNodeWithPosition(
+                    f,
+                    createNumberNode(position + EPSILON),
+                    context,
+                    position + EPSILON,
+                ) -
                     2 * functionResult +
-                    calculateFunctionValue(f, position - EPSILON, context)) /
+                    evaluateSyntaxTreeNodeWithPosition(
+                        f,
+                        createNumberNode(position - EPSILON),
+                        context,
+                        position - EPSILON,
+                    )) /
                 EPSILON ** 2;
             const hValue =
                 2 * Math.sqrt(EPSILON * Math.abs(functionResult / (secondDerivative === 0 ? 1e-16 : secondDerivative)));

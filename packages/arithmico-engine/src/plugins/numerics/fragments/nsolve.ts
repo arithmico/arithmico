@@ -37,7 +37,7 @@ __FUNCTIONS.nsolve &&
             }
 
             const value = createNumberNode(leftLimit);
-            const localStackFrame = new Map();
+            const localStackFrame = new Map<string, NumberNode>();
             localStackFrame.set(variableNames[0], value);
             const localContext: Context = {
                 ...context,
