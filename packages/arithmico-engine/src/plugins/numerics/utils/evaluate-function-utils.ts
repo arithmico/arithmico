@@ -1,4 +1,4 @@
-import { FunctionNode, NumberNode, SyntaxTreeNode } from '../../../types/nodes.types';
+import { NumberNode, SyntaxTreeNode } from '../../../types/nodes.types';
 import { Context } from '../../../types/context.types';
 import evaluate from '../../../node-operations/evaluate-node';
 import createFunctionCall from '../../../node-operations/create-node/create-function-call';

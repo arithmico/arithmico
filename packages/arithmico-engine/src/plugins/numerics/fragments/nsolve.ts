@@ -4,12 +4,12 @@ import createVector from '../../../node-operations/create-node/create-vector';
 import { Context, Equals, NumberNode } from '../../../types';
 import { FunctionHeaderItem } from '../../../types/nodes.types';
 import { getVariableNames } from '../../../utils/symbolic-utils';
-import checkCandidates from '../utils/nsolve/check-candidates';
-import findCandidates from '../utils/nsolve/find-candidates';
+import getSubIntervals from '../utils/nsolve/get-sub-intervals';
 import findDirectHits from '../utils/nsolve/find-direct-hits';
 import refineResults from '../utils/nsolve/refine-results';
-import scan from '../utils/nsolve/scan';
+import quantifyFunction from '../utils/nsolve/quantify-function';
 import { PluginFragment } from '../../../utils/plugin-builder';
+import evaluateZeroPositions from "../utils/nsolve/evaluate-zero-positions";
 
 const nsolveHeader: FunctionHeaderItem[] = [
     { type: 'equals', name: 'equation', evaluate: false },
@@ -44,10 +44,10 @@ __FUNCTIONS.nsolve &&
                 stack: [...context.stack, localStackFrame],
             };
 
-            const points = scan(expression, leftLimit, rightLimit, value, localContext);
+            const points = quantifyFunction(expression, leftLimit, rightLimit, value, localContext);
             const directHits = findDirectHits(points);
-            const candidates = findCandidates(points);
-            const solutions = checkCandidates(expression, candidates, value, localContext);
+            const candidates = getSubIntervals(points);
+            const solutions = evaluateZeroPositions(expression, candidates, value, localContext);
 
             const results: number[] = [];
             refineResults([...directHits, ...solutions], leftLimit, rightLimit).forEach((solution) => {

@@ -1,8 +1,8 @@
-import {Context} from '../../../../types/context.types';
-import {NumberNode} from '../../../../types/nodes.types';
-import {SyntaxTreeNode} from '../../../../types';
-import {CandidateIntervall} from './nsolve-types';
-import {evaluateSyntaxTreeNodeWithPosition} from "../evaluate-function-utils";
+import { Context } from '../../../../types/context.types';
+import { NumberNode } from '../../../../types/nodes.types';
+import { SyntaxTreeNode } from '../../../../types';
+import { CandidateIntervall } from './nsolve-types';
+import { evaluateSyntaxTreeNodeWithPosition } from '../evaluate-function-utils';
 
 const NEWTON_MAX_ITERATIONS = 32;
 const BISECTION_MAX_ITERATIONS = Math.pow(2, 7);
@@ -89,7 +89,7 @@ function checkCandidateWithBisection(
     }
 }
 
-export default function checkCandidates(
+export default function evaluateZeroPositions(
     expression: SyntaxTreeNode,
     candidates: CandidateIntervall[],
     value: NumberNode,
