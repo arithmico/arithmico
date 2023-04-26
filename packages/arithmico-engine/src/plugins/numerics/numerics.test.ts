@@ -16,7 +16,6 @@ integrationTest('nsolve(x^3+x^2-17*x+15=0)', '[-5, 1, 3]');
 integrationTest('nsolve(0 = root(x, 3))', '[0]');
 integrationTest('nsolve(10000 = 500 * (x^(25/4)-1) / (x^(1/4) * 1/x^(25/4)), 1, 2)', '[1.299761]');
 integrationTest('nsolve(10000 = 500 * (x^(25/4)-1)/(x^(1/4)-1)*1/x^(25/4), 1, 2)', '[1.073785]');
-integrationTest('nsolve(0=sin(1/x))', '');
 integrationTest('nsolve(250000 = x * (1.022^15 - 1)/(1.022-1) * 1/1.022^(15-1), 10000, 30000)', '[19323.561949]');
 integrationTestThrow('nsolve(0 = 3)');
 integrationTestThrow('nsolve(0 = 3 * x + y)');

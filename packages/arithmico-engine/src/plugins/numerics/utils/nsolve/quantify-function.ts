@@ -1,7 +1,7 @@
-import {NumberNode} from '../../../../types/nodes.types';
-import {Context, SyntaxTreeNode} from '../../../../types';
-import {Point} from './nsolve-types';
-import {evaluateSyntaxTreeNodeWithPosition} from '../evaluate-function-utils';
+import { NumberNode } from '../../../../types/nodes.types';
+import { Context, SyntaxTreeNode } from '../../../../types';
+import { Point } from './nsolve-types';
+import { evaluateSyntaxTreeNodeWithPosition } from '../evaluate-function-utils';
 
 const QUANTIFY_STEPS = 128;
 
