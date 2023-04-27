@@ -8,16 +8,7 @@ export class Email {
   _id?: string;
 
   @Prop({ type: String, required: true })
-  from: string;
-
-  @Prop({ type: String, required: true })
-  to: string;
-
-  @Prop({ type: String, required: true })
-  subject: string;
-
-  @Prop({ type: String, required: true })
-  content: string;
+  rawEmail: string;
 }
 
 export type EmailDocument = HydratedDocument<Email>;

@@ -18,4 +18,5 @@ export default Joi.object({
   REDIS_HOST: Joi.string().required(),
   REDIS_PORT: Joi.number().required(),
   MAIL_BUCKET: Joi.string().required(),
+  MAIL_DOMAIN: Joi.string().required(),
 });

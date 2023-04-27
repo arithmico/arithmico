@@ -9,17 +9,9 @@ export class EmailRepository {
     @InjectModel(Email.name) private emailModel: Model<EmailDocument>,
   ) {}
 
-  async create({
-    from,
-    to,
-    subject,
-    content,
-  }: Omit<Email, '_id'>): Promise<EmailDocument> {
+  async create({ rawEmail }: Omit<Email, '_id'>): Promise<EmailDocument> {
     return this.emailModel.create({
-      from,
-      to,
-      subject,
-      content,
+      rawEmail,
     });
   }
 }
