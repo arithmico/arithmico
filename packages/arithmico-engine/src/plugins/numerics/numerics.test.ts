@@ -35,5 +35,6 @@ integrationTest('nderive((x) -> x, 0)', '1');
 integrationTest('nderive(x -> x^2, 2, 3)', '0');
 integrationTest('nderive(x -> x^3, 4 , 4)', '0');
 integrationTest('nderive(x -> x^7, 3, 8)', '0');
-integrationTest('nderive(x -> (x + 1)/(x - 2 * x^4), 3/5)', '12.963115');
+integrationTest('nderive(x -> (x + 1)/(x - 2 * x^4), 3/5)', '12.963147');
+integrationTest('nderive(x-> x^20, 3)', '2.324523 * 10^10');
 integrationTestThrow('nderive((x) -> 1/x, 0)');
