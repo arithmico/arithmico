@@ -4,6 +4,10 @@ import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
 // import createVector from '../../../../node-operations/create-node/create-vector';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
+const doubleNumberHeader: FunctionHeaderItem[] = [
+    { name: 'n', type: 'number', evaluate: true },
+    { name: 'a', type: 'number', evaluate: true },
+];
 
 const excelConstantsFragment = new PluginFragment()
     .addConstant('excel:five', 'Test output five', 'Test output fünf', createNumberNode(5))
@@ -87,17 +91,18 @@ const excelConstantsFragment = new PluginFragment()
     )
 
     .addFunction(
-        'zufallsbereich', singleNumberHeader,
+        'zufallsbereich', doubleNumberHeader,
         'Returns a random number between two specified numbers or just a random number.',
         'Gibt Zufallszahl zwischen zwei angegebenen Zahlen zurück bzw. eine Zufallszahl.',
         ({ getParameter, runtimeError }) => {
             const n = (<NumberNode>getParameter('n')).value;
-            if (isNaN(n)) {
+            const a = (<NumberNode>getParameter('a')).value;
+            if (isNaN(n || a)) {
                 throw runtimeError('Funktion zufallsbereich funktioniert nur mit Zahlen.');
             }
-            else if (minValue !== undefined && maxValue !== undefined) {
+            else if (n !== undefined && a !== undefined) {
                 // Wenn minValue und maxValue definiert sind, generieren Sie eine Zufallszahl im angegebenen Bereich
-                return createNumberNode(Math.random() * (maxValue - minValue) + minValue);
+                return createNumberNode(Math.random() * (a - n) + n);
             } else {
                 // Wenn minValue und maxValue nicht definiert sind, generieren Sie einfach eine Zufallszahl zw. 0 und 1
                 return createNumberNode(Math.random());
