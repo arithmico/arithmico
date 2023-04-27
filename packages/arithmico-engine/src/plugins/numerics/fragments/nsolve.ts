@@ -36,18 +36,10 @@ __FUNCTIONS.nsolve &&
                 throw runtimeError(`Invalid number of variables expected 1 got ${variableNames.length}`);
             }
 
-            const value = createNumberNode(leftLimit);
-            const localStackFrame = new Map<string, NumberNode>();
-            localStackFrame.set(variableNames[0], value);
-            const localContext: Context = {
-                ...context,
-                stack: [...context.stack, localStackFrame],
-            };
-
-            const points = quantifyFunction(expression, leftLimit, rightLimit, value, localContext);
+            const points = quantifyFunction(expression, variableNames[0], leftLimit, rightLimit, context);
             const directHits = findDirectHits(points);
             const candidates = getSubIntervals(points);
-            const solutions = evaluateZeroPositions(expression, candidates, value, localContext);
+            const solutions = evaluateZeroPositions(expression, variableNames[0], candidates, context);
 
             const results: number[] = [];
             refineResults([...directHits, ...solutions], leftLimit, rightLimit).forEach((solution) => {
