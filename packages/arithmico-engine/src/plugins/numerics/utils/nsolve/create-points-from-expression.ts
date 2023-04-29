@@ -2,9 +2,9 @@ import { Context, SyntaxTreeNode } from '../../../../types';
 import { Point } from './nsolve-types';
 import { evaluateExpressionWithValue } from '../evaluate-function-utils';
 
-const QUANTIFY_STEPS = 128;
+const SCAN_RESOLUTION = 128;
 
-export default function quantifyFunction(
+export default function createPointsFromExpression(
     expression: SyntaxTreeNode,
     variableName: string,
     leftLimit: number,
@@ -13,8 +13,8 @@ export default function quantifyFunction(
 ): Point[] {
     const results: Point[] = [];
 
-    for (let i = 0; i < QUANTIFY_STEPS + 2; i++) {
-        const x = leftLimit + ((rightLimit - leftLimit) / QUANTIFY_STEPS) * (i - 1);
+    for (let i = 0; i < SCAN_RESOLUTION + 2; i++) {
+        const x = leftLimit + ((rightLimit - leftLimit) / SCAN_RESOLUTION) * (i - 1);
         try {
             const result = evaluateExpressionWithValue(expression, variableName, x, context);
             results.push([x, Math.abs(result)]);

@@ -1,7 +1,6 @@
 import { Context } from '../../../../types/context.types';
-import { NumberNode } from '../../../../types/nodes.types';
 import { SyntaxTreeNode } from '../../../../types';
-import { CandidateIntervall } from './nsolve-types';
+import { CandidateInterval } from './nsolve-types';
 import { evaluateExpressionWithValue } from '../evaluate-function-utils';
 
 const NEWTON_MAX_ITERATIONS = 32;
@@ -10,8 +9,8 @@ const EPSILON_Y_COEFFICIENT = Math.pow(2, 7);
 
 function checkCandidateWithNewton(
     expression: SyntaxTreeNode,
-    variableName:string,
-    candidate: CandidateIntervall,
+    variableName: string,
+    candidate: CandidateInterval,
     context: Context,
 ) {
     let [leftLimit, rightLimit] = candidate;
@@ -59,7 +58,7 @@ function checkCandidateWithNewton(
 function checkCandidateWithBisection(
     expression: SyntaxTreeNode,
     variableName: string,
-    candidate: CandidateIntervall,
+    candidate: CandidateInterval,
     context: Context,
 ) {
     let [leftX, rightX] = candidate;
@@ -89,10 +88,10 @@ function checkCandidateWithBisection(
     }
 }
 
-export default function evaluateZeroPositions(
+export default function evaluateZeroSolutionsFromCandidateIntervals(
     expression: SyntaxTreeNode,
     variableName: string,
-    candidates: CandidateIntervall[],
+    candidates: CandidateInterval[],
     context: Context,
 ): number[] {
     const results: number[] = [];

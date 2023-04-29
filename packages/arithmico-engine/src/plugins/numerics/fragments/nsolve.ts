@@ -1,15 +1,15 @@
 import createMinus from '../../../node-operations/create-node/create-minus';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import createVector from '../../../node-operations/create-node/create-vector';
-import { Context, Equals, NumberNode } from '../../../types';
+import { Equals, NumberNode } from '../../../types';
 import { FunctionHeaderItem } from '../../../types/nodes.types';
 import { getVariableNames } from '../../../utils/symbolic-utils';
-import getSubIntervals from '../utils/nsolve/get-sub-intervals';
+import findSolutionCandidateIntervals from '../utils/nsolve/find-solution-candidate-intervals';
 import findDirectHits from '../utils/nsolve/find-direct-hits';
 import refineResults from '../utils/nsolve/refine-results';
-import quantifyFunction from '../utils/nsolve/quantify-function';
+import createPointsFromExpression from '../utils/nsolve/create-points-from-expression';
 import { PluginFragment } from '../../../utils/plugin-builder';
-import evaluateZeroPositions from "../utils/nsolve/evaluate-zero-positions";
+import evaluateZeroSolutionsFromCandidateIntervals from '../utils/nsolve/evaluate-zero-solutions-from-candidate-intervals';
 
 const nsolveHeader: FunctionHeaderItem[] = [
     { type: 'equals', name: 'equation', evaluate: false },
@@ -36,10 +36,10 @@ __FUNCTIONS.nsolve &&
                 throw runtimeError(`Invalid number of variables expected 1 got ${variableNames.length}`);
             }
 
-            const points = quantifyFunction(expression, variableNames[0], leftLimit, rightLimit, context);
+            const points = createPointsFromExpression(expression, variableNames[0], leftLimit, rightLimit, context);
             const directHits = findDirectHits(points);
-            const candidates = getSubIntervals(points);
-            const solutions = evaluateZeroPositions(expression, variableNames[0], candidates, context);
+            const candidateIntervals = findSolutionCandidateIntervals(points);
+            const solutions = evaluateZeroSolutionsFromCandidateIntervals(expression, variableNames[0], candidateIntervals, context);
 
             const results: number[] = [];
             refineResults([...directHits, ...solutions], leftLimit, rightLimit).forEach((solution) => {

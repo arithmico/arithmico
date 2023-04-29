@@ -1,7 +1,7 @@
-import { CandidateIntervall, Point } from './nsolve-types';
+import { CandidateInterval, Point } from './nsolve-types';
 
-export default function getSubIntervals(points: Point[]): CandidateIntervall[] {
-    const candidates: CandidateIntervall[] = [];
+export default function findSolutionCandidateIntervals(points: Point[]): CandidateInterval[] {
+    const candidates: CandidateInterval[] = [];
 
     if (points.length < 3) {
         return candidates;
