@@ -2,6 +2,7 @@ import createPlugin from '../../utils/plugin-builder';
 import excelConstantsFragment from './fragments/excel-constants';
 import xoderFragment from './fragments/xoder';
 import zweifakultaetFragment from './fragments/zweifakultaet';
+import wurzelFragment from "./fragments/wurzel";
 
 const excelPlugin = createPlugin(
     {
@@ -17,6 +18,7 @@ const excelPlugin = createPlugin(
     .addFragment(excelConstantsFragment)
     .addFragment(xoderFragment)
     .addFragment(zweifakultaetFragment)
+    .addFragment(wurzelFragment)
     .build();
 
 export default excelPlugin;
