@@ -1,6 +1,6 @@
 import createBooleanNode from '../../../node-operations/create-node/create-boolean-node';
 import { PluginFragment } from '../../../utils/plugin-builder';
-import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
+import { FunctionHeaderItem, BooleanNode } from '../../../types/nodes.types';
 
 const booleanOperatorHeader: FunctionHeaderItem[] = [
     {
@@ -23,8 +23,8 @@ __FUNCTIONS.xoder &&
         'Exclusive or, exactly one argument is true.',
         'Ausschließendes Oder, genau ein Argument ist wahr.',
         ({ getParameter, runtimeError }) => {
-            const a = (<NumberNode>getParameter('a')).value;
-            const b = (<NumberNode>getParameter('b')).value;
+            const a = (<BooleanNode>getParameter('a')).value;
+            const b = (<BooleanNode>getParameter('b')).value;
             if (typeof a === 'boolean' && typeof b === 'boolean') {
                 return createBooleanNode(a !== b);
             } else {
