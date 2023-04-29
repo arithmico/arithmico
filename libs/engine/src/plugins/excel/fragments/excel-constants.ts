@@ -27,20 +27,6 @@ const excelConstantsFragment = new PluginFragment()
             return createNumberNode(Math.acos(n));
         },
     )
-    .addFunction('wurzel', singleNumberHeader,
-        'square root.',
-        'Quadratwurzel',
-        ({ getParameter, runtimeError }) => {
-        const n = (<NumberNode>getParameter('n')).value;
-
-        if (n < 0) {
-            throw runtimeError('Numbers smaller than 0 are not allowed.');
-        }
-
-        return createNumberNode(Math.sqrt(n));
-    }
-    )
-
     .addFunction(
         'abrunden',
         singleNumberHeader,
