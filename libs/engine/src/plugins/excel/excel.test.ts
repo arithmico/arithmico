@@ -8,8 +8,8 @@ integrationTest('wurzel(9)', '3');
 integrationTestThrow('wurzel(-1)');
 
 // xoder
-integrationTest('xoder(true; false)', 'true');
-integrationTest('xoder(true; true)', 'false');
+integrationTest('xoder(true, false)', 'true');
+integrationTest('xoder(true, true)', 'false');
 
 // wenn
 integrationTest('wenn(true, 1, 2)', '1');
@@ -18,6 +18,8 @@ integrationTest('wenn(false, 1, 2)', '2');
 
 // zweifakultaet
 integrationTest('zweifakultaet(9.011)', '945');
+integrationTest('zweifakultaet(1)', '1');
 integrationTest('zweifakultaet(2)', '2');
 integrationTest('zweifakultaet(5)', '15');
+integrationTest('zweifakultaet(0)', '1'); // ist so definiert
 integrationTestThrow('zweifakultaet(-1)');
