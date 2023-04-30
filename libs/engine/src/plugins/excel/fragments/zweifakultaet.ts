@@ -1,28 +1,18 @@
 import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import { PluginFragment } from '../../../utils/plugin-builder';
+import { calculateFactdouble } from './utils/factdouble';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 
 const zweifakultaetFragment = new PluginFragment().addFunction(
-    'zweifakultät',
+    'zweifakultaet', // should be zweifakultät TODO accept ä
     singleNumberHeader,
-    'Calculates ...',
-    'Berechnet ...',
-    ({ getParameter, runtimeError }) => {
+    'Calculates the factorial with a step of 2. Decimal places are cut off.',
+    'Gibt die Fakultät zu einer Zahl mit der Schrittlänge 2 zurück. Nachkommastellen werden abgeschnitten.',
+    ({ getParameter }) => {
         const n = (<NumberNode>getParameter('n')).value;
-        if (n < 0) {
-            throw runtimeError('Nur Ganzzahlen > 0 erlaubt.');
-        }
-        if (n % 1 !== 0) {
-            throw runtimeError('Keine Ganzzahl.');
-        }
-
-        let result = 1;
-        for (let i = 1; i <= n; i = i + 2) {
-            result *= i;
-        }
-        return createNumberNode(result);
+        return createNumberNode(calculateFactdouble(n));
     },
 );
 
