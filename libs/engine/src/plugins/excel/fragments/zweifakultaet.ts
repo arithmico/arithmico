@@ -1,7 +1,7 @@
 import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import { PluginFragment } from '../../../utils/plugin-builder';
-import { calculateFactdouble } from './utils/factdouble';
+import { calculateFactdouble } from '../utils/factdouble';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];
 
