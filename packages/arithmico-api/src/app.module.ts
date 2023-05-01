@@ -10,7 +10,7 @@ import awsConfig from './infrastructure/config/aws';
 import jwtConfig from './infrastructure/config/jwt';
 import seedUserConfig from './infrastructure/config/seed-user';
 import configValidationSchema from './infrastructure/config/config-validation';
-import { RouterModule } from '@nestjs/core';
+import { APP_GUARD, RouterModule } from '@nestjs/core';
 import { DatabaseModule } from './infrastructure/database/database.module';
 import { ReleaseModule } from './modules/release/release.module';
 import { EmailModule } from './modules/email/email.module';
@@ -19,6 +19,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { BullModule } from '@nestjs/bull';
 import { InboundEmailModule } from './modules/inbound-email/inbound-email.module';
 import { QueuesModule } from './infrastructure/queues/queues.module';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
@@ -81,6 +82,11 @@ import { QueuesModule } from './infrastructure/queues/queues.module';
     QueuesModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}

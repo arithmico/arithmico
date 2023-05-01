@@ -8,6 +8,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
 import { Request, Response } from 'express';
+import { Public } from '../../../../decorators/public.decorator';
 import { RefreshCommand } from './refresh.command';
 import { RefreshResponseDto } from './refresh.response.dto';
 
@@ -18,6 +19,7 @@ export class RefreshController {
     private configService: ConfigService,
   ) {}
 
+  @Public()
   @Post()
   async refresh(
     @Req() request: Request,

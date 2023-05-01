@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from '../../infrastructure/database/database.module';
+import { AuthService } from './auth.service';
 import { commandControllers, commandHandlers } from './commands';
 
 @Module({
@@ -16,7 +17,8 @@ import { commandControllers, commandHandlers } from './commands';
       }),
     }),
   ],
-  providers: [...commandHandlers],
+  providers: [...commandHandlers, AuthService],
   controllers: [...commandControllers],
+  exports: [AuthService],
 })
 export class AuthModule {}

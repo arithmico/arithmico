@@ -2,6 +2,7 @@ import { Body, Controller, Logger, Post, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
 import { Response } from 'express';
+import { Public } from '../../../../decorators/public.decorator';
 import { LoginCommand } from './login.command';
 import { LoginRequestDto } from './login.request.dto';
 import { LoginResponseDto } from './login.response.dto';
@@ -13,6 +14,7 @@ export class LoginController {
     private configService: ConfigService,
   ) {}
 
+  @Public()
   @Post()
   async login(
     @Body() loginRequestDto: LoginRequestDto,

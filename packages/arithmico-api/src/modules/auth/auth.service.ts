@@ -1,5 +1,5 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Inject, Injectable } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Cache } from 'cache-manager';
 import { UserRepository } from '../../infrastructure/database/repositories/user.repository';
@@ -18,7 +18,11 @@ export class AuthService {
   ) {}
 
   async checkAccessToken(accessToken: string): Promise<boolean> {
-    const accessTokenClaims = await this.jwtService.verifyAsync(accessToken);
+    const accessTokenClaims = await this.jwtService
+      .verifyAsync(accessToken)
+      .catch(() => {
+        throw new ForbiddenException();
+      });
 
     if (
       typeof accessTokenClaims !== 'object' ||
