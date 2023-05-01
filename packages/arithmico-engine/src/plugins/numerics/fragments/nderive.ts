@@ -4,9 +4,7 @@ import evaluate from '../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/nodes.types';
 import { binco } from '../../../utils/math-utils/binco';
 import { PluginFragment } from '../../../utils/plugin-builder';
-import { calculateFunctionValue } from '../utils/nderive-utils';
-
-const EPSILON = 1e-12;
+import { calculateH } from '../utils/nderive-utils';
 
 const nderiveHeader: FunctionHeaderItem[] = [
     { type: 'function', name: 'f', evaluate: true },
@@ -35,19 +33,11 @@ __FUNCTIONS.nderive &&
                 throw runtimeError('Invalid function signature.');
             }
 
+            const h = calculateH(f, position, grade, context);
+
             const value = createNumberNode(position);
             const expression = createFunctionCall(f, [value]);
             evaluate(expression, context);
-
-            const functionResult = calculateFunctionValue(f, position, context);
-            const secondDerivative =
-                (calculateFunctionValue(f, position + EPSILON, context) -
-                    2 * functionResult +
-                    calculateFunctionValue(f, position - EPSILON, context)) /
-                EPSILON ** 2;
-            const hValue =
-                2 * Math.sqrt(EPSILON * Math.abs(functionResult / (secondDerivative === 0 ? 1e-16 : secondDerivative)));
-            const h = hValue === 0 ? 1e-16 : Math.pow(10, -Math.log10(Math.abs(functionResult))) * hValue;
 
             let result = 0;
             const cOuter = Math.pow(2 * h, -grade);
