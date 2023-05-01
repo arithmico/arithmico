@@ -3,7 +3,7 @@ import { Context } from '../../../types/context.types';
 import evaluate from '../../../node-operations/evaluate-node';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 
-export function evaluateExpressionWithValue(
+export function evaluateWithSymbolValue(
     expression: SyntaxTreeNode,
     variableName: string,
     position: number,

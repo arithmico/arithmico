@@ -1,6 +1,6 @@
 import { CandidateInterval, Point } from './nsolve-types';
 
-export default function findSolutionCandidateIntervals(points: Point[]): CandidateInterval[] {
+export default function findCandidateIntervals(points: Point[]): CandidateInterval[] {
     const candidates: CandidateInterval[] = [];
 
     if (points.length < 3) {

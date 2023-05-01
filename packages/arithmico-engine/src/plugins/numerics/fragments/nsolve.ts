@@ -4,12 +4,12 @@ import createVector from '../../../node-operations/create-node/create-vector';
 import { Equals, NumberNode } from '../../../types';
 import { FunctionHeaderItem } from '../../../types/nodes.types';
 import { getVariableNames } from '../../../utils/symbolic-utils';
-import findSolutionCandidateIntervals from '../utils/nsolve/find-solution-candidate-intervals';
+import findCandidateIntervals from '../utils/nsolve/find-candidate-intervals';
 import findDirectHits from '../utils/nsolve/find-direct-hits';
 import refineResults from '../utils/nsolve/refine-results';
-import createPointsFromExpression from '../utils/nsolve/create-points-from-expression';
+import scan from '../utils/nsolve/scan';
 import { PluginFragment } from '../../../utils/plugin-builder';
-import evaluateZeroSolutionsFromCandidateIntervals from '../utils/nsolve/evaluate-zero-solutions-from-candidate-intervals';
+import findSolutionsFromCandidateIntervals from '../utils/nsolve/find-solutions-from-candidate-intervals';
 
 const nsolveHeader: FunctionHeaderItem[] = [
     { type: 'equals', name: 'equation', evaluate: false },
@@ -36,10 +36,15 @@ __FUNCTIONS.nsolve &&
                 throw runtimeError(`Invalid number of variables expected 1 got ${variableNames.length}`);
             }
 
-            const points = createPointsFromExpression(expression, variableNames[0], leftLimit, rightLimit, context);
+            const points = scan(expression, variableNames[0], leftLimit, rightLimit, context);
             const directHits = findDirectHits(points);
-            const candidateIntervals = findSolutionCandidateIntervals(points);
-            const solutions = evaluateZeroSolutionsFromCandidateIntervals(expression, variableNames[0], candidateIntervals, context);
+            const candidateIntervals = findCandidateIntervals(points);
+            const solutions = findSolutionsFromCandidateIntervals(
+                expression,
+                variableNames[0],
+                candidateIntervals,
+                context,
+            );
 
             const results: number[] = [];
             refineResults([...directHits, ...solutions], leftLimit, rightLimit).forEach((solution) => {
