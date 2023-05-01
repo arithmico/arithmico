@@ -17,7 +17,6 @@ import { EmailModule } from './modules/email/email.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { BullModule } from '@nestjs/bull';
-import { InboundEmailModule } from './modules/inbound-email/inbound-email.module';
 import { QueuesModule } from './infrastructure/queues/queues.module';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -78,7 +77,6 @@ import { AuthGuard } from './guards/auth.guard';
     ReleaseModule,
     EmailModule,
     AuthModule,
-    InboundEmailModule,
     QueuesModule,
   ],
   controllers: [],

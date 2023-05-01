@@ -12,7 +12,7 @@ import { EmailRepository } from '../../infrastructure/database/repositories/emai
 import { MessageRepository } from '../../infrastructure/database/repositories/message.repository';
 
 @Processor('cron-jobs')
-export class InboundEmailProducer {
+export class EmailProcessor {
   private s3client: S3Client;
 
   constructor(
