@@ -4,13 +4,13 @@ import createNumberNode from '../../../node-operations/create-node/create-number
 import { isEveryElementNumber } from '../../../utils/tensor-utils';
 import { calculatePolynomialRegressionCoefficients } from '../utils/polynomial-regression';
 import {
+    compareMonomials,
     createConstantMonomial,
     createNonConstantMonomial,
     getSyntaxTreeNodeFromPolynomial,
 } from '../../../utils/math-utils/polynomial-type-utils';
 import createEquals from '../../../node-operations/create-node/create-equals';
 import createSymbolNode from '../../../node-operations/create-node/create-symbol-node';
-import createTimes from '../../../node-operations/create-node/create-times';
 import createPower from '../../../node-operations/create-node/create-power';
 import createPlus from '../../../node-operations/create-node/create-plus';
 import { fitLogisticModel } from '../utils/logistic-regression';
@@ -60,13 +60,15 @@ __FUNCTIONS.regressionsPolynomial &&
             }
 
             const values = calculatePolynomialRegressionCoefficients(xValues, yValues, degree);
-            const dependentVariables = values.map((value, index) => {
-                if (index === 0) {
-                    return createConstantMonomial(value);
-                }
+            const dependentVariables = values
+                .map((value, index) => {
+                    if (index === 0) {
+                        return createConstantMonomial(value);
+                    }
 
-                return createNonConstantMonomial(value, 'x', index);
-            });
+                    return createNonConstantMonomial(value, 'x', index);
+                })
+                .sort((a, b) => compareMonomials(a, b));
 
             return createEquals(createSymbolNode('y'), getSyntaxTreeNodeFromPolynomial(dependentVariables));
         },
@@ -107,16 +109,19 @@ __FUNCTIONS.regressionsExponential &&
                 yValues.map((x) => Math.log(x)),
                 1,
             );
+            const polynomial = coefficients
+                .map((value, index) => {
+                    if (index === 0) {
+                        return createConstantMonomial(value);
+                    }
+
+                    return createNonConstantMonomial(value, 'x', index);
+                })
+                .sort((a, b) => compareMonomials(a, b));
 
             return createEquals(
                 createSymbolNode('y'),
-                createPower(
-                    createSymbolNode('e'),
-                    createPlus(
-                        createNumberNode(coefficients[0]),
-                        createTimes(createNumberNode(coefficients[1]), createSymbolNode('x')),
-                    ),
-                ),
+                createPower(createSymbolNode('e'), getSyntaxTreeNodeFromPolynomial(polynomial)),
             );
         },
     );
@@ -151,6 +156,15 @@ __FUNCTIONS.regressionsLogistic &&
             }
 
             const coefficients = fitLogisticModel(xValues, yValues);
+            const polynomial = coefficients
+                .map((value, index) => {
+                    if (index === 0) {
+                        return createConstantMonomial(value);
+                    }
+
+                    return createNonConstantMonomial(value, 'x', index);
+                })
+                .sort((a, b) => compareMonomials(a, b));
 
             return createEquals(
                 createSymbolNode('y'),
@@ -158,15 +172,7 @@ __FUNCTIONS.regressionsLogistic &&
                     createNumberNode(1),
                     createPlus(
                         createNumberNode(1),
-                        createPower(
-                            createSymbolNode('e'),
-                            createNegate(
-                                createPlus(
-                                    createNumberNode(coefficients[0]),
-                                    createTimes(createNumberNode(coefficients[1]), createSymbolNode('x')),
-                                ),
-                            ),
-                        ),
+                        createPower(createSymbolNode('e'), createNegate(getSyntaxTreeNodeFromPolynomial(polynomial))),
                     ),
                 ),
             );

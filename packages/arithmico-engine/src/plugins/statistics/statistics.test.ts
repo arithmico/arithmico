@@ -74,10 +74,10 @@ integrationTest('erf(1)', '0.842701');
 integrationTest('erf(-1)', '-0.842701');
 
 // regressions:polynomial
-integrationTest('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])', 'y = 0.834783 + 0.532609 * x');
+integrationTest('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])', 'y = 0.532609 * x + 0.834783');
 integrationTest(
     'regressions:polynomial([6, 9, 12, 14, 30, 35, 40, 47, 51, 55, 60], [14, 28, 50, 70, 89, 94, 90, 75, 59, 44, 27], 2)',
-    'y = (-18.25364) + 6.744358 * x - 0.1012 * x^2',
+    'y = (-0.1012 * x^2) + 6.744358 * x - 18.25364',
 );
 integrationTestThrow('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5], 1.3)');
 integrationTestThrow('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5], -2)');
@@ -88,7 +88,7 @@ integrationTestThrow('regressions:polynomial([-2, -1, 3, 4], [0, 0.5, 2, 2, 5])'
 // regressions:exponential
 integrationTest(
     'regressions:exponential([1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [1, 3, 5, 7, 9, 12, 15, 19, 23, 28, 33, 38, 44, 50, 56, 64, 73, 84, 97, 113])',
-    'y = e^(0.981658 + 0.2041 * x)', //'y = 2.668877 * 1.226421^x',
+    'y = e^(0.2041 * x + 0.981658)',
 );
 integrationTestThrow('regressions:exponential([a, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])');
 integrationTestThrow('regressions:exponential([-2, -1, 3, 4, 6], [a, 0.5, 2, 2, 5])');
@@ -97,7 +97,7 @@ integrationTestThrow('regressions:exponential([ -1, 3, 4, 6], [0, 0.5, 2, 2, 5])
 //regressions:logistic
 integrationTest(
     'regressions:logistic([0.50, 0.75, 1.00, 1.25, 1.50, 1.75, 1.75, 2.00, 2.25, 2.50, 2.75, 3.00, 3.25, 3.50, 4.00, 4.25, 4.50, 4.75, 5.00, 5.50], [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1])',
-    'y = 1 / (1 + e^(-(-4.077712 + 1.504645 * x)))',
+    'y = 1 / (1 + e^(-(1.504645 * x - 4.077712)))',
 );
 integrationTestThrow(
     'regressions:logistic([a, 0.75, 1.00, 1.25, 1.50, 1.75, 1.75, 2.00, 2.25, 2.50, 2.75, 3.00, 3.25, 3.50, 4.00, 4.25, 4.50, 4.75, 5.00, 5.50], [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1])',
