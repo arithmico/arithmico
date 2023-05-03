@@ -4,6 +4,7 @@ import xoderFragment from './fragments/xoder';
 import zweifakultaetFragment from './fragments/zweifakultaet';
 import wurzelFragment from './fragments/wurzel';
 import wennFragment from './fragments/wenn';
+import zufallsbereichFragment from './fragments/zufallsbereich';
 
 const excelPlugin = createPlugin(
     {
@@ -21,6 +22,7 @@ const excelPlugin = createPlugin(
     .addFragment(zweifakultaetFragment)
     .addFragment(wennFragment)
     .addFragment(wurzelFragment)
+    .addFragment(zufallsbereichFragment)
     .build();
 
 export default excelPlugin;

@@ -77,27 +77,6 @@ const excelConstantsFragment = new PluginFragment()
     )
 
     .addFunction(
-        'zufallsbereich', doubleNumberHeader,
-        'Returns a random number between two specified numbers or just a random number.',
-        'Gibt Zufallszahl zwischen zwei angegebenen Zahlen zurück bzw. eine Zufallszahl.',
-        ({ getParameter, runtimeError }) => {
-            const n = (<NumberNode>getParameter('n')).value;
-            const a = (<NumberNode>getParameter('a')).value;
-            if (isNaN(n || a)) {
-                throw runtimeError('Funktion zufallsbereich funktioniert nur mit Zahlen.');
-            }
-            else if (n !== undefined && a !== undefined) {
-                // Wenn minValue und maxValue definiert sind, generieren Sie eine Zufallszahl im angegebenen Bereich
-                return createNumberNode(Math.random() * (a - n) + n);
-            } else {
-                // Wenn minValue und maxValue nicht definiert sind, generieren Sie einfach eine Zufallszahl zw. 0 und 1
-                return createNumberNode(Math.random());
-            }
-        },
-    )
-
-
-    .addFunction(
     'ASin',
     singleNumberHeader,
     'Returns the arc sine or inverted sine of a number',
