@@ -8,8 +8,12 @@ integrationTest('wurzel(9)', '3');
 integrationTestThrow('wurzel(-1)');
 
 // xoder
+integrationTest('xoder(true)', 'true');
+integrationTest('xoder(false)', 'false');
 integrationTest('xoder(true, false)', 'true');
 integrationTest('xoder(true, true)', 'false');
+integrationTest('xoder(true, false, false, false, true, false, true)', 'true');
+integrationTestThrow('xoder(42)');
 
 // wenn
 integrationTest('wenn(true, 1, 2)', '1');
