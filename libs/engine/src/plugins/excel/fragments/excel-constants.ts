@@ -171,5 +171,120 @@ const excelConstantsFragment = new PluginFragment()
             return createNumberNode(n*Math.PI/180);
         },
 
-    );
+    )
+
+    .addFunction(
+        'GRADMASS',
+        singleNumberHeader,
+        'Calculates the angle to radian',
+        'Berechnet das Gradmaß eines Winkels',
+        ({ getParameter, runtimeError }) => {
+        const n = (<NumberNode>getParameter('n')).value;
+        if (isNaN(n)) {
+            throw runtimeError('Funktion Gradmaß funktioniert nur mit Zahlen.');
+        }
+        return createNumberNode(n*180/Math.PI);
+        },
+    )
+        .addFunction(
+                'AUFRUNDEN',
+                singleNumberHeader,
+                'round up.',
+                'Aufrunden ohne Nachkomma stelle',
+                ({ getParameter, runtimeError }) => {
+                    const n = (<NumberNode>getParameter('n')).value;
+                    if (isNaN(n)) {
+                        throw runtimeError('Funktion Aufrunden funktioniert nur mit Zahlen.');
+                    }
+                    return createNumberNode(Math.ceil(n));
+                },
+            )
+
+    .addFunction(
+        'FAKULTÄT',
+        singleNumberHeader,
+        'faculty.',
+        'Gibt die Fakultät zu einer Zahl zurück',
+        ({ getParameter, runtimeError }) => {
+            const n = getParameter('n').value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion Fakultät funktioniert nur mit Zahlen.');
+            }
+            return createNumberNode(fakultät(n));
+        },
+    )
+
+    .addFunction(
+        'GGT',
+        singleNumberHeader,
+        'gcd.',
+        'Gibt den größten gemeinsamen Teiler zurück',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion ggt funktioniert nur mit Zahlen.');
+            }
+            return createNumberNode(Math.gcd(n));
+        },
+    )
+
+    .addFunction(
+        'FALSCH',
+        singleNumberHeader,
+        'Returns the truth value “FALSCH”',
+        'Gibt den Wahrheitswert „FALSCH“ zurück',
+        ({ getParameter, runtimeError }) => {
+            return createNumberNode("FALSCH");
+        },
+    )
+
+.addFunction(
+    'GGANZZAHL',
+    doubleNumberHeader,
+    'Checks if a value is bigger than a given threshold',
+    'Überprüft, ob eine Zahl größer als ein gegebener Schwellenwert ist',
+    ({ getParameter, runtimeError }) => {
+        const n = getParameter('n').value;
+        if (isNaN(n)) {
+            throw runtimeError('Funktion GGanzzahl funktioniert nur mit Zahlen.');
+        }
+        const x = getParameter('x').value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion GGanzzahl funktioniert nur mit Zahlen.');
+            }
+
+        if (n > x) {
+            return createNumberNode(1);
+        } else {
+            return createNumberNode(0);
+        }
+    },
+)
+
+.addFunction(
+    'DELTA',
+    doubleNumberHeader,
+    'Checks if two values are equal',
+    'Überprüft, ob zwei Werte gleich sind',
+    ({ getParameter, runtimeError }) => {
+        const n = getParameter('n').value;
+        if (isNaN(n)) {
+            throw runtimeError('Funktion Delta funktioniert nur mit Zahlen.');
+        }
+        const x = getParameter('x').value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion Delta funktioniert nur mit Zahlen.');
+            }
+
+        if (n === x) {
+            return createNumberNode(1);
+        } else {
+            return createNumberNode(0);
+        };
+    },
+);
+
+
+
+
 export default excelConstantsFragment;
