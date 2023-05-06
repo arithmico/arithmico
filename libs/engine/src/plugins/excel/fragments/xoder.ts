@@ -26,16 +26,6 @@ const xoderFragment = new PluginFragment().addFunction(
             }
         }
         return createBooleanNode(countTrue % 2 == 1);
-        /*
-        // für genau 2 Argumente: exactly one argument is true
-        const a = (<BooleanNode>getParameter('a')).value;
-        const b = (<BooleanNode>getParameter('b')).value;
-        if (typeof a === 'boolean' && typeof b === 'boolean') {
-            return createBooleanNode(a !== b);
-        } else {
-            throw runtimeError('Mindestens ein Argument ist kein Wahrheitswert.');
-        }
-        */
     },
 );
 

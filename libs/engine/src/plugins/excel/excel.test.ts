@@ -10,9 +10,9 @@ integrationTestThrow('wurzel(-1)');
 // xoder
 integrationTest('xoder(true)', 'true');
 integrationTest('xoder(false)', 'false');
-integrationTest('xoder(true, false)', 'true');
-integrationTest('xoder(true, true)', 'false');
 integrationTest('xoder(true, false, false, false, true, false, true)', 'true');
+integrationTest('xoder(true, true)', 'false');
+integrationTest('xoder(true, false)', 'true');
 integrationTestThrow('xoder(42)');
 
 // wenn
