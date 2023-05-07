@@ -19,7 +19,7 @@ const zufallsbereichFragment = new PluginFragment().addFunction(
             throw runtimeError('Funktion zufallsbereich funktioniert nur mit Zahlen.');
         } else {
             // Wenn minValue und maxValue definiert sind, generieren Sie eine Zufallszahl im angegebenen Bereich
-            return createNumberNode(Math.random() * (a - n) + n);
+            return createNumberNode(Math.floor(Math.random() * (a - n) + n));
         }
     },
 );
