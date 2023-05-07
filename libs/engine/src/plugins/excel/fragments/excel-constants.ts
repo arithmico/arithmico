@@ -42,98 +42,76 @@ const excelConstantsFragment = new PluginFragment()
         },
     )
 
-.addFunction(
-    'Acosh',
-    singleNumberHeader,
-    'Returns the inverse hyperbolic cosine of a number',
-    'Gibt den umgekehrten hyperbolischen Kosinus einer Zahl zurück',
-    ({ getParameter, runtimeError }) => {
-        const n = (<NumberNode>getParameter('n')).value;
-        if (isNaN(n)) {
-            throw runtimeError('Function acosh funktioniert nur mit Zahlen.');
-        }else if (n<1) {
-            throw runtimeError('Nur Zahlen größer als 1 möglich');
-        }
-        return createNumberNode(Math.acosh(n));
-    },
-
-)
     .addFunction(
-        'ungerade', singleNumberHeader,
-        'Rounds up a number to the nearest odd integer',
-        'Rundet eine Zahl auf die nächste ungerade ganze Zahl auf',
+        'Acosh',
+        singleNumberHeader,
+        'Returns the inverse hyperbolic cosine of a number',
+        'Gibt den umgekehrten hyperbolischen Kosinus einer Zahl zurück',
         ({ getParameter, runtimeError }) => {
             const n = (<NumberNode>getParameter('n')).value;
-
             if (isNaN(n)) {
-                throw runtimeError('Funktion ungerade funktioniert nur mit Zahlen');
+                throw runtimeError('Function acosh funktioniert nur mit Zahlen.');
+            } else if (n < 1) {
+                throw runtimeError('Nur Zahlen größer als 1 möglich');
             }
-
-            const gerundeteZahl = Math.round(n); // Runden
-            const istGerade = gerundeteZahl % 2 === 0; // Überprüfen gerundete Zahl gerade?
-            const ungeradeZahl = istGerade ? gerundeteZahl + 1 : gerundeteZahl;
-            return createNumberNode (ungeradeZahl);
+            return createNumberNode(Math.acosh(n));
         },
     )
 
     .addFunction(
-    'ASin',
-    singleNumberHeader,
-    'Returns the arc sine or inverted sine of a number',
-    'Gibt den Arkussinus oder umgekehrten Sinus einer Zahl zurück.',
-    ({ getParameter, runtimeError }) => {
-        const n = (<NumberNode>getParameter('n')).value;
-        if (isNaN(n)) {
-            throw runtimeError('Funktion asin funktioniert nur mit Zahlen.');
-        }
-        return createNumberNode(Math.asin(n));
-    },
-
-)
+        'ASin',
+        singleNumberHeader,
+        'Returns the arc sine or inverted sine of a number',
+        'Gibt den Arkussinus oder umgekehrten Sinus einer Zahl zurück.',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion asin funktioniert nur mit Zahlen.');
+            }
+            return createNumberNode(Math.asin(n));
+        },
+    )
     .addFunction(
-    'Atan',
-    singleNumberHeader,
-    'Returns the arc tangent or inverse tangent of a number.',
-    'Gibt den Arkustangens oder umgekehrten Tangens einer Zahl zurück.',
-    ({ getParameter, runtimeError }) => {
-        const n = (<NumberNode>getParameter('n')).value;
-        if (isNaN(n)) {
-            throw runtimeError('Funktion atan funktioniert nur mit Zahlen.');
-        }
-        return createNumberNode(Math.atan(n));
-    },
-
-)
+        'Atan',
+        singleNumberHeader,
+        'Returns the arc tangent or inverse tangent of a number.',
+        'Gibt den Arkustangens oder umgekehrten Tangens einer Zahl zurück.',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion atan funktioniert nur mit Zahlen.');
+            }
+            return createNumberNode(Math.atan(n));
+        },
+    )
     .addFunction(
-    'ASinh',
-    singleNumberHeader,
-    'Returns the inverse hyperbolic sine of a number.',
-    'Gibt den umgekehrten hyperbolischen Sinus einer Zahl zurück.',
-    ({ getParameter, runtimeError }) => {
-        const n = (<NumberNode>getParameter('n')).value;
-        if (isNaN(n)) {
-            throw runtimeError('Funktion asin funktioniert nur mit Zahlen.');
-        }else if (n <0) {
-            throw runtimeError('Nur Zahlen größer als 0 möglich');
-        }
-        return createNumberNode(Math.asinh(n));
-    },
-
-)
-.addFunction(
-    'Aufrunden',
-    singleNumberHeader,
-    'Round up without decimal place',
-    'Aufrunden ohne Nachkommastelle',
-    ({ getParameter, runtimeError }) => {
-        const n = (<NumberNode>getParameter('n')).value;
-        if (isNaN(n)) {
-            throw runtimeError('Funktion Aufrunden funktioniert nur mit Zahlen.');
-        }
-        return createNumberNode(Math.ceil(n));
-    },
-
-)
+        'ASinh',
+        singleNumberHeader,
+        'Returns the inverse hyperbolic sine of a number.',
+        'Gibt den umgekehrten hyperbolischen Sinus einer Zahl zurück.',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion asin funktioniert nur mit Zahlen.');
+            } else if (n < 0) {
+                throw runtimeError('Nur Zahlen größer als 0 möglich');
+            }
+            return createNumberNode(Math.asinh(n));
+        },
+    )
+    .addFunction(
+        'Aufrunden',
+        singleNumberHeader,
+        'Round up without decimal place',
+        'Aufrunden ohne Nachkommastelle',
+        ({ getParameter, runtimeError }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+            if (isNaN(n)) {
+                throw runtimeError('Funktion Aufrunden funktioniert nur mit Zahlen.');
+            }
+            return createNumberNode(Math.ceil(n));
+        },
+    )
 
     .addFunction(
         'BOGENMASS',
@@ -144,11 +122,10 @@ const excelConstantsFragment = new PluginFragment()
             const n = (<NumberNode>getParameter('n')).value;
             if (isNaN(n)) {
                 throw runtimeError('Funktion Bogenmaß funktioniert nur mit Zahlen.');
-            }else if (n <0) {
+            } else if (n < 0) {
                 throw runtimeError('Nur Zahlen größer als 0 möglich');
             }
-            return createNumberNode(n*Math.PI/180);
+            return createNumberNode((n * Math.PI) / 180);
         },
-
     );
 export default excelConstantsFragment;

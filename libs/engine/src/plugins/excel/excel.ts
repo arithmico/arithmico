@@ -5,6 +5,7 @@ import zweifakultaetFragment from './fragments/zweifakultaet';
 import wurzelFragment from './fragments/wurzel';
 import wennFragment from './fragments/wenn';
 import zufallsbereichFragment from './fragments/zufallsbereich';
+import ungeradeFragment from "./fragments/ungerade";
 
 const excelPlugin = createPlugin(
     {
@@ -23,6 +24,7 @@ const excelPlugin = createPlugin(
     .addFragment(wennFragment)
     .addFragment(wurzelFragment)
     .addFragment(zufallsbereichFragment)
+    .addFragment(ungeradeFragment)
     .build();
 
 export default excelPlugin;
