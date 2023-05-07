@@ -27,3 +27,11 @@ integrationTest('zweifakultaet(2)', '2');
 integrationTest('zweifakultaet(5)', '15');
 integrationTest('zweifakultaet(0)', '1'); // ist so definiert
 integrationTestThrow('zweifakultaet(-1)');
+
+// ungerade
+integrationTest('ungerade(1)', '1');
+integrationTest('ungerade(-1)', '-1');
+integrationTest('ungerade(2)', '3');
+integrationTest('ungerade(-2)', '-3');
+integrationTest('ungerade(6)', '7');
+integrationTestThrow('ungerade(a)');
