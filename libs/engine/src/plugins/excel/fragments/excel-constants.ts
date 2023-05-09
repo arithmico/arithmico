@@ -260,6 +260,41 @@ const excelConstantsFragment = new PluginFragment()
         }
     },
 )
+    // MAX-Funktion von Gruppe C - Tom
+.addFunction(
+        'MAX',
+        { type: 'number', varArgs: true },
+        'Returns the largest value from a list of numbers.',
+        'MAX(number1, [number2], ...)',
+        ({ getParameter }) => {
+            const numbers = getParameter('number1').value;
+            for (let i = 1; i < getParameterCount(); i++) {
+                numbers.push(getParameter(`number${i + 1}`).value);
+            }
+            return createNumberNode(Math.max(...numbers));
+        }
+    )
+
+// MDET-Funktion von Gruppe C - Tom
+
+.addFunction(
+        'MDET',
+           { type: 'number', varArgs: true },
+    'calculates the determinant of a matrix',
+    'Berechnet die Determinante einer Matrix',
+    ({ getParameter, runtimeError }) => {
+        const vector = <Vector>getParameter('n');
+        if (!isEveryElementNumber(vector)) {
+            throw runtimeError('only numbers are allowed as elements');
+        }
+        if (!isSquareMatrix(vector)) {
+            throw runtimeError('not a square matrix');
+        }
+        const matrix = tensorToMatrix(vector);
+        return createNumberNode(det(matrix));
+    },
+
+    )
 
 .addFunction(
     'DELTA',
