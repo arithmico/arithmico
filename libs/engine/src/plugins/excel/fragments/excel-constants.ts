@@ -293,8 +293,31 @@ const excelConstantsFragment = new PluginFragment()
         const matrix = tensorToMatrix(vector);
         return createNumberNode(det(matrix));
     },
-
     )
+
+// Versuch Nummer 2
+
+    .addFunction(
+        'max',
+        singleNumberHeader,
+        'Returns the maximum value from a list of numbers.',
+        'gibt das Maximum der Werte aus',
+        ({ getParameter, runtimeError }) => {
+            const numbers = [];
+            for (let i = 1; i <= getParameterCount(); i++) {
+                const parameter = getParameter(`number${i}`);
+                if (parameter.type !== 'number') {
+                    throw runtimeError('MAX function only works with numbers.');
+                }
+                numbers.push(parameter.value);
+            }
+            return createNumberNode(Math.max(...numbers));
+        }
+    );
+
+
+
+
 
 .addFunction(
     'DELTA',
