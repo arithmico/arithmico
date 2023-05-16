@@ -22,10 +22,12 @@ integrationTest('wenn(false, 1, 2)', '2');
 
 // zweifakultaet
 integrationTest('zweifakultaet(9.011)', '945');
+integrationTest('zweifakultaet(0)', '1'); // ist so definiert
 integrationTest('zweifakultaet(1)', '1');
 integrationTest('zweifakultaet(2)', '2');
 integrationTest('zweifakultaet(5)', '15');
-integrationTest('zweifakultaet(0)', '1'); // ist so definiert
+integrationTest('zweifakultaet(6)', '48');
+integrationTest('zweifakultaet(7)', '105');
 integrationTestThrow('zweifakultaet(-1)');
 
 // ungerade
