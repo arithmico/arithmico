@@ -25,7 +25,7 @@ export class SecurityAttributesRepository {
     private userModel: Model<UserDocument>,
   ) {}
 
-  async aggregateUserSecurityAttributes(userId: string): Promise<string[]> {
+  async aggregateUserSecurityAttributes(userId: string): Promise<Set<string>> {
     const attributeDocuments = await this.securityPolicyAttachmentModel
       .aggregate()
       .match({
@@ -48,6 +48,6 @@ export class SecurityAttributesRepository {
       })
       .exec();
 
-    return attributeDocuments.map((doc) => doc._id as string);
+    return new Set(attributeDocuments.map((doc) => doc._id as string));
   }
 }
