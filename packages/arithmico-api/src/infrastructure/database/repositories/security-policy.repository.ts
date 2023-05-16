@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import {
   SecurityPolicyAttachment,
   SecurityPolicyAttachmentDocument,
+  SecurityPolicyAttachmentType,
 } from '../schemas/security-policy-attachment/security-policy-attachment.schema';
 import {
   SecurityPolicy,
@@ -112,5 +113,29 @@ export class SecurityPolicyRepository {
       throw new NotFoundException();
     }
     return securityPolicyDocument;
+  }
+
+  async attachToUser(
+    policyId: string,
+    userId: string,
+  ): Promise<SecurityPolicyAttachmentDocument> {
+    const newAttachment: SecurityPolicyAttachment = {
+      attachmentType: SecurityPolicyAttachmentType.User,
+      policyId,
+      attachedToId: userId,
+    };
+    return this.securityPolicyAttachmentModel.create(newAttachment);
+  }
+
+  async attachToGroup(
+    policyId: string,
+    groupId: string,
+  ): Promise<SecurityPolicyAttachmentDocument> {
+    const newAttachment: SecurityPolicyAttachment = {
+      attachmentType: SecurityPolicyAttachmentType.Group,
+      policyId,
+      attachedToId: groupId,
+    };
+    return this.securityPolicyAttachmentModel.create(newAttachment);
   }
 }
