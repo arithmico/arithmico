@@ -7,6 +7,9 @@ export class User {
   @Prop({ type: String, default: () => nanoid() })
   _id?: string;
 
+  @Prop({ type: Boolean, required: true })
+  activated: boolean;
+
   @Prop({ type: String, required: true })
   username: string;
 

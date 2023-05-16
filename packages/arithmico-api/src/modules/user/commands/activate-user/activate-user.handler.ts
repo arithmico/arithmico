@@ -20,15 +20,10 @@ export class ActivateUserCommandHandler
     const { userId } = await this.userActivationRepository.findAndDelete(
       command.activationId,
     );
-
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(command.password, salt);
-
-    const userDocument = await this.userRepository.setPasswordHash(
-      userId,
-      hash,
-    );
-
+    await this.userRepository.setPasswordHash(userId, hash);
+    const userDocument = await this.userRepository.activateUserOrThrow(userId);
     return { userId: userDocument._id };
   }
 }

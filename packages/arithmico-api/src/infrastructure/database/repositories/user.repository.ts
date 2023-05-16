@@ -13,6 +13,7 @@ export class UserRepository {
     const newUser: User = {
       username,
       email,
+      activated: false,
     };
 
     return this.userModel.create(newUser);
@@ -69,6 +70,22 @@ export class UserRepository {
     passwordHash: string,
   ): Promise<UserDocument> {
     const userDocument = await this.setPasswordHash(userId, passwordHash);
+    if (!userDocument) {
+      throw new NotFoundException();
+    }
+    return userDocument;
+  }
+
+  async activateUser(userId: string): Promise<UserDocument | null> {
+    return this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { activated: true },
+      { new: true },
+    );
+  }
+
+  async activateUserOrThrow(userId: string): Promise<UserDocument> {
+    const userDocument = await this.activateUser(userId);
     if (!userDocument) {
       throw new NotFoundException();
     }
