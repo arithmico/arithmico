@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
-import { EmailModule } from './modules/email/email.module';
-import { ReleaseModule } from './modules/release/release.module';
+import { EmailModule } from './email/email.module';
+import { ReleaseModule } from './release/release.module';
 
 @Module({
   imports: [
