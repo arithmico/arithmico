@@ -8,6 +8,10 @@ import { UserRepository } from './repositories/user.repository';
 import { Email, EmailSchema } from './schemas/email/email.schema';
 import { Message, MessageSchema } from './schemas/messege/messege.schema';
 import {
+  SecurityPolicyAttachment,
+  SecurityPolicyAttachmentSchema,
+} from './schemas/security-policy-attachment/security-policy-attachment.schema';
+import {
   SecurityPolicy,
   SecurityPolicySchema,
 } from './schemas/security-policy/security-policy.schema';
@@ -36,6 +40,10 @@ import { User, UserSchema } from './schemas/user/user.schema';
       {
         name: SecurityPolicy.name,
         schema: SecurityPolicySchema,
+      },
+      {
+        name: SecurityPolicyAttachment.name,
+        schema: SecurityPolicyAttachmentSchema,
       },
     ]),
   ],

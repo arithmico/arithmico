@@ -2,6 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
+  SecurityPolicyAttachment,
+  SecurityPolicyAttachmentDocument,
+} from '../schemas/security-policy-attachment/security-policy-attachment.schema';
+import {
   SecurityPolicy,
   SecurityPolicyDocument,
 } from '../schemas/security-policy/security-policy.schema';
@@ -10,7 +14,10 @@ import {
 export class SecurityPolicyRepository {
   constructor(
     @InjectModel(SecurityPolicy.name)
-    private securityPolicyModel: Model<SecurityPolicy>,
+    private securityPolicyModel: Model<SecurityPolicyDocument>,
+
+    @InjectModel(SecurityPolicyAttachment.name)
+    private securityPolicyAttachmentModel: Model<SecurityPolicyAttachmentDocument>,
   ) {}
 
   async findById(policyId: string): Promise<SecurityPolicyDocument | null> {
@@ -36,19 +43,17 @@ export class SecurityPolicyRepository {
   async addAttributesToSecurityPolicy(
     policyId: string,
     attributes: string[],
-  ): Promise<SecurityPolicy | null> {
-    return <Promise<SecurityPolicy | null>>(
-      this.securityPolicyModel.findOneAndUpdate(
-        { _id: policyId },
-        {
-          $addToSet: {
-            attributes: {
-              $each: attributes,
-            },
+  ): Promise<SecurityPolicyDocument | null> {
+    return this.securityPolicyModel.findOneAndUpdate(
+      { _id: policyId },
+      {
+        $addToSet: {
+          attributes: {
+            $each: attributes,
           },
         },
-        { new: true },
-      )
+      },
+      { new: true },
     );
   }
 
@@ -69,7 +74,7 @@ export class SecurityPolicyRepository {
   async removeAttributesFromSecurityPolicy(
     policyId: string,
     attributes: string[],
-  ): Promise<SecurityPolicy | null> {
+  ): Promise<SecurityPolicyDocument | null> {
     return this.securityPolicyModel.findOneAndUpdate(
       {
         _id: policyId,
@@ -90,7 +95,7 @@ export class SecurityPolicyRepository {
   async removeAttributesFromSecurityPolicyOrThrow(
     policyId: string,
     attributes: string[],
-  ) {
+  ): Promise<SecurityPolicyDocument> {
     const securityPolicyDocument = this.removeAttributesFromSecurityPolicy(
       policyId,
       attributes,
