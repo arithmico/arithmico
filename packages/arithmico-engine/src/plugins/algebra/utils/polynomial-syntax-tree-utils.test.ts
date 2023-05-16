@@ -8,7 +8,7 @@ import createPower from '../../../node-operations/create-node/create-power';
 import createSymbolNode from '../../../node-operations/create-node/create-symbol-node';
 import createTimes from '../../../node-operations/create-node/create-times';
 import createMinus from '../../../node-operations/create-node/create-minus';
-import { createConstantMonomial, createNonConstantMonomial } from './polynomial-type-utils';
+import { createConstantMonomial, createNonConstantMonomial } from '../../../utils/math-utils/polynomial-type-utils';
 
 const testContext = createContext();
 

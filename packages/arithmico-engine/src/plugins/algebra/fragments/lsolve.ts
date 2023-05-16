@@ -7,7 +7,7 @@ import serialize from '../../../node-operations/serialize-node';
 import { Equals, FunctionHeaderItem, SyntaxTreeNode } from '../../../types/nodes.types';
 import { isEquationLinear } from '../utils/check-linear';
 import { getCoefficientMatrix, getConstantVector, getVariableNamesFromEquations } from '../utils/get-coefficients';
-import { det, replaceColumn } from '../utils/matrix-utils';
+import { cramerSolver, det } from '../../../utils/math-utils/matrix-utils';
 import { PluginFragment } from '../../../utils/plugin-builder';
 
 const lsolveHeader: FunctionHeaderItem[] = [{ type: 'equals', name: 'equation', evaluate: false, repeat: true }];
@@ -51,18 +51,10 @@ __FUNCTIONS.lsolve &&
             const constants = getConstantVector(equations);
             const coefficientsDet = det(coefficients);
 
-            // uses cramer's rule logic
-            const results: number[] = [];
-            const replacedColumnDets: number[] = [];
-            for (let i = 0; i < coefficients.length; i++) {
-                const replacedColumnDet = det(replaceColumn(coefficients, constants, i));
-                replacedColumnDets.push(replacedColumnDet);
-                const value = replacedColumnDet / coefficientsDet;
-                results.push(value);
-            }
+            const results = cramerSolver(coefficients, constants, coefficientsDet);
 
             if (coefficientsDet === 0) {
-                if (replacedColumnDets.every((value) => value === 0)) {
+                if (results.every((value) => isNaN(value))) {
                     throw 'SolveError: The equation system has infinite solutions';
                 } else {
                     throw 'SolveError: The equation system has no solution';

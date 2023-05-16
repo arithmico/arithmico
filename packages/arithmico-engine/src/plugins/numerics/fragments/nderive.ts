@@ -2,7 +2,7 @@ import createFunctionCall from '../../../node-operations/create-node/create-func
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import evaluate from '../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/nodes.types';
-import { binco } from '../../../utils/binco';
+import { binco } from '../../../utils/math-utils/binco';
 import { PluginFragment } from '../../../utils/plugin-builder';
 import { calculateH } from '../utils/nderive-utils';
 
