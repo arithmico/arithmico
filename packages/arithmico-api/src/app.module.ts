@@ -12,13 +12,12 @@ import seedUserConfig from './infrastructure/config/seed-user';
 import configValidationSchema from './infrastructure/config/config-validation';
 import { APP_GUARD, RouterModule } from '@nestjs/core';
 import { DatabaseModule } from './infrastructure/database/database.module';
-import { ReleaseModule } from './modules/release/release.module';
-import { EmailModule } from './modules/email/email.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { BullModule } from '@nestjs/bull';
 import { QueuesModule } from './infrastructure/queues/queues.module';
 import { AuthGuard } from './guards/auth.guard';
+import { BackofficeModule } from './modules/backoffice/backoffice.module';
 
 @Module({
   imports: [
@@ -72,12 +71,15 @@ import { AuthGuard } from './guards/auth.guard';
         path: 'auth',
         module: AuthModule,
       },
+      {
+        path: 'backoffice',
+        module: BackofficeModule,
+      },
     ]),
     UserModule,
-    ReleaseModule,
-    EmailModule,
     AuthModule,
     QueuesModule,
+    BackofficeModule,
   ],
   controllers: [],
   providers: [
