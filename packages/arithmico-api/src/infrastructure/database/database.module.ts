@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EmailRepository } from './repositories/email.repository';
 import { MessageRepository } from './repositories/message.repository';
+import { SecurityAttributesRepository } from './repositories/security-attributes.repository';
 import { SecurityPolicyRepository } from './repositories/security-policy.repository';
 import { UserActivationRepository } from './repositories/user-activation.repository';
 import { UserRepository } from './repositories/user.repository';
@@ -53,6 +54,7 @@ import { User, UserSchema } from './schemas/user/user.schema';
     EmailRepository,
     MessageRepository,
     SecurityPolicyRepository,
+    SecurityAttributesRepository,
   ],
   exports: [
     UserRepository,
@@ -60,6 +62,7 @@ import { User, UserSchema } from './schemas/user/user.schema';
     EmailRepository,
     MessageRepository,
     SecurityPolicyRepository,
+    SecurityAttributesRepository,
   ],
 })
 export class DatabaseModule {}
