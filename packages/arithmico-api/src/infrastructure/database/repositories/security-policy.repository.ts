@@ -40,7 +40,7 @@ export class SecurityPolicyRepository {
     });
   }
 
-  async addAttributesToSecurityPolicy(
+  async addAttributes(
     policyId: string,
     attributes: string[],
   ): Promise<SecurityPolicyDocument | null> {
@@ -57,21 +57,15 @@ export class SecurityPolicyRepository {
     );
   }
 
-  async addAttributesToSecurityPolicyOrThrow(
-    policyId: string,
-    attributes: string[],
-  ) {
-    const securityPolicyDocument = this.addAttributesToSecurityPolicy(
-      policyId,
-      attributes,
-    );
+  async addAttributesOrThrow(policyId: string, attributes: string[]) {
+    const securityPolicyDocument = this.addAttributes(policyId, attributes);
     if (!securityPolicyDocument) {
       throw new NotFoundException();
     }
     return securityPolicyDocument;
   }
 
-  async removeAttributesFromSecurityPolicy(
+  async removeAttributes(
     policyId: string,
     attributes: string[],
   ): Promise<SecurityPolicyDocument | null> {
@@ -92,14 +86,11 @@ export class SecurityPolicyRepository {
     );
   }
 
-  async removeAttributesFromSecurityPolicyOrThrow(
+  async removeAttributesFromOrThrow(
     policyId: string,
     attributes: string[],
   ): Promise<SecurityPolicyDocument> {
-    const securityPolicyDocument = this.removeAttributesFromSecurityPolicy(
-      policyId,
-      attributes,
-    );
+    const securityPolicyDocument = this.removeAttributes(policyId, attributes);
     if (!securityPolicyDocument) {
       throw new NotFoundException();
     }
