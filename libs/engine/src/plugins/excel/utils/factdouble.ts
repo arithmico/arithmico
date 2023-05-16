@@ -2,11 +2,7 @@ export function calculateFactdouble(n: number) {
     if (n < 0) {
         throw 'RuntimeError: factdouble: n < 0';
     }
-    /*
-    if (n % 1 !== 0) {
-        throw 'RuntimeError: fact: n is not an integer';
-    }
-    */
+
     if (isNaN(n)) {
         throw 'RuntimeError: Not a Number';
     }
