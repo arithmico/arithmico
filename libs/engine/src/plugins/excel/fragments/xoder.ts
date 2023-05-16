@@ -11,11 +11,7 @@ const xoderFragment = new PluginFragment().addFunction(
     "Ausschließendes Oder. Wahr, wenn ungerade Anzahl von Werten mit 'wahr'.",
     ({ getParameter, runtimeError }) => {
         const as = (<SyntaxTreeNode[]>getParameter('a')).map((a) => (<BooleanNode>a).value);
-        /*
-        if (!isEveryElementBoolean(as)) {
-            return runtimeError('Alle Argumente müssen Wahrheitswerte sein.');
-        }
-        */
+
         let countTrue = 0;
         for (const a of as) {
             if (typeof a !== 'boolean') {
