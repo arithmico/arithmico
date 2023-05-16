@@ -34,8 +34,18 @@ integrationTestThrow('zweifakultaet(-1)');
 
 // ungerade
 integrationTest('ungerade(1)', '1');
+integrationTest('ungerade(1.5)', '3');
 integrationTest('ungerade(-1)', '-1');
+integrationTest('ungerade(0)', '1');
 integrationTest('ungerade(2)', '3');
+integrationTest('ungerade(3)', '3');
 integrationTest('ungerade(-2)', '-3');
+integrationTest('ungerade(-4)', '-5');
+integrationTest('ungerade(-2.5)', '-3');
+integrationTest('ungerade(-2.1)', '-3');
+integrationTest('ungerade(-2.9)', '-3');
 integrationTest('ungerade(6)', '7');
+integrationTest('ungerade(6.2)', '7');
+integrationTest('ungerade(7.2)', '9');
+integrationTest('ungerade(7.89)', '9');
 integrationTestThrow('ungerade(a)');

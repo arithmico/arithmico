@@ -17,12 +17,12 @@ const ungeradeFragment = new PluginFragment().addFunction(
         }
 
         if (n >= 0) {
-            const gerundeteZahl = Math.round(n); // Runden
+            const gerundeteZahl = Math.ceil(n); // Runden
             const istGerade = gerundeteZahl % 2 === 0; // Überprüfen gerundete Zahl gerade?
             const ungeradeZahl = istGerade ? gerundeteZahl + 1 : gerundeteZahl;
             return createNumberNode(ungeradeZahl);
         } else {
-            const gerundeteZahl = Math.round(n); // Runden
+            const gerundeteZahl = Math.floor(n); // Runden
             const istGerade = gerundeteZahl % 2 === 0; // Überprüfen gerundete Zahl gerade?
             const ungeradeZahl = istGerade ? gerundeteZahl - 1 : gerundeteZahl; //weg von 0
             return createNumberNode(ungeradeZahl);
