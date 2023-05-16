@@ -138,4 +138,20 @@ export class SecurityPolicyRepository {
     };
     return this.securityPolicyAttachmentModel.create(newAttachment);
   }
+
+  async detachFromUser(policyId: string, userId: string): Promise<void> {
+    this.securityPolicyAttachmentModel.deleteMany({
+      policyId,
+      attachmentType: SecurityPolicyAttachmentType.User,
+      attachedToId: userId,
+    });
+  }
+
+  async detachFromGroup(policyId: string, groupId: string): Promise<void> {
+    this.securityPolicyAttachmentModel.deleteMany({
+      policyId,
+      attachmentType: SecurityPolicyAttachmentType.Group,
+      attachedToId: groupId,
+    });
+  }
 }
