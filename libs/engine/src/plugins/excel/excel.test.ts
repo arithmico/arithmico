@@ -25,9 +25,11 @@ integrationTest('zweifakultaet(9.011)', '945');
 integrationTest('zweifakultaet(0)', '1'); // ist so definiert
 integrationTest('zweifakultaet(1)', '1');
 integrationTest('zweifakultaet(2)', '2');
+integrationTest('zweifakultaet(4)', '8');
 integrationTest('zweifakultaet(5)', '15');
 integrationTest('zweifakultaet(6)', '48');
 integrationTest('zweifakultaet(7)', '105');
+integrationTest('zweifakultaet(8)', '384');
 integrationTestThrow('zweifakultaet(-1)');
 
 // ungerade

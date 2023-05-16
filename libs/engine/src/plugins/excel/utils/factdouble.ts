@@ -21,8 +21,8 @@ export function calculateFactdouble(n: number) {
         return result;
     } else {
         // is even
-        let result = 2;
-        for (let i = 2; i < n; i = i + 2) {
+        let result = 1;
+        for (let i = 2; i <= n; i = i + 2) {
             result *= i;
         }
         return result;
