@@ -27,7 +27,7 @@ export class SecurityPolicyRepository {
   ): Promise<SecurityPolicyDocument> {
     const newPolicy: SecurityPolicy = {
       name,
-      attributes,
+      attributes: [...new Set(attributes).values()],
     };
     return this.securityPolicyModel.create(newPolicy);
   }
