@@ -13,7 +13,7 @@ const wurzelFragment = new PluginFragment().addFunction(
         const n = (<NumberNode>getParameter('n')).value;
 
         if (n < 0) {
-            throw runtimeError('Numbers smaller than 0 are not allowed.');
+            throw runtimeError('Zahl muss größer oder gleich 0 sein');
         }
 
         return createNumberNode(Math.sqrt(n));
