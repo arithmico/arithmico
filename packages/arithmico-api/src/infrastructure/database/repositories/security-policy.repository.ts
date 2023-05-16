@@ -21,7 +21,7 @@ export class SecurityPolicyRepository {
   ) {}
 
   async findById(policyId: string): Promise<SecurityPolicyDocument | null> {
-    return this.securityPolicyModel.findById(policyId);
+    return this.securityPolicyModel.findById(policyId).exec();
   }
 
   async findByIdOrThrow(policyId: string): Promise<SecurityPolicy> {
@@ -33,28 +33,32 @@ export class SecurityPolicyRepository {
   }
 
   async findManyByIds(policyIds: string[]): Promise<SecurityPolicy[]> {
-    return this.securityPolicyModel.find({
-      _id: {
-        $in: policyIds,
-      },
-    });
+    return this.securityPolicyModel
+      .find({
+        _id: {
+          $in: policyIds,
+        },
+      })
+      .exec();
   }
 
   async addAttributes(
     policyId: string,
     attributes: string[],
   ): Promise<SecurityPolicyDocument | null> {
-    return this.securityPolicyModel.findOneAndUpdate(
-      { _id: policyId },
-      {
-        $addToSet: {
-          attributes: {
-            $each: attributes,
+    return this.securityPolicyModel
+      .findOneAndUpdate(
+        { _id: policyId },
+        {
+          $addToSet: {
+            attributes: {
+              $each: attributes,
+            },
           },
         },
-      },
-      { new: true },
-    );
+        { new: true },
+      )
+      .exec();
   }
 
   async addAttributesOrThrow(policyId: string, attributes: string[]) {
@@ -69,21 +73,23 @@ export class SecurityPolicyRepository {
     policyId: string,
     attributes: string[],
   ): Promise<SecurityPolicyDocument | null> {
-    return this.securityPolicyModel.findOneAndUpdate(
-      {
-        _id: policyId,
-      },
-      {
-        $pull: {
-          attributes: {
-            $each: attributes,
+    return this.securityPolicyModel
+      .findOneAndUpdate(
+        {
+          _id: policyId,
+        },
+        {
+          $pull: {
+            attributes: {
+              $each: attributes,
+            },
           },
         },
-      },
-      {
-        new: true,
-      },
-    );
+        {
+          new: true,
+        },
+      )
+      .exec();
   }
 
   async removeAttributesFromOrThrow(
