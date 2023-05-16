@@ -1,7 +1,7 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { DatabaseModule } from '../../infrastructure/database/database.module';
+import { DatabaseModule } from '../../../../infrastructure/database/database.module';
 import { EmailProcessor } from './email.processor';
 import { EmailService } from './email.service';
 import { eventHandlers } from './events';
