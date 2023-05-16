@@ -20,6 +20,17 @@ export class SecurityPolicyRepository {
     private securityPolicyAttachmentModel: Model<SecurityPolicyAttachmentDocument>,
   ) {}
 
+  async create(
+    name: string,
+    attributes: string[],
+  ): Promise<SecurityPolicyDocument> {
+    const newPolicy: SecurityPolicy = {
+      name,
+      attributes,
+    };
+    return this.securityPolicyModel.create(newPolicy);
+  }
+
   async findById(policyId: string): Promise<SecurityPolicyDocument | null> {
     return this.securityPolicyModel.findById(policyId).exec();
   }
