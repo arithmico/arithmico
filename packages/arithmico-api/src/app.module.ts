@@ -18,6 +18,7 @@ import { BullModule } from '@nestjs/bull';
 import { QueuesModule } from './infrastructure/queues/queues.module';
 import { AuthGuard } from './guards/auth.guard';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
+import { SecurityModule } from './modules/security/security.module';
 
 @Module({
   imports: [
@@ -80,6 +81,7 @@ import { BackofficeModule } from './modules/backoffice/backoffice.module';
     AuthModule,
     QueuesModule,
     BackofficeModule,
+    SecurityModule,
   ],
   controllers: [],
   providers: [
