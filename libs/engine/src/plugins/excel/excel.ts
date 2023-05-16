@@ -5,7 +5,7 @@ import zweifakultaetFragment from './fragments/zweifakultaet';
 import wurzelFragment from './fragments/wurzel';
 import wennFragment from './fragments/wenn';
 import zufallsbereichFragment from './fragments/zufallsbereich';
-import ungeradeFragment from "./fragments/ungerade";
+import ungeradeFragment from './fragments/ungerade';
 
 const excelPlugin = createPlugin(
     {
