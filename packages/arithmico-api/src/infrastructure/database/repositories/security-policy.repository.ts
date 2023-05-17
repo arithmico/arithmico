@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { PagedResponse } from '../../../common/types/paged-response.dto';
 import {
   SecurityPolicyAttachment,
   SecurityPolicyAttachmentDocument,
@@ -30,6 +31,23 @@ export class SecurityPolicyRepository {
       attributes: [...new Set(attributes).values()],
     };
     return this.securityPolicyModel.create(newPolicy);
+  }
+
+  async getPolicies(
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<SecurityPolicyDocument>> {
+    return {
+      items: await this.securityPolicyModel
+        .find()
+        .sort({ name: -1 })
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      skip,
+      limit,
+      total: await this.securityPolicyModel.estimatedDocumentCount(),
+    };
   }
 
   async findById(policyId: string): Promise<SecurityPolicyDocument | null> {
