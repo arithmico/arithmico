@@ -72,10 +72,6 @@ import { SecurityModule } from './modules/security/security.module';
         path: 'auth',
         module: AuthModule,
       },
-      {
-        path: 'backoffice',
-        module: BackofficeModule,
-      },
     ]),
     UserModule,
     AuthModule,
