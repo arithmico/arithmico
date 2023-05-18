@@ -18,6 +18,7 @@ export class CreateSecurityPolicyHandler
     );
 
     return {
+      id: newPolicy._id,
       name: newPolicy.name,
       attributes: newPolicy.attributes,
     };
