@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PagedResponse } from '../../../common/types/paged-response.dto';
@@ -70,8 +70,6 @@ export class SecurityPolicyRepository {
         attributes: '$policies.attributes',
       })
       .exec();
-
-    Logger.log(policies);
 
     return policies.map((policy) => ({
       _id: policy._id,
