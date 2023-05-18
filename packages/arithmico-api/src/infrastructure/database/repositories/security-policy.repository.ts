@@ -137,6 +137,18 @@ export class SecurityPolicyRepository {
     policyId: string,
     userId: string,
   ): Promise<SecurityPolicyAttachmentDocument> {
+    const existingAttachment = await this.securityPolicyAttachmentModel.findOne(
+      {
+        attachmentType: SecurityPolicyAttachmentType.User,
+        policyId,
+        attachedToId: userId,
+      },
+    );
+
+    if (existingAttachment) {
+      return existingAttachment;
+    }
+
     const newAttachment: SecurityPolicyAttachment = {
       attachmentType: SecurityPolicyAttachmentType.User,
       policyId,
@@ -149,6 +161,18 @@ export class SecurityPolicyRepository {
     policyId: string,
     groupId: string,
   ): Promise<SecurityPolicyAttachmentDocument> {
+    const existingAttachment = await this.securityPolicyAttachmentModel.findOne(
+      {
+        attachmentType: SecurityPolicyAttachmentType.Group,
+        policyId,
+        attachedToId: groupId,
+      },
+    );
+
+    if (existingAttachment) {
+      return existingAttachment;
+    }
+
     const newAttachment: SecurityPolicyAttachment = {
       attachmentType: SecurityPolicyAttachmentType.Group,
       policyId,
