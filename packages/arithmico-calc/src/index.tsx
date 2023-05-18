@@ -1,8 +1,5 @@
 import React from "react";
-import App from "./App";
-import "overlayscrollbars/css/OverlayScrollbars.css";
-import OverlayScrollbars from "overlayscrollbars";
-import "./index.css";
+import App from "./App";import "./index.css";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
@@ -22,12 +19,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-OverlayScrollbars(document.body, {
-  nativeScrollbarsOverlaid: {
-    showNativeScrollbars: false,
-  },
-  overflowBehavior: {
-    x: "hidden",
-  },
-});
