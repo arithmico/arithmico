@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PagedResponse } from '../../../common/types/paged-response.dto';
@@ -48,6 +48,36 @@ export class SecurityPolicyRepository {
       limit,
       total: await this.securityPolicyModel.estimatedDocumentCount(),
     };
+  }
+
+  async getPoliciesAttachedToUser(userId: string): Promise<SecurityPolicy[]> {
+    const policies = await this.securityPolicyAttachmentModel
+      .aggregate()
+      .match({
+        attachmentType: SecurityPolicyAttachmentType.User,
+        attachedToId: userId,
+      })
+      .lookup({
+        from: this.securityPolicyModel.collection.name,
+        localField: 'policyId',
+        foreignField: '_id',
+        as: 'policies',
+      })
+      .unwind('$policies')
+      .project({
+        policyId: '$policies._id',
+        name: '$policies.name',
+        attributes: '$policies.attributes',
+      })
+      .exec();
+
+    Logger.log(policies);
+
+    return policies.map((policy) => ({
+      _id: policy._id,
+      name: policy.name,
+      attributes: policy.attributes,
+    }));
   }
 
   async findById(policyId: string): Promise<SecurityPolicyDocument | null> {
