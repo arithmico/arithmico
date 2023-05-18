@@ -111,7 +111,7 @@ export class SecurityPolicyRepository {
         {
           $pull: {
             attributes: {
-              $each: attributes,
+              $in: attributes,
             },
           },
         },
