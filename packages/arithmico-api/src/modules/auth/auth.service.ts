@@ -1,5 +1,5 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Cache } from 'cache-manager';
 import { UserRepository } from '../../infrastructure/database/repositories/user.repository';
@@ -18,43 +18,42 @@ export class AuthService {
   ) {}
 
   async checkAccessToken(accessToken: string): Promise<boolean> {
-    const accessTokenClaims = await this.jwtService
+    return this.jwtService
       .verifyAsync(accessToken)
-      .catch(() => {
-        throw new ForbiddenException();
-      });
+      .then(async (accessTokenClaims) => {
+        if (
+          typeof accessTokenClaims !== 'object' ||
+          typeof accessTokenClaims.userId !== 'string'
+        ) {
+          return false;
+        }
 
-    if (
-      typeof accessTokenClaims !== 'object' ||
-      typeof accessTokenClaims.userId !== 'string'
-    ) {
-      return false;
-    }
+        const cachedUser = await this.cacheManager.get<UserCacheEntry>(
+          `users/${accessTokenClaims.userId}`,
+        );
 
-    const cachedUser = await this.cacheManager.get<UserCacheEntry>(
-      `users/${accessTokenClaims.userId}`,
-    );
+        if (cachedUser) {
+          if (cachedUser.passwordHash) {
+            return true;
+          }
+          return false;
+        }
 
-    if (cachedUser) {
-      if (cachedUser.passwordHash) {
+        const userDocument = await this.userRepository.getUserById(
+          accessTokenClaims.userId,
+        );
+
+        if (!userDocument || !userDocument.passwordHash) {
+          return false;
+        }
+
+        this.cacheManager.set(`users/${userDocument._id}`, {
+          userId: userDocument._id,
+          passwordHash: userDocument.passwordHash,
+        } as UserCacheEntry);
+
         return true;
-      }
-      return false;
-    }
-
-    const userDocument = await this.userRepository.getUserById(
-      accessTokenClaims.userId,
-    );
-
-    if (!userDocument || !userDocument.passwordHash) {
-      return false;
-    }
-
-    this.cacheManager.set(`users/${userDocument._id}`, {
-      userId: userDocument._id,
-      passwordHash: userDocument.passwordHash,
-    } as UserCacheEntry);
-
-    return true;
+      })
+      .catch(() => false);
   }
 }
