@@ -2,7 +2,9 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Cache } from 'cache-manager';
+import { SecurityAttributesRepository } from '../../infrastructure/database/repositories/security-attributes.repository';
 import { UserRepository } from '../../infrastructure/database/repositories/user.repository';
+import { AccessTokenClaims } from './types';
 
 interface UserCacheEntry {
   userId: string;
@@ -15,9 +17,12 @@ export class AuthService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private userRepository: UserRepository,
     private jwtService: JwtService,
+    private securityAttributesRepository: SecurityAttributesRepository,
   ) {}
 
-  async checkAccessToken(accessToken: string): Promise<boolean> {
+  async verifyAccessTokenAndGetClaims(
+    accessToken: string,
+  ): Promise<AccessTokenClaims | null> {
     return this.jwtService
       .verifyAsync(accessToken)
       .then(async (accessTokenClaims) => {
@@ -25,7 +30,7 @@ export class AuthService {
           typeof accessTokenClaims !== 'object' ||
           typeof accessTokenClaims.userId !== 'string'
         ) {
-          return false;
+          return null;
         }
 
         const cachedUser = await this.cacheManager.get<UserCacheEntry>(
@@ -34,9 +39,9 @@ export class AuthService {
 
         if (cachedUser) {
           if (cachedUser.passwordHash) {
-            return true;
+            return accessTokenClaims;
           }
-          return false;
+          return null;
         }
 
         const userDocument = await this.userRepository.getUserById(
@@ -44,7 +49,7 @@ export class AuthService {
         );
 
         if (!userDocument || !userDocument.passwordHash) {
-          return false;
+          return null;
         }
 
         this.cacheManager.set(`users/${userDocument._id}`, {
@@ -52,8 +57,14 @@ export class AuthService {
           passwordHash: userDocument.passwordHash,
         } as UserCacheEntry);
 
-        return true;
+        return accessTokenClaims;
       })
       .catch(() => false);
+  }
+
+  async getSecurityAttributes(userId: string): Promise<Set<string>> {
+    return this.securityAttributesRepository.aggregateUserSecurityAttributes(
+      userId,
+    );
   }
 }

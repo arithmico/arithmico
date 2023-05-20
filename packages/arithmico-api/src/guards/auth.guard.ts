@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -28,8 +29,29 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
-    if (!(await this.authService.checkAccessToken(authHeader))) {
+    const accessTokenClaims =
+      await this.authService.verifyAccessTokenAndGetClaims(authHeader);
+    if (!accessTokenClaims) {
       throw new UnauthorizedException();
+    }
+
+    const securityAttributes = await this.authService.getSecurityAttributes(
+      accessTokenClaims.userId,
+    );
+    const endpointSecurityAttributes: Set<string> | null = this.reflector.get(
+      'securityAttributes',
+      context.getHandler(),
+    );
+
+    if (endpointSecurityAttributes) {
+      if (
+        ![...endpointSecurityAttributes.values()].every(
+          (endpointSecurityAttribute) =>
+            securityAttributes.has(endpointSecurityAttribute),
+        )
+      ) {
+        throw new ForbiddenException();
+      }
     }
 
     return true;

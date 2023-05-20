@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { ArrayMaxSize, IsEnum } from 'class-validator';
+import { SecurityAttribute } from '../../../../../common/types/security-attributes.enum';
 
 export class AddAttributesToSecurityPolicyRequestBodyDto {
-  @IsNotEmpty({ each: true })
-  @IsString({ each: true })
-  @MaxLength(256, { each: true })
-  attributes: string[];
+  @ArrayMaxSize(1024)
+  @IsEnum(SecurityAttribute, { each: true })
+  attributes: SecurityAttribute[];
 }

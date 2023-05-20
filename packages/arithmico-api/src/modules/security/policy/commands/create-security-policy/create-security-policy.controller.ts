@@ -1,5 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
+import { SecurityAttribute } from '../../../../../common/types/security-attributes.enum';
+import { SecurityAttributes } from '../../../../../decorators/security-attributes.decorator';
 import { CreateSecurityPolicyCommand } from './create-security-policy.command';
 import { CreateSecurityPolicyRequestDto } from './create-security-policy.request.dto';
 import { CreateSecurityPolicyResponseDto } from './create-security-policy.response.dto';
@@ -9,6 +11,7 @@ export class CreateSecurityPolicyController {
   constructor(private commandBus: CommandBus) {}
 
   @Post()
+  @SecurityAttributes(SecurityAttribute.SecurityPoliciesWrite)
   async createSecurityPolicy(
     @Body() createSecurityPolicyRequestDto: CreateSecurityPolicyRequestDto,
   ): Promise<CreateSecurityPolicyResponseDto> {
