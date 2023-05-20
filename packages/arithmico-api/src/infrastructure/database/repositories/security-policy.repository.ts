@@ -106,7 +106,7 @@ export class SecurityPolicyRepository {
 
     return {
       items: aggregationResult.policies.map((policy) => ({
-        _id: policy._id,
+        _id: policy.policyId,
         name: policy.name,
         attributes: policy.attributes,
       })),
@@ -248,18 +248,22 @@ export class SecurityPolicyRepository {
   }
 
   async detachFromUser(policyId: string, userId: string): Promise<void> {
-    this.securityPolicyAttachmentModel.deleteMany({
-      policyId,
-      attachmentType: SecurityPolicyAttachmentType.User,
-      attachedToId: userId,
-    });
+    this.securityPolicyAttachmentModel
+      .deleteOne({
+        policyId,
+        attachmentType: SecurityPolicyAttachmentType.User,
+        attachedToId: userId,
+      })
+      .exec();
   }
 
   async detachFromGroup(policyId: string, groupId: string): Promise<void> {
-    this.securityPolicyAttachmentModel.deleteMany({
-      policyId,
-      attachmentType: SecurityPolicyAttachmentType.Group,
-      attachedToId: groupId,
-    });
+    this.securityPolicyAttachmentModel
+      .deleteOne({
+        policyId,
+        attachmentType: SecurityPolicyAttachmentType.Group,
+        attachedToId: groupId,
+      })
+      .exec();
   }
 }
