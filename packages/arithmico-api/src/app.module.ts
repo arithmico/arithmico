@@ -19,6 +19,7 @@ import { QueuesModule } from './infrastructure/queues/queues.module';
 import { AuthGuard } from './guards/auth.guard';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { SecurityModule } from './modules/security/security.module';
+import { BootstrapModule } from './modules/bootstrap/bootstrap.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { SecurityModule } from './modules/security/security.module';
     QueuesModule,
     BackofficeModule,
     SecurityModule,
+    BootstrapModule,
   ],
   controllers: [],
   providers: [
