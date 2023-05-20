@@ -4,8 +4,8 @@ import { PagedResponse } from '../../../../../common/types/paged-response.dto';
 import { SecurityAttribute } from '../../../../../common/constants/security-attributes.enum';
 import { SecurityAttributes } from '../../../../../decorators/security-attributes.decorator';
 import { GetSecurityPoliciesQuery } from './get-security-policies.query';
-import { GetSecurityPoliciesRequestDto } from './get-security-policies.request.dto';
 import { GetSecurityPoliciesResponseDto } from './get-security-policies.response.dto';
+import { PageParameterQueryDto } from '../../../../../common/dtos/PageParameters.query.dto';
 
 @Controller()
 export class GetSecurityPoliciesController {
@@ -14,10 +14,10 @@ export class GetSecurityPoliciesController {
   @Get()
   @SecurityAttributes(SecurityAttribute.SecurityPoliciesRead)
   async getSecurityPolices(
-    @Query() queryDto: GetSecurityPoliciesRequestDto,
+    @Query() query: PageParameterQueryDto,
   ): Promise<PagedResponse<GetSecurityPoliciesResponseDto>> {
     return this.queryBus.execute(
-      new GetSecurityPoliciesQuery(queryDto.limit, queryDto.skip),
+      new GetSecurityPoliciesQuery(query.skip, query.limit),
     );
   }
 }
