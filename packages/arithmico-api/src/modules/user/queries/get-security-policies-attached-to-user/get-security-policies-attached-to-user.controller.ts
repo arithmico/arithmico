@@ -4,12 +4,15 @@ import { GetSecurityPoliciesAttachedToUserQuery } from './get-security-policies-
 import { GetSecurityPoliciesAttachedToUserPathDto } from './get-security-policies-attached-to-user.path.dto';
 import { GetSecurityPoliciesAttachedToUserResponseDto } from './get-security-policies-attached-to-user.response.dto';
 import { GetSecurityPoliciesAttachedToUserQueryDto } from './get-security-policies-attached-to-user.query.dto';
+import { SecurityAttribute } from '../../../../common/constants/security-attributes.enum';
+import { SecurityAttributes } from '../../../../decorators/security-attributes.decorator';
 
 @Controller()
 export class GetSecurityPoliciesAttachedToUserController {
   constructor(private queryBus: QueryBus) {}
 
   @Get(':userId/security-policies')
+  @SecurityAttributes(SecurityAttribute.UsersSecurityPoliciesRead)
   async getSecurityPolicesAttachedToUser(
     @Param() params: GetSecurityPoliciesAttachedToUserPathDto,
     @Query() query: GetSecurityPoliciesAttachedToUserQueryDto,
