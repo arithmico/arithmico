@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PagedResponse } from '../../../common/types/paged-response.dto';
@@ -31,6 +35,32 @@ export class SecurityPolicyRepository {
       attributes: [...new Set(attributes).values()],
     };
     return this.securityPolicyModel.create(newPolicy);
+  }
+
+  async delete(policyId: string): Promise<void> {
+    const isStillAttached =
+      (await this.securityPolicyAttachmentModel
+        .find({
+          policyId: policyId,
+        })
+        .count()
+        .exec()) > 0;
+
+    if (isStillAttached) {
+      throw new BadRequestException(
+        'The security policy is still attached to something.',
+      );
+    }
+
+    const result = await this.securityPolicyModel
+      .deleteOne({
+        _id: policyId,
+      })
+      .exec();
+
+    if (result.deletedCount < 1) {
+      throw new NotFoundException();
+    }
   }
 
   async getPolicies(
@@ -248,22 +278,30 @@ export class SecurityPolicyRepository {
   }
 
   async detachFromUser(policyId: string, userId: string): Promise<void> {
-    this.securityPolicyAttachmentModel
+    const result = await this.securityPolicyAttachmentModel
       .deleteOne({
         policyId,
         attachmentType: SecurityPolicyAttachmentType.User,
         attachedToId: userId,
       })
       .exec();
+
+    if (result.deletedCount < 1) {
+      throw new NotFoundException();
+    }
   }
 
   async detachFromGroup(policyId: string, groupId: string): Promise<void> {
-    this.securityPolicyAttachmentModel
+    const result = await this.securityPolicyAttachmentModel
       .deleteOne({
         policyId,
         attachmentType: SecurityPolicyAttachmentType.Group,
         attachedToId: groupId,
       })
       .exec();
+
+    if (result.deletedCount < 1) {
+      throw new NotFoundException();
+    }
   }
 }

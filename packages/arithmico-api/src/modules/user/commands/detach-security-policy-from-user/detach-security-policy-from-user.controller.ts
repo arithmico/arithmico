@@ -14,7 +14,7 @@ export class DetachSecurityPolicyFromUserController {
   async detachSecurityPolicyFromUser(
     @Param() params: DetachSecurityPolicyFromUserRequestDto,
   ): Promise<void> {
-    this.commandBus.execute(
+    await this.commandBus.execute(
       new DetachSecurityPolicyFromUserCommand(params.userId, params.policyId),
     );
   }
