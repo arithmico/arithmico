@@ -19,6 +19,10 @@ export class UserRepository {
     return this.userModel.create(newUser);
   }
 
+  async getByUsername(username: string): Promise<UserDocument | null> {
+    return this.userModel.findOne({ username }).exec();
+  }
+
   async getUserById(userId: string): Promise<UserDocument | null> {
     return this.userModel.findById(userId);
   }

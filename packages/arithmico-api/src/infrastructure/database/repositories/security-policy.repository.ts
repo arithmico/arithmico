@@ -63,6 +63,22 @@ export class SecurityPolicyRepository {
     }
   }
 
+  async findByName(name: string): Promise<SecurityPolicyDocument | null> {
+    return this.securityPolicyModel
+      .findOne({
+        name,
+      })
+      .exec();
+  }
+
+  async findByNameOrThrow(name: string): Promise<SecurityPolicyDocument> {
+    const securityPolicy = await this.findByName(name);
+    if (!securityPolicy) {
+      throw new NotFoundException();
+    }
+    return securityPolicy;
+  }
+
   async getPolicies(
     skip: number,
     limit: number,
