@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export class GetSecurityPoliciesAttachedToUserRequestDto {
+export class GetSecurityPoliciesAttachedToUserPathDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(256)

@@ -1,6 +1,6 @@
 import { IsInt, IsPositive, Min } from 'class-validator';
 
-export class GetUserQueryDto {
+export class GetSecurityPoliciesAttachedToUserQueryDto {
   @IsInt()
   @Min(0)
   skip: number;
