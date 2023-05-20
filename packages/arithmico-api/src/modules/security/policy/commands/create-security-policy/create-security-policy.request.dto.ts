@@ -5,7 +5,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { SecurityAttribute } from '../../../../../common/types/security-attributes.enum';
+import { SecurityAttribute } from '../../../../../common/constants/security-attributes.enum';
 
 export class CreateSecurityPolicyRequestDto {
   @IsNotEmpty()

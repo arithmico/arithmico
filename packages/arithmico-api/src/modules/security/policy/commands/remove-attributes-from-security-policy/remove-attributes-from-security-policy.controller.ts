@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Param } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { SecurityAttribute } from '../../../../../common/types/security-attributes.enum';
+import { SecurityAttribute } from '../../../../../common/constants/security-attributes.enum';
 import { SecurityAttributes } from '../../../../../decorators/security-attributes.decorator';
 import { RemoveAttributeFromSecurityPolicyCommand } from './remove-attributes-from-security-policy.command';
 import { RemoveAttributesFromSecurityPolicyRequestBodyDto } from './remove-attributes-from-security-policy.request.body.dto';
