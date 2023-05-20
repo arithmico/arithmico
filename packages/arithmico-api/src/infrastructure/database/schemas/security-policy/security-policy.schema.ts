@@ -18,6 +18,9 @@ export type SecurityPolicyDocument = HydratedDocument<SecurityPolicy>;
 export const SecurityPolicySchema =
   SchemaFactory.createForClass(SecurityPolicy);
 
-SecurityPolicySchema.index({
-  name: -1,
-});
+SecurityPolicySchema.index(
+  {
+    name: -1,
+  },
+  { unique: true },
+);
