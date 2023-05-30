@@ -9,7 +9,7 @@ import { SimplePage } from "../../components/simple-page/simple-page";
 
 export function LoginPage() {
   return (
-    <SimplePage>
+    <SimplePage isPublic>
       <Card className={classNames("max-w-sm")}>
         <Heading level={1}>Login</Heading>
         <form>

@@ -5,6 +5,8 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
 import { Mutex } from "async-mutex";
+import { RootState } from "..";
+import { login, logout } from "../slices/auth/auth.slice";
 
 const AUTHORIZATION_HEADER_NAME = "Authorization";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -15,11 +17,11 @@ const convertAccessTokenToHeaderString = (accessToken: string) =>
 
 const baseQuery = fetchBaseQuery({
   baseUrl,
-  prepareHeaders: (headers) => {
+  prepareHeaders: (headers, { getState }) => {
     if (headers.has(AUTHORIZATION_HEADER_NAME)) {
       return headers;
     }
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = (getState() as RootState).auth.accessToken;
     if (accessToken) {
       headers.set(
         AUTHORIZATION_HEADER_NAME,
@@ -74,9 +76,14 @@ const customBaseQuery: BaseQueryFn<
             api,
             extraOptions
           );
-          localStorage.setItem("accessToken", accessToken);
+          api.dispatch(
+            login({
+              accessToken,
+              stayLoggedIn: true,
+            })
+          );
         } else {
-          window.location.href = "/login";
+          api.dispatch(logout());
         }
       } finally {
         release();
