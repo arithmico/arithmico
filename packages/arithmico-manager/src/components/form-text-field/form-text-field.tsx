@@ -15,7 +15,7 @@ const FormTextField = React.forwardRef<
         "focus:border-black",
         "outline-none",
         "p-2",
-        "rounded-md",
+        "rounded-sm",
         props.className
       )}
       {...props}

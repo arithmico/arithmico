@@ -19,7 +19,7 @@ export default function FormSubmitButton({
       className={classNames(
         "inline-flex",
         "justify-center",
-        "rounded-md",
+        "rounded-sm",
         "bg-indigo-600",
         "py-2",
         "px-3",
