@@ -23,7 +23,7 @@ export function LoginPage() {
             <FormPasswordField />
           </FormLabel>
 
-          <FormSubmitButton className={classNames("w-full")}>
+          <FormSubmitButton className={classNames("w-full", "mt-4")}>
             Login
           </FormSubmitButton>
         </form>
