@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/slices/auth/auth.slice";
 import { useNavigate } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 export function LoginPage() {
   const {
@@ -47,7 +48,9 @@ export function LoginPage() {
   return (
     <SimplePage isPublic>
       <Card className={classNames("max-w-sm")}>
-        <Heading level={1}>Login</Heading>
+        <Heading level={1}>
+          <FormattedMessage id="login.title" />
+        </Heading>
         <form
           onSubmit={handleSubmit(({ username, password }) =>
             triggerLoginMutation({
@@ -56,20 +59,18 @@ export function LoginPage() {
             })
           )}
         >
-          <FormLabel>
-            Username
+          <FormLabel text={<FormattedMessage id="login.username" />}>
             <FormTextField {...register("username")} />
           </FormLabel>
           <FormError error={errors.username} />
 
-          <FormLabel>
-            Password
+          <FormLabel text={<FormattedMessage id="login.password" />}>
             <FormPasswordField {...register("password")} />
           </FormLabel>
           <FormError error={errors.password} />
 
           <FormSubmitButton className={classNames("w-full", "mt-4")}>
-            Login
+            <FormattedMessage id="login.login" />
           </FormSubmitButton>
         </form>
       </Card>

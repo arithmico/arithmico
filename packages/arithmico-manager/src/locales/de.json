@@ -3,5 +3,14 @@
   "common.back": "Zurück",
   "common.cancel": "Abbrechen",
   "common.form.errors.required": "Pflichtfeld",
-  "common.form.errors.passwords-do-not-match": "Die Passwörter stimmen nicht überein"
+  "common.form.errors.passwords-do-not-match": "Die Passwörter stimmen nicht überein",
+
+  "login.title": "Anmeldung",
+  "login.username": "Benutzername",
+  "login.password": "Passwort",
+  "login.login": "Anmelden",
+
+  "login.failure.title": "Anmeldung fehlgeschlagen",
+  "login.failure.description": "Die Anmeldung ist fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten und stellen Sie sicher, dass Sie den richtigen Benutzernamen und das richtige Passwort eingegeben haben.",
+  "login.failure.back-to-login": "Zurück zur Anmeldung"
 }
