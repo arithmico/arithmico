@@ -39,6 +39,8 @@ export function LoginPage() {
         })
       );
       navigate("/");
+    } else if (isError) {
+      navigate("./failure");
     }
   }, [isSuccess, isError, data, dispatch, navigate]);
 
