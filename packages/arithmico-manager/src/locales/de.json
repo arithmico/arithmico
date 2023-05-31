@@ -1,0 +1,7 @@
+{
+  "common.next": "Weiter",
+  "common.back": "Zurück",
+  "common.cancel": "Abbrechen",
+  "common.form.errors.required": "Pflichtfeld",
+  "common.form.errors.passwords-do-not-match": "Die Passwörter stimmen nicht überein"
+}
