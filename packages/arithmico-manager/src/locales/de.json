@@ -12,5 +12,8 @@
 
   "login.failure.title": "Anmeldung fehlgeschlagen",
   "login.failure.description": "Die Anmeldung ist fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten und stellen Sie sicher, dass Sie den richtigen Benutzernamen und das richtige Passwort eingegeben haben.",
-  "login.failure.back-to-login": "Zurück zur Anmeldung"
+  "login.failure.back-to-login": "Zurück zur Anmeldung",
+
+  "navbar.sr.title": "Navigation",
+  "navbar.home": "Übersicht"
 }

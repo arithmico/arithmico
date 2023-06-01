@@ -1,11 +1,5 @@
-import classNames from "classnames";
-import { SimplePage } from "../../components/simple-page/simple-page";
-import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
+import { PageWithNavbar } from "../../components/page-with-navbar/page-with-navbar";
 
 export default function Home() {
-  return (
-    <WithScrollbars>
-      <SimplePage className={classNames("flex", "flex-col")}>config</SimplePage>
-    </WithScrollbars>
-  );
+  return <PageWithNavbar>home</PageWithNavbar>;
 }
