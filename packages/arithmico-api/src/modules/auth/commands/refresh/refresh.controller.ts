@@ -1,15 +1,9 @@
-import {
-  BadRequestException,
-  Controller,
-  Post,
-  Req,
-  Res,
-} from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
-import { Request, Response } from 'express';
 import { Public } from '../../../../decorators/public.decorator';
 import { RefreshCommand } from './refresh.command';
+import { RefreshRequestDto } from './refresh.request.dto';
 import { RefreshResponseDto } from './refresh.response.dto';
 
 @Controller('/refresh')
@@ -21,11 +15,8 @@ export class RefreshController {
 
   @Public()
   @Post()
-  async refresh(
-    @Req() request: Request,
-    @Res({ passthrough: true }) response: Response,
-  ): Promise<void> {
-    const refreshToken = request.cookies['refreshToken'];
+  async refresh(@Body() body: RefreshRequestDto): Promise<RefreshResponseDto> {
+    const refreshToken = body.refreshToken;
 
     if (typeof refreshToken !== 'string' || !refreshToken) {
       throw new BadRequestException();
@@ -35,16 +26,9 @@ export class RefreshController {
       new RefreshCommand(refreshToken),
     );
 
-    const body: RefreshResponseDto = {
+    return {
       accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
     };
-    response.status(200);
-    response.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      maxAge: this.configService.get<number>('jwt.refreshTokenLifetime'),
-      domain: this.configService.get('jwt.domain'),
-    });
-    response.json(body);
-    response.end();
   }
 }

@@ -1,5 +1,6 @@
 export interface CredentialsDto {
   accessToken: string;
+  refreshToken: string;
 }
 
 export interface LoginDto {

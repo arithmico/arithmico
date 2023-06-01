@@ -1,7 +1,6 @@
-import { Body, Controller, Logger, Post, Res } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
-import { Response } from 'express';
 import { Public } from '../../../../decorators/public.decorator';
 import { LoginCommand } from './login.command';
 import { LoginRequestDto } from './login.request.dto';
@@ -18,23 +17,14 @@ export class LoginController {
   @Post()
   async login(
     @Body() loginRequestDto: LoginRequestDto,
-    @Res({ passthrough: true }) response: Response,
-  ): Promise<void> {
+  ): Promise<LoginResponseDto> {
     const result = await this.commandBus.execute(
       new LoginCommand(loginRequestDto.username, loginRequestDto.password),
     );
 
-    const body: LoginResponseDto = {
+    return {
       accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
     };
-    Logger.log(this.configService.get('jwt.domain'));
-    response.status(200);
-    response.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      maxAge: this.configService.get<number>('jwt.refreshTokenLifetime'),
-      domain: this.configService.get('jwt.domain'),
-    });
-    response.json(body);
-    response.end();
   }
 }

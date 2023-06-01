@@ -9,10 +9,6 @@ const authApi = api.injectEndpoints({
         method: "POST",
         body: arg,
       }),
-      transformResponse: (data: CredentialsDto) => {
-        localStorage.setItem("accessToken", data.accessToken);
-        return data;
-      },
     }),
   }),
 });

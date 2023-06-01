@@ -36,7 +36,7 @@ export function LoginPage() {
       dispatch(
         login({
           accessToken: data.accessToken,
-          stayLoggedIn: true,
+          refreshToken: data.refreshToken,
         })
       );
       navigate("/");

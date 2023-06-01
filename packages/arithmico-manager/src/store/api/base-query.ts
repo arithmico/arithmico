@@ -12,9 +12,6 @@ const AUTHORIZATION_HEADER_NAME = "Authorization";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const mutex = new Mutex();
 
-const convertAccessTokenToHeaderString = (accessToken: string) =>
-  `Bearer ${accessToken}`;
-
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
@@ -23,10 +20,7 @@ const baseQuery = fetchBaseQuery({
     }
     const accessToken = (getState() as RootState).auth.accessToken;
     if (accessToken) {
-      headers.set(
-        AUTHORIZATION_HEADER_NAME,
-        convertAccessTokenToHeaderString(accessToken)
-      );
+      headers.set(AUTHORIZATION_HEADER_NAME, accessToken);
     }
 
     return headers;
@@ -50,6 +44,9 @@ const customBaseQuery: BaseQueryFn<
           {
             url: "/auth/refresh",
             method: "POST",
+            body: {
+              refreshToken: (api.getState() as RootState).auth.refreshToken,
+            },
           },
           api,
           extraOptions
@@ -61,11 +58,9 @@ const customBaseQuery: BaseQueryFn<
           typeof refreshResult.data.accessToken === "string"
         ) {
           const accessToken = refreshResult.data.accessToken;
+          const refreshToken = refreshResult.data.refreshToken;
           const headers = new Headers();
-          headers.set(
-            AUTHORIZATION_HEADER_NAME,
-            convertAccessTokenToHeaderString(accessToken)
-          );
+          headers.set(AUTHORIZATION_HEADER_NAME, accessToken);
           result = await baseQuery(
             typeof args === "string"
               ? args
@@ -79,7 +74,7 @@ const customBaseQuery: BaseQueryFn<
           api.dispatch(
             login({
               accessToken,
-              stayLoggedIn: true,
+              refreshToken,
             })
           );
         } else {
