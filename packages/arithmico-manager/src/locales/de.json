@@ -15,5 +15,7 @@
   "login.failure.back-to-login": "Zurück zur Anmeldung",
 
   "navbar.sr.title": "Navigation",
-  "navbar.home": "Übersicht"
+  "navbar.home": "Übersicht",
+  "navbar.users": "Benutzer",
+  "navbar.logout": "Abmelden"
 }

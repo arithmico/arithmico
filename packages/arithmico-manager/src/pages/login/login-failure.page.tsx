@@ -7,7 +7,7 @@ import { SimplePage } from "../../components/simple-page/simple-page";
 
 export function LoginFailurePage() {
   return (
-    <SimplePage isPublic>
+    <SimplePage>
       <Card className={classNames("max-w-sm")}>
         <Heading>
           <FormattedMessage id="login.failure.title" />

@@ -46,7 +46,7 @@ export function LoginPage() {
   }, [isSuccess, isError, data, dispatch, navigate]);
 
   return (
-    <SimplePage isPublic>
+    <SimplePage>
       <Card className={classNames("max-w-sm")}>
         <Heading level={1}>
           <FormattedMessage id="login.title" />

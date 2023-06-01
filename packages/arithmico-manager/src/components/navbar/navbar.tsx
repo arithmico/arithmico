@@ -1,20 +1,30 @@
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import HomeIcon from "../../icons/home.icon";
+import { LogoutIcon } from "../../icons/logout.icon";
+import { UserIcon } from "../../icons/user.icon";
+import { logout } from "../../store/slices/auth/auth.slice";
 
 export function Navbar() {
   return (
-    <nav className={classNames("bg-white")}>
+    <nav className={classNames("bg-white", "flex", "flex-col")}>
       <h1 className={classNames("sr-only")}>
         <FormattedMessage id="navbar.sr.title" />
       </h1>
-      <ul>
+      <ul className={classNames("flex", "flex-col", "h-full")}>
         <NavbarItem
           to="/"
           icon={<HomeIcon />}
           description={<FormattedMessage id="navbar.home" />}
         />
+        <NavbarItem
+          to="/users"
+          icon={<UserIcon />}
+          description={<FormattedMessage id="navbar.users" />}
+        />
+        <LogoutButton />
       </ul>
     </nav>
   );
@@ -30,8 +40,42 @@ interface NavbarItemProps {
 function NavbarItem({ icon, description, to, className }: NavbarItemProps) {
   return (
     <li className={classNames("w-[80px]", "h-[80px]", className)}>
-      <Link
+      <NavLink
         to={to}
+        className={({ isActive }) =>
+          classNames(
+            "w-full",
+            "h-full",
+            "flex",
+            "flex-col",
+            "justify-center",
+            "items-center",
+            "hover:bg-neutral-100",
+            "[&>svg]:fill-neutral-500",
+            "[&>svg]:hover:fill-neutral-800",
+            "[&>span]:text-neutral-500",
+            "[&>span]:hover:text-neutral-800",
+            {
+              "[&>span]:text-neutral-800": isActive,
+              "[&>svg]:fill-neutral-800": isActive,
+            }
+          )
+        }
+      >
+        {icon}
+        <span className={classNames("text-xs")}>{description}</span>
+      </NavLink>
+    </li>
+  );
+}
+
+function LogoutButton() {
+  const dispatch = useDispatch();
+
+  return (
+    <li className={classNames("w-[80px]", "h-[80px]", "mt-auto")}>
+      <button
+        onClick={() => dispatch(logout())}
         className={classNames(
           "w-full",
           "h-full",
@@ -39,15 +83,18 @@ function NavbarItem({ icon, description, to, className }: NavbarItemProps) {
           "flex-col",
           "justify-center",
           "items-center",
+          "hover:bg-neutral-100",
           "[&>svg]:fill-neutral-500",
           "[&>svg]:hover:fill-neutral-800",
           "[&>span]:text-neutral-500",
           "[&>span]:hover:text-neutral-800"
         )}
       >
-        {icon}
-        <span className={classNames("text-xs")}>{description}</span>
-      </Link>
+        <LogoutIcon />
+        <span className={classNames("text-xs")}>
+          <FormattedMessage id="navbar.logout" />
+        </span>
+      </button>
     </li>
   );
 }

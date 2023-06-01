@@ -1,4 +1,8 @@
 import classNames from "classnames";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../../store";
 import { Navbar } from "../navbar/navbar";
 
 export interface PageWithNavbarProps {
@@ -6,6 +10,15 @@ export interface PageWithNavbarProps {
 }
 
 export function PageWithNavbar({ children }: PageWithNavbarProps) {
+  const loggedIn = useSelector((state: RootState) => state.auth.loggedIn);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loggedIn) {
+      return;
+    }
+    navigate("/login");
+  }, [loggedIn, navigate]);
+
   return (
     <div
       className={classNames(

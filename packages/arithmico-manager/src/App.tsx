@@ -8,8 +8,8 @@ function App() {
   return (
     <IntlProvider messages={messages["de"]} locale="de" defaultLocale="de">
       <Routes>
+        <Route index element={<Home />} />
         <Route path="/login/*" element={<LoginRouter />} />
-        <Route path="/" element={<Home />} />
       </Routes>
     </IntlProvider>
   );
