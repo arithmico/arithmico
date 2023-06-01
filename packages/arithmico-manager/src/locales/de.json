@@ -17,5 +17,8 @@
   "navbar.sr.title": "Navigation",
   "navbar.home": "Übersicht",
   "navbar.users": "Benutzer",
-  "navbar.logout": "Abmelden"
+  "navbar.logout": "Abmelden",
+  "navbar.mails": "Nachrichten",
+  "navbar.security": "Sicherheit",
+  "navbar.versions": "Versionen"
 }

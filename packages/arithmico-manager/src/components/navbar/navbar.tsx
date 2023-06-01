@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import HomeIcon from "../../icons/home.icon";
 import { LogoutIcon } from "../../icons/logout.icon";
+import { MailIcon } from "../../icons/mai.icon";
+import { ManagedFolderIcon } from "../../icons/managed-folder.icon";
+import { ShieldIcon } from "../../icons/shield.icon";
 import { UserIcon } from "../../icons/user.icon";
 import { logout } from "../../store/slices/auth/auth.slice";
 
@@ -20,10 +23,26 @@ export function Navbar() {
           description={<FormattedMessage id="navbar.home" />}
         />
         <NavbarItem
+          to="/mails"
+          icon={<MailIcon />}
+          description={<FormattedMessage id="navbar.mails" />}
+        />
+        <NavbarItem
           to="/users"
           icon={<UserIcon />}
           description={<FormattedMessage id="navbar.users" />}
         />
+        <NavbarItem
+          to="/versions"
+          icon={<ManagedFolderIcon />}
+          description={<FormattedMessage id="navbar.versions" />}
+        />
+        <NavbarItem
+          to="/security"
+          icon={<ShieldIcon />}
+          description={<FormattedMessage id="navbar.security" />}
+        />
+
         <LogoutButton />
       </ul>
     </nav>
