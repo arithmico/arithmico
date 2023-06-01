@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { Fragment } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 import HomeIcon from "../../icons/home.icon";
