@@ -2,12 +2,12 @@ import classNames from "classnames";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import { Card } from "../../components/card/card";
-import Heading from "../../components/heading/heading";
-import { PaginationToolbar } from "../../components/pagination-toolbar/pagination-toolbar";
-import { Table } from "../../components/table/table";
-import { ChevronRightIcon } from "../../icons/chevron-right.icon";
-import { useGetSecurityPolicesQuery } from "../../store/api/slices/security/security.api";
+import { Card } from "../../../components/card/card";
+import Heading from "../../../components/heading/heading";
+import { PaginationToolbar } from "../../../components/pagination-toolbar/pagination-toolbar";
+import { Table } from "../../../components/table/table";
+import { ChevronRightIcon } from "../../../icons/chevron-right.icon";
+import { useGetSecurityPolicesQuery } from "../../../store/api/slices/security/security.api";
 
 export default function SecurityPage() {
   const [skip, setSkip] = useState(0);
