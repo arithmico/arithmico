@@ -27,5 +27,5 @@
   "security.policies.title": "Sicherheitsrichtlinien",
   "security.policies.fields.id": "ID",
   "security.policies.fields.name": "Name",
-  "security.policies.fields.attributes": "Anzahl Rechte"
+  "security.policies.fields.attributes": "Berechtigungen"
 }

@@ -1,10 +1,12 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { Link } from "react-router-dom";
 import { Card } from "../../components/card/card";
 import Heading from "../../components/heading/heading";
 import { PaginationToolbar } from "../../components/pagination-toolbar/pagination-toolbar";
 import { Table } from "../../components/table/table";
+import { ChevronRightIcon } from "../../icons/chevron-right.icon";
 import { useGetSecurityPolicesQuery } from "../../store/api/slices/security/security.api";
 
 export default function SecurityPage() {
@@ -30,14 +32,35 @@ export default function SecurityPage() {
           <Card>
             <Table
               header={[
-                <FormattedMessage id="security.policies.fields.id" />,
-                <FormattedMessage id="security.policies.fields.name" />,
-                <FormattedMessage id="security.policies.fields.attributes" />,
+                {
+                  content: (
+                    <FormattedMessage id="security.policies.fields.id" />
+                  ),
+                },
+                {
+                  content: (
+                    <FormattedMessage id="security.policies.fields.name" />
+                  ),
+                },
+                {
+                  content: (
+                    <FormattedMessage id="security.policies.fields.attributes" />
+                  ),
+                },
               ]}
               rows={data.items.map((item) => [
                 item.id,
                 item.name,
                 item.attributes.length,
+                <Link
+                  to={`./security-policies/${item.id}`}
+                  className={classNames("float-right", "flex", "items-center")}
+                >
+                  <span className="sr-only">Details</span>
+                  <ChevronRightIcon
+                    className={classNames("w-8", "h-8", "fill-neutral-500")}
+                  />
+                </Link>,
               ])}
             />
           </Card>

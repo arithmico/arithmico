@@ -1,6 +1,10 @@
 import { api } from "../../api";
 import { PagedResponse } from "../../types";
-import { GetSecurityPoliciesArgs, SecurityPolicyDto } from "./security.types";
+import {
+  GetSecurityPoliciesArgs,
+  GetSecurityPolicyByIdArgs,
+  SecurityPolicyDto,
+} from "./security.types";
 
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -16,7 +20,17 @@ const authApi = api.injectEndpoints({
         },
       }),
     }),
+    getSecurityPolicyById: build.query<
+      SecurityPolicyDto,
+      GetSecurityPolicyByIdArgs
+    >({
+      query: (arg) => ({
+        url: `/security-policies/${arg.policyId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetSecurityPolicesQuery } = authApi;
+export const { useGetSecurityPolicesQuery, useGetSecurityPolicyByIdQuery } =
+  authApi;

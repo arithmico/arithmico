@@ -8,3 +8,7 @@ export interface GetSecurityPoliciesArgs {
   skip: number;
   limit: number;
 }
+
+export interface GetSecurityPolicyByIdArgs {
+  policyId: string;
+}
