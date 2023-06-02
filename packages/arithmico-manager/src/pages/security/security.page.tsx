@@ -1,22 +1,18 @@
 import classNames from "classnames";
-import { useEffect } from "react";
+import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Card } from "../../components/card/card";
 import Heading from "../../components/heading/heading";
+import { PaginationToolbar } from "../../components/pagination-toolbar/pagination-toolbar";
 import { Table } from "../../components/table/table";
 import { useGetSecurityPolicesQuery } from "../../store/api/slices/security/security.api";
 
 export default function SecurityPage() {
-  const { isSuccess, isError, isLoading, data } = useGetSecurityPolicesQuery({
-    skip: 0,
+  const [skip, setSkip] = useState(0);
+  const { isSuccess, data } = useGetSecurityPolicesQuery({
+    skip,
     limit: 100,
   });
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      console.log(data);
-    }
-  }, [isSuccess, data]);
 
   return (
     <>
@@ -29,22 +25,30 @@ export default function SecurityPage() {
       <Heading level={2}>
         <FormattedMessage id="security.policies.title" />
       </Heading>
-      <Card>
-        {isSuccess && data && (
-          <Table
-            header={[
-              <FormattedMessage id="security.policies.fields.id" />,
-              <FormattedMessage id="security.policies.fields.name" />,
-              <FormattedMessage id="security.policies.fields.attributes" />,
-            ]}
-            rows={data.items.map((item) => [
-              item.id,
-              item.name,
-              item.attributes.length,
-            ])}
+      {isSuccess && data && (
+        <>
+          <Card>
+            <Table
+              header={[
+                <FormattedMessage id="security.policies.fields.id" />,
+                <FormattedMessage id="security.policies.fields.name" />,
+                <FormattedMessage id="security.policies.fields.attributes" />,
+              ]}
+              rows={data.items.map((item) => [
+                item.id,
+                item.name,
+                item.attributes.length,
+              ])}
+            />
+          </Card>
+          <PaginationToolbar
+            skip={data.skip}
+            limit={data.limit}
+            total={data.total}
+            onChange={setSkip}
           />
-        )}
-      </Card>
+        </>
+      )}
     </>
   );
 }

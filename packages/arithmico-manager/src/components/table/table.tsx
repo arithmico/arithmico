@@ -11,8 +11,11 @@ export function Table({ header, rows }: TableProps) {
       {header && (
         <thead>
           <tr className={classNames("border-b", "border-neutral-400")}>
-            {header.map((headerItem) => (
-              <th className={classNames("p-2", "text-left", "font-bold")}>
+            {header.map((headerItem, index) => (
+              <th
+                key={`table-header-${index}`}
+                className={classNames("p-2", "text-left", "font-bold")}
+              >
                 {headerItem}
               </th>
             ))}
@@ -20,16 +23,22 @@ export function Table({ header, rows }: TableProps) {
         </thead>
       )}
       <tbody>
-        {rows.map((row) => (
+        {rows.map((row, rowIndex) => (
           <tr
+            key={`table-row-${rowIndex}`}
             className={classNames(
               "border-b",
               "last:border-b-0",
               "border-neutral-300"
             )}
           >
-            {row.map((rowItem) => (
-              <td className={classNames("p-2")}>{rowItem}</td>
+            {row.map((rowItem, columnIndex) => (
+              <td
+                key={`table-cell-${rowIndex}-${columnIndex}`}
+                className={classNames("p-2")}
+              >
+                {rowItem}
+              </td>
             ))}
           </tr>
         ))}
