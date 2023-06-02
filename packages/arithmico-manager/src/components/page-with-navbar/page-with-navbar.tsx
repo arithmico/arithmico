@@ -31,7 +31,9 @@ export function PageWithNavbar({ children }: PageWithNavbarProps) {
       )}
     >
       <Navbar />
-      <main>{children}</main>
+      <main className={classNames("pr-8", "pb-8", "overflow-y-auto")}>
+        {children}
+      </main>
     </div>
   );
 }

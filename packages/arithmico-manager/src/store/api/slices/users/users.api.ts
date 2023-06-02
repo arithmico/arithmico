@@ -1,6 +1,6 @@
 import { api } from "../../api";
 import { PagedResponse } from "../../types";
-import { GetUsersArgs, UserResponseDto } from "./types";
+import { GetUsersArgs, UserResponseDto } from "./users.types";
 
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
