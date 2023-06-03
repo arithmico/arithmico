@@ -33,6 +33,10 @@
   "security-policy-details.title": "Sicherheitsrichtlinie",
   "security-policy-details.attributes.title": "Berechtigungen",
   "security-policy-details.attribute.delete": "Berechtigung Löschen",
+  "security-policy-details.details.title": "Details",
+  "security-policy-details.details.id": "ID",
+  "security-policy-details.details.name": "Name",
+  "security-policy-details.details.number-of-attributes": "Berechtigungen",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",

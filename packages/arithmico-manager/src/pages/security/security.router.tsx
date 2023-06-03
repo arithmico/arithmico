@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { PageWithNavbar } from "../../components/page-with-navbar/page-with-navbar";
 import { SecurityPoliciesPage } from "./pages/security-policies/security-policies.page";
-import { SecurityPolicyDetails } from "./pages/security-policy-details/security-policy-details.page";
+import { SecurityPolicyDetailsPage } from "./pages/security-policy-details/security-policy-details.page";
 import SecurityPage from "./pages/security/security.page";
 
 export function SecurityRouter() {
@@ -12,7 +12,7 @@ export function SecurityRouter() {
         <Route path="security-policies" element={<SecurityPoliciesPage />} />
         <Route
           path="security-policies/:policyId"
-          element={<SecurityPolicyDetails />}
+          element={<SecurityPolicyDetailsPage />}
         />
       </Routes>
     </PageWithNavbar>
