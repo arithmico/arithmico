@@ -26,13 +26,19 @@ export function SecurityPolicyDetailsCard({
           "gap-x-8",
           "gap-y-1",
           "[&>dt]:font-bold",
-          "[&>dt]:text-black/40"
+          "[&>dt]:text-black/40",
+          "max-w-full",
+          "overflow-hidden"
         )}
       >
         <dt>
           <FormattedMessage id="security-policy-details.details.id" />
         </dt>
-        <dd>{id}</dd>
+        <dd
+          className={classNames("break-words", "max-w-full", "overflow-hidden")}
+        >
+          {id}
+        </dd>
 
         <dt>
           <FormattedMessage id="security-policy-details.details.name" />

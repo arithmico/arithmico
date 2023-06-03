@@ -21,19 +21,41 @@ export function SecurityPolicyDetailsPage() {
       <Heading level={1} className={classNames("mt-4")}>
         <FormattedMessage id="security-policy-details.title" />
       </Heading>
-      <div className={classNames("grid", "grid-cols-2", "gap-4")}>
-        <div>
-          {isSuccess && data && (
-            <SecurityPolicyAttributeList attributes={data.attributes} />
+      <div
+        className={classNames(
+          "md:grid",
+          "md:grid-cols-2",
+          "gap-4",
+          "flex",
+          "flex-col"
+        )}
+      >
+        <div
+          className={classNames(
+            "flex",
+            "flex-col",
+            "md:col-start-2",
+            "md:row-start-1"
           )}
-        </div>
-        <div>
+        >
           {isSuccess && data && (
             <SecurityPolicyDetailsCard
               id={data.id}
               name={data.name}
               numberOfAttributes={data.attributes.length}
             />
+          )}
+        </div>
+        <div
+          className={classNames(
+            "flex",
+            "flex-col",
+            "md:col-start-1",
+            "md:row-start-1"
+          )}
+        >
+          {isSuccess && data && (
+            <SecurityPolicyAttributeList attributes={data.attributes} />
           )}
         </div>
       </div>
