@@ -8,8 +8,13 @@ import { PaginationToolbar } from "../../../../components/pagination-toolbar/pag
 import { Table } from "../../../../components/table/table";
 import { ChevronRightIcon } from "../../../../icons/chevron-right.icon";
 import { useGetSecurityPolicesQuery } from "../../../../store/api/slices/security/security.api";
+import { SecurityPoliciesBreadcrumbs } from "./components/security-policies-breacrumbs";
 
-export function SecurityPoliciesPage() {
+export interface SecurityPoliciesPageProps {
+  inline?: boolean;
+}
+
+export function SecurityPoliciesPage({ inline }: SecurityPoliciesPageProps) {
   const [skip, setSkip] = useState(0);
   const { isSuccess, data } = useGetSecurityPolicesQuery({
     skip,
@@ -18,7 +23,8 @@ export function SecurityPoliciesPage() {
 
   return (
     <>
-      <Heading level={2}>
+      {!inline && <SecurityPoliciesBreadcrumbs />}
+      <Heading level={inline ? 2 : 1} className={classNames("mt-4")}>
         <FormattedMessage id="security.policies.title" />
       </Heading>
       {isSuccess && data && (
