@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import HomeIcon from "../../icons/home.icon";
 import { LogoutIcon } from "../../icons/logout.icon";
-import { MailIcon } from "../../icons/mai.icon";
+import { MailIcon } from "../../icons/mail.icon";
 import { ManagedFolderIcon } from "../../icons/managed-folder.icon";
 import { ShieldIcon } from "../../icons/shield.icon";
 import { UserIcon } from "../../icons/user.icon";

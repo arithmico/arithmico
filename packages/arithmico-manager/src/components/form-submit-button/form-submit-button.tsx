@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import LoadingIcon from "../../icons/loading";
+import LoadingIcon from "../../icons/loading.icon";
 
 interface FormSubmitButtonProps {
   children?: React.ReactNode;
