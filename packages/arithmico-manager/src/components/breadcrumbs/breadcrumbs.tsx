@@ -22,7 +22,7 @@ export function Breadcrumbs({ firstIcon, items }: BreadcrumbsProps) {
                       "w-8",
                       "h-8",
                       "px-1",
-                      "fill-neutral-500"
+                      "fill-neutral-400"
                     )}
                   />
                 ) : (
@@ -46,11 +46,17 @@ interface BreadcrumbsItemProps {
 function BreadcrumbsItem({ icon, content }: BreadcrumbsItemProps) {
   return (
     <li
-      className={classNames("flex", "items-center", "text-neutral-500", {
-        "first:[&>*]:first:pl-0": !!icon,
-        "[&>*]:first:px-1": !!icon,
-        "[&>*]:first:fill-neutral-500": !!icon,
-      })}
+      className={classNames(
+        "flex",
+        "items-center",
+        "text-neutral-500",
+        "last:text-neutral-700",
+        {
+          "first:[&>*]:first:pl-0": !!icon,
+          "[&>*]:first:px-1": !!icon,
+          "[&>*]:first:fill-neutral-400": !!icon,
+        }
+      )}
     >
       {icon}
       {content}
