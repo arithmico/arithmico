@@ -47,8 +47,9 @@ function BreadcrumbsItem({ icon, content }: BreadcrumbsItemProps) {
   return (
     <li
       className={classNames("flex", "items-center", "text-neutral-500", {
-        "first:px-1": !!icon,
-        "first:fill-neutral-500": !!icon,
+        "first:[&>*]:first:pl-0": !!icon,
+        "[&>*]:first:px-1": !!icon,
+        "[&>*]:first:fill-neutral-500": !!icon,
       })}
     >
       {icon}
