@@ -27,7 +27,8 @@ export function PageWithNavbar({ children }: PageWithNavbarProps) {
         "bg-neutral-200",
         "grid",
         "grid-cols-[80px_auto]",
-        "gap-8"
+        "gap-8",
+        "overflow-hidden"
       )}
     >
       <Navbar />
