@@ -30,6 +30,10 @@
   "security.policies.fields.name": "Name",
   "security.policies.fields.attributes": "Berechtigungen",
 
+  "security-policy-details.title": "Sicherheitsrichtlinie",
+  "security-policy-details.attributes.title": "Berechtigungen",
+  "security-policy-details.attribute.delete": "Berechtigung Löschen",
+
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",
   "pagination.next-page": "Nächste Seite",
