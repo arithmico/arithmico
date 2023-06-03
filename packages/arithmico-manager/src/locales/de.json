@@ -28,5 +28,11 @@
   "security.policies.title": "Sicherheitsrichtlinien",
   "security.policies.fields.id": "ID",
   "security.policies.fields.name": "Name",
-  "security.policies.fields.attributes": "Berechtigungen"
+  "security.policies.fields.attributes": "Berechtigungen",
+
+  "pagination.first-page": "Erste Seite",
+  "pagination.previous-page": "Vorherige Seite",
+  "pagination.next-page": "Nächste Seite",
+  "pagination.last-page": "Letzte Seite",
+  "pagination.text": "Seite {currentPage} von {totalPages}"
 }

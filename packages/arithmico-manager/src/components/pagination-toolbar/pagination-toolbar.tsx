@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { ButtonHTMLAttributes, forwardRef } from "react";
+import { FormattedMessage } from "react-intl";
 import { ChevronLeftIcon } from "../../icons/chevron-left.icon";
 import { ChevronRightIcon } from "../../icons/chevron-right.icon";
 import { FirstPageIcon } from "../../icons/first-page.icon";
@@ -38,6 +39,9 @@ export function PaginationToolbar({
         disabled={currentPage === 1}
       >
         <FirstPageIcon />
+        <span className="sr-only">
+          <FormattedMessage id="pagination.first-page" />
+        </span>
       </PaginationButton>
       <PaginationButton
         onClick={() => onChange(Math.max(0, skip - limit))}
@@ -45,9 +49,18 @@ export function PaginationToolbar({
         className={classNames("mr-4")}
       >
         <ChevronLeftIcon />
+        <span className="sr-only">
+          <FormattedMessage id="pagination.previous-page" />
+        </span>
       </PaginationButton>
       <span>
-        Seite {currentPage} von {totalPages}
+        <FormattedMessage
+          id="pagination.text"
+          values={{
+            currentPage,
+            totalPages,
+          }}
+        />
       </span>
       <PaginationButton
         onClick={() => onChange(Math.min(lastPageSkip, skip + limit))}
@@ -55,12 +68,18 @@ export function PaginationToolbar({
         className={classNames("ml-4")}
       >
         <ChevronRightIcon />
+        <span className="sr-only">
+          <FormattedMessage id="pagination.next-page" />
+        </span>
       </PaginationButton>
       <PaginationButton
         onClick={() => onChange(Math.max(lastPageSkip, 0))}
         disabled={currentPage === totalPages}
       >
         <LastPageIcon />
+        <span className="sr-only">
+          <FormattedMessage id="pagination.last-page" />
+        </span>
       </PaginationButton>
     </div>
   );
