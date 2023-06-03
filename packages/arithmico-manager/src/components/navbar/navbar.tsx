@@ -70,11 +70,12 @@ function NavbarItem({ icon, description, to, className }: NavbarItemProps) {
             "justify-center",
             "items-center",
             "hover:bg-neutral-100",
-            "[&>svg]:fill-neutral-500",
+            "[&>svg]:fill-neutral-400",
+            "[&>svg]:p-1",
             "[&>svg]:hover:fill-neutral-800",
-            "[&>span]:text-neutral-500",
             "[&>span]:hover:text-neutral-800",
             {
+              "[&>span]:text-neutral-400": !isActive,
               "[&>span]:text-neutral-800": isActive,
               "[&>svg]:fill-neutral-800": isActive,
             }
@@ -103,9 +104,10 @@ function LogoutButton() {
           "justify-center",
           "items-center",
           "hover:bg-neutral-100",
-          "[&>svg]:fill-neutral-500",
+          "[&>svg]:fill-neutral-400",
+          "[&>svg]:p-1",
           "[&>svg]:hover:fill-neutral-800",
-          "[&>span]:text-neutral-500",
+          "[&>span]:text-neutral-400",
           "[&>span]:hover:text-neutral-800"
         )}
       >
