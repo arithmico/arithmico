@@ -38,13 +38,18 @@ export function Table({ header, rows }: TableProps) {
         {rows.map((row, rowIndex) => (
           <tr
             key={`table-row-${rowIndex}`}
-            className={classNames("border-b", "border-neutral-300", {
-              "text-left":
-                !header.at(rowIndex)?.align ||
-                header.at(rowIndex)?.align === "left",
-              "text-center": header.at(rowIndex)?.align === "center",
-              "text-right": header.at(rowIndex)?.align === "center",
-            })}
+            className={classNames(
+              "border-b",
+              "border-neutral-300",
+              "hover:bg-black/5",
+              {
+                "text-left":
+                  !header.at(rowIndex)?.align ||
+                  header.at(rowIndex)?.align === "left",
+                "text-center": header.at(rowIndex)?.align === "center",
+                "text-right": header.at(rowIndex)?.align === "center",
+              }
+            )}
           >
             {row.map((rowItem, columnIndex) => (
               <td
