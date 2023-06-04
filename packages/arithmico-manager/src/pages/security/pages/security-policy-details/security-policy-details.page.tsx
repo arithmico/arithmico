@@ -3,6 +3,7 @@ import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router-dom";
 import Heading from "../../../../components/heading/heading";
 import { useGetSecurityPolicyByIdQuery } from "../../../../store/api/slices/security/security.api";
+import { SecurityPolicyActionsCard } from "./components/security-policy-actions-card";
 import { SecurityPolicyAttributeList } from "./components/security-policy-attribute-list";
 import { SecurityPolicyDetailsBreadcrumbs } from "./components/security-policy-details-breadcrumbs";
 import { SecurityPolicyDetailsCard } from "./components/security-policy-details-card";
@@ -35,9 +36,11 @@ export function SecurityPolicyDetailsPage() {
             "flex",
             "flex-col",
             "md:col-start-2",
-            "md:row-start-1"
+            "md:row-start-1",
+            "gap-4"
           )}
         >
+          {isSuccess && data && <SecurityPolicyActionsCard />}
           {isSuccess && data && (
             <SecurityPolicyDetailsCard
               id={data.id}

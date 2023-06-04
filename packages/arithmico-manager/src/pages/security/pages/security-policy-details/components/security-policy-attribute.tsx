@@ -1,7 +1,5 @@
 import classNames from "classnames";
-import { FormattedMessage } from "react-intl";
 import { ChevronRightIcon } from "../../../../../icons/chevron-right.icon";
-import { CloseIcon } from "../../../../../icons/close.icon";
 
 export interface SecurityPolicyAttributeProps {
   attribute: string;
@@ -37,18 +35,6 @@ export function SecurityPolicyAttribute({
           {segment}
         </span>
       ))}
-      <button
-        className={classNames(
-          "ml-auto",
-          "[&>svg]:fill-black/30",
-          "hover:[&>svg]:fill-black"
-        )}
-      >
-        <span className="sr-only">
-          <FormattedMessage id="security-policy-details.attribute.delete" />
-        </span>
-        <CloseIcon className={classNames("w-6", "h-6")} />
-      </button>
     </li>
   );
 }

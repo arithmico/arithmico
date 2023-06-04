@@ -42,6 +42,10 @@
   "security-policy-details.details.principals.total": "Gesamt",
   "security-policy-details.details.principals.users": "Benutzer",
   "security-policy-details.details.principals.groups": "Benutzergruppen",
+  "security-policy-details.actions.title": "Aktionen",
+  "security-policy-details.actions.edit-attributes": "Berechtigungen bearbeiten",
+  "security-policy-details.actions.rename": "Sicherheitsrichtlinie umbenennen",
+  "security-policy-details.actions.delete": "Sicherheitsrichtlinie löschen",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",
