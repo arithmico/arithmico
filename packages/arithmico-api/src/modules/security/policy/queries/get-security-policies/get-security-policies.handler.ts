@@ -28,6 +28,7 @@ export class GetSecurityPoliciesHandler
         id: policy._id,
         name: policy.name,
         attributes: policy.attributes,
+        principals: policy.principals,
       })),
       skip,
       limit,

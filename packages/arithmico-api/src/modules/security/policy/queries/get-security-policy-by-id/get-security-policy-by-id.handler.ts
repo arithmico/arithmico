@@ -12,13 +12,20 @@ export class GetSecurityPolicyByIdHandler
   async execute(
     query: GetSecurityPolicyByIdQuery,
   ): Promise<GetSecurityPolicyByIdResponseDto> {
-    const securityPolicyDocument =
-      await this.securityPolicyRepository.findByIdOrThrow(query.policyId);
+    const securityPolicyWithStatisticsDocument =
+      await this.securityPolicyRepository.findByIdWithStatisticsOrThrow(
+        query.policyId,
+      );
 
     return {
-      id: securityPolicyDocument._id,
-      name: securityPolicyDocument.name,
-      attributes: securityPolicyDocument.attributes,
+      id: securityPolicyWithStatisticsDocument._id,
+      name: securityPolicyWithStatisticsDocument.name,
+      attributes: securityPolicyWithStatisticsDocument.attributes,
+      principals: {
+        total: securityPolicyWithStatisticsDocument.principals.total,
+        users: securityPolicyWithStatisticsDocument.principals.users,
+        groups: securityPolicyWithStatisticsDocument.principals.groups,
+      },
     };
   }
 }

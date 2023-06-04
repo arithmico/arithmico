@@ -29,6 +29,7 @@
   "security.policies.fields.id": "ID",
   "security.policies.fields.name": "Name",
   "security.policies.fields.attributes": "Berechtigungen",
+  "security.policies.fields.principals": "Akteure",
 
   "security-policy-details.title": "Sicherheitsrichtlinie",
   "security-policy-details.attributes.title": "Berechtigungen",
@@ -37,6 +38,10 @@
   "security-policy-details.details.id": "ID",
   "security-policy-details.details.name": "Name",
   "security-policy-details.details.number-of-attributes": "Berechtigungen",
+  "security-policy-details.details.principals": "Akteure",
+  "security-policy-details.details.principals.total": "Gesamt",
+  "security-policy-details.details.principals.users": "Benutzer",
+  "security-policy-details.details.principals.groups": "Benutzergruppen",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",

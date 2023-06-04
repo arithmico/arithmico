@@ -82,17 +82,52 @@ export class SecurityPolicyRepository {
   async getPolicies(
     skip: number,
     limit: number,
-  ): Promise<PagedResponse<SecurityPolicyDocument>> {
+  ): Promise<PagedResponse<SecurityPolicyDocument & { principals: number }>> {
+    const result = await this.securityPolicyModel
+      .aggregate()
+      .sort({ name: -1 })
+      .facet({
+        items: [
+          {
+            $match: {},
+          },
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.securityPolicyAttachmentModel.collection.name,
+              localField: '_id',
+              foreignField: 'policyId',
+              as: 'principals',
+            },
+          },
+          {
+            $addFields: {
+              principals: { $size: '$principals' },
+            },
+          },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
     return {
-      items: await this.securityPolicyModel
-        .find()
-        .sort({ name: -1 })
-        .skip(skip)
-        .limit(limit)
-        .exec(),
+      items: result.at(0).items,
       skip,
       limit,
-      total: await this.securityPolicyModel.estimatedDocumentCount(),
+      total: result.at(0).total,
     };
   }
 
@@ -160,6 +195,102 @@ export class SecurityPolicyRepository {
       limit: limit,
       total: aggregationResult.total.at(0).count,
     };
+  }
+
+  async findByIdWithStatistics(policyId: string): Promise<
+    | (SecurityPolicyDocument & {
+        principals: {
+          total: number;
+          users: number;
+          groups: number;
+        };
+      })
+    | null
+  > {
+    const result = await this.securityPolicyModel
+      .aggregate()
+      .match({ _id: policyId })
+      .facet({
+        policy: [{ $match: {} }],
+        attachments: [
+          {
+            $lookup: {
+              from: this.securityPolicyAttachmentModel.collection.name,
+              localField: '_id',
+              foreignField: 'policyId',
+              as: 'attachments',
+            },
+          },
+          { $unwind: '$attachments' },
+          {
+            $replaceRoot: {
+              newRoot: '$attachments',
+            },
+          },
+        ],
+      })
+      .facet({
+        policy: [
+          { $match: {} },
+          { $unwind: '$policy' },
+          { $replaceRoot: { newRoot: '$policy' } },
+        ],
+        principalsTotal: [{ $unwind: '$attachments' }],
+        principalsUsers: [
+          { $unwind: '$attachments' },
+          {
+            $match: {
+              'attachments.attachmentType': SecurityPolicyAttachmentType.User,
+            },
+          },
+        ],
+        principalsGroups: [
+          { $unwind: '$attachments' },
+          {
+            $match: {
+              attachments: {
+                attachmentType: SecurityPolicyAttachmentType.Group,
+              },
+            },
+          },
+        ],
+      })
+      .addFields({
+        policy: {
+          principals: {
+            total: {
+              $size: '$principalsTotal',
+            },
+            users: {
+              $size: '$principalsUsers',
+            },
+            groups: {
+              $size: '$principalsGroups',
+            },
+          },
+        },
+      })
+      .unwind('$policy')
+      .replaceRoot('policy')
+      .exec();
+
+    return result.at(0);
+  }
+
+  async findByIdWithStatisticsOrThrow(policyId: string): Promise<
+    SecurityPolicyDocument & {
+      principals: {
+        total: number;
+        users: number;
+        groups: number;
+      };
+    }
+  > {
+    const policyWithStatistics = await this.findByIdWithStatistics(policyId);
+    if (!policyWithStatistics) {
+      throw new NotFoundException();
+    }
+    return policyWithStatistics;
   }
 
   async findById(policyId: string): Promise<SecurityPolicyDocument | null> {

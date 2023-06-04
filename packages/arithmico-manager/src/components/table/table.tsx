@@ -1,67 +1,24 @@
 import classNames from "classnames";
+import { forwardRef, HTMLProps, ReactNode } from "react";
 
-export interface TableProps {
-  header: {
-    content?: React.ReactNode;
-    align?: "left" | "right" | "center";
-  }[];
-  rows: React.ReactNode[][];
+interface TableProps {
+  header: ReactNode;
 }
 
-export function Table({ header, rows }: TableProps) {
+export const Table = forwardRef<
+  HTMLTableElement,
+  HTMLProps<HTMLTableElement> & TableProps
+>(({ header, children, className, ...props }, ref) => {
   return (
-    <table>
+    <table ref={ref} className={className} {...props}>
       {header && (
         <thead>
           <tr className={classNames("border-b", "border-neutral-400")}>
-            {header.map((headerItem, index) => (
-              <th
-                key={`table-header-${index}`}
-                className={classNames(
-                  "p-2",
-                  {
-                    "text-left":
-                      !headerItem.align || headerItem.align === "left",
-                    "text-center": headerItem.align === "center",
-                    "text-right": headerItem.align === "center",
-                  },
-                  "font-bold"
-                )}
-              >
-                {headerItem.content}
-              </th>
-            ))}
+            {header}
           </tr>
         </thead>
       )}
-      <tbody>
-        {rows.map((row, rowIndex) => (
-          <tr
-            key={`table-row-${rowIndex}`}
-            className={classNames(
-              "border-b",
-              "border-neutral-300",
-              "hover:bg-black/5",
-              {
-                "text-left":
-                  !header.at(rowIndex)?.align ||
-                  header.at(rowIndex)?.align === "left",
-                "text-center": header.at(rowIndex)?.align === "center",
-                "text-right": header.at(rowIndex)?.align === "center",
-              }
-            )}
-          >
-            {row.map((rowItem, columnIndex) => (
-              <td
-                key={`table-cell-${rowIndex}-${columnIndex}`}
-                className={classNames("p-2")}
-              >
-                {rowItem}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
+      <tbody>{children}</tbody>
     </table>
   );
-}
+});

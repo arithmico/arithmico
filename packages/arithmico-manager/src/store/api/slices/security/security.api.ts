@@ -3,13 +3,14 @@ import { PagedResponse } from "../../types";
 import {
   GetSecurityPoliciesArgs,
   GetSecurityPolicyByIdArgs,
-  SecurityPolicyDto,
+  GetSecurityPoliciesResponseDto,
+  GetSecurityPolicyByIdResponseDto,
 } from "./security.types";
 
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
     getSecurityPolices: build.query<
-      PagedResponse<SecurityPolicyDto>,
+      PagedResponse<GetSecurityPoliciesResponseDto>,
       GetSecurityPoliciesArgs
     >({
       query: (arg) => ({
@@ -21,7 +22,7 @@ const authApi = api.injectEndpoints({
       }),
     }),
     getSecurityPolicyById: build.query<
-      SecurityPolicyDto,
+      GetSecurityPolicyByIdResponseDto,
       GetSecurityPolicyByIdArgs
     >({
       query: (arg) => ({

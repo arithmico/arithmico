@@ -43,6 +43,9 @@ export function SecurityPolicyDetailsPage() {
               id={data.id}
               name={data.name}
               numberOfAttributes={data.attributes.length}
+              totalPrincipals={data.principals.total}
+              groupPrincipals={data.principals.groups}
+              userPrincipals={data.principals.users}
             />
           )}
         </div>
