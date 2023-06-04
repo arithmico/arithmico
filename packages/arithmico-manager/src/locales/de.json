@@ -4,6 +4,7 @@
   "common.cancel": "Abbrechen",
   "common.form.errors.required": "Pflichtfeld",
   "common.form.errors.passwords-do-not-match": "Die Passwörter stimmen nicht überein",
+  "common.loading": "Laden...",
 
   "login.title": "Anmeldung",
   "login.username": "Benutzername",
