@@ -62,7 +62,6 @@ export function SecurityPolicyDetailsPage() {
               )}
             >
               <SecurityPolicyActionsCard />
-              (
               <SecurityPolicyDetailsCard
                 id={data.id}
                 name={data.name}
@@ -71,7 +70,6 @@ export function SecurityPolicyDetailsPage() {
                 groupPrincipals={data.principals.groups}
                 userPrincipals={data.principals.users}
               />
-              )
             </div>
             <div
               className={classNames(
