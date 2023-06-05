@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Put } from '@nestjs/common';
+import { Body, Controller, Param, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { SecurityAttribute } from '../../../../../common/constants/security-attributes.enum';
 import { SecurityAttributes } from '../../../../../decorators/security-attributes.decorator';
@@ -11,7 +11,7 @@ import { AddAttributesToSecurityPolicyResponseDto } from './add-attributes-to-se
 export class AddAttributesToSecurityPolicyController {
   constructor(private commandBus: CommandBus) {}
 
-  @Put(':policyId/attributes')
+  @Post(':policyId/attributes')
   @SecurityAttributes(SecurityAttribute.SecurityPoliciesWrite)
   async addAttributesToSecurityPolicy(
     @Param()

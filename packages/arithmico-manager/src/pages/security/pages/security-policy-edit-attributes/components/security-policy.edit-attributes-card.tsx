@@ -5,16 +5,22 @@ import { Card } from "../../../../../components/card/card";
 import FormSubmitButton from "../../../../../components/form-submit-button/form-submit-button";
 import Heading from "../../../../../components/heading/heading";
 import { ChevronRightIcon } from "../../../../../icons/chevron-right.icon";
-import { useGetAvailableSecurityAttributesQuery } from "../../../../../store/api/slices/security/security.api";
+import {
+  useGetAvailableSecurityAttributesQuery,
+  useSetSecurityPolicyAttributesMutation,
+} from "../../../../../store/api/slices/security/security.api";
 
 interface SecurityPolicyEditAttributesCardProps {
+  policyId: string;
   initialAttributes: string[];
 }
 
 export function SecurityPolicyEditAttributesCard({
+  policyId,
   initialAttributes,
 }: SecurityPolicyEditAttributesCardProps) {
   const { data, isSuccess } = useGetAvailableSecurityAttributesQuery();
+  const [updateAttributes, result] = useSetSecurityPolicyAttributesMutation();
   const [attributes, setAttributes] = useState(
     () => new Set(initialAttributes)
   );
@@ -28,7 +34,15 @@ export function SecurityPolicyEditAttributesCard({
 
   return (
     <Card>
-      <form>
+      <form
+        onSubmit={(event) => {
+          updateAttributes({
+            policyId,
+            attributes: [...attributes.values()],
+          });
+          event.preventDefault();
+        }}
+      >
         <Heading level={2} className={classNames("mt-0", "text-xl")}>
           <FormattedMessage id="security-policy-details.edit-attributes.attributes" />
         </Heading>
@@ -76,6 +90,7 @@ export function SecurityPolicyEditAttributesCard({
                 removedAttributes.length === 0 && addedAttributes.length === 0
               }
               className={classNames("mt-auto")}
+              isLoading={result.isLoading}
             >
               Speichern
             </FormSubmitButton>

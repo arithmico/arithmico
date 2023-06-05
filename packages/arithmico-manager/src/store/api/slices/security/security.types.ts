@@ -24,3 +24,14 @@ export interface GetSecurityPoliciesArgs {
 export interface GetSecurityPolicyByIdArgs {
   policyId: string;
 }
+
+export interface SetSecurityPolicyAttributesRequestDto {
+  policyId: string;
+  attributes: string[];
+}
+
+export interface SetSecurityPolicyAttributesResponseDto {
+  id: string;
+  name: string;
+  attributes: string[];
+}

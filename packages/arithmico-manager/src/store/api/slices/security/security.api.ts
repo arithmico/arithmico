@@ -5,6 +5,8 @@ import {
   GetSecurityPolicyByIdArgs,
   GetSecurityPoliciesResponseDto,
   GetSecurityPolicyByIdResponseDto,
+  SetSecurityPolicyAttributesResponseDto,
+  SetSecurityPolicyAttributesRequestDto,
 } from "./security.types";
 
 const authApi = api.injectEndpoints({
@@ -20,7 +22,18 @@ const authApi = api.injectEndpoints({
           limit: arg.limit,
         },
       }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.items.map(({ id }) => ({
+                type: "SecurityPolicy" as const,
+                id,
+              })),
+              "SecurityPolicy",
+            ]
+          : ["SecurityPolicy"],
     }),
+
     getSecurityPolicyById: build.query<
       GetSecurityPolicyByIdResponseDto,
       GetSecurityPolicyByIdArgs
@@ -29,12 +42,30 @@ const authApi = api.injectEndpoints({
         url: `/security-policies/${arg.policyId}`,
         method: "GET",
       }),
+      providesTags: (result) =>
+        result ? [{ type: "SecurityPolicy", id: result.id }] : [],
     }),
+
     getAvailableSecurityAttributes: build.query<string[], void>({
       query: () => ({
         url: "/security-policies/available-attributes",
         mehtod: "GET",
       }),
+    }),
+
+    setSecurityPolicyAttributes: build.mutation<
+      SetSecurityPolicyAttributesResponseDto,
+      SetSecurityPolicyAttributesRequestDto
+    >({
+      query: (arg) => ({
+        url: `/security-policies/${arg.policyId}/attributes`,
+        method: "PUT",
+        body: {
+          attributes: arg.attributes,
+        },
+      }),
+      invalidatesTags: (result) =>
+        result ? [{ type: "SecurityPolicy", id: result.id }] : [],
     }),
   }),
 });
@@ -43,4 +74,5 @@ export const {
   useGetSecurityPolicesQuery,
   useGetSecurityPolicyByIdQuery,
   useGetAvailableSecurityAttributesQuery,
+  useSetSecurityPolicyAttributesMutation,
 } = authApi;

@@ -315,6 +315,38 @@ export class SecurityPolicyRepository {
       .exec();
   }
 
+  async setAttributes(
+    policyId: string,
+    attributes: string[],
+  ): Promise<SecurityPolicyDocument | null> {
+    const attributesWithoutDiplicates = [...new Set(attributes).values()];
+    return await this.securityPolicyModel
+      .findOneAndUpdate(
+        {
+          _id: policyId,
+        },
+        {
+          attributes: attributesWithoutDiplicates,
+        },
+        { new: true },
+      )
+      .exec();
+  }
+
+  async setAttributesOrThrow(
+    policyId: string,
+    attributes: string[],
+  ): Promise<SecurityPolicyDocument> {
+    const securityPolicyDocument = await this.setAttributes(
+      policyId,
+      attributes,
+    );
+    if (!securityPolicyDocument) {
+      throw new NotFoundException();
+    }
+    return securityPolicyDocument;
+  }
+
   async addAttributes(
     policyId: string,
     attributes: string[],

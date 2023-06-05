@@ -31,6 +31,7 @@ export function SecurityPolicyEditAttributesPage() {
             <FormattedMessage id="security-policy-details.edit-attributes.description" />
           </p>
           <SecurityPolicyEditAttributesCard
+            policyId={data.id}
             initialAttributes={data.attributes}
           />
         </>
