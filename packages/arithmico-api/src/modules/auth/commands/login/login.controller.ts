@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
 import { Public } from '../../../../decorators/public.decorator';
@@ -14,6 +14,7 @@ export class LoginController {
   ) {}
 
   @Public()
+  @HttpCode(200)
   @Post()
   async login(
     @Body() loginRequestDto: LoginRequestDto,

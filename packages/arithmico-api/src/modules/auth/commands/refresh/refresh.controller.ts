@@ -1,4 +1,10 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
 import { Public } from '../../../../decorators/public.decorator';
@@ -14,6 +20,7 @@ export class RefreshController {
   ) {}
 
   @Public()
+  @HttpCode(200)
   @Post()
   async refresh(@Body() body: RefreshRequestDto): Promise<RefreshResponseDto> {
     const refreshToken = body.refreshToken;

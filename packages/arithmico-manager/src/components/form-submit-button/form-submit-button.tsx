@@ -6,21 +6,25 @@ interface FormSubmitButtonProps {
   children?: React.ReactNode;
   className?: string;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
 export default function FormSubmitButton({
   children,
   className,
   isLoading,
+  disabled,
 }: FormSubmitButtonProps) {
   return (
     <button
+      disabled={disabled}
       type="submit"
       className={classNames(
         "inline-flex",
         "justify-center",
         "rounded-sm",
         "bg-indigo-600",
+        "disabled:bg-indigo-300",
         "py-2",
         "px-3",
         "text-sm",

@@ -30,8 +30,17 @@ const authApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAvailableSecurityAttributes: build.query<string[], void>({
+      query: () => ({
+        url: "/security-policies/available-attributes",
+        mehtod: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetSecurityPolicesQuery, useGetSecurityPolicyByIdQuery } =
-  authApi;
+export const {
+  useGetSecurityPolicesQuery,
+  useGetSecurityPolicyByIdQuery,
+  useGetAvailableSecurityAttributesQuery,
+} = authApi;
