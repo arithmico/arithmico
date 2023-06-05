@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
+import { Link } from "react-router-dom";
 import { Card } from "../../../../../components/card/card";
 import Heading from "../../../../../components/heading/heading";
 import { ChevronRightIcon } from "../../../../../icons/chevron-right.icon";
@@ -13,13 +14,19 @@ export function SecurityPolicyActionsCard() {
       </Heading>
       <menu>
         <MenuItem>
-          <FormattedMessage id="security-policy-details.actions.edit-attributes" />
+          <Link to="./edit-attributes">
+            <FormattedMessage id="security-policy-details.actions.edit-attributes" />
+          </Link>
         </MenuItem>
         <MenuItem>
-          <FormattedMessage id="security-policy-details.actions.rename" />
+          <Link to="./rename">
+            <FormattedMessage id="security-policy-details.actions.rename" />
+          </Link>
         </MenuItem>
         <MenuItem>
-          <FormattedMessage id="security-policy-details.actions.delete" />
+          <Link to="./delete">
+            <FormattedMessage id="security-policy-details.actions.delete" />
+          </Link>
         </MenuItem>
       </menu>
     </Card>
