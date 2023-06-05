@@ -14,7 +14,7 @@ export function SecurityPolicyActionsCard() {
       </Heading>
       <menu>
         <MenuItem>
-          <Link to="./edit-attributes">
+          <Link to="./attributes">
             <FormattedMessage id="security-policy-details.actions.edit-attributes" />
           </Link>
         </MenuItem>

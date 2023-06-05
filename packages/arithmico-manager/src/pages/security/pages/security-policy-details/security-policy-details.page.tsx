@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router-dom";
 import Heading from "../../../../components/heading/heading";
-import LoadingIcon from "../../../../icons/loading.icon";
+import { LoadingPage } from "../../../../components/loading-page/loading-page";
 import { useGetSecurityPolicyByIdQuery } from "../../../../store/api/slices/security/security.api";
 import { SecurityPolicyActionsCard } from "./components/security-policy-actions-card";
 import { SecurityPolicyAttributeList } from "./components/security-policy-attribute-list";
@@ -19,24 +19,7 @@ export function SecurityPolicyDetailsPage() {
 
   return (
     <>
-      {(isLoading || isError) && (
-        <div
-          className={classNames(
-            "w-full",
-            "h-full",
-            "flex",
-            "justify-center",
-            "items-center"
-          )}
-        >
-          <div className={classNames("flex", "flex-col", "items-center")}>
-            <LoadingIcon className={classNames("stroke-neutral-400")} />
-            <p className={classNames("text-neutral-400")}>
-              <FormattedMessage id="common.loading" />
-            </p>
-          </div>
-        </div>
-      )}
+      <LoadingPage isLoading={isLoading} isError={isError} />
       {isSuccess && data && (
         <>
           <SecurityPolicyDetailsBreadcrumbs policyName={data.name} />

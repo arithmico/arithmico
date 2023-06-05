@@ -23,6 +23,7 @@
   "navbar.security": "Sicherheit",
   "navbar.versions": "Versionen",
   "navbar.security.policies": "Sicherheitsrichtlinien",
+  "navbar.security.policies.attributes": "Berechtigungen",
 
   "security.title": "Sicherheit",
   "security.description": "Willkommen im Sicherheitsbereich des Arithmico Backoffice. Hier haben Sie die Möglichkeit, die Zugriffskontrolle auf Ressourcen mithilfe von Sicherheitsrichtlinien zu verwalten. Erstellen Sie maßgeschneiderte Richtlinien, um den Zugriff auf sensible Informationen und Funktionen einzuschränken. Bei Bedarf können Sie veraltete oder nicht mehr benötigte Sicherheitsrichtlinien löschen. Zusätzlich besteht die Option, vorhandene Richtlinien zu bearbeiten, um Zugriffsrechte anzupassen oder neue Zugriffskontrollmechanismen einzuführen. Mit diesen Funktionen können Sie die Sicherheit des Arithmico Backoffice effektiv steuern und schützen.",
@@ -48,6 +49,8 @@
   "security-policy-details.actions.rename": "Sicherheitsrichtlinie umbenennen",
   "security-policy-details.actions.delete": "Sicherheitsrichtlinie löschen",
 
+  "security-policy-details.edit-attributes.title": "Berechtigungen bearbeiten",
+  "security-policy-details.edit-attributes.description": "Hier können Sie die Berechtigungen Ihrer Sicherheitsrichtlinie anpassen. Bitte seien Sie äußerst vorsichtig, da Änderungen an den Berechtigungen die Sicherheit beeinträchtigen können. Sie haben die Möglichkeit, spezifische Zugriffsrechte und Berechtigungen für Benutzer und Gruppen festzulegen. Beachten Sie, dass unsachgemäße Konfigurationen die Sicherheit Ihrer Ressourcen gefährden können. Bevor Sie Ihre Änderungen bestätigen, überprüfen Sie diese sorgfältig, um unerwünschte Auswirkungen zu vermeiden.",
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",
   "pagination.next-page": "Nächste Seite",
