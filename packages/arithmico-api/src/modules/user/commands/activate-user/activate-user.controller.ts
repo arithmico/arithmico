@@ -1,5 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
+import { Public } from '../../../../decorators/public.decorator';
 import { ActivateUserCommand } from './activate-user.command';
 import { ActivateUserRequestDto } from './activate-user.request.dto';
 import { ActivateUserResponseDto } from './activate-user.response.dto';
@@ -8,6 +9,7 @@ import { ActivateUserResponseDto } from './activate-user.response.dto';
 export class ActivateUserController {
   constructor(private commandBus: CommandBus) {}
 
+  @Public()
   @Post()
   async activateUser(
     @Body() activateUserRequestDto: ActivateUserRequestDto,
