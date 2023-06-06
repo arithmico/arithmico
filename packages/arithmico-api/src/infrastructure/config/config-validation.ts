@@ -19,4 +19,5 @@ export default Joi.object({
   REDIS_PORT: Joi.number().required(),
   MAIL_BUCKET: Joi.string().required(),
   MAIL_DOMAIN: Joi.string().required(),
+  MAIL_MODE: Joi.string().valid('dev', 'prod'),
 });
