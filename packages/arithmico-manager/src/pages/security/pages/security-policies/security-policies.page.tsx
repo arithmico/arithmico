@@ -28,7 +28,7 @@ export function SecurityPoliciesPage({ inline }: SecurityPoliciesPageProps) {
   return (
     <>
       {!inline && <SecurityPoliciesBreadcrumbs />}
-      <Heading level={inline ? 2 : 1} className={classNames("mt-4")}>
+      <Heading level={inline ? 2 : 1} className={classNames("my-4")}>
         <FormattedMessage id="security.policies.title" />
       </Heading>
       {isSuccess && data && (

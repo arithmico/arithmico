@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import { Navbar } from "../navbar/navbar";
+import WithScrollbars from "../with-scrollbars/with-scrollbars";
 
 export interface PageWithNavbarProps {
   children?: React.ReactNode;
@@ -28,13 +29,26 @@ export function PageWithNavbar({ children }: PageWithNavbarProps) {
         "grid",
         "grid-cols-[80px_auto]",
         "gap-8",
-        "overflow-hidden"
+        "overflow-hidden",
+        "max-h-full",
+        "h-full"
       )}
     >
       <Navbar />
-      <main className={classNames("pr-8", "pb-8", "overflow-y-auto")}>
-        {children}
-      </main>
+      <WithScrollbars>
+        <main
+          className={classNames(
+            "pr-8",
+            "pb-8",
+            "overflow-y-auto",
+            "w-full",
+            "max-w-full",
+            "overflow-x-hidden"
+          )}
+        >
+          {children}
+        </main>
+      </WithScrollbars>
     </div>
   );
 }

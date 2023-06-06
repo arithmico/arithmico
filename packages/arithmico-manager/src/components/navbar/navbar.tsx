@@ -12,7 +12,16 @@ import { logout } from "../../store/slices/auth/auth.slice";
 
 export function Navbar() {
   return (
-    <nav className={classNames("bg-white", "flex", "flex-col")}>
+    <nav
+      className={classNames(
+        "bg-white",
+        "flex",
+        "flex-col",
+        "max-h-full",
+        "overlfow-y-hidden",
+        "h-full"
+      )}
+    >
       <h1 className={classNames("sr-only")}>
         <FormattedMessage id="navbar.sr.title" />
       </h1>

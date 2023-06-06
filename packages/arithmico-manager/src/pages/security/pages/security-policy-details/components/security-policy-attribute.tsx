@@ -21,8 +21,7 @@ export function SecurityPolicyAttribute({
         "pr-2",
         "rounded-sm",
         "flex",
-        "items-center",
-        "hover:bg-black/5"
+        "items-center"
       )}
     >
       {segments.map((segment, index) => (

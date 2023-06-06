@@ -1,10 +1,11 @@
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Heading from "../../../../components/heading/heading";
 import { LoadingPage } from "../../../../components/loading-page/loading-page";
+import { DeleteIcon } from "../../../../icons/delete.icon";
+import { EditIcon } from "../../../../icons/edit.icon";
 import { useGetSecurityPolicyByIdQuery } from "../../../../store/api/slices/security/security.api";
-import { SecurityPolicyActionsCard } from "./components/security-policy-actions-card";
 import { SecurityPolicyAttributeList } from "./components/security-policy-attribute-list";
 import { SecurityPolicyDetailsBreadcrumbs } from "./components/security-policy-details-breadcrumbs";
 import { SecurityPolicyDetailsCard } from "./components/security-policy-details-card";
@@ -23,9 +24,31 @@ export function SecurityPolicyDetailsPage() {
       {isSuccess && data && (
         <>
           <SecurityPolicyDetailsBreadcrumbs policyName={data.name} />
-          <Heading level={1} className={classNames("mt-4")}>
-            <FormattedMessage id="security-policy-details.title" />
-          </Heading>
+          <div className={classNames("flex", "items-center", "my-4")}>
+            <Heading level={1} className={classNames()}>
+              {data.name}
+            </Heading>
+            <menu
+              className={classNames("flex", "ml-auto", "items-center", "gap-4")}
+            >
+              <li>
+                <span className={classNames("sr-only")}>
+                  <FormattedMessage id="security-policy-details.actions.rename" />
+                </span>
+                <Link to="./rename">
+                  <EditIcon className={classNames("w-6", "h-6")} />
+                </Link>
+              </li>
+              <li>
+                <span className={classNames("sr-only")}>
+                  <FormattedMessage id="security-policy-details.actions.delete" />
+                </span>
+                <Link to="./delete">
+                  <DeleteIcon className={classNames("w-6", "h-6")} />
+                </Link>
+              </li>
+            </menu>
+          </div>
           <div
             className={classNames(
               "md:grid",
@@ -44,7 +67,6 @@ export function SecurityPolicyDetailsPage() {
                 "gap-4"
               )}
             >
-              <SecurityPolicyActionsCard />
               <SecurityPolicyDetailsCard
                 id={data.id}
                 name={data.name}

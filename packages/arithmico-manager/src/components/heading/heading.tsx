@@ -14,42 +14,18 @@ export default function Heading({
 }: HeadingProps) {
   switch (level) {
     case "title":
-      return (
-        <h1 className={classNames("text-4xl", "mb-4", className)}>
-          {children}
-        </h1>
-      );
+      return <h1 className={classNames("text-4xl", className)}>{children}</h1>;
     case 1:
-      return (
-        <h1 className={classNames("text-2xl", "mb-4", className)}>
-          {children}
-        </h1>
-      );
+      return <h1 className={classNames("text-2xl", className)}>{children}</h1>;
     case 2:
       return (
-        <h2
-          className={classNames(
-            "text-2xl",
-            "font-light",
-            "mt-6",
-            "mb-4",
-            className
-          )}
-        >
+        <h2 className={classNames("text-2xl", "font-light", className)}>
           {children}
         </h2>
       );
     case 3:
       return (
-        <h3
-          className={classNames(
-            "text-xl",
-            "font-light",
-            "mt-2",
-            "mb-2",
-            className
-          )}
-        >
+        <h3 className={classNames("text-xl", "font-light", className)}>
           {children}
         </h3>
       );
