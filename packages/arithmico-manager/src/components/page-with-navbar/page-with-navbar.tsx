@@ -31,24 +31,28 @@ export function PageWithNavbar({ children }: PageWithNavbarProps) {
         "gap-8",
         "overflow-hidden",
         "max-h-full",
-        "h-full"
+        "h-full",
+        "max-w-full",
+        "w-full"
       )}
     >
       <Navbar />
-      <WithScrollbars>
-        <main
-          className={classNames(
-            "pr-8",
-            "pb-8",
-            "overflow-y-auto",
-            "w-full",
-            "max-w-full",
-            "overflow-x-hidden"
-          )}
-        >
-          {children}
-        </main>
-      </WithScrollbars>
+      <div className={classNames("max-w-full", "overflow-x-hidden")}>
+        <WithScrollbars>
+          <main
+            className={classNames(
+              "pr-8",
+              "pb-8",
+              "overflow-y-auto",
+              "w-full",
+              "max-w-full",
+              "overflow-x-hidden"
+            )}
+          >
+            {children}
+          </main>
+        </WithScrollbars>
+      </div>
     </div>
   );
 }

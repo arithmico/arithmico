@@ -4,6 +4,7 @@
   "common.cancel": "Abbrechen",
   "common.form.errors.required": "Pflichtfeld",
   "common.form.errors.passwords-do-not-match": "Die Passwörter stimmen nicht überein",
+  "common.form.errors.no-whitespace": "Leerzeichen sind nicht erlaubt",
   "common.loading": "Laden...",
   "common.error": "Es ist ein Fehler aufgetreten",
 
@@ -25,6 +26,7 @@
   "navbar.versions": "Versionen",
   "navbar.security.policies": "Sicherheitsrichtlinien",
   "navbar.security.policies.attributes": "Berechtigungen",
+  "navbar.security.policies.rename": "Umbenennen",
 
   "security.title": "Sicherheit",
   "security.description": "Willkommen im Sicherheitsbereich des Arithmico Backoffice. Hier haben Sie die Möglichkeit, die Zugriffskontrolle auf Ressourcen mithilfe von Sicherheitsrichtlinien zu verwalten. Erstellen Sie maßgeschneiderte Richtlinien, um den Zugriff auf sensible Informationen und Funktionen einzuschränken. Bei Bedarf können Sie veraltete oder nicht mehr benötigte Sicherheitsrichtlinien löschen. Zusätzlich besteht die Option, vorhandene Richtlinien zu bearbeiten, um Zugriffsrechte anzupassen oder neue Zugriffskontrollmechanismen einzuführen. Mit diesen Funktionen können Sie die Sicherheit des Arithmico Backoffice effektiv steuern und schützen.",
@@ -56,6 +58,9 @@
   "security-policy-details.edit-attributes.attributes.summary": "Zusammenfassung",
   "security-policy-details.edit-attributes.attributes.removed-attributes": "{count} Berechtigungen entfernt",
   "security-policy-details.edit-attributes.attributes.added-attributes": "{count} Berechtigungen hinzugefügt",
+
+  "security-policy-rename.title": "Sicherheitsrichtlinie umbenennen",
+  "security-policy-rename.description": "Passen Sie den Namen Ihrer Sicherheitsrichtlinie an. Achten Sie darauf, dass der neue Name einzigartig ist, um Konflikte zu vermeiden. Prüfen Sie sorgfältig Ihre Umbenennungen, bevor Sie sie bestätigen, um die Konsistenz und Effektivität Ihrer Sicherheitskonfiguration zu gewährleisten.",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",
