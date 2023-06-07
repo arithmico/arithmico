@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { PagedResponse } from '../../../../../common/types/paged-response.dto';
-import { SecurityPolicyRepository } from '../../../../../infrastructure/database/repositories/security-policy.repository';
+import { SecurityPolicyRepository } from '../../../../../infrastructure/database/repositories/security-policy/security-policy.repository';
 import { GetSecurityPoliciesQuery } from './get-security-policies.query';
 import { GetSecurityPoliciesResponseDto } from './get-security-policies.response.dto';
 

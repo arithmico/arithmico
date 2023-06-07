@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UserActivationRepository } from '../../../../infrastructure/database/repositories/user-activation.repository';
-import { UserRepository } from '../../../../infrastructure/database/repositories/user.repository';
+import { UserActivationRepository } from '../../../../infrastructure/database/repositories/user-activation/user-activation.repository';
+import { UserRepository } from '../../../../infrastructure/database/repositories/user/user.repository';
 import { ActivateUserCommand } from './activate-user.command';
 import * as bcrypt from 'bcrypt';
 import { ActivateUserResponseDto } from './activate-user.response.dto';

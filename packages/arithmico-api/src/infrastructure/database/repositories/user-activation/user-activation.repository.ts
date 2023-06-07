@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import {
   UserActivation,
   UserActivationDocument,
-} from '../schemas/user-activation/user-activation.schema';
+} from '../../schemas/user-activation/user-activation.schema';
 
 @Injectable()
 export class UserActivationRepository {

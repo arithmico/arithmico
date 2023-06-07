@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { LoginCommand } from './login.command';
 import * as bcrypt from 'bcrypt';
-import { UserRepository } from '../../../../infrastructure/database/repositories/user.repository';
+import { UserRepository } from '../../../../infrastructure/database/repositories/user/user.repository';
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AccessTokenClaims, RefreshTokenClaims } from '../../types';

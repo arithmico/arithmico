@@ -2,7 +2,7 @@ import { BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepository } from '../../../../infrastructure/database/repositories/user.repository';
+import { UserRepository } from '../../../../infrastructure/database/repositories/user/user.repository';
 import { AccessTokenClaims, RefreshTokenClaims } from '../../types';
 import { RefreshCommand } from './refresh.command';
 

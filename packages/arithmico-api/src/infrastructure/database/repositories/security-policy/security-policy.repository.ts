@@ -5,16 +5,16 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { PagedResponse } from '../../../common/types/paged-response.dto';
+import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import {
   SecurityPolicyAttachment,
   SecurityPolicyAttachmentDocument,
   SecurityPolicyAttachmentType,
-} from '../schemas/security-policy-attachment/security-policy-attachment.schema';
+} from '../../schemas/security-policy-attachment/security-policy-attachment.schema';
 import {
   SecurityPolicy,
   SecurityPolicyDocument,
-} from '../schemas/security-policy/security-policy.schema';
+} from '../../schemas/security-policy/security-policy.schema';
 
 @Injectable()
 export class SecurityPolicyRepository {

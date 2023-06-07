@@ -2,8 +2,8 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Cache } from 'cache-manager';
-import { SecurityAttributesRepository } from '../../infrastructure/database/repositories/security-attributes.repository';
-import { UserRepository } from '../../infrastructure/database/repositories/user.repository';
+import { SecurityAttributesRepository } from '../../infrastructure/database/repositories/security-attributes/security-attributes.repository';
+import { UserRepository } from '../../infrastructure/database/repositories/user/user.repository';
 import { AccessTokenClaims } from './types';
 
 interface UserCacheEntry {

@@ -5,12 +5,12 @@ import {
   SecurityPolicyAttachment,
   SecurityPolicyAttachmentDocument,
   SecurityPolicyAttachmentType,
-} from '../schemas/security-policy-attachment/security-policy-attachment.schema';
+} from '../../schemas/security-policy-attachment/security-policy-attachment.schema';
 import {
   SecurityPolicy,
   SecurityPolicyDocument,
-} from '../schemas/security-policy/security-policy.schema';
-import { User, UserDocument } from '../schemas/user/user.schema';
+} from '../../schemas/security-policy/security-policy.schema';
+import { User, UserDocument } from '../../schemas/user/user.schema';
 
 @Injectable()
 export class SecurityAttributesRepository {

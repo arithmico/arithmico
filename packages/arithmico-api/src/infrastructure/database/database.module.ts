@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { EmailRepository } from './repositories/email.repository';
-import { MessageRepository } from './repositories/message.repository';
-import { SecurityAttributesRepository } from './repositories/security-attributes.repository';
-import { SecurityPolicyRepository } from './repositories/security-policy.repository';
-import { UserActivationRepository } from './repositories/user-activation.repository';
-import { UserRepository } from './repositories/user.repository';
+import { EmailRepository } from './repositories/email/email.repository';
+import { MessageRepository } from './repositories/message/message.repository';
+import { SecurityAttributesRepository } from './repositories/security-attributes/security-attributes.repository';
+import { SecurityPolicyRepository } from './repositories/security-policy/security-policy.repository';
+import { UserActivationRepository } from './repositories/user-activation/user-activation.repository';
+import { UserRepository } from './repositories/user/user.repository';
 import { Email, EmailSchema } from './schemas/email/email.schema';
 import { Message, MessageSchema } from './schemas/messege/messege.schema';
 import {
