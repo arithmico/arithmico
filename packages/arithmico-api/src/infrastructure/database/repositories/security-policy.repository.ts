@@ -315,6 +315,30 @@ export class SecurityPolicyRepository {
       .exec();
   }
 
+  async setName(
+    policyId: string,
+    name: string,
+  ): Promise<SecurityPolicyDocument | null> {
+    return await this.securityPolicyModel.findOneAndUpdate(
+      {
+        _id: policyId,
+      },
+      { name: name },
+      { new: true },
+    );
+  }
+
+  async setNameOrThrow(
+    policyId: string,
+    name: string,
+  ): Promise<SecurityPolicyDocument> {
+    const securityPolicyDocument = await this.setName(policyId, name);
+    if (!securityPolicyDocument) {
+      throw new NotFoundException();
+    }
+    return securityPolicyDocument;
+  }
+
   async setAttributes(
     policyId: string,
     attributes: string[],

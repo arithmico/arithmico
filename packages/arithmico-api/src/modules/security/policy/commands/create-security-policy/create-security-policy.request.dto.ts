@@ -3,14 +3,14 @@ import {
   IsEnum,
   IsNotEmpty,
   IsString,
-  MaxLength,
+  Length,
 } from 'class-validator';
 import { SecurityAttribute } from '../../../../../common/constants/security-attributes.enum';
 
 export class CreateSecurityPolicyRequestDto {
   @IsNotEmpty()
   @IsString()
-  @MaxLength(256)
+  @Length(1, 256)
   name: string;
 
   @ArrayMaxSize(1024)

@@ -3,16 +3,18 @@ import { PagedResponse } from "../../types";
 import {
   GetSecurityPoliciesArgs,
   GetSecurityPolicyByIdArgs,
-  GetSecurityPoliciesResponseDto,
-  GetSecurityPolicyByIdResponseDto,
+  SecurityPolicyDtoWithPrincipalsCount,
+  SecurityPolicyDtoWithPrincipalsDetails,
   SetSecurityPolicyAttributesResponseDto,
   SetSecurityPolicyAttributesRequestDto,
+  SecurityPolicyDto,
+  RenameSecurityPolicyArgs,
 } from "./security.types";
 
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
     getSecurityPolices: build.query<
-      PagedResponse<GetSecurityPoliciesResponseDto>,
+      PagedResponse<SecurityPolicyDtoWithPrincipalsCount>,
       GetSecurityPoliciesArgs
     >({
       query: (arg) => ({
@@ -35,7 +37,7 @@ const authApi = api.injectEndpoints({
     }),
 
     getSecurityPolicyById: build.query<
-      GetSecurityPolicyByIdResponseDto,
+      SecurityPolicyDtoWithPrincipalsDetails,
       GetSecurityPolicyByIdArgs
     >({
       query: (arg) => ({
@@ -67,6 +69,21 @@ const authApi = api.injectEndpoints({
       invalidatesTags: (result) =>
         result ? [{ type: "SecurityPolicy", id: result.id }] : [],
     }),
+
+    renameSecurityPolicy: build.mutation<
+      SecurityPolicyDto,
+      RenameSecurityPolicyArgs
+    >({
+      query: (arg) => ({
+        url: `/security-policies/${arg.policyId}/name`,
+        method: "PUT",
+        body: {
+          name: arg.name,
+        },
+      }),
+      invalidatesTags: (result) =>
+        result ? [{ type: "SecurityPolicy", id: result.id }] : [],
+    }),
   }),
 });
 
@@ -75,4 +92,5 @@ export const {
   useGetSecurityPolicyByIdQuery,
   useGetAvailableSecurityAttributesQuery,
   useSetSecurityPolicyAttributesMutation,
+  useRenameSecurityPolicyMutation,
 } = authApi;

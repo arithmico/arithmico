@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FormattedMessage } from "react-intl";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Card } from "../../../../components/card/card";
 import FormError from "../../../../components/form-error/form-error";
 import FormLabel from "../../../../components/form-label/form-label";
@@ -15,7 +15,10 @@ import {
   securityPolicyRenameSchema,
   SecurityPolicyRenameSchemaType,
 } from "../../../../schemas/login/security-policy-rename.schema";
-import { useGetSecurityPolicyByIdQuery } from "../../../../store/api/slices/security/security.api";
+import {
+  useGetSecurityPolicyByIdQuery,
+  useRenameSecurityPolicyMutation,
+} from "../../../../store/api/slices/security/security.api";
 import { SecurityPolicyRenameBreadcrumbs } from "./components/security-policy-rename-breadcrumbs";
 
 export function SecurityPolicyRenamePage() {
@@ -36,12 +39,19 @@ export function SecurityPolicyRenamePage() {
       name: data?.name,
     },
   });
+  const [rename, renameResult] = useRenameSecurityPolicyMutation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
       setValue("name", data.name);
     }
   }, [data, setValue]);
+  useEffect(() => {
+    if (renameResult.isSuccess) {
+      navigate(`/security/security-policies/${policyId!}`);
+    }
+  }, [renameResult, navigate, policyId]);
 
   return (
     <>
@@ -60,7 +70,12 @@ export function SecurityPolicyRenamePage() {
               <FormattedMessage id="security-policy-rename.description" />
             </p>
             <form
-              onSubmit={handleSubmit(() => console.log("test"))}
+              onSubmit={handleSubmit((values) =>
+                rename({
+                  policyId: policyId!,
+                  name: values.name,
+                })
+              )}
               className={classNames("mt-4", "flex", "flex-col")}
             >
               <FormLabel>

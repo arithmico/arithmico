@@ -1,14 +1,16 @@
-export interface GetSecurityPoliciesResponseDto {
+export interface SecurityPolicyDto {
   id: string;
   name: string;
   attributes: string[];
+}
+
+export interface SecurityPolicyDtoWithPrincipalsCount
+  extends SecurityPolicyDto {
   principals: number;
 }
 
-export interface GetSecurityPolicyByIdResponseDto {
-  id: string;
-  name: string;
-  attributes: string[];
+export interface SecurityPolicyDtoWithPrincipalsDetails
+  extends SecurityPolicyDto {
   principals: {
     total: number;
     users: number;
@@ -34,4 +36,9 @@ export interface SetSecurityPolicyAttributesResponseDto {
   id: string;
   name: string;
   attributes: string[];
+}
+
+export interface RenameSecurityPolicyArgs {
+  policyId: string;
+  name: string;
 }
