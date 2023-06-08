@@ -44,7 +44,7 @@ export function DeleteSecurityPolicyPage() {
             <BackButtonLink to={`/security/security-policies/${data.id}`} />
             <button
               disabled={data.principals.total > 0}
-              onClick={() => deleteSecurityPolicy({ policyId })}
+              onClick={() => deleteSecurityPolicy({ policyId: policyId! })}
               type="button"
               className={classNames(
                 "ml-auto",
