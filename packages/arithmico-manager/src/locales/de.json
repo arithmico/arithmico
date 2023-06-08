@@ -1,5 +1,6 @@
 {
   "common.next": "Weiter",
+  "common.save": "Speichern",
   "common.back": "Zurück",
   "common.cancel": "Abbrechen",
   "common.form.errors.required": "Pflichtfeld",
@@ -27,6 +28,7 @@
   "navbar.security.policies": "Sicherheitsrichtlinien",
   "navbar.security.policies.attributes": "Berechtigungen",
   "navbar.security.policies.rename": "Umbenennen",
+  "navbar.security.policies.add": "Hinzufügen",
 
   "security.title": "Sicherheit",
   "security.description": "Willkommen im Sicherheitsbereich des Arithmico Backoffice. Hier haben Sie die Möglichkeit, die Zugriffskontrolle auf Ressourcen mithilfe von Sicherheitsrichtlinien zu verwalten. Erstellen Sie maßgeschneiderte Richtlinien, um den Zugriff auf sensible Informationen und Funktionen einzuschränken. Bei Bedarf können Sie veraltete oder nicht mehr benötigte Sicherheitsrichtlinien löschen. Zusätzlich besteht die Option, vorhandene Richtlinien zu bearbeiten, um Zugriffsrechte anzupassen oder neue Zugriffskontrollmechanismen einzuführen. Mit diesen Funktionen können Sie die Sicherheit des Arithmico Backoffice effektiv steuern und schützen.",
@@ -61,6 +63,9 @@
 
   "security-policy-rename.title": "Sicherheitsrichtlinie umbenennen",
   "security-policy-rename.description": "Passen Sie den Namen Ihrer Sicherheitsrichtlinie an. Achten Sie darauf, dass der neue Name einzigartig ist, um Konflikte zu vermeiden. Prüfen Sie sorgfältig Ihre Umbenennungen, bevor Sie sie bestätigen, um die Konsistenz und Effektivität Ihrer Sicherheitskonfiguration zu gewährleisten.",
+  "security.add-security-policy.title": "Neue Sicherheitsrichtlinie hinzufügen",
+  "security.add-security-policy.description": "Erstellen Sie eine neue Sicherheitsrichtlinie, um die Zugriffsrechte und Berechtigungen für Ihre Ressourcen zu definieren. Auf dieser Seite können Sie eine Sicherheitsrichtlinie von Grund auf neu erstellen. Legen Sie die gewünschten Berechtigungen für Benutzer und Gruppen fest, um die Sicherheit und den Schutz Ihrer Systeme zu gewährleisten. Geben Sie der Richtlinie einen aussagekräftigen Namen und definieren Sie klare Zugriffsregeln. Achten Sie darauf, die Sicherheitsrichtlinie gründlich zu überprüfen, bevor Sie sie erstellen, um eine konsistente und effektive Sicherheitskonfiguration sicherzustellen.",
+  "security.add-security-policy.form.name": "Name",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",

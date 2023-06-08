@@ -109,4 +109,5 @@ export const {
   useGetAvailableSecurityAttributesQuery,
   useSetSecurityPolicyAttributesMutation,
   useRenameSecurityPolicyMutation,
+  useCreateSecurityPolicyMutation,
 } = authApi;

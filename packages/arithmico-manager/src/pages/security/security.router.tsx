@@ -8,7 +8,10 @@ export function SecurityRouter() {
     <PageWithNavbar>
       <Routes>
         <Route index element={<SecurityPage />} />
-        <Route path="security-policies" element={<SecurityPoliciesRouter />} />
+        <Route
+          path="security-policies/*"
+          element={<SecurityPoliciesRouter />}
+        />
       </Routes>
     </PageWithNavbar>
   );

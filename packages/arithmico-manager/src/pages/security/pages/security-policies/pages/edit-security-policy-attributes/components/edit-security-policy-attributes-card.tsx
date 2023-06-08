@@ -1,14 +1,17 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { BackButtonLink } from "../../../../../../../components/back-button-link/back-button-link";
 import { Card } from "../../../../../../../components/card/card";
+import { Checkbox } from "../../../../../../../components/checkbox/checkbox";
 import FormSubmitButton from "../../../../../../../components/form-submit-button/form-submit-button";
 import Heading from "../../../../../../../components/heading/heading";
-import { ChevronRightIcon } from "../../../../../../../icons/chevron-right.icon";
 import {
   useGetAvailableSecurityAttributesQuery,
   useSetSecurityPolicyAttributesMutation,
 } from "../../../../../../../store/api/slices/security/security.api";
+import { SecurityAttributeVisualization } from "../../../components/security-attribute-visualization";
 
 interface EditSecurityPolicyAttributesCardProps {
   policyId: string;
@@ -24,6 +27,12 @@ export function EditSecurityPolicyAttributesCard({
   const [attributes, setAttributes] = useState(
     () => new Set(initialAttributes)
   );
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (result.isSuccess) {
+      navigate(`/security/security-policies/${result.data.id}`);
+    }
+  }, [result, navigate]);
 
   if (!isSuccess || !data) {
     return <></>;
@@ -33,7 +42,7 @@ export function EditSecurityPolicyAttributesCard({
   const addedAttributes = data.filter((a) => !initialAttributes.includes(a));
 
   return (
-    <Card>
+    <Card className={classNames("max-w-5xl")}>
       <form
         onSubmit={(event) => {
           updateAttributes({
@@ -64,8 +73,8 @@ export function EditSecurityPolicyAttributesCard({
             }}
           />
         ))}
-        <div className={classNames("flex", "mt-4")}>
-          <div>
+        <div className={classNames("flex", "flex-col")}>
+          <div className={classNames("my-4")}>
             <Heading level={3} className={classNames("text-lg")}>
               <FormattedMessage id="security-policy-details.edit-attributes.attributes.summary" />
             </Heading>
@@ -84,12 +93,14 @@ export function EditSecurityPolicyAttributesCard({
               </li>
             </ul>
           </div>
-          <div className={classNames("ml-auto", "flex", "flex-col")}>
+          <div className={classNames("flex")}>
+            <BackButtonLink to={`/security/security-policies/${policyId}`} />
+
             <FormSubmitButton
               disabled={
                 removedAttributes.length === 0 && addedAttributes.length === 0
               }
-              className={classNames("mt-auto")}
+              className={classNames("ml-auto")}
               isLoading={result.isLoading}
             >
               Speichern
@@ -112,8 +123,6 @@ function SecurityAttribute({
   state,
   onChange,
 }: SecurityAttributeProps) {
-  const segments = attribute.split(":");
-
   return (
     <label
       className={classNames(
@@ -128,32 +137,8 @@ function SecurityAttribute({
         "hover:bg-black/5"
       )}
     >
-      {segments.map((segment, index) => (
-        <span key={index} className={classNames("flex", "items-center")}>
-          {index !== 0 && (
-            <ChevronRightIcon
-              className={classNames("w-4", "h-4", "fill-neutral-500", "mx-1")}
-            />
-          )}
-          {segment}
-        </span>
-      ))}
-      <input
-        checked={state}
-        onChange={() => onChange(attribute, !state)}
-        type="checkbox"
-        className={classNames(
-          "w-4",
-          "h-4",
-          "text-blue-600",
-          "bg-gray-100",
-          "border-gray-300",
-          "rounded",
-          "focus:ring-blue-500",
-          "focus:ring-2",
-          "ml-auto"
-        )}
-      />
+      <SecurityAttributeVisualization securityAttribute={attribute} />
+      <Checkbox checked={state} onChange={() => onChange(attribute, !state)} />
     </label>
   );
 }

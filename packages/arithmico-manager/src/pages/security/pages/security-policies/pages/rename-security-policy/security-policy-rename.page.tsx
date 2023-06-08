@@ -3,7 +3,8 @@ import classNames from "classnames";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FormattedMessage } from "react-intl";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { BackButtonLink } from "../../../../../../components/back-button-link/back-button-link";
 import { Card } from "../../../../../../components/card/card";
 import FormError from "../../../../../../components/form-error/form-error";
 import FormLabel from "../../../../../../components/form-label/form-label";
@@ -84,18 +85,7 @@ export function SecurityPolicyRenamePage() {
               </FormLabel>
               <FormError error={errors.name} />
               <div className={classNames("flex", "mt-4", "items-center")}>
-                <Link
-                  to={`/security/security-policies/${data.id}`}
-                  className={classNames(
-                    "border",
-                    "rounded-sm",
-                    "border-black/50",
-                    "py-2",
-                    "px-4"
-                  )}
-                >
-                  Zurück
-                </Link>
+                <BackButtonLink to={`/security/security-policies/${data.id}`} />
                 <FormSubmitButton
                   disabled={!dirtyFields.name}
                   className={classNames("ml-auto")}

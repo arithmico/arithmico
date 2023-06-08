@@ -11,7 +11,7 @@ const FormTextField = React.forwardRef<
       type="text"
       className={classNames(
         "border",
-        "border-gray-300",
+        "border-black/30",
         "focus:border-black",
         "outline-none",
         "p-2",

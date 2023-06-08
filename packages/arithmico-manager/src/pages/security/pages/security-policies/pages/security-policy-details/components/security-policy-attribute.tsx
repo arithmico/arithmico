@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ChevronRightIcon } from "../../../../../../../icons/chevron-right.icon";
+import { SecurityAttributeVisualization } from "../../../components/security-attribute-visualization";
 
 export interface SecurityPolicyAttributeProps {
   attribute: string;
@@ -8,8 +8,6 @@ export interface SecurityPolicyAttributeProps {
 export function SecurityPolicyAttribute({
   attribute,
 }: SecurityPolicyAttributeProps) {
-  const segments = attribute.split(":");
-
   return (
     <li
       className={classNames(
@@ -24,16 +22,7 @@ export function SecurityPolicyAttribute({
         "items-center"
       )}
     >
-      {segments.map((segment, index) => (
-        <span key={index} className={classNames("flex", "items-center")}>
-          {index !== 0 && (
-            <ChevronRightIcon
-              className={classNames("w-4", "h-4", "fill-neutral-500", "mx-1")}
-            />
-          )}
-          {segment}
-        </span>
-      ))}
+      <SecurityAttributeVisualization securityAttribute={attribute} />
     </li>
   );
 }
