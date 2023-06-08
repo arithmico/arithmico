@@ -4,22 +4,22 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FormattedMessage } from "react-intl";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Card } from "../../../../components/card/card";
-import FormError from "../../../../components/form-error/form-error";
-import FormLabel from "../../../../components/form-label/form-label";
-import FormSubmitButton from "../../../../components/form-submit-button/form-submit-button";
-import FormTextField from "../../../../components/form-text-field/form-text-field";
-import Heading from "../../../../components/heading/heading";
-import { LoadingPage } from "../../../../components/loading-page/loading-page";
+import { Card } from "../../../../../../components/card/card";
+import FormError from "../../../../../../components/form-error/form-error";
+import FormLabel from "../../../../../../components/form-label/form-label";
+import FormSubmitButton from "../../../../../../components/form-submit-button/form-submit-button";
+import FormTextField from "../../../../../../components/form-text-field/form-text-field";
+import Heading from "../../../../../../components/heading/heading";
+import { LoadingPage } from "../../../../../../components/loading-page/loading-page";
 import {
   securityPolicyRenameSchema,
   SecurityPolicyRenameSchemaType,
-} from "../../../../schemas/login/security-policy-rename.schema";
+} from "../../../../../../schemas/login/security-policy-rename.schema";
 import {
   useGetSecurityPolicyByIdQuery,
   useRenameSecurityPolicyMutation,
-} from "../../../../store/api/slices/security/security.api";
-import { SecurityPolicyRenameBreadcrumbs } from "./components/security-policy-rename-breadcrumbs";
+} from "../../../../../../store/api/slices/security/security.api";
+import { RenameSecurityPolicyBreadcrumbs } from "./components/rename-security-policy-breadcrumbs";
 
 export function SecurityPolicyRenamePage() {
   const { policyId } = useParams();
@@ -58,7 +58,7 @@ export function SecurityPolicyRenamePage() {
       <LoadingPage isError={isError} isLoading={isLoading} />
       {isSuccess && data && (
         <>
-          <SecurityPolicyRenameBreadcrumbs
+          <RenameSecurityPolicyBreadcrumbs
             policyId={policyId!}
             policyName={data.name}
           />

@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import { Card } from "../../../../../components/card/card";
-import Heading from "../../../../../components/heading/heading";
-import { EditIcon } from "../../../../../icons/edit.icon";
+import { Card } from "../../../../../../../components/card/card";
+import Heading from "../../../../../../../components/heading/heading";
+import { EditIcon } from "../../../../../../../icons/edit.icon";
 import { SecurityPolicyAttribute } from "./security-policy-attribute";
 
 export interface SecurityPolicyAttributeListProps {

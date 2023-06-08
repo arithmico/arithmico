@@ -1,24 +1,24 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Card } from "../../../../../components/card/card";
-import FormSubmitButton from "../../../../../components/form-submit-button/form-submit-button";
-import Heading from "../../../../../components/heading/heading";
-import { ChevronRightIcon } from "../../../../../icons/chevron-right.icon";
+import { Card } from "../../../../../../../components/card/card";
+import FormSubmitButton from "../../../../../../../components/form-submit-button/form-submit-button";
+import Heading from "../../../../../../../components/heading/heading";
+import { ChevronRightIcon } from "../../../../../../../icons/chevron-right.icon";
 import {
   useGetAvailableSecurityAttributesQuery,
   useSetSecurityPolicyAttributesMutation,
-} from "../../../../../store/api/slices/security/security.api";
+} from "../../../../../../../store/api/slices/security/security.api";
 
-interface SecurityPolicyEditAttributesCardProps {
+interface EditSecurityPolicyAttributesCardProps {
   policyId: string;
   initialAttributes: string[];
 }
 
-export function SecurityPolicyEditAttributesCard({
+export function EditSecurityPolicyAttributesCard({
   policyId,
   initialAttributes,
-}: SecurityPolicyEditAttributesCardProps) {
+}: EditSecurityPolicyAttributesCardProps) {
   const { data, isSuccess } = useGetAvailableSecurityAttributesQuery();
   const [updateAttributes, result] = useSetSecurityPolicyAttributesMutation();
   const [attributes, setAttributes] = useState(

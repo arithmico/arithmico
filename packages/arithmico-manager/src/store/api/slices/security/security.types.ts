@@ -42,3 +42,8 @@ export interface RenameSecurityPolicyArgs {
   policyId: string;
   name: string;
 }
+
+export interface CreateSecurityPolicyArgs {
+  name: string;
+  attributes: string[];
+}

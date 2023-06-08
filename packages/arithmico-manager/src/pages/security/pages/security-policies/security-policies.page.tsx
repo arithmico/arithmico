@@ -9,6 +9,7 @@ import { TableCell } from "../../../../components/table-cell/table-cell";
 import { TableHeaderCell } from "../../../../components/table-header-cell/table-header-cell";
 import { TableRow } from "../../../../components/table-row/table-row";
 import { Table } from "../../../../components/table/table";
+import { AddIcon } from "../../../../icons/add.icon";
 import { ChevronRightIcon } from "../../../../icons/chevron-right.icon";
 import { useGetSecurityPolicesQuery } from "../../../../store/api/slices/security/security.api";
 import { SecurityPoliciesBreadcrumbs } from "./components/security-policies-breacrumbs";
@@ -28,9 +29,37 @@ export function SecurityPoliciesPage({ inline }: SecurityPoliciesPageProps) {
   return (
     <>
       {!inline && <SecurityPoliciesBreadcrumbs />}
-      <Heading level={inline ? 2 : 1} className={classNames("my-4")}>
-        <FormattedMessage id="security.policies.title" />
-      </Heading>
+      <div className={classNames("my-4", "flex", "items-center")}>
+        <Heading level={inline ? 2 : 1} className={classNames("my-0")}>
+          <FormattedMessage id="security.policies.title" />
+        </Heading>
+        <Link
+          to="/security/security-policies/new"
+          className={classNames(
+            "ml-auto",
+            "inline-flex",
+            "justify-center",
+            "items-center",
+            "rounded-sm",
+            "bg-indigo-600",
+            "disabled:bg-indigo-300",
+            "py-2",
+            "pl-2",
+            "pr-4",
+            "font-semibold",
+            "text-white",
+            "shadow-sm",
+            "hover:bg-indigo-500",
+            "focus-visible:outline",
+            "focus-visible:outline-2",
+            "focus-visible:outline-offset-2",
+            "focus-visible:outline-indigo-600"
+          )}
+        >
+          <AddIcon className={classNames("w-6", "h-6", "fill-white", "mr-2")} />{" "}
+          Hinzufügen
+        </Link>
+      </div>
       {isSuccess && data && (
         <>
           <Card>

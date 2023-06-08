@@ -1,15 +1,15 @@
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import { Breadcrumbs } from "../../../../../components/breadcrumbs/breadcrumbs";
-import { ShieldIcon } from "../../../../../icons/shield.icon";
+import { Breadcrumbs } from "../../../../../../../components/breadcrumbs/breadcrumbs";
+import { ShieldIcon } from "../../../../../../../icons/shield.icon";
 
 export interface SecurityPolicyEditAttributesBreadcrumbsProps {
   policyName: string;
   policyId: string;
 }
 
-export function SecurityPolicyEditAttributesBreadcrumbs({
+export function EditSecurityPolicyAttributesBreadcrumbs({
   policyId,
   policyName,
 }: SecurityPolicyEditAttributesBreadcrumbsProps) {

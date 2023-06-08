@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ChevronRightIcon } from "../../../../../icons/chevron-right.icon";
+import { ChevronRightIcon } from "../../../../../../../icons/chevron-right.icon";
 
 export interface SecurityPolicyAttributeProps {
   attribute: string;

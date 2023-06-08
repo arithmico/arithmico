@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
-import { Breadcrumbs } from "../../../../components/breadcrumbs/breadcrumbs";
-import Heading from "../../../../components/heading/heading";
-import { ShieldIcon } from "../../../../icons/shield.icon";
-import { SecurityPoliciesPage } from "../security-policies/security-policies.page";
+import { Breadcrumbs } from "../../components/breadcrumbs/breadcrumbs";
+import Heading from "../../components/heading/heading";
+import { ShieldIcon } from "../../icons/shield.icon";
+import { SecurityPoliciesPage } from "./pages/security-policies/security-policies.page";
 
 export default function SecurityPage() {
   return (

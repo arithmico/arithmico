@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import { ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
-import { Card } from "../../../../../components/card/card";
-import Heading from "../../../../../components/heading/heading";
+import { Card } from "../../../../../../../components/card/card";
+import Heading from "../../../../../../../components/heading/heading";
 
 export interface SecurityPolicyDetailsCardProps {
   id: string;

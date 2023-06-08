@@ -9,6 +9,7 @@ import {
   SetSecurityPolicyAttributesRequestDto,
   SecurityPolicyDto,
   RenameSecurityPolicyArgs,
+  CreateSecurityPolicyArgs,
 } from "./security.types";
 
 const authApi = api.injectEndpoints({
@@ -83,6 +84,21 @@ const authApi = api.injectEndpoints({
       }),
       invalidatesTags: (result) =>
         result ? [{ type: "SecurityPolicy", id: result.id }] : [],
+    }),
+
+    createSecurityPolicy: build.mutation<
+      SecurityPolicyDto,
+      CreateSecurityPolicyArgs
+    >({
+      query: (arg) => ({
+        url: `/security-policies`,
+        method: "POST",
+        body: {
+          name: arg.name,
+          attributes: arg.attributes,
+        },
+      }),
+      invalidatesTags: ["SecurityPolicy"],
     }),
   }),
 });
