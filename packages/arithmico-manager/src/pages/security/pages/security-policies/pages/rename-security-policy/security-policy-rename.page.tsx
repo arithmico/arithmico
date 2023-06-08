@@ -87,7 +87,7 @@ export function SecurityPolicyRenamePage() {
               <div className={classNames("flex", "mt-4", "items-center")}>
                 <BackButtonLink to={`/security/security-policies/${data.id}`} />
                 <FormSubmitButton
-                  disabled={!dirtyFields.name}
+                  disabled={!dirtyFields.name || data.readonly}
                   className={classNames("ml-auto")}
                 >
                   Speichern

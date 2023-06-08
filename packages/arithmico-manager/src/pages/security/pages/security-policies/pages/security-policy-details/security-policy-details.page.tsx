@@ -28,26 +28,33 @@ export function SecurityPolicyDetailsPage() {
             <Heading level={1} className={classNames()}>
               {data.name}
             </Heading>
-            <menu
-              className={classNames("flex", "ml-auto", "items-center", "gap-4")}
-            >
-              <li>
-                <span className={classNames("sr-only")}>
-                  <FormattedMessage id="security-policy-details.actions.rename" />
-                </span>
-                <Link to="./rename">
-                  <EditIcon className={classNames("w-6", "h-6")} />
-                </Link>
-              </li>
-              <li>
-                <span className={classNames("sr-only")}>
-                  <FormattedMessage id="security-policy-details.actions.delete" />
-                </span>
-                <Link to="./delete">
-                  <DeleteIcon className={classNames("w-6", "h-6")} />
-                </Link>
-              </li>
-            </menu>
+            {!data.readonly && (
+              <menu
+                className={classNames(
+                  "flex",
+                  "ml-auto",
+                  "items-center",
+                  "gap-4"
+                )}
+              >
+                <li>
+                  <span className={classNames("sr-only")}>
+                    <FormattedMessage id="security-policy-details.actions.rename" />
+                  </span>
+                  <Link to="./rename">
+                    <EditIcon className={classNames("w-6", "h-6")} />
+                  </Link>
+                </li>
+                <li>
+                  <span className={classNames("sr-only")}>
+                    <FormattedMessage id="security-policy-details.actions.delete" />
+                  </span>
+                  <Link to="./delete">
+                    <DeleteIcon className={classNames("w-6", "h-6")} />
+                  </Link>
+                </li>
+              </menu>
+            )}
           </div>
           <div
             className={classNames(
@@ -85,7 +92,10 @@ export function SecurityPolicyDetailsPage() {
                 "md:row-start-1"
               )}
             >
-              <SecurityPolicyAttributeList attributes={data.attributes} />
+              <SecurityPolicyAttributeList
+                readonly={data.readonly}
+                attributes={data.attributes}
+              />
             </div>
           </div>
         </>

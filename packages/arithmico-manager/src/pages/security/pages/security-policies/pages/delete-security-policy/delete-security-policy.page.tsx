@@ -43,7 +43,7 @@ export function DeleteSecurityPolicyPage() {
           <div className={classNames("flex", "mt-4", "max-w-5xl")}>
             <BackButtonLink to={`/security/security-policies/${data.id}`} />
             <button
-              disabled={data.principals.total > 0}
+              disabled={data.principals.total > 0 || data.readonly}
               onClick={() => deleteSecurityPolicy({ policyId: policyId! })}
               type="button"
               className={classNames(
