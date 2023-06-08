@@ -47,3 +47,7 @@ export interface CreateSecurityPolicyArgs {
   name: string;
   attributes: string[];
 }
+
+export interface DeleteSecurityPolicyArgs {
+  policyId: string;
+}

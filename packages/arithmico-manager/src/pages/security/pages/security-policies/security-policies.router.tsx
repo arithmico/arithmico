@@ -4,6 +4,7 @@ import { EditSecurityPolicyAttributesPage } from "./pages/edit-security-policy-a
 import { SecurityPolicyRenamePage } from "./pages/rename-security-policy/security-policy-rename.page";
 import { SecurityPoliciesPage } from "./security-policies.page";
 import { AddSecurityPolicyPage } from "./pages/add-security-policy/add-security-policy.page";
+import { DeleteSecurityPolicyPage } from "./pages/delete-security-policy/delete-security-policy.page";
 
 export function SecurityPoliciesRouter() {
   return (
@@ -16,6 +17,7 @@ export function SecurityPoliciesRouter() {
         path=":policyId/attributes"
         element={<EditSecurityPolicyAttributesPage />}
       />
+      <Route path=":policyId/delete" element={<DeleteSecurityPolicyPage />} />
     </Routes>
   );
 }

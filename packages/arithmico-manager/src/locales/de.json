@@ -29,6 +29,7 @@
   "navbar.security.policies.attributes": "Berechtigungen",
   "navbar.security.policies.rename": "Umbenennen",
   "navbar.security.policies.add": "Hinzufügen",
+  "navbar.security.policies.delete": "Löschen",
 
   "security.title": "Sicherheit",
   "security.description": "Willkommen im Sicherheitsbereich des Arithmico Backoffice. Hier haben Sie die Möglichkeit, die Zugriffskontrolle auf Ressourcen mithilfe von Sicherheitsrichtlinien zu verwalten. Erstellen Sie maßgeschneiderte Richtlinien, um den Zugriff auf sensible Informationen und Funktionen einzuschränken. Bei Bedarf können Sie veraltete oder nicht mehr benötigte Sicherheitsrichtlinien löschen. Zusätzlich besteht die Option, vorhandene Richtlinien zu bearbeiten, um Zugriffsrechte anzupassen oder neue Zugriffskontrollmechanismen einzuführen. Mit diesen Funktionen können Sie die Sicherheit des Arithmico Backoffice effektiv steuern und schützen.",
@@ -66,6 +67,11 @@
   "security.add-security-policy.title": "Neue Sicherheitsrichtlinie hinzufügen",
   "security.add-security-policy.description": "Erstellen Sie eine neue Sicherheitsrichtlinie, um die Zugriffsrechte und Berechtigungen für Ihre Ressourcen zu definieren. Auf dieser Seite können Sie eine Sicherheitsrichtlinie von Grund auf neu erstellen. Legen Sie die gewünschten Berechtigungen für Benutzer und Gruppen fest, um die Sicherheit und den Schutz Ihrer Systeme zu gewährleisten. Geben Sie der Richtlinie einen aussagekräftigen Namen und definieren Sie klare Zugriffsregeln. Achten Sie darauf, die Sicherheitsrichtlinie gründlich zu überprüfen, bevor Sie sie erstellen, um eine konsistente und effektive Sicherheitskonfiguration sicherzustellen.",
   "security.add-security-policy.form.name": "Name",
+
+  "security.delete-security-policies.title": "Sicherheitsrichtlinie löschen",
+  "security.delete-security-policies.description": "Hier können Sie eine Sicherheitsrichtlinie löschen, sofern sie keinem Benutzer oder keiner Benutzergruppe mehr zugewiesen ist. Achten Sie darauf, die richtige Richtlinie auszuwählen und überprüfen Sie sorgfältig, ob sie nicht mehr benötigt wird. Die Löschung einer Sicherheitsrichtlinie ist endgültig und entfernt alle damit verbundenen Zugriffsrechte. Bitte seien Sie vorsichtig und bestätigen Sie die Löschung nur, wenn Sie sicher sind.",
+  "security.delete-security-policies.delete": "Löschen",
+  "security.delete-security-policies.sr.delete": "Sicherheitsrichtlinie löschen",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",

@@ -10,6 +10,7 @@ import {
   SecurityPolicyDto,
   RenameSecurityPolicyArgs,
   CreateSecurityPolicyArgs,
+  DeleteSecurityPolicyArgs,
 } from "./security.types";
 
 const authApi = api.injectEndpoints({
@@ -100,6 +101,15 @@ const authApi = api.injectEndpoints({
       }),
       invalidatesTags: ["SecurityPolicy"],
     }),
+
+    deleteSecurityPolicy: build.mutation<void, DeleteSecurityPolicyArgs>({
+      query: (arg) => ({
+        url: `/security-policies/${arg.policyId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_, err, arg) =>
+        !err ? [{ type: "SecurityPolicy", id: arg.policyId }] : [],
+    }),
   }),
 });
 
@@ -110,4 +120,5 @@ export const {
   useSetSecurityPolicyAttributesMutation,
   useRenameSecurityPolicyMutation,
   useCreateSecurityPolicyMutation,
+  useDeleteSecurityPolicyMutation,
 } = authApi;
