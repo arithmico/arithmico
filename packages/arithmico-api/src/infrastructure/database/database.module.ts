@@ -20,6 +20,10 @@ import {
   UserActivation,
   UserActivationSchema,
 } from './schemas/user-activation/user-activation.schema';
+import {
+  UserGroup,
+  UserGroupSchema,
+} from './schemas/user-group/user-group.schema';
 import { User, UserSchema } from './schemas/user/user.schema';
 
 @Module({
@@ -45,6 +49,10 @@ import { User, UserSchema } from './schemas/user/user.schema';
       {
         name: SecurityPolicyAttachment.name,
         schema: SecurityPolicyAttachmentSchema,
+      },
+      {
+        name: UserGroup.name,
+        schema: UserGroupSchema,
       },
     ]),
   ],

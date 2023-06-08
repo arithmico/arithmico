@@ -12,6 +12,10 @@ import { RouterModule } from '@nestjs/core';
         path: 'security-policies',
         module: PolicyModule,
       },
+      {
+        path: 'user-groups',
+        module: GroupModule,
+      },
     ]),
   ],
 })
