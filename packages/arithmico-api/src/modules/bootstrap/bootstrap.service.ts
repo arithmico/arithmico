@@ -81,7 +81,7 @@ export class BootstrapService {
         );
       }
     } else {
-      await this.securityPolicyRepository.create('admin', attributes);
+      await this.securityPolicyRepository.create('admin', attributes, true);
     }
 
     return await this.securityPolicyRepository.findByName('admin');

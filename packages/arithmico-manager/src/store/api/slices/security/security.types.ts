@@ -1,6 +1,7 @@
 export interface SecurityPolicyDto {
   id: string;
   name: string;
+  readonly: boolean;
   attributes: string[];
 }
 

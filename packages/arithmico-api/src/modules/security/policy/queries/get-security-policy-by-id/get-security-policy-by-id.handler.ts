@@ -20,6 +20,7 @@ export class GetSecurityPolicyByIdHandler
     return {
       id: securityPolicyWithStatisticsDocument._id,
       name: securityPolicyWithStatisticsDocument.name,
+      readonly: securityPolicyWithStatisticsDocument.readonly,
       attributes: securityPolicyWithStatisticsDocument.attributes,
       principals: {
         total: securityPolicyWithStatisticsDocument.principals.total,

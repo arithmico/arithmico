@@ -70,14 +70,17 @@ export function SecurityPoliciesPage({ inline }: SecurityPoliciesPageProps) {
                   <TableHeaderCell className={classNames("w-1/4")}>
                     <FormattedMessage id="security.policies.fields.id" />
                   </TableHeaderCell>
-                  <TableHeaderCell className={classNames("w-1/4")}>
+                  <TableHeaderCell className={classNames("w-1/5")}>
                     <FormattedMessage id="security.policies.fields.name" />
                   </TableHeaderCell>
-                  <TableHeaderCell className={classNames("w-1/4")}>
+                  <TableHeaderCell className={classNames("w-1/5")}>
                     <FormattedMessage id="security.policies.fields.attributes" />
                   </TableHeaderCell>
                   <TableHeaderCell>
                     <FormattedMessage id="security.policies.fields.principals" />
+                  </TableHeaderCell>
+                  <TableHeaderCell>
+                    <FormattedMessage id="security.policies.fields.radonly" />
                   </TableHeaderCell>
                 </>
               }
@@ -93,6 +96,13 @@ export function SecurityPoliciesPage({ inline }: SecurityPoliciesPageProps) {
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.attributes.length}</TableCell>
                   <TableCell>{item.principals}</TableCell>
+                  <TableCell>
+                    {item.readonly ? (
+                      <FormattedMessage id="common.yes" />
+                    ) : (
+                      <FormattedMessage id="common.no" />
+                    )}
+                  </TableCell>
                   <TableCell>
                     <Link
                       to={`/security/security-policies/${item.id}`}

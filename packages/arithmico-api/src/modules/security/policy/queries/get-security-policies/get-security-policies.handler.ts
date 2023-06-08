@@ -27,6 +27,7 @@ export class GetSecurityPoliciesHandler
       items: policies.map((policy) => ({
         id: policy._id,
         name: policy.name,
+        readonly: policy.readonly,
         attributes: policy.attributes,
         principals: policy.principals,
       })),

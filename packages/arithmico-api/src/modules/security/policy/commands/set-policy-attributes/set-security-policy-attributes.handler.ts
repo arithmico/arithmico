@@ -21,6 +21,7 @@ export class SetSecurityPolicyAttributesHandler
     return {
       id: securityPolicyDocument._id,
       name: securityPolicyDocument.name,
+      readonly: securityPolicyDocument.readonly,
       attributes: securityPolicyDocument.attributes,
     };
   }

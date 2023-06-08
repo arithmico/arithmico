@@ -29,9 +29,11 @@ export class SecurityPolicyRepository {
   async create(
     name: string,
     attributes: string[],
+    readonly: boolean,
   ): Promise<SecurityPolicyDocument> {
     const newPolicy: SecurityPolicy = {
       name,
+      readonly,
       attributes: [...new Set(attributes).values()],
     };
     return this.securityPolicyModel.create(newPolicy);
@@ -55,6 +57,7 @@ export class SecurityPolicyRepository {
     const result = await this.securityPolicyModel
       .deleteOne({
         _id: policyId,
+        readonly: false,
       })
       .exec();
 
@@ -322,6 +325,7 @@ export class SecurityPolicyRepository {
     return await this.securityPolicyModel.findOneAndUpdate(
       {
         _id: policyId,
+        readonly: false,
       },
       { name: name },
       { new: true },
@@ -348,6 +352,7 @@ export class SecurityPolicyRepository {
       .findOneAndUpdate(
         {
           _id: policyId,
+          readonly: false,
         },
         {
           attributes: attributesWithoutDiplicates,
@@ -374,10 +379,11 @@ export class SecurityPolicyRepository {
   async addAttributes(
     policyId: string,
     attributes: string[],
+    force = false,
   ): Promise<SecurityPolicyDocument | null> {
     return this.securityPolicyModel
       .findOneAndUpdate(
-        { _id: policyId },
+        { _id: policyId, readonly: force },
         {
           $addToSet: {
             attributes: {
@@ -390,8 +396,16 @@ export class SecurityPolicyRepository {
       .exec();
   }
 
-  async addAttributesOrThrow(policyId: string, attributes: string[]) {
-    const securityPolicyDocument = this.addAttributes(policyId, attributes);
+  async addAttributesOrThrow(
+    policyId: string,
+    attributes: string[],
+    force = false,
+  ) {
+    const securityPolicyDocument = this.addAttributes(
+      policyId,
+      attributes,
+      force,
+    );
     if (!securityPolicyDocument) {
       throw new NotFoundException();
     }
@@ -401,11 +415,13 @@ export class SecurityPolicyRepository {
   async removeAttributes(
     policyId: string,
     attributes: string[],
+    force = false,
   ): Promise<SecurityPolicyDocument | null> {
     return this.securityPolicyModel
       .findOneAndUpdate(
         {
           _id: policyId,
+          readonly: force,
         },
         {
           $pull: {
@@ -424,8 +440,13 @@ export class SecurityPolicyRepository {
   async removeAttributesFromOrThrow(
     policyId: string,
     attributes: string[],
+    force = false,
   ): Promise<SecurityPolicyDocument> {
-    const securityPolicyDocument = this.removeAttributes(policyId, attributes);
+    const securityPolicyDocument = this.removeAttributes(
+      policyId,
+      attributes,
+      force,
+    );
     if (!securityPolicyDocument) {
       throw new NotFoundException();
     }

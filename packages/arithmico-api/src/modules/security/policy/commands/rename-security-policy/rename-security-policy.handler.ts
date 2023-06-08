@@ -21,6 +21,7 @@ export class RenameSecurityPolicyHandler
     return {
       id: secuirtyPolicyDocument._id,
       name: secuirtyPolicyDocument.name,
+      readonly: secuirtyPolicyDocument.readonly,
       attributes: secuirtyPolicyDocument.attributes,
     };
   }

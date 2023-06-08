@@ -7,6 +7,9 @@ export class SecurityPolicy {
   @Prop({ type: String, default: () => nanoid() })
   _id?: string;
 
+  @Prop({ type: Boolean, required: true })
+  readonly: boolean;
+
   @Prop({ type: String, required: true })
   name: string;
 

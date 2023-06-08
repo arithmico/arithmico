@@ -8,6 +8,7 @@ export interface SecurityPolicyDetailsCardProps {
   id: string;
   name: string;
   numberOfAttributes: number;
+  readonly: boolean;
   totalPrincipals: number;
   userPrincipals: number;
   groupPrincipals: number;
@@ -17,6 +18,7 @@ export function SecurityPolicyDetailsCard({
   id,
   name,
   numberOfAttributes,
+  readonly,
   groupPrincipals,
   totalPrincipals,
   userPrincipals,
@@ -40,6 +42,18 @@ export function SecurityPolicyDetailsCard({
             <FormattedMessage id="security-policy-details.details.number-of-attributes" />
           }
           value={numberOfAttributes}
+        />
+        <LabelValuePair
+          label={
+            <FormattedMessage id="security-policy-details.details.readonly" />
+          }
+          value={
+            readonly ? (
+              <FormattedMessage id="common.yes" />
+            ) : (
+              <FormattedMessage id="common.no" />
+            )
+          }
         />
       </DefinitionList>
       <Heading level={3} className={classNames("mt-4", "text-lg")}>

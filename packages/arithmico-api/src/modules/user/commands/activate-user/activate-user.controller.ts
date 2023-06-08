@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { Public } from '../../../../decorators/public.decorator';
 import { ActivateUserCommand } from './activate-user.command';
@@ -10,6 +10,7 @@ export class ActivateUserController {
   constructor(private commandBus: CommandBus) {}
 
   @Public()
+  @HttpCode(200)
   @Post()
   async activateUser(
     @Body() activateUserRequestDto: ActivateUserRequestDto,

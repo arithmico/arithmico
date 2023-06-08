@@ -15,11 +15,13 @@ export class CreateSecurityPolicyHandler
     const newPolicy = await this.securityPolicyRepository.create(
       command.name,
       command.attributes,
+      false,
     );
 
     return {
       id: newPolicy._id,
       name: newPolicy.name,
+      readonly: newPolicy.readonly,
       attributes: newPolicy.attributes,
     };
   }
