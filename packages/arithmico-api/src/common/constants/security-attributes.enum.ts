@@ -4,4 +4,6 @@ export enum SecurityAttribute {
   UsersRead = 'users:read',
   UsersSecurityPoliciesRead = 'users:security-policies:read',
   UsersSecurityPoliciesWrite = 'users:security-policies:write',
+  UserGroupsWrite = 'user-groups:write',
+  UserGroupsRead = 'user-groups:read',
 }

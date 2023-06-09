@@ -5,6 +5,7 @@ import {
   UserGroup,
   UserGroupDocument,
 } from '../../schemas/user-group/user-group.schema';
+import { NotFoundException } from '@nestjs/common';
 
 export class UserGroupRepository {
   constructor(
@@ -18,6 +19,30 @@ export class UserGroupRepository {
       name,
     };
     return this.userGroupModel.create(newUserGroup);
+  }
+
+  async renameUserGroup(
+    groupId: string,
+    name: string,
+  ): Promise<UserGroupDocument | null> {
+    return await this.userGroupModel.findOneAndUpdate(
+      {
+        _id: groupId,
+      },
+      { name: name },
+      { new: true },
+    );
+  }
+
+  async renameUserGroupOrThrow(
+    groupId: string,
+    name: string,
+  ): Promise<UserGroupDocument> {
+    const userGroupDocument = await this.renameUserGroup(groupId, name);
+    if (!userGroupDocument) {
+      throw new NotFoundException();
+    }
+    return userGroupDocument;
   }
 
   async getUserGroups(
