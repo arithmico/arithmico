@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { SecurityPolicyRepository } from '../../../../../infrastructure/database/repositories/security-policy/security-policy.repository';
+import { SecurityPolicyRepository } from '../../../../infrastructure/database/repositories/security-policy/security-policy.repository';
 import { RenameSecurityPolicyCommand } from './rename-security-policy.command';
 import { RenameSecurityPolicyResponseDto } from './rename-security-policy.response.dto';
 

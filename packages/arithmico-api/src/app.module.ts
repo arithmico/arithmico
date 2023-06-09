@@ -18,8 +18,9 @@ import { BullModule } from '@nestjs/bull';
 import { QueuesModule } from './infrastructure/queues/queues.module';
 import { AuthGuard } from './guards/auth.guard';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
-import { SecurityModule } from './modules/security/security.module';
 import { BootstrapModule } from './modules/bootstrap/bootstrap.module';
+import { SecurityPolicyModule } from './modules/policy-policy/security-policy.module';
+import { UserGroupModule } from './modules/user-group/user-group.module';
 
 @Module({
   imports: [
@@ -73,13 +74,22 @@ import { BootstrapModule } from './modules/bootstrap/bootstrap.module';
         path: 'auth',
         module: AuthModule,
       },
+      {
+        path: 'security-policies',
+        module: SecurityPolicyModule,
+      },
+      {
+        path: 'user-groups',
+        module: UserGroupModule,
+      },
     ]),
     UserModule,
     AuthModule,
     QueuesModule,
     BackofficeModule,
-    SecurityModule,
+    SecurityPolicyModule,
     BootstrapModule,
+    UserGroupModule,
   ],
   controllers: [],
   providers: [

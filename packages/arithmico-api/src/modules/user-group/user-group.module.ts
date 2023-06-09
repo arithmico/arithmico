@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { DatabaseModule } from '../../../infrastructure/database/database.module';
+import { DatabaseModule } from '../../infrastructure/database/database.module';
 import { commandControllers, commandHandlers } from './commands';
 import { queryControllers, queryHandlers } from './queries';
 
@@ -9,4 +9,4 @@ import { queryControllers, queryHandlers } from './queries';
   providers: [...commandHandlers, ...queryHandlers],
   controllers: [...commandControllers, ...queryControllers],
 })
-export class GroupModule {}
+export class UserGroupModule {}

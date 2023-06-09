@@ -1,7 +1,7 @@
 import { Body, Controller, Param, Put } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { SecurityAttribute } from '../../../../../common/constants/security-attributes.enum';
-import { SecurityAttributes } from '../../../../../decorators/security-attributes.decorator';
+import { SecurityAttribute } from '../../../../common/constants/security-attributes.enum';
+import { SecurityAttributes } from '../../../../decorators/security-attributes.decorator';
 import { SetSecurityPolicyAttributesCommand } from './set-security-policy-attributes.command';
 import { SetSecurityPolicyAttributesRequestBodyDto } from './set-security-policy-attributes.request.body.dto';
 import { SetSecurityPolicyAttributesRequestPathDto } from './set-security-policy-attributes.request.path.dto';

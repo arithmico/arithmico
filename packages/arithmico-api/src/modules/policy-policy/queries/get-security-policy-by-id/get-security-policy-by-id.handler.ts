@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { SecurityPolicyRepository } from '../../../../../infrastructure/database/repositories/security-policy/security-policy.repository';
+import { SecurityPolicyRepository } from '../../../../infrastructure/database/repositories/security-policy/security-policy.repository';
 import { GetSecurityPolicyByIdQuery } from './get-security-policy-by-id.query';
 import { GetSecurityPolicyByIdResponseDto } from './get-security-policy-by-id.response.dto';
 
