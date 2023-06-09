@@ -3,4 +3,5 @@ export class SecurityPolicyDto {
   name: string;
   readonly: boolean;
   attributes: string[];
+  createdAt: Date;
 }

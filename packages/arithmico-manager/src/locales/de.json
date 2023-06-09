@@ -54,6 +54,7 @@
   "security-policy-details.details.principals.total": "Gesamt",
   "security-policy-details.details.principals.users": "Benutzer",
   "security-policy-details.details.principals.groups": "Benutzergruppen",
+  "security-policy-details.details.created-at": "Erstellt",
   "security-policy-details.actions.title": "Aktionen",
   "security-policy-details.actions.edit-attributes": "Berechtigungen bearbeiten",
   "security-policy-details.actions.rename": "Sicherheitsrichtlinie umbenennen",

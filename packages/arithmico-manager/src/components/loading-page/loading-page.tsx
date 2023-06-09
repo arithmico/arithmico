@@ -13,6 +13,7 @@ export function LoadingPage({ isLoading, isError }: LoadingPageProps) {
       {isLoading && !isError && (
         <div
           className={classNames(
+            "pt-[45vh]",
             "w-full",
             "h-full",
             "flex",
@@ -31,6 +32,7 @@ export function LoadingPage({ isLoading, isError }: LoadingPageProps) {
       {!isLoading && isError && (
         <div
           className={classNames(
+            "pt-[45vh]",
             "w-full",
             "h-full",
             "flex",
@@ -38,11 +40,9 @@ export function LoadingPage({ isLoading, isError }: LoadingPageProps) {
             "items-center"
           )}
         >
-          <div className={classNames("flex", "flex-col", "items-center")}>
-            <p className={classNames("text-neutral-400")}>
-              <FormattedMessage id="common.error" />
-            </p>
-          </div>
+          <p className={classNames("text-neutral-400")}>
+            <FormattedMessage id="common.error" />
+          </p>
         </div>
       )}
     </>

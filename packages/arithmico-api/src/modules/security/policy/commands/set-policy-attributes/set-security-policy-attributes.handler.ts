@@ -23,6 +23,7 @@ export class SetSecurityPolicyAttributesHandler
       name: securityPolicyDocument.name,
       readonly: securityPolicyDocument.readonly,
       attributes: securityPolicyDocument.attributes,
+      createdAt: securityPolicyDocument.createdAt,
     };
   }
 }

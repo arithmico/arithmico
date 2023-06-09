@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { ReactNode } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedDate, FormattedMessage } from "react-intl";
 import { Card } from "../../../../../../../components/card/card";
 import Heading from "../../../../../../../components/heading/heading";
 
@@ -8,6 +8,7 @@ export interface SecurityPolicyDetailsCardProps {
   id: string;
   name: string;
   numberOfAttributes: number;
+  createdAt: Date;
   readonly: boolean;
   totalPrincipals: number;
   userPrincipals: number;
@@ -22,6 +23,7 @@ export function SecurityPolicyDetailsCard({
   groupPrincipals,
   totalPrincipals,
   userPrincipals,
+  createdAt,
 }: SecurityPolicyDetailsCardProps) {
   return (
     <Card>
@@ -53,6 +55,19 @@ export function SecurityPolicyDetailsCard({
             ) : (
               <FormattedMessage id="common.no" />
             )
+          }
+        />
+        <LabelValuePair
+          label={
+            <FormattedMessage id="security-policy-details.details.created-at" />
+          }
+          value={
+            <FormattedDate
+              day="2-digit"
+              month="2-digit"
+              year="numeric"
+              value={createdAt}
+            />
           }
         />
       </DefinitionList>

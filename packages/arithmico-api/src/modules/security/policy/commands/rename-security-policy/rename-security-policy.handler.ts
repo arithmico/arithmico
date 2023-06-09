@@ -23,6 +23,7 @@ export class RenameSecurityPolicyHandler
       name: secuirtyPolicyDocument.name,
       readonly: secuirtyPolicyDocument.readonly,
       attributes: secuirtyPolicyDocument.attributes,
+      createdAt: secuirtyPolicyDocument.createdAt,
     };
   }
 }

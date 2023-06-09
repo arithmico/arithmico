@@ -82,6 +82,7 @@ export function SecurityPolicyDetailsPage() {
                 totalPrincipals={data.principals.total}
                 groupPrincipals={data.principals.groups}
                 userPrincipals={data.principals.users}
+                createdAt={new Date(data.createdAt)}
               />
             </div>
             <div

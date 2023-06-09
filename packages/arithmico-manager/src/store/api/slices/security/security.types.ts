@@ -3,6 +3,7 @@ export interface SecurityPolicyDto {
   name: string;
   readonly: boolean;
   attributes: string[];
+  createdAt: string;
 }
 
 export interface SecurityPolicyDtoWithPrincipalsCount

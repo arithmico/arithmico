@@ -22,6 +22,7 @@ export class GetSecurityPolicyByIdHandler
       name: securityPolicyWithStatisticsDocument.name,
       readonly: securityPolicyWithStatisticsDocument.readonly,
       attributes: securityPolicyWithStatisticsDocument.attributes,
+      createdAt: securityPolicyWithStatisticsDocument.createdAt,
       principals: {
         total: securityPolicyWithStatisticsDocument.principals.total,
         users: securityPolicyWithStatisticsDocument.principals.users,

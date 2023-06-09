@@ -15,6 +15,9 @@ export class SecurityPolicy {
 
   @Prop({ type: [String], required: true })
   attributes: string[];
+
+  @Prop({ type: Date, required: true })
+  createdAt: Date;
 }
 
 export type SecurityPolicyDocument = HydratedDocument<SecurityPolicy>;
@@ -27,3 +30,5 @@ SecurityPolicySchema.index(
   },
   { unique: true },
 );
+
+SecurityPolicySchema.index({ createdAt: 1 });

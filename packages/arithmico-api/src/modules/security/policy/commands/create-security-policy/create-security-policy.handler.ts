@@ -23,6 +23,7 @@ export class CreateSecurityPolicyHandler
       name: newPolicy.name,
       readonly: newPolicy.readonly,
       attributes: newPolicy.attributes,
+      createdAt: newPolicy.createdAt,
     };
   }
 }

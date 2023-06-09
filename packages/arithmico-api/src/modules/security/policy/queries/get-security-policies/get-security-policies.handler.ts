@@ -30,6 +30,7 @@ export class GetSecurityPoliciesHandler
         readonly: policy.readonly,
         attributes: policy.attributes,
         principals: policy.principals,
+        createdAt: policy.createdAt,
       })),
       skip,
       limit,

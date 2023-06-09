@@ -35,6 +35,7 @@ export class SecurityPolicyRepository {
       name,
       readonly,
       attributes: [...new Set(attributes).values()],
+      createdAt: new Date(),
     };
     return this.securityPolicyModel.create(newPolicy);
   }
