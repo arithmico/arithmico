@@ -1,3 +1,10 @@
+import { CreateUserGroupBreadcrumbs } from "./components/create-user-group-breadcrumbs";
+
 export function CreateUserGroupPage() {
-  return <>create user group</>;
+  return (
+    <>
+      <CreateUserGroupBreadcrumbs />
+      create user group
+    </>
+  );
 }

@@ -7,9 +7,14 @@ import Heading from "../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../components/pagination-toolbar/pagination-toolbar";
 import { AddIcon } from "../../../../icons/add.icon";
 import { useGetUserGroupsQuery } from "../../../../store/api/resources/user-groups/user-groups.api";
+import { UserGroupsBreadcrumbs } from "./components/user-groups-breadcrumbs";
 import { UserGroupsTable } from "./components/user-groups-table";
 
-export function UserGroupsPage() {
+export interface UserGroupsPageProps {
+  inline?: boolean;
+}
+
+export function UserGroupsPage({ inline }: UserGroupsPageProps) {
   const [skip, setSkip] = useState(0);
   const { isSuccess, data } = useGetUserGroupsQuery({
     skip,
@@ -18,6 +23,7 @@ export function UserGroupsPage() {
 
   return (
     <>
+      {!inline && <UserGroupsBreadcrumbs />}
       <div className={classNames("flex", "my-4")}>
         <Heading level={1}>
           <FormattedMessage id="security.user-groups.title" />

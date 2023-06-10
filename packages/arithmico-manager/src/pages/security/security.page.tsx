@@ -12,7 +12,7 @@ export default function SecurityPage() {
         <FormattedMessage id="security.description" />
       </p>
       <SecurityPoliciesPage inline />
-      <UserGroupsPage />
+      <UserGroupsPage inline />
     </>
   );
 }
