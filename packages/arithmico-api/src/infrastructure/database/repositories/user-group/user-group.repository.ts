@@ -19,10 +19,14 @@ export class UserGroupRepository {
     private userGroupMembershipModel: Model<UserGroupMembershipDocument>,
   ) {}
 
-  async createUserGroup(name: string): Promise<UserGroupDocument> {
+  async createUserGroup(
+    name: string,
+    readonly: boolean,
+  ): Promise<UserGroupDocument> {
     const newUserGroup: UserGroup = {
       createdAt: new Date(),
       name,
+      readonly,
     };
     return this.userGroupModel.create(newUserGroup);
   }
@@ -34,6 +38,7 @@ export class UserGroupRepository {
     return await this.userGroupModel.findOneAndUpdate(
       {
         _id: groupId,
+        readonly: false,
       },
       { name: name },
       { new: true },

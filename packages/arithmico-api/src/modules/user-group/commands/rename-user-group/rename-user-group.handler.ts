@@ -22,6 +22,7 @@ export class RenameUserGroupHandler
       id: userGroupDocument._id,
       name: userGroupDocument.name,
       createdAt: userGroupDocument.createdAt,
+      readonly: userGroupDocument.readonly,
     };
   }
 }

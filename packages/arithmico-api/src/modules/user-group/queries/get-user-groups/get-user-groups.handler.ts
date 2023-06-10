@@ -24,6 +24,7 @@ export class GetUserGroupsHandler implements IQueryHandler<GetUserGroupsQuery> {
         name: item.name,
         createdAt: item.createdAt,
         members: item.members,
+        readonly: item.readonly,
       })),
       total: result.total,
     };

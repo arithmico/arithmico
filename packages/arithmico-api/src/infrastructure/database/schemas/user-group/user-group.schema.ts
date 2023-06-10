@@ -12,6 +12,9 @@ export class UserGroup {
 
   @Prop({ type: Date, required: true })
   createdAt: Date;
+
+  @Prop({ type: Boolean, required: true })
+  readonly: boolean;
 }
 
 export type UserGroupDocument = HydratedDocument<UserGroup>;

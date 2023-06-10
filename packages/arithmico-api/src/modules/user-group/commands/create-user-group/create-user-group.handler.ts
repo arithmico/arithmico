@@ -14,12 +14,14 @@ export class CreateUserGroupHandler
   ): Promise<CreateUserGroupResponseDto> {
     const userGroupDocument = await this.userGroupRepository.createUserGroup(
       command.name,
+      false,
     );
 
     return {
       id: userGroupDocument._id,
       name: userGroupDocument.name,
       createdAt: userGroupDocument.createdAt,
+      readonly: userGroupDocument.readonly,
     };
   }
 }

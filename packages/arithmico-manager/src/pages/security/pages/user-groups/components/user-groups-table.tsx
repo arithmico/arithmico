@@ -1,11 +1,14 @@
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
+import { Link } from "react-router-dom";
+import { TableCell } from "../../../../../components/table-cell/table-cell";
 import { TableHeaderCell } from "../../../../../components/table-header-cell/table-header-cell";
+import { TableRow } from "../../../../../components/table-row/table-row";
 import { Table } from "../../../../../components/table/table";
-import { UserGroupDto } from "../../../../../store/api/resources/user-groups/user-groups.types";
+import { UserGroupDtoWithMembers } from "../../../../../store/api/resources/user-groups/user-groups.types";
 
 export interface UserGroupsTableProps {
-  userGroups: UserGroupDto[];
+  userGroups: UserGroupDtoWithMembers[];
 }
 
 export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
@@ -31,6 +34,20 @@ export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
           </span>
         </TableHeaderCell>,
       ]}
-    ></Table>
+    >
+      {userGroups.map((group) => (
+        <TableRow key={group.id}>
+          <TableCell>{group.id}</TableCell>
+          <TableCell>{group.name}</TableCell>
+          <TableCell>{group.members}</TableCell>
+          <TableCell>{group.readonly}</TableCell>
+          <TableCell>
+            <Link to={`/security/user-groups/${group.id}`}>
+              <FormattedMessage id="security.user-groups.details" />
+            </Link>
+          </TableCell>
+        </TableRow>
+      ))}
+    </Table>
   );
 }
