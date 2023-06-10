@@ -79,6 +79,13 @@
   "security.delete-security-policies.delete": "Löschen",
   "security.delete-security-policies.sr.delete": "Sicherheitsrichtlinie löschen",
 
+  "security.user-groups.title": "Benutzergruppen",
+  "security.user-groups.id": "ID",
+  "security.user-groups.name": "Name",
+  "security.user-groups.members": "Mitglieder",
+  "security.user-groups.readonly": "Schreibgeschützt",
+  "security.user-groups.details": "Details",
+
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",
   "pagination.next-page": "Nächste Seite",
