@@ -1,10 +1,13 @@
 import { api } from "../../api";
 import { PagedResponse, PageQueryParams } from "../../types";
-import { UserGroupDto } from "./user-groups.types";
+import { UserGroupDtoWithMembers } from "./user-groups.types";
 
 const userGroupsApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getUserGroups: build.query<PagedResponse<UserGroupDto>, PageQueryParams>({
+    getUserGroups: build.query<
+      PagedResponse<UserGroupDtoWithMembers>,
+      PageQueryParams
+    >({
       query: (arg) => ({
         url: "/user-groups",
         method: "GET",

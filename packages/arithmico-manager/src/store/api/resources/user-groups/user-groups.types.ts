@@ -3,3 +3,7 @@ export interface UserGroupDto {
   name: string;
   createdAt: string;
 }
+
+export interface UserGroupDtoWithMembers extends UserGroupDto {
+  members: number;
+}
