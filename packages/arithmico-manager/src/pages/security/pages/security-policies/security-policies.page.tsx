@@ -18,7 +18,7 @@ export function SecurityPoliciesPage({ inline }: SecurityPoliciesPageProps) {
   const [skip, setSkip] = useState(0);
   const { isSuccess, data } = useGetSecurityPolicesQuery({
     skip,
-    limit: 100,
+    limit: 10,
   });
 
   return (
