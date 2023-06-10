@@ -4,3 +4,8 @@ export interface PagedResponse<T> {
   limit: number;
   total: number;
 }
+
+export interface PageQueryParams {
+  skip: number;
+  limit: number;
+}
