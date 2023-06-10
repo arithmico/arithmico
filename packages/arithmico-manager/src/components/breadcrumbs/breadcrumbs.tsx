@@ -1,17 +1,19 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
+import { Children, ReactNode } from "react";
 import { ChevronRightIcon } from "../../icons/chevron-right.icon";
 
 export interface BreadcrumbsProps {
   firstIcon?: ReactNode;
-  items: ReactNode[];
+  children: ReactNode;
 }
 
-export function Breadcrumbs({ firstIcon, items }: BreadcrumbsProps) {
+export function Breadcrumbs({ firstIcon, children }: BreadcrumbsProps) {
+  const items = Children.toArray(children);
+
   return (
     <>
       <nav className={classNames("mt-4")}>
-        <ol className={classNames("flex")}>
+        <ol className={classNames("flex", "h-8", "items-center")}>
           {items.map((item, index) => (
             <BreadcrumbsItem
               key={index}

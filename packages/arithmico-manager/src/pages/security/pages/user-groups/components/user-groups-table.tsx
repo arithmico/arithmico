@@ -15,25 +15,30 @@ export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
   return (
     <Table
       className={classNames("table-fixed")}
-      header={[
-        <TableHeaderCell className={classNames("w-1/4")}>
-          <FormattedMessage id="security.user-groups.id" />
-        </TableHeaderCell>,
-        <TableHeaderCell className={classNames("w-1/4")}>
-          <FormattedMessage id="security.user-groups.name" />
-        </TableHeaderCell>,
-        <TableHeaderCell className={classNames("w-1/4")}>
-          <FormattedMessage id="security.user-groups.members" />
-        </TableHeaderCell>,
-        <TableHeaderCell>
-          <FormattedMessage id="security.user-groups.readonly" />
-        </TableHeaderCell>,
-        <TableHeaderCell>
-          <span className="sr-only">
-            <FormattedMessage id="security.user-groups.details" />
-          </span>
-        </TableHeaderCell>,
-      ]}
+      header={
+        <>
+          <TableHeaderCell key={"group-id"} className={classNames("w-1/4")}>
+            <FormattedMessage id="security.user-groups.id" />
+          </TableHeaderCell>
+          <TableHeaderCell key={"group-name"} className={classNames("w-1/4")}>
+            <FormattedMessage id="security.user-groups.name" />
+          </TableHeaderCell>
+          <TableHeaderCell
+            key={"group-members"}
+            className={classNames("w-1/4")}
+          >
+            <FormattedMessage id="security.user-groups.members" />
+          </TableHeaderCell>
+          <TableHeaderCell key={"group-readonly"}>
+            <FormattedMessage id="security.user-groups.readonly" />
+          </TableHeaderCell>
+          <TableHeaderCell key={"group-details"}>
+            <span className="sr-only">
+              <FormattedMessage id="security.user-groups.details" />
+            </span>
+          </TableHeaderCell>
+        </>
+      }
     >
       {userGroups.map((group) => (
         <TableRow key={group.id}>

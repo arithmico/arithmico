@@ -1,28 +1,28 @@
-import classNames from "classnames";
-import { FormattedMessage } from "react-intl";
+import { Children, ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Breadcrumbs } from "../../../../../../../components/breadcrumbs/breadcrumbs";
-import { ShieldIcon } from "../../../../../../../icons/shield.icon";
+import { SecurityPoliciesBreadcrumbs } from "../../../components/security-policies-breacrumbs";
 
 export interface SecurityPolicyDetailsBreadcrumbsProps {
   policyName: string;
+  policyId: string;
+  children?: ReactNode;
 }
 
 export function SecurityPolicyDetailsBreadcrumbs({
   policyName,
+  policyId,
+  children,
 }: SecurityPolicyDetailsBreadcrumbsProps) {
   return (
-    <Breadcrumbs
-      firstIcon={<ShieldIcon className={classNames("w-6", "h-6", "pr-1")} />}
-      items={[
-        <Link to="/security">
-          <FormattedMessage id="navbar.security" />
-        </Link>,
-        <Link to="/security/security-policies">
-          <FormattedMessage id="navbar.security.policies" />
-        </Link>,
-        policyName,
-      ]}
-    />
+    <SecurityPoliciesBreadcrumbs>
+      {children
+        ? [
+            <Link key={policyId} to={`/security/security-policies/${policyId}`}>
+              {policyName}
+            </Link>,
+            ...Children.toArray(children),
+          ]
+        : policyName}
+    </SecurityPoliciesBreadcrumbs>
   );
 }

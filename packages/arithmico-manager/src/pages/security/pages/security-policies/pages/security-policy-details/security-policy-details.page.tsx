@@ -23,7 +23,10 @@ export function SecurityPolicyDetailsPage() {
       <LoadingPage isLoading={isLoading} isError={isError} />
       {isSuccess && data && (
         <>
-          <SecurityPolicyDetailsBreadcrumbs policyName={data.name} />
+          <SecurityPolicyDetailsBreadcrumbs
+            policyId={data.id}
+            policyName={data.name}
+          />
           <div className={classNames("flex", "items-center", "my-4")}>
             <Heading level={1} className={classNames()}>
               {data.name}
