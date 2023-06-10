@@ -13,6 +13,16 @@ const userGroupsApi = api.injectEndpoints({
           limit: arg.limit,
         },
       }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.items.map((item) => ({
+                type: "UserGroup" as const,
+                id: item.id,
+              })),
+              "UserGroup",
+            ]
+          : ["UserGroup"],
     }),
   }),
 });
