@@ -66,18 +66,26 @@ export class BootstrapService {
       );
 
       if (missingAttributes.length > 0) {
-        this.logger.log('adding missing attributes to admin security policy');
+        this.logger.log(
+          'adding missing attributes to admin security policy: ' +
+            missingAttributes.join(', '),
+        );
         await this.securityPolicyRepository.addAttributes(
           adminPolicy._id,
           missingAttributes,
+          true,
         );
       }
 
       if (removedAttributes.length > 0) {
-        this.logger.log('removing old attributes from admin security policy');
+        this.logger.log(
+          'removing old attributes from admin security policy: ' +
+            removedAttributes.join(', '),
+        );
         await this.securityPolicyRepository.removeAttributes(
           adminPolicy._id,
           removedAttributes,
+          true,
         );
       }
     } else {
