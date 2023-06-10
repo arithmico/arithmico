@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
 import Heading from "../../../../../../components/heading/heading";
 import { LoadingPage } from "../../../../../../components/loading-page/loading-page";
-import { useGetAvailableSecurityAttributesQuery } from "../../../../../../store/api/slices/security/security.api";
+import { useGetAvailableSecurityAttributesQuery } from "../../../../../../store/api/resources/security-policies/security-policies.api";
 import { AddSecurityPolicyBreadcrumbs } from "./components/add-security-policy-breadcrumbs";
 import { AddSecurityPolicyForm } from "./components/add-security-policy-form";
 

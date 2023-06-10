@@ -8,7 +8,7 @@ import { LoadingPage } from "../../../../../../components/loading-page/loading-p
 import {
   useDeleteSecurityPolicyMutation,
   useGetSecurityPolicyByIdQuery,
-} from "../../../../../../store/api/slices/security/security.api";
+} from "../../../../../../store/api/resources/security-policies/security-policies.api";
 import { DeleteSecurityPolicyBreadcrumbs } from "./components/delete-security-policy-breadcrumbs";
 
 export function DeleteSecurityPolicyPage() {

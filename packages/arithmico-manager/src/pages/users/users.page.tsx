@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 import Heading from "../../components/heading/heading";
-import { useGetUsersQuery } from "../../store/api/slices/users/users.api";
+import { useGetUsersQuery } from "../../store/api/resources/users/users.api";
 
 export default function UsersPage() {
   const { isSuccess, isError, isLoading, data } = useGetUsersQuery({

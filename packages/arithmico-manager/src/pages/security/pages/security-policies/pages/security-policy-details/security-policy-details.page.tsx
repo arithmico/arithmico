@@ -5,7 +5,7 @@ import Heading from "../../../../../../components/heading/heading";
 import { LoadingPage } from "../../../../../../components/loading-page/loading-page";
 import { DeleteIcon } from "../../../../../../icons/delete.icon";
 import { EditIcon } from "../../../../../../icons/edit.icon";
-import { useGetSecurityPolicyByIdQuery } from "../../../../../../store/api/slices/security/security.api";
+import { useGetSecurityPolicyByIdQuery } from "../../../../../../store/api/resources/security-policies/security-policies.api";
 import { SecurityPolicyAttributeList } from "./components/security-policy-attribute-list";
 import { SecurityPolicyDetailsBreadcrumbs } from "./components/security-policy-details-breadcrumbs";
 import { SecurityPolicyDetailsCard } from "./components/security-policy-details-card";

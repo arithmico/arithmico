@@ -3,7 +3,7 @@ import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router-dom";
 import Heading from "../../../../../../components/heading/heading";
 import { LoadingPage } from "../../../../../../components/loading-page/loading-page";
-import { useGetSecurityPolicyByIdQuery } from "../../../../../../store/api/slices/security/security.api";
+import { useGetSecurityPolicyByIdQuery } from "../../../../../../store/api/resources/security-policies/security-policies.api";
 import { EditSecurityPolicyAttributesBreadcrumbs } from "./components/edit-security-policy-attributes-breadcrumbs";
 import { EditSecurityPolicyAttributesCard } from "./components/edit-security-policy-attributes-card";
 

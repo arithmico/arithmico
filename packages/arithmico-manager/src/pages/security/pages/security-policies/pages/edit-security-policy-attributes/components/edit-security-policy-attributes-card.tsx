@@ -10,7 +10,7 @@ import Heading from "../../../../../../../components/heading/heading";
 import {
   useGetAvailableSecurityAttributesQuery,
   useSetSecurityPolicyAttributesMutation,
-} from "../../../../../../../store/api/slices/security/security.api";
+} from "../../../../../../../store/api/resources/security-policies/security-policies.api";
 import { SecurityAttributeVisualization } from "../../../components/security-attribute-visualization";
 
 interface EditSecurityPolicyAttributesCardProps {

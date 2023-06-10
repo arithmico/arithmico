@@ -10,7 +10,7 @@ import { SimplePage } from "../../components/simple-page/simple-page";
 import { loginSchema, LoginSchemaType } from "../../schemas/login/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormError from "../../components/form-error/form-error";
-import { useLoginMutation } from "../../store/api/slices/auth/auth.api";
+import { useLoginMutation } from "../../store/api/resources/auth/auth.api";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/slices/auth/auth.slice";

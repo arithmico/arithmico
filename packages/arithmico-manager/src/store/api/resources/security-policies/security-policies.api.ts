@@ -11,9 +11,9 @@ import {
   RenameSecurityPolicyArgs,
   CreateSecurityPolicyArgs,
   DeleteSecurityPolicyArgs,
-} from "./security.types";
+} from "./security-policies.types";
 
-const authApi = api.injectEndpoints({
+const securityPoliciesApi = api.injectEndpoints({
   endpoints: (build) => ({
     getSecurityPolices: build.query<
       PagedResponse<SecurityPolicyDtoWithPrincipalsCount>,
@@ -121,4 +121,4 @@ export const {
   useRenameSecurityPolicyMutation,
   useCreateSecurityPolicyMutation,
   useDeleteSecurityPolicyMutation,
-} = authApi;
+} = securityPoliciesApi;

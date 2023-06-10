@@ -11,7 +11,7 @@ import { TableRow } from "../../../../components/table-row/table-row";
 import { Table } from "../../../../components/table/table";
 import { AddIcon } from "../../../../icons/add.icon";
 import { ChevronRightIcon } from "../../../../icons/chevron-right.icon";
-import { useGetSecurityPolicesQuery } from "../../../../store/api/slices/security/security.api";
+import { useGetSecurityPolicesQuery } from "../../../../store/api/resources/security-policies/security-policies.api";
 import { SecurityPoliciesBreadcrumbs } from "./components/security-policies-breacrumbs";
 
 export interface SecurityPoliciesPageProps {

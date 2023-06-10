@@ -15,7 +15,7 @@ import {
   addSecurityPolicySchema,
   AddSecurityPolicySchemaType,
 } from "../../../../../../../schemas/add-security-policy/add-security-policy.schema";
-import { useCreateSecurityPolicyMutation } from "../../../../../../../store/api/slices/security/security.api";
+import { useCreateSecurityPolicyMutation } from "../../../../../../../store/api/resources/security-policies/security-policies.api";
 import { SecurityAttributeVisualization } from "../../../components/security-attribute-visualization";
 
 export interface AddSecurityPolicyFormProps {

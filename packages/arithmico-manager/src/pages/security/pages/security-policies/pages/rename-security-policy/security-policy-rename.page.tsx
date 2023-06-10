@@ -19,7 +19,7 @@ import {
 import {
   useGetSecurityPolicyByIdQuery,
   useRenameSecurityPolicyMutation,
-} from "../../../../../../store/api/slices/security/security.api";
+} from "../../../../../../store/api/resources/security-policies/security-policies.api";
 import { RenameSecurityPolicyBreadcrumbs } from "./components/rename-security-policy-breadcrumbs";
 
 export function SecurityPolicyRenamePage() {
