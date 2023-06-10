@@ -22,6 +22,10 @@ import {
   UserActivationSchema,
 } from './schemas/user-activation/user-activation.schema';
 import {
+  UserGroupMembership,
+  UserGroupMembershipSchema,
+} from './schemas/user-group-membership/user-group-membership.schema';
+import {
   UserGroup,
   UserGroupSchema,
 } from './schemas/user-group/user-group.schema';
@@ -54,6 +58,10 @@ import { User, UserSchema } from './schemas/user/user.schema';
       {
         name: UserGroup.name,
         schema: UserGroupSchema,
+      },
+      {
+        name: UserGroupMembership.name,
+        schema: UserGroupMembershipSchema,
       },
     ]),
   ],

@@ -6,11 +6,17 @@ import {
   UserGroupDocument,
 } from '../../schemas/user-group/user-group.schema';
 import { NotFoundException } from '@nestjs/common';
+import {
+  UserGroupMembership,
+  UserGroupMembershipDocument,
+} from '../../schemas/user-group-membership/user-group-membership.schema';
 
 export class UserGroupRepository {
   constructor(
     @InjectModel(UserGroup.name)
     private userGroupModel: Model<UserGroupDocument>,
+    @InjectModel(UserGroupMembership.name)
+    private userGroupMembershipModel: Model<UserGroupMembershipDocument>,
   ) {}
 
   async createUserGroup(name: string): Promise<UserGroupDocument> {
@@ -48,7 +54,7 @@ export class UserGroupRepository {
   async getUserGroups(
     skip: number,
     limit: number,
-  ): Promise<PagedResponse<UserGroupDocument>> {
+  ): Promise<PagedResponse<UserGroupDocument & { members: number }>> {
     const result = await this.userGroupModel
       .aggregate()
       .sort({ name: -1 })
@@ -62,6 +68,19 @@ export class UserGroupRepository {
           },
           {
             $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.userGroupMembershipModel.collection.name,
+              localField: '_id',
+              foreignField: 'userId',
+              as: 'members',
+            },
+          },
+          {
+            $addFields: {
+              members: { $size: '$members' },
+            },
           },
         ],
         total: [

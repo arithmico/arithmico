@@ -23,6 +23,7 @@ export class GetUserGroupsHandler implements IQueryHandler<GetUserGroupsQuery> {
         id: item._id,
         name: item.name,
         createdAt: item.createdAt,
+        members: item.members,
       })),
       total: result.total,
     };
