@@ -14,7 +14,7 @@ export class GetUsersQueryHandler implements IQueryHandler<GetUsersQuery> {
     });
     return {
       items: result.items.map((item) => ({
-        userId: item._id,
+        id: item._id,
         username: item.username,
       })),
       skip: result.skip,

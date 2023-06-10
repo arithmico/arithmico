@@ -13,6 +13,16 @@ const authApi = api.injectEndpoints({
           limit: arg.limit,
         },
       }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.items.map((item) => ({
+                type: "User" as const,
+                id: item.id,
+              })),
+              "User",
+            ]
+          : ["User"],
     }),
   }),
 });

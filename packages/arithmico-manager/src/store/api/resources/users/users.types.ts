@@ -1,5 +1,5 @@
 export interface UserResponseDto {
-  userId: string;
+  id: string;
   username: string;
 }
 

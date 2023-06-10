@@ -1,7 +1,7 @@
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
 
 export class UserResponseDto {
-  userId: string;
+  id: string;
   username: string;
 }
 
