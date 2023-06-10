@@ -11,7 +11,7 @@ import { UserGroupsTable } from "./components/user-groups-table";
 
 export function UserGroupsPage() {
   const [skip, setSkip] = useState(0);
-  const { isError, isSuccess, isLoading, data } = useGetUserGroupsQuery({
+  const { isSuccess, data } = useGetUserGroupsQuery({
     skip,
     limit: 10,
   });
