@@ -4,6 +4,7 @@ import { Breadcrumbs } from "../../components/breadcrumbs/breadcrumbs";
 import Heading from "../../components/heading/heading";
 import { ShieldIcon } from "../../icons/shield.icon";
 import { SecurityPoliciesPage } from "./pages/security-policies/security-policies.page";
+import { UserGroupsPage } from "./pages/user-groups/user-groups.page";
 
 export default function SecurityPage() {
   return (
@@ -23,6 +24,7 @@ export default function SecurityPage() {
         <FormattedMessage id="security.description" />
       </p>
       <SecurityPoliciesPage inline />
+      <UserGroupsPage />
     </>
   );
 }
