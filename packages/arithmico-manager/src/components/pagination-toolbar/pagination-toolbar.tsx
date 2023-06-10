@@ -6,6 +6,22 @@ import { ChevronRightIcon } from "../../icons/chevron-right.icon";
 import { FirstPageIcon } from "../../icons/first-page.icon";
 import { LastPageIcon } from "../../icons/last-page.icon";
 
+function getTotalPages(total: number, limit: number): number {
+  const totalPages = Math.ceil(total / limit);
+  if (!Number.isFinite(totalPages)) {
+    return 1;
+  }
+  return totalPages;
+}
+
+function getCurrentPage(skip: number, limit: number): number {
+  const currentPage = Math.floor(skip / limit) + 1;
+  if (!Number.isFinite(currentPage)) {
+    return 1;
+  }
+  return currentPage;
+}
+
 export interface PaginationToolbarProps {
   skip: number;
   limit: number;
@@ -19,8 +35,8 @@ export function PaginationToolbar({
   total,
   onChange,
 }: PaginationToolbarProps) {
-  const totalPages = Math.ceil(total / limit);
-  const currentPage = Math.floor(skip / limit) + 1;
+  const totalPages = getTotalPages(total, limit);
+  const currentPage = getCurrentPage(skip, limit);
   const lastPageSkip =
     total % limit === 0 ? total - limit : total - (total % limit);
 
