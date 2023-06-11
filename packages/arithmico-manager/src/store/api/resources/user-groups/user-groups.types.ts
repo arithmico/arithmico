@@ -8,3 +8,7 @@ export interface UserGroupDto {
 export interface UserGroupDtoWithMembers extends UserGroupDto {
   members: number;
 }
+
+export interface CreateUserGroupArgs {
+  name: string;
+}

@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
 import Heading from "../../../../../../components/heading/heading";
 import { CreateUserGroupBreadcrumbs } from "./components/create-user-group-breadcrumbs";
+import { CreateUserGroupForm } from "./components/create-user-group-form";
 
 export function CreateUserGroupPage() {
   return (
@@ -13,6 +14,7 @@ export function CreateUserGroupPage() {
       <p className={classNames("max-w-5xl")}>
         <FormattedMessage id="security.user-groups.new.description" />
       </p>
+      <CreateUserGroupForm />
     </>
   );
 }

@@ -1,6 +1,10 @@
 import { api } from "../../api";
 import { PagedResponse, PageQueryParams } from "../../types";
-import { UserGroupDtoWithMembers } from "./user-groups.types";
+import {
+  CreateUserGroupArgs,
+  UserGroupDto,
+  UserGroupDtoWithMembers,
+} from "./user-groups.types";
 
 const userGroupsApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -27,7 +31,18 @@ const userGroupsApi = api.injectEndpoints({
             ]
           : ["UserGroup"],
     }),
+    createUserGroup: build.mutation<UserGroupDto, CreateUserGroupArgs>({
+      query: (arg) => ({
+        url: "/user-groups",
+        method: "POST",
+        body: {
+          name: arg.name,
+        },
+      }),
+      invalidatesTags: (result) => (result ? ["UserGroup"] : []),
+    }),
   }),
 });
 
-export const { useGetUserGroupsQuery } = userGroupsApi;
+export const { useGetUserGroupsQuery, useCreateUserGroupMutation } =
+  userGroupsApi;
