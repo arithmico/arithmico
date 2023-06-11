@@ -29,6 +29,8 @@ export function CreateUserGroupForm() {
   useEffect(() => {
     if (result.isSuccess) {
       navigate(-1);
+    } else if (result.isError) {
+      navigate("failure");
     }
   }, [result, navigate]);
 
@@ -44,7 +46,10 @@ export function CreateUserGroupForm() {
         <FormError error={errors.name} />
         <div className={classNames("flex", "mt-8")}>
           <BackButtonLink to="/security/user-groups" />
-          <FormSubmitButton className={classNames("ml-auto")}>
+          <FormSubmitButton
+            isLoading={result.isLoading}
+            className={classNames("ml-auto")}
+          >
             <FormattedMessage id="common.save" />
           </FormSubmitButton>
         </div>

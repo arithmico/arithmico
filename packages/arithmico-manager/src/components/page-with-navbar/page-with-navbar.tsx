@@ -44,7 +44,10 @@ export function PageWithNavbar({ children }: PageWithNavbarProps) {
             "overflow-y-auto",
             "w-full",
             "max-w-full",
-            "overflow-x-hidden"
+            "overflow-x-hidden",
+            "flex",
+            "flex-col",
+            "h-full"
           )}
         >
           {children}

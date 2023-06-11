@@ -11,6 +11,9 @@
   "common.yes": "Ja",
   "common.no": "Nein",
 
+  "error.title": "Fehler",
+  "error.description": "Es ist ein Fehler aufgetregen",
+
   "login.title": "Anmeldung",
   "login.username": "Benutzername",
   "login.password": "Passwort",
