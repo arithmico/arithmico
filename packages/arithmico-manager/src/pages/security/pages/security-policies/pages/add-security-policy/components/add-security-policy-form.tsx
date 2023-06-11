@@ -38,7 +38,7 @@ export function AddSecurityPolicyForm({
 
   useEffect(() => {
     if (result.isSuccess) {
-      navigate(`/security/security-policies/${result.data.id}`);
+      navigate(-1);
     }
   }, [result, navigate]);
 

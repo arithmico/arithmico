@@ -30,7 +30,7 @@ export function EditSecurityPolicyAttributesCard({
   const navigate = useNavigate();
   useEffect(() => {
     if (result.isSuccess) {
-      navigate(`/security/security-policies/${result.data.id}`);
+      navigate(-1);
     }
   }, [result, navigate]);
 

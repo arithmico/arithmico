@@ -50,7 +50,7 @@ export function SecurityPolicyRenamePage() {
   }, [data, setValue]);
   useEffect(() => {
     if (renameResult.isSuccess) {
-      navigate(`/security/security-policies/${policyId!}`);
+      navigate(-1);
     }
   }, [renameResult, navigate, policyId]);
 
