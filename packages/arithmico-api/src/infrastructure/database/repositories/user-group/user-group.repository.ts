@@ -72,6 +72,7 @@ export class UserGroupRepository {
     const result = await this.userGroupModel
       .deleteOne({
         _id: groupId,
+        readonly: false,
       })
       .exec();
 

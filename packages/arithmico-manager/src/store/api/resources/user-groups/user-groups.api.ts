@@ -86,4 +86,5 @@ export const {
   useGetUserGroupByIdQuery,
   useCreateUserGroupMutation,
   useRenameUserGroupMutation,
+  useDeleteUserGroupMutation,
 } = userGroupsApi;
