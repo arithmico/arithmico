@@ -56,6 +56,43 @@ export class UserGroupRepository {
     return userGroupDocument;
   }
 
+  async getUserGroupByIdWithDetails(groupId: string): Promise<
+    | (UserGroupDocument & {
+        members: number;
+      })
+    | null
+  > {
+    return (
+      await this.userGroupModel
+        .aggregate()
+        .match({ _id: groupId })
+        .lookup({
+          from: this.userGroupMembershipModel.collection.name,
+          localField: '_id',
+          foreignField: 'groupId',
+          as: 'members',
+        })
+        .addFields({
+          members: { $size: '$members' },
+        })
+        .exec()
+    ).at(0);
+  }
+
+  async getUserGroupByIdWithDetailsOrThrow(groupId: string): Promise<
+    UserGroupDocument & {
+      members: number;
+    }
+  > {
+    const userGroupDocumentWithDetails = await this.getUserGroupByIdWithDetails(
+      groupId,
+    );
+    if (!userGroupDocumentWithDetails) {
+      throw new NotFoundException();
+    }
+    return userGroupDocumentWithDetails;
+  }
+
   async getUserGroups(
     skip: number,
     limit: number,
@@ -78,7 +115,7 @@ export class UserGroupRepository {
             $lookup: {
               from: this.userGroupMembershipModel.collection.name,
               localField: '_id',
-              foreignField: 'userId',
+              foreignField: 'groupId',
               as: 'members',
             },
           },
