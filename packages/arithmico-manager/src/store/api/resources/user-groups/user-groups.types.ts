@@ -21,3 +21,7 @@ export interface RenameUserGroupArgs {
   groupId: string;
   name: string;
 }
+
+export interface DeleteUserGroupArgs {
+  groupId: string;
+}

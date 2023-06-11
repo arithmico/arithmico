@@ -2,6 +2,7 @@ import { api } from "../../api";
 import { PagedResponse, PageQueryParams } from "../../types";
 import {
   CreateUserGroupArgs,
+  DeleteUserGroupArgs,
   GetUserGroupByIdArgs,
   RenameUserGroupArgs,
   UserGroupDto,
@@ -67,6 +68,15 @@ const userGroupsApi = api.injectEndpoints({
       }),
       invalidatesTags: (result) =>
         result ? [{ type: "UserGroup", id: result.id }] : [],
+    }),
+
+    deleteUserGroup: build.mutation<void, DeleteUserGroupArgs>({
+      query: (arg) => ({
+        url: `/user-groups/${arg.groupId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_, err, arg) =>
+        !err ? [{ type: "UserGroup", id: arg.groupId }] : [],
     }),
   }),
 });
