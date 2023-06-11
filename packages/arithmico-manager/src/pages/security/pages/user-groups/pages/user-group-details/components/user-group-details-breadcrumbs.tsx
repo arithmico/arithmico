@@ -5,17 +5,19 @@ import { UserGroupsBreadcrumbs } from "../../../components/user-groups-breadcrum
 export interface UserGroupDetailsBreadcrumbsProps {
   children?: ReactNode;
   groupName: string;
+  groupId: string;
 }
 
 export function UserGroupDetailsBreadcrumbs({
   children,
   groupName,
+  groupId,
 }: UserGroupDetailsBreadcrumbsProps) {
   return (
     <UserGroupsBreadcrumbs>
       {children
         ? [
-            <Link key="user-groups" to="/security/user-groups">
+            <Link key="user-groups" to={`/security/user-groups/${groupId}`}>
               {groupName}
             </Link>,
             ...Children.toArray(children),

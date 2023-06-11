@@ -6,7 +6,7 @@ import { RenameUserGroupRequestParamsDto } from './rename-user-group.request.par
 import { RenameUserGroupCommand } from './rename-user-group.command';
 import { DuplicateKeyFilter } from '../../../../filters/duplicate-key/duplicate-key.filter';
 
-@Controller(':groupId')
+@Controller(':groupId/name')
 export class RenameUserGroupController {
   constructor(private commandBus: CommandBus) {}
 

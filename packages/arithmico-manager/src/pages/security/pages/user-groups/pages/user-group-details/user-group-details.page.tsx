@@ -21,7 +21,10 @@ export function UserGroupDetailsPage() {
       <LoadingPage isError={isError} isLoading={isLoading} />
       {isSuccess && data && (
         <>
-          <UserGroupDetailsBreadcrumbs groupName={data.name} />
+          <UserGroupDetailsBreadcrumbs
+            groupName={data.name}
+            groupId={data.id}
+          />
           <div className={classNames("my-4", "flex", "max-w-5xl")}>
             <Heading level={1}>{data.name}</Heading>
             {!data.readonly && (

@@ -16,3 +16,8 @@ export interface CreateUserGroupArgs {
 export interface GetUserGroupByIdArgs {
   groupId: string;
 }
+
+export interface RenameUserGroupArgs {
+  groupId: string;
+  name: string;
+}

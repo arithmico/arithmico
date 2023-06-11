@@ -37,6 +37,7 @@
   "navbar.security.policies.delete": "Löschen",
   "navbar.security.user-groups": "Benutzergruppen",
   "navbar.security.user-groups.new": "Erstellen",
+  "navbar.security.user-groups.rename": "Umbenennen",
 
   "security.title": "Sicherheit",
   "security.description": "Willkommen im Sicherheitsbereich des Arithmico Backoffice. Hier haben Sie die Möglichkeit, die Zugriffskontrolle auf Ressourcen mithilfe von Sicherheitsrichtlinien zu verwalten. Erstellen Sie maßgeschneiderte Richtlinien, um den Zugriff auf sensible Informationen und Funktionen einzuschränken. Bei Bedarf können Sie veraltete oder nicht mehr benötigte Sicherheitsrichtlinien löschen. Zusätzlich besteht die Option, vorhandene Richtlinien zu bearbeiten, um Zugriffsrechte anzupassen oder neue Zugriffskontrollmechanismen einzuführen. Mit diesen Funktionen können Sie die Sicherheit des Arithmico Backoffice effektiv steuern und schützen.",
@@ -97,6 +98,7 @@
   "security.user-groups.details.title": "Details",
   "security.user-groups.rename": "Benutzergruppe umbenennen",
   "security.user-groups.delete": "Benutzergruppe löschen",
+  "security.user-groups.rename.description": "Passen Sie den Namen einer Benutzergruppe an, um sie besser zu identifizieren und zu verwalten. Auf dieser Seite können Sie den Namen einer Benutzergruppe ändern. Wählen Sie einen neuen Namen aus, der den Zweck und die Funktion der Gruppe klar widerspiegelt. Durch das Umbenennen einer Benutzergruppe können Sie die Organisation und Verwaltung Ihrer Benutzer effektiver gestalten.",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",

@@ -13,36 +13,33 @@ import FormTextField from "../../../../../../components/form-text-field/form-tex
 import Heading from "../../../../../../components/heading/heading";
 import { LoadingPage } from "../../../../../../components/loading-page/loading-page";
 import {
-  renameSecurityPolicySchema,
-  RenameSecurityPolicySchemaType,
-} from "../../../../../../schemas/rename-security-policy/rename-security-policy.schema";
+  renameUserGroupSchema,
+  RenameUserGroupSchemaType,
+} from "../../../../../../schemas/rename-user-group/rename-user-group.schema";
 import {
-  useGetSecurityPolicyByIdQuery,
-  useRenameSecurityPolicyMutation,
-} from "../../../../../../store/api/resources/security-policies/security-policies.api";
-import { RenameSecurityPolicyBreadcrumbs } from "./components/rename-security-policy-breadcrumbs";
+  useGetUserGroupByIdQuery,
+  useRenameUserGroupMutation,
+} from "../../../../../../store/api/resources/user-groups/user-groups.api";
+import { RenameUserGroupBreacrumbs } from "./components/rename-user-group-breadcrumbs";
 
-export function SecurityPolicyRenamePage() {
-  const { policyId } = useParams();
-  const { data, isSuccess, isLoading, isError } = useGetSecurityPolicyByIdQuery(
-    {
-      policyId: policyId!,
-    }
-  );
+export function RenameUserGroupPage() {
+  const { groupId } = useParams();
+  const { isError, isSuccess, isLoading, data } = useGetUserGroupByIdQuery({
+    groupId: groupId!,
+  });
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors, dirtyFields },
-  } = useForm<RenameSecurityPolicySchemaType>({
-    resolver: zodResolver(renameSecurityPolicySchema),
+  } = useForm<RenameUserGroupSchemaType>({
+    resolver: zodResolver(renameUserGroupSchema),
     defaultValues: {
       name: data?.name,
     },
   });
-  const [rename, renameResult] = useRenameSecurityPolicyMutation();
+  const [rename, renameResult] = useRenameUserGroupMutation();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (data) {
       setValue("name", data.name);
@@ -59,21 +56,18 @@ export function SecurityPolicyRenamePage() {
       <LoadingPage isError={isError} isLoading={isLoading} />
       {isSuccess && data && (
         <>
-          <RenameSecurityPolicyBreadcrumbs
-            policyId={policyId!}
-            policyName={data.name}
-          />
+          <RenameUserGroupBreacrumbs groupId={data.id} groupName={data.name} />
           <Card className={classNames("mt-4", "max-w-5xl")}>
-            <Heading level={1} className={classNames("mb-4")}>
-              <FormattedMessage id="security-policy-rename.title" />
+            <Heading level={1} className={classNames("my-4")}>
+              <FormattedMessage id="security.user-groups.rename" />
             </Heading>
-            <p className="max-w-5xl">
-              <FormattedMessage id="security-policy-rename.description" />
+            <p>
+              <FormattedMessage id="security.user-groups.rename.description" />
             </p>
             <form
               onSubmit={handleSubmit((values) =>
                 rename({
-                  policyId: policyId!,
+                  groupId: data.id,
                   name: values.name,
                 })
               )}

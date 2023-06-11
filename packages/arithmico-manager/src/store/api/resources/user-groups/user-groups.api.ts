@@ -3,6 +3,7 @@ import { PagedResponse, PageQueryParams } from "../../types";
 import {
   CreateUserGroupArgs,
   GetUserGroupByIdArgs,
+  RenameUserGroupArgs,
   UserGroupDto,
   UserGroupDtoWithDetails,
 } from "./user-groups.types";
@@ -55,11 +56,24 @@ const userGroupsApi = api.injectEndpoints({
       }),
       invalidatesTags: (result) => (result ? ["UserGroup"] : []),
     }),
+
+    renameUserGroup: build.mutation<UserGroupDto, RenameUserGroupArgs>({
+      query: (arg) => ({
+        url: `/user-groups/${arg.groupId}/name`,
+        method: "PUT",
+        body: {
+          name: arg.name,
+        },
+      }),
+      invalidatesTags: (result) =>
+        result ? [{ type: "UserGroup", id: result.id }] : [],
+    }),
   }),
 });
 
 export const {
   useGetUserGroupsQuery,
-  useCreateUserGroupMutation,
   useGetUserGroupByIdQuery,
+  useCreateUserGroupMutation,
+  useRenameUserGroupMutation,
 } = userGroupsApi;
