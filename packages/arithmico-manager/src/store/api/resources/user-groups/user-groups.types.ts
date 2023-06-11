@@ -5,10 +5,14 @@ export interface UserGroupDto {
   readonly: boolean;
 }
 
-export interface UserGroupDtoWithMembers extends UserGroupDto {
+export interface UserGroupDtoWithDetails extends UserGroupDto {
   members: number;
 }
 
 export interface CreateUserGroupArgs {
   name: string;
+}
+
+export interface GetUserGroupByIdArgs {
+  groupId: string;
 }

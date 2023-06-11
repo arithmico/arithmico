@@ -2,14 +2,15 @@ import { api } from "../../api";
 import { PagedResponse, PageQueryParams } from "../../types";
 import {
   CreateUserGroupArgs,
+  GetUserGroupByIdArgs,
   UserGroupDto,
-  UserGroupDtoWithMembers,
+  UserGroupDtoWithDetails,
 } from "./user-groups.types";
 
 const userGroupsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getUserGroups: build.query<
-      PagedResponse<UserGroupDtoWithMembers>,
+      PagedResponse<UserGroupDtoWithDetails>,
       PageQueryParams
     >({
       query: (arg) => ({
@@ -31,6 +32,19 @@ const userGroupsApi = api.injectEndpoints({
             ]
           : ["UserGroup"],
     }),
+
+    getUserGroupById: build.query<
+      UserGroupDtoWithDetails,
+      GetUserGroupByIdArgs
+    >({
+      query: (arg) => ({
+        url: `/user-groups/${arg.groupId}`,
+        method: "GET",
+      }),
+      providesTags: (result) =>
+        result ? [{ type: "UserGroup", id: result.id }] : [],
+    }),
+
     createUserGroup: build.mutation<UserGroupDto, CreateUserGroupArgs>({
       query: (arg) => ({
         url: "/user-groups",
@@ -44,5 +58,8 @@ const userGroupsApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetUserGroupsQuery, useCreateUserGroupMutation } =
-  userGroupsApi;
+export const {
+  useGetUserGroupsQuery,
+  useCreateUserGroupMutation,
+  useGetUserGroupByIdQuery,
+} = userGroupsApi;

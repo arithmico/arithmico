@@ -6,10 +6,10 @@ import { TableHeaderCell } from "../../../../../components/table-header-cell/tab
 import { TableRow } from "../../../../../components/table-row/table-row";
 import { Table } from "../../../../../components/table/table";
 import { ChevronRightIcon } from "../../../../../icons/chevron-right.icon";
-import { UserGroupDtoWithMembers } from "../../../../../store/api/resources/user-groups/user-groups.types";
+import { UserGroupDtoWithDetails } from "../../../../../store/api/resources/user-groups/user-groups.types";
 
 export interface UserGroupsTableProps {
-  userGroups: UserGroupDtoWithMembers[];
+  userGroups: UserGroupDtoWithDetails[];
 }
 
 export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
