@@ -5,7 +5,7 @@ import {
   UserGroup,
   UserGroupDocument,
 } from '../../schemas/user-group/user-group.schema';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import {
   UserGroupMembership,
   UserGroupMembershipDocument,
@@ -54,6 +54,30 @@ export class UserGroupRepository {
       throw new NotFoundException();
     }
     return userGroupDocument;
+  }
+
+  async deleteUserGroup(groupId: string): Promise<void> {
+    const hasMembers =
+      (await this.userGroupMembershipModel
+        .find({
+          groupId: groupId,
+        })
+        .count()
+        .exec()) > 0;
+
+    if (hasMembers) {
+      throw new BadRequestException();
+    }
+
+    const result = await this.userGroupModel
+      .deleteOne({
+        _id: groupId,
+      })
+      .exec();
+
+    if (result.deletedCount < 1) {
+      throw new NotFoundException();
+    }
   }
 
   async getUserGroupByIdWithDetails(groupId: string): Promise<
