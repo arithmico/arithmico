@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
-import { BackButtonLink } from "../../../../../../components/back-button-link/back-button-link";
-import { Card } from "../../../../../../components/card/card";
-import Heading from "../../../../../../components/heading/heading";
+import { BackButtonLink } from "../back-button-link/back-button-link";
+import { Card } from "../card/card";
+import Heading from "../heading/heading";
 
-export function CreateUserGroupFailurePage() {
+export function ErrorCard() {
   return (
     <div
       className={classNames(

@@ -49,6 +49,9 @@ export function RenameUserGroupPage() {
     if (renameResult.isSuccess) {
       navigate(-1);
     }
+    if (renameResult.isError) {
+      navigate("failure");
+    }
   }, [renameResult, navigate]);
 
   return (
@@ -79,7 +82,7 @@ export function RenameUserGroupPage() {
               </FormLabel>
               <FormError error={errors.name} />
               <div className={classNames("flex", "mt-4", "items-center")}>
-                <BackButtonLink to={`/security/security-policies/${data.id}`} />
+                <BackButtonLink to={-1} />
                 <FormSubmitButton
                   disabled={!dirtyFields.name || data.readonly}
                   className={classNames("ml-auto")}
