@@ -1,7 +1,10 @@
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+import { Link, useParams } from "react-router-dom";
 import Heading from "../../../../../../components/heading/heading";
 import { LoadingPage } from "../../../../../../components/loading-page/loading-page";
+import { DeleteIcon } from "../../../../../../icons/delete.icon";
+import { EditIcon } from "../../../../../../icons/edit.icon";
 import { useGetUserGroupByIdQuery } from "../../../../../../store/api/resources/user-groups/user-groups.api";
 import { UserGroupDetailsBreadcrumbs } from "./components/user-group-details-breadcrumbs";
 import { UserGroupDetailsCard } from "./components/user-group-details-card";
@@ -11,6 +14,7 @@ export function UserGroupDetailsPage() {
   const { isSuccess, isError, isLoading, data } = useGetUserGroupByIdQuery({
     groupId: groupId!,
   });
+  console.log(data);
 
   return (
     <>
@@ -18,10 +22,43 @@ export function UserGroupDetailsPage() {
       {isSuccess && data && (
         <>
           <UserGroupDetailsBreadcrumbs groupName={data.name} />
-          <Heading level={1} className={classNames("my-4")}>
-            {data.name}
-          </Heading>
-          <UserGroupDetailsCard />
+          <div className={classNames("my-4", "flex", "max-w-5xl")}>
+            <Heading level={1}>{data.name}</Heading>
+            {!data.readonly && (
+              <menu
+                className={classNames(
+                  "flex",
+                  "ml-auto",
+                  "items-center",
+                  "gap-4"
+                )}
+              >
+                <li>
+                  <span className={classNames("sr-only")}>
+                    <FormattedMessage id="security.user-groups.rename" />
+                  </span>
+                  <Link to="./rename">
+                    <EditIcon className={classNames("w-6", "h-6")} />
+                  </Link>
+                </li>
+                <li>
+                  <span className={classNames("sr-only")}>
+                    <FormattedMessage id="security.user-groups.delete" />
+                  </span>
+                  <Link to="./delete">
+                    <DeleteIcon className={classNames("w-6", "h-6")} />
+                  </Link>
+                </li>
+              </menu>
+            )}
+          </div>
+          <UserGroupDetailsCard
+            id={data.id}
+            name={data.name}
+            createdAt={data.createdAt}
+            members={data.members}
+            readonly={data.readonly}
+          />
         </>
       )}
     </>

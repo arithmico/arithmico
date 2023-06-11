@@ -1,7 +1,8 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
 import { FormattedDate, FormattedMessage } from "react-intl";
 import { Card } from "../../../../../../../components/card/card";
+import { DefinitionListEntry } from "../../../../../../../components/definition-list-entry/definition-list-entry";
+import { DefinitionList } from "../../../../../../../components/definition-list/definition-list";
 import Heading from "../../../../../../../components/heading/heading";
 
 export interface SecurityPolicyDetailsCardProps {
@@ -31,21 +32,21 @@ export function SecurityPolicyDetailsCard({
         <FormattedMessage id="security-policy-details.details.title" />
       </Heading>
       <DefinitionList>
-        <LabelValuePair
+        <DefinitionListEntry
           label={<FormattedMessage id="security-policy-details.details.id" />}
           value={id}
         />
-        <LabelValuePair
+        <DefinitionListEntry
           label={<FormattedMessage id="security-policy-details.details.name" />}
           value={name}
         />
-        <LabelValuePair
+        <DefinitionListEntry
           label={
             <FormattedMessage id="security-policy-details.details.number-of-attributes" />
           }
           value={numberOfAttributes}
         />
-        <LabelValuePair
+        <DefinitionListEntry
           label={
             <FormattedMessage id="security-policy-details.details.readonly" />
           }
@@ -57,7 +58,7 @@ export function SecurityPolicyDetailsCard({
             )
           }
         />
-        <LabelValuePair
+        <DefinitionListEntry
           label={
             <FormattedMessage id="security-policy-details.details.created-at" />
           }
@@ -75,19 +76,19 @@ export function SecurityPolicyDetailsCard({
         <FormattedMessage id="security-policy-details.details.principals" />
       </Heading>
       <DefinitionList>
-        <LabelValuePair
+        <DefinitionListEntry
           label={
             <FormattedMessage id="security-policy-details.details.principals.users" />
           }
           value={userPrincipals}
         />
-        <LabelValuePair
+        <DefinitionListEntry
           label={
             <FormattedMessage id="security-policy-details.details.principals.groups" />
           }
           value={groupPrincipals}
         />
-        <LabelValuePair
+        <DefinitionListEntry
           label={
             <FormattedMessage id="security-policy-details.details.principals.total" />
           }
@@ -95,50 +96,5 @@ export function SecurityPolicyDetailsCard({
         />
       </DefinitionList>
     </Card>
-  );
-}
-
-interface DefinitionListProps {
-  children: ReactNode;
-}
-
-function DefinitionList({ children }: DefinitionListProps) {
-  return (
-    <dl
-      className={classNames(
-        "grid",
-        "grid-cols-[1fr_2fr]",
-        "gap-x-8",
-        "gap-y-1",
-        "[&>dt]:font-bold",
-        "[&>dt]:text-black/40",
-        "max-w-full",
-        "overflow-hidden"
-      )}
-    >
-      {children}
-    </dl>
-  );
-}
-
-interface LabelValuePairProps {
-  label: ReactNode;
-  value: ReactNode;
-}
-
-function LabelValuePair({ label, value }: LabelValuePairProps) {
-  return (
-    <>
-      <dt
-        className={classNames("break-words", "max-w-full", "overflow-hidden")}
-      >
-        {label}
-      </dt>
-      <dd
-        className={classNames("break-words", "max-w-full", "overflow-hidden")}
-      >
-        {value}
-      </dd>
-    </>
   );
 }

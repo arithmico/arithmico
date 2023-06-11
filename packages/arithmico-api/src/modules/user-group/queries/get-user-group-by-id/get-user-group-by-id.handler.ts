@@ -18,7 +18,7 @@ export class GetUserGroupByIdHandler
       );
 
     return {
-      id: userGroupDocumentWithDetails.id,
+      id: userGroupDocumentWithDetails._id,
       name: userGroupDocumentWithDetails.name,
       members: userGroupDocumentWithDetails.members,
       readonly: userGroupDocumentWithDetails.readonly,

@@ -16,7 +16,7 @@ export function BackButtonLink({
 }: BackButtonLinkProps) {
   return (
     <Link
-      to={to}
+      to={to as string}
       className={classNames(
         "border",
         "rounded-sm",
