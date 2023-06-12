@@ -2,7 +2,7 @@ import { PluginFragment } from '../../../utils/plugin-builder';
 import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import createBooleanNode from '../../../node-operations/create-node/create-boolean-node';
-import { greatestCommonDivisor } from '../../../utils/float-utils';
+import { greatestCommonDivisor } from '../../../utils/math-utils/float-utils';
 import { eulerPhiFunction } from '../utils/euler-phi-function-utils';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'n', type: 'number', evaluate: true }];

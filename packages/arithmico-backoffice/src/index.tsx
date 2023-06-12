@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "overlayscrollbars/css/OverlayScrollbars.css";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import OverlayScrollbars from "overlayscrollbars";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
@@ -21,9 +19,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-OverlayScrollbars(document.body, {
-  nativeScrollbarsOverlaid: {
-    showNativeScrollbars: false,
-  },
-});

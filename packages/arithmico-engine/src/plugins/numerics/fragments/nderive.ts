@@ -2,10 +2,9 @@ import createFunctionCall from '../../../node-operations/create-node/create-func
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import evaluate from '../../../node-operations/evaluate-node';
 import { FunctionHeaderItem, FunctionNode, NumberNode } from '../../../types/nodes.types';
-import { binco } from '../../../utils/binco';
+import { binco } from '../../../utils/math-utils/binco';
 import { PluginFragment } from '../../../utils/plugin-builder';
-
-const H_COEFFICIENT = 1e-6;
+import { calculateH } from '../utils/nderive-utils';
 
 const nderiveHeader: FunctionHeaderItem[] = [
     { type: 'function', name: 'f', evaluate: true },
@@ -34,13 +33,13 @@ __FUNCTIONS.nderive &&
                 throw runtimeError('Invalid function signature.');
             }
 
+            const h = calculateH(f, position, grade, context);
+
             const value = createNumberNode(position);
             const expression = createFunctionCall(f, [value]);
             evaluate(expression, context);
-            const h = Math.abs(position >= 1 ? position : 1) * H_COEFFICIENT;
 
             let result = 0;
-
             const cOuter = Math.pow(2 * h, -grade);
 
             for (let i = 0; i <= grade; i++) {
@@ -50,13 +49,13 @@ __FUNCTIONS.nderive &&
                 const y = evaluate(expression, context);
 
                 if (y.type !== 'number') {
-                    throw 'RuntimeError: nderive: cannot derive not scalar function';
+                    throw runtimeError('cannot derive not scalar function');
                 }
 
-                result += y.value * cInner * cOuter;
+                result += y.value * cInner;
             }
 
-            return createNumberNode(result);
+            return createNumberNode(result * cOuter);
         },
     );
 
