@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import { GroupIcon } from "../../icons/group.icon";
 import { ShieldIcon } from "../../icons/shield.icon";
 import { UserIcon } from "../../icons/user.icon";
-import { SecurityBreadcrumbs } from "./components/security-breadcrumbs";
+import { AdministrationBreadcrumbs } from "./components/administration-breadcrumbs";
 
 export default function AdministrationPage() {
   return (
     <>
-      <SecurityBreadcrumbs />
+      <AdministrationBreadcrumbs />
       <p className={classNames("my-4", "max-w-5xl")}>
         <FormattedMessage id="admin.description" />
       </p>

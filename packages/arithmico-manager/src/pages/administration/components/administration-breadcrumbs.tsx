@@ -6,11 +6,13 @@ import { Breadcrumbs } from "../../../components/breadcrumbs/breadcrumbs";
 import Heading from "../../../components/heading/heading";
 import { ShieldIcon } from "../../../icons/shield.icon";
 
-export interface SecurityBreadcrumbsProps {
+export interface AdministrationBreadcrumbsProps {
   children?: ReactNode;
 }
 
-export function SecurityBreadcrumbs({ children }: SecurityBreadcrumbsProps) {
+export function AdministrationBreadcrumbs({
+  children,
+}: AdministrationBreadcrumbsProps) {
   return (
     <Breadcrumbs
       firstIcon={<ShieldIcon className={classNames("w-6", "h-6", "pr-1")} />}

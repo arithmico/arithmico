@@ -1,7 +1,7 @@
 import { Children, ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import { SecurityBreadcrumbs } from "../../../components/security-breadcrumbs";
+import { AdministrationBreadcrumbs } from "../../../components/administration-breadcrumbs";
 
 export interface SecurityPoliciesBreadcrumbsProps {
   children?: ReactNode;
@@ -11,7 +11,7 @@ export function SecurityPoliciesBreadcrumbs({
   children,
 }: SecurityPoliciesBreadcrumbsProps) {
   return (
-    <SecurityBreadcrumbs>
+    <AdministrationBreadcrumbs>
       {children
         ? [
             <Link
@@ -28,6 +28,6 @@ export function SecurityPoliciesBreadcrumbs({
               id="navbar.admin.security-policies"
             />,
           ]}
-    </SecurityBreadcrumbs>
+    </AdministrationBreadcrumbs>
   );
 }

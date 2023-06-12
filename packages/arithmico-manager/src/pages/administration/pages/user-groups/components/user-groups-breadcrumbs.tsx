@@ -1,7 +1,7 @@
 import { Children, ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import { SecurityBreadcrumbs } from "../../../components/security-breadcrumbs";
+import { AdministrationBreadcrumbs } from "../../../components/administration-breadcrumbs";
 
 export interface UserGroupsBreadcrumbsProps {
   children?: ReactNode;
@@ -11,7 +11,7 @@ export function UserGroupsBreadcrumbs({
   children,
 }: UserGroupsBreadcrumbsProps) {
   return (
-    <SecurityBreadcrumbs>
+    <AdministrationBreadcrumbs>
       {children
         ? [
             <Link key="user-groups" to="/administration/user-groups">
@@ -20,6 +20,6 @@ export function UserGroupsBreadcrumbs({
             ...Children.toArray(children),
           ]
         : [<FormattedMessage id="navbar.admin.user-groups" />]}
-    </SecurityBreadcrumbs>
+    </AdministrationBreadcrumbs>
   );
 }
