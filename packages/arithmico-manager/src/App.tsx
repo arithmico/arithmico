@@ -4,7 +4,7 @@ import { messages } from "./locales";
 import Home from "./pages/home/home";
 import { LoginRouter } from "./pages/login/login.router";
 import { MailsRouter } from "./pages/mails/mails.router";
-import { SecurityRouter } from "./pages/security/security.router";
+import { SecurityRouter } from "./pages/administration/security.router";
 import { UsersRouter } from "./pages/users/users.router";
 import { VersionsRouter } from "./pages/versions/versions.router";
 
