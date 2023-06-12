@@ -94,7 +94,9 @@ export function EditSecurityPolicyAttributesCard({
             </ul>
           </div>
           <div className={classNames("flex")}>
-            <BackButtonLink to={`/security/security-policies/${policyId}`} />
+            <BackButtonLink
+              to={`/administration/security-policies/${policyId}`}
+            />
 
             <FormSubmitButton
               disabled={

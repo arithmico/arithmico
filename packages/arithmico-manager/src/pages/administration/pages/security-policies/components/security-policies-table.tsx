@@ -42,7 +42,9 @@ export function SecurityPoliciesTable({
     >
       {policies.map((item, index) => (
         <TableRow
-          onClick={() => navigate(`/security/security-policies/${item.id}`)}
+          onClick={() =>
+            navigate(`/administration/security-policies/${item.id}`)
+          }
           key={index}
         >
           <TableCell>{item.id}</TableCell>
@@ -58,7 +60,7 @@ export function SecurityPoliciesTable({
           </TableCell>
           <TableCell>
             <Link
-              to={`/security/security-policies/${item.id}`}
+              to={`/administration/security-policies/${item.id}`}
               className={classNames("float-right", "flex", "items-center")}
             >
               <span className="sr-only">Details</span>

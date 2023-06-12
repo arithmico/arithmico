@@ -46,7 +46,7 @@ export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
       {userGroups.map((group) => (
         <TableRow
           key={group.id}
-          onClick={() => navigate(`/security/user-groups/${group.id}`)}
+          onClick={() => navigate(`/administration/user-groups/${group.id}`)}
         >
           <TableCell>{group.id}</TableCell>
           <TableCell>{group.name}</TableCell>
@@ -60,7 +60,7 @@ export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
           </TableCell>
           <TableCell>
             <Link
-              to={`/security/user-groups/${group.id}`}
+              to={`/administration/user-groups/${group.id}`}
               className={classNames("float-right", "flex", "items-center")}
             >
               <span className="sr-only">

@@ -17,7 +17,10 @@ export function UserGroupDetailsBreadcrumbs({
     <UserGroupsBreadcrumbs>
       {children
         ? [
-            <Link key="user-groups" to={`/security/user-groups/${groupId}`}>
+            <Link
+              key="user-groups"
+              to={`/administration/user-groups/${groupId}`}
+            >
               {groupName}
             </Link>,
             ...Children.toArray(children),

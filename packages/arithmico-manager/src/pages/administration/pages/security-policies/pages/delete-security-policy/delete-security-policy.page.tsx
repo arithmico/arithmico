@@ -41,7 +41,9 @@ export function DeleteSecurityPolicyPage() {
             <FormattedMessage id="security.delete-security-policies.description" />
           </p>
           <div className={classNames("flex", "mt-4", "max-w-5xl")}>
-            <BackButtonLink to={`/security/security-policies/${data.id}`} />
+            <BackButtonLink
+              to={`/administration/security-policies/${data.id}`}
+            />
             <button
               disabled={data.principals.total > 0 || data.readonly}
               onClick={() => deleteSecurityPolicy({ policyId: policyId! })}

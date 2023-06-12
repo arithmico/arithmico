@@ -17,7 +17,10 @@ export function SecurityPolicyDetailsBreadcrumbs({
     <SecurityPoliciesBreadcrumbs>
       {children
         ? [
-            <Link key={policyId} to={`/security/security-policies/${policyId}`}>
+            <Link
+              key={policyId}
+              to={`/administration/security-policies/${policyId}`}
+            >
               {policyName}
             </Link>,
             ...Children.toArray(children),
