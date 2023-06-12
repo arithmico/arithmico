@@ -47,7 +47,7 @@ export function Navbar() {
           description={<FormattedMessage id="navbar.versions" />}
         />
         <NavbarItem
-          to="/security"
+          to="/administration"
           icon={<ShieldIcon />}
           description={<FormattedMessage id="navbar.security" />}
         />

@@ -29,7 +29,7 @@ export function SecurityPoliciesPage({ inline }: SecurityPoliciesPageProps) {
           <FormattedMessage id="security.policies.title" />
         </Heading>
         <ButtonLink
-          to="/security/security-policies/new"
+          to="/administration/security-policies/new"
           className={classNames("ml-auto")}
         >
           <AddIcon className={classNames("w-6", "h-6", "fill-white", "mr-2")} />{" "}

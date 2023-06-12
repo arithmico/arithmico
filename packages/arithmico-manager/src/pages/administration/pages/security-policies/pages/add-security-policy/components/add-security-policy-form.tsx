@@ -75,7 +75,7 @@ export function AddSecurityPolicyForm({
           ))}
         </fieldset>
         <div className={classNames("flex", "mt-8")}>
-          <BackButtonLink to="/security/security-policies" />
+          <BackButtonLink to="/administration/security-policies" />
           <FormSubmitButton className={classNames("ml-auto")}>
             <FormattedMessage id="common.save" />
           </FormSubmitButton>

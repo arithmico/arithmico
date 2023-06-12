@@ -45,7 +45,7 @@ export function CreateUserGroupForm() {
         </FormLabel>
         <FormError error={errors.name} />
         <div className={classNames("flex", "mt-8")}>
-          <BackButtonLink to="/security/user-groups" />
+          <BackButtonLink to="/administration/user-groups" />
           <FormSubmitButton
             isLoading={result.isLoading}
             className={classNames("ml-auto")}

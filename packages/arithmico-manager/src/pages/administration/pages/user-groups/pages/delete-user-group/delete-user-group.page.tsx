@@ -21,7 +21,7 @@ export function DeleteUserGroupPage() {
 
   useEffect(() => {
     if (result.isSuccess) {
-      navigate("/security/user-groups");
+      navigate("/administration/user-groups");
     } else if (result.isError) {
       navigate("failure");
     }

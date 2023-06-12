@@ -21,7 +21,7 @@ export function DeleteSecurityPolicyPage() {
 
   useEffect(() => {
     if (result.isSuccess) {
-      navigate("/security/security-policies");
+      navigate("/administration/security-policies");
     }
   }, [result, navigate]);
 

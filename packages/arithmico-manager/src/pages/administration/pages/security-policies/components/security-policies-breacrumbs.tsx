@@ -14,7 +14,10 @@ export function SecurityPoliciesBreadcrumbs({
     <SecurityBreadcrumbs>
       {children
         ? [
-            <Link key="security-policies" to="/security/security-policies">
+            <Link
+              key="security-policies"
+              to="/administration/security-policies"
+            >
               <FormattedMessage id="navbar.security.policies" />
             </Link>,
             ...Children.toArray(children),

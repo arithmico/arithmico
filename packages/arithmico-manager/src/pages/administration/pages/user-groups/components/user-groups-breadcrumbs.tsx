@@ -14,7 +14,7 @@ export function UserGroupsBreadcrumbs({
     <SecurityBreadcrumbs>
       {children
         ? [
-            <Link key="user-groups" to="/security/user-groups">
+            <Link key="user-groups" to="/administration/user-groups">
               <FormattedMessage id="navbar.security.user-groups" />
             </Link>,
             ...Children.toArray(children),

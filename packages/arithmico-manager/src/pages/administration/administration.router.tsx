@@ -4,7 +4,7 @@ import { SecurityPoliciesRouter } from "./pages/security-policies/security-polic
 import { UserGroupsRouter } from "./pages/user-groups/user-groups.router";
 import SecurityPage from "./security.page";
 
-export function SecurityRouter() {
+export function AdministrationRouter() {
   return (
     <PageWithNavbar>
       <Routes>

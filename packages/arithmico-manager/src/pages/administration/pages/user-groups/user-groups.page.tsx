@@ -30,7 +30,7 @@ export function UserGroupsPage({ inline }: UserGroupsPageProps) {
         </Heading>
         <ButtonLink
           className={classNames("ml-auto")}
-          to="/security/user-groups/new"
+          to="/administration/user-groups/new"
         >
           <AddIcon className={classNames("w-6", "h-6", "fill-white", "mr-2")} />{" "}
           <FormattedMessage id="security.user-groups.new" />
