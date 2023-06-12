@@ -1,6 +1,6 @@
-import { Listbox as HeadlessuiListbox } from "@headlessui/react";
+import {Listbox as HeadlessuiListbox} from "@headlessui/react";
 import classNames from "classnames";
-import { ExpandMore, DoneIcon } from "@arithmico/frontend-components";
+import {DoneIcon, ExpandMore} from "@arithmico/frontend-components";
 
 interface ListboxProps {
   label: string;
@@ -16,7 +16,7 @@ export default function Listbox({
   onChange,
 }: ListboxProps) {
   return (
-    <li
+    <div
       className={classNames(
         "flex",
         "items-center",
@@ -30,7 +30,16 @@ export default function Listbox({
     >
       <HeadlessuiListbox value={value} onChange={onChange}>
         <HeadlessuiListbox.Label>{label}</HeadlessuiListbox.Label>
-        <div className={classNames("ml-auto", "relative", "flex", "flex-col")}>
+        <div
+          className={classNames(
+            "ml-auto",
+            "relative",
+            "flex",
+            "flex-col",
+            "[&:hover>li]:outline-none",
+            "[&:hover>div>ul>li]:outline-none"
+          )}
+        >
           <HeadlessuiListbox.Button
             className={classNames(
               "flex",
@@ -42,7 +51,8 @@ export default function Listbox({
               "theme-light:hover:bg-neutral-400",
               "p-2",
               "bold-font:font-bold",
-              "rounded-md"
+              "rounded-md",
+              "focus-visible:outline"
             )}
           >
             {options.find((option) => option.value === value)?.label}
@@ -58,7 +68,13 @@ export default function Listbox({
           </HeadlessuiListbox.Button>
           <div>
             <HeadlessuiListbox.Options
-              className={classNames("absolute", "w-40", "z-20", "mt-2")}
+              className={classNames(
+                "absolute",
+                "w-40",
+                "z-20",
+                "mt-2",
+                "outline-none"
+              )}
             >
               {options.map((options, index) => (
                 <HeadlessuiListbox.Option
@@ -77,27 +93,28 @@ export default function Listbox({
                     "theme-light:hover:bg-neutral-400",
                     "bold-font:font-bold",
                     "first:rounded-t-md",
-                    "last:rounded-b-md"
+                    "last:rounded-b-md",
+                    "ui-active:outline"
                   )}
                 >
                   {options.label}{" "}
-                  {options.value === value && (
-                    <DoneIcon
-                      className={classNames(
-                        "w-6",
-                        "h-6",
-                        "ml-auto",
-                        "theme-light:fill-black/50",
-                        "theme-dark:fill-white/50"
-                      )}
-                    />
-                  )}
+                  <DoneIcon
+                    className={classNames(
+                      "hidden",
+                      "ui-selected:block",
+                      "w-6",
+                      "h-6",
+                      "ml-auto",
+                      "theme-light:fill-black/50",
+                      "theme-dark:fill-white/50"
+                    )}
+                  />
                 </HeadlessuiListbox.Option>
               ))}
             </HeadlessuiListbox.Options>
           </div>
         </div>
       </HeadlessuiListbox>
-    </li>
+    </div>
   );
 }
