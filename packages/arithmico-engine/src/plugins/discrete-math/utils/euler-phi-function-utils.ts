@@ -1,4 +1,4 @@
-import { greatestCommonDivisor } from '../../../utils/float-utils';
+import { greatestCommonDivisor } from '../../../utils/math-utils/float-utils';
 import { isPrimeNumber } from './prime-number-utils';
 
 export function eulerPhiFunction(n: number) {

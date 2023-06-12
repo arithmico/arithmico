@@ -1,3 +1,4 @@
+import "overlayscrollbars/overlayscrollbars.css";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import React from "react";
 
@@ -8,12 +9,15 @@ export default function WithScrollbars({
 }) {
   return (
     <OverlayScrollbarsComponent
+      element={"body"}
       options={{
-        className: "os-theme-dark os-theme-custom",
-        overflowBehavior: {
+        showNativeOverlaidScrollbars: false,
+        scrollbars: { theme: "os-theme-light os-theme-custom" },
+        overflow: {
           x: "hidden",
         },
       }}
+      defer={false}
     >
       {children}
     </OverlayScrollbarsComponent>

@@ -42,7 +42,7 @@ export default function CalculatorForm() {
         inputRef.current.focus();
       }
     },
-    { enableOnTags: ["INPUT"] }
+    { enableOnFormTags: ["INPUT"] }
   );
 
   useHotkeys(
@@ -52,7 +52,7 @@ export default function CalculatorForm() {
         outputRef.current.focus();
       }
     },
-    { enableOnTags: ["INPUT"] }
+    { enableOnFormTags: ["INPUT"] }
   );
 
   useHotkeys(
@@ -64,7 +64,7 @@ export default function CalculatorForm() {
         inputRef.current.focus();
       }
     },
-    { enableOnTags: ["INPUT"] }
+    { enableOnFormTags: ["INPUT"] }
   );
 
   useHotkeys(
@@ -73,7 +73,7 @@ export default function CalculatorForm() {
       event.preventDefault();
       dispatch(resetOutput());
     },
-    { enableOnTags: ["INPUT"] }
+    { enableOnFormTags: ["INPUT"] }
   );
 
   return (
