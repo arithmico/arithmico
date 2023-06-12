@@ -18,7 +18,7 @@ export function SecurityBreadcrumbs({ children }: SecurityBreadcrumbsProps) {
       {children
         ? [
             <Link key="security" to="/administration">
-              <FormattedMessage id="security.title" />
+              <FormattedMessage id="admin.title" />
             </Link>,
             ...Children.toArray(children),
           ]
@@ -28,7 +28,7 @@ export function SecurityBreadcrumbs({ children }: SecurityBreadcrumbsProps) {
               level={1}
               className={classNames("text-base", "mt-0", "mb-0")}
             >
-              <FormattedMessage id="security.title" />
+              <FormattedMessage id="admin.title" />
             </Heading>,
           ]}
     </Breadcrumbs>

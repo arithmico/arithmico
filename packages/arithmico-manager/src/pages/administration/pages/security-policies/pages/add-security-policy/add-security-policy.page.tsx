@@ -17,10 +17,10 @@ export function AddSecurityPolicyPage() {
         <>
           <AddSecurityPolicyBreadcrumbs />
           <Heading level={1} className={classNames("my-4")}>
-            <FormattedMessage id="security.add-security-policy.title" />
+            <FormattedMessage id="admin.security-policies.add.title" />
           </Heading>
           <p className={classNames("max-w-5xl", "mb-4")}>
-            <FormattedMessage id="security.add-security-policy.description" />
+            <FormattedMessage id="admin.security-policies.add.description" />
           </p>
           <AddSecurityPolicyForm availableAttributes={data} />
         </>

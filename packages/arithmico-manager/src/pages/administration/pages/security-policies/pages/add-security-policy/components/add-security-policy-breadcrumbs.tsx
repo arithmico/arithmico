@@ -4,7 +4,7 @@ import { SecurityPoliciesBreadcrumbs } from "../../../components/security-polici
 export function AddSecurityPolicyBreadcrumbs() {
   return (
     <SecurityPoliciesBreadcrumbs>
-      <FormattedMessage id="navbar.security.policies.add" />
+      <FormattedMessage id="navbar.admin.security-policies.add" />
     </SecurityPoliciesBreadcrumbs>
   );
 }

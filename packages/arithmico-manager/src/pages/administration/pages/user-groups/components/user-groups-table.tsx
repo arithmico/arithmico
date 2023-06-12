@@ -21,23 +21,23 @@ export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
       header={
         <>
           <TableHeaderCell key={"group-id"} className={classNames("w-1/4")}>
-            <FormattedMessage id="security.user-groups.id" />
+            <FormattedMessage id="admin.user-groups.id" />
           </TableHeaderCell>
           <TableHeaderCell key={"group-name"} className={classNames("w-1/4")}>
-            <FormattedMessage id="security.user-groups.name" />
+            <FormattedMessage id="admin.user-groups.name" />
           </TableHeaderCell>
           <TableHeaderCell
             key={"group-members"}
             className={classNames("w-1/4")}
           >
-            <FormattedMessage id="security.user-groups.members" />
+            <FormattedMessage id="admin.user-groups.members" />
           </TableHeaderCell>
           <TableHeaderCell key={"group-readonly"}>
-            <FormattedMessage id="security.user-groups.readonly" />
+            <FormattedMessage id="admin.user-groups.readonly" />
           </TableHeaderCell>
           <TableHeaderCell key={"group-details"}>
             <span className="sr-only">
-              <FormattedMessage id="security.user-groups.details" />
+              <FormattedMessage id="admin.user-groups.details" />
             </span>
           </TableHeaderCell>
         </>
@@ -64,7 +64,7 @@ export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
               className={classNames("float-right", "flex", "items-center")}
             >
               <span className="sr-only">
-                <FormattedMessage id="security.user-groups.details" />
+                <FormattedMessage id="admin.user-groups.details" />
               </span>
               <ChevronRightIcon
                 className={classNames("w-8", "h-8", "fill-neutral-500")}

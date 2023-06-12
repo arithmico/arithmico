@@ -4,7 +4,7 @@ import { UserGroupsBreadcrumbs } from "../../../components/user-groups-breadcrum
 export function CreateUserGroupBreadcrumbs() {
   return (
     <UserGroupsBreadcrumbs>
-      <FormattedMessage id="navbar.security.user-groups.new" />
+      <FormattedMessage id="navbar.admin.user-groups.new" />
     </UserGroupsBreadcrumbs>
   );
 }

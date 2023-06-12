@@ -12,7 +12,7 @@ export function RenameUserGroupBreacrumbs({
 }: RenameUserGroupBreacrumbsProps) {
   return (
     <UserGroupDetailsBreadcrumbs groupName={groupName} groupId={groupId}>
-      <FormattedMessage id="navbar.security.user-groups.rename" />
+      <FormattedMessage id="navbar.admin.user-groups.rename" />
     </UserGroupDetailsBreadcrumbs>
   );
 }

@@ -15,11 +15,11 @@ export function UserGroupsBreadcrumbs({
       {children
         ? [
             <Link key="user-groups" to="/administration/user-groups">
-              <FormattedMessage id="navbar.security.user-groups" />
+              <FormattedMessage id="navbar.admin.user-groups" />
             </Link>,
             ...Children.toArray(children),
           ]
-        : [<FormattedMessage id="navbar.security.user-groups" />]}
+        : [<FormattedMessage id="navbar.admin.user-groups" />]}
     </SecurityBreadcrumbs>
   );
 }

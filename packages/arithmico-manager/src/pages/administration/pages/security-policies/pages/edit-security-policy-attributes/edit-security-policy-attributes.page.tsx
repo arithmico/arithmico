@@ -25,10 +25,10 @@ export function EditSecurityPolicyAttributesPage() {
             policyName={data.name}
           />
           <Heading level={1} className={classNames("mt-4")}>
-            <FormattedMessage id="security-policy-details.edit-attributes.title" />
+            <FormattedMessage id="admin.security-policies.edit-attributes" />
           </Heading>
           <p className={classNames("max-w-5xl", "mb-4")}>
-            <FormattedMessage id="security-policy-details.edit-attributes.description" />
+            <FormattedMessage id="admin.security-policies.edit-attributes.description" />
           </p>
           <EditSecurityPolicyAttributesCard
             policyId={data.id}

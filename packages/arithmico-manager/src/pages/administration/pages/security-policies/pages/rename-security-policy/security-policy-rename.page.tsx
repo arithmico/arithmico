@@ -65,10 +65,10 @@ export function SecurityPolicyRenamePage() {
           />
           <Card className={classNames("mt-4", "max-w-5xl")}>
             <Heading level={1} className={classNames("mb-4")}>
-              <FormattedMessage id="security-policy-rename.title" />
+              <FormattedMessage id="admin.security-policies.rename" />
             </Heading>
             <p className="max-w-5xl">
-              <FormattedMessage id="security-policy-rename.description" />
+              <FormattedMessage id="admin.security-policies.rename.description" />
             </p>
             <form
               onSubmit={handleSubmit((values) =>

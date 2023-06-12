@@ -23,19 +23,19 @@ export function SecurityPoliciesTable({
       header={
         <>
           <TableHeaderCell className={classNames("w-1/4")}>
-            <FormattedMessage id="security.policies.fields.id" />
+            <FormattedMessage id="admin.security-policies.id" />
           </TableHeaderCell>
           <TableHeaderCell className={classNames("w-1/5")}>
-            <FormattedMessage id="security.policies.fields.name" />
+            <FormattedMessage id="admin.security-policies.name" />
           </TableHeaderCell>
           <TableHeaderCell className={classNames("w-1/5")}>
-            <FormattedMessage id="security.policies.fields.attributes" />
+            <FormattedMessage id="admin.security-policies.attributes" />
           </TableHeaderCell>
           <TableHeaderCell>
-            <FormattedMessage id="security.policies.fields.principals" />
+            <FormattedMessage id="admin.security-policies.principals" />
           </TableHeaderCell>
           <TableHeaderCell>
-            <FormattedMessage id="security.policies.fields.radonly" />
+            <FormattedMessage id="admin.security-policies.readonly" />
           </TableHeaderCell>
         </>
       }

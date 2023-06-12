@@ -38,7 +38,7 @@ export function UserGroupDetailsPage() {
               >
                 <li>
                   <span className={classNames("sr-only")}>
-                    <FormattedMessage id="security.user-groups.rename" />
+                    <FormattedMessage id="admin.user-groups.rename" />
                   </span>
                   <Link to="./rename">
                     <EditIcon className={classNames("w-6", "h-6")} />
@@ -46,7 +46,7 @@ export function UserGroupDetailsPage() {
                 </li>
                 <li>
                   <span className={classNames("sr-only")}>
-                    <FormattedMessage id="security.user-groups.delete" />
+                    <FormattedMessage id="admin.user-groups.delete" />
                   </span>
                   <Link to="./delete">
                     <DeleteIcon className={classNames("w-6", "h-6")} />

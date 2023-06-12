@@ -15,7 +15,7 @@ export function EditSecurityPolicyAttributesBreadcrumbs({
       policyId={policyId}
       policyName={policyName}
     >
-      <FormattedMessage id="navbar.security.policies.attributes" />
+      <FormattedMessage id="navbar.admin.security-policies.attributes" />
     </SecurityPolicyDetailsBreadcrumbs>
   );
 }

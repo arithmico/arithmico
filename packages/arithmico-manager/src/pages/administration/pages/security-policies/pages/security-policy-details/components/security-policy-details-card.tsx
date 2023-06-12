@@ -29,27 +29,23 @@ export function SecurityPolicyDetailsCard({
   return (
     <Card>
       <Heading level={2} className={classNames("mt-0", "text-xl")}>
-        <FormattedMessage id="security-policy-details.details.title" />
+        <FormattedMessage id="admin.security-policies.details.title" />
       </Heading>
       <DefinitionList>
         <DefinitionListEntry
-          label={<FormattedMessage id="security-policy-details.details.id" />}
+          label={<FormattedMessage id="admin.security-policies.id" />}
           value={id}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="security-policy-details.details.name" />}
+          label={<FormattedMessage id="admin.security-policies.name" />}
           value={name}
         />
         <DefinitionListEntry
-          label={
-            <FormattedMessage id="security-policy-details.details.number-of-attributes" />
-          }
+          label={<FormattedMessage id="admin.security-policies.attributes" />}
           value={numberOfAttributes}
         />
         <DefinitionListEntry
-          label={
-            <FormattedMessage id="security-policy-details.details.readonly" />
-          }
+          label={<FormattedMessage id="admin.security-policies.readonly" />}
           value={
             readonly ? (
               <FormattedMessage id="common.yes" />
@@ -59,9 +55,7 @@ export function SecurityPolicyDetailsCard({
           }
         />
         <DefinitionListEntry
-          label={
-            <FormattedMessage id="security-policy-details.details.created-at" />
-          }
+          label={<FormattedMessage id="admin.security-policies.created-at" />}
           value={
             <FormattedDate
               day="2-digit"
@@ -73,24 +67,24 @@ export function SecurityPolicyDetailsCard({
         />
       </DefinitionList>
       <Heading level={3} className={classNames("mt-4", "text-lg")}>
-        <FormattedMessage id="security-policy-details.details.principals" />
+        <FormattedMessage id="admin.security-policies.principals" />
       </Heading>
       <DefinitionList>
         <DefinitionListEntry
           label={
-            <FormattedMessage id="security-policy-details.details.principals.users" />
+            <FormattedMessage id="admin.security-policies.principals.users" />
           }
           value={userPrincipals}
         />
         <DefinitionListEntry
           label={
-            <FormattedMessage id="security-policy-details.details.principals.groups" />
+            <FormattedMessage id="admin.security-policies.principals.groups" />
           }
           value={groupPrincipals}
         />
         <DefinitionListEntry
           label={
-            <FormattedMessage id="security-policy-details.details.principals.total" />
+            <FormattedMessage id="admin.security-policies.principals.total" />
           }
           value={totalPrincipals}
         />

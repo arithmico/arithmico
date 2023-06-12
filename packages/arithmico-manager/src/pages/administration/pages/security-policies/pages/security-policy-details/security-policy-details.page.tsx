@@ -42,7 +42,7 @@ export function SecurityPolicyDetailsPage() {
               >
                 <li>
                   <span className={classNames("sr-only")}>
-                    <FormattedMessage id="security-policy-details.actions.rename" />
+                    <FormattedMessage id="admin.security-policies.rename" />
                   </span>
                   <Link to="./rename">
                     <EditIcon className={classNames("w-6", "h-6")} />
@@ -50,7 +50,7 @@ export function SecurityPolicyDetailsPage() {
                 </li>
                 <li>
                   <span className={classNames("sr-only")}>
-                    <FormattedMessage id="security-policy-details.actions.delete" />
+                    <FormattedMessage id="admin.security-policies.delete" />
                   </span>
                   <Link to="./delete">
                     <DeleteIcon className={classNames("w-6", "h-6")} />

@@ -37,10 +37,10 @@ export function DeleteUserGroupPage() {
             groupName={data.name}
           />
           <Heading level={1} className={classNames("my-4")}>
-            <FormattedMessage id="security.user-groups.delete" />
+            <FormattedMessage id="admin.user-groups.delete" />
           </Heading>
           <p className={classNames("max-w-5xl")}>
-            <FormattedMessage id="security.user-groups.delete.description" />
+            <FormattedMessage id="admin.user-groups.delete.description" />
           </p>
           <div className={classNames("flex", "mt-4", "max-w-5xl")}>
             <BackButtonLink to={-1} />
@@ -68,10 +68,10 @@ export function DeleteUserGroupPage() {
               )}
             >
               <span aria-hidden>
-                <FormattedMessage id="security.user-groups.delete.action" />
+                <FormattedMessage id="admin.user-groups.delete.action" />
               </span>
               <span className="sr-only">
-                <FormattedMessage id="security.user-groups.delete.sr-action" />
+                <FormattedMessage id="admin.user-groups.delete.sr-action" />
               </span>
             </button>
           </div>

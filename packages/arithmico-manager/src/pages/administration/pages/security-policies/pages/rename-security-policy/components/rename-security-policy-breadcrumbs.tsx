@@ -15,7 +15,7 @@ export function RenameSecurityPolicyBreadcrumbs({
       policyId={policyId}
       policyName={policyName}
     >
-      <FormattedMessage id="navbar.security.policies.rename" />
+      <FormattedMessage id="navbar.admin.security-policies.rename" />
     </SecurityPolicyDetailsBreadcrumbs>
   );
 }

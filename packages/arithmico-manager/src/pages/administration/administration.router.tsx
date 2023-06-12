@@ -2,13 +2,13 @@ import { Route, Routes } from "react-router-dom";
 import { PageWithNavbar } from "../../components/page-with-navbar/page-with-navbar";
 import { SecurityPoliciesRouter } from "./pages/security-policies/security-policies.router";
 import { UserGroupsRouter } from "./pages/user-groups/user-groups.router";
-import SecurityPage from "./security.page";
+import AdministrationPage from "./administration.page";
 
 export function AdministrationRouter() {
   return (
     <PageWithNavbar>
       <Routes>
-        <Route index element={<SecurityPage />} />
+        <Route index element={<AdministrationPage />} />
         <Route
           path="security-policies/*"
           element={<SecurityPoliciesRouter />}

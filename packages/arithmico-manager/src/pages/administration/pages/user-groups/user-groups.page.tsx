@@ -26,14 +26,14 @@ export function UserGroupsPage({ inline }: UserGroupsPageProps) {
       {!inline && <UserGroupsBreadcrumbs />}
       <div className={classNames("flex", "my-4")}>
         <Heading level={1}>
-          <FormattedMessage id="security.user-groups.title" />
+          <FormattedMessage id="admin.user-groups.title" />
         </Heading>
         <ButtonLink
           className={classNames("ml-auto")}
           to="/administration/user-groups/new"
         >
           <AddIcon className={classNames("w-6", "h-6", "fill-white", "mr-2")} />{" "}
-          <FormattedMessage id="security.user-groups.new" />
+          <FormattedMessage id="admin.user-groups.new" />
         </ButtonLink>
       </div>
       {isSuccess && data && (

@@ -62,10 +62,10 @@ export function RenameUserGroupPage() {
           <RenameUserGroupBreacrumbs groupId={data.id} groupName={data.name} />
           <Card className={classNames("mt-4", "max-w-5xl")}>
             <Heading level={1} className={classNames("my-4")}>
-              <FormattedMessage id="security.user-groups.rename" />
+              <FormattedMessage id="admin.user-groups.rename" />
             </Heading>
             <p>
-              <FormattedMessage id="security.user-groups.rename.description" />
+              <FormattedMessage id="admin.user-groups.rename.description" />
             </p>
             <form
               onSubmit={handleSubmit((values) =>

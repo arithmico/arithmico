@@ -19,12 +19,12 @@ export function SecurityPolicyAttributeList({
     <Card>
       <div className={classNames("flex", "items-center", "mb-4")}>
         <Heading level={2} className={classNames("mt-0", "text-xl")}>
-          <FormattedMessage id="security-policy-details.attributes.title" />
+          <FormattedMessage id="admin.security-policies.attributes" />
         </Heading>
         {!readonly && (
           <Link to="./attributes" className={classNames("ml-auto")}>
             <span className={classNames("sr-only")}>
-              <FormattedMessage id="security-policy-details.actions.edit-attributes" />
+              <FormattedMessage id="admin.security-policies.edit-attributes" />
             </span>
             <EditIcon className={classNames("w-6", "h-6")} />
           </Link>

@@ -15,7 +15,7 @@ export function DeleteSecurityPolicyBreadcrumbs({
       policyId={policyId}
       policyName={policyName}
     >
-      <FormattedMessage id="navbar.security.policies.delete" />
+      <FormattedMessage id="navbar.admin.security-policies.delete" />
     </SecurityPolicyDetailsBreadcrumbs>
   );
 }

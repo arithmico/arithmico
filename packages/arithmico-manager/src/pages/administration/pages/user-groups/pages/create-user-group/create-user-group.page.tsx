@@ -9,10 +9,10 @@ export function CreateUserGroupPage() {
     <>
       <CreateUserGroupBreadcrumbs />
       <Heading level={1} className={classNames("my-4")}>
-        <FormattedMessage id="security.user-groups.new.title" />
+        <FormattedMessage id="admin.user-groups.new.title" />
       </Heading>
       <p className={classNames("max-w-5xl")}>
-        <FormattedMessage id="security.user-groups.new.description" />
+        <FormattedMessage id="admin.user-groups.new.description" />
       </p>
       <CreateUserGroupForm />
     </>

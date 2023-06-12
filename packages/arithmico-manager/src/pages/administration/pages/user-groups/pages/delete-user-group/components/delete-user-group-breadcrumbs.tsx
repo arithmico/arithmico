@@ -12,7 +12,7 @@ export function DeleteUserGroupBreadcrumbs({
 }: DeleteUserGroupBreadcrumbsProps) {
   return (
     <UserGroupDetailsBreadcrumbs groupId={groupId} groupName={groupName}>
-      <FormattedMessage id="navbar.security.user-groups.delete" />
+      <FormattedMessage id="navbar.admin.user-groups.delete" />
     </UserGroupDetailsBreadcrumbs>
   );
 }

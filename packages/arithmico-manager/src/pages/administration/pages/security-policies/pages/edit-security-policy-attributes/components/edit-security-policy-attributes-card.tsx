@@ -53,7 +53,7 @@ export function EditSecurityPolicyAttributesCard({
         }}
       >
         <Heading level={2} className={classNames("mt-0", "text-xl")}>
-          <FormattedMessage id="security-policy-details.edit-attributes.attributes" />
+          <FormattedMessage id="admin.security-policies.attributes" />
         </Heading>
         {[...data].map((attribute) => (
           <SecurityAttribute
@@ -76,18 +76,18 @@ export function EditSecurityPolicyAttributesCard({
         <div className={classNames("flex", "flex-col")}>
           <div className={classNames("my-4")}>
             <Heading level={3} className={classNames("text-lg")}>
-              <FormattedMessage id="security-policy-details.edit-attributes.attributes.summary" />
+              <FormattedMessage id="admin.security-policies.edit-attributes.summary" />
             </Heading>
             <ul className={classNames("[&>li]:ml-2", "[&>li]:text-sm")}>
               <li>
                 <FormattedMessage
-                  id="security-policy-details.edit-attributes.attributes.removed-attributes"
+                  id="admin.security-policies.edit-attributes.removed-attributes"
                   values={{ count: removedAttributes.length }}
                 />
               </li>
               <li>
                 <FormattedMessage
-                  id="security-policy-details.edit-attributes.attributes.added-attributes"
+                  id="admin.security-policies.edit-attributes.added-attributes"
                   values={{ count: addedAttributes.length }}
                 />
               </li>

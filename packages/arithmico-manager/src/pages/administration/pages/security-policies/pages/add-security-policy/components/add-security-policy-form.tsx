@@ -46,7 +46,7 @@ export function AddSecurityPolicyForm({
     <Card className={classNames("max-w-5xl")}>
       <form onSubmit={handleSubmit((data) => createPolicy(data))}>
         <FormLabel>
-          <FormattedMessage id="security.add-security-policy.form.name" />
+          <FormattedMessage id="admin.security-policies.name" />
           <FormTextField {...register("name")} />
         </FormLabel>
         <FormError error={errors.name} />

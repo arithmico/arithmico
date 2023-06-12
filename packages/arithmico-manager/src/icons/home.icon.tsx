@@ -1,6 +1,6 @@
 import { IconProps } from "./types";
 
-export default function HomeIcon({ className }: IconProps) {
+export function HomeIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
