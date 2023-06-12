@@ -7,7 +7,6 @@ import { HomeIcon } from "../../icons/home.icon";
 import { LogoutIcon } from "../../icons/logout.icon";
 import { MailIcon } from "../../icons/mail.icon";
 import { ManagedFolderIcon } from "../../icons/managed-folder.icon";
-import { UserIcon } from "../../icons/user.icon";
 import { logout } from "../../store/slices/auth/auth.slice";
 
 export function Navbar() {
@@ -35,11 +34,6 @@ export function Navbar() {
           to="/mails"
           icon={<MailIcon />}
           description={<FormattedMessage id="navbar.mails" />}
-        />
-        <NavbarItem
-          to="/users"
-          icon={<UserIcon />}
-          description={<FormattedMessage id="navbar.users" />}
         />
         <NavbarItem
           to="/versions"
