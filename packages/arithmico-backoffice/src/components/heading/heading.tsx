@@ -34,6 +34,7 @@ export default function Heading({
     case 6:
       return <h6>{children}</h6>;
     default:
+      // eslint-disable-next-line no-throw-literal
       throw `invalid heading level ${level}`;
   }
 }
