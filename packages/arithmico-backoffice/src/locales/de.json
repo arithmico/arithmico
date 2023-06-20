@@ -95,6 +95,7 @@
   "admin.users.security-policies": "Sicherheitsrichtlinien",
   "admin.users.created-at": "Erstellt",
   "admin.users.details": "Benutzerdetails",
+  "admin.users.new": "Hinzufügen",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",
