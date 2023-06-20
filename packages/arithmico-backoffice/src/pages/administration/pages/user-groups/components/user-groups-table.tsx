@@ -47,6 +47,7 @@ export function UserGroupsTable({ userGroups }: UserGroupsTableProps) {
         <TableRow
           key={group.id}
           onClick={() => navigate(`/administration/user-groups/${group.id}`)}
+          className="hover:cursor-pointer"
         >
           <TableCell>{group.id}</TableCell>
           <TableCell>{group.name}</TableCell>

@@ -13,9 +13,12 @@ export class GetUsersQueryHandler implements IQueryHandler<GetUsersQuery> {
       limit: query.limit,
     });
     return {
-      items: result.items.map((item) => ({
-        id: item._id,
-        username: item.username,
+      items: result.items.map((user) => ({
+        id: user._id,
+        username: user.username,
+        userGroups: user.userGroups,
+        securityPolicies: user.securityPolicies,
+        createdAt: user.createdAt,
       })),
       skip: result.skip,
       limit: result.limit,

@@ -18,6 +18,9 @@ export class User {
 
   @Prop({ type: String, required: false })
   passwordHash?: string;
+
+  @Prop({ type: Date, required: true })
+  createdAt: Date;
 }
 
 export type UserDocument = HydratedDocument<User>;
@@ -33,4 +36,8 @@ UserSchema.index(
 
 UserSchema.index({
   email: 1,
+});
+
+UserSchema.index({
+  createdAt: 1,
 });

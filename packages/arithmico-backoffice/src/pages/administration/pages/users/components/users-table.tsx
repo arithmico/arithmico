@@ -1,20 +1,18 @@
 import classNames from "classnames";
-import { FormattedMessage } from "react-intl";
+import { FormattedDate, FormattedMessage } from "react-intl";
 import { Link, useNavigate } from "react-router-dom";
 import { TableCell } from "../../../../../components/table-cell/table-cell";
 import { TableHeaderCell } from "../../../../../components/table-header-cell/table-header-cell";
 import { TableRow } from "../../../../../components/table-row/table-row";
 import { Table } from "../../../../../components/table/table";
 import { ChevronRightIcon } from "../../../../../icons/chevron-right.icon";
-import { SecurityPolicyDtoWithPrincipalsCount } from "../../../../../store/api/resources/security-policies/security-policies.types";
+import { UserResponseDto } from "../../../../../store/api/resources/users/users.types";
 
-export interface SecurityPoliciesTableProps {
-  policies: SecurityPolicyDtoWithPrincipalsCount[];
+export interface UsersTableProps {
+  users: UserResponseDto[];
 }
 
-export function SecurityPoliciesTable({
-  policies,
-}: SecurityPoliciesTableProps) {
+export function UsersTable({ users }: UsersTableProps) {
   const navigate = useNavigate();
 
   return (
@@ -23,49 +21,43 @@ export function SecurityPoliciesTable({
       header={
         <>
           <TableHeaderCell className={classNames("w-1/4")}>
-            <FormattedMessage id="admin.security-policies.id" />
+            <FormattedMessage id="admin.users.id" />
           </TableHeaderCell>
           <TableHeaderCell className={classNames("w-1/5")}>
-            <FormattedMessage id="admin.security-policies.name" />
+            <FormattedMessage id="admin.users.username" />
           </TableHeaderCell>
           <TableHeaderCell className={classNames("w-1/5")}>
-            <FormattedMessage id="admin.security-policies.attributes" />
+            <FormattedMessage id="admin.users.user-groups" />
           </TableHeaderCell>
           <TableHeaderCell>
-            <FormattedMessage id="admin.security-policies.principals" />
+            <FormattedMessage id="admin.users.security-policies" />
           </TableHeaderCell>
           <TableHeaderCell>
-            <FormattedMessage id="admin.security-policies.readonly" />
+            <FormattedMessage id="admin.users.created-at" />
           </TableHeaderCell>
         </>
       }
     >
-      {policies.map((item, index) => (
+      {users.map((item, index) => (
         <TableRow
-          onClick={() =>
-            navigate(`/administration/security-policies/${item.id}`)
-          }
+          onClick={() => navigate(`/administration/users/${item.id}`)}
           key={index}
           className="hover:cursor-pointer"
         >
           <TableCell>{item.id}</TableCell>
-          <TableCell>{item.name}</TableCell>
-          <TableCell>{item.attributes.length}</TableCell>
-          <TableCell>{item.principals}</TableCell>
+          <TableCell>{item.username}</TableCell>
+          <TableCell>{item.userGroups}</TableCell>
+          <TableCell>{item.securityPolicies}</TableCell>
           <TableCell>
-            {item.readonly ? (
-              <FormattedMessage id="common.yes" />
-            ) : (
-              <FormattedMessage id="common.no" />
-            )}
+            <FormattedDate value={item.createdAt} dateStyle={"medium"} />
           </TableCell>
           <TableCell>
             <Link
-              to={`/administration/security-policies/${item.id}`}
+              to={`/administration/users/${item.id}`}
               className={classNames("float-right", "flex", "items-center")}
             >
               <span className="sr-only">
-                <FormattedMessage id="admin.security-policies.details" />
+                <FormattedMessage id="admin.users.details" />
               </span>
               <ChevronRightIcon
                 className={classNames("w-8", "h-8", "fill-neutral-500")}

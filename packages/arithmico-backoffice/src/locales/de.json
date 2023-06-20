@@ -39,6 +39,7 @@
   "navbar.admin.user-groups.new": "Erstellen",
   "navbar.admin.user-groups.rename": "Umbenennen",
   "navbar.admin.user-groups.delete": "Löschen",
+  "navbar.admin.users": "Benutzerverwaltung",
 
   "admin.title": "Verwaltung",
   "admin.description": "Willkommen im Sicherheitsbereich des Arithmico Backoffice. Hier haben Sie die Möglichkeit, die Zugriffskontrolle auf Ressourcen mithilfe von Sicherheitsrichtlinien zu verwalten. Erstellen Sie maßgeschneiderte Richtlinien, um den Zugriff auf sensible Informationen und Funktionen einzuschränken. Bei Bedarf können Sie veraltete oder nicht mehr benötigte Sicherheitsrichtlinien löschen. Zusätzlich besteht die Option, vorhandene Richtlinien zu bearbeiten, um Zugriffsrechte anzupassen oder neue Zugriffskontrollmechanismen einzuführen. Mit diesen Funktionen können Sie die Sicherheit des Arithmico Backoffice effektiv steuern und schützen.",
@@ -67,13 +68,14 @@
   "admin.security-policies.delete.confirm": "Löschen",
   "admin.security-policies.add.title": "Neue Sicherheitsrichtlinie hinzufügen",
   "admin.security-policies.add.description": "Erstellen Sie eine neue Sicherheitsrichtlinie, um die Zugriffsrechte und Berechtigungen für Ihre Ressourcen zu definieren. Auf dieser Seite können Sie eine Sicherheitsrichtlinie von Grund auf neu erstellen. Legen Sie die gewünschten Berechtigungen für Benutzer und Gruppen fest, um die Sicherheit und den Schutz Ihrer Systeme zu gewährleisten. Geben Sie der Richtlinie einen aussagekräftigen Namen und definieren Sie klare Zugriffsregeln. Achten Sie darauf, die Sicherheitsrichtlinie gründlich zu überprüfen, bevor Sie sie erstellen, um eine konsistente und effektive Sicherheitskonfiguration sicherzustellen.",
+  "admin.security-policies.details": "Sicherheitsrichtliniendetails",
 
   "admin.user-groups.title": "Benutzergruppen",
   "admin.user-groups.id": "ID",
   "admin.user-groups.name": "Name",
   "admin.user-groups.members": "Mitglieder",
   "admin.user-groups.readonly": "Schreibgeschützt",
-  "admin.user-groups.details": "Details",
+  "admin.user-groups.details": "Benutzergruppendetails",
   "admin.user-groups.created-at": "Erstellt",
   "admin.user-groups.new": "Hinzufügen",
   "admin.user-groups.new.title": "Benutzergruppe erstellen",
@@ -85,6 +87,14 @@
   "admin.user-groups.delete.sr-action": "Benutzergruppe löschen",
   "admin.user-groups.delete.description": "Entfernen Sie eine Benutzergruppe aus dem System. Hier können Sie eine Benutzergruppe löschen. Achten Sie darauf, dass die Gruppe keine aktiven Zuweisungen oder Berechtigungen mehr hat, bevor Sie die Löschung bestätigen. Seien Sie vorsichtig und überprüfen Sie sorgfältig, ob die Gruppe nicht mehr benötigt wird, um unerwünschte Auswirkungen auf die Zugriffskontrolle und Benutzerverwaltung zu vermeiden.",
   "admin.user-groups.rename.description": "Passen Sie den Namen einer Benutzergruppe an, um sie besser zu identifizieren und zu verwalten. Auf dieser Seite können Sie den Namen einer Benutzergruppe ändern. Wählen Sie einen neuen Namen aus, der den Zweck und die Funktion der Gruppe klar widerspiegelt. Durch das Umbenennen einer Benutzergruppe können Sie die Organisation und Verwaltung Ihrer Benutzer effektiver gestalten.",
+
+  "admin.users": "Benutzerverwaltung",
+  "admin.users.id": "ID",
+  "admin.users.username": "Benutzername",
+  "admin.users.user-groups": "Benutzergruppen",
+  "admin.users.security-policies": "Sicherheitsrichtlinien",
+  "admin.users.created-at": "Erstellt",
+  "admin.users.details": "Benutzerdetails",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",
