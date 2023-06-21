@@ -135,70 +135,24 @@ export class SecurityPolicyRepository {
     };
   }
 
-  async getPoliciesAttachedToUser(
-    userId: string,
-    skip: number,
-    limit: number,
-  ): Promise<PagedResponse<SecurityPolicy>> {
-    const aggregationResult = (
-      await this.securityPolicyAttachmentModel
-        .aggregate()
-        .facet({
-          policies: [
-            {
-              $match: {
-                attachmentType: SecurityPolicyAttachmentType.User,
-                attachedToId: userId,
-              },
-            },
-            {
-              $lookup: {
-                from: this.securityPolicyModel.collection.name,
-                localField: 'policyId',
-                foreignField: '_id',
-                as: 'policies',
-              },
-            },
-            {
-              $unwind: '$policies',
-            },
-            {
-              $project: {
-                policyId: '$policies._id',
-                name: '$policies.name',
-                attributes: '$policies.attributes',
-              },
-            },
-            {
-              $skip: skip,
-            },
-            {
-              $limit: limit,
-            },
-          ],
-          total: [
-            {
-              $match: {
-                attachmentType: SecurityPolicyAttachmentType.User,
-                attachedToId: userId,
-              },
-            },
-            { $count: 'count' },
-          ],
-        })
-        .exec()
-    ).at(0);
+  async getPoliciesAttachedToUser(userId: string): Promise<SecurityPolicy[]> {
+    const aggregationResult = await this.securityPolicyAttachmentModel
+      .aggregate()
+      .match({
+        attachmentType: SecurityPolicyAttachmentType.User,
+        attachedToId: userId,
+      })
+      .lookup({
+        from: this.securityPolicyModel.collection.name,
+        localField: 'policyId',
+        foreignField: '_id',
+        as: 'policies',
+      })
+      .unwind('$policies')
+      .replaceRoot('$policies')
+      .exec();
 
-    return {
-      items: aggregationResult.policies.map((policy) => ({
-        _id: policy.policyId,
-        name: policy.name,
-        attributes: policy.attributes,
-      })),
-      skip: skip,
-      limit: limit,
-      total: aggregationResult.total.at(0).count,
-    };
+    return aggregationResult;
   }
 
   async findByIdWithStatistics(policyId: string): Promise<

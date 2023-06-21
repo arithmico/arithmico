@@ -2,6 +2,7 @@ export interface UserDto {
   id: string;
   username: string;
   createdAt: string;
+  email: string;
 }
 
 export interface UserResponseDto extends UserDto {
@@ -22,4 +23,12 @@ export interface CreateUserArgs {
 export interface ActivateUserArgs {
   activationId: string;
   password: string;
+}
+
+export interface GetUserByIdArgs {
+  userId: string;
+}
+
+export interface GetSecurityPoliciesAttachedToUserArgs {
+  userId: string;
 }

@@ -1,5 +1,3 @@
-export class GetSecurityPoliciesAttachedToUserResponseDto {
-  id: string;
-  name: string;
-  attributes: string[];
-}
+import { SecurityPolicyDto } from '../../../policy-policy/common/security-policy.dto';
+
+export class GetSecurityPoliciesAttachedToUserResponseDto extends SecurityPolicyDto {}

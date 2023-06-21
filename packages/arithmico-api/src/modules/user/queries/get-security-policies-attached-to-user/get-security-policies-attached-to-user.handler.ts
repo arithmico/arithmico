@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import { SecurityPolicyRepository } from '../../../../infrastructure/database/repositories/security-policy/security-policy.repository';
 import { GetSecurityPoliciesAttachedToUserQuery } from './get-security-policies-attached-to-user.query';
 import { GetSecurityPoliciesAttachedToUserResponseDto } from './get-security-policies-attached-to-user.response.dto';
@@ -12,23 +11,18 @@ export class GetSecurityPoliciesAttachedToUserHandler
 
   async execute(
     query: GetSecurityPoliciesAttachedToUserQuery,
-  ): Promise<PagedResponse<GetSecurityPoliciesAttachedToUserResponseDto>> {
+  ): Promise<GetSecurityPoliciesAttachedToUserResponseDto[]> {
     const policies =
       await this.securityPolicyRepository.getPoliciesAttachedToUser(
         query.userId,
-        query.skip,
-        query.limit,
       );
 
-    return {
-      items: policies.items.map((policy) => ({
-        id: policy._id,
-        name: policy.name,
-        attributes: policy.attributes,
-      })),
-      skip: policies.skip,
-      limit: policies.limit,
-      total: policies.total,
-    };
+    return policies.map((policy) => ({
+      id: policy._id,
+      name: policy.name,
+      attributes: policy.attributes,
+      readonly: policy.readonly,
+      createdAt: policy.createdAt,
+    }));
   }
 }

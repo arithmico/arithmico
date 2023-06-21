@@ -1,8 +1,11 @@
 import { api } from "../../api";
 import { PagedResponse } from "../../types";
+import { SecurityPolicyDto } from "../security-policies/security-policies.types";
 import {
   ActivateUserArgs,
   CreateUserArgs,
+  GetSecurityPoliciesAttachedToUserArgs,
+  GetUserByIdArgs,
   GetUsersArgs,
   UserDto,
   UserResponseDto,
@@ -29,6 +32,32 @@ const authApi = api.injectEndpoints({
               "User",
             ]
           : ["User"],
+    }),
+
+    getUserById: build.query<UserDto, GetUserByIdArgs>({
+      query: (arg) => ({
+        url: `/users/${arg.userId}`,
+        method: "GET",
+      }),
+      providesTags: (arg, error) =>
+        error ? [] : [{ type: "User", id: arg?.id }],
+    }),
+
+    getSecurityPoliciesAttachedToUser: build.query<
+      SecurityPolicyDto[],
+      GetSecurityPoliciesAttachedToUserArgs
+    >({
+      query: (arg) => ({
+        url: `/users/${arg.userId}/security-policies`,
+        method: "GET",
+      }),
+      providesTags: (response, error) =>
+        response && !error
+          ? response.map((policy) => ({
+              type: "SecurityPolicy" as const,
+              id: policy.id,
+            }))
+          : [],
     }),
 
     createUser: build.mutation<UserDto, CreateUserArgs>({
@@ -60,6 +89,8 @@ const authApi = api.injectEndpoints({
 
 export const {
   useGetUsersQuery,
+  useGetUserByIdQuery,
+  useGetSecurityPoliciesAttachedToUserQuery,
   useCreateUserMutation,
   useActivateUserMutation,
 } = authApi;
