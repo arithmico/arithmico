@@ -1,6 +1,7 @@
 import { api } from "../../api";
 import { PagedResponse } from "../../types";
 import {
+  ActivateUserArgs,
   CreateUserArgs,
   GetUsersArgs,
   UserDto,
@@ -41,7 +42,24 @@ const authApi = api.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+
+    activateUser: build.mutation<UserDto, ActivateUserArgs>({
+      query: (arg) => ({
+        url: "/users/activate",
+        method: "POST",
+        body: {
+          activationId: arg.activationId,
+          password: arg.password,
+        },
+      }),
+      invalidatesTags: (response, error) =>
+        error ? [] : [{ type: "User", id: response?.id }, "User"],
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useCreateUserMutation } = authApi;
+export const {
+  useGetUsersQuery,
+  useCreateUserMutation,
+  useActivateUserMutation,
+} = authApi;

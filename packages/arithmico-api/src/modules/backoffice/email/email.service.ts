@@ -44,15 +44,16 @@ export class EmailService {
         Logger.error(error);
       }
     } else {
-      const serializedMail = JSON.stringify(
-        {
-          to,
-          subject,
-          content,
-        },
-        null,
-        2,
-      );
+      const serializedMail = `
+        <html>
+          <p>to: ${to}</p>
+          <p>subject: ${subject}</p>
+          <p>content:
+          <div> 
+            ${content.replace(/html/g, 'div')}</p>
+          </div>
+        </html>
+      `;
 
       await fs.promises
         .stat('./mails')
@@ -65,7 +66,7 @@ export class EmailService {
           return fs.promises.mkdir('./mails');
         });
 
-      const fileName = new Date().toISOString() + '.json';
+      const fileName = new Date().toISOString() + '.html';
       const file = await fs.promises.open('./mails/' + fileName, 'w');
       await file.write(serializedMail);
       await file.close();

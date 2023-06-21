@@ -24,9 +24,12 @@ export function ActivateAccountEmail({ name, url }: ActivateAccountEmailProps) {
           unsere Plattform entschieden haben.
         </p>
         <p>
-          Um Ihr Konto zu aktivieren, klicken Sie bitte auf den folgenden Link:
-          {url}. Sie werden direkt zur Passwortvergabe aufgefordert. Bitte
-          vergeben Sie ein sicheres Passwort und bestätigen Sie dieses.
+          Um Ihr Konto zu aktivieren, klicken Sie bitte{' '}
+          <a href={url} target="_blank">
+            hier
+          </a>
+          . Sie werden direkt zur Passwortvergabe aufgefordert. Bitte vergeben
+          Sie ein sicheres Passwort und bestätigen Sie dieses.
         </p>
         <p>
           Vielen Dank für Ihr Vertrauen in unsere Plattform. Bei Fragen stehen

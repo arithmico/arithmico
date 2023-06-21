@@ -7,6 +7,7 @@
   "common.form.errors.passwords-do-not-match": "Die Passwörter stimmen nicht überein",
   "common.form.errors.no-whitespace": "Leerzeichen sind nicht erlaubt",
   "common.form.errors.invalid-email": "Ungültige E-Mail",
+  "common.form.errors.min-password-length": "Das Passwort muss mindestens acht Zeichen lang sein",
   "common.loading": "Laden...",
   "common.error": "Es ist ein Fehler aufgetreten",
   "common.yes": "Ja",
@@ -14,6 +15,11 @@
 
   "error.title": "Fehler",
   "error.description": "Es ist ein Fehler aufgetregen",
+
+  "activate.title": "Benutzer aktivieren",
+  "activate.password": "Passwort",
+  "activate.confirm-password": "Passwort bestätigen",
+  "activate.submit": "Bestätigen",
 
   "login.title": "Anmeldung",
   "login.username": "Benutzername",

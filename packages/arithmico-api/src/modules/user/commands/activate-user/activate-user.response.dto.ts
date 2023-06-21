@@ -1,3 +1,5 @@
 export class ActivateUserResponseDto {
-  userId: string;
+  id: string;
+  username: string;
+  createdAt: Date;
 }

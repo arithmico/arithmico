@@ -24,6 +24,10 @@ export class ActivateUserCommandHandler
     const hash = await bcrypt.hash(command.password, salt);
     await this.userRepository.setPasswordHash(userId, hash);
     const userDocument = await this.userRepository.activateUserOrThrow(userId);
-    return { userId: userDocument._id };
+    return {
+      id: userDocument._id,
+      username: userDocument.username,
+      createdAt: userDocument.createdAt,
+    };
   }
 }

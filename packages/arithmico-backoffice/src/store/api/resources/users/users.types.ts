@@ -18,3 +18,8 @@ export interface CreateUserArgs {
   username: string;
   email: string;
 }
+
+export interface ActivateUserArgs {
+  activationId: string;
+  password: string;
+}

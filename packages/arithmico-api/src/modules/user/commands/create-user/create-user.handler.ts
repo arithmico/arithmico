@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { UserActivationRepository } from '../../../../infrastructure/database/repositories/user-activation/user-activation.repository';
 import { UserRepository } from '../../../../infrastructure/database/repositories/user/user.repository';
@@ -13,6 +14,7 @@ export class CreateUserCommandHandler
     private userRepository: UserRepository,
     private userActivationRepository: UserActivationRepository,
     private eventBus: EventBus,
+    private configService: ConfigService,
   ) {}
 
   async execute(command: CreateUserCommand): Promise<CreateUserResponseDto> {
@@ -29,7 +31,9 @@ export class CreateUserCommandHandler
       new SendActivationEmailEvent(
         command.email,
         command.username,
-        userActivationDocument._id,
+        `${this.configService.getOrThrow('app.frontendBaseUrl')}/activate/${
+          userActivationDocument._id
+        }`,
       ),
     );
 

@@ -20,4 +20,5 @@ export default Joi.object({
   MAIL_BUCKET: Joi.string().required(),
   MAIL_DOMAIN: Joi.string().required(),
   MAIL_MODE: Joi.string().valid('dev', 'prod'),
+  FRONTEND_BASE_URL: Joi.string().uri(),
 });
