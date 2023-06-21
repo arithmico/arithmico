@@ -55,20 +55,22 @@ export function CreateUserPage() {
           )}
         >
           <FormLabel>
-            Benutzername
+            <FormattedMessage id="admin.users.username" />
             <FormTextField {...register("username")} />
           </FormLabel>
           <FormError error={errors.username} />
 
           <FormLabel>
-            E-Mail
+            <FormattedMessage id="admin.users.email" />
             <FormTextField {...register("email")} />
           </FormLabel>
           <FormError error={errors.email} />
 
           <div className="mt-8 flex">
             <BackButtonLink to={-1} />
-            <FormSubmitButton className="ml-auto">Hinzufügen</FormSubmitButton>
+            <FormSubmitButton className="ml-auto">
+              <FormattedMessage id="admin.users.new.submit" />
+            </FormSubmitButton>
           </div>
         </form>
       </Card>
