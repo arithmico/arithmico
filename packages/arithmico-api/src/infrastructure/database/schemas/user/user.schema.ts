@@ -41,3 +41,8 @@ UserSchema.index({
 UserSchema.index({
   createdAt: 1,
 });
+
+UserSchema.index({
+  username: 'text',
+  email: 'text',
+});

@@ -26,3 +26,5 @@ UserGroupSchema.index(
   },
   { unique: true },
 );
+
+UserGroupSchema.index({ name: 'text' });

@@ -32,3 +32,7 @@ SecurityPolicySchema.index(
 );
 
 SecurityPolicySchema.index({ createdAt: 1 });
+
+SecurityPolicySchema.index({
+  name: 'text',
+});
