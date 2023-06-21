@@ -21,6 +21,7 @@ export class GetSecurityPoliciesHandler
     } = await this.securityPolicyRepository.getPolicies(
       query.skip,
       query.limit,
+      query.exclude,
     );
 
     return {
