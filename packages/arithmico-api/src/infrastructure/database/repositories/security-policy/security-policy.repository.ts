@@ -86,10 +86,16 @@ export class SecurityPolicyRepository {
   async getPolicies(
     skip: number,
     limit: number,
+    exclude: string[],
   ): Promise<PagedResponse<SecurityPolicyDocument & { principals: number }>> {
     const result = await this.securityPolicyModel
       .aggregate()
       .sort({ name: -1 })
+      .match({
+        _id: {
+          $nin: exclude,
+        },
+      })
       .facet({
         items: [
           {
