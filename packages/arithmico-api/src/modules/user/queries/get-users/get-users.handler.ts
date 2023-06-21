@@ -19,6 +19,7 @@ export class GetUsersQueryHandler implements IQueryHandler<GetUsersQuery> {
         userGroups: user.userGroups,
         securityPolicies: user.securityPolicies,
         createdAt: user.createdAt,
+        email: user.email,
       })),
       skip: result.skip,
       limit: result.limit,

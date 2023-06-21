@@ -1,11 +1,9 @@
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
+import { UserDto } from '../../common/user.dto';
 
-export class UserResponseDto {
-  id: string;
-  username: string;
+export class UserResponseDto extends UserDto {
   securityPolicies: number;
   userGroups: number;
-  createdAt: Date;
 }
 
 export class GetUsersResponseDto extends PagedResponse<UserResponseDto> {}
