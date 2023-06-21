@@ -6,6 +6,7 @@
   "common.form.errors.required": "Pflichtfeld",
   "common.form.errors.passwords-do-not-match": "Die Passwörter stimmen nicht überein",
   "common.form.errors.no-whitespace": "Leerzeichen sind nicht erlaubt",
+  "common.form.errors.invalid-email": "Ungültige Email",
   "common.loading": "Laden...",
   "common.error": "Es ist ein Fehler aufgetreten",
   "common.yes": "Ja",
@@ -40,6 +41,7 @@
   "navbar.admin.user-groups.rename": "Umbenennen",
   "navbar.admin.user-groups.delete": "Löschen",
   "navbar.admin.users": "Benutzerverwaltung",
+  "navbar.admin.users.new": "Benutzer hinzufügen",
 
   "admin.title": "Verwaltung",
   "admin.description": "Willkommen im Sicherheitsbereich des Arithmico Backoffice. Hier haben Sie die Möglichkeit, die Zugriffskontrolle auf Ressourcen mithilfe von Sicherheitsrichtlinien zu verwalten. Erstellen Sie maßgeschneiderte Richtlinien, um den Zugriff auf sensible Informationen und Funktionen einzuschränken. Bei Bedarf können Sie veraltete oder nicht mehr benötigte Sicherheitsrichtlinien löschen. Zusätzlich besteht die Option, vorhandene Richtlinien zu bearbeiten, um Zugriffsrechte anzupassen oder neue Zugriffskontrollmechanismen einzuführen. Mit diesen Funktionen können Sie die Sicherheit des Arithmico Backoffice effektiv steuern und schützen.",
@@ -96,6 +98,8 @@
   "admin.users.created-at": "Erstellt",
   "admin.users.details": "Benutzerdetails",
   "admin.users.new": "Hinzufügen",
+  "admin.users.new.title": "Benutzer hinzufügen",
+  "admin.users.new.description": "Erstellen Sie einen neuen Benutzer, indem Sie einen Benutzernamen und eine E-Mail-Adresse angeben. Nach der erfolgreichen Erstellung wird automatisch eine Aktivierungs-E-Mail mit einem Aktivierungslink an die angegebene E-Mail-Adresse gesendet.",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",

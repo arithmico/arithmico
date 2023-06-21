@@ -16,13 +16,13 @@ export class CreateUserCommandHandler
   ) {}
 
   async execute(command: CreateUserCommand): Promise<CreateUserResponseDto> {
-    const user = await this.userRepository.create({
+    const userDocument = await this.userRepository.create({
       username: command.username,
       email: command.email,
     });
 
     const userActivationDocument = await this.userActivationRepository.create(
-      user._id,
+      userDocument._id,
     );
 
     this.eventBus.publish(
@@ -33,6 +33,10 @@ export class CreateUserCommandHandler
       ),
     );
 
-    return { username: user.username };
+    return {
+      username: userDocument.username,
+      id: userDocument.id,
+      createdAt: userDocument.createdAt,
+    };
   }
 }
