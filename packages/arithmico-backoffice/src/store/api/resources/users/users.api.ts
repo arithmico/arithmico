@@ -3,7 +3,9 @@ import { PagedResponse } from "../../types";
 import { SecurityPolicyDto } from "../security-policies/security-policies.types";
 import {
   ActivateUserArgs,
+  AttachSecurityPolicyToUserArgs,
   CreateUserArgs,
+  DetachSecurityPolicyFromUserArgs,
   GetSecurityPoliciesAttachedToUserArgs,
   GetUserByIdArgs,
   GetUsersArgs,
@@ -51,12 +53,15 @@ const authApi = api.injectEndpoints({
         url: `/users/${arg.userId}/security-policies`,
         method: "GET",
       }),
-      providesTags: (response, error) =>
+      providesTags: (response, error, arg) =>
         response && !error
-          ? response.map((policy) => ({
-              type: "SecurityPolicy" as const,
-              id: policy.id,
-            }))
+          ? [
+              ...response.map((policy) => ({
+                type: "SecurityPolicy" as const,
+                id: policy.id,
+              })),
+              { type: "User", id: arg.userId },
+            ]
           : [],
     }),
 
@@ -82,7 +87,41 @@ const authApi = api.injectEndpoints({
         },
       }),
       invalidatesTags: (response, error) =>
-        error ? [] : [{ type: "User", id: response?.id }, "User"],
+        error ? [] : [{ type: "User", id: response?.id }],
+    }),
+
+    attachSecurityPolicyToUser: build.mutation<
+      void,
+      AttachSecurityPolicyToUserArgs
+    >({
+      query: (arg) => ({
+        url: `/users/${arg.userId}/security-policies/${arg.policyId}`,
+        method: "PUT",
+      }),
+      invalidatesTags: (_, error, arg) =>
+        error
+          ? []
+          : [
+              { type: "User", id: arg.userId },
+              { type: "SecurityPolicy", id: arg.policyId },
+            ],
+    }),
+
+    detachSecurityPolicyFromUser: build.mutation<
+      void,
+      DetachSecurityPolicyFromUserArgs
+    >({
+      query: (arg) => ({
+        url: `/users/${arg.userId}/security-policies/${arg.policyId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_, error, arg) =>
+        error
+          ? []
+          : [
+              { type: "User", id: arg.userId },
+              { type: "SecurityPolicy", id: arg.policyId },
+            ],
     }),
   }),
 });
@@ -93,4 +132,6 @@ export const {
   useGetSecurityPoliciesAttachedToUserQuery,
   useCreateUserMutation,
   useActivateUserMutation,
+  useAttachSecurityPolicyToUserMutation,
+  useDetachSecurityPolicyFromUserMutation,
 } = authApi;

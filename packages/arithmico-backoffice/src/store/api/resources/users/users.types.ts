@@ -32,3 +32,13 @@ export interface GetUserByIdArgs {
 export interface GetSecurityPoliciesAttachedToUserArgs {
   userId: string;
 }
+
+export interface AttachSecurityPolicyToUserArgs {
+  userId: string;
+  policyId: string;
+}
+
+export interface DetachSecurityPolicyFromUserArgs {
+  userId: string;
+  policyId: string;
+}

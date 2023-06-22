@@ -27,6 +27,7 @@ export interface PaginationToolbarProps {
   limit: number;
   total: number;
   onChange: (skip: number) => void;
+  className?: string;
 }
 
 export function PaginationToolbar({
@@ -34,6 +35,7 @@ export function PaginationToolbar({
   limit,
   total,
   onChange,
+  className,
 }: PaginationToolbarProps) {
   const totalPages = getTotalPages(total, limit);
   const currentPage = getCurrentPage(skip, limit);
@@ -47,7 +49,8 @@ export function PaginationToolbar({
         "justify-center",
         "items-center",
         "mb-4",
-        "mt-2"
+        "mt-2",
+        className
       )}
     >
       <PaginationButton
