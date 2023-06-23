@@ -13,8 +13,10 @@ import {
   GetUserGroupsForUserArgs,
   GetUsersArgs,
   GetUsersForUserGroupArgs,
+  GetUsersWithIsGroupMemberArgs,
   RemoveUserFromUserGroupArgs,
   UserDto,
+  UserDtoWithIsGroupMember,
   UserGroupMembershipDto,
   UserResponseDto,
 } from "./users.types";
@@ -30,10 +32,35 @@ const authApi = api.injectEndpoints({
           limit: arg.limit,
         },
       }),
-      providesTags: (result) =>
-        result
+      providesTags: (response) =>
+        response
           ? [
-              ...result.items.map((item) => ({
+              ...response.items.map((item) => ({
+                type: "User" as const,
+                id: item.id,
+              })),
+              "User",
+            ]
+          : ["User"],
+    }),
+
+    getUsersWithIsGroupMember: build.query<
+      PagedResponse<UserDtoWithIsGroupMember>,
+      GetUsersWithIsGroupMemberArgs
+    >({
+      query: (arg) => ({
+        url: "/users",
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+          checkGroupMembership: arg.groupId,
+        },
+      }),
+      providesTags: (response) =>
+        response
+          ? [
+              ...response.items.map((item) => ({
                 type: "User" as const,
                 id: item.id,
               })),
@@ -223,6 +250,7 @@ const authApi = api.injectEndpoints({
 
 export const {
   useGetUsersQuery,
+  useGetUsersWithIsGroupMemberQuery,
   useGetUserByIdQuery,
   useGetUserGroupsForUserQuery,
   useGetSecurityPoliciesAttachedToUserQuery,

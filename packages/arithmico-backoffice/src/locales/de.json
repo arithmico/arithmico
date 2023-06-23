@@ -81,7 +81,6 @@
   "admin.user-groups.title": "Benutzergruppen",
   "admin.user-groups.id": "ID",
   "admin.user-groups.name": "Name",
-  "admin.user-groups.members": "Mitglieder",
   "admin.user-groups.readonly": "Schreibgeschützt",
   "admin.user-groups.details": "Benutzergruppendetails",
   "admin.user-groups.created-at": "Erstellt",
@@ -95,6 +94,8 @@
   "admin.user-groups.delete.sr-action": "Benutzergruppe löschen",
   "admin.user-groups.delete.description": "Entfernen Sie eine Benutzergruppe aus dem System. Hier können Sie eine Benutzergruppe löschen. Achten Sie darauf, dass die Gruppe keine aktiven Zuweisungen oder Berechtigungen mehr hat, bevor Sie die Löschung bestätigen. Seien Sie vorsichtig und überprüfen Sie sorgfältig, ob die Gruppe nicht mehr benötigt wird, um unerwünschte Auswirkungen auf die Zugriffskontrolle und Benutzerverwaltung zu vermeiden.",
   "admin.user-groups.rename.description": "Passen Sie den Namen einer Benutzergruppe an, um sie besser zu identifizieren und zu verwalten. Auf dieser Seite können Sie den Namen einer Benutzergruppe ändern. Wählen Sie einen neuen Namen aus, der den Zweck und die Funktion der Gruppe klar widerspiegelt. Durch das Umbenennen einer Benutzergruppe können Sie die Organisation und Verwaltung Ihrer Benutzer effektiver gestalten.",
+  "admin.user-groups.members": "Mitglieder",
+  "admin.user-groups.members.edit": "Mitglieder bearbeiten",
 
   "admin.users": "Benutzerverwaltung",
   "admin.users.id": "ID",

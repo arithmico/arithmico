@@ -115,6 +115,78 @@ export class UserRepository {
     };
   }
 
+  async getUsersWithIsGroupMember(
+    skip: number,
+    limit: number,
+    groupId: string,
+  ): Promise<
+    PagedResponse<
+      UserDocument & {
+        isGroupMember: boolean;
+      }
+    >
+  > {
+    const result = await this.userModel
+      .aggregate()
+      .sort({ name: -1 })
+      .facet({
+        items: [
+          {
+            $match: {},
+          },
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.userGroupMembershipModel.collection.name,
+              localField: '_id',
+              foreignField: 'userId',
+              as: 'isGroupMember',
+            },
+          },
+          {
+            $addFields: {
+              isGroupMember: {
+                $filter: {
+                  input: '$isGroupMember',
+                  as: 'item',
+                  cond: {
+                    $eq: ['$$item.groupId', groupId],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $addFields: {
+              isGroupMember: { $gte: [{ $size: '$isGroupMember' }, 1] },
+            },
+          },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      items: result.at(0).items,
+      total: result.at(0).total,
+      skip,
+      limit,
+    };
+  }
+
   async hasUsers(): Promise<boolean> {
     const result = await this.userModel.estimatedDocumentCount();
     return result !== 0;

@@ -5,6 +5,10 @@ export interface UserDto {
   email: string;
 }
 
+export interface UserDtoWithIsGroupMember extends UserDto {
+  isGroupMember: boolean;
+}
+
 export interface UserGroupMembershipDto {
   userId: string;
   groupId: string;
@@ -63,7 +67,13 @@ export interface RemoveUserFromUserGroupArgs {
 }
 
 export interface GetUsersForUserGroupArgs {
-  groupId: string;
   skip: number;
   limit: number;
+  groupId: string;
+}
+
+export interface GetUsersWithIsGroupMemberArgs {
+  skip: number;
+  limit: number;
+  groupId: string;
 }

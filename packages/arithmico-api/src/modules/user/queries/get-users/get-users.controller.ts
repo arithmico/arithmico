@@ -1,9 +1,12 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { SecurityAttribute } from '../../../../common/constants/security-attributes.enum';
-import { PageParameterQueryDto } from '../../../../common/dtos/PageParameters.query.dto';
+import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import { SecurityAttributes } from '../../../../decorators/security-attributes.decorator';
+import { GetUsersWithIsGroupMemberResponseDto } from './get-users-with-is-group-member.response.dto';
 import { GetUsersQuery } from './get-users.query';
+import { GetUsersRequestQueryDto } from './get-users.request.query.dto';
+import { GetUsersResponseDto } from './get-users.response.dto';
 
 @Controller()
 export class GetUsersController {
@@ -11,9 +14,14 @@ export class GetUsersController {
 
   @Get()
   @SecurityAttributes(SecurityAttribute.UsersRead)
-  async createUser(@Query() getUsersQueryDto: PageParameterQueryDto) {
+  async createUser(
+    @Query() query: GetUsersRequestQueryDto,
+  ): Promise<
+    | PagedResponse<GetUsersResponseDto>
+    | PagedResponse<GetUsersWithIsGroupMemberResponseDto>
+  > {
     return this.queryBus.execute(
-      new GetUsersQuery(getUsersQueryDto.skip, getUsersQueryDto.limit),
+      new GetUsersQuery(query.skip, query.limit, query.checkGroupMembership),
     );
   }
 }
