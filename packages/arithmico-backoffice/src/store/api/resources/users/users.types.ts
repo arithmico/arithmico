@@ -5,6 +5,11 @@ export interface UserDto {
   email: string;
 }
 
+export interface UserGroupMembershipDto {
+  userId: string;
+  groupId: string;
+}
+
 export interface UserResponseDto extends UserDto {
   userGroups: number;
   securityPolicies: number;
@@ -33,6 +38,10 @@ export interface GetSecurityPoliciesAttachedToUserArgs {
   userId: string;
 }
 
+export interface GetUserGroupsForUserArgs {
+  userId: string;
+}
+
 export interface AttachSecurityPolicyToUserArgs {
   userId: string;
   policyId: string;
@@ -41,4 +50,14 @@ export interface AttachSecurityPolicyToUserArgs {
 export interface DetachSecurityPolicyFromUserArgs {
   userId: string;
   policyId: string;
+}
+
+export interface AddUserToUserGroupArgs {
+  userId: string;
+  groupId: string;
+}
+
+export interface RemoveUserFromUserGroupArgs {
+  userId: string;
+  groupId: string;
 }

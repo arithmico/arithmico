@@ -5,6 +5,7 @@ import { MessageRepository } from './repositories/message/message.repository';
 import { SecurityAttributesRepository } from './repositories/security-attributes/security-attributes.repository';
 import { SecurityPolicyRepository } from './repositories/security-policy/security-policy.repository';
 import { UserActivationRepository } from './repositories/user-activation/user-activation.repository';
+import { UserGroupMembershipRepository } from './repositories/user-group-membership/user-group-membership.repository';
 import { UserGroupRepository } from './repositories/user-group/user-group.repository';
 import { UserRepository } from './repositories/user/user.repository';
 import { Email, EmailSchema } from './schemas/email/email.schema';
@@ -73,6 +74,7 @@ import { User, UserSchema } from './schemas/user/user.schema';
     SecurityPolicyRepository,
     SecurityAttributesRepository,
     UserGroupRepository,
+    UserGroupMembershipRepository,
   ],
   exports: [
     UserRepository,
@@ -82,6 +84,7 @@ import { User, UserSchema } from './schemas/user/user.schema';
     SecurityPolicyRepository,
     SecurityAttributesRepository,
     UserGroupRepository,
+    UserGroupMembershipRepository,
   ],
 })
 export class DatabaseModule {}

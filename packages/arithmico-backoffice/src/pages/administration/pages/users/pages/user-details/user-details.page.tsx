@@ -5,6 +5,7 @@ import { useGetUserByIdQuery } from "../../../../../../store/api/resources/users
 import { AttachedSecurityPoliciesCard } from "./components/attached-security-polices-card";
 import { UserDetailsBreadcrumbs } from "./components/user-details-breadcrumbs";
 import { UserDetailsCard } from "./components/user-details-card";
+import { UserGroupMembershipsCard } from "./components/user-group-memberships-card";
 
 export function UserDetailsPage() {
   const { userId } = useParams();
@@ -25,8 +26,9 @@ export function UserDetailsPage() {
             <div className="row-start-1 flex flex-col lg:col-start-2">
               <UserDetailsCard user={data} />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-4">
               <AttachedSecurityPoliciesCard userId={data.id} />
+              <UserGroupMembershipsCard userId={data.id} />
             </div>
           </div>
         </>

@@ -118,6 +118,21 @@ export class UserGroupRepository {
     return userGroupDocumentWithDetails;
   }
 
+  async getUserGroupsForUser(userId: string): Promise<UserGroupDocument[]> {
+    return this.userGroupMembershipModel
+      .aggregate()
+      .match({ userId })
+      .lookup({
+        from: this.userGroupModel.collection.name,
+        localField: 'groupId',
+        foreignField: '_id',
+        as: 'group',
+      })
+      .unwind('$group')
+      .replaceRoot('$group')
+      .exec();
+  }
+
   async getUserGroups(
     skip: number,
     limit: number,

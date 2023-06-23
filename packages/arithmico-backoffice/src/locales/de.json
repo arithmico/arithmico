@@ -99,7 +99,6 @@
   "admin.users": "Benutzerverwaltung",
   "admin.users.id": "ID",
   "admin.users.username": "Benutzername",
-  "admin.users.user-groups": "Benutzergruppen",
   "admin.users.created-at": "Erstellt",
   "admin.users.email": "E-Mail",
   "admin.users.new": "Hinzufügen",
@@ -110,6 +109,10 @@
   "admin.users.details.title": "Details",
   "admin.users.security-policies": "Sicherheitsrichtlinien",
   "admin.users.security-policies.edit": "Sicherheitsrichtlinien bearbeiten",
+  "admin.users.security-policies.empty": "Diesem Benutzer wurden noch keine Sicherheitsrichtlinien zugewiesen.",
+  "admin.users.user-groups": "Benutzergruppen",
+  "admin.users.user-groups.empty": "Dieser Benutzer ist momentan kein Mitglied einer Benutzergruppe.",
+  "admin.users.user-groups.edit": "Benutzergruppen bearbeiten",
 
   "pagination.first-page": "Erste Seite",
   "pagination.previous-page": "Vorherige Seite",
