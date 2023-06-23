@@ -8,13 +8,13 @@ import { EditIcon } from "../../../../../../icons/edit.icon";
 import { useGetUserGroupByIdQuery } from "../../../../../../store/api/resources/user-groups/user-groups.api";
 import { UserGroupDetailsBreadcrumbs } from "./components/user-group-details-breadcrumbs";
 import { UserGroupDetailsCard } from "./components/user-group-details-card";
+import { UserGroupUserList } from "./components/user-group-user-list-card";
 
 export function UserGroupDetailsPage() {
   const { groupId } = useParams();
   const { isSuccess, isError, isLoading, data } = useGetUserGroupByIdQuery({
     groupId: groupId!,
   });
-  console.log(data);
 
   return (
     <>
@@ -55,13 +55,20 @@ export function UserGroupDetailsPage() {
               </menu>
             )}
           </div>
-          <UserGroupDetailsCard
-            id={data.id}
-            name={data.name}
-            createdAt={data.createdAt}
-            members={data.members}
-            readonly={data.readonly}
-          />
+          <div className="grid-col-1 grid gap-4 md:grid-cols-2">
+            <div className="flex flex-col md:col-start-2 md:row-start-1">
+              <UserGroupDetailsCard
+                id={data.id}
+                name={data.name}
+                createdAt={data.createdAt}
+                members={data.members}
+                readonly={data.readonly}
+              />
+            </div>
+            <div className="flex flex-col">
+              <UserGroupUserList groupId={data.id} />
+            </div>
+          </div>
         </>
       )}
     </>

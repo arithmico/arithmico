@@ -53,25 +53,22 @@ export function AttachedSecurityPoliciesCard({
         )}
         {isSuccess && data && data.length > 0 && (
           <ul className="flex flex-col gap-1">
-            {data.map((policy) => (
-              <li
-                key={policy.id}
-                className="flex items-center rounded-sm border border-black/30  py-2 pl-4 pr-2 hover:cursor-pointer hover:bg-black/5"
-                onClick={() =>
-                  navigate(`/administration/security-policies/${policy.id}`)
-                }
-              >
-                {policy.name}
-
-                <Link
-                  to={`/administration/security-policies/${policy.id}`}
-                  className="ml-auto"
+            {data.map((policy) => {
+              const policyUrl = `/administration/security-policies/${policy.id}`;
+              return (
+                <li
+                  key={policy.id}
+                  className="flex items-center rounded-sm border border-black/30  py-2 pl-4 pr-2 hover:cursor-pointer hover:bg-black/5"
+                  onClick={() => navigate(policyUrl)}
                 >
-                  <span className="sr-only">Details</span>
-                  <ChevronRightIcon className="h-6 w-6 fill-black/50" />
-                </Link>
-              </li>
-            ))}
+                  {policy.name}
+                  <Link to={policyUrl} className="ml-auto">
+                    <span className="sr-only">Details</span>
+                    <ChevronRightIcon className="h-6 w-6 fill-black/50" />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         )}
       </Card>

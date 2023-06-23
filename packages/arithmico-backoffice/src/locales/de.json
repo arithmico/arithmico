@@ -50,7 +50,7 @@
   "navbar.admin.users.new": "Benutzer hinzufügen",
 
   "admin.title": "Verwaltung",
-  "admin.description": "Willkommen im Sicherheitsbereich des Arithmico Backoffice. Hier haben Sie die Möglichkeit, die Zugriffskontrolle auf Ressourcen mithilfe von Sicherheitsrichtlinien zu verwalten. Erstellen Sie maßgeschneiderte Richtlinien, um den Zugriff auf sensible Informationen und Funktionen einzuschränken. Bei Bedarf können Sie veraltete oder nicht mehr benötigte Sicherheitsrichtlinien löschen. Zusätzlich besteht die Option, vorhandene Richtlinien zu bearbeiten, um Zugriffsrechte anzupassen oder neue Zugriffskontrollmechanismen einzuführen. Mit diesen Funktionen können Sie die Sicherheit des Arithmico Backoffice effektiv steuern und schützen.",
+  "admin.description": "{Kurzbeschreibung}",
 
   "admin.security-policies": "Sicherheitsrichtlinien",
   "admin.security-policies.add": "Hinzufügen",

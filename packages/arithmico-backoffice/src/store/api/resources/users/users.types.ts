@@ -61,3 +61,9 @@ export interface RemoveUserFromUserGroupArgs {
   userId: string;
   groupId: string;
 }
+
+export interface GetUsersForUserGroupArgs {
+  groupId: string;
+  skip: number;
+  limit: number;
+}

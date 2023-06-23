@@ -173,4 +173,57 @@ export class UserRepository {
     }
     return userDocument;
   }
+
+  async getUsersForUserGroup(
+    groupId: string,
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<UserDocument>> {
+    const result = await this.userGroupMembershipModel
+      .aggregate()
+      .match({ groupId })
+      .facet({
+        items: [
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.userModel.collection.name,
+              localField: 'userId',
+              foreignField: '_id',
+              as: 'userDocument',
+            },
+          },
+          {
+            $unwind: '$userDocument',
+          },
+          {
+            $replaceRoot: {
+              newRoot: '$userDocument',
+            },
+          },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      items: result.at(0).items,
+      total: result.at(0).total,
+      skip,
+      limit,
+    };
+  }
 }

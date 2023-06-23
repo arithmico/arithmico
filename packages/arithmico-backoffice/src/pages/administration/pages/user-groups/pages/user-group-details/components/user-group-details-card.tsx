@@ -21,7 +21,7 @@ export function UserGroupDetailsCard({
   readonly,
 }: UserGroupDetailsCardProps) {
   return (
-    <Card className={classNames("max-w-5xl")}>
+    <Card>
       <Heading level={2} className={classNames("mb-4")}>
         <FormattedMessage id="admin.user-groups.details.title" />
       </Heading>
