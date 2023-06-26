@@ -1,7 +1,7 @@
 import classNames from "classnames";
 
 export interface CardProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 

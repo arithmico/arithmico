@@ -25,3 +25,9 @@ export interface RenameUserGroupArgs {
 export interface DeleteUserGroupArgs {
   groupId: string;
 }
+
+export interface GetSecurityPoliciesAttachedToUserGroupArgs {
+  groupId: string;
+  skip: number;
+  limit: number;
+}

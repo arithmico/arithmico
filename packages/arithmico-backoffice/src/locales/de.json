@@ -96,6 +96,9 @@
   "admin.user-groups.rename.description": "Passen Sie den Namen einer Benutzergruppe an, um sie besser zu identifizieren und zu verwalten. Auf dieser Seite können Sie den Namen einer Benutzergruppe ändern. Wählen Sie einen neuen Namen aus, der den Zweck und die Funktion der Gruppe klar widerspiegelt. Durch das Umbenennen einer Benutzergruppe können Sie die Organisation und Verwaltung Ihrer Benutzer effektiver gestalten.",
   "admin.user-groups.members": "Mitglieder",
   "admin.user-groups.members.edit": "Mitglieder bearbeiten",
+  "admin.user-groups.members.empty": "Dieser Benutzergruppe wurde noch kein Benutzer zugewiesen.",
+  "admin.user-groups.security-policies.edit": "Sicherheitsrichtlininen bearbeiten",
+  "admin.user-groups.security-policies.empty": "Dieser Benutzergruppe wurde noch keine Sicherheitsrichtlinie zugewiesen.",
 
   "admin.users": "Benutzerverwaltung",
   "admin.users.id": "ID",

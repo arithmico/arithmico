@@ -1,8 +1,10 @@
 import { api } from "../../api";
 import { PagedResponse, PageQueryParams } from "../../types";
+import { SecurityPolicyDto } from "../security-policies/security-policies.types";
 import {
   CreateUserGroupArgs,
   DeleteUserGroupArgs,
+  GetSecurityPoliciesAttachedToUserGroupArgs,
   GetUserGroupByIdArgs,
   RenameUserGroupArgs,
   UserGroupDto,
@@ -47,6 +49,30 @@ const userGroupsApi = api.injectEndpoints({
         result ? [{ type: "UserGroup", id: result.id }] : [],
     }),
 
+    getSecurityPoliciesAttachedToUserGroup: build.query<
+      PagedResponse<SecurityPolicyDto>,
+      GetSecurityPoliciesAttachedToUserGroupArgs
+    >({
+      query: (arg) => ({
+        url: `/user-groups/${arg.groupId}/security-policies`,
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+      }),
+      providesTags: (result, _, arg) =>
+        result
+          ? [
+              ...result.items.map((securityPolicy) => ({
+                type: "SecurityPolicy" as const,
+                id: securityPolicy.id,
+              })),
+              { type: "UserGroup", id: arg.groupId },
+            ]
+          : [],
+    }),
+
     createUserGroup: build.mutation<UserGroupDto, CreateUserGroupArgs>({
       query: (arg) => ({
         url: "/user-groups",
@@ -84,6 +110,7 @@ const userGroupsApi = api.injectEndpoints({
 export const {
   useGetUserGroupsQuery,
   useGetUserGroupByIdQuery,
+  useGetSecurityPoliciesAttachedToUserGroupQuery,
   useCreateUserGroupMutation,
   useRenameUserGroupMutation,
   useDeleteUserGroupMutation,

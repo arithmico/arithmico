@@ -99,9 +99,6 @@ export class SecurityPolicyRepository {
       .facet({
         items: [
           {
-            $match: {},
-          },
-          {
             $skip: skip,
           },
           {
@@ -159,6 +156,47 @@ export class SecurityPolicyRepository {
       .exec();
 
     return aggregationResult;
+  }
+
+  async getSecurityPoliciesAttachedToUserGroup(
+    groupId: string,
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<SecurityPolicyDocument>> {
+    const result = await this.securityPolicyAttachmentModel
+      .aggregate()
+      .match({
+        attachmentType: SecurityPolicyAttachmentType.Group,
+        attachedToId: groupId,
+      })
+      .lookup({
+        from: this.securityPolicyModel.collection.name,
+        localField: 'policyId',
+        foreignField: '_id',
+        as: 'policies',
+      })
+      .unwind('$policies')
+      .replaceRoot('$policies')
+      .facet({
+        items: [{ $skip: skip }, { $limit: limit }],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      items: result.at(0).items,
+      total: result.at(0).total,
+      skip: skip,
+      limit: limit,
+    };
   }
 
   async findByIdWithStatistics(policyId: string): Promise<

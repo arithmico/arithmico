@@ -8,7 +8,8 @@ import { EditIcon } from "../../../../../../icons/edit.icon";
 import { useGetUserGroupByIdQuery } from "../../../../../../store/api/resources/user-groups/user-groups.api";
 import { UserGroupDetailsBreadcrumbs } from "./components/user-group-details-breadcrumbs";
 import { UserGroupDetailsCard } from "./components/user-group-details-card";
-import { UserGroupUserList } from "./components/user-group-user-list-card";
+import { UserGroupMemberList } from "./components/user-group-member-list-card";
+import { UserGroupSecurityPoliciesList } from "./components/user-group-security-policies-list";
 
 export function UserGroupDetailsPage() {
   const { groupId } = useParams();
@@ -25,7 +26,7 @@ export function UserGroupDetailsPage() {
             groupName={data.name}
             groupId={data.id}
           />
-          <div className={classNames("my-4", "flex", "max-w-5xl")}>
+          <div className="my-4 flex">
             <Heading level={1}>{data.name}</Heading>
             {!data.readonly && (
               <menu
@@ -65,8 +66,9 @@ export function UserGroupDetailsPage() {
                 readonly={data.readonly}
               />
             </div>
-            <div className="flex flex-col">
-              <UserGroupUserList groupId={data.id} />
+            <div className="flex flex-col gap-4">
+              <UserGroupMemberList groupId={data.id} />
+              <UserGroupSecurityPoliciesList groupId={data.id} />
             </div>
           </div>
         </>
