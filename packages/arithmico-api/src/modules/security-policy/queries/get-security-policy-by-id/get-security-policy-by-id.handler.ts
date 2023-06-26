@@ -13,7 +13,7 @@ export class GetSecurityPolicyByIdHandler
     query: GetSecurityPolicyByIdQuery,
   ): Promise<GetSecurityPolicyByIdResponseDto> {
     const securityPolicyWithStatisticsDocument =
-      await this.securityPolicyRepository.findSecurityPolicyByIdWithPrincipalStatisticsOrThrow(
+      await this.securityPolicyRepository.getSecurityPolicyByIdWithPrincipalStatisticsOrThrow(
         query.policyId,
       );
 

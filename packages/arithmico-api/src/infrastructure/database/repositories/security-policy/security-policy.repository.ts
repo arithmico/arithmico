@@ -205,9 +205,7 @@ export class SecurityPolicyRepository {
     };
   }
 
-  async findSecurityPolicyByIdWithPrincipalStatistics(
-    policyId: string,
-  ): Promise<
+  async getSecurityPolicyByIdWithPrincipalStatistics(policyId: string): Promise<
     | (SecurityPolicyDocument & {
         principals: {
           total: number;
@@ -287,7 +285,7 @@ export class SecurityPolicyRepository {
     return result.at(0);
   }
 
-  async findSecurityPolicyByIdWithPrincipalStatisticsOrThrow(
+  async getSecurityPolicyByIdWithPrincipalStatisticsOrThrow(
     policyId: string,
   ): Promise<
     SecurityPolicyDocument & {
@@ -299,30 +297,30 @@ export class SecurityPolicyRepository {
     }
   > {
     const policyWithStatistics =
-      await this.findSecurityPolicyByIdWithPrincipalStatistics(policyId);
+      await this.getSecurityPolicyByIdWithPrincipalStatistics(policyId);
     if (!policyWithStatistics) {
       throw new NotFoundException();
     }
     return policyWithStatistics;
   }
 
-  async findSecurityPolicyById(
+  async getSecurityPolicyById(
     policyId: string,
   ): Promise<SecurityPolicyDocument | null> {
     return this.securityPolicyModel.findById(policyId).exec();
   }
 
-  async findSecurityPolicyByIdOrThrow(
+  async getSecurityPolicyByIdOrThrow(
     policyId: string,
   ): Promise<SecurityPolicy> {
-    const securityPolicyDocument = this.findSecurityPolicyById(policyId);
+    const securityPolicyDocument = this.getSecurityPolicyById(policyId);
     if (!securityPolicyDocument) {
       throw new NotFoundException();
     }
     return securityPolicyDocument;
   }
 
-  async findSecurityPoliciesByIds(
+  async getSecurityPoliciesByIds(
     policyIds: string[],
   ): Promise<SecurityPolicy[]> {
     return this.securityPolicyModel
