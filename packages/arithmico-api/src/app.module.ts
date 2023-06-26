@@ -19,7 +19,7 @@ import { QueuesModule } from './infrastructure/queues/queues.module';
 import { AuthGuard } from './guards/auth.guard';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { BootstrapModule } from './modules/bootstrap/bootstrap.module';
-import { SecurityPolicyModule } from './modules/policy-policy/security-policy.module';
+import { SecurityPolicyModule } from './modules/security-policy/security-policy.module';
 import { UserGroupModule } from './modules/user-group/user-group.module';
 
 @Module({
