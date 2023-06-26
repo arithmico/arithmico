@@ -6,4 +6,9 @@ export class GetSecurityPoliciesRequestQueryDto extends PageParameterQueryDto {
   @IsString()
   @Length(1, 256)
   checkAttachedToUserGroup: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 256)
+  checkAttachedToUser: string;
 }

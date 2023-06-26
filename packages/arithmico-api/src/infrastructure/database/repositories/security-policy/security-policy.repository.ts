@@ -90,16 +90,10 @@ export class SecurityPolicyRepository {
   async getSecurityPolicies(
     skip: number,
     limit: number,
-    exclude: string[],
   ): Promise<PagedResponse<SecurityPolicyDocument & { principals: number }>> {
     const result = await this.securityPolicyModel
       .aggregate()
       .sort({ name: -1 })
-      .match({
-        _id: {
-          $nin: exclude,
-        },
-      })
       .facet({
         items: [
           {
@@ -119,6 +113,79 @@ export class SecurityPolicyRepository {
           {
             $addFields: {
               principals: { $size: '$principals' },
+            },
+          },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      items: result.at(0).items,
+      skip,
+      limit,
+      total: result.at(0).total,
+    };
+  }
+
+  async getSecurityPoliciesWithAttachmentCheck(
+    attachmentType: SecurityPolicyAttachmentType,
+    attachedToId: string,
+    skip: number,
+    limit: number,
+  ): Promise<
+    PagedResponse<SecurityPolicyDocument & { isAttachedTo: boolean }>
+  > {
+    const result = await this.securityPolicyModel
+      .aggregate()
+      .sort({ name: -1 })
+      .facet({
+        items: [
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.securityPolicyAttachmentModel.collection.name,
+              localField: '_id',
+              foreignField: 'policyId',
+              as: 'isAttachedTo',
+            },
+          },
+          {
+            $addFields: {
+              isAttachedTo: {
+                $filter: {
+                  input: '$isAttachedTo',
+                  as: 'item',
+                  cond: {
+                    $and: [
+                      {
+                        $eq: ['$$item.attachedToId', attachedToId],
+                      },
+                      {
+                        $eq: ['$$item.attachmentType', attachmentType],
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $addFields: {
+              isAttachedTo: { $gte: [{ $size: '$isAttachedTo' }, 1] },
             },
           },
         ],

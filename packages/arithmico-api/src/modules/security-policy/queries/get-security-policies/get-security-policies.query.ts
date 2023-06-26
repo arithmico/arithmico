@@ -3,5 +3,6 @@ export class GetSecurityPoliciesQuery {
     public readonly skip: number,
     public readonly limit: number,
     public readonly checkAttachedToUserGroup?: string,
+    public readonly checkAttachedToUser?: string,
   ) {}
 }
