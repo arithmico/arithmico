@@ -12,7 +12,7 @@ export class CreateSecurityPolicyHandler
   async execute(
     command: CreateSecurityPolicyCommand,
   ): Promise<CreateSecurityPolicyResponseDto> {
-    const newPolicy = await this.securityPolicyRepository.create(
+    const newPolicy = await this.securityPolicyRepository.createSecurityPolicy(
       command.name,
       command.attributes,
       false,

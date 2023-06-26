@@ -18,7 +18,7 @@ export class GetSecurityPoliciesHandler
       skip,
       limit,
       total,
-    } = await this.securityPolicyRepository.getPolicies(
+    } = await this.securityPolicyRepository.getSecurityPolicies(
       query.skip,
       query.limit,
       query.exclude,

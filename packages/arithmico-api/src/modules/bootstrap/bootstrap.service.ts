@@ -55,7 +55,8 @@ export class BootstrapService {
 
   private async findOrCreateAdminSecurityPolicy(): Promise<SecurityPolicyDocument> {
     const attributes = Object.values(Object.values(SecurityAttribute));
-    const adminPolicy = await this.securityPolicyRepository.findByName('admin');
+    const adminPolicy =
+      await this.securityPolicyRepository.findSecurityPolicyByName('admin');
 
     if (adminPolicy) {
       const missingAttributes = attributes.filter(
@@ -70,7 +71,7 @@ export class BootstrapService {
           'adding missing attributes to admin security policy: ' +
             missingAttributes.join(', '),
         );
-        await this.securityPolicyRepository.addAttributes(
+        await this.securityPolicyRepository.addAttributesToSecurityPolicy(
           adminPolicy._id,
           missingAttributes,
           true,
@@ -82,16 +83,22 @@ export class BootstrapService {
           'removing old attributes from admin security policy: ' +
             removedAttributes.join(', '),
         );
-        await this.securityPolicyRepository.removeAttributes(
+        await this.securityPolicyRepository.removeAttributesFromSecurityPolicy(
           adminPolicy._id,
           removedAttributes,
           true,
         );
       }
     } else {
-      await this.securityPolicyRepository.create('admin', attributes, true);
+      await this.securityPolicyRepository.createSecurityPolicy(
+        'admin',
+        attributes,
+        true,
+      );
     }
 
-    return await this.securityPolicyRepository.findByName('admin');
+    return await this.securityPolicyRepository.findSecurityPolicyByName(
+      'admin',
+    );
   }
 }

@@ -13,7 +13,7 @@ export class SetSecurityPolicyAttributesHandler
     command: SetSecurityPolicyAttributesCommand,
   ): Promise<SetSecurityPolicyAttributesResponseDto> {
     const securityPolicyDocument =
-      await this.securityPolicyRepository.setAttributesOrThrow(
+      await this.securityPolicyRepository.setSecurityPolicyAttributesOrThrow(
         command.policyId,
         command.attributes,
       );

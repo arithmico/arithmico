@@ -13,7 +13,7 @@ export class GetSecurityPoliciesAttachedToUserHandler
     query: GetSecurityPoliciesAttachedToUserQuery,
   ): Promise<GetSecurityPoliciesAttachedToUserResponseDto[]> {
     const policies =
-      await this.securityPolicyRepository.getPoliciesAttachedToUser(
+      await this.securityPolicyRepository.getSecurityPoliciesAttachedToUser(
         query.userId,
       );
 

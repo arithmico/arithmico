@@ -13,7 +13,7 @@ export class RenameSecurityPolicyHandler
     command: RenameSecurityPolicyCommand,
   ): Promise<RenameSecurityPolicyResponseDto> {
     const secuirtyPolicyDocument =
-      await this.securityPolicyRepository.setNameOrThrow(
+      await this.securityPolicyRepository.setSecurityPolicyNameOrThrow(
         command.policyId,
         command.name,
       );

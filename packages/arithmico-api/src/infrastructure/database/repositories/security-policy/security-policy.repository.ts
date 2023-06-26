@@ -26,7 +26,7 @@ export class SecurityPolicyRepository {
     private securityPolicyAttachmentModel: Model<SecurityPolicyAttachmentDocument>,
   ) {}
 
-  async create(
+  async createSecurityPolicy(
     name: string,
     attributes: string[],
     readonly: boolean,
@@ -40,7 +40,7 @@ export class SecurityPolicyRepository {
     return this.securityPolicyModel.create(newPolicy);
   }
 
-  async delete(policyId: string): Promise<void> {
+  async deleteSecurityPolicy(policyId: string): Promise<void> {
     const isStillAttached =
       (await this.securityPolicyAttachmentModel
         .find({
@@ -67,7 +67,9 @@ export class SecurityPolicyRepository {
     }
   }
 
-  async findByName(name: string): Promise<SecurityPolicyDocument | null> {
+  async findSecurityPolicyByName(
+    name: string,
+  ): Promise<SecurityPolicyDocument | null> {
     return this.securityPolicyModel
       .findOne({
         name,
@@ -75,15 +77,17 @@ export class SecurityPolicyRepository {
       .exec();
   }
 
-  async findByNameOrThrow(name: string): Promise<SecurityPolicyDocument> {
-    const securityPolicy = await this.findByName(name);
+  async findSecurityPolicyByNameOrThrow(
+    name: string,
+  ): Promise<SecurityPolicyDocument> {
+    const securityPolicy = await this.findSecurityPolicyByName(name);
     if (!securityPolicy) {
       throw new NotFoundException();
     }
     return securityPolicy;
   }
 
-  async getPolicies(
+  async getSecurityPolicies(
     skip: number,
     limit: number,
     exclude: string[],
@@ -138,7 +142,9 @@ export class SecurityPolicyRepository {
     };
   }
 
-  async getPoliciesAttachedToUser(userId: string): Promise<SecurityPolicy[]> {
+  async getSecurityPoliciesAttachedToUser(
+    userId: string,
+  ): Promise<SecurityPolicy[]> {
     const aggregationResult = await this.securityPolicyAttachmentModel
       .aggregate()
       .match({
@@ -199,7 +205,9 @@ export class SecurityPolicyRepository {
     };
   }
 
-  async findByIdWithStatistics(policyId: string): Promise<
+  async findSecurityPolicyByIdWithPrincipalStatistics(
+    policyId: string,
+  ): Promise<
     | (SecurityPolicyDocument & {
         principals: {
           total: number;
@@ -279,7 +287,9 @@ export class SecurityPolicyRepository {
     return result.at(0);
   }
 
-  async findByIdWithStatisticsOrThrow(policyId: string): Promise<
+  async findSecurityPolicyByIdWithPrincipalStatisticsOrThrow(
+    policyId: string,
+  ): Promise<
     SecurityPolicyDocument & {
       principals: {
         total: number;
@@ -288,26 +298,33 @@ export class SecurityPolicyRepository {
       };
     }
   > {
-    const policyWithStatistics = await this.findByIdWithStatistics(policyId);
+    const policyWithStatistics =
+      await this.findSecurityPolicyByIdWithPrincipalStatistics(policyId);
     if (!policyWithStatistics) {
       throw new NotFoundException();
     }
     return policyWithStatistics;
   }
 
-  async findById(policyId: string): Promise<SecurityPolicyDocument | null> {
+  async findSecurityPolicyById(
+    policyId: string,
+  ): Promise<SecurityPolicyDocument | null> {
     return this.securityPolicyModel.findById(policyId).exec();
   }
 
-  async findByIdOrThrow(policyId: string): Promise<SecurityPolicy> {
-    const securityPolicyDocument = this.findById(policyId);
+  async findSecurityPolicyByIdOrThrow(
+    policyId: string,
+  ): Promise<SecurityPolicy> {
+    const securityPolicyDocument = this.findSecurityPolicyById(policyId);
     if (!securityPolicyDocument) {
       throw new NotFoundException();
     }
     return securityPolicyDocument;
   }
 
-  async findManyByIds(policyIds: string[]): Promise<SecurityPolicy[]> {
+  async findSecurityPoliciesByIds(
+    policyIds: string[],
+  ): Promise<SecurityPolicy[]> {
     return this.securityPolicyModel
       .find({
         _id: {
@@ -317,7 +334,7 @@ export class SecurityPolicyRepository {
       .exec();
   }
 
-  async setName(
+  async setSecurityPolicyName(
     policyId: string,
     name: string,
   ): Promise<SecurityPolicyDocument | null> {
@@ -331,18 +348,21 @@ export class SecurityPolicyRepository {
     );
   }
 
-  async setNameOrThrow(
+  async setSecurityPolicyNameOrThrow(
     policyId: string,
     name: string,
   ): Promise<SecurityPolicyDocument> {
-    const securityPolicyDocument = await this.setName(policyId, name);
+    const securityPolicyDocument = await this.setSecurityPolicyName(
+      policyId,
+      name,
+    );
     if (!securityPolicyDocument) {
       throw new NotFoundException();
     }
     return securityPolicyDocument;
   }
 
-  async setAttributes(
+  async setSecurityPolicyAttributes(
     policyId: string,
     attributes: string[],
   ): Promise<SecurityPolicyDocument | null> {
@@ -361,11 +381,11 @@ export class SecurityPolicyRepository {
       .exec();
   }
 
-  async setAttributesOrThrow(
+  async setSecurityPolicyAttributesOrThrow(
     policyId: string,
     attributes: string[],
   ): Promise<SecurityPolicyDocument> {
-    const securityPolicyDocument = await this.setAttributes(
+    const securityPolicyDocument = await this.setSecurityPolicyAttributes(
       policyId,
       attributes,
     );
@@ -375,7 +395,7 @@ export class SecurityPolicyRepository {
     return securityPolicyDocument;
   }
 
-  async addAttributes(
+  async addAttributesToSecurityPolicy(
     policyId: string,
     attributes: string[],
     force = false,
@@ -395,12 +415,12 @@ export class SecurityPolicyRepository {
       .exec();
   }
 
-  async addAttributesOrThrow(
+  async addAttributesToSecurityPolicyOrThrow(
     policyId: string,
     attributes: string[],
     force = false,
   ) {
-    const securityPolicyDocument = this.addAttributes(
+    const securityPolicyDocument = this.addAttributesToSecurityPolicy(
       policyId,
       attributes,
       force,
@@ -411,7 +431,7 @@ export class SecurityPolicyRepository {
     return securityPolicyDocument;
   }
 
-  async removeAttributes(
+  async removeAttributesFromSecurityPolicy(
     policyId: string,
     attributes: string[],
     force = false,
@@ -436,12 +456,12 @@ export class SecurityPolicyRepository {
       .exec();
   }
 
-  async removeAttributesFromOrThrow(
+  async removeAttributesFromSecurityPolicyOrThrow(
     policyId: string,
     attributes: string[],
     force = false,
   ): Promise<SecurityPolicyDocument> {
-    const securityPolicyDocument = this.removeAttributes(
+    const securityPolicyDocument = this.removeAttributesFromSecurityPolicy(
       policyId,
       attributes,
       force,

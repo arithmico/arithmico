@@ -9,6 +9,6 @@ export class DeleteSecurityPolicyHandler
   constructor(private securityPolicyRepository: SecurityPolicyRepository) {}
 
   async execute(command: DeleteSecurityPolicyCommand): Promise<void> {
-    await this.securityPolicyRepository.delete(command.policyId);
+    await this.securityPolicyRepository.deleteSecurityPolicy(command.policyId);
   }
 }

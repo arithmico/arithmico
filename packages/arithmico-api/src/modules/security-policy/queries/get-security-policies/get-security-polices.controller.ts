@@ -20,7 +20,7 @@ export class GetSecurityPoliciesController {
       new GetSecurityPoliciesQuery(
         query.skip,
         query.limit,
-        query.exclude ?? [],
+        query.checkAttachedToUserGroup,
       ),
     );
   }
