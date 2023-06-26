@@ -9,7 +9,7 @@ export class DetachSecurityPolicyFromUserHandler
   constructor(private securityPolicyRepository: SecurityPolicyRepository) {}
 
   async execute(command: DetachSecurityPolicyFromUserCommand): Promise<void> {
-    await this.securityPolicyRepository.detachFromUser(
+    await this.securityPolicyRepository.detachSecurityPolicyFromUser(
       command.policyId,
       command.userId,
     );

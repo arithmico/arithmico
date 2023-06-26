@@ -25,7 +25,7 @@ export class BootstrapService {
   async onApplicationBootstrap() {
     const initialUser = await this.findOrCreateInitialUser();
     const adminPolicy = await this.findOrCreateAdminSecurityPolicy();
-    await this.securityPolicyRepository.attachToUser(
+    await this.securityPolicyRepository.attachSecurityPolicyToUser(
       adminPolicy._id,
       initialUser._id,
     );

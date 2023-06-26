@@ -537,7 +537,7 @@ export class SecurityPolicyRepository {
     return securityPolicyDocument;
   }
 
-  async attachToUser(
+  async attachSecurityPolicyToUser(
     policyId: string,
     userId: string,
   ): Promise<SecurityPolicyAttachmentDocument> {
@@ -561,7 +561,7 @@ export class SecurityPolicyRepository {
     return this.securityPolicyAttachmentModel.create(newAttachment);
   }
 
-  async attachToGroup(
+  async attachSecurityPolicyToUserGroup(
     policyId: string,
     groupId: string,
   ): Promise<SecurityPolicyAttachmentDocument> {
@@ -585,7 +585,10 @@ export class SecurityPolicyRepository {
     return this.securityPolicyAttachmentModel.create(newAttachment);
   }
 
-  async detachFromUser(policyId: string, userId: string): Promise<void> {
+  async detachSecurityPolicyFromUser(
+    policyId: string,
+    userId: string,
+  ): Promise<void> {
     const result = await this.securityPolicyAttachmentModel
       .deleteOne({
         policyId,
@@ -599,7 +602,10 @@ export class SecurityPolicyRepository {
     }
   }
 
-  async detachFromGroup(policyId: string, groupId: string): Promise<void> {
+  async detachSecurityPolicyFromUserGroup(
+    policyId: string,
+    groupId: string,
+  ): Promise<void> {
     const result = await this.securityPolicyAttachmentModel
       .deleteOne({
         policyId,

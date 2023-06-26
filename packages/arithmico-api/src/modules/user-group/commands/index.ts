@@ -4,15 +4,19 @@ import { DeleteUserGroupController } from './delete-user-group/delete-user-group
 import { DeleteUserGroupHandler } from './delete-user-group/delete-user-group.handler';
 import { RenameUserGroupController } from './rename-user-group/rename-user-group.controller';
 import { RenameUserGroupHandler } from './rename-user-group/rename-user-group.handler';
+import { AttachSecurityPolicyToUserGroupController } from './attach-security-policy-to-user-group/attach-security-policy-to-user-group.controller';
+import { AttachSecurityPolicyToUserGroupHandler } from './attach-security-policy-to-user-group/attach-security-policy-to-user-group.handler';
 
 export const commandHandlers = [
   CreateUserGroupHandler,
   RenameUserGroupHandler,
   DeleteUserGroupHandler,
+  AttachSecurityPolicyToUserGroupHandler,
 ];
 
 export const commandControllers = [
   CreateUserGroupController,
   RenameUserGroupController,
   DeleteUserGroupController,
+  AttachSecurityPolicyToUserGroupController,
 ];

@@ -12,10 +12,11 @@ export class AttachSecurityPolicytouserHandler
   async execute(
     command: AttachSecurityPolicyToUserCommand,
   ): Promise<AttachSecurityPolicyToUserResponseDto> {
-    const attachment = await this.securityPolicyRepository.attachToUser(
-      command.policyId,
-      command.userId,
-    );
+    const attachment =
+      await this.securityPolicyRepository.attachSecurityPolicyToUser(
+        command.policyId,
+        command.userId,
+      );
 
     return {
       policyId: attachment.policyId,
