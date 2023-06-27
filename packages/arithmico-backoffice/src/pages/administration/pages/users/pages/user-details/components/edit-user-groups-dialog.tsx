@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Checkbox } from "../../../../../../../components/checkbox/checkbox";
+import { BoxedList } from "../../../../../../../components/boxed-list/boxed-list";
 import { DialogHeader } from "../../../../../../../components/dialog-header/dialog-header";
 import { DialogWithBackdrop } from "../../../../../../../components/dialog-with-backdrop/dialog-with-backdrop";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
@@ -36,38 +36,31 @@ export function EditUserGroupsDialog({
       <DialogHeader onClose={onClose}>
         <FormattedMessage id="admin.users.user-groups.edit" />
       </DialogHeader>
-
       {isSuccess && data && (
         <>
-          <ul className="flex flex-col gap-1">
+          <BoxedList>
             {data.items.map((group) => (
-              <li
+              <BoxedList.CheckableItem
                 key={group.id}
-                className="flex items-center rounded-sm border border-black/30 py-2 pl-4 pr-2 hover:bg-black/5"
+                checked={selectedIds.includes(group.id)}
+                onChange={() => {
+                  if (selectedIds.includes(group.id)) {
+                    removeUserFromUserGroup({
+                      userId,
+                      groupId: group.id,
+                    });
+                  } else {
+                    addUserToUserGroup({
+                      userId,
+                      groupId: group.id,
+                    });
+                  }
+                }}
               >
-                <label className="flex w-full items-center">
-                  {group.name}
-                  <Checkbox
-                    checked={selectedIds.includes(group.id)}
-                    className="ml-auto"
-                    onChange={() => {
-                      if (selectedIds.includes(group.id)) {
-                        removeUserFromUserGroup({
-                          userId,
-                          groupId: group.id,
-                        });
-                      } else {
-                        addUserToUserGroup({
-                          userId,
-                          groupId: group.id,
-                        });
-                      }
-                    }}
-                  />
-                </label>
-              </li>
+                {group.name}
+              </BoxedList.CheckableItem>
             ))}
-          </ul>
+          </BoxedList>
           {data.total > limit && (
             <PaginationToolbar
               className="mt-8"

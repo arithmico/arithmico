@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Checkbox } from "../../../../../../../components/checkbox/checkbox";
+import { BoxedList } from "../../../../../../../components/boxed-list/boxed-list";
 import { DialogHeader } from "../../../../../../../components/dialog-header/dialog-header";
 import { DialogWithBackdrop } from "../../../../../../../components/dialog-with-backdrop/dialog-with-backdrop";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
@@ -39,34 +39,29 @@ export function EditSecurityPoliciesDialog({
       </DialogHeader>
       {isSuccess && data && (
         <>
-          <ul className="flex flex-col gap-1">
+          <BoxedList>
             {data.items.map((policy) => (
-              <li
+              <BoxedList.CheckableItem
                 key={policy.id}
-                className="flex items-center rounded-sm border border-black/30 py-2 pl-4 pr-2 hover:bg-black/5"
+                checked={policy.isAttached}
+                onChange={() => {
+                  if (policy.isAttached) {
+                    detachPolicy({
+                      policyId: policy.id,
+                      userId,
+                    });
+                  } else {
+                    attachPolicy({
+                      policyId: policy.id,
+                      userId,
+                    });
+                  }
+                }}
               >
-                <label className="flex w-full items-center">
-                  {policy.name}
-                  <Checkbox
-                    onChange={() => {
-                      if (policy.isAttached) {
-                        detachPolicy({
-                          policyId: policy.id,
-                          userId,
-                        });
-                      } else {
-                        attachPolicy({
-                          policyId: policy.id,
-                          userId,
-                        });
-                      }
-                    }}
-                    checked={policy.isAttached}
-                  />
-                </label>
-              </li>
+                {policy.name}
+              </BoxedList.CheckableItem>
             ))}
-          </ul>
+          </BoxedList>
           <PaginationToolbar
             className="mt-4"
             skip={skip}

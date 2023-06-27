@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
+import { BoxedList } from "../../../../../../../components/boxed-list/boxed-list";
 import { Card } from "../../../../../../../components/card/card";
 import Heading from "../../../../../../../components/heading/heading";
 import { EditIcon } from "../../../../../../../icons/edit.icon";
@@ -30,11 +31,11 @@ export function SecurityPolicyAttributeList({
           </Link>
         )}
       </div>
-      <ul className={classNames("flex", "flex-col")}>
+      <BoxedList>
         {attributes.map((attribute) => (
           <SecurityPolicyAttribute key={attribute} attribute={attribute} />
         ))}
-      </ul>
+      </BoxedList>
     </Card>
   );
 }

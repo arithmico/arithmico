@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link, useNavigate } from "react-router-dom";
+import { BoxedList } from "../../../../../../../components/boxed-list/boxed-list";
 import { Card } from "../../../../../../../components/card/card";
 import Heading from "../../../../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
@@ -9,13 +10,13 @@ import { EditIcon } from "../../../../../../../icons/edit.icon";
 import { useGetSecurityPoliciesAttachedToUserGroupQuery } from "../../../../../../../store/api/resources/user-groups/user-groups.api";
 import { EditUserGroupSecurityPoliciesDialog } from "./edit-user-group-security-policies.dialog";
 
-export interface UserGroupSecurityPoliciesListProps {
+export interface UserGroupSecurityPolicyListProps {
   groupId: string;
 }
 
-export function UserGroupSecurityPoliciesList({
+export function UserGroupSecurityPolicyList({
   groupId,
-}: UserGroupSecurityPoliciesListProps) {
+}: UserGroupSecurityPolicyListProps) {
   const limit = 10;
   const [skip, setSkip] = useState(0);
   const { data, isSuccess } = useGetSecurityPoliciesAttachedToUserGroupQuery({
@@ -49,13 +50,13 @@ export function UserGroupSecurityPoliciesList({
         {isSuccess && (
           <>
             {data.items.length > 0 && (
-              <ul className="flex flex-col gap-1">
+              <BoxedList>
                 {data.items.map((securityPolicy) => {
                   const policyUrl = `/administration/security-policies/${securityPolicy.id}`;
                   return (
-                    <li
+                    <BoxedList.Item
                       key={securityPolicy.id}
-                      className="flex items-center rounded-sm border border-black/30  py-2 pl-4 pr-2 hover:cursor-pointer hover:bg-black/5"
+                      className="py-2 pl-4 pr-2"
                       onClick={() => navigate(policyUrl)}
                     >
                       {securityPolicy.name}
@@ -65,10 +66,10 @@ export function UserGroupSecurityPoliciesList({
                         </span>
                         <ChevronRightIcon className="h-6 w-6 fill-black/50" />
                       </Link>
-                    </li>
+                    </BoxedList.Item>
                   );
                 })}
-              </ul>
+              </BoxedList>
             )}
             {data.items.length === 0 && (
               <p className="rounded-sm border border-black/30 p-6 text-center text-black/30">

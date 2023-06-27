@@ -8,8 +8,8 @@ import { EditIcon } from "../../../../../../icons/edit.icon";
 import { useGetUserGroupByIdQuery } from "../../../../../../store/api/resources/user-groups/user-groups.api";
 import { UserGroupDetailsBreadcrumbs } from "./components/user-group-details-breadcrumbs";
 import { UserGroupDetailsCard } from "./components/user-group-details-card";
-import { UserGroupMemberList } from "./components/user-group-member-list-card";
-import { UserGroupSecurityPoliciesList } from "./components/user-group-security-policies-list";
+import { UserGroupMemberList } from "./components/user-group-member-list";
+import { UserGroupSecurityPolicyList } from "./components/user-group-security-policy-list";
 
 export function UserGroupDetailsPage() {
   const { groupId } = useParams();
@@ -68,7 +68,7 @@ export function UserGroupDetailsPage() {
             </div>
             <div className="flex flex-col gap-4">
               <UserGroupMemberList groupId={data.id} />
-              <UserGroupSecurityPoliciesList groupId={data.id} />
+              <UserGroupSecurityPolicyList groupId={data.id} />
             </div>
           </div>
         </>
