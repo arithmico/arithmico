@@ -323,9 +323,7 @@ export class SecurityPolicyRepository {
           { $unwind: '$attachments' },
           {
             $match: {
-              attachments: {
-                attachmentType: SecurityPolicyAttachmentType.Group,
-              },
+              'attachments.attachmentType': SecurityPolicyAttachmentType.Group,
             },
           },
         ],
