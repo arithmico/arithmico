@@ -25,7 +25,6 @@ export function AttachedSecurityPoliciesCard({
     <>
       {isSuccess && data && (
         <EditSecurityPoliciesDialog
-          attachedSecurityPolicies={data}
           isOpen={isDialogOpen}
           onClose={() => setIsDialogOpen(false)}
           userId={userId}

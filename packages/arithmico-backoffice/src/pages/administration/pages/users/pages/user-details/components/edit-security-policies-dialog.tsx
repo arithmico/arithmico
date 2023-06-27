@@ -4,8 +4,7 @@ import { Checkbox } from "../../../../../../../components/checkbox/checkbox";
 import { DialogHeader } from "../../../../../../../components/dialog-header/dialog-header";
 import { DialogWithBackdrop } from "../../../../../../../components/dialog-with-backdrop/dialog-with-backdrop";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
-import { useGetSecurityPolicesQuery } from "../../../../../../../store/api/resources/security-policies/security-policies.api";
-import { SecurityPolicyDto } from "../../../../../../../store/api/resources/security-policies/security-policies.types";
+import { useGetSecurityPoliciesWithAttachedToUserCheckQuery } from "../../../../../../../store/api/resources/security-policies/security-policies.api";
 import {
   useAttachSecurityPolicyToUserMutation,
   useDetachSecurityPolicyFromUserMutation,
@@ -14,23 +13,22 @@ import {
 export interface EditSecurityPoliciesDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  attachedSecurityPolicies: SecurityPolicyDto[];
   userId: string;
 }
 
 export function EditSecurityPoliciesDialog({
   isOpen,
   onClose,
-  attachedSecurityPolicies,
   userId,
 }: EditSecurityPoliciesDialogProps) {
   const limit = 10;
   const [skip, setSkip] = useState(0);
-  const selectedIds = attachedSecurityPolicies.map((policy) => policy.id);
-  const { data, isSuccess } = useGetSecurityPolicesQuery({
-    skip,
-    limit,
-  });
+  const { data, isSuccess } =
+    useGetSecurityPoliciesWithAttachedToUserCheckQuery({
+      skip,
+      limit,
+      userId,
+    });
   const [detachPolicy] = useDetachSecurityPolicyFromUserMutation();
   const [attachPolicy] = useAttachSecurityPolicyToUserMutation();
 
@@ -51,7 +49,7 @@ export function EditSecurityPoliciesDialog({
                   {policy.name}
                   <Checkbox
                     onChange={() => {
-                      if (selectedIds.includes(policy.id)) {
+                      if (policy.isAttached) {
                         detachPolicy({
                           policyId: policy.id,
                           userId,
@@ -63,7 +61,7 @@ export function EditSecurityPoliciesDialog({
                         });
                       }
                     }}
-                    checked={selectedIds.includes(policy.id)}
+                    checked={policy.isAttached}
                   />
                 </label>
               </li>
