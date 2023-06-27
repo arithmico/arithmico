@@ -5,38 +5,39 @@ import { DialogWithBackdrop } from "../../../../../../../components/dialog-with-
 import Heading from "../../../../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
 import { CloseIcon } from "../../../../../../../icons/close.icon";
+import { useGetSecurityPoliciesWithAttachedToUserGroupCheckQuery } from "../../../../../../../store/api/resources/security-policies/security-policies.api";
 import {
-  useAddUserToUserGroupMutation,
-  useGetUsersWithIsGroupMemberQuery,
-  useRemoveUserFromUserGroupMutation,
-} from "../../../../../../../store/api/resources/users/users.api";
+  useAttachSecurityPolicyDtoUserGroupMutation,
+  useDetachSecurityPolicyDtoUserGroupMutation,
+} from "../../../../../../../store/api/resources/user-groups/user-groups.api";
 
-export interface EditUserGroupMembersDialogProps {
-  groupId: string;
-  isOpen: boolean;
+export interface EditUserGroupSecurityPoliciesDialogProps {
   onClose: () => void;
+  isOpen: boolean;
+  groupId: string;
 }
 
-export function EditUserGroupMembersDialog({
-  groupId,
-  isOpen,
+export function EditUserGroupSecurityPoliciesDialog({
   onClose,
-}: EditUserGroupMembersDialogProps) {
+  isOpen,
+  groupId,
+}: EditUserGroupSecurityPoliciesDialogProps) {
   const limit = 10;
   const [skip, setSkip] = useState(0);
-  const { data, isSuccess } = useGetUsersWithIsGroupMemberQuery({
-    skip,
-    limit,
-    groupId,
-  });
-  const [addUserToUserGroup] = useAddUserToUserGroupMutation();
-  const [removeUserFromUserGroup] = useRemoveUserFromUserGroupMutation();
+  const { data, isSuccess } =
+    useGetSecurityPoliciesWithAttachedToUserGroupCheckQuery({
+      skip,
+      limit,
+      groupId,
+    });
+  const [attachSecurityPolicy] = useAttachSecurityPolicyDtoUserGroupMutation();
+  const [detachSecurityPolicy] = useDetachSecurityPolicyDtoUserGroupMutation();
 
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={onClose}>
       <div className="mb-4 flex items-center">
-        <Heading level={2} className="w-full">
-          <FormattedMessage id="admin.user-groups.members.edit" />
+        <Heading level={2}>
+          <FormattedMessage id="admin.user-groups.security-policies.edit" />
         </Heading>
         <button className="ml-auto" onClick={() => onClose()}>
           <CloseIcon className="h-6 w-6" />
@@ -45,26 +46,25 @@ export function EditUserGroupMembersDialog({
       {isSuccess && (
         <>
           <ul className="mb-auto flex flex-col gap-1 overflow-y-auto">
-            {data.items.map((user) => (
+            {data.items.map((securityPolicy) => (
               <li
-                key={user.id}
-                className="flex items-center rounded-sm border border-black/30 hover:bg-black/5"
+                key={securityPolicy.id}
+                className="flex items-center rounded-sm border border-black/30  hover:bg-black/5"
               >
                 <label className="flex w-full items-center py-2 pl-4 pr-2">
-                  {user.username}
+                  {securityPolicy.name}
                   <Checkbox
-                    className="ml-auto"
-                    checked={user.isGroupMember}
+                    checked={securityPolicy.isAttached}
                     onChange={() => {
-                      if (user.isGroupMember) {
-                        removeUserFromUserGroup({
+                      if (securityPolicy.isAttached) {
+                        detachSecurityPolicy({
                           groupId,
-                          userId: user.id,
+                          policyId: securityPolicy.id,
                         });
                       } else {
-                        addUserToUserGroup({
+                        attachSecurityPolicy({
                           groupId,
-                          userId: user.id,
+                          policyId: securityPolicy.id,
                         });
                       }
                     }}
@@ -76,10 +76,10 @@ export function EditUserGroupMembersDialog({
           {data.total > limit && (
             <PaginationToolbar
               className="mt-4"
-              skip={data.skip}
-              limit={data.limit}
-              total={data.total}
               onChange={setSkip}
+              limit={limit}
+              skip={data.skip}
+              total={data.total}
             />
           )}
         </>

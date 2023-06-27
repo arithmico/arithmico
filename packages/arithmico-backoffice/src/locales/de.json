@@ -97,8 +97,10 @@
   "admin.user-groups.members": "Mitglieder",
   "admin.user-groups.members.edit": "Mitglieder bearbeiten",
   "admin.user-groups.members.empty": "Dieser Benutzergruppe wurde noch kein Benutzer zugewiesen.",
+  "admin.user-groups.members.details": "Benutzerdetails",
   "admin.user-groups.security-policies.edit": "Sicherheitsrichtlininen bearbeiten",
   "admin.user-groups.security-policies.empty": "Dieser Benutzergruppe wurde noch keine Sicherheitsrichtlinie zugewiesen.",
+  "admin.user-groups.security-policies.details": "Sicherheitsrichtliniendetails",
 
   "admin.users": "Benutzerverwaltung",
   "admin.users.id": "ID",

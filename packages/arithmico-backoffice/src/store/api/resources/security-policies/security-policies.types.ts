@@ -6,6 +6,11 @@ export interface SecurityPolicyDto {
   createdAt: string;
 }
 
+export interface SecurityPolicyDtoWithAttachmentCheck
+  extends SecurityPolicyDto {
+  isAttached: boolean;
+}
+
 export interface SecurityPolicyDtoWithPrincipalsCount
   extends SecurityPolicyDto {
   principals: number;
@@ -23,6 +28,18 @@ export interface SecurityPolicyDtoWithPrincipalsDetails
 export interface GetSecurityPoliciesArgs {
   skip: number;
   limit: number;
+}
+
+export interface GetSecurityPoliciesWithAttachedToUserGroupCheckArgs {
+  skip: number;
+  limit: number;
+  groupId: string;
+}
+
+export interface GetSecurityPoliciesWithAttachedToUserCheckArgs {
+  skip: number;
+  limit: number;
+  userId: string;
 }
 
 export interface GetSecurityPolicyByIdArgs {

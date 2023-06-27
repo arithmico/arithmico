@@ -60,7 +60,9 @@ export function UserGroupMemberList({ groupId }: UserGroupUserListProps) {
                     >
                       {user.username}
                       <Link to={userUrl} className="ml-auto">
-                        <span className="sr-only">Details</span>
+                        <span className="sr-only">
+                          <FormattedMessage id="admin.user-groups.members.details" />
+                        </span>
                         <ChevronRightIcon className="h-6 w-6 fill-black/50" />
                       </Link>
                     </li>

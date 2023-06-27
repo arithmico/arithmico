@@ -11,6 +11,9 @@ import {
   RenameSecurityPolicyArgs,
   CreateSecurityPolicyArgs,
   DeleteSecurityPolicyArgs,
+  SecurityPolicyDtoWithAttachmentCheck,
+  GetSecurityPoliciesWithAttachedToUserGroupCheckArgs,
+  GetSecurityPoliciesWithAttachedToUserCheckArgs,
 } from "./security-policies.types";
 
 const securityPoliciesApi = api.injectEndpoints({
@@ -36,6 +39,56 @@ const securityPoliciesApi = api.injectEndpoints({
               "SecurityPolicy",
             ]
           : ["SecurityPolicy"],
+    }),
+
+    getSecurityPoliciesWithAttachedToUserGroupCheck: build.query<
+      PagedResponse<SecurityPolicyDtoWithAttachmentCheck>,
+      GetSecurityPoliciesWithAttachedToUserGroupCheckArgs
+    >({
+      query: (arg) => ({
+        url: "/security-policies",
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+          checkAttachedToUserGroup: arg.groupId,
+        },
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              ...response.items.map((securityPolicy) => ({
+                type: "SecurityPolicy" as const,
+                id: securityPolicy.id,
+              })),
+              { type: "UserGroup", id: arg.groupId },
+            ]
+          : [],
+    }),
+
+    getSecurityPoliciesWithAttachedToUserCheck: build.query<
+      PagedResponse<SecurityPolicyDtoWithAttachmentCheck>,
+      GetSecurityPoliciesWithAttachedToUserCheckArgs
+    >({
+      query: (arg) => ({
+        url: "/security-policies",
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+          checkAttachedToUser: arg.userId,
+        },
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              ...response.items.map((securityPolicy) => ({
+                type: "SecurityPolicy" as const,
+                id: securityPolicy.id,
+              })),
+              { type: "UserGroup", id: arg.groupId },
+            ]
+          : [],
     }),
 
     getSecurityPolicyById: build.query<
@@ -118,6 +171,8 @@ export const {
   useGetSecurityPolicyByIdQuery,
   useGetAvailableSecurityAttributesQuery,
   useSetSecurityPolicyAttributesMutation,
+  useGetSecurityPoliciesWithAttachedToUserCheckQuery,
+  useGetSecurityPoliciesWithAttachedToUserGroupCheckQuery,
   useRenameSecurityPolicyMutation,
   useCreateSecurityPolicyMutation,
   useDeleteSecurityPolicyMutation,

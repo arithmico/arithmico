@@ -1,3 +1,8 @@
+export interface UserGroupSecurityPolicyAttachmentDto {
+  userGroupId: string;
+  securityPolicyId: string;
+}
+
 export interface UserGroupDto {
   id: string;
   name: string;
@@ -30,4 +35,14 @@ export interface GetSecurityPoliciesAttachedToUserGroupArgs {
   groupId: string;
   skip: number;
   limit: number;
+}
+
+export interface AttachSecurityPolicyToUserGroupArgs {
+  groupId: string;
+  policyId: string;
+}
+
+export interface DetachSecurityPolicyToUserGroupArgs {
+  groupId: string;
+  policyId: string;
 }

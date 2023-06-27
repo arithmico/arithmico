@@ -2,13 +2,16 @@ import { api } from "../../api";
 import { PagedResponse, PageQueryParams } from "../../types";
 import { SecurityPolicyDto } from "../security-policies/security-policies.types";
 import {
+  AttachSecurityPolicyToUserGroupArgs,
   CreateUserGroupArgs,
   DeleteUserGroupArgs,
+  DetachSecurityPolicyToUserGroupArgs,
   GetSecurityPoliciesAttachedToUserGroupArgs,
   GetUserGroupByIdArgs,
   RenameUserGroupArgs,
   UserGroupDto,
   UserGroupDtoWithDetails,
+  UserGroupSecurityPolicyAttachmentDto,
 } from "./user-groups.types";
 
 const userGroupsApi = api.injectEndpoints({
@@ -104,6 +107,40 @@ const userGroupsApi = api.injectEndpoints({
       invalidatesTags: (_, err, arg) =>
         !err ? [{ type: "UserGroup", id: arg.groupId }] : [],
     }),
+
+    attachSecurityPolicyDtoUserGroup: build.mutation<
+      UserGroupSecurityPolicyAttachmentDto,
+      AttachSecurityPolicyToUserGroupArgs
+    >({
+      query: (arg) => ({
+        url: `/user-groups/${arg.groupId}/security-policies/${arg.policyId}`,
+        method: "PUT",
+      }),
+      invalidatesTags: (result) =>
+        result
+          ? [
+              { type: "SecurityPolicy", id: result.securityPolicyId },
+              { type: "UserGroup", id: result.userGroupId },
+            ]
+          : [],
+    }),
+
+    detachSecurityPolicyDtoUserGroup: build.mutation<
+      UserGroupSecurityPolicyAttachmentDto,
+      DetachSecurityPolicyToUserGroupArgs
+    >({
+      query: (arg) => ({
+        url: `/user-groups/${arg.groupId}/security-policies/${arg.policyId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result) =>
+        result
+          ? [
+              { type: "SecurityPolicy", id: result.securityPolicyId },
+              { type: "UserGroup", id: result.userGroupId },
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -114,4 +151,6 @@ export const {
   useCreateUserGroupMutation,
   useRenameUserGroupMutation,
   useDeleteUserGroupMutation,
+  useAttachSecurityPolicyDtoUserGroupMutation,
+  useDetachSecurityPolicyDtoUserGroupMutation,
 } = userGroupsApi;
