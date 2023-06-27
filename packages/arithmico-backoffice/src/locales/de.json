@@ -12,6 +12,7 @@
   "common.error": "Es ist ein Fehler aufgetreten",
   "common.yes": "Ja",
   "common.no": "Nein",
+  "common.close-dialog": "Dialog schließen",
 
   "error.title": "Fehler",
   "error.description": "Es ist ein Fehler aufgetregen",
