@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Checkbox } from "../../../../../../../components/checkbox/checkbox";
+import { DialogHeader } from "../../../../../../../components/dialog-header/dialog-header";
 import { DialogWithBackdrop } from "../../../../../../../components/dialog-with-backdrop/dialog-with-backdrop";
-import Heading from "../../../../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
-import { CloseIcon } from "../../../../../../../icons/close.icon";
 import { useGetSecurityPoliciesWithAttachedToUserGroupCheckQuery } from "../../../../../../../store/api/resources/security-policies/security-policies.api";
 import {
   useAttachSecurityPolicyDtoUserGroupMutation,
@@ -35,14 +34,9 @@ export function EditUserGroupSecurityPoliciesDialog({
 
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={onClose}>
-      <div className="mb-4 flex items-center">
-        <Heading level={2}>
-          <FormattedMessage id="admin.user-groups.security-policies.edit" />
-        </Heading>
-        <button className="ml-auto" onClick={() => onClose()}>
-          <CloseIcon className="h-6 w-6" />
-        </button>
-      </div>
+      <DialogHeader onClose={onClose}>
+        <FormattedMessage id="admin.user-groups.security-policies.edit" />
+      </DialogHeader>
       {isSuccess && (
         <>
           <ul className="mb-auto flex flex-col gap-1 overflow-y-auto">

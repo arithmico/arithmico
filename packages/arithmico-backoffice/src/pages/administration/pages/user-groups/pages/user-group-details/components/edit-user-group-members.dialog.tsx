@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Checkbox } from "../../../../../../../components/checkbox/checkbox";
+import { DialogHeader } from "../../../../../../../components/dialog-header/dialog-header";
 import { DialogWithBackdrop } from "../../../../../../../components/dialog-with-backdrop/dialog-with-backdrop";
-import Heading from "../../../../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
-import { CloseIcon } from "../../../../../../../icons/close.icon";
 import {
   useAddUserToUserGroupMutation,
   useGetUsersWithIsGroupMemberQuery,
@@ -34,14 +33,9 @@ export function EditUserGroupMembersDialog({
 
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={onClose}>
-      <div className="mb-4 flex items-center">
-        <Heading level={2} className="w-full">
-          <FormattedMessage id="admin.user-groups.members.edit" />
-        </Heading>
-        <button className="ml-auto" onClick={() => onClose()}>
-          <CloseIcon className="h-6 w-6" />
-        </button>
-      </div>
+      <DialogHeader onClose={onClose}>
+        <FormattedMessage id="admin.user-groups.members.edit" />
+      </DialogHeader>
       {isSuccess && (
         <>
           <ul className="mb-auto flex flex-col gap-1 overflow-y-auto">
