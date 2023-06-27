@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link, useNavigate } from "react-router-dom";
+import { BoxedList } from "../../../../../../../components/boxed-list/boxed-list";
 import { Card } from "../../../../../../../components/card/card";
 import Heading from "../../../../../../../components/heading/heading";
 import { ChevronRightIcon } from "../../../../../../../icons/chevron-right.icon";
@@ -8,13 +9,13 @@ import { EditIcon } from "../../../../../../../icons/edit.icon";
 import { useGetSecurityPoliciesAttachedToUserQuery } from "../../../../../../../store/api/resources/users/users.api";
 import { EditSecurityPoliciesDialog } from "./edit-security-policies-dialog";
 
-export interface AttachedSecurityPoliciesCardProps {
+export interface UserGroupSecurityPolicyListProps {
   userId: string;
 }
 
-export function AttachedSecurityPoliciesCard({
+export function UserGroupSecurityPolicyList({
   userId,
-}: AttachedSecurityPoliciesCardProps) {
+}: UserGroupSecurityPolicyListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
   const { data, isSuccess } = useGetSecurityPoliciesAttachedToUserQuery({
@@ -51,13 +52,13 @@ export function AttachedSecurityPoliciesCard({
           </p>
         )}
         {isSuccess && data && data.length > 0 && (
-          <ul className="flex flex-col gap-1">
+          <BoxedList>
             {data.map((policy) => {
               const policyUrl = `/administration/security-policies/${policy.id}`;
               return (
-                <li
+                <BoxedList.Item
                   key={policy.id}
-                  className="flex items-center rounded-sm border border-black/30  py-2 pl-4 pr-2 hover:cursor-pointer hover:bg-black/5"
+                  className="py-2 pl-4 pr-2"
                   onClick={() => navigate(policyUrl)}
                 >
                   {policy.name}
@@ -65,10 +66,10 @@ export function AttachedSecurityPoliciesCard({
                     <span className="sr-only">Details</span>
                     <ChevronRightIcon className="h-6 w-6 fill-black/50" />
                   </Link>
-                </li>
+                </BoxedList.Item>
               );
             })}
-          </ul>
+          </BoxedList>
         )}
       </Card>
     </>

@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import Heading from "../../../../../../components/heading/heading";
 import { LoadingPage } from "../../../../../../components/loading-page/loading-page";
 import { useGetUserByIdQuery } from "../../../../../../store/api/resources/users/users.api";
-import { AttachedSecurityPoliciesCard } from "./components/attached-security-polices-card";
+import { UserGroupSecurityPolicyList } from "./components/user-group-security-policy-list";
 import { UserDetailsBreadcrumbs } from "./components/user-details-breadcrumbs";
 import { UserDetailsCard } from "./components/user-details-card";
-import { UserGroupMembershipsCard } from "./components/user-group-memberships-card";
+import { UserGroupMemberList } from "./components/user-group-member-list";
 
 export function UserDetailsPage() {
   const { userId } = useParams();
@@ -27,8 +27,8 @@ export function UserDetailsPage() {
               <UserDetailsCard user={data} />
             </div>
             <div className="flex flex-col gap-4">
-              <AttachedSecurityPoliciesCard userId={data.id} />
-              <UserGroupMembershipsCard userId={data.id} />
+              <UserGroupSecurityPolicyList userId={data.id} />
+              <UserGroupMemberList userId={data.id} />
             </div>
           </div>
         </>
