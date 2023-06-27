@@ -10,6 +10,10 @@ import {
   SecurityPolicy,
   SecurityPolicyDocument,
 } from '../../schemas/security-policy/security-policy.schema';
+import {
+  UserGroupMembership,
+  UserGroupMembershipDocument,
+} from '../../schemas/user-group-membership/user-group-membership.schema';
 import { User, UserDocument } from '../../schemas/user/user.schema';
 
 @Injectable()
@@ -23,20 +27,92 @@ export class SecurityAttributesRepository {
 
     @InjectModel(User.name)
     private userModel: Model<UserDocument>,
+
+    @InjectModel(UserGroupMembership.name)
+    private userGroupMembershipModel: Model<UserGroupMembershipDocument>,
   ) {}
 
   async aggregateUserSecurityAttributes(userId: string): Promise<Set<string>> {
-    const attributeDocuments = await this.securityPolicyAttachmentModel
+    const attributeDocuments = await this.userModel
       .aggregate()
-      .match({
-        attachmentType: SecurityPolicyAttachmentType.User,
-        attachedToId: userId,
+      .match({ _id: userId })
+      .facet({
+        userPolicies: [
+          {
+            $lookup: {
+              from: this.securityPolicyAttachmentModel.collection.name,
+              localField: '_id',
+              foreignField: 'attachedToId',
+              as: 'policy',
+            },
+          },
+          { $unwind: '$policy' },
+          {
+            $match: {
+              'policy.attachmentType': SecurityPolicyAttachmentType.User,
+            },
+          },
+          {
+            $lookup: {
+              from: this.securityPolicyModel.collection.name,
+              localField: 'policy.policyId',
+              foreignField: '_id',
+              as: 'policy',
+            },
+          },
+          {
+            $unwind: '$policy',
+          },
+          {
+            $replaceRoot: { newRoot: '$policy' },
+          },
+        ],
+
+        groupPolicies: [
+          {
+            $lookup: {
+              from: this.userGroupMembershipModel.collection.name,
+              localField: '_id',
+              foreignField: 'userId',
+              as: 'group',
+            },
+          },
+          { $unwind: '$group' },
+          { $replaceRoot: { newRoot: '$group' } },
+          {
+            $lookup: {
+              from: this.securityPolicyAttachmentModel.collection.name,
+              localField: '_id',
+              foreignField: 'attachedToId',
+              as: 'policy',
+            },
+          },
+          { $unwind: '$policy' },
+          {
+            $match: {
+              'policy.attachmentType': SecurityPolicyAttachmentType.Group,
+            },
+          },
+          {
+            $lookup: {
+              from: this.securityPolicyModel.collection.name,
+              localField: 'policy.policyId',
+              foreignField: '_id',
+              as: 'policy',
+            },
+          },
+          {
+            $unwind: '$policy',
+          },
+          {
+            $replaceRoot: { newRoot: '$policy' },
+          },
+        ],
       })
-      .lookup({
-        from: this.securityPolicyModel.collection.name,
-        localField: 'policyId',
-        foreignField: '_id',
-        as: 'policies',
+      .project({
+        policies: {
+          $setUnion: ['$userPolicies', '$groupPolicies'],
+        },
       })
       .unwind('$policies')
       .unwind('$policies.attributes')
