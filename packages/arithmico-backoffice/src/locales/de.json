@@ -58,6 +58,7 @@
   "admin.security-policies.id": "ID",
   "admin.security-policies.name": "Name",
   "admin.security-policies.attributes": "Berechtigungen",
+  "admin.security-policies.attributes.empty": "Dieser Sicherheitsrichtlinie wurden noch keine Berechtigungen zugewiesen.",
   "admin.security-policies.readonly": "Schreibgeschützt",
   "admin.security-policies.created-at": "Erstellt",
   "admin.security-policies.principals": "Akteure",

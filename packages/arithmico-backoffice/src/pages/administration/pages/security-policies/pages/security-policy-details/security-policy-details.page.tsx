@@ -63,8 +63,8 @@ export function SecurityPolicyDetailsPage() {
           </div>
           <div
             className={classNames(
-              "md:grid",
-              "md:grid-cols-2",
+              "lg:grid",
+              "lg:grid-cols-2",
               "gap-4",
               "flex",
               "flex-col"
@@ -74,8 +74,8 @@ export function SecurityPolicyDetailsPage() {
               className={classNames(
                 "flex",
                 "flex-col",
-                "md:col-start-2",
-                "md:row-start-1",
+                "lg:col-start-2",
+                "lg:row-start-1",
                 "gap-4"
               )}
             >
@@ -94,8 +94,8 @@ export function SecurityPolicyDetailsPage() {
               className={classNames(
                 "flex",
                 "flex-col",
-                "md:col-start-1",
-                "md:row-start-1",
+                "lg:col-start-1",
+                "lg:row-start-1",
                 "gap-4"
               )}
             >

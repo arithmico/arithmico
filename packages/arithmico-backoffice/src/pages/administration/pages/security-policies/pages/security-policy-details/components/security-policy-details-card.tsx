@@ -27,7 +27,7 @@ export function SecurityPolicyDetailsCard({
   createdAt,
 }: SecurityPolicyDetailsCardProps) {
   return (
-    <Card>
+    <Card className="lg:sticky lg:top-4">
       <Heading level={2} className={classNames("mt-0", "text-xl")}>
         <FormattedMessage id="admin.security-policies.details.title" />
       </Heading>

@@ -31,11 +31,18 @@ export function SecurityPolicyAttributeList({
           </Link>
         )}
       </div>
-      <BoxedList>
-        {attributes.map((attribute) => (
-          <SecurityPolicyAttribute key={attribute} attribute={attribute} />
-        ))}
-      </BoxedList>
+      {attributes.length > 0 && (
+        <BoxedList>
+          {attributes.map((attribute) => (
+            <SecurityPolicyAttribute key={attribute} attribute={attribute} />
+          ))}
+        </BoxedList>
+      )}
+      {attributes.length === 0 && (
+        <p className="rounded-sm border border-black/30 p-6 text-center text-black/30">
+          <FormattedMessage id="admin.security-policies.attributes.empty" />
+        </p>
+      )}
     </Card>
   );
 }
