@@ -48,7 +48,6 @@ export function PaginationToolbar({
         "flex",
         "justify-center",
         "items-center",
-        "mb-4",
         "mt-2",
         className
       )}

@@ -42,10 +42,6 @@ export interface GetUserByIdArgs {
   userId: string;
 }
 
-export interface GetSecurityPoliciesAttachedToUserArgs {
-  userId: string;
-}
-
 export interface AttachSecurityPolicyToUserArgs {
   userId: string;
   policyId: string;

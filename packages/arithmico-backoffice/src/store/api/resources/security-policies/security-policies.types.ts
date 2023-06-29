@@ -70,3 +70,9 @@ export interface CreateSecurityPolicyArgs {
 export interface DeleteSecurityPolicyArgs {
   policyId: string;
 }
+
+export interface GetSecurityPoliciesAttachedToUserArgs {
+  skip: number;
+  limit: number;
+  userId: string;
+}

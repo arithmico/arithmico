@@ -202,33 +202,57 @@ export class SecurityPolicyRepository {
       .exec();
 
     return {
-      items: result.at(0).items,
       skip,
       limit,
+      items: result.at(0).items,
       total: result.at(0).total,
     };
   }
 
   async getSecurityPoliciesAttachedToUser(
+    skip: number,
+    limit: number,
     userId: string,
-  ): Promise<SecurityPolicy[]> {
-    const aggregationResult = await this.securityPolicyAttachmentModel
+  ): Promise<PagedResponse<SecurityPolicy>> {
+    const result = await this.securityPolicyAttachmentModel
       .aggregate()
       .match({
         attachmentType: SecurityPolicyAttachmentType.User,
         attachedToId: userId,
       })
-      .lookup({
-        from: this.securityPolicyModel.collection.name,
-        localField: 'policyId',
-        foreignField: '_id',
-        as: 'policies',
+      .facet({
+        items: [
+          { $skip: skip },
+          { $limit: limit },
+          {
+            $lookup: {
+              from: this.securityPolicyModel.collection.name,
+              localField: 'policyId',
+              foreignField: '_id',
+              as: 'policies',
+            },
+          },
+          { $unwind: '$policies' },
+          { $replaceRoot: { newRoot: '$policies' } },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
       })
-      .unwind('$policies')
-      .replaceRoot('$policies')
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
       .exec();
 
-    return aggregationResult;
+    return {
+      skip,
+      limit,
+      items: result.at(0).items,
+      total: result.at(0).total,
+    };
   }
 
   async getSecurityPoliciesAttachedToUserGroup(

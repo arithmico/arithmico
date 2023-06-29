@@ -14,6 +14,7 @@ import {
   SecurityPolicyDtoWithAttachmentCheck,
   GetSecurityPoliciesWithAttachedToUserGroupCheckArgs,
   GetSecurityPoliciesWithAttachedToUserCheckArgs,
+  GetSecurityPoliciesAttachedToUserArgs,
 } from "./security-policies.types";
 
 const securityPoliciesApi = api.injectEndpoints({
@@ -110,6 +111,30 @@ const securityPoliciesApi = api.injectEndpoints({
       }),
     }),
 
+    getSecurityPoliciesAttachedToUser: build.query<
+      PagedResponse<SecurityPolicyDto>,
+      GetSecurityPoliciesAttachedToUserArgs
+    >({
+      query: (arg) => ({
+        url: `/users/${arg.userId}/security-policies`,
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+      }),
+      providesTags: (response, error, arg) =>
+        response && !error
+          ? [
+              ...response.items.map((policy) => ({
+                type: "SecurityPolicy" as const,
+                id: policy.id,
+              })),
+              { type: "User", id: arg.userId },
+            ]
+          : [],
+    }),
+
     setSecurityPolicyAttributes: build.mutation<
       SetSecurityPolicyAttributesResponseDto,
       SetSecurityPolicyAttributesRequestDto
@@ -173,6 +198,7 @@ export const {
   useSetSecurityPolicyAttributesMutation,
   useGetSecurityPoliciesWithAttachedToUserCheckQuery,
   useGetSecurityPoliciesWithAttachedToUserGroupCheckQuery,
+  useGetSecurityPoliciesAttachedToUserQuery,
   useRenameSecurityPolicyMutation,
   useCreateSecurityPolicyMutation,
   useDeleteSecurityPolicyMutation,

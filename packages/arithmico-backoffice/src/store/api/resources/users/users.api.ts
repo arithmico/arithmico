@@ -1,13 +1,11 @@
 import { api } from "../../api";
 import { PagedResponse } from "../../types";
-import { SecurityPolicyDto } from "../security-policies/security-policies.types";
 import {
   ActivateUserArgs,
   AddUserToUserGroupArgs,
   AttachSecurityPolicyToUserArgs,
   CreateUserArgs,
   DetachSecurityPolicyFromUserArgs,
-  GetSecurityPoliciesAttachedToUserArgs,
   GetUserByIdArgs,
   GetUsersArgs,
   GetUsersForSecurityPolicyArgs,
@@ -77,26 +75,6 @@ const authApi = api.injectEndpoints({
       }),
       providesTags: (arg, error) =>
         error ? [] : [{ type: "User", id: arg?.id }],
-    }),
-
-    getSecurityPoliciesAttachedToUser: build.query<
-      SecurityPolicyDto[],
-      GetSecurityPoliciesAttachedToUserArgs
-    >({
-      query: (arg) => ({
-        url: `/users/${arg.userId}/security-policies`,
-        method: "GET",
-      }),
-      providesTags: (response, error, arg) =>
-        response && !error
-          ? [
-              ...response.map((policy) => ({
-                type: "SecurityPolicy" as const,
-                id: policy.id,
-              })),
-              { type: "User", id: arg.userId },
-            ]
-          : [],
     }),
 
     getUsersForUserGroup: build.query<
@@ -283,7 +261,6 @@ export const {
   useGetUsersQuery,
   useGetUsersWithIsGroupMemberQuery,
   useGetUserByIdQuery,
-  useGetSecurityPoliciesAttachedToUserQuery,
   useGetUsersForUserGroupQuery,
   useGetUsersForSecurityPolicyQuery,
   useGetUsersWithSecurityPolicyAttachmentCheckQuery,

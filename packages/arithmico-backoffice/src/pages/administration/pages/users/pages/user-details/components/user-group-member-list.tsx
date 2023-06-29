@@ -73,7 +73,7 @@ export function UserGroupMemberList({ userId }: UserGroupMemberListProps) {
                 })}
               </BoxedList>
             )}
-            {true && (
+            {data.total > limit && (
               <PaginationToolbar
                 className="mt-4"
                 skip={skip}
