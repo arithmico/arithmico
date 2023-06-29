@@ -188,6 +188,86 @@ export class UserRepository {
     };
   }
 
+  async getUsersWithSecurityPolicyAttachmentCheck(
+    skip: number,
+    limit: number,
+    policyId: string,
+  ): Promise<
+    PagedResponse<
+      UserDocument & {
+        isAttached: boolean;
+      }
+    >
+  > {
+    const result = await this.userModel
+      .aggregate()
+      .sort({ name: -1 })
+      .facet({
+        items: [
+          {
+            $match: {},
+          },
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.securityPolicyAttachmentModel.collection.name,
+              localField: '_id',
+              foreignField: 'attachedToId',
+              as: 'isAttached',
+            },
+          },
+          {
+            $addFields: {
+              isGroupMember: {
+                $filter: {
+                  input: '$isAttached',
+                  as: 'item',
+                  cond: {
+                    $and: [
+                      { $eq: ['$$item.policyId', policyId] },
+                      {
+                        $eq: [
+                          '$$item.attachmentType',
+                          SecurityPolicyAttachmentType.User,
+                        ],
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $addFields: {
+              isAttached: { $gte: [{ $size: '$isAttached' }, 1] },
+            },
+          },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      items: result.at(0).items,
+      total: result.at(0).total,
+      skip,
+      limit,
+    };
+  }
+
   async hasUsers(): Promise<boolean> {
     const result = await this.userModel.estimatedDocumentCount();
     return result !== 0;
