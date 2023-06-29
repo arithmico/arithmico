@@ -8,8 +8,11 @@ import {
   DetachSecurityPolicyToUserGroupArgs,
   GetSecurityPoliciesAttachedToUserGroupArgs,
   GetUserGroupByIdArgs,
+  GetUserGroupsForSecurityPolicyArgs,
+  GetUserGroupsWithAttachmentCheckArgs,
   RenameUserGroupArgs,
   UserGroupDto,
+  UserGroupDtoWithAttachmentCheck,
   UserGroupDtoWithDetails,
   UserGroupSecurityPolicyAttachmentDto,
 } from "./user-groups.types";
@@ -72,6 +75,55 @@ const userGroupsApi = api.injectEndpoints({
                 id: securityPolicy.id,
               })),
               { type: "UserGroup", id: arg.groupId },
+            ]
+          : [],
+    }),
+
+    getUserGroupsWithAttachmentCheck: build.query<
+      PagedResponse<UserGroupDtoWithAttachmentCheck>,
+      GetUserGroupsWithAttachmentCheckArgs
+    >({
+      query: (arg) => ({
+        url: "/user-groups",
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+          checkSecurityPolicyAttachment: arg.policyId,
+        },
+      }),
+      providesTags: (result, _, arg) =>
+        result
+          ? [
+              ...result.items.map((userGroup) => ({
+                type: "UserGroup" as const,
+                id: userGroup.id,
+              })),
+              { type: "SecurityPolicy", id: arg.policyId },
+            ]
+          : [],
+    }),
+
+    getUserGroupsForSecurityPolicy: build.query<
+      PagedResponse<UserGroupDto>,
+      GetUserGroupsForSecurityPolicyArgs
+    >({
+      query: (arg) => ({
+        url: `/security-policies/${arg.policyId}/user-groups`,
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+      }),
+      providesTags: (result, _, arg) =>
+        result
+          ? [
+              ...result.items.map((userGroup) => ({
+                type: "UserGroup" as const,
+                id: userGroup.id,
+              })),
+              { type: "SecurityPolicy", id: arg.policyId },
             ]
           : [],
     }),
@@ -148,6 +200,8 @@ export const {
   useGetUserGroupsQuery,
   useGetUserGroupByIdQuery,
   useGetSecurityPoliciesAttachedToUserGroupQuery,
+  useGetUserGroupsWithAttachmentCheckQuery,
+  useGetUserGroupsForSecurityPolicyQuery,
   useCreateUserGroupMutation,
   useRenameUserGroupMutation,
   useDeleteUserGroupMutation,

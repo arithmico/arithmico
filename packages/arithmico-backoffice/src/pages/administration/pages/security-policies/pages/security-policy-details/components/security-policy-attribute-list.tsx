@@ -19,7 +19,7 @@ export function SecurityPolicyAttributeList({
   return (
     <Card>
       <div className={classNames("flex", "items-center", "mb-4")}>
-        <Heading level={2} className={classNames("mt-0", "text-xl")}>
+        <Heading level={2} className="mt-0">
           <FormattedMessage id="admin.security-policies.attributes" />
         </Heading>
         {!readonly && (

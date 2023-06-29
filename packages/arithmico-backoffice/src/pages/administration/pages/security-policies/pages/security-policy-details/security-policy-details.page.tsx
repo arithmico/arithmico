@@ -9,6 +9,7 @@ import { useGetSecurityPolicyByIdQuery } from "../../../../../../store/api/resou
 import { SecurityPolicyAttributeList } from "./components/security-policy-attribute-list";
 import { SecurityPolicyDetailsBreadcrumbs } from "./components/security-policy-details-breadcrumbs";
 import { SecurityPolicyDetailsCard } from "./components/security-policy-details-card";
+import { SecurityPolicyUserGroupList } from "./components/security-policy-user-group-list";
 import { SecurityPolicyUserList } from "./components/security-policy-user-list";
 
 export function SecurityPolicyDetailsPage() {
@@ -103,6 +104,7 @@ export function SecurityPolicyDetailsPage() {
                 attributes={data.attributes}
               />
               <SecurityPolicyUserList policyId={policyId!} />
+              <SecurityPolicyUserGroupList policyId={policyId!} />
             </div>
           </div>
         </>

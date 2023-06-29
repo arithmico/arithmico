@@ -10,6 +10,9 @@ export interface UserGroupDto {
   readonly: boolean;
 }
 
+export interface UserGroupDtoWithAttachmentCheck extends UserGroupDto {
+  isAttached: boolean;
+}
 export interface UserGroupDtoWithDetails extends UserGroupDto {
   members: number;
 }
@@ -44,5 +47,17 @@ export interface AttachSecurityPolicyToUserGroupArgs {
 
 export interface DetachSecurityPolicyToUserGroupArgs {
   groupId: string;
+  policyId: string;
+}
+
+export interface GetUserGroupsWithAttachmentCheckArgs {
+  skip: number;
+  limit: number;
+  policyId: string;
+}
+
+export interface GetUserGroupsForSecurityPolicyArgs {
+  skip: number;
+  limit: number;
   policyId: string;
 }

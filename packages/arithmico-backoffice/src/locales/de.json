@@ -82,6 +82,9 @@
   "admin.security-policies.users.empty": "Die Sicherheitsrichtlinie wurde noch keinem Benutzer zugewiesen",
   "admin.security-policies.users.details": "Benutzerdetails anzeigen",
   "admin.security-policies.users.edit": "Benutzer bearbeiten",
+  "admin.security-policies.user-groups": "Benutzergruppen",
+  "admin.security-policies.user-groups.edit": "Benutzergruppen bearbeiten",
+  "admin.security-policies.user-groups.empty": "Die Sicherheitsrichtlinie wurde noch keiner Benutzergruppe zugewiesen",
 
   "admin.user-groups.title": "Benutzergruppen",
   "admin.user-groups.id": "ID",
