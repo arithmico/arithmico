@@ -223,7 +223,7 @@ export class UserRepository {
           },
           {
             $addFields: {
-              isGroupMember: {
+              isAttached: {
                 $filter: {
                   input: '$isAttached',
                   as: 'item',
