@@ -10,6 +10,11 @@ import {
   UserGroupMembership,
   UserGroupMembershipDocument,
 } from '../../schemas/user-group-membership/user-group-membership.schema';
+import {
+  SecurityPolicyAttachment,
+  SecurityPolicyAttachmentDocument,
+  SecurityPolicyAttachmentType,
+} from '../../schemas/security-policy-attachment/security-policy-attachment.schema';
 
 export class UserGroupRepository {
   constructor(
@@ -17,6 +22,8 @@ export class UserGroupRepository {
     private userGroupModel: Model<UserGroupDocument>,
     @InjectModel(UserGroupMembership.name)
     private userGroupMembershipModel: Model<UserGroupMembershipDocument>,
+    @InjectModel(SecurityPolicyAttachment.name)
+    private securityPolicyAttachmentModel: Model<SecurityPolicyAttachmentDocument>,
   ) {}
 
   async createUserGroup(
@@ -162,6 +169,80 @@ export class UserGroupRepository {
           {
             $addFields: {
               members: { $size: '$members' },
+            },
+          },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      skip,
+      limit,
+      total: result.at(0).total,
+      items: result.at(0).items,
+    };
+  }
+
+  async getUserGroupsWithAttachmentCheck(
+    skip: number,
+    limit: number,
+    policyId: string,
+  ): Promise<PagedResponse<UserGroupDocument & { isAttached: boolean }>> {
+    const result = await this.userGroupModel
+      .aggregate()
+      .sort({ name: -1 })
+      .facet({
+        items: [
+          {
+            $match: {},
+          },
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.securityPolicyAttachmentModel.collection.name,
+              localField: '_id',
+              foreignField: 'attachedToId',
+              as: 'isAttached',
+            },
+          },
+          {
+            $addFields: {
+              isAttached: {
+                $filter: {
+                  input: '$isAttached',
+                  as: 'item',
+                  cond: {
+                    $and: [
+                      { $eq: ['$$item.policyId', policyId] },
+                      {
+                        $eq: [
+                          '$$item.attachmentType',
+                          SecurityPolicyAttachmentType.Group,
+                        ],
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $addFields: {
+              isAttached: { $gte: [{ $size: '$isAttached' }, 1] },
             },
           },
         ],

@@ -5,6 +5,8 @@ import { GetUserGroupsRequestQueryDto } from './get-user-groups.request.query.dt
 import { GetUserGroupsQuery } from './get-user-groups.query';
 import { SecurityAttribute } from '../../../../common/constants/security-attributes.enum';
 import { SecurityAttributes } from '../../../../decorators/security-attributes.decorator';
+import { PagedResponse } from '../../../../common/types/paged-response.dto';
+import { GetUserGroupsWithAttachmentCheckResponseDto } from './get-user-groups-with-attachment-check.response.dto';
 
 @Controller()
 export class GetUserGroupsController {
@@ -14,9 +16,16 @@ export class GetUserGroupsController {
   @SecurityAttributes(SecurityAttribute.UserGroupsRead)
   async getUserGroups(
     @Query() query: GetUserGroupsRequestQueryDto,
-  ): Promise<GetUserGroupsResponseDto> {
+  ): Promise<
+    | PagedResponse<GetUserGroupsResponseDto>
+    | PagedResponse<GetUserGroupsWithAttachmentCheckResponseDto>
+  > {
     return await this.queryBus.execute(
-      new GetUserGroupsQuery(query.skip, query.limit),
+      new GetUserGroupsQuery(
+        query.skip,
+        query.limit,
+        query.checkSecurityPolicyAttachment,
+      ),
     );
   }
 }
