@@ -5,6 +5,7 @@ import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import {
   SecurityPolicyAttachment,
   SecurityPolicyAttachmentDocument,
+  SecurityPolicyAttachmentType,
 } from '../../schemas/security-policy-attachment/security-policy-attachment.schema';
 import {
   UserGroupMembership,
@@ -288,6 +289,58 @@ export class UserRepository {
       .project({
         items: 1,
         total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      items: result.at(0).items,
+      total: result.at(0).total,
+      skip,
+      limit,
+    };
+  }
+
+  async getUsersForSecurityPolicy(
+    policyId: string,
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<UserDocument>> {
+    const result = await this.securityPolicyAttachmentModel
+      .aggregate()
+      .match({
+        attachmentType: SecurityPolicyAttachmentType.User,
+        policyId,
+      })
+      .facet({
+        items: [
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.userModel.collection.name,
+              localField: 'attachedToId',
+              foreignField: '_id',
+              as: 'userDocument',
+            },
+          },
+          {
+            $unwind: '$userDocument',
+          },
+          {
+            $replaceRoot: {
+              newRoot: '$userDocument',
+            },
+          },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
       })
       .exec();
 

@@ -77,3 +77,9 @@ export interface GetUsersWithIsGroupMemberArgs {
   limit: number;
   groupId: string;
 }
+
+export interface GetUsersForSecurityPolicyArgs {
+  policyId: string;
+  skip: number;
+  limit: number;
+}

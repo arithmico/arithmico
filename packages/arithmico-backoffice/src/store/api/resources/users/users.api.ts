@@ -12,6 +12,7 @@ import {
   GetUserByIdArgs,
   GetUserGroupsForUserArgs,
   GetUsersArgs,
+  GetUsersForSecurityPolicyArgs,
   GetUsersForUserGroupArgs,
   GetUsersWithIsGroupMemberArgs,
   RemoveUserFromUserGroupArgs,
@@ -129,14 +130,38 @@ const authApi = api.injectEndpoints({
           limit: arg.limit,
         },
       }),
-      providesTags: (response, error, arg) =>
-        response && !error
+      providesTags: (response, _, arg) =>
+        response
           ? [
               ...response.items.map((user) => ({
                 type: "User" as const,
                 id: user.id,
               })),
               { type: "UserGroup", id: arg.groupId },
+            ]
+          : [],
+    }),
+
+    getUsersForSecurityPolicy: build.query<
+      PagedResponse<UserDto>,
+      GetUsersForSecurityPolicyArgs
+    >({
+      query: (arg) => ({
+        url: `/security-policies/${arg.policyId}/users`,
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              ...response.items.map((user) => ({
+                type: "User" as const,
+                id: user.id,
+              })),
+              { type: "SecurityPolicy", id: arg.policyId },
             ]
           : [],
     }),
@@ -255,6 +280,7 @@ export const {
   useGetUserGroupsForUserQuery,
   useGetSecurityPoliciesAttachedToUserQuery,
   useGetUsersForUserGroupQuery,
+  useGetUsersForSecurityPolicyQuery,
   useCreateUserMutation,
   useActivateUserMutation,
   useAttachSecurityPolicyToUserMutation,

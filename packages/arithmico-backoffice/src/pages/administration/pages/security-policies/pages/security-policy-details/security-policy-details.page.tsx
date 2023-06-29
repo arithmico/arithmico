@@ -9,6 +9,7 @@ import { useGetSecurityPolicyByIdQuery } from "../../../../../../store/api/resou
 import { SecurityPolicyAttributeList } from "./components/security-policy-attribute-list";
 import { SecurityPolicyDetailsBreadcrumbs } from "./components/security-policy-details-breadcrumbs";
 import { SecurityPolicyDetailsCard } from "./components/security-policy-details-card";
+import { SecurityPolicyUserList } from "./components/security-policy-user-list";
 
 export function SecurityPolicyDetailsPage() {
   const { policyId } = useParams();
@@ -93,13 +94,15 @@ export function SecurityPolicyDetailsPage() {
                 "flex",
                 "flex-col",
                 "md:col-start-1",
-                "md:row-start-1"
+                "md:row-start-1",
+                "gap-4"
               )}
             >
               <SecurityPolicyAttributeList
                 readonly={data.readonly}
                 attributes={data.attributes}
               />
+              <SecurityPolicyUserList policyId={policyId!} />
             </div>
           </div>
         </>
