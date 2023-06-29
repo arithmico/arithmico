@@ -28,7 +28,7 @@ export function SecurityPolicyDetailsCard({
 }: SecurityPolicyDetailsCardProps) {
   return (
     <Card className="lg:sticky lg:top-4">
-      <Heading level={2} className={classNames("mt-0", "text-xl")}>
+      <Heading level={2} className="mb-4">
         <FormattedMessage id="admin.security-policies.details.title" />
       </Heading>
       <DefinitionList>
