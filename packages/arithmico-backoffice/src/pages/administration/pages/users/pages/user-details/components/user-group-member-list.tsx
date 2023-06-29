@@ -52,6 +52,7 @@ export function UserGroupMemberList({ userId }: UserGroupMemberListProps) {
               const userGroupUrl = `/administration/user-groups/${userGroup.id}`;
               return (
                 <BoxedList.Item
+                  key={userGroup.id}
                   onClick={() => navigate(userGroupUrl)}
                   className="py-2 pl-4 pr-2"
                 >
