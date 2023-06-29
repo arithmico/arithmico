@@ -28,7 +28,9 @@ const CalculatorToolbarButton = forwardRef<
       "md:p-4",
       "p-2",
       "rounded-sm",
-      "text-left"
+      "text-left",
+      //"outline-none",
+      "focus-visible:outline"
     )}
     {...props}
   >
