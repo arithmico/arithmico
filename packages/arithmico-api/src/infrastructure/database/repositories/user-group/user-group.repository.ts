@@ -192,6 +192,49 @@ export class UserGroupRepository {
     };
   }
 
+  async getUsersGroupsForSecurityPolicy(
+    skip: number,
+    limit: number,
+    policyId: string,
+  ): Promise<PagedResponse<UserGroupDocument>> {
+    const result = await this.securityPolicyAttachmentModel
+      .aggregate()
+      .match({
+        policyId,
+        attachmentType: SecurityPolicyAttachmentType.Group,
+      })
+      .facet({
+        items: [
+          { $match: {} },
+          { $skip: skip },
+          { $limit: limit },
+          {
+            $lookup: {
+              from: this.userGroupModel.collection.name,
+              localField: 'attachedToId',
+              foreignField: '_id',
+              as: 'userGroup',
+            },
+          },
+          { $unwind: '$userGroup' },
+          { $replaceRoot: { newRoot: '$userGroup' } },
+        ],
+        total: [{ $count: 'count' }],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      skip,
+      limit,
+      total: result.at(0).total,
+      items: result.at(0).items,
+    };
+  }
+
   async getUserGroupsWithAttachmentCheck(
     skip: number,
     limit: number,
