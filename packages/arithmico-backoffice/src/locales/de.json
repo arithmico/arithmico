@@ -80,6 +80,7 @@
   "admin.security-policies.details": "Sicherheitsrichtliniendetails",
   "admin.security-policies.users": "Benutzer",
   "admin.security-policies.users.details": "Benutzerdetails anzeigen",
+  "admin.security-policies.users.edit": "Benutzer bearbeiten",
 
   "admin.user-groups.title": "Benutzergruppen",
   "admin.user-groups.id": "ID",

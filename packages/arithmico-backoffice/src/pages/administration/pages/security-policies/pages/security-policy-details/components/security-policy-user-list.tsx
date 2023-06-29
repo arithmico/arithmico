@@ -6,6 +6,7 @@ import { Card } from "../../../../../../../components/card/card";
 import Heading from "../../../../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
 import { ChevronRightIcon } from "../../../../../../../icons/chevron-right.icon";
+import { EditIcon } from "../../../../../../../icons/edit.icon";
 import { useGetUsersForSecurityPolicyQuery } from "../../../../../../../store/api/resources/users/users.api";
 
 export interface SecurityPolicyUserListProps {
@@ -30,6 +31,15 @@ export function SecurityPolicyUserList({
         <Heading level={2}>
           <FormattedMessage id="admin.security-policies.users" />
         </Heading>
+        <button
+          className="ml-auto flex items-center justify-center"
+          onClick={() => {}}
+        >
+          <EditIcon className="h-6 w-6 fill-black" />
+          <span className="sr-only">
+            <FormattedMessage id="admin.security-policies.users.edit" />
+          </span>
+        </button>
       </div>
       {isSuccess && (
         <>
