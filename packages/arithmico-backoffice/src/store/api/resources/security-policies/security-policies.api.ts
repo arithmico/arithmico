@@ -86,7 +86,7 @@ const securityPoliciesApi = api.injectEndpoints({
                 type: "SecurityPolicy" as const,
                 id: securityPolicy.id,
               })),
-              { type: "UserGroup", id: arg.groupId },
+              { type: "User", id: arg.userId },
             ]
           : [],
     }),

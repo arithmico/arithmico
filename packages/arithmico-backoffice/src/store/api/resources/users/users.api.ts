@@ -15,9 +15,11 @@ import {
   GetUsersForSecurityPolicyArgs,
   GetUsersForUserGroupArgs,
   GetUsersWithIsGroupMemberArgs,
+  GetUsersWithSecurityPolicyAttachmentCheckArgs,
   RemoveUserFromUserGroupArgs,
   UserDto,
   UserDtoWithIsGroupMember,
+  UserDtoWithSecurityPolicyAttachmentCheck,
   UserGroupMembershipDto,
   UserResponseDto,
 } from "./users.types";
@@ -166,6 +168,31 @@ const authApi = api.injectEndpoints({
           : [],
     }),
 
+    getUsersWithSecurityPolicyAttachmentCheck: build.query<
+      PagedResponse<UserDtoWithSecurityPolicyAttachmentCheck>,
+      GetUsersWithSecurityPolicyAttachmentCheckArgs
+    >({
+      query: (arg) => ({
+        url: `/users`,
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+          checkSecurityPolicyAttachment: arg.policyId,
+        },
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              ...response.items.map((user) => ({
+                type: "User" as const,
+                id: user.id,
+              })),
+              { type: "SecurityPolicy", id: arg.policyId },
+            ]
+          : [],
+    }),
+
     createUser: build.mutation<UserDto, CreateUserArgs>({
       query: (arg) => ({
         url: "/users",
@@ -281,6 +308,7 @@ export const {
   useGetSecurityPoliciesAttachedToUserQuery,
   useGetUsersForUserGroupQuery,
   useGetUsersForSecurityPolicyQuery,
+  useGetUsersWithSecurityPolicyAttachmentCheckQuery,
   useCreateUserMutation,
   useActivateUserMutation,
   useAttachSecurityPolicyToUserMutation,
