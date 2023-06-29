@@ -10,10 +10,15 @@ export interface UserGroupDto {
   readonly: boolean;
 }
 
-export interface UserGroupDtoWithAttachmentCheck extends UserGroupDto {
+export interface UserGroupWithAttachmentCheckDto extends UserGroupDto {
   isAttached: boolean;
 }
-export interface UserGroupDtoWithDetails extends UserGroupDto {
+
+export interface UserGroupWithMembershipCheckDto extends UserGroupDto {
+  isMember: boolean;
+}
+
+export interface UserGroupWithDetailsDto extends UserGroupDto {
   members: number;
 }
 
@@ -60,4 +65,16 @@ export interface GetUserGroupsForSecurityPolicyArgs {
   skip: number;
   limit: number;
   policyId: string;
+}
+
+export interface GetUserGroupsForUserArgs {
+  skip: number;
+  limit: number;
+  userId: string;
+}
+
+export interface GetUserGroupsWithMembershipCheckArgs {
+  skip: number;
+  limit: number;
+  userId: string;
 }

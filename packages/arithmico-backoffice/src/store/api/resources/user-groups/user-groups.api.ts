@@ -9,18 +9,21 @@ import {
   GetSecurityPoliciesAttachedToUserGroupArgs,
   GetUserGroupByIdArgs,
   GetUserGroupsForSecurityPolicyArgs,
+  GetUserGroupsForUserArgs,
   GetUserGroupsWithAttachmentCheckArgs,
+  GetUserGroupsWithMembershipCheckArgs,
   RenameUserGroupArgs,
   UserGroupDto,
-  UserGroupDtoWithAttachmentCheck,
-  UserGroupDtoWithDetails,
+  UserGroupWithAttachmentCheckDto,
+  UserGroupWithDetailsDto,
   UserGroupSecurityPolicyAttachmentDto,
+  UserGroupWithMembershipCheckDto,
 } from "./user-groups.types";
 
 const userGroupsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getUserGroups: build.query<
-      PagedResponse<UserGroupDtoWithDetails>,
+      PagedResponse<UserGroupWithDetailsDto>,
       PageQueryParams
     >({
       query: (arg) => ({
@@ -44,7 +47,7 @@ const userGroupsApi = api.injectEndpoints({
     }),
 
     getUserGroupById: build.query<
-      UserGroupDtoWithDetails,
+      UserGroupWithDetailsDto,
       GetUserGroupByIdArgs
     >({
       query: (arg) => ({
@@ -80,7 +83,7 @@ const userGroupsApi = api.injectEndpoints({
     }),
 
     getUserGroupsWithAttachmentCheck: build.query<
-      PagedResponse<UserGroupDtoWithAttachmentCheck>,
+      PagedResponse<UserGroupWithAttachmentCheckDto>,
       GetUserGroupsWithAttachmentCheckArgs
     >({
       query: (arg) => ({
@@ -90,6 +93,31 @@ const userGroupsApi = api.injectEndpoints({
           skip: arg.skip,
           limit: arg.limit,
           checkSecurityPolicyAttachment: arg.policyId,
+        },
+      }),
+      providesTags: (result, _, arg) =>
+        result
+          ? [
+              ...result.items.map((userGroup) => ({
+                type: "UserGroup" as const,
+                id: userGroup.id,
+              })),
+              { type: "SecurityPolicy", id: arg.policyId },
+            ]
+          : [],
+    }),
+
+    getUserGroupsWithMembershipCheck: build.query<
+      PagedResponse<UserGroupWithMembershipCheckDto>,
+      GetUserGroupsWithMembershipCheckArgs
+    >({
+      query: (arg) => ({
+        url: "/user-groups",
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+          checkGroupMembership: arg.userId,
         },
       }),
       providesTags: (result, _, arg) =>
@@ -124,6 +152,30 @@ const userGroupsApi = api.injectEndpoints({
                 id: userGroup.id,
               })),
               { type: "SecurityPolicy", id: arg.policyId },
+            ]
+          : [],
+    }),
+
+    getUserGroupsForUser: build.query<
+      PagedResponse<UserGroupDto>,
+      GetUserGroupsForUserArgs
+    >({
+      query: (arg) => ({
+        url: `/users/${arg.userId}/user-groups`,
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+      }),
+      providesTags: (response, error, arg) =>
+        response && !error
+          ? [
+              ...response.items.map((userGroup) => ({
+                type: "UserGroup" as const,
+                id: userGroup.id,
+              })),
+              { type: "User", id: arg.userId },
             ]
           : [],
     }),
@@ -202,6 +254,8 @@ export const {
   useGetSecurityPoliciesAttachedToUserGroupQuery,
   useGetUserGroupsWithAttachmentCheckQuery,
   useGetUserGroupsForSecurityPolicyQuery,
+  useGetUserGroupsForUserQuery,
+  useGetUserGroupsWithMembershipCheckQuery,
   useCreateUserGroupMutation,
   useRenameUserGroupMutation,
   useDeleteUserGroupMutation,

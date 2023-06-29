@@ -7,6 +7,7 @@ import { SecurityAttribute } from '../../../../common/constants/security-attribu
 import { SecurityAttributes } from '../../../../decorators/security-attributes.decorator';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import { GetUserGroupsWithAttachmentCheckResponseDto } from './get-user-groups-with-attachment-check.response.dto';
+import { GetUserGroupsWithMembershipCheckResponseDto } from './get-user-groups-with-membership-check.response.dto';
 
 @Controller()
 export class GetUserGroupsController {
@@ -19,12 +20,14 @@ export class GetUserGroupsController {
   ): Promise<
     | PagedResponse<GetUserGroupsResponseDto>
     | PagedResponse<GetUserGroupsWithAttachmentCheckResponseDto>
+    | PagedResponse<GetUserGroupsWithMembershipCheckResponseDto>
   > {
     return await this.queryBus.execute(
       new GetUserGroupsQuery(
         query.skip,
         query.limit,
         query.checkSecurityPolicyAttachment,
+        query.checkGroupMembership,
       ),
     );
   }

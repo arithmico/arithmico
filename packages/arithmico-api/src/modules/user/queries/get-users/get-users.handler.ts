@@ -83,7 +83,7 @@ export class GetUsersQueryHandler implements IQueryHandler<GetUsersQuery> {
         id: user._id,
         username: user.username,
         email: user.email,
-        isGroupMember: user.isGroupMember,
+        isMember: user.isMember,
         createdAt: user.createdAt,
       })),
       skip: result.skip,

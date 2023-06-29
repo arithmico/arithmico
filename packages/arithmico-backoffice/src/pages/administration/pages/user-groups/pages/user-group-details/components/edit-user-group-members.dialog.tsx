@@ -48,9 +48,9 @@ export function EditUserGroupMembersDialog({
                   {user.username}
                   <Checkbox
                     className="ml-auto"
-                    checked={user.isGroupMember}
+                    checked={user.isMember}
                     onChange={() => {
-                      if (user.isGroupMember) {
+                      if (user.isMember) {
                         removeUserFromUserGroup({
                           groupId,
                           userId: user.id,

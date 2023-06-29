@@ -6,7 +6,7 @@ export interface UserDto {
 }
 
 export interface UserDtoWithIsGroupMember extends UserDto {
-  isGroupMember: boolean;
+  isMember: boolean;
 }
 
 export interface UserDtoWithSecurityPolicyAttachmentCheck extends UserDto {
@@ -43,10 +43,6 @@ export interface GetUserByIdArgs {
 }
 
 export interface GetSecurityPoliciesAttachedToUserArgs {
-  userId: string;
-}
-
-export interface GetUserGroupsForUserArgs {
   userId: string;
 }
 

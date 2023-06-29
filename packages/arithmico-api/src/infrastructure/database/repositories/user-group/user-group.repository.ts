@@ -125,19 +125,47 @@ export class UserGroupRepository {
     return userGroupDocumentWithDetails;
   }
 
-  async getUserGroupsForUser(userId: string): Promise<UserGroupDocument[]> {
-    return this.userGroupMembershipModel
+  async getUserGroupsForUser(
+    skip: number,
+    limit: number,
+    userId: string,
+  ): Promise<PagedResponse<UserGroupDocument>> {
+    const result = await this.userGroupMembershipModel
       .aggregate()
       .match({ userId })
-      .lookup({
-        from: this.userGroupModel.collection.name,
-        localField: 'groupId',
-        foreignField: '_id',
-        as: 'group',
+      .facet({
+        items: [
+          { $skip: skip },
+          { $limit: limit },
+          {
+            $lookup: {
+              from: this.userGroupModel.collection.name,
+              localField: 'groupId',
+              foreignField: '_id',
+              as: 'group',
+            },
+          },
+          { $unwind: '$group' },
+          { $replaceRoot: { newRoot: '$group' } },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
       })
-      .unwind('$group')
-      .replaceRoot('$group')
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
       .exec();
+
+    return {
+      skip,
+      limit,
+      total: result.at(0).total,
+      items: result.at(0).items,
+    };
   }
 
   async getUserGroups(
@@ -169,6 +197,72 @@ export class UserGroupRepository {
           {
             $addFields: {
               members: { $size: '$members' },
+            },
+          },
+        ],
+        total: [
+          {
+            $count: 'count',
+          },
+        ],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      skip,
+      limit,
+      total: result.at(0).total,
+      items: result.at(0).items,
+    };
+  }
+
+  async getUserGroupsWithIsMemberCheck(
+    skip: number,
+    limit: number,
+    userId: string,
+  ): Promise<PagedResponse<UserGroupDocument & { isMember: boolean }>> {
+    const result = await this.userGroupModel
+      .aggregate()
+      .sort({ name: -1 })
+      .facet({
+        items: [
+          {
+            $match: {},
+          },
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+          {
+            $lookup: {
+              from: this.userGroupMembershipModel.collection.name,
+              localField: '_id',
+              foreignField: 'groupId',
+              as: 'isMember',
+            },
+          },
+          {
+            $addFields: {
+              isMember: {
+                $filter: {
+                  input: '$isMember',
+                  as: 'item',
+                  cond: {
+                    $eq: ['$$item.userId', userId],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $addFields: {
+              isMember: { $gte: [{ $size: '$isMember' }, 1] },
             },
           },
         ],

@@ -1,4 +1,5 @@
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
+import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import { UserGroupRepository } from '../../../../infrastructure/database/repositories/user-group/user-group.repository';
 import { GetUserGroupsForUserQuery } from './get-user-groups-for-user.query';
 import { GetUserGroupsForUserResponseDto } from './get-user-groups-for-user.response.dto';
@@ -11,15 +12,23 @@ export class GetUserGroupsForUserHandler
 
   async execute(
     query: GetUserGroupsForUserQuery,
-  ): Promise<GetUserGroupsForUserResponseDto[]> {
-    const userGroups = await this.userGroupRepository.getUserGroupsForUser(
+  ): Promise<PagedResponse<GetUserGroupsForUserResponseDto>> {
+    const result = await this.userGroupRepository.getUserGroupsForUser(
+      query.skip,
+      query.limit,
       query.userId,
     );
-    return userGroups.map((userGroup) => ({
-      id: userGroup._id,
-      name: userGroup.name,
-      createdAt: userGroup.createdAt,
-      readonly: userGroup.readonly,
-    }));
+
+    return {
+      skip: result.skip,
+      limit: result.limit,
+      total: result.total,
+      items: result.items.map((userGroup) => ({
+        id: userGroup._id,
+        name: userGroup.name,
+        createdAt: userGroup.createdAt,
+        readonly: userGroup.readonly,
+      })),
+    };
   }
 }

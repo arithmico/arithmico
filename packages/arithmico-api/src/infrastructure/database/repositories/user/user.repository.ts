@@ -123,7 +123,7 @@ export class UserRepository {
   ): Promise<
     PagedResponse<
       UserDocument & {
-        isGroupMember: boolean;
+        isMember: boolean;
       }
     >
   > {
@@ -146,14 +146,14 @@ export class UserRepository {
               from: this.userGroupMembershipModel.collection.name,
               localField: '_id',
               foreignField: 'userId',
-              as: 'isGroupMember',
+              as: 'isMember',
             },
           },
           {
             $addFields: {
-              isGroupMember: {
+              isMember: {
                 $filter: {
-                  input: '$isGroupMember',
+                  input: '$isMember',
                   as: 'item',
                   cond: {
                     $eq: ['$$item.groupId', groupId],
@@ -164,7 +164,7 @@ export class UserRepository {
           },
           {
             $addFields: {
-              isGroupMember: { $gte: [{ $size: '$isGroupMember' }, 1] },
+              isMember: { $gte: [{ $size: '$isMember' }, 1] },
             },
           },
         ],
