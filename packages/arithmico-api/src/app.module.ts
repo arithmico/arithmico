@@ -9,6 +9,7 @@ import databaseConfig from './infrastructure/config/database';
 import awsConfig from './infrastructure/config/aws';
 import jwtConfig from './infrastructure/config/jwt';
 import seedUserConfig from './infrastructure/config/seed-user';
+import githubConfig from './infrastructure/config/github';
 import configValidationSchema from './infrastructure/config/config-validation';
 import { APP_GUARD, RouterModule } from '@nestjs/core';
 import { DatabaseModule } from './infrastructure/database/database.module';
@@ -44,6 +45,7 @@ import { VersionTagModule } from './modules/version-tag/version-tag.module';
         jwtConfig,
         redisConfig,
         mailConfig,
+        githubConfig,
       ],
       validationSchema: configValidationSchema,
       validationOptions: {
