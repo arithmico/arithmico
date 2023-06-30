@@ -15,7 +15,7 @@ export default function DecimalPlacesListbox({
   const [t] = useTranslation();
 
   return (
-    <li
+    <div
       className={classNames(
         "flex",
         "items-center",
@@ -31,7 +31,16 @@ export default function DecimalPlacesListbox({
         <HeadlessuiListbox.Label>
           {t("settings.significantDecimalPlaces")}
         </HeadlessuiListbox.Label>
-        <div className={classNames("ml-auto", "relative", "flex", "flex-col")}>
+        <div
+          className={classNames(
+            "ml-auto",
+            "relative",
+            "flex",
+            "flex-col",
+            "[&:hover>li]:outline-none",
+            "[&:hover>div>ul>li]:outline-none"
+          )}
+        >
           <HeadlessuiListbox.Button
             className={classNames(
               "flex",
@@ -42,7 +51,8 @@ export default function DecimalPlacesListbox({
               "theme-dark:hover:bg-neutral-600",
               "theme-light:hover:bg-neutral-400",
               "p-2",
-              "rounded-md"
+              "rounded-md",
+              "focus-visible:outline"
             )}
           >
             {value}
@@ -65,6 +75,10 @@ export default function DecimalPlacesListbox({
                 "mt-2",
                 "grid",
                 "grid-cols-5",
+                "outline-none",
+                "theme-dark:bg-neutral-700",
+                "theme-light:bg-neutral-300",
+                "rounded-md",
                 "[&>*:nth-child(1)]:rounded-tl-md",
                 "[&>*:nth-child(5)]:rounded-tr-md",
                 "[&>*:nth-child(11)]:rounded-bl-md",
@@ -82,19 +96,12 @@ export default function DecimalPlacesListbox({
                     "items-center",
                     "justify-center",
                     "p-2",
-                    "first:border-t-0",
-                    "border-t",
-                    "border-l",
-                    "theme-dark:border-white/5",
-                    "theme-light:border-black/10",
-                    "theme-dark:bg-neutral-700",
-                    "theme-light:bg-neutral-300",
+                    "m-0.5",
                     "theme-dark:hover:bg-neutral-600",
                     "theme-light:hover:bg-neutral-400",
-                    {
-                      "theme-dark:bg-neutral-600": index === value,
-                      "theme-light:bg-neutral-400": index === value,
-                    }
+                    "ui-active:outline",
+                    "ui-selected:theme-dark:bg-neutral-600",
+                    "ui-selected:theme-light:bg-neutral-400"
                   )}
                 >
                   {index}
@@ -104,6 +111,6 @@ export default function DecimalPlacesListbox({
           </div>
         </div>
       </HeadlessuiListbox>
-    </li>
+    </div>
   );
 }
