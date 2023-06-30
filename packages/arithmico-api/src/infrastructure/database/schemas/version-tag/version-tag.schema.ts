@@ -27,3 +27,9 @@ VersionTagSchema.index(
   },
   { unique: true },
 );
+
+VersionTagSchema.index({
+  'version.major': -1,
+  'version.minor': -1,
+  'version.patch': -1,
+});
