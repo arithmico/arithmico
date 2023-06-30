@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 import { nanoid } from 'nanoid';
 import {
   SemanticVersion,
@@ -12,6 +13,17 @@ export class VersionTag {
 
   @Prop({ required: true, type: [SemanticVersionSchema] })
   version: SemanticVersion;
+
+  @Prop({ required: true, type: String })
+  commit: string;
 }
 
 export const VersionTagSchema = SchemaFactory.createForClass(VersionTag);
+export type VersionTagDocument = HydratedDocument<VersionTag>;
+
+VersionTagSchema.index(
+  {
+    commit: 1,
+  },
+  { unique: true },
+);
