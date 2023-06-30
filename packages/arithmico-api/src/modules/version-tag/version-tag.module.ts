@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { DatabaseModule } from '../../infrastructure/database/database.module';
 import { processors } from './processors';
+import { queryControllers, queryHandlers } from './queries';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { processors } from './processors';
     }),
     DatabaseModule,
   ],
-  providers: [...processors],
+  providers: [...processors, ...queryHandlers],
+  controllers: [...queryControllers],
 })
 export class VersionTagModule {}

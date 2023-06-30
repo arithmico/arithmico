@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import {
   VersionTag,
   VersionTagDocument,
@@ -21,5 +22,30 @@ export class VersionTagRepository {
     return !!(await this.versionTagModel.exists({
       commit,
     }));
+  }
+
+  async getVersionTags(
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<VersionTagDocument>> {
+    const result = await this.versionTagModel
+      .aggregate()
+      .sort({ name: -1 })
+      .facet({
+        items: [{ $skip: skip }, { $limit: limit }],
+        total: [{ $count: 'count' }],
+      })
+      .project({
+        items: 1,
+        total: { $arrayElemAt: ['$total.count', 0] },
+      })
+      .exec();
+
+    return {
+      items: result.at(0).items,
+      total: result.at(0).total,
+      skip,
+      limit,
+    };
   }
 }

@@ -85,6 +85,10 @@ import { VersionTagModule } from './modules/version-tag/version-tag.module';
         path: 'user-groups',
         module: UserGroupModule,
       },
+      {
+        path: 'version-tags',
+        module: VersionTagModule,
+      },
     ]),
     UserModule,
     AuthModule,
