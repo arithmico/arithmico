@@ -64,15 +64,8 @@ export class UserRepository {
       .sort({ name: -1 })
       .facet({
         items: [
-          {
-            $match: {},
-          },
-          {
-            $skip: skip,
-          },
-          {
-            $limit: limit,
-          },
+          { $skip: skip },
+          { $limit: limit },
           {
             $lookup: {
               from: this.securityPolicyAttachmentModel.collection.name,
@@ -96,11 +89,7 @@ export class UserRepository {
             },
           },
         ],
-        total: [
-          {
-            $count: 'count',
-          },
-        ],
+        total: [{ $count: 'count' }],
       })
       .project({
         items: 1,
@@ -132,15 +121,8 @@ export class UserRepository {
       .sort({ name: -1 })
       .facet({
         items: [
-          {
-            $match: {},
-          },
-          {
-            $skip: skip,
-          },
-          {
-            $limit: limit,
-          },
+          { $skip: skip },
+          { $limit: limit },
           {
             $lookup: {
               from: this.userGroupMembershipModel.collection.name,
@@ -168,11 +150,7 @@ export class UserRepository {
             },
           },
         ],
-        total: [
-          {
-            $count: 'count',
-          },
-        ],
+        total: [{ $count: 'count' }],
       })
       .project({
         items: 1,
@@ -204,15 +182,8 @@ export class UserRepository {
       .sort({ name: -1 })
       .facet({
         items: [
-          {
-            $match: {},
-          },
-          {
-            $skip: skip,
-          },
-          {
-            $limit: limit,
-          },
+          { $skip: skip },
+          { $limit: limit },
           {
             $lookup: {
               from: this.securityPolicyAttachmentModel.collection.name,
@@ -248,11 +219,7 @@ export class UserRepository {
             },
           },
         ],
-        total: [
-          {
-            $count: 'count',
-          },
-        ],
+        total: [{ $count: 'count' }],
       })
       .project({
         items: 1,
@@ -337,12 +304,8 @@ export class UserRepository {
       .match({ groupId })
       .facet({
         items: [
-          {
-            $skip: skip,
-          },
-          {
-            $limit: limit,
-          },
+          { $skip: skip },
+          { $limit: limit },
           {
             $lookup: {
               from: this.userModel.collection.name,
@@ -360,11 +323,7 @@ export class UserRepository {
             },
           },
         ],
-        total: [
-          {
-            $count: 'count',
-          },
-        ],
+        total: [{ $count: 'count' }],
       })
       .project({
         items: 1,
@@ -393,12 +352,8 @@ export class UserRepository {
       })
       .facet({
         items: [
-          {
-            $skip: skip,
-          },
-          {
-            $limit: limit,
-          },
+          { $skip: skip },
+          { $limit: limit },
           {
             $lookup: {
               from: this.userModel.collection.name,
@@ -416,11 +371,7 @@ export class UserRepository {
             },
           },
         ],
-        total: [
-          {
-            $count: 'count',
-          },
-        ],
+        total: [{ $count: 'count' }],
       })
       .exec();
 
