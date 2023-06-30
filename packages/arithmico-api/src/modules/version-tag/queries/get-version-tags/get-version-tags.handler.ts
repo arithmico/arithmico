@@ -23,7 +23,7 @@ export class GetVersionTagsHandler
       limit: result.limit,
       total: result.total,
       items: result.items.map((versionTag) => ({
-        id: versionTag.id,
+        id: versionTag._id,
         version: {
           major: versionTag.version.major,
           minor: versionTag.version.minor,

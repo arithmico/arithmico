@@ -30,7 +30,11 @@ export class VersionTagRepository {
   ): Promise<PagedResponse<VersionTagDocument>> {
     const result = await this.versionTagModel
       .aggregate()
-      .sort({ name: -1 })
+      .sort({
+        'version.major': -1,
+        'version.minor': -1,
+        'version.patch': -1,
+      })
       .facet({
         items: [{ $skip: skip }, { $limit: limit }],
         total: [{ $count: 'count' }],

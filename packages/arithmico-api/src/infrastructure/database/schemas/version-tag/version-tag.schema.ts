@@ -11,7 +11,7 @@ export class VersionTag {
   @Prop({ type: String, default: () => nanoid() })
   _id?: string;
 
-  @Prop({ required: true, type: [SemanticVersionSchema] })
+  @Prop({ required: true, type: SemanticVersionSchema })
   version: SemanticVersion;
 
   @Prop({ required: true, type: String })
