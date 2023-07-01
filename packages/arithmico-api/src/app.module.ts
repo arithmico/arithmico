@@ -90,6 +90,10 @@ import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
         path: 'version-tags',
         module: VersionTagModule,
       },
+      {
+        path: 'feature-flags',
+        module: FeatureFlagModule,
+      },
     ]),
     UserModule,
     AuthModule,

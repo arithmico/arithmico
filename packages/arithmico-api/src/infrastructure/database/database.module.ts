@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EmailRepository } from './repositories/email/email.repository';
+import { FeatureFlagRepository } from './repositories/feature-flag/feature-flag.repository';
 import { MessageRepository } from './repositories/message/message.repository';
 import { SecurityAttributesRepository } from './repositories/security-attributes/security-attributes.repository';
 import { SecurityPolicyRepository } from './repositories/security-policy/security-policy.repository';
@@ -10,6 +11,10 @@ import { UserGroupRepository } from './repositories/user-group/user-group.reposi
 import { UserRepository } from './repositories/user/user.repository';
 import { VersionTagRepository } from './repositories/version-tag/version-tag.repository';
 import { Email, EmailSchema } from './schemas/email/email.schema';
+import {
+  FeatureFlag,
+  FeatureFlagSchema,
+} from './schemas/feature-flag/feature-flag.schema';
 import { Message, MessageSchema } from './schemas/messege/messege.schema';
 import {
   SecurityPolicyAttachment,
@@ -73,6 +78,10 @@ import {
         name: VersionTag.name,
         schema: VersionTagSchema,
       },
+      {
+        name: FeatureFlag.name,
+        schema: FeatureFlagSchema,
+      },
     ]),
   ],
   providers: [
@@ -85,6 +94,7 @@ import {
     UserGroupRepository,
     UserGroupMembershipRepository,
     VersionTagRepository,
+    FeatureFlagRepository,
   ],
   exports: [
     UserRepository,
@@ -96,6 +106,7 @@ import {
     UserGroupRepository,
     UserGroupMembershipRepository,
     VersionTagRepository,
+    FeatureFlagRepository,
   ],
 })
 export class DatabaseModule {}
