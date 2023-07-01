@@ -16,6 +16,9 @@ export class VersionTag {
 
   @Prop({ required: true, type: String })
   commit: string;
+
+  @Prop({ required: true, type: Boolean })
+  configurable: boolean;
 }
 
 export const VersionTagSchema = SchemaFactory.createForClass(VersionTag);

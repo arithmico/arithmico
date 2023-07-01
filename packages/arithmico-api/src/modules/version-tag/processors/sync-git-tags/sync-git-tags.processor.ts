@@ -4,7 +4,9 @@ import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { lastValueFrom } from 'rxjs';
 import { VersionTagRepository } from '../../../../infrastructure/database/repositories/version-tag/version-tag.repository';
+import { SemanticVersion } from '../../../../infrastructure/database/schemas/sematic-version/semantic-version.schema';
 import { VersionTag } from '../../../../infrastructure/database/schemas/version-tag/version-tag.schema';
+import { semanticVersionGreaterThanOrEqual } from '../../../../common/utils/compare-versions';
 
 interface GitRefDto {
   ref: string;
@@ -16,6 +18,12 @@ interface GitRefDto {
     url: string;
   };
 }
+
+const firstConfigurableVersion: SemanticVersion = {
+  major: 1,
+  minor: 9,
+  patch: 0,
+};
 
 @Processor('cron-jobs')
 export class SyncGitTagsProcessor {
@@ -37,6 +45,13 @@ export class SyncGitTagsProcessor {
           `${this.configService.get<string>(
             'github.repositoryUrl',
           )}/git/refs/tags`,
+          {
+            headers: {
+              Authorization: `token ${this.configService.get<string>(
+                'github.personalAccessToken',
+              )}`,
+            },
+          },
         ),
       )
     ).data;
@@ -56,15 +71,18 @@ export class SyncGitTagsProcessor {
         return true;
       })
       .map(({ ref, object: { sha } }): VersionTag => {
-        const version = ref.substring('refs/tags/v'.length);
-        const [major, minor, patch] = version.split('.');
+        const versionString = ref.substring('refs/tags/v'.length);
+        const [major, minor, patch] = versionString
+          .split('.')
+          .map((v) => parseInt(v));
+        const version: SemanticVersion = { major, minor, patch };
         return {
           commit: sha,
-          version: {
-            major: parseInt(major),
-            minor: parseInt(minor),
-            patch: parseInt(patch),
-          },
+          version,
+          configurable: semanticVersionGreaterThanOrEqual(
+            version,
+            firstConfigurableVersion,
+          ),
         };
       })
       .forEach(async (tag) => {

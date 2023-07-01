@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { UserActivationRepository } from '../../../../infrastructure/database/repositories/user-activation/user-activation.repository';
 import { UserRepository } from '../../../../infrastructure/database/repositories/user/user.repository';
-import { SendActivationEmailEvent } from '../../../backoffice/email/events/send-acitvation-email/send-activation-email.event';
+import { SendActivationEmailEvent } from '../../../email/events/send-acitvation-email/send-activation-email.event';
 import { CreateUserCommand } from './create-user.command';
 import { CreateUserResponseDto } from './create-user.response.dto';
 

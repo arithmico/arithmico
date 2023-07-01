@@ -29,6 +29,7 @@ export class GetVersionTagsHandler
           minor: versionTag.version.minor,
           patch: versionTag.version.patch,
         },
+        configurable: versionTag.configurable,
       })),
     };
   }

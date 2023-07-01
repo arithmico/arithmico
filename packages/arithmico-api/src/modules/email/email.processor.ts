@@ -8,8 +8,8 @@ import {
 } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
 import * as mailparser from 'mailparser';
-import { EmailRepository } from '../../../infrastructure/database/repositories/email/email.repository';
-import { MessageRepository } from '../../../infrastructure/database/repositories/message/message.repository';
+import { EmailRepository } from '../../infrastructure/database/repositories/email/email.repository';
+import { MessageRepository } from '../../infrastructure/database/repositories/message/message.repository';
 
 @Processor('cron-jobs')
 export class EmailProcessor {
