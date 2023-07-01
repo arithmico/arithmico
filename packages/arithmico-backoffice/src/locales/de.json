@@ -133,5 +133,7 @@
   "pagination.previous-page": "Vorherige Seite",
   "pagination.next-page": "Nächste Seite",
   "pagination.last-page": "Letzte Seite",
-  "pagination.text": "Seite {currentPage} von {totalPages}"
+  "pagination.text": "Seite {currentPage} von {totalPages}",
+
+  "versions.tags": "Versionskennungen"
 }

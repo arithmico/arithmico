@@ -20,7 +20,7 @@ import {
   UserResponseDto,
 } from "./users.types";
 
-const authApi = api.injectEndpoints({
+const usersApi = api.injectEndpoints({
   endpoints: (build) => ({
     getUsers: build.query<PagedResponse<UserResponseDto>, GetUsersArgs>({
       query: (arg) => ({
@@ -270,4 +270,4 @@ export const {
   useDetachSecurityPolicyFromUserMutation,
   useAddUserToUserGroupMutation,
   useRemoveUserFromUserGroupMutation,
-} = authApi;
+} = usersApi;

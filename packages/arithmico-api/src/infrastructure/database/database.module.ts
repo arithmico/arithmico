@@ -8,6 +8,7 @@ import { UserActivationRepository } from './repositories/user-activation/user-ac
 import { UserGroupMembershipRepository } from './repositories/user-group-membership/user-group-membership.repository';
 import { UserGroupRepository } from './repositories/user-group/user-group.repository';
 import { UserRepository } from './repositories/user/user.repository';
+import { VersionTagRepository } from './repositories/version-tag/version-tag.repository';
 import { Email, EmailSchema } from './schemas/email/email.schema';
 import { Message, MessageSchema } from './schemas/messege/messege.schema';
 import {
@@ -31,6 +32,10 @@ import {
   UserGroupSchema,
 } from './schemas/user-group/user-group.schema';
 import { User, UserSchema } from './schemas/user/user.schema';
+import {
+  VersionTag,
+  VersionTagSchema,
+} from './schemas/version-tag/version-tag.schema';
 
 @Module({
   imports: [
@@ -64,6 +69,10 @@ import { User, UserSchema } from './schemas/user/user.schema';
         name: UserGroupMembership.name,
         schema: UserGroupMembershipSchema,
       },
+      {
+        name: VersionTag.name,
+        schema: VersionTagSchema,
+      },
     ]),
   ],
   providers: [
@@ -75,6 +84,7 @@ import { User, UserSchema } from './schemas/user/user.schema';
     SecurityAttributesRepository,
     UserGroupRepository,
     UserGroupMembershipRepository,
+    VersionTagRepository,
   ],
   exports: [
     UserRepository,
@@ -85,6 +95,7 @@ import { User, UserSchema } from './schemas/user/user.schema';
     SecurityAttributesRepository,
     UserGroupRepository,
     UserGroupMembershipRepository,
+    VersionTagRepository,
   ],
 })
 export class DatabaseModule {}

@@ -9,6 +9,7 @@ import databaseConfig from './infrastructure/config/database';
 import awsConfig from './infrastructure/config/aws';
 import jwtConfig from './infrastructure/config/jwt';
 import seedUserConfig from './infrastructure/config/seed-user';
+import githubConfig from './infrastructure/config/github';
 import configValidationSchema from './infrastructure/config/config-validation';
 import { APP_GUARD, RouterModule } from '@nestjs/core';
 import { DatabaseModule } from './infrastructure/database/database.module';
@@ -21,6 +22,7 @@ import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { BootstrapModule } from './modules/bootstrap/bootstrap.module';
 import { SecurityPolicyModule } from './modules/security-policy/security-policy.module';
 import { UserGroupModule } from './modules/user-group/user-group.module';
+import { VersionTagModule } from './modules/version-tag/version-tag.module';
 
 @Module({
   imports: [
@@ -43,6 +45,7 @@ import { UserGroupModule } from './modules/user-group/user-group.module';
         jwtConfig,
         redisConfig,
         mailConfig,
+        githubConfig,
       ],
       validationSchema: configValidationSchema,
       validationOptions: {
@@ -82,6 +85,10 @@ import { UserGroupModule } from './modules/user-group/user-group.module';
         path: 'user-groups',
         module: UserGroupModule,
       },
+      {
+        path: 'version-tags',
+        module: VersionTagModule,
+      },
     ]),
     UserModule,
     AuthModule,
@@ -90,6 +97,7 @@ import { UserGroupModule } from './modules/user-group/user-group.module';
     SecurityPolicyModule,
     BootstrapModule,
     UserGroupModule,
+    VersionTagModule,
   ],
   controllers: [],
   providers: [
