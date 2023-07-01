@@ -19,9 +19,11 @@ export class VersionTagRepository {
   }
 
   async versionTagExists(commit: string): Promise<boolean> {
-    return !!(await this.versionTagModel.exists({
-      commit,
-    }));
+    return !!(
+      await this.versionTagModel.exists({
+        commit,
+      })
+    )?._id;
   }
 
   async getVersionTags(
