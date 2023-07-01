@@ -18,11 +18,11 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { BullModule } from '@nestjs/bull';
 import { QueuesModule } from './infrastructure/queues/queues.module';
 import { AuthGuard } from './guards/auth.guard';
-import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { BootstrapModule } from './modules/bootstrap/bootstrap.module';
 import { SecurityPolicyModule } from './modules/security-policy/security-policy.module';
 import { UserGroupModule } from './modules/user-group/user-group.module';
 import { VersionTagModule } from './modules/version-tag/version-tag.module';
+import { EmailModule } from './modules/email/email.module';
 
 @Module({
   imports: [
@@ -93,7 +93,7 @@ import { VersionTagModule } from './modules/version-tag/version-tag.module';
     UserModule,
     AuthModule,
     QueuesModule,
-    BackofficeModule,
+    EmailModule,
     SecurityPolicyModule,
     BootstrapModule,
     UserGroupModule,
