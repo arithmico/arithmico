@@ -22,4 +22,5 @@ export default Joi.object({
   MAIL_MODE: Joi.string().valid('dev', 'prod'),
   FRONTEND_BASE_URL: Joi.string().uri().required(),
   GITHUB_REPO_URL: Joi.string().uri().required(),
+  GITHUB_PAT: Joi.string().required(),
 });
