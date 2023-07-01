@@ -8,6 +8,10 @@ export class EmailService {
   private sesClient: SESClient;
 
   constructor(private configService: ConfigService) {
+    if (this.configService.get<string>('mail.mode') !== 'prod') {
+      return;
+    }
+
     this.sesClient = new SESClient({
       region: 'eu-west-1',
       credentials: {
