@@ -5,6 +5,7 @@ export interface VersionTagDto {
     minor: number;
     patch: number;
   };
+  configurable: boolean;
 }
 
 export interface GetVersionTagsArgs {
