@@ -44,9 +44,12 @@ FeatureFlagSchema.index({
   type: 1,
 });
 
-FeatureFlagSchema.index({
-  name: 1,
-});
+FeatureFlagSchema.index(
+  {
+    name: 1,
+  },
+  { unique: true },
+);
 
 FeatureFlagSchema.index(
   {

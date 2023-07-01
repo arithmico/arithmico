@@ -6,7 +6,7 @@ import { lastValueFrom } from 'rxjs';
 import { VersionTagRepository } from '../../../../infrastructure/database/repositories/version-tag/version-tag.repository';
 import { SemanticVersion } from '../../../../infrastructure/database/schemas/sematic-version/semantic-version.schema';
 import { VersionTag } from '../../../../infrastructure/database/schemas/version-tag/version-tag.schema';
-import { semanticVersionGreaterThanOrEqual } from '../../../../common/utils/compare-versions';
+import { semanticVersionGreaterThanOrEqual } from '../../../../common/utils/compare-versions/compare-versions';
 
 interface GitRefDto {
   ref: string;

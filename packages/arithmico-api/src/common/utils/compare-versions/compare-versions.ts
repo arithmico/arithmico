@@ -1,4 +1,4 @@
-import { SemanticVersion } from '../../infrastructure/database/schemas/sematic-version/semantic-version.schema';
+import { SemanticVersion } from '../../../infrastructure/database/schemas/sematic-version/semantic-version.schema';
 
 export function semanticVersionGreaterThan(
   a: SemanticVersion,
