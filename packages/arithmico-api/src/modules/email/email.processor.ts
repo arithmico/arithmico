@@ -20,6 +20,10 @@ export class EmailProcessor {
     private emailRepository: EmailRepository,
     private messageRepository: MessageRepository,
   ) {
+    if (this.configService.get<string>('mail.mode') !== 'prod') {
+      return;
+    }
+
     this.s3client = new S3Client({
       region: 'eu-central-1',
       credentials: {
@@ -31,6 +35,10 @@ export class EmailProcessor {
 
   @Process('fetch-emails')
   async fetchEmails() {
+    if (this.configService.get<string>('mail.mode') !== 'prod') {
+      return;
+    }
+
     Logger.log('scanning for emails', 'FetchEmails');
     const objects = (
       await this.s3client.send(
