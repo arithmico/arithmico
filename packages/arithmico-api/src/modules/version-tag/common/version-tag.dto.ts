@@ -5,4 +5,5 @@ export class VersionTagDto {
     minor: number;
     patch: number;
   };
+  configurable: boolean;
 }
