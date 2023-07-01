@@ -23,7 +23,7 @@ import { SecurityPolicyModule } from './modules/security-policy/security-policy.
 import { UserGroupModule } from './modules/user-group/user-group.module';
 import { VersionTagModule } from './modules/version-tag/version-tag.module';
 import { EmailModule } from './modules/email/email.module';
-import { FeatureFlagsModule } from './modules/feature-flags/feature-flags.module';
+import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
 
 @Module({
   imports: [
@@ -99,7 +99,7 @@ import { FeatureFlagsModule } from './modules/feature-flags/feature-flags.module
     BootstrapModule,
     UserGroupModule,
     VersionTagModule,
-    FeatureFlagsModule,
+    FeatureFlagModule,
   ],
   controllers: [],
   providers: [
