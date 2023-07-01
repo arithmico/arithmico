@@ -1,10 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { nanoid } from 'nanoid';
-import {
-  SemanticVersion,
-  SemanticVersionSchema,
-} from '../sematic-version/semantic-version.schema';
 
 export enum FeatureFlagType {
   Constant = 'constant',
@@ -28,11 +24,11 @@ export class FeatureFlag {
   })
   type: FeatureFlagType;
 
-  @Prop({ required: true, type: SemanticVersionSchema })
-  enabledSince: SemanticVersion;
+  @Prop({ required: true, type: String })
+  enabledSinceVersionTagId: string;
 
-  @Prop({ required: false, type: SemanticVersionSchema })
-  disabledSince?: SemanticVersion;
+  @Prop({ required: false, type: String })
+  disabledSinceVersionTagId?: string;
 
   @Prop({ required: true, type: String })
   flag: string;
@@ -58,15 +54,3 @@ FeatureFlagSchema.index(
   },
   { unique: true },
 );
-
-FeatureFlagSchema.index({
-  'enabledSince.major': -1,
-  'enabledSince.minor': -1,
-  'enabledSince.patch': -1,
-});
-
-FeatureFlagSchema.index({
-  'disabledSince.major': -1,
-  'disabledSince.minor': -1,
-  'disabledSince.patch': -1,
-});
