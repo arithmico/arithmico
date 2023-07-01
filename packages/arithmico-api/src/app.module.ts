@@ -23,6 +23,7 @@ import { SecurityPolicyModule } from './modules/security-policy/security-policy.
 import { UserGroupModule } from './modules/user-group/user-group.module';
 import { VersionTagModule } from './modules/version-tag/version-tag.module';
 import { EmailModule } from './modules/email/email.module';
+import { FeatureFlagsModule } from './modules/feature-flags/feature-flags.module';
 
 @Module({
   imports: [
@@ -98,6 +99,7 @@ import { EmailModule } from './modules/email/email.module';
     BootstrapModule,
     UserGroupModule,
     VersionTagModule,
+    FeatureFlagsModule,
   ],
   controllers: [],
   providers: [
