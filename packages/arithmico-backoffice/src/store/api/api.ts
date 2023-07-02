@@ -5,5 +5,11 @@ export const api = createApi({
   reducerPath: "api",
   baseQuery: customBaseQuery,
   endpoints: () => ({}),
-  tagTypes: ["SecurityPolicy", "UserGroup", "User", "VersionTag"],
+  tagTypes: [
+    "SecurityPolicy",
+    "UserGroup",
+    "User",
+    "VersionTag",
+    "FeatureFlag",
+  ],
 });
