@@ -5,7 +5,7 @@ import Home from "./pages/home/home";
 import { LoginRouter } from "./pages/login/login.router";
 import { MailsRouter } from "./pages/mails/mails.router";
 import { AdministrationRouter } from "./pages/administration/administration.router";
-import { VersionsRouter } from "./pages/versions/versions.router";
+import { ApplicationsRouter } from "./pages/applications/applications.router";
 import { ActivateRouter } from "./pages/activate/activate.router";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Route path="login/*" element={<LoginRouter />} />
         <Route path="administration/*" element={<AdministrationRouter />} />
         <Route path="mails/*" element={<MailsRouter />} />
-        <Route path="versions/*" element={<VersionsRouter />} />
+        <Route path="applications/*" element={<ApplicationsRouter />} />
         <Route path="activate/*" element={<ActivateRouter />} />
       </Routes>
     </IntlProvider>

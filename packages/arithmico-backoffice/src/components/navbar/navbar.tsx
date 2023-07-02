@@ -36,9 +36,9 @@ export function Navbar() {
           description={<FormattedMessage id="navbar.mails" />}
         />
         <NavbarItem
-          to="/versions"
+          to="/applications"
           icon={<ManagedFolderIcon />}
-          description={<FormattedMessage id="navbar.versions" />}
+          description={<FormattedMessage id="navbar.applications" />}
         />
         <NavbarItem
           to="/administration"
