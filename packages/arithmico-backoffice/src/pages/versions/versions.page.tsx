@@ -12,6 +12,7 @@ export default function VersionsPage() {
         <FormattedMessage id="versions.description" />
       </p>
       <Link to="/versions/version-tags">version tags</Link>
+      <Link to="/versions/feature-flags">feature flags</Link>
     </>
   );
 }
