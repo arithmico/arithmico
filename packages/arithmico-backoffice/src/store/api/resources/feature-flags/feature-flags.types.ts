@@ -24,8 +24,8 @@ export interface FeatureFlagWithVersionsDto {
   name: string;
   flag: string;
   type: FeatureFlagType;
-  enabledSinceVersionTag: SemanticVersionDto;
-  disabledSinceVersionTag?: SemanticVersionDto;
+  enabledSinceVersion: SemanticVersionDto;
+  disabledSinceVersion?: SemanticVersionDto;
 }
 
 export interface CreateFeatureFlagArgs {
@@ -33,4 +33,9 @@ export interface CreateFeatureFlagArgs {
   name: string;
   flag: string;
   enabledSinceVersionTagId: string;
+}
+
+export interface GetFeatureFlagsArgs {
+  skip: number;
+  limit: number;
 }

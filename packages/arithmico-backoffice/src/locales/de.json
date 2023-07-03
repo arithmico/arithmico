@@ -135,5 +135,15 @@
   "pagination.last-page": "Letzte Seite",
   "pagination.text": "Seite {currentPage} von {totalPages}",
 
-  "versions.tags": "Versionskennungen"
+  "versions.tags": "Versionskennungen",
+  "versions.feature-flags": "Funktionen",
+  "versions.feature-flags.add": "Funktionen erstellen",
+  "versions.feature-flags.name": "Name",
+  "versions.feature-flags.flag": "Flag",
+  "versions.feature-flags.type": "Typ",
+  "versions.feature-flags.type.constant": "Konstante",
+  "versions.feature-flags.type.function": "Funktion",
+  "versions.feature-flags.type.method": "Methode",
+  "versions.feature-flags.minimum-version": "Unterstützt seit",
+  "versions.feature-flags.maximum-version": "Entfernt ab"
 }

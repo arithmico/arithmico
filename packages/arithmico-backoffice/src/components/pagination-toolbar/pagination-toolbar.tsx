@@ -145,6 +145,7 @@ const PaginationButton = forwardRef<
 >(({ children, className, ...props }, ref) => {
   return (
     <button
+      type="button"
       ref={ref}
       {...props}
       className={classNames(

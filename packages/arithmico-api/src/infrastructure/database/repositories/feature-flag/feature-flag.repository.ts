@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
@@ -46,8 +46,8 @@ export class FeatureFlagRepository {
         FeatureFlagDocument,
         'enabledSinceVersionTagId' | 'disabledSinceVersionTagId'
       > & {
-        enabledSinceVersionTag: SemanticVersion;
-        disabledSinceVersionTag?: SemanticVersion;
+        enabledSinceVersion: SemanticVersion;
+        disabledSinceVersion?: SemanticVersion;
       }
     >
   > {
@@ -74,17 +74,25 @@ export class FeatureFlagRepository {
           },
           {
             $addFields: {
-              enabledSinceVersionTag: {
+              enabledSinceVersion: {
                 $arrayElemAt: ['$enabledSinceVersionTag', 0],
               },
-              disabledSinceVersionTag: {
+              disabledSinceVersion: {
                 $arrayElemAt: ['$disabledSinceVersionTag', 0],
               },
+            },
+          },
+          {
+            $addFields: {
+              enabledSinceVersion: '$enabledSinceVersion.version',
+              disabledSinceVersion: '$disabledSinceVersion.version',
             },
           },
         ],
       }),
     );
+
+    Logger.log(result.at(0).items);
 
     return {
       skip: skip,

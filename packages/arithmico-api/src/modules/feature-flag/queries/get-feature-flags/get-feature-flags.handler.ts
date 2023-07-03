@@ -27,16 +27,16 @@ export class GetFeatureFlagsHandler
         type: featureFlag.type,
         flag: featureFlag.flag,
         name: featureFlag.name,
-        enabledSinceVersionTag: {
-          major: featureFlag.enabledSinceVersionTag.major,
-          minor: featureFlag.enabledSinceVersionTag.minor,
-          patch: featureFlag.enabledSinceVersionTag.patch,
+        enabledSinceVersion: {
+          major: featureFlag.enabledSinceVersion.major,
+          minor: featureFlag.enabledSinceVersion.minor,
+          patch: featureFlag.enabledSinceVersion.patch,
         },
-        disabledSinceVersionTag: featureFlag.disabledSinceVersionTag
+        disabledSinceVersion: featureFlag.disabledSinceVersion
           ? {
-              major: featureFlag.disabledSinceVersionTag.major,
-              minor: featureFlag.disabledSinceVersionTag.minor,
-              patch: featureFlag.disabledSinceVersionTag.patch,
+              major: featureFlag.disabledSinceVersion.major,
+              minor: featureFlag.disabledSinceVersion.minor,
+              patch: featureFlag.disabledSinceVersion.patch,
             }
           : undefined,
       })),

@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactNode, useEffect, useState } from "react";
 import { useForm, UseFormRegister } from "react-hook-form";
+import { FormattedMessage } from "react-intl";
 import { DialogHeader } from "../../../../../components/dialog-header/dialog-header";
 import { DialogWithBackdrop } from "../../../../../components/dialog-with-backdrop/dialog-with-backdrop";
 import FormError from "../../../../../components/form-error/form-error";
@@ -39,13 +40,16 @@ export function AddFeatureFlagDialog({
 
   useEffect(() => {
     if (result.isSuccess) {
+      result.reset();
       onClose();
     }
   }, [result, onClose]);
 
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={onClose}>
-      <DialogHeader onClose={onClose}>Funktion erstellen</DialogHeader>
+      <DialogHeader onClose={onClose}>
+        <FormattedMessage id="versions.feature-flags.add" />
+      </DialogHeader>
       {isSuccess && (
         <form
           onSubmit={handleSubmit((values) =>
@@ -58,22 +62,30 @@ export function AddFeatureFlagDialog({
           )}
         >
           <fieldset className="mb-4 flex flex-col">
-            <legend className="mb-2">Typ</legend>
+            <legend className="mb-2">
+              <FormattedMessage id="versions.feature-flags.type" />
+            </legend>
             <div className="grid grid-cols-3 gap-4">
               <FeatureFlagTypeVariant
-                label="Funktion"
+                label={
+                  <FormattedMessage id="versions.feature-flags.type.function" />
+                }
                 register={register}
                 value={FeatureFlagType.Function}
               />
 
               <FeatureFlagTypeVariant
-                label="Methode"
+                label={
+                  <FormattedMessage id="versions.feature-flags.type.method" />
+                }
                 register={register}
                 value={FeatureFlagType.Method}
               />
 
               <FeatureFlagTypeVariant
-                label="Konstante"
+                label={
+                  <FormattedMessage id="versions.feature-flags.type.constant" />
+                }
                 register={register}
                 value={FeatureFlagType.Constant}
               />
@@ -81,20 +93,22 @@ export function AddFeatureFlagDialog({
           </fieldset>
           <FormError error={errors.type} />
           <FormLabel>
-            Name
+            <FormattedMessage id="versions.feature-flags.name" />
             <FormTextField {...register("name")} />
           </FormLabel>
           <FormError error={errors.name} />
 
           <FormLabel>
-            Flag
+            <FormattedMessage id="versions.feature-flags.flag" />
             <FormTextField {...register("flag")} />
           </FormLabel>
           <FormError error={errors.flag} />
 
           <fieldset>
             <div className="mb-2 flex items-center">
-              <legend>Minimale Version</legend>
+              <legend>
+                <FormattedMessage id="versions.feature-flags.minimum-version" />
+              </legend>
               {data.total > limit && (
                 <SmallPaginationToolbar
                   className="ml-auto"

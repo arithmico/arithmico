@@ -14,12 +14,12 @@ export class FeatureFlagWithVersionsDto {
   name: string;
   flag: string;
   type: FeatureFlagType;
-  enabledSinceVersionTag: {
+  enabledSinceVersion: {
     major: number;
     minor: number;
     patch: number;
   };
-  disabledSinceVersionTag?: {
+  disabledSinceVersion?: {
     major: number;
     minor: number;
     patch: number;
