@@ -144,6 +144,9 @@
   "versions.feature-flags.type.constant": "Konstante",
   "versions.feature-flags.type.function": "Funktion",
   "versions.feature-flags.type.method": "Methode",
+  "versions.feature-flags.type.operator": "Operator",
+  "versions.feature-flags.type.type": "Datentyp",
   "versions.feature-flags.minimum-version": "Unterstützt seit",
-  "versions.feature-flags.maximum-version": "Entfernt ab"
+  "versions.feature-flags.maximum-version": "Entfernt ab",
+  "versions.feature-flags.details": "Funktionsdetails anzeigen"
 }

@@ -2,6 +2,8 @@ export enum FeatureFlagType {
   Constant = "constant",
   Function = "function",
   Method = "method",
+  Operator = "operator",
+  Type = "type",
 }
 
 export interface SemanticVersionDto {

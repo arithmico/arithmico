@@ -6,6 +6,8 @@ export const addFeatureFlagSchema = z.object({
     FeatureFlagType.Constant,
     FeatureFlagType.Function,
     FeatureFlagType.Method,
+    FeatureFlagType.Operator,
+    FeatureFlagType.Type,
   ]),
 
   name: z

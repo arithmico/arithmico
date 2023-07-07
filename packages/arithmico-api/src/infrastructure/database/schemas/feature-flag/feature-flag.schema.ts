@@ -6,6 +6,8 @@ export enum FeatureFlagType {
   Constant = 'constant',
   Function = 'function',
   Method = 'method',
+  Operator = 'operator',
+  Type = 'type',
 }
 
 @Schema()
@@ -16,11 +18,7 @@ export class FeatureFlag {
   @Prop({
     required: true,
     type: String,
-    enum: [
-      FeatureFlagType.Constant,
-      FeatureFlagType.Function,
-      FeatureFlagType.Method,
-    ],
+    enum: FeatureFlagType,
   })
   type: FeatureFlagType;
 

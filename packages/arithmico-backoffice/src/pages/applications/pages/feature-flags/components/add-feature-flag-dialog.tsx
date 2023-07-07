@@ -65,7 +65,7 @@ export function AddFeatureFlagDialog({
             <legend className="mb-2">
               <FormattedMessage id="versions.feature-flags.type" />
             </legend>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-5 gap-4">
               <FeatureFlagTypeVariant
                 label={
                   <FormattedMessage id="versions.feature-flags.type.function" />
@@ -88,6 +88,22 @@ export function AddFeatureFlagDialog({
                 }
                 register={register}
                 value={FeatureFlagType.Constant}
+              />
+
+              <FeatureFlagTypeVariant
+                label={
+                  <FormattedMessage id="versions.feature-flags.type.operator" />
+                }
+                register={register}
+                value={FeatureFlagType.Operator}
+              />
+
+              <FeatureFlagTypeVariant
+                label={
+                  <FormattedMessage id="versions.feature-flags.type.type" />
+                }
+                register={register}
+                value={FeatureFlagType.Type}
               />
             </div>
           </fieldset>
