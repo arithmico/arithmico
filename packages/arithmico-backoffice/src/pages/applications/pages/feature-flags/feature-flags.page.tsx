@@ -5,6 +5,7 @@ import { ActionButton } from "../../../../components/action-button/action-button
 import { Card } from "../../../../components/card/card";
 import Heading from "../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../components/pagination-toolbar/pagination-toolbar";
+import { SemanticVersion } from "../../../../components/semantic-version/semantic-version";
 import { TableCell } from "../../../../components/table-cell/table-cell";
 import { TableHeaderCell } from "../../../../components/table-header-cell/table-header-cell";
 import { TableRow } from "../../../../components/table-row/table-row";
@@ -74,11 +75,15 @@ export function FeatureFlagsPage() {
                     />
                   </TableCell>
                   <TableCell>
-                    v{featureFlag.enabledSinceVersion.major}.
-                    {featureFlag.enabledSinceVersion.minor}.
-                    {featureFlag.enabledSinceVersion.patch}
+                    <SemanticVersion
+                      version={featureFlag.enabledSinceVersion}
+                    />
                   </TableCell>
-                  <TableCell>-</TableCell>
+                  <TableCell>
+                    <SemanticVersion
+                      version={featureFlag.disabledSinceVersion}
+                    />
+                  </TableCell>
                   <TableCell>
                     <Link className="sr-only" to={featureFlagUrl}>
                       <FormattedMessage id="versions.feature-flags.details" />

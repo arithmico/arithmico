@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
@@ -42,10 +42,7 @@ export class FeatureFlagRepository {
     limit: number,
   ): Promise<
     PagedResponse<
-      Omit<
-        FeatureFlagDocument,
-        'enabledSinceVersionTagId' | 'disabledSinceVersionTagId'
-      > & {
+      FeatureFlagDocument & {
         enabledSinceVersion: SemanticVersion;
         disabledSinceVersion?: SemanticVersion;
       }
@@ -92,13 +89,63 @@ export class FeatureFlagRepository {
       }),
     );
 
-    Logger.log(result.at(0).items);
-
     return {
       skip: skip,
       limit: skip,
       total: result.at(0).total,
       items: result.at(0).items,
     };
+  }
+
+  async getFeatureFlagById(flagId: string): Promise<
+    | (FeatureFlagDocument & {
+        enabledSinceVersion: SemanticVersion;
+        disabledSinceVersion?: SemanticVersion;
+      })
+    | null
+  > {
+    const result = await this.featureFlagModel
+      .aggregate()
+      .match({ _id: flagId })
+      .lookup({
+        from: this.versionTagModel.collection.name,
+        localField: 'enabledSinceVersionTagId',
+        foreignField: '_id',
+        as: 'enabledSinceVersion',
+      })
+      .lookup({
+        from: this.versionTagModel.collection.name,
+        localField: 'disabledSinceVersionTagId',
+        foreignField: '_id',
+        as: 'disabledSinceVersion',
+      })
+      .addFields({
+        enabledSinceVersion: {
+          $arrayElemAt: ['$enabledSinceVersion', 0],
+        },
+        disabledSinceVersion: {
+          $arrayElemAt: ['$disabledSinceVersion', 0],
+        },
+      })
+      .addFields({
+        enabledSinceVersion: '$enabledSinceVersion.version',
+        disabledSinceVersion: '$disabledSinceVersion.version',
+      })
+      .exec();
+
+    return result.at(0);
+  }
+
+  async getFeatureFlagByIdOrThrow(flagId: string): Promise<
+    FeatureFlagDocument & {
+      enabledSinceVersion: SemanticVersion;
+      disabledSinceVersion?: SemanticVersion;
+    }
+  > {
+    const featureFlagDocument = await this.getFeatureFlagById(flagId);
+    if (!featureFlagDocument) {
+      throw new NotFoundException();
+    }
+    return featureFlagDocument;
   }
 }

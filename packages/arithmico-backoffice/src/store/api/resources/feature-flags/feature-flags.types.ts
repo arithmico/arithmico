@@ -41,3 +41,7 @@ export interface GetFeatureFlagsArgs {
   skip: number;
   limit: number;
 }
+
+export interface GetFeatureFlagByidArgs {
+  flagId: string;
+}

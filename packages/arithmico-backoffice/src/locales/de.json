@@ -137,6 +137,7 @@
 
   "versions.tags": "Versionskennungen",
   "versions.feature-flags": "Funktionen",
+  "versions.feature-flags.details-card": "Details",
   "versions.feature-flags.add": "Funktionen erstellen",
   "versions.feature-flags.name": "Name",
   "versions.feature-flags.flag": "Flag",
