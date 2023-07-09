@@ -38,13 +38,13 @@ export function FeatureFlagDetailsPage() {
                 />
                 <DefinitionListEntry
                   label={
-                    <FormattedMessage id="versions.feature-flags.minimum-version" />
+                    <FormattedMessage id="versions.feature-flags.enabled-since-version" />
                   }
                   value={<SemanticVersion version={data.enabledSinceVersion} />}
                 />
                 <DefinitionListEntry
                   label={
-                    <FormattedMessage id="versions.feature-flags.maximum-version" />
+                    <FormattedMessage id="versions.feature-flags.disabled-since-version" />
                   }
                   value={
                     <SemanticVersion version={data.disabledSinceVersion} />

@@ -123,7 +123,7 @@ export function AddFeatureFlagDialog({
           <fieldset>
             <div className="mb-2 flex items-center">
               <legend>
-                <FormattedMessage id="versions.feature-flags.minimum-version" />
+                <FormattedMessage id="versions.feature-flags.enabled-since-version" />
               </legend>
               {data.total > limit && (
                 <SmallPaginationToolbar

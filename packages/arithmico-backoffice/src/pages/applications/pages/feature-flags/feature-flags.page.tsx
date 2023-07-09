@@ -50,10 +50,10 @@ export function FeatureFlagsPage() {
                   <FormattedMessage id="versions.feature-flags.type" />
                 </TableHeaderCell>
                 <TableHeaderCell className="w-1/5">
-                  <FormattedMessage id="versions.feature-flags.minimum-version" />
+                  <FormattedMessage id="versions.feature-flags.enabled-since-version" />
                 </TableHeaderCell>
                 <TableHeaderCell>
-                  <FormattedMessage id="versions.feature-flags.maximum-version" />
+                  <FormattedMessage id="versions.feature-flags.disabled-since-version" />
                 </TableHeaderCell>
               </>
             }
