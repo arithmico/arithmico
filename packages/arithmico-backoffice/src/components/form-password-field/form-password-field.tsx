@@ -11,7 +11,7 @@ const FormPasswordField = React.forwardRef<
       type="password"
       className={classNames(
         "border",
-        "border-black/30",
+        "border-black/20",
         "focus:border-black",
         "outline-none",
         "p-2",

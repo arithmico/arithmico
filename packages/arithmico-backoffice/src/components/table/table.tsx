@@ -10,7 +10,11 @@ export const Table = forwardRef<
   HTMLProps<HTMLTableElement> & TableProps
 >(({ header, children, className, ...props }, ref) => {
   return (
-    <table ref={ref} className={className} {...props}>
+    <table
+      ref={ref}
+      className={classNames("border-separate border-spacing-y-1")}
+      {...props}
+    >
       {header && (
         <thead>
           <tr className={classNames("border-b", "border-neutral-400")}>

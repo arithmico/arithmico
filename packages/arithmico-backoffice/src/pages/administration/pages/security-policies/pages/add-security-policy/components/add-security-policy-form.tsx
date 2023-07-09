@@ -57,7 +57,7 @@ export function AddSecurityPolicyForm({
               key={attribute}
               className={classNames(
                 "border",
-                "border-black/30",
+                "border-black/20",
                 "my-1",
                 "py-2",
                 "pl-4",

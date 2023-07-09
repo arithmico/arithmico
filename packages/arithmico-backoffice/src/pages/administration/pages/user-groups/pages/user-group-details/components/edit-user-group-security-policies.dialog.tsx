@@ -43,7 +43,7 @@ export function EditUserGroupSecurityPoliciesDialog({
             {data.items.map((securityPolicy) => (
               <li
                 key={securityPolicy.id}
-                className="flex items-center rounded-sm border border-black/30  hover:bg-black/5"
+                className="flex items-center rounded-sm border border-black/20  hover:bg-black/5"
               >
                 <label className="flex w-full items-center py-2 pl-4 pr-2">
                   {securityPolicy.name}

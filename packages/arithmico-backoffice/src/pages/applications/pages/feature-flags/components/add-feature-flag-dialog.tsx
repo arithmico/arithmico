@@ -148,7 +148,7 @@ export function AddFeatureFlagDialog({
                         value={versionTag.id}
                         {...register("enabledSinceVersionTagId")}
                       />
-                      <span className="w-full rounded-sm border border-black/30 px-4 py-2 font-bold text-black/50 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white">
+                      <span className="w-full rounded-sm border border-black/20 px-4 py-2 font-bold text-black/50 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white">
                         {versionString}
                       </span>
                     </label>
@@ -190,7 +190,7 @@ function FeatureFlagTypeVariant({
       />
       <span
         aria-hidden
-        className="w-full border border-black/30 px-4 py-2 font-bold text-black/50 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white"
+        className="w-full border border-black/20 px-4 py-2 font-bold text-black/50 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white"
       >
         {label}
       </span>
