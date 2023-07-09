@@ -1,6 +1,8 @@
 import { FormattedMessage } from "react-intl";
 import Heading from "../../components/heading/heading";
 import { LinkCardMenu } from "../../components/link-card-menu/link-card-menu";
+import { FunctionIcon } from "../../icons/function.icon";
+import { TagIcon } from "../../icons/tag.icon";
 
 export default function ApplicationsPage() {
   return (
@@ -13,9 +15,11 @@ export default function ApplicationsPage() {
       </p>
       <LinkCardMenu>
         <LinkCardMenu.Item to="/applications/version-tags">
-          Versionskennungen
+          <TagIcon className="mr-4 h-8 w-8" />
+          Versionstags
         </LinkCardMenu.Item>
         <LinkCardMenu.Item to="/applications/feature-flags">
+          <FunctionIcon className="mr-4 h-8 w-8" />
           Funktionen
         </LinkCardMenu.Item>
       </LinkCardMenu>
