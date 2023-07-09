@@ -6,6 +6,7 @@ import { DefinitionList } from "../../../../../../components/definition-list/def
 import Heading from "../../../../../../components/heading/heading";
 import { SemanticVersion } from "../../../../../../components/semantic-version/semantic-version";
 import { useGetFeatureFlagByIdQuery } from "../../../../../../store/api/resources/feature-flags/feature-flags.api";
+import { SupportedVersionTagsForFeatureFlagList } from "./compontents/supported-version-tags-for-feature-flag-list";
 
 export function FeatureFlagDetailsPage() {
   const { flagId } = useParams();
@@ -18,7 +19,7 @@ export function FeatureFlagDetailsPage() {
       </div>
       {isSuccess && (
         <div className="grid grid-cols-2 gap-4">
-          <div className="col-start-2 flex flex-col">
+          <div className="col-start-2 row-start-1 flex flex-col">
             <Card>
               <Heading level={2} className="mb-4">
                 <FormattedMessage id="versions.feature-flags.details-card" />
@@ -52,6 +53,9 @@ export function FeatureFlagDetailsPage() {
                 />
               </DefinitionList>
             </Card>
+          </div>
+          <div className="col-start-1 row-start-1 flex flex-col">
+            <SupportedVersionTagsForFeatureFlagList flagId={flagId!} />
           </div>
         </div>
       )}

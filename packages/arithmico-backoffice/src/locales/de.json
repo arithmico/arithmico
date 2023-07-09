@@ -149,5 +149,6 @@
   "versions.feature-flags.type.type": "Datentyp",
   "versions.feature-flags.enabled-since-version": "Unterstützt seit",
   "versions.feature-flags.disabled-since-version": "Entfernt ab",
-  "versions.feature-flags.details": "Funktionsdetails anzeigen"
+  "versions.feature-flags.details": "Funktionsdetails anzeigen",
+  "versions.feature-flags.details.supported-versions": "Unterstützte Versionen"
 }
