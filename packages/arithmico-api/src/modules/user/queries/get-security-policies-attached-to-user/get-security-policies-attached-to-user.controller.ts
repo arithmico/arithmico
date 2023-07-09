@@ -13,7 +13,10 @@ export class GetSecurityPoliciesAttachedToUserController {
   constructor(private queryBus: QueryBus) {}
 
   @Get(':userId/security-policies')
-  @SecurityAttributes(SecurityAttribute.UsersSecurityPoliciesRead)
+  @SecurityAttributes(
+    SecurityAttribute.UsersRead,
+    SecurityAttribute.SecurityPoliciesRead,
+  )
   async getSecurityPolicesAttachedToUser(
     @Param() params: GetSecurityPoliciesAttachedToUserRequestParamsDto,
     @Query() query: GetSecurityPoliciesAttachedToUserRequestQueryDto,

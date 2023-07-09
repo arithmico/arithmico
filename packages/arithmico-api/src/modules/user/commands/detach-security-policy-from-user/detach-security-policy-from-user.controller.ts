@@ -10,7 +10,10 @@ export class DetachSecurityPolicyFromUserController {
   constructor(private commandBus: CommandBus) {}
 
   @Delete(':userId/security-policies/:policyId')
-  @SecurityAttributes(SecurityAttribute.UsersSecurityPoliciesWrite)
+  @SecurityAttributes(
+    SecurityAttribute.SecurityPoliciesWrite,
+    SecurityAttribute.UsersWrite,
+  )
   async detachSecurityPolicyFromUser(
     @Param() params: DetachSecurityPolicyFromUserRequestDto,
   ): Promise<void> {

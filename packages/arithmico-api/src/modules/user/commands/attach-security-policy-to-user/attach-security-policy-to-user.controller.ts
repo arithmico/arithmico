@@ -11,7 +11,10 @@ export class AttachSecurityPolicyToUserController {
   constructor(private commandBus: CommandBus) {}
 
   @Put(':userId/security-policies/:policyId')
-  @SecurityAttributes(SecurityAttribute.UsersSecurityPoliciesWrite)
+  @SecurityAttributes(
+    SecurityAttribute.SecurityPoliciesWrite,
+    SecurityAttribute.UsersWrite,
+  )
   async attachSecurityPolicyToUser(
     @Param() params: AttachSecurityPolicyToUserRequestDto,
   ): Promise<AttachSecurityPolicyToUserResponseDto> {
