@@ -15,15 +15,15 @@ export default function AdministrationPage() {
       <LinkCardMenu>
         <LinkCardMenu.Item to="./users">
           <UserIcon className="mr-4 h-8 w-8" />
-          Benutzer
+          <FormattedMessage id="admin.users" />
         </LinkCardMenu.Item>
         <LinkCardMenu.Item to="./user-groups">
           <GroupIcon className="mr-4 h-8 w-8" />
-          Benutzergruppen
+          <FormattedMessage id="admin.user-groups" />
         </LinkCardMenu.Item>
         <LinkCardMenu.Item to="./security-policies">
           <ShieldIcon className="mr-4 h-8 w-8" />
-          Sicherheitsrichtlinien
+          <FormattedMessage id="admin.security-policies" />
         </LinkCardMenu.Item>
       </LinkCardMenu>
     </>

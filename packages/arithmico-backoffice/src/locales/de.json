@@ -87,7 +87,7 @@
   "admin.security-policies.user-groups.edit": "Benutzergruppen bearbeiten",
   "admin.security-policies.user-groups.empty": "Die Sicherheitsrichtlinie wurde noch keiner Benutzergruppe zugewiesen",
 
-  "admin.user-groups.title": "Benutzergruppen",
+  "admin.user-groups": "Benutzergruppen",
   "admin.user-groups.id": "ID",
   "admin.user-groups.name": "Name",
   "admin.user-groups.readonly": "Schreibgeschützt",
