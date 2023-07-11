@@ -36,7 +36,13 @@ export function createPagedAggregationPipeline({
   pipelineStages.push(facetStage);
   pipelineStages.push({
     $addFields: {
-      total: { $arrayElemAt: ['$total.count', 0] },
+      total: {
+        $cond: {
+          if: { $eq: [{ $size: '$total.count' }, 0] },
+          then: 0,
+          else: { $arrayElemAt: ['$total.count', 0] },
+        },
+      },
     },
   });
 
