@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EmailRepository } from './repositories/email/email.repository';
+import { FeatureFlagVersionTagRelationRepository } from './repositories/feature-flag-version-tag-relation/feature-flag-version-tag-relation.respository';
 import { FeatureFlagRepository } from './repositories/feature-flag/feature-flag.repository';
 import { MessageRepository } from './repositories/message/message.repository';
 import { SecurityAttributesRepository } from './repositories/security-attributes/security-attributes.repository';
@@ -95,6 +96,7 @@ import {
     UserGroupMembershipRepository,
     VersionTagRepository,
     FeatureFlagRepository,
+    FeatureFlagVersionTagRelationRepository,
   ],
   exports: [
     UserRepository,
@@ -107,6 +109,7 @@ import {
     UserGroupMembershipRepository,
     VersionTagRepository,
     FeatureFlagRepository,
+    FeatureFlagVersionTagRelationRepository,
   ],
 })
 export class DatabaseModule {}

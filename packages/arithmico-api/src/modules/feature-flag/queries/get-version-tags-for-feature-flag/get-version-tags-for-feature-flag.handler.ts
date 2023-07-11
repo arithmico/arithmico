@@ -1,6 +1,6 @@
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
-import { FeatureFlagRepository } from '../../../../infrastructure/database/repositories/feature-flag/feature-flag.repository';
+import { FeatureFlagVersionTagRelationRepository } from '../../../../infrastructure/database/repositories/feature-flag-version-tag-relation/feature-flag-version-tag-relation.respository';
 import { GetVersionTagsForFeatureFlagQuery } from './get-version-tags-for-feature-flag.query';
 import { GetVersionTagsForFeatureFlagResponseDto } from './get-version-tags-for-feature-flag.response.dto';
 
@@ -8,13 +8,15 @@ import { GetVersionTagsForFeatureFlagResponseDto } from './get-version-tags-for-
 export class GetVersionTagsForFeatureFlagHandler
   implements IQueryHandler<GetVersionTagsForFeatureFlagQuery>
 {
-  constructor(private featureFlagRepository: FeatureFlagRepository) {}
+  constructor(
+    private featureFlagVersionTagRelationRepository: FeatureFlagVersionTagRelationRepository,
+  ) {}
 
   async execute(
     query: GetVersionTagsForFeatureFlagQuery,
   ): Promise<PagedResponse<GetVersionTagsForFeatureFlagResponseDto>> {
     const result =
-      await this.featureFlagRepository.getVersionTagsForFeatureFlag(
+      await this.featureFlagVersionTagRelationRepository.getVersionTagsForFeatureFlag(
         query.flagId,
         query.skip,
         query.limit,
