@@ -105,4 +105,132 @@ export class FeatureFlagVersionTagRelationRepository {
       items: reuslt.at(0).items,
     };
   }
+
+  async getFeatureFlagsForVersionTag(
+    tagId: string,
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<FeatureFlagDocument>> {
+    const versionTagDocument =
+      await this.versionTagRepository.getVersionTagByIdOrThrow(tagId);
+
+    const result = await this.featureFlagModel.aggregate(
+      createPagedAggregationPipeline({
+        skip,
+        limit,
+        preProcessingStages: [
+          {
+            $lookup: {
+              from: this.versionTagModel.collection.name,
+              localField: 'enabledSinceVersionTagId',
+              foreignField: '_id',
+              as: 'enabledSinceVersionTag',
+            },
+          },
+          { $unwind: 'enabledSinceVersionTag' },
+          {
+            $match: {
+              $or: [
+                { 'version.major': { $gt: versionTagDocument.version.major } },
+                {
+                  $and: [
+                    {
+                      'version.major': {
+                        $gte: versionTagDocument.version.major,
+                      },
+                    },
+                    {
+                      'version.minor': {
+                        $gt: versionTagDocument.version.minor,
+                      },
+                    },
+                  ],
+                },
+                {
+                  $and: [
+                    {
+                      'version.major': {
+                        $gte: versionTagDocument.version.major,
+                      },
+                    },
+                    {
+                      'version.minor': {
+                        $gte: versionTagDocument.version.minor,
+                      },
+                    },
+                    {
+                      'version.patch': {
+                        $gte: versionTagDocument.version.patch,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+          {
+            $lookup: {
+              from: this.versionTagModel.collection.name,
+              localField: 'disabledSinceVersionTagId',
+              foreignField: '_id',
+              as: 'disabledSinceVersionTag',
+            },
+          },
+          { $unwind: 'disabledSinceVersionTag' },
+          {
+            $match: {
+              $or: [
+                { disabledSinceVersionTag: { $eq: null } },
+                {
+                  'version.major': {
+                    $lt: versionTagDocument.version.major,
+                  },
+                },
+                {
+                  $and: [
+                    {
+                      'version.major': {
+                        $lte: versionTagDocument.version.major,
+                      },
+                    },
+                    {
+                      'version.minor': {
+                        $lt: versionTagDocument.version.minor,
+                      },
+                    },
+                  ],
+                },
+                {
+                  $and: [
+                    {
+                      'version.major': {
+                        $lte: versionTagDocument.version.major,
+                      },
+                    },
+                    {
+                      'version.minor': {
+                        $lte: versionTagDocument.version.minor,
+                      },
+                    },
+                    {
+                      'version.patch': {
+                        $lt: versionTagDocument.version.patch,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        ],
+      }),
+    );
+
+    return {
+      skip,
+      limit,
+      total: result.at(0).total,
+      items: result.at(0).items,
+    };
+  }
 }
