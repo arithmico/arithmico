@@ -127,21 +127,31 @@ export class FeatureFlagVersionTagRelationRepository {
               as: 'enabledSinceVersionTag',
             },
           },
-          { $unwind: 'enabledSinceVersionTag' },
+          {
+            $addFields: {
+              enabledSinceVersionTag: {
+                $arrayElemAt: ['$enabledSinceVersionTag', 0],
+              },
+            },
+          },
           {
             $match: {
               $or: [
-                { 'version.major': { $gt: versionTagDocument.version.major } },
+                {
+                  'enabledSinceVersionTag.version.major': {
+                    $lt: versionTagDocument.version.major,
+                  },
+                },
                 {
                   $and: [
                     {
-                      'version.major': {
-                        $gte: versionTagDocument.version.major,
+                      'enabledSinceVersionTag.version.major': {
+                        $lte: versionTagDocument.version.major,
                       },
                     },
                     {
-                      'version.minor': {
-                        $gt: versionTagDocument.version.minor,
+                      'enabledSinceVersionTag.version.minor': {
+                        $lt: versionTagDocument.version.minor,
                       },
                     },
                   ],
@@ -149,18 +159,18 @@ export class FeatureFlagVersionTagRelationRepository {
                 {
                   $and: [
                     {
-                      'version.major': {
-                        $gte: versionTagDocument.version.major,
+                      'enabledSinceVersionTag.version.major': {
+                        $lte: versionTagDocument.version.major,
                       },
                     },
                     {
-                      'version.minor': {
-                        $gte: versionTagDocument.version.minor,
+                      'enabledSinceVersionTag.version.minor': {
+                        $lte: versionTagDocument.version.minor,
                       },
                     },
                     {
-                      'version.patch': {
-                        $gte: versionTagDocument.version.patch,
+                      'enabledSinceVersionTag.version.patch': {
+                        $lte: versionTagDocument.version.patch,
                       },
                     },
                   ],
@@ -176,25 +186,31 @@ export class FeatureFlagVersionTagRelationRepository {
               as: 'disabledSinceVersionTag',
             },
           },
-          { $unwind: 'disabledSinceVersionTag' },
+          {
+            $addFields: {
+              disabledSinceVersionTag: {
+                $arrayElemAt: ['$disabledSinceVersionTag', 0],
+              },
+            },
+          },
           {
             $match: {
               $or: [
                 { disabledSinceVersionTag: { $eq: null } },
                 {
-                  'version.major': {
+                  'disabledSinceVersionTag.version.major': {
                     $lt: versionTagDocument.version.major,
                   },
                 },
                 {
                   $and: [
                     {
-                      'version.major': {
+                      'disabledSinceVersionTag.version.major': {
                         $lte: versionTagDocument.version.major,
                       },
                     },
                     {
-                      'version.minor': {
+                      'disabledSinceVersionTag.version.minor': {
                         $lt: versionTagDocument.version.minor,
                       },
                     },
@@ -203,17 +219,17 @@ export class FeatureFlagVersionTagRelationRepository {
                 {
                   $and: [
                     {
-                      'version.major': {
+                      'disabledSinceVersionTag.version.major': {
                         $lte: versionTagDocument.version.major,
                       },
                     },
                     {
-                      'version.minor': {
+                      'disabledSinceVersionTag.version.minor': {
                         $lte: versionTagDocument.version.minor,
                       },
                     },
                     {
-                      'version.patch': {
+                      'disabledSinceVersionTag.version.patch': {
                         $lt: versionTagDocument.version.patch,
                       },
                     },
