@@ -50,7 +50,7 @@ export function UserGroupMemberList({ userId }: UserGroupMemberListProps) {
         {isSuccess && (
           <>
             {data.items.length === 0 && (
-              <p className="rounded-sm border border-black/30 p-6 text-center text-black/30">
+              <p className="rounded-sm border border-black/20 p-6 text-center text-black/30">
                 <FormattedMessage id="admin.users.user-groups.empty" />
               </p>
             )}

@@ -52,9 +52,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   deploy_manager:
-    name: deploy manager
+    name: deploy bachoffice
     runs-on: ubuntu-latest
-    environment: manager-development
+    environment: backoffice-development
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend

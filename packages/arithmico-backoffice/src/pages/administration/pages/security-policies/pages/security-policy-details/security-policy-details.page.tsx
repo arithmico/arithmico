@@ -101,7 +101,7 @@ export function SecurityPolicyDetailsPage() {
             >
               <SecurityPolicyAttributeList
                 readonly={data.readonly}
-                attributes={data.attributes}
+                attributes={[...data.attributes].sort()}
               />
               <SecurityPolicyUserList policyId={policyId!} />
               <SecurityPolicyUserGroupList policyId={policyId!} />

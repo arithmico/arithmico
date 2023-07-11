@@ -23,7 +23,7 @@ function BoxedListItem({ children, className, onClick }: BoxedListItemProps) {
     <li
       onClick={onClick}
       className={
-        "flex items-center rounded-sm border border-black/30 hover:cursor-pointer hover:bg-black/5 " +
+        "flex items-center rounded-sm border border-black/20 hover:cursor-pointer hover:bg-black/5 " +
         (className ?? "")
       }
     >

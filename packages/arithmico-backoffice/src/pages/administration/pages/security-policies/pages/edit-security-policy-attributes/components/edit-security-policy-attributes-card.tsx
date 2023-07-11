@@ -131,7 +131,7 @@ function SecurityAttribute({
         "flex",
         "items-center",
         "border",
-        "border-black/30",
+        "border-black/20",
         "pl-4",
         "pr-2",
         "my-1",

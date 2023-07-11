@@ -30,6 +30,42 @@ export interface PaginationToolbarProps {
   className?: string;
 }
 
+export function SmallPaginationToolbar({
+  skip,
+  limit,
+  total,
+  onChange,
+  className,
+}: PaginationToolbarProps) {
+  const totalPages = getTotalPages(total, limit);
+  const currentPage = getCurrentPage(skip, limit);
+  const lastPageSkip =
+    total % limit === 0 ? total - limit : total - (total % limit);
+
+  return (
+    <div className={classNames("flex", "items-center", "gap-0", className)}>
+      <PaginationButton
+        onClick={() => onChange(Math.max(0, skip - limit))}
+        disabled={currentPage === 1}
+      >
+        <ChevronLeftIcon />
+        <span className="sr-only">
+          <FormattedMessage id="pagination.previous-page" />
+        </span>
+      </PaginationButton>
+      <PaginationButton
+        onClick={() => onChange(Math.min(lastPageSkip, skip + limit))}
+        disabled={currentPage === totalPages}
+      >
+        <ChevronRightIcon />
+        <span className="sr-only">
+          <FormattedMessage id="pagination.next-page" />
+        </span>
+      </PaginationButton>
+    </div>
+  );
+}
+
 export function PaginationToolbar({
   skip,
   limit,
@@ -109,6 +145,7 @@ const PaginationButton = forwardRef<
 >(({ children, className, ...props }, ref) => {
   return (
     <button
+      type="button"
       ref={ref}
       {...props}
       className={classNames(
@@ -116,7 +153,7 @@ const PaginationButton = forwardRef<
         "[&>svg]:h-8",
         {
           "[&>svg]:fill-neutral-500": !props.disabled,
-          "[&>svg]:fill-neutral-400": props.disabled,
+          "[&>svg]:fill-neutral-300": props.disabled,
           "[&>svg]:hover:fill-neutral-800": !props.disabled,
         },
         className

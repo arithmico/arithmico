@@ -36,7 +36,7 @@
   "navbar.users": "Benutzer",
   "navbar.logout": "Abmelden",
   "navbar.mails": "Nachrichten",
-  "navbar.versions": "Versionen",
+  "navbar.applications": "Apps",
   "navbar.admin": "Verwaltung",
   "navbar.admin.security-policies": "Sicherheitsrichtlinien",
   "navbar.admin.security-policies.attributes": "Berechtigungen",
@@ -87,7 +87,7 @@
   "admin.security-policies.user-groups.edit": "Benutzergruppen bearbeiten",
   "admin.security-policies.user-groups.empty": "Die Sicherheitsrichtlinie wurde noch keiner Benutzergruppe zugewiesen",
 
-  "admin.user-groups.title": "Benutzergruppen",
+  "admin.user-groups": "Benutzergruppen",
   "admin.user-groups.id": "ID",
   "admin.user-groups.name": "Name",
   "admin.user-groups.readonly": "Schreibgeschützt",
@@ -135,5 +135,23 @@
   "pagination.last-page": "Letzte Seite",
   "pagination.text": "Seite {currentPage} von {totalPages}",
 
-  "versions.tags": "Versionskennungen"
+  "versions.tags": "Versionskennungen",
+  "versions.feature-flags": "Funktionen",
+  "versions.feature-flags.details-card": "Details",
+  "versions.feature-flags.add": "Funktionen erstellen",
+  "versions.feature-flags.name": "Name",
+  "versions.feature-flags.flag": "Flag",
+  "versions.feature-flags.type": "Typ",
+  "versions.feature-flags.type.constant": "Konstante",
+  "versions.feature-flags.type.function": "Funktion",
+  "versions.feature-flags.type.method": "Methode",
+  "versions.feature-flags.type.operator": "Operator",
+  "versions.feature-flags.type.type": "Datentyp",
+  "versions.feature-flags.enabled-since-version": "Unterstützt seit",
+  "versions.feature-flags.disabled-since-version": "Entfernt ab",
+  "versions.feature-flags.details": "Funktionsdetails anzeigen",
+  "versions.feature-flags.details.supported-versions": "Unterstützte Versionen",
+  "versions.version-tags.id": "ID",
+  "versions.version-tags.version": "Version",
+  "versions.version-tags.configurable": "Konfigurierbar"
 }

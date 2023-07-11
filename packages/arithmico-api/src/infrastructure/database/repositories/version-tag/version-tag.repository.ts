@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
@@ -53,5 +53,17 @@ export class VersionTagRepository {
       skip,
       limit,
     };
+  }
+
+  async getVersionTagById(tagId: string): Promise<VersionTagDocument | null> {
+    return this.versionTagModel.findById(tagId).exec();
+  }
+
+  async getVersionTagByIdOrThrow(tagId: string): Promise<VersionTagDocument> {
+    const versionTagDocument = await this.getVersionTagById(tagId);
+    if (!versionTagDocument) {
+      throw new NotFoundException();
+    }
+    return versionTagDocument;
   }
 }

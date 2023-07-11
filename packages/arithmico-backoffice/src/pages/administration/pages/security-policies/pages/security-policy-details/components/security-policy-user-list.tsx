@@ -74,7 +74,7 @@ export function SecurityPolicyUserList({
               </BoxedList>
             )}
             {data.items.length === 0 && (
-              <p className="rounded-sm border border-black/30 p-6 text-center text-black/30">
+              <p className="rounded-sm border border-black/20 p-6 text-center text-black/30">
                 <FormattedMessage id="admin.security-policies.users.empty" />
               </p>
             )}

@@ -26,7 +26,7 @@ export function UserGroupsPage({ inline }: UserGroupsPageProps) {
       {!inline && <UserGroupsBreadcrumbs />}
       <div className={classNames("flex", "my-4")}>
         <Heading level={1}>
-          <FormattedMessage id="admin.user-groups.title" />
+          <FormattedMessage id="admin.user-groups" />
         </Heading>
         <ButtonLink
           className={classNames("ml-auto")}
