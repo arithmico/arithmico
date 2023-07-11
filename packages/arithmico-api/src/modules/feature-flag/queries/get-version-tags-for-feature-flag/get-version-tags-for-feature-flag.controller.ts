@@ -5,11 +5,17 @@ import { GetVersionTagsForFeatureFlagRequestQueryDto } from './get-version-tags-
 import { GetVersionTagsForFeatureFlagRequestParamsDto } from './get-version-tags-for-feature-flag.request.params.dto';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import { GetVersionTagsForFeatureFlagQuery } from './get-version-tags-for-feature-flag.query';
+import { SecurityAttribute } from '../../../../common/constants/security-attributes.enum';
+import { SecurityAttributes } from '../../../../decorators/security-attributes.decorator';
 
 @Controller(':flagId/version-tags')
 export class GetVersionTagsForFeatureFlagController {
   constructor(private queryBus: QueryBus) {}
 
+  @SecurityAttributes(
+    SecurityAttribute.FeatureFlagsRead,
+    SecurityAttribute.VersionTagsRead,
+  )
   @Get()
   async getVersionTagsForFeatureFlag(
     @Query() query: GetVersionTagsForFeatureFlagRequestQueryDto,
