@@ -5,6 +5,7 @@ import { BoxedList } from "../../../../components/boxed-list/boxed-list";
 import { Card } from "../../../../components/card/card";
 import Heading from "../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../components/pagination-toolbar/pagination-toolbar";
+import { SemanticVersion } from "../../../../components/semantic-version/semantic-version";
 import { ChevronRightIcon } from "../../../../icons/chevron-right.icon";
 import { useGetVersionTagsQuery } from "../../../../store/api/resources/version-tags/version-tags.api";
 
@@ -24,14 +25,14 @@ export function VersionTagsPage() {
           {data.items.length > 0 && (
             <BoxedList>
               {data.items.map((versionTag) => {
-                const versionTagUrl = `/versions/version-tags/${versionTag.id}`;
+                const versionTagUrl = `/applications/version-tags/${versionTag.id}`;
                 return (
                   <BoxedList.Item
                     className="px-4 py-2"
                     key={versionTag.id}
                     onClick={() => navigate(versionTagUrl)}
                   >
-                    {`v${versionTag.version.major}.${versionTag.version.minor}.${versionTag.version.patch}`}
+                    <SemanticVersion version={versionTag.version} />
                     <Link to={versionTagUrl} className="ml-auto">
                       <ChevronRightIcon className="h-6 w-6 fill-black/50" />
                     </Link>

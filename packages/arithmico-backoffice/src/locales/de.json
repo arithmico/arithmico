@@ -150,5 +150,8 @@
   "versions.feature-flags.enabled-since-version": "Unterstützt seit",
   "versions.feature-flags.disabled-since-version": "Entfernt ab",
   "versions.feature-flags.details": "Funktionsdetails anzeigen",
-  "versions.feature-flags.details.supported-versions": "Unterstützte Versionen"
+  "versions.feature-flags.details.supported-versions": "Unterstützte Versionen",
+  "versions.version-tags.id": "ID",
+  "versions.version-tags.version": "Version",
+  "versions.version-tags.configurable": "Konfigurierbar"
 }

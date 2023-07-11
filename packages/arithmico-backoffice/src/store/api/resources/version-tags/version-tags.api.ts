@@ -67,5 +67,8 @@ const versionTagsApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetVersionTagsQuery, useGetVersionTagsForFeatureFlagQuery } =
-  versionTagsApi;
+export const {
+  useGetVersionTagsQuery,
+  useGetVersionTagsForFeatureFlagQuery,
+  useGetVersionTagByIdQuery,
+} = versionTagsApi;
