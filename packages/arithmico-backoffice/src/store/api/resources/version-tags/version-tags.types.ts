@@ -13,8 +13,12 @@ export interface GetVersionTagsArgs {
   limit: number;
 }
 
-export interface GetVersionTagsForFeatureFlag {
+export interface GetVersionTagsForFeatureFlagArgs {
   flagId: string;
   skip: number;
   limit: number;
+}
+
+export interface GetVersionTagByIdArgs {
+  tagId: string;
 }

@@ -1,8 +1,9 @@
 import { api } from "../../api";
 import { PagedResponse } from "../../types";
 import {
+  GetVersionTagByIdArgs,
   GetVersionTagsArgs,
-  GetVersionTagsForFeatureFlag,
+  GetVersionTagsForFeatureFlagArgs,
   VersionTagDto,
 } from "./version-tags.types";
 
@@ -33,7 +34,7 @@ const versionTagsApi = api.injectEndpoints({
 
     getVersionTagsForFeatureFlag: build.query<
       PagedResponse<VersionTagDto>,
-      GetVersionTagsForFeatureFlag
+      GetVersionTagsForFeatureFlagArgs
     >({
       query: (arg) => ({
         url: `/feature-flags/${arg.flagId}/version-tags`,
@@ -43,6 +44,25 @@ const versionTagsApi = api.injectEndpoints({
           limit: arg.limit,
         },
       }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              ...response.items.map((versionTag) => ({
+                type: "VersionTag" as const,
+                id: versionTag.id,
+              })),
+              { type: "FeatureFlag", id: arg.flagId },
+            ]
+          : [],
+    }),
+
+    getVersionTagById: build.query<VersionTagDto, GetVersionTagByIdArgs>({
+      query: (arg) => ({
+        url: `/version-tags/${arg.tagId}`,
+        method: "GET",
+      }),
+      providesTags: (response) =>
+        response ? [{ type: "VersionTag", id: response.id }] : [],
     }),
   }),
 });
