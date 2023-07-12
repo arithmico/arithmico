@@ -1,15 +1,15 @@
 import createMinus from '../../../node-operations/create-node/create-minus';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import createVector from '../../../node-operations/create-node/create-vector';
-import { Context, Equals, NumberNode } from '../../../types';
+import { Equals, NumberNode } from '../../../types';
 import { FunctionHeaderItem } from '../../../types/nodes.types';
 import { getVariableNames } from '../../../utils/symbolic-utils';
-import checkCandidates from '../utils/nsolve/check-candidates';
-import findCandidates from '../utils/nsolve/find-candidates';
+import findCandidateIntervals from '../utils/nsolve/find-candidate-intervals';
 import findDirectHits from '../utils/nsolve/find-direct-hits';
 import refineResults from '../utils/nsolve/refine-results';
 import scan from '../utils/nsolve/scan';
 import { PluginFragment } from '../../../utils/plugin-builder';
+import findSolutionsFromCandidateIntervals from '../utils/nsolve/find-solutions-from-candidate-intervals';
 
 const nsolveHeader: FunctionHeaderItem[] = [
     { type: 'equals', name: 'equation', evaluate: false },
@@ -36,18 +36,15 @@ __FUNCTIONS.nsolve &&
                 throw runtimeError(`Invalid number of variables expected 1 got ${variableNames.length}`);
             }
 
-            const value = createNumberNode(leftLimit);
-            const localStackFrame = new Map();
-            localStackFrame.set(variableNames[0], value);
-            const localContext: Context = {
-                ...context,
-                stack: [...context.stack, localStackFrame],
-            };
-
-            const points = scan(expression, leftLimit, rightLimit, value, localContext);
+            const points = scan(expression, variableNames[0], leftLimit, rightLimit, context);
             const directHits = findDirectHits(points);
-            const candidates = findCandidates(points);
-            const solutions = checkCandidates(expression, candidates, value, localContext);
+            const candidateIntervals = findCandidateIntervals(points);
+            const solutions = findSolutionsFromCandidateIntervals(
+                expression,
+                variableNames[0],
+                candidateIntervals,
+                context,
+            );
 
             const results: number[] = [];
             refineResults([...directHits, ...solutions], leftLimit, rightLimit).forEach((solution) => {

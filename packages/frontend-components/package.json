@@ -6,7 +6,8 @@
   "scripts": {
     "install": "npm run build",
     "test": "echo \"no test specified\" && exit 0",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "exit 0"
   },
   "repository": {
     "type": "git",

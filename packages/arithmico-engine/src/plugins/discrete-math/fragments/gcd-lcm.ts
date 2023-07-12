@@ -1,6 +1,6 @@
 import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
-import { greatestCommonDivisor } from '../../../utils/float-utils';
+import { greatestCommonDivisor } from '../../../utils/math-utils/float-utils';
 import { extendedEuclideanGreatestCommonDivisor } from '../utils/gcd-extended-utils';
 import createEquals from '../../../node-operations/create-node/create-equals';
 import createPlus from '../../../node-operations/create-node/create-plus';

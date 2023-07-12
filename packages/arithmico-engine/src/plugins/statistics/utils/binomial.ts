@@ -1,4 +1,4 @@
-import { binco } from '../../../utils/binco';
+import { binco } from '../../../utils/math-utils/binco';
 
 export function calculateBinom(n: number, p: number, k: number) {
     return binco(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);

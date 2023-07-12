@@ -22,5 +22,6 @@ module.exports = {
         addVariant(classSetting, `.${classSetting} &`);
       });
     }),
+    require("@headlessui/tailwindcss"),
   ],
 };

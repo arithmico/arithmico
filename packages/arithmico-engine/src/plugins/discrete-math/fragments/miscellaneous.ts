@@ -3,7 +3,7 @@ import createNumberNode from '../../../node-operations/create-node/create-number
 import { fib } from '../utils/fib-utils';
 import { PluginFragment } from '../../../utils/plugin-builder';
 import { calculateFact } from '../utils/fact';
-import { binco } from '../../../utils/binco';
+import { binco } from '../../../utils/math-utils/binco';
 import { getLowestFraction } from '../utils/fraction-utils';
 import createDivided from '../../../node-operations/create-node/create-divided';
 

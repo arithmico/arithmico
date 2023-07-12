@@ -30,6 +30,7 @@ export function NavigationLink({ to, children }: NavigationLinkProps) {
             "theme-dark:text-neutral-300",
             "theme-dark:hover:bg-neutral-800",
             "bold-font:font-bold",
+            "focus-visible:outline",
             {
               "md:theme-light:bg-neutral-300": isActive,
               "theme-light:bg-neutral-200": isActive,
