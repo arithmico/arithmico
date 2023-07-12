@@ -46,5 +46,5 @@ jobs:
           REPOSITORY: arithmico-api
           IMAGE_TAG: ${{ steps.get-tag.tag }}
         run: |
-          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f ./Dockerfile.api .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
