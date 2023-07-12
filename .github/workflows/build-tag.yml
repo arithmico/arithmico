@@ -44,7 +44,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: arithmico-api
-          IMAGE_TAG: ${{ steps.get-tag.tag }}
+          IMAGE_TAG: ${{ steps.get-tag.outputs.tag }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f ./Dockerfile.api .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
