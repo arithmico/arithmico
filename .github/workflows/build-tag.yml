@@ -10,6 +10,8 @@ jobs:
   get-version-tag:
     runs-on: ubuntu-latest
     name: get version tag
+    outputs:
+      tag: steps.get-tag.tag
     steps:
       - name: parse git ref to tag
         id: get-tag
@@ -48,7 +50,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: arithmico-api
-          IMAGE_TAG: ${{ needs.get-version-tag.steps.get-tag.outputs.tag }}
+          IMAGE_TAG: ${{ needs.get-version-tag.outputs.tag }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f ./Dockerfile.api .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -59,11 +61,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
+      - uses: ./.github/workflows/actions/build-frontend
         with:
           BUCKET_ID: ${{ secrets.s3_bucket_id }}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          VERSION_TAG: ${{ needs.get-version-tag.steps.get-tag.outputs.tag }}
+          VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
           WORKSPACE_PATH: packages/arithmico-blog
           APP_NAME: blog
