@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: get version tag
     outputs:
-      tag: steps.get-tag.tag
+      tag: ${{ steps.get-tag.tag }}
     steps:
       - name: parse git ref to tag
         id: get-tag
