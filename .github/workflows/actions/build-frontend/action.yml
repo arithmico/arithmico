@@ -5,10 +5,6 @@ inputs:
     required: true
     description: s3 bucket id
 
-  CLOUDFRONT_DIST_ID:
-    required: true
-    description: cloudfront distribution id
-
   WORKSPACE_PATH:
     required: true
     description: path to workspace
@@ -20,6 +16,14 @@ inputs:
   AWS_SECRET_ACCESS_KEY:
     required: true
     description: aws secret access key
+
+  APP_NAME:
+    required: true
+    description: app name
+
+  VERSION_TAG:
+    required: true
+    description: version tag
 
 runs:
   using: "composite"
@@ -66,10 +70,4 @@ runs:
         WORKSPACE_PATH: ${{ inputs.WORKSPACE_PATH }}
         BUCKET_ID: ${{ inputs.BUCKET_ID }}
       shell: bash
-      run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$(echo $BUCKET_ID) --delete
-
-    - name: Invalidate Cloundfront distrubution
-      env:
-        CLOUDFRONT_DIST_ID: ${{ inputs.CLOUDFRONT_DIST_ID }}
-      shell: bash
-      run: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST_ID --paths '/*'
+      run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$(echo $BUCKET_ID)/$(echo $VERSION_TAG)/$(echo $APP_NAME) --delete

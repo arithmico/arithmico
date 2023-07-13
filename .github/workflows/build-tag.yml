@@ -7,16 +7,11 @@ on:
 name: Build and Upload
 
 jobs:
-  build:
+  get-version-tag:
     runs-on: ubuntu-latest
-    name: "Build and Upload"
-    environment: dev
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: eu-central-1
+    name: get version tag
     steps:
-      - name: Parse Git ref to tag
+      - name: parse git ref to tag
         id: get-tag
         shell: bash
         run: |
@@ -26,6 +21,15 @@ jobs:
           echo "Tag is $TAG"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
+  build-api:
+    needs: get-version-tag
+    runs-on: ubuntu-latest
+    name: build api
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: eu-central-1
+    steps:
       - uses: actions/checkout@v3
         name: Checkout
 
@@ -44,7 +48,22 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: arithmico-api
-          IMAGE_TAG: ${{ steps.get-tag.outputs.tag }}
+          IMAGE_TAG: ${{ needs.get-version-tag.steps.get-tag.outputs.tag }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f ./Dockerfile.api .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+  build-blog:
+    needs: get-version-tag
+    name: build blog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/deploy-arithmico-app-frontend
+        with:
+          BUCKET_ID: ${{ secrets.s3_bucket_id }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          VERSION_TAG: ${{ needs.get-version-tag.steps.get-tag.outputs.tag }}
+          WORKSPACE_PATH: packages/arithmico-blog
+          APP_NAME: blog
