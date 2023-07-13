@@ -69,5 +69,7 @@ runs:
       env:
         WORKSPACE_PATH: ${{ inputs.WORKSPACE_PATH }}
         BUCKET_ID: ${{ inputs.BUCKET_ID }}
+        VERSION_TAG: ${{ inputs.VERSION_TAG }}
+        APP_NAME: ${{ inputs.APP_NAME }}
       shell: bash
       run: aws s3 sync ./$(echo $WORKSPACE_PATH)/dist/ s3://$(echo $BUCKET_ID)/$(echo $VERSION_TAG)/$(echo $APP_NAME) --delete
