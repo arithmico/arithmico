@@ -69,3 +69,48 @@ jobs:
           VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
           WORKSPACE_PATH: packages/arithmico-blog
           APP_NAME: blog
+
+  build-docs:
+    needs: get-version-tag
+    name: build docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/build-frontend
+        with:
+          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
+          WORKSPACE_PATH: packages/arithmico-docs
+          APP_NAME: docs
+
+  build-backoffice:
+    needs: get-version-tag
+    name: build backoffice
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/build-frontend
+        with:
+          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
+          WORKSPACE_PATH: packages/arithmico-backoffice
+          APP_NAME: backoffice
+
+  build-calc:
+    needs: get-version-tag
+    name: build calc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/build-frontend
+        with:
+          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
+          WORKSPACE_PATH: packages/arithmico-calc
+          APP_NAME: calc
