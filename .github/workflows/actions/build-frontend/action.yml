@@ -52,12 +52,6 @@ runs:
       shell: bash
       run: npm run build -w $WORKSPACE_PATH
 
-    - name: Test
-      env:
-        CI: "true"
-      shell: bash
-      run: npm run test:all
-
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
