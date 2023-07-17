@@ -24,6 +24,8 @@ import { UserGroupModule } from './modules/user-group/user-group.module';
 import { VersionTagModule } from './modules/version-tag/version-tag.module';
 import { EmailModule } from './modules/email/email.module';
 import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
+import { CloudfrontModule } from './modules/cloudfront/cloudfront.module';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
   imports: [
@@ -94,6 +96,10 @@ import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
         path: 'feature-flags',
         module: FeatureFlagModule,
       },
+      {
+        path: 'health',
+        module: HealthModule,
+      },
     ]),
     UserModule,
     AuthModule,
@@ -104,6 +110,8 @@ import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
     UserGroupModule,
     VersionTagModule,
     FeatureFlagModule,
+    CloudfrontModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [
