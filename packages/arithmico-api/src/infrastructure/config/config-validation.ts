@@ -12,7 +12,6 @@ export default Joi.object({
   SEED_USERNAME: Joi.string().required(),
   SEED_EMAIL: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
-  JWT_COOKIE_DOMAIN: Joi.string().required(),
   JWT_ACCESS_TOKEN_LIFETIME: Joi.number().default(1000 * 60 * 60),
   JWT_REFRESH_TOKEN_LIFETIME: Joi.number().default(1000 * 60 * 60 * 24 * 7),
   REDIS_HOST: Joi.string().required(),
