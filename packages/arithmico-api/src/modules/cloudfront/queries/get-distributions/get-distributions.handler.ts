@@ -16,12 +16,22 @@ export class GetDistributionsHandler
   private readonly logger = new Logger(GetDistributionsHandler.name);
 
   constructor(private configService: ConfigService) {
+    const accessKeyId = configService.get('aws.access_key_id') as
+      | string
+      | undefined;
+    const secretAccessKey = configService.get('aws.secret_access_key') as
+      | string
+      | undefined;
+
+    const credentials = accessKeyId &&
+      secretAccessKey && {
+        accessKeyId,
+        secretAccessKey,
+      };
+
     this.client = new CloudFrontClient({
       region: 'eu-central-1',
-      credentials: {
-        accessKeyId: configService.get('aws.access_key_id'),
-        secretAccessKey: configService.get('aws.secret_access_key'),
-      },
+      credentials,
     });
   }
 

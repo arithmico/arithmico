@@ -2,7 +2,6 @@ import { HttpService } from '@nestjs/axios';
 import { Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { lastValueFrom } from 'rxjs';
 import { VersionTagRepository } from '../../../../infrastructure/database/repositories/version-tag/version-tag.repository';
 import { SemanticVersion } from '../../../../infrastructure/database/schemas/sematic-version/semantic-version.schema';
 import { VersionTag } from '../../../../infrastructure/database/schemas/version-tag/version-tag.schema';
@@ -38,21 +37,22 @@ export class SyncGitTagsProcessor {
   @Process('sync-git-tags')
   async syncGitTags() {
     this.logger.log('start git tag sync');
+    const personalAccessToken = this.configService.get<string>(
+      'github.personalAccessToken',
+    );
+
+    const headers = personalAccessToken && {
+      Authorization: `token ${personalAccessToken}`,
+    };
 
     const tags = (
-      await lastValueFrom(
-        this.httpService.get<GitRefDto[]>(
-          `${this.configService.get<string>(
-            'github.repositoryUrl',
-          )}/git/refs/tags`,
-          {
-            headers: {
-              Authorization: `token ${this.configService.get<string>(
-                'github.personalAccessToken',
-              )}`,
-            },
-          },
-        ),
+      await this.httpService.axiosRef.get<GitRefDto[]>(
+        `${this.configService.get<string>(
+          'github.repositoryUrl',
+        )}/git/refs/tags`,
+        {
+          headers,
+        },
       )
     ).data;
 

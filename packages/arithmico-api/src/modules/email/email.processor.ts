@@ -24,12 +24,22 @@ export class EmailProcessor {
       return;
     }
 
+    const accessKeyId = configService.get('aws.access_key_id') as
+      | string
+      | undefined;
+    const secretAccessKey = configService.get('aws.secret_access_key') as
+      | string
+      | undefined;
+
+    const credentials = accessKeyId &&
+      secretAccessKey && {
+        accessKeyId,
+        secretAccessKey,
+      };
+
     this.s3client = new S3Client({
       region: 'eu-central-1',
-      credentials: {
-        accessKeyId: this.configService.get('aws.access_key_id'),
-        secretAccessKey: this.configService.get('aws.secret_access_key'),
-      },
+      credentials,
     });
   }
 

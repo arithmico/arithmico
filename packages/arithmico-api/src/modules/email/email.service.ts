@@ -12,12 +12,22 @@ export class EmailService {
       return;
     }
 
+    const accessKeyId = configService.get('aws.access_key_id') as
+      | string
+      | undefined;
+    const secretAccessKey = configService.get('aws.secret_access_key') as
+      | string
+      | undefined;
+
+    const credentials = accessKeyId &&
+      secretAccessKey && {
+        accessKeyId,
+        secretAccessKey,
+      };
+
     this.sesClient = new SESClient({
       region: 'eu-west-1',
-      credentials: {
-        accessKeyId: configService.get('aws.access_key_id'),
-        secretAccessKey: configService.get('aws.secret_access_key'),
-      },
+      credentials,
     });
   }
 
