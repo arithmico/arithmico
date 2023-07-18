@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigurationRepository } from './repositories/configuration/configuration.repository';
 import { EmailRepository } from './repositories/email/email.repository';
 import { FeatureFlagVersionTagRelationRepository } from './repositories/feature-flag-version-tag-relation/feature-flag-version-tag-relation.respository';
 import { FeatureFlagRepository } from './repositories/feature-flag/feature-flag.repository';
@@ -11,6 +12,18 @@ import { UserGroupMembershipRepository } from './repositories/user-group-members
 import { UserGroupRepository } from './repositories/user-group/user-group.repository';
 import { UserRepository } from './repositories/user/user.repository';
 import { VersionTagRepository } from './repositories/version-tag/version-tag.repository';
+import {
+  ConfigurationRevisionFeatureFlagAssociation,
+  ConfigurationRevisionFeatureFlagAssociationSchema,
+} from './schemas/configuration-revision-feature-flag-association/configuration-revision-feature-flag-association';
+import {
+  ConfigurationRevision,
+  ConfigurationRevisionSchema,
+} from './schemas/configuration-revision/configuration-revision.schema';
+import {
+  Configuration,
+  ConfigurationSchema,
+} from './schemas/configuration/configuration.schema';
 import { Email, EmailSchema } from './schemas/email/email.schema';
 import {
   FeatureFlag,
@@ -83,6 +96,18 @@ import {
         name: FeatureFlag.name,
         schema: FeatureFlagSchema,
       },
+      {
+        name: Configuration.name,
+        schema: ConfigurationSchema,
+      },
+      {
+        name: ConfigurationRevision.name,
+        schema: ConfigurationRevisionSchema,
+      },
+      {
+        name: ConfigurationRevisionFeatureFlagAssociation.name,
+        schema: ConfigurationRevisionFeatureFlagAssociationSchema,
+      },
     ]),
   ],
   providers: [
@@ -97,6 +122,7 @@ import {
     VersionTagRepository,
     FeatureFlagRepository,
     FeatureFlagVersionTagRelationRepository,
+    ConfigurationRepository,
   ],
   exports: [
     UserRepository,
@@ -110,6 +136,7 @@ import {
     VersionTagRepository,
     FeatureFlagRepository,
     FeatureFlagVersionTagRelationRepository,
+    ConfigurationRepository,
   ],
 })
 export class DatabaseModule {}
