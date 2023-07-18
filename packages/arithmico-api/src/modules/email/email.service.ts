@@ -6,11 +6,14 @@ import fs from 'fs';
 @Injectable()
 export class EmailService {
   private sesClient: SESClient;
+  private readonly isProduction: boolean;
 
   constructor(private configService: ConfigService) {
-    if (this.configService.get<string>('mail.mode') !== 'prod') {
+    if (this.configService.get<string>('mail.mode') !== 'production') {
+      this.isProduction = false;
       return;
     }
+    this.isProduction = true;
 
     const accessKeyId = configService.get('aws.access_key_id') as
       | string
@@ -32,7 +35,7 @@ export class EmailService {
   }
 
   public async sendEmail(to: string, subject: string, content: string) {
-    if (this.configService.get<string>('mail.mode') === 'prod') {
+    if (this.isProduction) {
       const sendEmailCommand: SendEmailCommand = new SendEmailCommand({
         Destination: {
           ToAddresses: [to],

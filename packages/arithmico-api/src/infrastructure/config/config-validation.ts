@@ -19,7 +19,7 @@ export default Joi.object({
   REDIS_PASSWORD: Joi.string().optional(),
   MAIL_BUCKET: Joi.string().required(),
   MAIL_DOMAIN: Joi.string().required(),
-  MAIL_MODE: Joi.string().valid('dev', 'prod'),
+  MAIL_MODE: Joi.string().valid('development', 'production').optional(),
   FRONTEND_BASE_URL: Joi.string().uri().required(),
   GITHUB_REPO_URL: Joi.string().uri().required(),
   GITHUB_PAT: Joi.string().optional(),
