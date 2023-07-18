@@ -12,9 +12,6 @@ export class LogoutController {
   @Post()
   async logout(@Res() response: Response): Promise<void> {
     response.status(200);
-    response.clearCookie('refreshToken', {
-      domain: this.configService.get('jwt.domain'),
-    });
     response.end();
   }
 }

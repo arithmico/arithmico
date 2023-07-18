@@ -1,5 +1,5 @@
-name: "deploy arithmico app frontend"
-description: "deploy react app to s3 and invalidate cloudfront distribution"
+name: "build frontend"
+description: "deploy react app to s3"
 inputs:
   BUCKET_ID:
     required: true

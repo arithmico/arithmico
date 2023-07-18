@@ -6,23 +6,36 @@ import fs from 'fs';
 @Injectable()
 export class EmailService {
   private sesClient: SESClient;
+  private readonly isProduction: boolean;
 
   constructor(private configService: ConfigService) {
-    if (this.configService.get<string>('mail.mode') !== 'prod') {
+    if (this.configService.get<string>('mail.mode') !== 'production') {
+      this.isProduction = false;
       return;
     }
+    this.isProduction = true;
+
+    const accessKeyId = configService.get('aws.access_key_id') as
+      | string
+      | undefined;
+    const secretAccessKey = configService.get('aws.secret_access_key') as
+      | string
+      | undefined;
+
+    const credentials = accessKeyId &&
+      secretAccessKey && {
+        accessKeyId,
+        secretAccessKey,
+      };
 
     this.sesClient = new SESClient({
       region: 'eu-west-1',
-      credentials: {
-        accessKeyId: configService.get('aws.access_key_id'),
-        secretAccessKey: configService.get('aws.secret_access_key'),
-      },
+      credentials,
     });
   }
 
   public async sendEmail(to: string, subject: string, content: string) {
-    if (this.configService.get<string>('mail.mode') === 'prod') {
+    if (this.isProduction) {
       const sendEmailCommand: SendEmailCommand = new SendEmailCommand({
         Destination: {
           ToAddresses: [to],

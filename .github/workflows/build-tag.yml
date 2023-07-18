@@ -1,7 +1,7 @@
 on:
   create:
     tags:
-      - "*"
+      - "v[0-9].[0-9].[0-9]"
   workflow_dispatch: {}
 
 name: build and upload
@@ -112,6 +112,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          echo "VITE_API_BASE_URL=${{ secrets.API_BASE_URL }}" > packages/arithmico-backoffice/.env
       - uses: ./.github/workflows/actions/build-frontend
         with:
           BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
