@@ -11,5 +11,6 @@ export const api = createApi({
     "User",
     "VersionTag",
     "FeatureFlag",
+    "Configuration",
   ],
 });
