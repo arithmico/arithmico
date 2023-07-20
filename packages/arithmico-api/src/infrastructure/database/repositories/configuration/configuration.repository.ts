@@ -79,7 +79,7 @@ export class ConfigurationRepository {
     return this.configurationModel.findById(configurationId).exec();
   }
 
-  async getconfigurationByIdOrThrow(
+  async getConfigurationByIdOrThrow(
     configurationId: string,
   ): Promise<ConfigurationDocument> {
     const configurationDocument = await this.getConfigurationById(
@@ -115,7 +115,7 @@ export class ConfigurationRepository {
       }),
     );
     const configurationDocumentPromise =
-      this.getconfigurationByIdOrThrow(configurationId);
+      this.getConfigurationByIdOrThrow(configurationId);
     const [aggregationResult, configurationDocument] = await Promise.all([
       aggregationResultPromise,
       configurationDocumentPromise,
@@ -127,10 +127,31 @@ export class ConfigurationRepository {
       total: aggregationResult.at(0).total,
       items: aggregationResult
         .at(0)
-        .items.map((configurationRevisionDocument) => ({
-          ...configurationRevisionDocument,
-          name: `${configurationDocument.name} (rev ${configurationRevisionDocument.revision})`,
-        })),
+        .items.map(
+          (configurationRevisionDocument: ConfigurationRevisionDocument) => ({
+            ...configurationRevisionDocument,
+            name: `${configurationDocument.name} (rev ${configurationRevisionDocument.revision})`,
+          }),
+        ),
+    };
+  }
+
+  async getConfigurations(
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<ConfigurationDocument>> {
+    const result = await this.configurationModel.aggregate(
+      createPagedAggregationPipeline({
+        skip,
+        limit,
+        preProcessingStages: [{ $sort: { name: 1 } }],
+      }),
+    );
+    return {
+      skip,
+      limit,
+      total: result.at(0).total,
+      items: result.at(0).items,
     };
   }
 }

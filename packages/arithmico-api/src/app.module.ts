@@ -26,6 +26,7 @@ import { EmailModule } from './modules/email/email.module';
 import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
 import { CloudfrontModule } from './modules/cloudfront/cloudfront.module';
 import { HealthModule } from './modules/health/health.module';
+import { ConfigurationModule } from './modules/configuration/configuration.module';
 
 @Module({
   imports: [
@@ -101,6 +102,10 @@ import { HealthModule } from './modules/health/health.module';
         path: 'health',
         module: HealthModule,
       },
+      {
+        path: 'configurations',
+        module: ConfigurationModule,
+      },
     ]),
     UserModule,
     AuthModule,
@@ -113,6 +118,7 @@ import { HealthModule } from './modules/health/health.module';
     FeatureFlagModule,
     CloudfrontModule,
     HealthModule,
+    ConfigurationModule,
   ],
   controllers: [],
   providers: [
