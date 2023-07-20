@@ -19,9 +19,9 @@ interface GitRefDto {
 }
 
 const firstConfigurableVersion: SemanticVersion = {
-  major: 1,
-  minor: 9,
-  patch: 0,
+  major: 2,
+  minor: 3,
+  patch: 3,
 };
 
 @Processor('cron-jobs')
