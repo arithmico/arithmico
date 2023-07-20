@@ -56,41 +56,43 @@ export class SyncGitTagsProcessor {
       )
     ).data;
 
-    tags
-      .filter(({ ref, object: { type } }) => {
-        if (!ref.startsWith('refs/tags/v')) {
-          return false;
-        }
-        const tag = ref.substring('refs/tags/v'.length);
-        if (!tag.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)$/)) {
-          return false;
-        }
-        if (type !== 'commit') {
-          return false;
-        }
-        return true;
-      })
-      .map(({ ref, object: { sha } }): VersionTag => {
-        const versionString = ref.substring('refs/tags/v'.length);
-        const [major, minor, patch] = versionString
-          .split('.')
-          .map((v) => parseInt(v));
-        const version: SemanticVersion = { major, minor, patch };
-        return {
-          commit: sha,
-          version,
-          configurable: semanticVersionGreaterThanOrEqual(
+    await Promise.all(
+      tags
+        .filter(({ ref, object: { type } }) => {
+          if (!ref.startsWith('refs/tags/v')) {
+            return false;
+          }
+          const tag = ref.substring('refs/tags/v'.length);
+          if (!tag.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)$/)) {
+            return false;
+          }
+          if (type !== 'commit' && type !== 'tag') {
+            return false;
+          }
+          return true;
+        })
+        .map(({ ref, object: { sha } }): VersionTag => {
+          const versionString = ref.substring('refs/tags/v'.length);
+          const [major, minor, patch] = versionString
+            .split('.')
+            .map((v) => parseInt(v));
+          const version: SemanticVersion = { major, minor, patch };
+          return {
+            commit: sha,
             version,
-            firstConfigurableVersion,
-          ),
-        };
-      })
-      .forEach(async (tag) => {
-        if (!(await this.versionTagRepository.versionTagExists(tag.commit))) {
-          this.logger.log(`create version tag for commit ${tag.commit}`);
-          await this.versionTagRepository.createVersionTag(tag);
-        }
-      });
+            configurable: semanticVersionGreaterThanOrEqual(
+              version,
+              firstConfigurableVersion,
+            ),
+          };
+        })
+        .map(async (tag) => {
+          if (!(await this.versionTagRepository.versionTagExists(tag.commit))) {
+            this.logger.log(`create version tag for commit ${tag.commit}`);
+            await this.versionTagRepository.createVersionTag(tag);
+          }
+        }),
+    );
 
     this.logger.log('finished git tag sync');
   }
