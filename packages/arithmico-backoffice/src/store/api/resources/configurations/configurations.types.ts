@@ -24,3 +24,21 @@ export interface GetConfigurationsArgs {
 export interface GetConfigurationByIdArgs {
   configurationId: string;
 }
+
+export interface GetConfigurationRevisionsArgs {
+  configurationId: string;
+  skip: number;
+  limit: number;
+}
+
+export interface GetConfigurationRevisionsResponse {
+  id: string;
+  revision: number;
+  configurationId: string;
+  minimumVersion: {
+    major: number;
+    minor: number;
+    patch: number;
+  };
+  associatedFeatureFlags: number;
+}

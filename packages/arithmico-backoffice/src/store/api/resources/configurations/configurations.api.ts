@@ -6,6 +6,8 @@ import {
   CreateConfigurationArgs,
   ConfigurationWithRevisionsDto,
   GetConfigurationByIdArgs,
+  GetConfigurationRevisionsResponse,
+  GetConfigurationRevisionsArgs,
 } from "./configurations.types";
 
 const configurationsApi = api.injectEndpoints({
@@ -48,6 +50,30 @@ const configurationsApi = api.injectEndpoints({
           : ["Configuration"],
     }),
 
+    getConfigurationRevisions: build.query<
+      PagedResponse<GetConfigurationRevisionsResponse>,
+      GetConfigurationRevisionsArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions`,
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              ...response.items.map((item) => ({
+                type: "ConfigurationRevision" as const,
+                id: item.id,
+              })),
+              { type: "Configuration", id: arg.configurationId },
+            ]
+          : ["Configuration", "ConfigurationRevision"],
+    }),
+
     createConfiguration: build.mutation<
       CreationResponse,
       CreateConfigurationArgs
@@ -68,5 +94,6 @@ const configurationsApi = api.injectEndpoints({
 export const {
   useGetConfigurationsQuery,
   useGetConfigurationByIdQuery,
+  useGetConfigurationRevisionsQuery,
   useCreateConfigurationMutation,
 } = configurationsApi;
