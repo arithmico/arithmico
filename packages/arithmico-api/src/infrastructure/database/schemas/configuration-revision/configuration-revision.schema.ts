@@ -12,6 +12,9 @@ export class ConfigurationRevision {
 
   @Prop({ type: Number, required: true })
   revision: number;
+
+  @Prop({ type: String, required: true })
+  minimumVersionTagId: string;
 }
 
 export const ConfigurationRevisionSchema = SchemaFactory.createForClass(

@@ -4,6 +4,13 @@ export interface ConfigurationDto {
   autoBuild: boolean;
 }
 
+export interface GetConfigurationsResponse {
+  id: string;
+  name: string;
+  autoBuild: boolean;
+  revisions: number;
+}
+
 export interface CreateConfigurationArgs {
   name: string;
   autoBuild: boolean;

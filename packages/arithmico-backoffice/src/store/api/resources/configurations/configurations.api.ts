@@ -3,14 +3,14 @@ import { CreationResponse } from "../../common/creation-response";
 import { PageQueryArgs } from "../../common/page-qeury-args";
 import { PagedResponse } from "../../types";
 import {
-  ConfigurationDto,
   CreateConfigurationArgs,
+  GetConfigurationsResponse,
 } from "./configurations.types";
 
 const configurationsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getConfigurations: build.query<
-      PagedResponse<ConfigurationDto>,
+      PagedResponse<GetConfigurationsResponse>,
       PageQueryArgs
     >({
       query: (arg) => ({

@@ -28,6 +28,7 @@ export class GetConfigurationsHandler
         id: item._id,
         name: item.name,
         autoBuild: item.autoBuild,
+        revisions: item.revisions,
       })),
     };
   }

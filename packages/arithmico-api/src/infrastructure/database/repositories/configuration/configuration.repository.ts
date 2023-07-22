@@ -15,6 +15,10 @@ import {
   Configuration,
   ConfigurationDocument,
 } from '../../schemas/configuration/configuration.schema';
+import {
+  VersionTag,
+  VersionTagDocument,
+} from '../../schemas/version-tag/version-tag.schema';
 
 @Injectable()
 export class ConfigurationRepository {
@@ -25,6 +29,8 @@ export class ConfigurationRepository {
     private readonly revisionModel: Model<ConfigurationRevisionDocument>,
     @InjectModel(ConfigurationRevisionFeatureFlagAssociation.name)
     private readonly featureFlagAssociationModel: Model<ConfigurationRevisionFeatureFlagAssociationDocument>,
+    @InjectModel(VersionTag.name)
+    private readonly versionTagModel: Model<VersionTagDocument>,
   ) {}
 
   async createConfiguration(
@@ -43,10 +49,18 @@ export class ConfigurationRepository {
     configurationId: string,
     revision: number,
     featureFlagIds: string[],
+    minimumVersionTagId: string,
   ): Promise<ConfigurationRevisionDocument> {
+    const versionTagDocument = await this.versionTagModel
+      .findById(minimumVersionTagId)
+      .exec();
+    if (!versionTagDocument) {
+      throw new NotFoundException();
+    }
     const configurationRevision: ConfigurationRevision = {
       configurationId,
       revision,
+      minimumVersionTagId,
     };
     const revisionDocument = await this.revisionModel.create(
       configurationRevision,
@@ -139,12 +153,27 @@ export class ConfigurationRepository {
   async getConfigurations(
     skip: number,
     limit: number,
-  ): Promise<PagedResponse<ConfigurationDocument>> {
+  ): Promise<PagedResponse<ConfigurationDocument & { revisions: number }>> {
     const result = await this.configurationModel.aggregate(
       createPagedAggregationPipeline({
         skip,
         limit,
         preProcessingStages: [{ $sort: { name: 1 } }],
+        itemProcessingStages: [
+          {
+            $lookup: {
+              from: this.revisionModel.collection.name,
+              localField: '_id',
+              foreignField: 'configurationId',
+              as: 'revisions',
+            },
+          },
+          {
+            $addFields: {
+              revisions: { $size: '$revisions' },
+            },
+          },
+        ],
       }),
     );
     return {

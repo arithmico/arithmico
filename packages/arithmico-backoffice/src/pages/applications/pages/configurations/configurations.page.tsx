@@ -53,10 +53,10 @@ export function ConfigurationsPage() {
               </>
             }
           >
-            {data.items.map(({ id, name, autoBuild }) => (
+            {data.items.map(({ id, name, autoBuild, revisions }) => (
               <TableRow key={id}>
                 <TableCell>{name}</TableCell>
-                <TableCell>-</TableCell>
+                <TableCell>{revisions === 0 ? "-" : revisions}</TableCell>
                 <TableCell>-</TableCell>
                 <TableCell>
                   {autoBuild ? (
