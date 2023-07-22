@@ -168,5 +168,6 @@
   "applications.configurations.auto-build": "Automatische Builds",
   "applications.configurations.details": "Konfigurationsdetails",
   "applications.configurations.short-details": "Details",
-  "applications.configurations.revisions.empty": "Diese Konfiguration hat noch keine Revisionen."
+  "applications.configurations.revisions.empty": "Diese Konfiguration hat noch keine Revisionen.",
+  "applications.configurations.revisions.add": "Revision erstellen"
 }

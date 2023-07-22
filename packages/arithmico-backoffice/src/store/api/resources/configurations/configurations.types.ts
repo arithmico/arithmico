@@ -42,3 +42,9 @@ export interface GetConfigurationRevisionsResponse {
   };
   associatedFeatureFlags: number;
 }
+
+export interface CreateConfigurationRevisionArgs {
+  configurationId: string;
+  featureFlagIds: string[];
+  minimumVersionTagId: string;
+}

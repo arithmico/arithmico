@@ -9,5 +9,5 @@ export class CreateConfigurationRevisionRequestBodyDto {
 
   @IsString()
   @Length(1, 256)
-  minimumVersionTagId;
+  minimumVersionTagId: string;
 }

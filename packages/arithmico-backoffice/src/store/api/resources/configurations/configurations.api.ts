@@ -8,6 +8,7 @@ import {
   GetConfigurationByIdArgs,
   GetConfigurationRevisionsResponse,
   GetConfigurationRevisionsArgs,
+  CreateConfigurationRevisionArgs,
 } from "./configurations.types";
 
 const configurationsApi = api.injectEndpoints({
@@ -88,6 +89,27 @@ const configurationsApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Configuration"],
     }),
+
+    createConfigurationRevision: build.mutation<
+      CreationResponse,
+      CreateConfigurationRevisionArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions`,
+        method: "POST",
+        body: {
+          featureFlagIds: arg.featureFlagIds,
+          minimumVersionTagId: arg.minimumVersionTagId,
+        },
+      }),
+      invalidatesTags: (response, _, arg) =>
+        response
+          ? [
+              { type: "Configuration", id: arg.configurationId },
+              "ConfigurationRevision",
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -96,4 +118,5 @@ export const {
   useGetConfigurationByIdQuery,
   useGetConfigurationRevisionsQuery,
   useCreateConfigurationMutation,
+  useCreateConfigurationRevisionMutation,
 } = configurationsApi;
