@@ -48,7 +48,7 @@ export function AddFeatureFlagDialog({
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={onClose}>
       <DialogHeader onClose={onClose}>
-        <FormattedMessage id="versions.feature-flags.add" />
+        <FormattedMessage id="applications.feature-flags.add" />
       </DialogHeader>
       {isSuccess && (
         <form
@@ -63,12 +63,12 @@ export function AddFeatureFlagDialog({
         >
           <fieldset className="mb-4 flex flex-col">
             <legend className="mb-2">
-              <FormattedMessage id="versions.feature-flags.type" />
+              <FormattedMessage id="applications.feature-flags.type" />
             </legend>
             <div className="grid grid-cols-5 gap-4">
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.function" />
+                  <FormattedMessage id="applications.feature-flags.type.function" />
                 }
                 register={register}
                 value={FeatureFlagType.Function}
@@ -76,7 +76,7 @@ export function AddFeatureFlagDialog({
 
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.method" />
+                  <FormattedMessage id="applications.feature-flags.type.method" />
                 }
                 register={register}
                 value={FeatureFlagType.Method}
@@ -84,7 +84,7 @@ export function AddFeatureFlagDialog({
 
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.constant" />
+                  <FormattedMessage id="applications.feature-flags.type.constant" />
                 }
                 register={register}
                 value={FeatureFlagType.Constant}
@@ -92,7 +92,7 @@ export function AddFeatureFlagDialog({
 
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.operator" />
+                  <FormattedMessage id="applications.feature-flags.type.operator" />
                 }
                 register={register}
                 value={FeatureFlagType.Operator}
@@ -100,7 +100,7 @@ export function AddFeatureFlagDialog({
 
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.type" />
+                  <FormattedMessage id="applications.feature-flags.type.type" />
                 }
                 register={register}
                 value={FeatureFlagType.Type}
@@ -109,13 +109,13 @@ export function AddFeatureFlagDialog({
           </fieldset>
           <FormError error={errors.type} />
           <FormLabel>
-            <FormattedMessage id="versions.feature-flags.name" />
+            <FormattedMessage id="applications.feature-flags.name" />
             <FormTextField {...register("name")} />
           </FormLabel>
           <FormError error={errors.name} />
 
           <FormLabel>
-            <FormattedMessage id="versions.feature-flags.flag" />
+            <FormattedMessage id="applications.feature-flags.flag" />
             <FormTextField {...register("flag")} />
           </FormLabel>
           <FormError error={errors.flag} />
@@ -123,7 +123,7 @@ export function AddFeatureFlagDialog({
           <fieldset>
             <div className="mb-2 flex items-center">
               <legend>
-                <FormattedMessage id="versions.feature-flags.enabled-since-version" />
+                <FormattedMessage id="applications.feature-flags.enabled-since-version" />
               </legend>
               {data.total > limit && (
                 <SmallPaginationToolbar

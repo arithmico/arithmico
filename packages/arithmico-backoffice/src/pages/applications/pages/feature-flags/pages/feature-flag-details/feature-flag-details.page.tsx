@@ -22,7 +22,7 @@ export function FeatureFlagDetailsPage() {
           <div className="col-start-2 row-start-1 flex flex-col">
             <Card>
               <Heading level={2} className="mb-4">
-                <FormattedMessage id="versions.feature-flags.details-card" />
+                <FormattedMessage id="applications.feature-flags.details-card" />
               </Heading>
               <DefinitionList>
                 <DefinitionListEntry label={"ID"} value={data.id} />
@@ -39,13 +39,13 @@ export function FeatureFlagDetailsPage() {
                 />
                 <DefinitionListEntry
                   label={
-                    <FormattedMessage id="versions.feature-flags.enabled-since-version" />
+                    <FormattedMessage id="applications.feature-flags.enabled-since-version" />
                   }
                   value={<SemanticVersion version={data.enabledSinceVersion} />}
                 />
                 <DefinitionListEntry
                   label={
-                    <FormattedMessage id="versions.feature-flags.disabled-since-version" />
+                    <FormattedMessage id="applications.feature-flags.disabled-since-version" />
                   }
                   value={
                     <SemanticVersion version={data.disabledSinceVersion} />
