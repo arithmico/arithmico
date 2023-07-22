@@ -31,7 +31,8 @@ export function FeatureFlagsPage() {
       <div className="my-4 flex items-center">
         <Heading level={1}>Funktionen</Heading>
         <ActionButton className="ml-auto" onClick={() => setIsDialogOpen(true)}>
-          <AddIcon className="mr-2 h-6 w-6 fill-white" /> Hinzufügen
+          <AddIcon className="mr-2 h-6 w-6 fill-white" />
+          <FormattedMessage id="applications.feature-flags.add-button" />
         </ActionButton>
       </div>
       {isSuccess && (

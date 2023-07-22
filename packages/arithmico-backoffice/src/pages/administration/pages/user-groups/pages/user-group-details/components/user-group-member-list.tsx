@@ -35,7 +35,7 @@ export function UserGroupMemberList({ groupId }: UserGroupUserListProps) {
       <Card>
         <div className="mb-4 flex items-center">
           <Heading level={2}>
-            <FormattedMessage id="admin.user-groups.members" />
+            <FormattedMessage id="administration.user-groups.members" />
           </Heading>
           <button
             onClick={() => setIsDialogOpen(true)}
@@ -43,7 +43,7 @@ export function UserGroupMemberList({ groupId }: UserGroupUserListProps) {
           >
             <EditIcon className="h-6 w-6 fill-black" />
             <span className="sr-only">
-              <FormattedMessage id="admin.user-groups.members.edit" />
+              <FormattedMessage id="administration.user-groups.members.edit" />
             </span>
           </button>
         </div>
@@ -62,7 +62,7 @@ export function UserGroupMemberList({ groupId }: UserGroupUserListProps) {
                       {user.username}
                       <Link to={userUrl} className="ml-auto">
                         <span className="sr-only">
-                          <FormattedMessage id="admin.user-groups.members.details" />
+                          <FormattedMessage id="administration.user-groups.members.details" />
                         </span>
                         <ChevronRightIcon className="h-6 w-6 fill-black/50" />
                       </Link>
@@ -73,7 +73,7 @@ export function UserGroupMemberList({ groupId }: UserGroupUserListProps) {
             )}
             {data.items.length === 0 && (
               <p className="rounded-sm border border-black/20 p-6 text-center text-black/30">
-                <FormattedMessage id="admin.user-groups.members.empty" />
+                <FormattedMessage id="administration.user-groups.members.empty" />
               </p>
             )}
             {data.total > limit && (

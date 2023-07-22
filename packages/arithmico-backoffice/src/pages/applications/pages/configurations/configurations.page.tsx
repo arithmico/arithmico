@@ -25,7 +25,9 @@ export function ConfigurationsPage() {
         onClose={() => setIsDialogOpen(false)}
       />
       <div className="my-4 flex items-center">
-        <Heading level={1}>Konfigurationen</Heading>
+        <Heading level={1}>
+          <FormattedMessage id="applications.configurations" />
+        </Heading>
         <ActionButton className="ml-auto" onClick={() => setIsDialogOpen(true)}>
           <AddIcon className="mr-2 h-6 w-6 fill-white" />
           Hinzufügen
@@ -36,17 +38,25 @@ export function ConfigurationsPage() {
           <Table
             header={
               <>
-                <TableHeaderCell>Name</TableHeaderCell>
-                <TableHeaderCell>Revisionen</TableHeaderCell>
-                <TableHeaderCell>Deployments</TableHeaderCell>
-                <TableHeaderCell>Autobuild</TableHeaderCell>
+                <TableHeaderCell>
+                  <FormattedMessage id="applications.configurations.name" />
+                </TableHeaderCell>
+                <TableHeaderCell>
+                  <FormattedMessage id="applications.configurations.revisions" />
+                </TableHeaderCell>
+                <TableHeaderCell>
+                  <FormattedMessage id="applications.configurations.deployments" />
+                </TableHeaderCell>
+                <TableHeaderCell>
+                  <FormattedMessage id="applications.configurations.auto-build" />
+                </TableHeaderCell>
               </>
             }
           >
             {data.items.map(({ id, name, autoBuild }) => (
               <TableRow key={id}>
                 <TableCell>{name}</TableCell>
-                <TableCell>0</TableCell>
+                <TableCell>-</TableCell>
                 <TableCell>-</TableCell>
                 <TableCell>
                   {autoBuild ? (
@@ -58,12 +68,14 @@ export function ConfigurationsPage() {
               </TableRow>
             ))}
           </Table>
-          <PaginationToolbar
-            skip={skip}
-            limit={limit}
-            total={data.total}
-            onChange={setSkip}
-          />
+          {data.total > limit && (
+            <PaginationToolbar
+              skip={skip}
+              limit={limit}
+              total={data.total}
+              onChange={setSkip}
+            />
+          )}
         </Card>
       )}
     </>

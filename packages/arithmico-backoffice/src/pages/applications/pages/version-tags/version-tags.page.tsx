@@ -18,7 +18,7 @@ export function VersionTagsPage() {
   return (
     <>
       <Heading level={1} className="my-4">
-        <FormattedMessage id="applications.tags" />
+        <FormattedMessage id="applications.version-tags" />
       </Heading>
       {isSuccess && (
         <Card>

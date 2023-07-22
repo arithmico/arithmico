@@ -10,20 +10,20 @@ export default function AdministrationPage() {
     <>
       <AdministrationBreadcrumbs />
       <p className="my-4 max-w-5xl">
-        <FormattedMessage id="admin.description" />
+        <FormattedMessage id="administration.description" />
       </p>
       <LinkCardMenu>
         <LinkCardMenu.Item to="./users">
           <UserIcon className="mr-4 h-8 w-8" />
-          <FormattedMessage id="admin.users" />
+          <FormattedMessage id="administration.users" />
         </LinkCardMenu.Item>
         <LinkCardMenu.Item to="./user-groups">
           <GroupIcon className="mr-4 h-8 w-8" />
-          <FormattedMessage id="admin.user-groups" />
+          <FormattedMessage id="administration.user-groups" />
         </LinkCardMenu.Item>
         <LinkCardMenu.Item to="./security-policies">
           <ShieldIcon className="mr-4 h-8 w-8" />
-          <FormattedMessage id="admin.security-policies" />
+          <FormattedMessage id="administration.security-policies" />
         </LinkCardMenu.Item>
       </LinkCardMenu>
     </>

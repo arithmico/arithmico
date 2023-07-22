@@ -37,7 +37,7 @@ export function SecurityPolicyUserList({
       <Card>
         <div className="mb-4 flex">
           <Heading level={2}>
-            <FormattedMessage id="admin.security-policies.users" />
+            <FormattedMessage id="administration.security-policies.users" />
           </Heading>
           <button
             className="ml-auto flex items-center justify-center"
@@ -45,7 +45,7 @@ export function SecurityPolicyUserList({
           >
             <EditIcon className="h-6 w-6 fill-black" />
             <span className="sr-only">
-              <FormattedMessage id="admin.security-policies.users.edit" />
+              <FormattedMessage id="administration.security-policies.users.edit" />
             </span>
           </button>
         </div>
@@ -64,7 +64,7 @@ export function SecurityPolicyUserList({
                       {user.username}
                       <Link to={userUrl} className="ml-auto">
                         <span className="sr-only">
-                          <FormattedMessage id="admin.security-policies.users.details" />
+                          <FormattedMessage id="administration.security-policies.users.details" />
                         </span>
                         <ChevronRightIcon className="h-6 w-6 fill-black/50" />
                       </Link>
@@ -75,7 +75,7 @@ export function SecurityPolicyUserList({
             )}
             {data.items.length === 0 && (
               <p className="rounded-sm border border-black/20 p-6 text-center text-black/30">
-                <FormattedMessage id="admin.security-policies.users.empty" />
+                <FormattedMessage id="administration.security-policies.users.empty" />
               </p>
             )}
             {data.total > limit && (

@@ -34,7 +34,7 @@ export function SecurityPolicyUserGroupList({
       <Card>
         <div className="mb-4 flex">
           <Heading level={2}>
-            <FormattedMessage id="admin.security-policies.user-groups" />
+            <FormattedMessage id="administration.security-policies.user-groups" />
           </Heading>
           <button
             className="ml-auto flex items-center justify-center"
@@ -42,7 +42,7 @@ export function SecurityPolicyUserGroupList({
           >
             <EditIcon className="h-6 w-6 fill-black" />
             <span className="sr-only">
-              <FormattedMessage id="admin.security-policies.user-groups.edit" />
+              <FormattedMessage id="administration.security-policies.user-groups.edit" />
             </span>
           </button>
         </div>
@@ -55,7 +55,7 @@ export function SecurityPolicyUserGroupList({
             ))}
             {data.items.length === 0 && (
               <p className="rounded-sm border border-black/20 p-6 text-center text-black/30">
-                <FormattedMessage id="admin.security-policies.user-groups.empty" />
+                <FormattedMessage id="administration.security-policies.user-groups.empty" />
               </p>
             )}
             {data.total > limit && (

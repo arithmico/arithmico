@@ -21,19 +21,19 @@ export function UsersTable({ users }: UsersTableProps) {
       header={
         <>
           <TableHeaderCell className={classNames("w-1/4")}>
-            <FormattedMessage id="admin.users.id" />
+            <FormattedMessage id="administration.users.id" />
           </TableHeaderCell>
           <TableHeaderCell className={classNames("w-1/5")}>
-            <FormattedMessage id="admin.users.username" />
+            <FormattedMessage id="administration.users.username" />
           </TableHeaderCell>
           <TableHeaderCell className={classNames("w-1/5")}>
-            <FormattedMessage id="admin.users.user-groups" />
+            <FormattedMessage id="administration.users.user-groups" />
           </TableHeaderCell>
           <TableHeaderCell>
-            <FormattedMessage id="admin.users.security-policies" />
+            <FormattedMessage id="administration.users.security-policies" />
           </TableHeaderCell>
           <TableHeaderCell>
-            <FormattedMessage id="admin.users.created-at" />
+            <FormattedMessage id="administration.users.created-at" />
           </TableHeaderCell>
         </>
       }
@@ -57,7 +57,7 @@ export function UsersTable({ users }: UsersTableProps) {
               className={classNames("float-right", "flex", "items-center")}
             >
               <span className="sr-only">
-                <FormattedMessage id="admin.users.details" />
+                <FormattedMessage id="administration.users.details" />
               </span>
               <ChevronRightIcon
                 className={classNames("w-8", "h-8", "fill-neutral-500")}

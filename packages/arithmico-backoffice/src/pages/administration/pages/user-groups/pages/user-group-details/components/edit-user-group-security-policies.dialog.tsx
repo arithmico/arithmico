@@ -35,7 +35,7 @@ export function EditUserGroupSecurityPoliciesDialog({
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={onClose}>
       <DialogHeader onClose={onClose}>
-        <FormattedMessage id="admin.user-groups.security-policies.edit" />
+        <FormattedMessage id="administration.user-groups.security-policies.edit" />
       </DialogHeader>
       {isSuccess && (
         <>

@@ -9,23 +9,23 @@ export default function ApplicationsPage() {
   return (
     <>
       <Heading level={1} className="mt-4">
-        <FormattedMessage id="applications.title" />
+        <FormattedMessage id="applications" />
       </Heading>
-      <p className="my-4">
+      <p className="my-4 max-w-5xl">
         <FormattedMessage id="applications.description" />
       </p>
       <LinkCardMenu>
         <LinkCardMenu.Item to="/applications/version-tags">
           <TagIcon className="mr-4 h-8 w-8" />
-          Versionstags
+          <FormattedMessage id="applications.version-tags" />
         </LinkCardMenu.Item>
         <LinkCardMenu.Item to="/applications/feature-flags">
           <FunctionIcon className="mr-4 h-8 w-8" />
-          Funktionen
+          <FormattedMessage id="applications.feature-flags" />
         </LinkCardMenu.Item>
         <LinkCardMenu.Item to="/applications/configurations">
           <SettingsIcon className="mr-4 h-8 w-8" />
-          Konfigurationen
+          <FormattedMessage id="applications.configurations" />
         </LinkCardMenu.Item>
       </LinkCardMenu>
     </>

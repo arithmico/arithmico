@@ -34,7 +34,7 @@ export function EditUserGroupMembersDialog({
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={onClose}>
       <DialogHeader onClose={onClose}>
-        <FormattedMessage id="admin.user-groups.members.edit" />
+        <FormattedMessage id="administration.user-groups.members.edit" />
       </DialogHeader>
       {isSuccess && (
         <>

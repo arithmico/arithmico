@@ -20,12 +20,12 @@ export function SecurityPolicyAttributeList({
     <Card>
       <div className={classNames("flex", "items-center", "mb-4")}>
         <Heading level={2} className="mt-0">
-          <FormattedMessage id="admin.security-policies.attributes" />
+          <FormattedMessage id="administration.security-policies.attributes" />
         </Heading>
         {!readonly && (
           <Link to="./attributes" className={classNames("ml-auto")}>
             <span className={classNames("sr-only")}>
-              <FormattedMessage id="admin.security-policies.edit-attributes" />
+              <FormattedMessage id="administration.security-policies.edit-attributes" />
             </span>
             <EditIcon className={classNames("w-6", "h-6")} />
           </Link>
@@ -40,7 +40,7 @@ export function SecurityPolicyAttributeList({
       )}
       {attributes.length === 0 && (
         <p className="rounded-sm border border-black/20 p-6 text-center text-black/30">
-          <FormattedMessage id="admin.security-policies.attributes.empty" />
+          <FormattedMessage id="administration.security-policies.attributes.empty" />
         </p>
       )}
     </Card>
