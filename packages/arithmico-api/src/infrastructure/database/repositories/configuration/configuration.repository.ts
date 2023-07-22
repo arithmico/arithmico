@@ -16,6 +16,10 @@ import {
   ConfigurationDocument,
 } from '../../schemas/configuration/configuration.schema';
 import {
+  FeatureFlag,
+  FeatureFlagDocument,
+} from '../../schemas/feature-flag/feature-flag.schema';
+import {
   VersionTag,
   VersionTagDocument,
 } from '../../schemas/version-tag/version-tag.schema';
@@ -31,6 +35,8 @@ export class ConfigurationRepository {
     private readonly featureFlagAssociationModel: Model<ConfigurationRevisionFeatureFlagAssociationDocument>,
     @InjectModel(VersionTag.name)
     private readonly versionTagModel: Model<VersionTagDocument>,
+    @InjectModel(FeatureFlag.name)
+    private readonly featureFlagModel: Model<FeatureFlagDocument>,
   ) {}
 
   async createConfiguration(
@@ -57,6 +63,20 @@ export class ConfigurationRepository {
     if (!versionTagDocument) {
       throw new NotFoundException();
     }
+
+    const foundFeatureFlagCount = await this.featureFlagModel
+      .find({
+        _id: {
+          $in: featureFlagIds,
+        },
+      })
+      .countDocuments()
+      .exec();
+
+    if (foundFeatureFlagCount !== featureFlagIds.length) {
+      throw new NotFoundException();
+    }
+
     const configurationRevision: ConfigurationRevision = {
       configurationId,
       revision,
@@ -76,7 +96,7 @@ export class ConfigurationRepository {
     return revisionDocument;
   }
 
-  async associateFeatureFlagWithConfigurationRevision(
+  private async associateFeatureFlagWithConfigurationRevision(
     configurationRevisionId: string,
     featureFlagId: string,
   ): Promise<ConfigurationRevisionFeatureFlagAssociationDocument> {
