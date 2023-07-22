@@ -53,7 +53,6 @@ export class ConfigurationRepository {
 
   async createConfigurationRevision(
     configurationId: string,
-    revision: number,
     featureFlagIds: string[],
     minimumVersionTagId: string,
   ): Promise<ConfigurationRevisionDocument> {
@@ -72,6 +71,14 @@ export class ConfigurationRepository {
       })
       .countDocuments()
       .exec();
+
+    const revision =
+      (await this.revisionModel
+        .find({
+          configurationId,
+        })
+        .countDocuments()
+        .exec()) + 1;
 
     if (foundFeatureFlagCount !== featureFlagIds.length) {
       throw new NotFoundException();
