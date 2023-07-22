@@ -161,9 +161,11 @@
   "applications.version-tags.configurable": "Konfigurierbar",
 
   "applications.configurations": "Konfigurationen",
+  "applications.configurations.id": "ID",
   "applications.configurations.name": "Name",
   "applications.configurations.revisions": "Revisionen",
   "applications.configurations.deployments": "Deployments",
   "applications.configurations.auto-build": "Automatische Builds",
-  "applications.configurations.details": "Konfigurationsdetails"
+  "applications.configurations.details": "Konfigurationsdetails",
+  "applications.configurations.short-details": "Details"
 }

@@ -65,5 +65,8 @@ const configurationsApi = api.injectEndpoints({
   }),
 });
 
-export const { useCreateConfigurationMutation, useGetConfigurationsQuery } =
-  configurationsApi;
+export const {
+  useGetConfigurationsQuery,
+  useGetConfigurationByIdQuery,
+  useCreateConfigurationMutation,
+} = configurationsApi;
