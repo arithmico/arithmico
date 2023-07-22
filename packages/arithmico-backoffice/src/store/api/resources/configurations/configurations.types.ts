@@ -4,7 +4,7 @@ export interface ConfigurationDto {
   autoBuild: boolean;
 }
 
-export interface GetConfigurationsResponse {
+export interface ConfigurationWithRevisionsDto {
   id: string;
   name: string;
   autoBuild: boolean;
@@ -19,4 +19,8 @@ export interface CreateConfigurationArgs {
 export interface GetConfigurationsArgs {
   skip: number;
   limit: number;
+}
+
+export interface GetConfigurationByIdArgs {
+  configurationId: string;
 }

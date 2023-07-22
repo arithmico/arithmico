@@ -4,13 +4,14 @@ import { PageQueryArgs } from "../../common/page-qeury-args";
 import { PagedResponse } from "../../types";
 import {
   CreateConfigurationArgs,
-  GetConfigurationsResponse,
+  ConfigurationWithRevisionsDto,
+  GetConfigurationByIdArgs,
 } from "./configurations.types";
 
 const configurationsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getConfigurations: build.query<
-      PagedResponse<GetConfigurationsResponse>,
+      PagedResponse<ConfigurationWithRevisionsDto>,
       PageQueryArgs
     >({
       query: (arg) => ({
@@ -30,6 +31,20 @@ const configurationsApi = api.injectEndpoints({
               })),
               "Configuration",
             ]
+          : ["Configuration"],
+    }),
+
+    getConfigurationById: build.query<
+      ConfigurationWithRevisionsDto,
+      GetConfigurationByIdArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}`,
+        method: "GET",
+      }),
+      providesTags: (response) =>
+        response
+          ? [{ type: "Configuration", id: response.id }]
           : ["Configuration"],
     }),
 

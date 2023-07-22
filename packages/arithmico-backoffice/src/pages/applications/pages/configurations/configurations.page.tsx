@@ -1,5 +1,7 @@
+import classNames from "classnames";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { Link, useNavigate } from "react-router-dom";
 import { ActionButton } from "../../../../components/action-button/action-button";
 import { Card } from "../../../../components/card/card";
 import Heading from "../../../../components/heading/heading";
@@ -9,6 +11,7 @@ import { TableHeaderCell } from "../../../../components/table-header-cell/table-
 import { TableRow } from "../../../../components/table-row/table-row";
 import { Table } from "../../../../components/table/table";
 import { AddIcon } from "../../../../icons/add.icon";
+import { ChevronRightIcon } from "../../../../icons/chevron-right.icon";
 import { useGetConfigurationsQuery } from "../../../../store/api/resources/configurations/configurations.api";
 import { CreateConfigurationDialog } from "./components/create-configuration.dialog";
 
@@ -17,6 +20,7 @@ export function ConfigurationsPage() {
   const [skip, setSkip] = useState(0);
   const { isSuccess, data } = useGetConfigurationsQuery({ skip, limit });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -50,23 +54,48 @@ export function ConfigurationsPage() {
                 <TableHeaderCell>
                   <FormattedMessage id="applications.configurations.auto-build" />
                 </TableHeaderCell>
+                <TableHeaderCell>
+                  <span className="sr-only">
+                    <FormattedMessage id="applications.configurations.details" />
+                  </span>
+                </TableHeaderCell>
               </>
             }
           >
-            {data.items.map(({ id, name, autoBuild, revisions }) => (
-              <TableRow key={id}>
-                <TableCell>{name}</TableCell>
-                <TableCell>{revisions === 0 ? "-" : revisions}</TableCell>
-                <TableCell>-</TableCell>
-                <TableCell>
-                  {autoBuild ? (
-                    <FormattedMessage id="common.yes" />
-                  ) : (
-                    <FormattedMessage id="common.no" />
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
+            {data.items.map(({ id, name, autoBuild, revisions }) => {
+              const configurationUrl = `/applications/configurations/${id}`;
+              return (
+                <TableRow
+                  key={id}
+                  onClick={() => navigate(configurationUrl)}
+                  className="cursor-pointer"
+                >
+                  <TableCell>{name}</TableCell>
+                  <TableCell>{revisions === 0 ? "-" : revisions}</TableCell>
+                  <TableCell>-</TableCell>
+                  <TableCell>
+                    {autoBuild ? (
+                      <FormattedMessage id="common.yes" />
+                    ) : (
+                      <FormattedMessage id="common.no" />
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <Link
+                      to={configurationUrl}
+                      className={"float-right flex items-center"}
+                    >
+                      <span className="sr-only">
+                        <FormattedMessage id="applications.configurations.details" />
+                      </span>
+                      <ChevronRightIcon
+                        className={classNames("w-8", "h-8", "fill-neutral-500")}
+                      />
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </Table>
           {data.total > limit && (
             <PaginationToolbar
