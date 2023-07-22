@@ -2,6 +2,7 @@ import { FormattedMessage } from "react-intl";
 import Heading from "../../components/heading/heading";
 import { LinkCardMenu } from "../../components/link-card-menu/link-card-menu";
 import { FunctionIcon } from "../../icons/function.icon";
+import { SettingsIcon } from "../../icons/settings.icon";
 import { TagIcon } from "../../icons/tag.icon";
 
 export default function ApplicationsPage() {
@@ -21,6 +22,10 @@ export default function ApplicationsPage() {
         <LinkCardMenu.Item to="/applications/feature-flags">
           <FunctionIcon className="mr-4 h-8 w-8" />
           Funktionen
+        </LinkCardMenu.Item>
+        <LinkCardMenu.Item to="/applications/configurations">
+          <SettingsIcon className="mr-4 h-8 w-8" />
+          Konfigurationen
         </LinkCardMenu.Item>
       </LinkCardMenu>
     </>

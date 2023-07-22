@@ -8,7 +8,7 @@ import { LastPageIcon } from "../../icons/last-page.icon";
 
 function getTotalPages(total: number, limit: number): number {
   const totalPages = Math.ceil(total / limit);
-  if (!Number.isFinite(totalPages)) {
+  if (!Number.isFinite(totalPages) || totalPages === 0) {
     return 1;
   }
   return totalPages;
