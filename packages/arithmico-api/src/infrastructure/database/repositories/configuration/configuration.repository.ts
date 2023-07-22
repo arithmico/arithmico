@@ -89,13 +89,28 @@ export class ConfigurationRepository {
 
   async getConfigurationById(
     configurationId: string,
-  ): Promise<ConfigurationDocument | null> {
-    return this.configurationModel.findById(configurationId).exec();
+  ): Promise<(ConfigurationDocument & { revisions: number }) | undefined> {
+    return (
+      await this.configurationModel
+        .aggregate()
+        .match({ _id: configurationId })
+        .limit(1)
+        .lookup({
+          from: this.revisionModel.collection.name,
+          localField: '_id',
+          foreignField: 'configurationId',
+          as: 'revisions',
+        })
+        .addFields({
+          revisions: { $size: '$revisions' },
+        })
+        .exec()
+    ).at(0);
   }
 
   async getConfigurationByIdOrThrow(
     configurationId: string,
-  ): Promise<ConfigurationDocument> {
+  ): Promise<ConfigurationDocument & { revisions: number }> {
     const configurationDocument = await this.getConfigurationById(
       configurationId,
     );
