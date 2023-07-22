@@ -124,8 +124,19 @@ export class ConfigurationRepository {
     configurationId: string,
     skip: number,
     limit: number,
-  ): Promise<PagedResponse<ConfigurationRevisionDocument & { name: string }>> {
-    const aggregationResultPromise = this.revisionModel.aggregate(
+  ): Promise<
+    PagedResponse<
+      ConfigurationRevisionDocument & {
+        associatedFeatureFlags: number;
+        minimumVersion: {
+          major: number;
+          minor: number;
+          patch: number;
+        };
+      }
+    >
+  > {
+    const aggregationResult = await this.revisionModel.aggregate(
       createPagedAggregationPipeline({
         skip,
         limit,
@@ -141,27 +152,51 @@ export class ConfigurationRepository {
             },
           },
         ],
+        itemProcessingStages: [
+          {
+            $lookup: {
+              from: this.featureFlagAssociationModel.collection.name,
+              localField: '_id',
+              foreignField: 'configurationRevisionId',
+              as: 'associatedFeatureFlags',
+            },
+          },
+          {
+            $addFields: {
+              associatedFeatureFlags: {
+                $size: '$associatedFeatureFlags',
+              },
+            },
+          },
+          {
+            $lookup: {
+              from: this.versionTagModel.collection.name,
+              localField: 'minimumVersionTagId',
+              foreignField: '_id',
+              as: 'minimumVersion',
+            },
+          },
+          {
+            $addFields: {
+              minimumVersion: {
+                $arrayElemAt: ['$minimumVersion', 0],
+              },
+            },
+          },
+          {
+            $addFields: {
+              minimumVersion: '$minimumVersion.version',
+            },
+          },
+        ],
       }),
     );
-    const configurationDocumentPromise =
-      this.getConfigurationByIdOrThrow(configurationId);
-    const [aggregationResult, configurationDocument] = await Promise.all([
-      aggregationResultPromise,
-      configurationDocumentPromise,
-    ]);
 
     return {
       skip,
       limit,
       total: aggregationResult.at(0).total,
-      items: aggregationResult
-        .at(0)
-        .items.map(
-          (configurationRevisionDocument: ConfigurationRevisionDocument) => ({
-            ...configurationRevisionDocument,
-            name: `${configurationDocument.name} (rev ${configurationRevisionDocument.revision})`,
-          }),
-        ),
+      items: aggregationResult.at(0).items,
     };
   }
 
