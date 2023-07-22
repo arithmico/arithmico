@@ -91,7 +91,7 @@ export default function About() {
         </h2>
         <ul className={classNames("pl-8", "[&>li]:py-2", "[&>li]:text-xl")}>
           <li>
-            <a href="https://blob.arithmico.com/calculator/ArithmicoAnleitung.docx">
+            <a href="https://cdn.arithmico.com/Arithmico_2.0_Anleitung_LaTeX-Version.docx">
               {t("about.documentation")}
             </a>
           </li>
