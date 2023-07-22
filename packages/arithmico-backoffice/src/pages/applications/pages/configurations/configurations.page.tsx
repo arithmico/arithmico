@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { ActionButton } from "../../../../components/action-button/action-button";
 import { Card } from "../../../../components/card/card";
 import Heading from "../../../../components/heading/heading";
@@ -45,8 +46,15 @@ export function ConfigurationsPage() {
             {data.items.map(({ id, name, autoBuild }) => (
               <TableRow key={id}>
                 <TableCell>{name}</TableCell>
-                <TableCell>{0}</TableCell>
-                <TableCell>{false}</TableCell>
+                <TableCell>0</TableCell>
+                <TableCell>-</TableCell>
+                <TableCell>
+                  {autoBuild ? (
+                    <FormattedMessage id="common.yes" />
+                  ) : (
+                    <FormattedMessage id="common.no" />
+                  )}
+                </TableCell>
               </TableRow>
             ))}
           </Table>

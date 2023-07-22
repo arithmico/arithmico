@@ -28,8 +28,9 @@ const configurationsApi = api.injectEndpoints({
                 type: "Configuration" as const,
                 id: item.id,
               })),
+              "Configuration",
             ]
-          : [],
+          : ["Configuration"],
     }),
 
     createConfiguration: build.mutation<
