@@ -39,7 +39,7 @@ export function UserGroupSecurityPolicyList({
       <Card>
         <div className="mb-4 flex">
           <Heading level={2}>
-            <FormattedMessage id="admin.users.security-policies" />
+            <FormattedMessage id="administration.users.security-policies" />
           </Heading>
           <button
             onClick={() => setIsDialogOpen(true)}
@@ -47,7 +47,7 @@ export function UserGroupSecurityPolicyList({
           >
             <EditIcon className="h-6 w-6 fill-black" />
             <span className="sr-only">
-              <FormattedMessage id="admin.users.security-policies.edit" />
+              <FormattedMessage id="administration.users.security-policies.edit" />
             </span>
           </button>
         </div>
@@ -55,7 +55,7 @@ export function UserGroupSecurityPolicyList({
           <>
             {data.items.length === 0 && (
               <p className="rounded-sm border border-black/20 p-6 text-center text-black/30">
-                <FormattedMessage id="admin.users.security-policies.empty" />
+                <FormattedMessage id="administration.users.security-policies.empty" />
               </p>
             )}
             {isSuccess && data.items.length > 0 && (

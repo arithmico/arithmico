@@ -14,8 +14,8 @@ export class VersionTagRepository {
     private versionTagModel: Model<VersionTagDocument>,
   ) {}
 
-  async createVersionTag(tag: VersionTag): Promise<void> {
-    await this.versionTagModel.create(tag);
+  async createVersionTag(tag: VersionTag): Promise<VersionTagDocument> {
+    return this.versionTagModel.create(tag);
   }
 
   async versionTagExists(commit: string): Promise<boolean> {
@@ -53,6 +53,28 @@ export class VersionTagRepository {
       skip,
       limit,
     };
+  }
+
+  async getLatestVersionTag(): Promise<VersionTagDocument | null> {
+    return (
+      await this.versionTagModel
+        .find()
+        .sort({
+          'version.major': -1,
+          'version.minor': -1,
+          'version.patch': -1,
+        })
+        .limit(1)
+        .exec()
+    ).at(0);
+  }
+
+  async getLatestVersionTagOrThrow(): Promise<VersionTagDocument> {
+    const versionTagDocument = await this.getLatestVersionTag();
+    if (!versionTagDocument) {
+      throw new NotFoundException();
+    }
+    return versionTagDocument;
   }
 
   async getVersionTagById(tagId: string): Promise<VersionTagDocument | null> {

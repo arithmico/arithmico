@@ -62,6 +62,9 @@ export class GetDistributionsHandler
       .filter(
         (distribution) => distribution.application && distribution.environment,
       )
-      .forEach((distribution) => this.logger.log(distribution));
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .forEach((distribution) => {
+        // this.logger.log(distribution)
+      });
   }
 }

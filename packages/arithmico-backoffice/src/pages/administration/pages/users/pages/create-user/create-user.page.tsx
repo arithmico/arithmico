@@ -40,10 +40,10 @@ export function CreateUserPage() {
     <>
       <CreateUserBreadcrumbs />
       <Heading level={1} className="my-4">
-        <FormattedMessage id="admin.users.new.title" />
+        <FormattedMessage id="administration.users.new.title" />
       </Heading>
       <p className="mb-4 max-w-5xl">
-        <FormattedMessage id="admin.users.new.description" />
+        <FormattedMessage id="administration.users.new.description" />
       </p>
       <Card className="max-w-5xl">
         <form
@@ -55,13 +55,13 @@ export function CreateUserPage() {
           )}
         >
           <FormLabel>
-            <FormattedMessage id="admin.users.username" />
+            <FormattedMessage id="administration.users.username" />
             <FormTextField {...register("username")} />
           </FormLabel>
           <FormError error={errors.username} />
 
           <FormLabel>
-            <FormattedMessage id="admin.users.email" />
+            <FormattedMessage id="administration.users.email" />
             <FormTextField {...register("email")} />
           </FormLabel>
           <FormError error={errors.email} />
@@ -69,7 +69,7 @@ export function CreateUserPage() {
           <div className="mt-8 flex">
             <BackButtonLink to={-1} />
             <FormSubmitButton className="ml-auto">
-              <FormattedMessage id="admin.users.new.submit" />
+              <FormattedMessage id="administration.users.new.submit" />
             </FormSubmitButton>
           </div>
         </form>

@@ -43,7 +43,7 @@ export function UserGroupSecurityPolicyList({
           >
             <EditIcon className="h-6 w-6 fill-black" />
             <span className="sr-only">
-              <FormattedMessage id="admin.user-groups.security-policies.edit" />
+              <FormattedMessage id="administration.user-groups.security-policies.edit" />
             </span>
           </button>
         </div>
@@ -62,7 +62,7 @@ export function UserGroupSecurityPolicyList({
                       {securityPolicy.name}
                       <Link to={policyUrl} className="ml-auto">
                         <span className="sr-only">
-                          <FormattedMessage id="admin.user-groups.security-policies.details" />
+                          <FormattedMessage id="administration.user-groups.security-policies.details" />
                         </span>
                         <ChevronRightIcon className="h-6 w-6 fill-black/50" />
                       </Link>
@@ -73,7 +73,7 @@ export function UserGroupSecurityPolicyList({
             )}
             {data.items.length === 0 && (
               <p className="rounded-sm border border-black/20 p-6 text-center text-black/30">
-                <FormattedMessage id="admin.user-groups.security-policies.empty" />
+                <FormattedMessage id="administration.user-groups.security-policies.empty" />
               </p>
             )}
             {data.total > limit && (

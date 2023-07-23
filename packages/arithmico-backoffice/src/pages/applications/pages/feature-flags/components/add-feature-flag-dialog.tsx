@@ -9,6 +9,7 @@ import FormLabel from "../../../../../components/form-label/form-label";
 import FormSubmitButton from "../../../../../components/form-submit-button/form-submit-button";
 import FormTextField from "../../../../../components/form-text-field/form-text-field";
 import { SmallPaginationToolbar } from "../../../../../components/pagination-toolbar/pagination-toolbar";
+import { SemanticVersion } from "../../../../../components/semantic-version/semantic-version";
 import {
   addFeatureFlagSchema,
   AddFeatureFlagSchemaType,
@@ -48,7 +49,7 @@ export function AddFeatureFlagDialog({
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={onClose}>
       <DialogHeader onClose={onClose}>
-        <FormattedMessage id="versions.feature-flags.add" />
+        <FormattedMessage id="applications.feature-flags.add" />
       </DialogHeader>
       {isSuccess && (
         <form
@@ -63,12 +64,12 @@ export function AddFeatureFlagDialog({
         >
           <fieldset className="mb-4 flex flex-col">
             <legend className="mb-2">
-              <FormattedMessage id="versions.feature-flags.type" />
+              <FormattedMessage id="applications.feature-flags.type" />
             </legend>
             <div className="grid grid-cols-5 gap-4">
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.function" />
+                  <FormattedMessage id="applications.feature-flags.type.function" />
                 }
                 register={register}
                 value={FeatureFlagType.Function}
@@ -76,7 +77,7 @@ export function AddFeatureFlagDialog({
 
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.method" />
+                  <FormattedMessage id="applications.feature-flags.type.method" />
                 }
                 register={register}
                 value={FeatureFlagType.Method}
@@ -84,7 +85,7 @@ export function AddFeatureFlagDialog({
 
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.constant" />
+                  <FormattedMessage id="applications.feature-flags.type.constant" />
                 }
                 register={register}
                 value={FeatureFlagType.Constant}
@@ -92,7 +93,7 @@ export function AddFeatureFlagDialog({
 
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.operator" />
+                  <FormattedMessage id="applications.feature-flags.type.operator" />
                 }
                 register={register}
                 value={FeatureFlagType.Operator}
@@ -100,7 +101,7 @@ export function AddFeatureFlagDialog({
 
               <FeatureFlagTypeVariant
                 label={
-                  <FormattedMessage id="versions.feature-flags.type.type" />
+                  <FormattedMessage id="applications.feature-flags.type.type" />
                 }
                 register={register}
                 value={FeatureFlagType.Type}
@@ -109,13 +110,13 @@ export function AddFeatureFlagDialog({
           </fieldset>
           <FormError error={errors.type} />
           <FormLabel>
-            <FormattedMessage id="versions.feature-flags.name" />
+            <FormattedMessage id="applications.feature-flags.name" />
             <FormTextField {...register("name")} />
           </FormLabel>
           <FormError error={errors.name} />
 
           <FormLabel>
-            <FormattedMessage id="versions.feature-flags.flag" />
+            <FormattedMessage id="applications.feature-flags.flag" />
             <FormTextField {...register("flag")} />
           </FormLabel>
           <FormError error={errors.flag} />
@@ -123,7 +124,7 @@ export function AddFeatureFlagDialog({
           <fieldset>
             <div className="mb-2 flex items-center">
               <legend>
-                <FormattedMessage id="versions.feature-flags.enabled-since-version" />
+                <FormattedMessage id="applications.feature-flags.enabled-since-version" />
               </legend>
               {data.total > limit && (
                 <SmallPaginationToolbar
@@ -136,25 +137,24 @@ export function AddFeatureFlagDialog({
               )}
             </div>
             <div className="grid grid-cols-5 gap-4">
-              {data.items.map((versionTag) => {
-                const versionString = `v${versionTag.version.major}.${versionTag.version.minor}.${versionTag.version.patch}`;
-                return (
-                  <div className="flex w-full" key={versionTag.id}>
-                    <label className="flex w-full">
-                      <span className="sr-only">{versionString}</span>
-                      <input
-                        type="radio"
-                        className="peer sr-only"
-                        value={versionTag.id}
-                        {...register("enabledSinceVersionTagId")}
-                      />
-                      <span className="w-full rounded-sm border border-black/20 px-4 py-2 font-bold text-black/50 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white">
-                        {versionString}
-                      </span>
-                    </label>
-                  </div>
-                );
-              })}
+              {data.items.map((versionTag) => (
+                <div className="flex w-full" key={versionTag.id}>
+                  <label className="flex w-full">
+                    <span className="sr-only">
+                      <SemanticVersion version={versionTag.version} />
+                    </span>
+                    <input
+                      type="radio"
+                      className="peer sr-only"
+                      value={versionTag.id}
+                      {...register("enabledSinceVersionTagId")}
+                    />
+                    <span className="w-full rounded-sm border border-black/20 px-4 py-2 font-bold text-black/50 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white">
+                      <SemanticVersion version={versionTag.version} />
+                    </span>
+                  </label>
+                </div>
+              ))}
             </div>
           </fieldset>
           <FormError error={errors.enabledSinceVersionTagId} />

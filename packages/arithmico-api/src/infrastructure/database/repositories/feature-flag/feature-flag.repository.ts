@@ -148,4 +148,16 @@ export class FeatureFlagRepository {
     }
     return featureFlagDocument;
   }
+
+  async getFeatureFlagByFlagAndType(
+    flag: string,
+    type: FeatureFlagType,
+  ): Promise<FeatureFlagDocument | null> {
+    return this.featureFlagModel
+      .findOne({
+        type,
+        flag,
+      })
+      .exec();
+  }
 }

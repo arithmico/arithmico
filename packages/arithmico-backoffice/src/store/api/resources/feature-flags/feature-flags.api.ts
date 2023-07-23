@@ -43,7 +43,7 @@ const featureFlagsApi = api.injectEndpoints({
         method: "GET",
       }),
       providesTags: (response) =>
-        response ? [{ type: "FeatureFlag", id: response.id }] : [],
+        response ? [{ type: "FeatureFlag", id: response.id }] : ["FeatureFlag"],
     }),
 
     getFeatureFlagsForVersionTag: build.query<

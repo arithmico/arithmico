@@ -23,19 +23,19 @@ export function SecurityPoliciesTable({
       header={
         <>
           <TableHeaderCell className={classNames("w-1/4")}>
-            <FormattedMessage id="admin.security-policies.id" />
+            <FormattedMessage id="administration.security-policies.id" />
           </TableHeaderCell>
           <TableHeaderCell className={classNames("w-1/5")}>
-            <FormattedMessage id="admin.security-policies.name" />
+            <FormattedMessage id="administration.security-policies.name" />
           </TableHeaderCell>
           <TableHeaderCell className={classNames("w-1/5")}>
-            <FormattedMessage id="admin.security-policies.attributes" />
+            <FormattedMessage id="administration.security-policies.attributes" />
           </TableHeaderCell>
           <TableHeaderCell>
-            <FormattedMessage id="admin.security-policies.principals" />
+            <FormattedMessage id="administration.security-policies.principals" />
           </TableHeaderCell>
           <TableHeaderCell>
-            <FormattedMessage id="admin.security-policies.readonly" />
+            <FormattedMessage id="administration.security-policies.readonly" />
           </TableHeaderCell>
         </>
       }
@@ -65,7 +65,7 @@ export function SecurityPoliciesTable({
               className={classNames("float-right", "flex", "items-center")}
             >
               <span className="sr-only">
-                <FormattedMessage id="admin.security-policies.details" />
+                <FormattedMessage id="administration.security-policies.details" />
               </span>
               <ChevronRightIcon
                 className={classNames("w-8", "h-8", "fill-neutral-500")}

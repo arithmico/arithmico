@@ -23,19 +23,21 @@ export function UserGroupDetailsCard({
   return (
     <Card>
       <Heading level={2} className={classNames("mb-4")}>
-        <FormattedMessage id="admin.user-groups.details.title" />
+        <FormattedMessage id="administration.user-groups.details.title" />
       </Heading>
       <DefinitionList>
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.user-groups.id" />}
+          label={<FormattedMessage id="administration.user-groups.id" />}
           value={id}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.user-groups.name" />}
+          label={<FormattedMessage id="administration.user-groups.name" />}
           value={name}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.user-groups.created-at" />}
+          label={
+            <FormattedMessage id="administration.user-groups.created-at" />
+          }
           value={
             <FormattedDate
               day="2-digit"
@@ -46,11 +48,11 @@ export function UserGroupDetailsCard({
           }
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.user-groups.members" />}
+          label={<FormattedMessage id="administration.user-groups.members" />}
           value={members}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.user-groups.readonly" />}
+          label={<FormattedMessage id="administration.user-groups.readonly" />}
           value={
             readonly ? (
               <FormattedMessage id="common.yes" />

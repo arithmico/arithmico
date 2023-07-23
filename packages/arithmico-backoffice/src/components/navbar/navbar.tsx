@@ -3,9 +3,9 @@ import { FormattedMessage } from "react-intl";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { AdminIcon } from "../../icons/admin.icon";
-import { HomeIcon } from "../../icons/home.icon";
+//import { HomeIcon } from "../../icons/home.icon";
 import { LogoutIcon } from "../../icons/logout.icon";
-import { MailIcon } from "../../icons/mail.icon";
+//import { MailIcon } from "../../icons/mail.icon";
 import { ManagedFolderIcon } from "../../icons/managed-folder.icon";
 import { logout } from "../../store/slices/auth/auth.slice";
 
@@ -25,7 +25,7 @@ export function Navbar() {
         <FormattedMessage id="navbar.sr.title" />
       </h1>
       <ul className={classNames("flex", "flex-col", "h-full")}>
-        <NavbarItem
+        {/*<NavbarItem
           to="/"
           icon={<HomeIcon />}
           description={<FormattedMessage id="navbar.home" />}
@@ -34,7 +34,7 @@ export function Navbar() {
           to="/mails"
           icon={<MailIcon />}
           description={<FormattedMessage id="navbar.mails" />}
-        />
+      />*/}
         <NavbarItem
           to="/applications"
           icon={<ManagedFolderIcon />}

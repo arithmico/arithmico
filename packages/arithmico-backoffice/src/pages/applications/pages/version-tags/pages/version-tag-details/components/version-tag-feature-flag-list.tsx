@@ -27,7 +27,7 @@ export function VersionTagFeatureFlagList({
   return (
     <Card>
       <Heading level={2} className="mb-4">
-        <FormattedMessage id="versions.feature-flags" />
+        <FormattedMessage id="applications.feature-flags" />
       </Heading>
       {isSuccess && (
         <>
@@ -49,7 +49,7 @@ export function VersionTagFeatureFlagList({
                     </span>
                     <div>
                       <Link className="sr-only" to={featureFlagUrl}>
-                        <FormattedMessage id="versions.feature-flags.details" />
+                        <FormattedMessage id="applications.feature-flags.details" />
                       </Link>
                       <ChevronRightIcon className="ml-auto h-8 w-8 fill-black/50" />
                     </div>

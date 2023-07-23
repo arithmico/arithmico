@@ -14,50 +14,54 @@ export function FeatureFlagDetailsPage() {
 
   return (
     <>
-      <div className="my-4">
-        <Heading level={1}>Funktion</Heading>
-      </div>
       {isSuccess && (
-        <div className="grid grid-cols-2 gap-4">
-          <div className="col-start-2 row-start-1 flex flex-col">
-            <Card>
-              <Heading level={2} className="mb-4">
-                <FormattedMessage id="versions.feature-flags.details-card" />
-              </Heading>
-              <DefinitionList>
-                <DefinitionListEntry label={"ID"} value={data.id} />
-                <DefinitionListEntry label={"Name"} value={data.name} />
-                <DefinitionListEntry label={"Flag"} value={data.flag} />
-                <DefinitionListEntry
-                  label={"Typ"}
-                  value={
-                    <FormattedMessage
-                      id={`versions.feature-flags.type.${data.type}`}
-                      defaultMessage={data.type}
-                    />
-                  }
-                />
-                <DefinitionListEntry
-                  label={
-                    <FormattedMessage id="versions.feature-flags.enabled-since-version" />
-                  }
-                  value={<SemanticVersion version={data.enabledSinceVersion} />}
-                />
-                <DefinitionListEntry
-                  label={
-                    <FormattedMessage id="versions.feature-flags.disabled-since-version" />
-                  }
-                  value={
-                    <SemanticVersion version={data.disabledSinceVersion} />
-                  }
-                />
-              </DefinitionList>
-            </Card>
+        <>
+          <div className="my-4">
+            <Heading level={1}>{data.name}</Heading>
           </div>
-          <div className="col-start-1 row-start-1 flex flex-col">
-            <SupportedVersionTagsForFeatureFlagList flagId={flagId!} />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="col-start-2 row-start-1 flex flex-col">
+              <Card>
+                <Heading level={2} className="mb-4">
+                  <FormattedMessage id="applications.feature-flags.details-card" />
+                </Heading>
+                <DefinitionList>
+                  <DefinitionListEntry label={"ID"} value={data.id} />
+                  <DefinitionListEntry label={"Name"} value={data.name} />
+                  <DefinitionListEntry label={"Flag"} value={data.flag} />
+                  <DefinitionListEntry
+                    label={"Typ"}
+                    value={
+                      <FormattedMessage
+                        id={`versions.feature-flags.type.${data.type}`}
+                        defaultMessage={data.type}
+                      />
+                    }
+                  />
+                  <DefinitionListEntry
+                    label={
+                      <FormattedMessage id="applications.feature-flags.enabled-since-version" />
+                    }
+                    value={
+                      <SemanticVersion version={data.enabledSinceVersion} />
+                    }
+                  />
+                  <DefinitionListEntry
+                    label={
+                      <FormattedMessage id="applications.feature-flags.disabled-since-version" />
+                    }
+                    value={
+                      <SemanticVersion version={data.disabledSinceVersion} />
+                    }
+                  />
+                </DefinitionList>
+              </Card>
+            </div>
+            <div className="col-start-1 row-start-1 flex flex-col">
+              <SupportedVersionTagsForFeatureFlagList flagId={flagId!} />
+            </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );

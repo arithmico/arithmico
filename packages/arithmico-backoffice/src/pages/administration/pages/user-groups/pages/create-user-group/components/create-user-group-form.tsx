@@ -40,7 +40,7 @@ export function CreateUserGroupForm() {
         onSubmit={handleSubmit((data) => createUserGroup({ name: data.name }))}
       >
         <FormLabel>
-          <FormattedMessage id="admin.user-groups.name" />
+          <FormattedMessage id="administration.user-groups.name" />
           <FormTextField {...register("name")} />
         </FormLabel>
         <FormError error={errors.name} />

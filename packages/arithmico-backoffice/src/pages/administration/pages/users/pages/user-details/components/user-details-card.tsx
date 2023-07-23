@@ -13,23 +13,23 @@ export function UserDetailsCard({ user }: UserDetailsCardProps) {
   return (
     <Card className=" w-full">
       <Heading level={2} className="mb-4">
-        <FormattedMessage id="admin.users.details.title" />
+        <FormattedMessage id="administration.users.details.title" />
       </Heading>
       <DefinitionList>
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.users.id" />}
+          label={<FormattedMessage id="administration.users.id" />}
           value={user.id}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.users.username" />}
+          label={<FormattedMessage id="administration.users.username" />}
           value={user.username}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.users.email" />}
+          label={<FormattedMessage id="administration.users.email" />}
           value={user.email}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="admin.users.created-at" />}
+          label={<FormattedMessage id="administration.users.created-at" />}
           value={<FormattedDate value={user.createdAt} dateStyle={"medium"} />}
         />
       </DefinitionList>

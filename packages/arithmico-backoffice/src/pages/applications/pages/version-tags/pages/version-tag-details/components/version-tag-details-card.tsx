@@ -20,15 +20,17 @@ export function VersionTagDetailsCard({
       </Heading>
       <DefinitionList>
         <DefinitionListEntry
-          label={<FormattedMessage id="versions.version-tags.id" />}
+          label={<FormattedMessage id="applications.version-tags.id" />}
           value={versionTag.id}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="versions.version-tags.version" />}
+          label={<FormattedMessage id="applications.version-tags.version" />}
           value={<SemanticVersion version={versionTag.version} />}
         />
         <DefinitionListEntry
-          label={<FormattedMessage id="versions.version-tags.configurable" />}
+          label={
+            <FormattedMessage id="applications.version-tags.configurable" />
+          }
           value={
             versionTag.configurable ? (
               <FormattedMessage id="common.yes" />

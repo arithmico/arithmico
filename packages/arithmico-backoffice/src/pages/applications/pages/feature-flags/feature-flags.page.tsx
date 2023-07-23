@@ -31,7 +31,8 @@ export function FeatureFlagsPage() {
       <div className="my-4 flex items-center">
         <Heading level={1}>Funktionen</Heading>
         <ActionButton className="ml-auto" onClick={() => setIsDialogOpen(true)}>
-          <AddIcon className="mr-2 h-6 w-6 fill-white" /> Hinzufügen
+          <AddIcon className="mr-2 h-6 w-6 fill-white" />
+          <FormattedMessage id="applications.feature-flags.add-button" />
         </ActionButton>
       </div>
       {isSuccess && (
@@ -41,19 +42,19 @@ export function FeatureFlagsPage() {
             header={
               <>
                 <TableHeaderCell className="w-1/5">
-                  <FormattedMessage id="versions.feature-flags.name" />
+                  <FormattedMessage id="applications.feature-flags.name" />
                 </TableHeaderCell>
                 <TableHeaderCell className="w-1/5">
-                  <FormattedMessage id="versions.feature-flags.flag" />
+                  <FormattedMessage id="applications.feature-flags.flag" />
                 </TableHeaderCell>
                 <TableHeaderCell className="w-1/5">
-                  <FormattedMessage id="versions.feature-flags.type" />
+                  <FormattedMessage id="applications.feature-flags.type" />
                 </TableHeaderCell>
                 <TableHeaderCell className="w-1/5">
-                  <FormattedMessage id="versions.feature-flags.enabled-since-version" />
+                  <FormattedMessage id="applications.feature-flags.enabled-since-version" />
                 </TableHeaderCell>
                 <TableHeaderCell>
-                  <FormattedMessage id="versions.feature-flags.disabled-since-version" />
+                  <FormattedMessage id="applications.feature-flags.disabled-since-version" />
                 </TableHeaderCell>
               </>
             }
@@ -86,7 +87,7 @@ export function FeatureFlagsPage() {
                   </TableCell>
                   <TableCell>
                     <Link className="sr-only" to={featureFlagUrl}>
-                      <FormattedMessage id="versions.feature-flags.details" />
+                      <FormattedMessage id="applications.feature-flags.details" />
                     </Link>
                     <ChevronRightIcon className="ml-auto h-8 w-8 fill-black/50" />
                   </TableCell>

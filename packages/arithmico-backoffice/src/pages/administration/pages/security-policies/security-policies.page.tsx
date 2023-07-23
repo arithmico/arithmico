@@ -26,14 +26,14 @@ export function SecurityPoliciesPage({ inline }: SecurityPoliciesPageProps) {
       {!inline && <SecurityPoliciesBreadcrumbs />}
       <div className={classNames("my-4", "flex", "items-center")}>
         <Heading level={inline ? 2 : 1} className={classNames("my-0")}>
-          <FormattedMessage id="admin.security-policies" />
+          <FormattedMessage id="administration.security-policies" />
         </Heading>
         <ButtonLink
           to="/administration/security-policies/new"
           className={classNames("ml-auto")}
         >
           <AddIcon className={classNames("w-6", "h-6", "fill-white", "mr-2")} />{" "}
-          <FormattedMessage id="admin.security-policies.add" />
+          <FormattedMessage id="administration.security-policies.add" />
         </ButtonLink>
       </div>
       {isSuccess && data && (

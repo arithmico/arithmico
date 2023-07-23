@@ -22,12 +22,12 @@ export function UsersPage() {
       <UsersBreadcrumbs />
       <div className="my-4 flex items-center">
         <Heading level={1}>
-          <FormattedMessage id="admin.users" />
+          <FormattedMessage id="administration.users" />
         </Heading>
 
         <ButtonLink to="/administration/users/new" className="ml-auto">
           <AddIcon className="mr-2 h-6 w-6 fill-white" />{" "}
-          <FormattedMessage id="admin.users.new" />
+          <FormattedMessage id="administration.users.new" />
         </ButtonLink>
       </div>
 

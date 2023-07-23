@@ -35,10 +35,10 @@ export function DeleteSecurityPolicyPage() {
             policyName={data.name}
           />
           <Heading level={1} className={classNames("my-4")}>
-            <FormattedMessage id="admin.security-policies.delete" />
+            <FormattedMessage id="administration.security-policies.delete" />
           </Heading>
           <p className={classNames("max-w-5xl")}>
-            <FormattedMessage id="admin.security-policies.delete.description" />
+            <FormattedMessage id="administration.security-policies.delete.description" />
           </p>
           <div className={classNames("flex", "mt-4", "max-w-5xl")}>
             <BackButtonLink
@@ -68,10 +68,10 @@ export function DeleteSecurityPolicyPage() {
               )}
             >
               <span aria-hidden>
-                <FormattedMessage id="admin.security-policies.delete.confirm" />
+                <FormattedMessage id="administration.security-policies.delete.confirm" />
               </span>
               <span className="sr-only">
-                <FormattedMessage id="admin.security-policies.delete" />
+                <FormattedMessage id="administration.security-policies.delete" />
               </span>
             </button>
           </div>

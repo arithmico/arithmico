@@ -26,7 +26,7 @@ export function SupportedVersionTagsForFeatureFlagList({
   return (
     <Card>
       <Heading level={2} className="mb-4">
-        <FormattedMessage id="versions.feature-flags.details.supported-versions" />
+        <FormattedMessage id="applications.feature-flags.details.supported-versions" />
       </Heading>
       {isSuccess && (
         <>
