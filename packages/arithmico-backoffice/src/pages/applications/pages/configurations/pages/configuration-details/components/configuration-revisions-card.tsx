@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { Link, useNavigate } from "react-router-dom";
 import { BoxedList } from "../../../../../../../components/boxed-list/boxed-list";
 import { Card } from "../../../../../../../components/card/card";
 import Heading from "../../../../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
 import { AddIcon } from "../../../../../../../icons/add.icon";
+import { ChevronRightIcon } from "../../../../../../../icons/chevron-right.icon";
 import {
   useGetConfigurationByIdQuery,
   useGetConfigurationRevisionsQuery,
@@ -29,6 +31,7 @@ export function ConfigurationRevisionsCard({
       limit,
     });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   if (!configurationIsSuccess || !revisionsIsSuccess) {
     return <></>;
@@ -58,11 +61,24 @@ export function ConfigurationRevisionsCard({
         </div>
         {revisions.total > 0 && (
           <BoxedList>
-            {revisions.items.map((item) => (
-              <BoxedList.Item className="p-2">
-                {`${configuration.name} (Revision ${item.revision})`}
-              </BoxedList.Item>
-            ))}
+            {revisions.items.map((item) => {
+              const revisionUrl = `/applications/configurations/${configurationId}/revisions/${item.id}`;
+              return (
+                <BoxedList.Item
+                  className="p-2"
+                  key={item.id}
+                  onClick={() => navigate(revisionUrl)}
+                >
+                  {`${configuration.name} (Revision ${item.revision})`}
+                  <Link to={revisionUrl} className="ml-auto">
+                    <span className="sr-only">
+                      <FormattedMessage id="administration.user-groups.members.details" />
+                    </span>
+                    <ChevronRightIcon className="h-6 w-6 fill-black/50" />
+                  </Link>
+                </BoxedList.Item>
+              );
+            })}
           </BoxedList>
         )}
         {revisions.total === 0 && (

@@ -51,3 +51,10 @@ export interface GetFeatureFlagsForVersionTagArgs {
   skip: number;
   limit: number;
 }
+
+export interface GetFeatureFlagsForConfigurationRevisionArgs {
+  configurationId: string;
+  revisionId: string;
+  skip: number;
+  limmit: number;
+}

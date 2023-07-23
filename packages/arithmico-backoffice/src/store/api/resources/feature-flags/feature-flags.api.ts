@@ -6,6 +6,7 @@ import {
   FeatureFlagWithVersionsDto,
   GetFeatureFlagByidArgs,
   GetFeatureFlagsArgs,
+  GetFeatureFlagsForConfigurationRevisionArgs,
   GetFeatureFlagsForVersionTagArgs,
 } from "./feature-flags.types";
 
@@ -66,6 +67,27 @@ const featureFlagsApi = api.injectEndpoints({
                 id: featureFlag.id,
               })),
               { type: "VersionTag", id: arg.tagId },
+            ]
+          : [],
+    }),
+
+    getFeatureFlagsForConfigurationRevision: build.query<
+      PagedResponse<FeatureFlagDto>,
+      GetFeatureFlagsForConfigurationRevisionArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions/${arg.revisionId}/feature-flags`,
+        method: "GET",
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              ...response.items.map((featureFlag) => ({
+                type: "FeatureFlag" as const,
+                id: featureFlag.id,
+              })),
+              { type: "Configuration", id: arg.configurationId },
+              { type: "ConfigurationRevision", id: arg.revisionId },
             ]
           : [],
     }),
