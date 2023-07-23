@@ -11,7 +11,7 @@ import {
   CreateConfigurationRevisionArgs,
 } from "./configurations.types";
 
-const configurationsApi = api.injectEndpoints({
+export const configurationsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getConfigurations: build.query<
       PagedResponse<ConfigurationWithRevisionsDto>,

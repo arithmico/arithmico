@@ -171,5 +171,8 @@
   "applications.configurations.revisions.empty": "Diese Konfiguration hat noch keine Revisionen.",
   "applications.configurations.revisions.add": "Revision erstellen",
   "applications.configurations.revisions.feature-flags": "Funktionen",
-  "applications.configurations.revisions.minimum-version": "Startversion"
+  "applications.configurations.revisions.minimum-version": "Startversion",
+  "applications.configurations.revisions.feature-flags.details": "Funktionsdetails",
+  "applications.configurations.revisions.export": "Exportieren",
+  "applications.configurations.revisions.export.button": "JSON Datei exportieren"
 }

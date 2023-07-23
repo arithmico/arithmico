@@ -18,11 +18,20 @@ import {
 import {
   FeatureFlag,
   FeatureFlagDocument,
+  FeatureFlagType,
 } from '../../schemas/feature-flag/feature-flag.schema';
 import {
   VersionTag,
   VersionTagDocument,
 } from '../../schemas/version-tag/version-tag.schema';
+
+interface ConfigurationFeaturesByType {
+  types: string[];
+  constants: string[];
+  functions: string[];
+  methods: string[];
+  operators: string[];
+}
 
 @Injectable()
 export class ConfigurationRepository {
@@ -259,5 +268,91 @@ export class ConfigurationRepository {
       total: result.at(0).total,
       items: result.at(0).items,
     };
+  }
+
+  async getRevisionByConfigurationIdAndRevisionId(
+    configurationId: string,
+    revisionId: string,
+  ): Promise<ConfigurationRevisionDocument | null> {
+    return this.revisionModel
+      .findOne({
+        _id: revisionId,
+        configurationId,
+      })
+      .exec();
+  }
+
+  async getRevisionByConfigurationIdAndRevisionIdOrThrow(
+    configurationId: string,
+    revisionId: string,
+  ): Promise<ConfigurationRevisionDocument> {
+    const revisionDocument =
+      await this.getRevisionByConfigurationIdAndRevisionId(
+        configurationId,
+        revisionId,
+      );
+    if (!revisionDocument) {
+      throw new NotFoundException();
+    }
+    return revisionDocument;
+  }
+
+  async aggregateFeatureFlagsByType(
+    configurationId: string,
+    revisionId: string,
+  ): Promise<ConfigurationFeaturesByType> {
+    await this.getRevisionByConfigurationIdAndRevisionIdOrThrow(
+      configurationId,
+      revisionId,
+    );
+    const result: ConfigurationFeaturesByType = {
+      types: [],
+      methods: [],
+      functions: [],
+      constants: [],
+      operators: [],
+    };
+    const cursor = this.featureFlagAssociationModel
+      .aggregate()
+      .match({ configurationRevisionId: revisionId })
+      .lookup({
+        from: this.featureFlagModel.collection.name,
+        localField: 'featureFlagId',
+        foreignField: '_id',
+        as: 'featureFlag',
+      })
+      .addFields({
+        featureFlag: {
+          $arrayElemAt: ['$featureFlag', 0],
+        },
+      })
+      .replaceRoot('$featureFlag')
+      .cursor<FeatureFlagDocument>();
+
+    for await (const doc of cursor) {
+      switch (doc.type) {
+        case FeatureFlagType.Type:
+          result.types.push(doc.flag);
+          break;
+
+        case FeatureFlagType.Function:
+          result.functions.push(doc.flag);
+          break;
+
+        case FeatureFlagType.Constant:
+          result.constants.push(doc.flag);
+          break;
+
+        case FeatureFlagType.Method:
+          result.methods.push(doc.flag);
+          break;
+
+        case FeatureFlagType.Operator:
+          result.operators.push(doc.flag);
+          break;
+      }
+    }
+
+    return result;
   }
 }

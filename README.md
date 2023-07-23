@@ -5,7 +5,6 @@ This repository contains the source code for the Arithmico Engine and the follow
 - Arithmico Calc
 - Arithmico Docs
 - Arithmico Blog
-- Arithmico Manager
 
 # Deployments
 
@@ -14,21 +13,12 @@ This repository contains the source code for the Arithmico Engine and the follow
 - [Arithmico Calc](https://arithmico.com)
 - [Arithmico Docs](https://docs.arithmico.com)
 - [Arithmico Blog](https://blog.arithmico.com)
-- [Arithmico Manager](https://manager.arithmico.com)
-
-## Staging Deployments
-
-- [Arithmico Calc](https://calc.stage.arithmico.com)
-- [Arithmico Docs](https://docs.stage.arithmico.com)
-- [Arithmico Blog](https://blog.stage.arithmico.com/)
-- [Arithmico Manager](https://manager.stage.arithmico.com/)
 
 ## Development Deployments
 
 - [Arithmico Calc](https://calc.dev.arithmico.com)
 - [Arithmico Docs](https://docs.dev.arithmico.com)
 - [Arithmico Blog](https://blog.dev.arithmico.com/)
-- [Arithmico Manager](https://manager.dev.arithmico.com/)
 
 # Build Instructions
 

@@ -101,6 +101,7 @@ export function CreateConfigurationRevisionDialog({
             const selected = selectedFeatureFlags.has(item.id);
             return (
               <BoxedList.CheckableItem
+                key={item.id}
                 checked={selected}
                 onChange={() => {
                   const newFeatureFlags = new Set(selectedFeatureFlags);

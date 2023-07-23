@@ -41,13 +41,15 @@ export function VersionTagsPage() {
               })}
             </BoxedList>
           )}
-          <PaginationToolbar
-            className="mt-4"
-            skip={skip}
-            limit={limit}
-            total={data.total}
-            onChange={setSkip}
-          />
+          {data.total > limit && (
+            <PaginationToolbar
+              className="mt-4"
+              skip={skip}
+              limit={limit}
+              total={data.total}
+              onChange={setSkip}
+            />
+          )}
         </Card>
       )}
     </>
