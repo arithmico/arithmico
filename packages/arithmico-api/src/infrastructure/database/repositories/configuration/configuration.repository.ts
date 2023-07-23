@@ -260,4 +260,31 @@ export class ConfigurationRepository {
       items: result.at(0).items,
     };
   }
+
+  async getRevisionByConfigurationIdAndRevisionId(
+    configurationId: string,
+    revisionId: string,
+  ): Promise<ConfigurationRevisionDocument | null> {
+    return this.revisionModel
+      .findOne({
+        _id: revisionId,
+        configurationId,
+      })
+      .exec();
+  }
+
+  async getRevisionByConfigurationIdAndRevisionIdOrThrow(
+    configurationId: string,
+    revisionId: string,
+  ): Promise<ConfigurationRevisionDocument> {
+    const revisionDocument =
+      await this.getRevisionByConfigurationIdAndRevisionId(
+        configurationId,
+        revisionId,
+      );
+    if (!revisionDocument) {
+      throw new NotFoundException();
+    }
+    return revisionDocument;
+  }
 }

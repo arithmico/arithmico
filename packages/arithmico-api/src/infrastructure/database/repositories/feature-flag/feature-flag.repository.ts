@@ -4,6 +4,10 @@ import { Model } from 'mongoose';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import { createPagedAggregationPipeline } from '../../../../common/utils/paged-aggregation/paged-aggregation';
 import {
+  ConfigurationRevisionFeatureFlagAssociation,
+  ConfigurationRevisionFeatureFlagAssociationDocument,
+} from '../../schemas/configuration-revision-feature-flag-association/configuration-revision-feature-flag-association';
+import {
   FeatureFlag,
   FeatureFlagDocument,
   FeatureFlagType,
@@ -21,6 +25,8 @@ export class FeatureFlagRepository {
     private featureFlagModel: Model<FeatureFlagDocument>,
     @InjectModel(VersionTag.name)
     private versionTagModel: Model<VersionTagDocument>,
+    @InjectModel(ConfigurationRevisionFeatureFlagAssociation.name)
+    private configurationRevisionFeatureFlagAssociationModel: Model<ConfigurationRevisionFeatureFlagAssociationDocument>,
   ) {}
 
   async createFeatureFlag(
@@ -159,5 +165,56 @@ export class FeatureFlagRepository {
         flag,
       })
       .exec();
+  }
+
+  async getFeatureFlagsForConfigurationRevision(
+    revisionId: string,
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<FeatureFlagDocument>> {
+    const result = await this.configurationRevisionFeatureFlagAssociationModel
+      .aggregate(
+        createPagedAggregationPipeline({
+          skip,
+          limit,
+          preProcessingStages: [
+            {
+              $match: {
+                configurationRevisionId: revisionId,
+              },
+            },
+          ],
+          itemProcessingStages: [
+            {
+              $lookup: {
+                from: this.featureFlagModel.collection.name,
+                localField: 'featureFlagId',
+                foreignField: '_id',
+                as: 'featureFlag',
+              },
+            },
+            {
+              $addFields: {
+                featureFlag: {
+                  $arrayElemAt: ['$featureFlag', 0],
+                },
+              },
+            },
+            {
+              $replaceRoot: {
+                newRoot: '$featureFlag',
+              },
+            },
+          ],
+        }),
+      )
+      .exec();
+
+    return {
+      skip,
+      limit,
+      total: result.at(0).total,
+      items: result.at(0).items,
+    };
   }
 }
