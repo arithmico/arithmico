@@ -50,7 +50,7 @@
   "navbar.admin.users": "Benutzerverwaltung",
   "navbar.admin.users.new": "Benutzer hinzufügen",
 
-  "admin": "Verwaltung",
+  "administration.title": "Verwaltung",
   "administration.description": "Das Verwaltungs-Menü ermöglicht Ihnen die zentrale Verwaltung wichtiger Aspekte Ihres Systems. Hier können Sie die Benutzer und Benutzergruppen effizient verwalten und die Sicherheitsrichtlinien anpassen. Durch das Verwaltungs-Menü haben Sie die volle Kontrolle über die Benutzerzugriffe und die Sicherheitseinstellungen. Nutzen Sie diese Schnittstelle, um die Verwaltung Ihres Systems einfach und sicher zu gestalten und eine optimale Nutzung der Ressourcen zu gewährleisten.",
 
   "administration.security-policies": "Sicherheitsrichtlinien",
