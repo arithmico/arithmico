@@ -1,5 +1,7 @@
 import { GetConfigurationByIdController } from './get-configuration-by-id/get-configuration-by-id.controller';
 import { GetConfigurationByIdHandler } from './get-configuration-by-id/get-configuration-by-id.handler';
+import { GetConfigurationRevisionJsonExportController } from './get-configuration-revision-json-export/get-configuration-revision-json-export.controller';
+import { GetConfigurationRevisionJsonExportHandler } from './get-configuration-revision-json-export/get-configuration-revision-json-export.handler';
 import { GetConfigurationRevisionsController } from './get-configuration-revisions/get-configuration-revisions.controller';
 import { GetConfigurationRevisionsHandler } from './get-configuration-revisions/get-configuration-revisions.handler';
 import { GetConfigurationsController } from './get-configurations/get-configurations.controller';
@@ -12,6 +14,7 @@ export const queryHandlers = [
   GetConfigurationByIdHandler,
   GetConfigurationRevisionsHandler,
   GetFeatureFlagsForConfigurationRevisionHandler,
+  GetConfigurationRevisionJsonExportHandler,
 ];
 
 export const queryControllers = [
@@ -19,4 +22,5 @@ export const queryControllers = [
   GetConfigurationByIdController,
   GetConfigurationRevisionsController,
   GetFeatureFlagsForConfigurationRevisionController,
+  GetConfigurationRevisionJsonExportController,
 ];

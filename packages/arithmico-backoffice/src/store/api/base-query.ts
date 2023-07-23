@@ -8,8 +8,8 @@ import { Mutex } from "async-mutex";
 import { RootState } from "..";
 import { login, logout } from "../slices/auth/auth.slice";
 
-const AUTHORIZATION_HEADER_NAME = "Authorization";
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+export const AUTHORIZATION_HEADER_NAME = "Authorization";
+export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
