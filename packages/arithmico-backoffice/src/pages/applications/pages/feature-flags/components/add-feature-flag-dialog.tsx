@@ -9,6 +9,7 @@ import FormLabel from "../../../../../components/form-label/form-label";
 import FormSubmitButton from "../../../../../components/form-submit-button/form-submit-button";
 import FormTextField from "../../../../../components/form-text-field/form-text-field";
 import { SmallPaginationToolbar } from "../../../../../components/pagination-toolbar/pagination-toolbar";
+import { SemanticVersion } from "../../../../../components/semantic-version/semantic-version";
 import {
   addFeatureFlagSchema,
   AddFeatureFlagSchemaType,
@@ -136,25 +137,24 @@ export function AddFeatureFlagDialog({
               )}
             </div>
             <div className="grid grid-cols-5 gap-4">
-              {data.items.map((versionTag) => {
-                const versionString = `v${versionTag.version.major}.${versionTag.version.minor}.${versionTag.version.patch}`;
-                return (
-                  <div className="flex w-full" key={versionTag.id}>
-                    <label className="flex w-full">
-                      <span className="sr-only">{versionString}</span>
-                      <input
-                        type="radio"
-                        className="peer sr-only"
-                        value={versionTag.id}
-                        {...register("enabledSinceVersionTagId")}
-                      />
-                      <span className="w-full rounded-sm border border-black/20 px-4 py-2 font-bold text-black/50 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white">
-                        {versionString}
-                      </span>
-                    </label>
-                  </div>
-                );
-              })}
+              {data.items.map((versionTag) => (
+                <div className="flex w-full" key={versionTag.id}>
+                  <label className="flex w-full">
+                    <span className="sr-only">
+                      <SemanticVersion version={versionTag.version} />
+                    </span>
+                    <input
+                      type="radio"
+                      className="peer sr-only"
+                      value={versionTag.id}
+                      {...register("enabledSinceVersionTagId")}
+                    />
+                    <span className="w-full rounded-sm border border-black/20 px-4 py-2 font-bold text-black/50 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white">
+                      <SemanticVersion version={versionTag.version} />
+                    </span>
+                  </label>
+                </div>
+              ))}
             </div>
           </fieldset>
           <FormError error={errors.enabledSinceVersionTagId} />

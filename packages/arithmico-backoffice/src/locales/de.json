@@ -169,5 +169,7 @@
   "applications.configurations.details": "Konfigurationsdetails",
   "applications.configurations.short-details": "Details",
   "applications.configurations.revisions.empty": "Diese Konfiguration hat noch keine Revisionen.",
-  "applications.configurations.revisions.add": "Revision erstellen"
+  "applications.configurations.revisions.add": "Revision erstellen",
+  "applications.configurations.revisions.feature-flags": "Funktionen",
+  "applications.configurations.revisions.minimum-version": "Startversion"
 }

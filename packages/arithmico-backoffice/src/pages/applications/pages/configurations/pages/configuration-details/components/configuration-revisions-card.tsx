@@ -59,7 +59,7 @@ export function ConfigurationRevisionsCard({
         {revisions.total > 0 && (
           <BoxedList>
             {revisions.items.map((item) => (
-              <BoxedList.Item>
+              <BoxedList.Item className="p-2">
                 {`${configuration.name} (Revision ${item.revision})`}
               </BoxedList.Item>
             ))}
