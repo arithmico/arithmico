@@ -78,6 +78,10 @@ const featureFlagsApi = api.injectEndpoints({
       query: (arg) => ({
         url: `/configurations/${arg.configurationId}/revisions/${arg.revisionId}/feature-flags`,
         method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
       }),
       providesTags: (response, _, arg) =>
         response
@@ -112,5 +116,6 @@ export const {
   useGetFeatureFlagsQuery,
   useGetFeatureFlagByIdQuery,
   useGetFeatureFlagsForVersionTagQuery,
+  useGetFeatureFlagsForConfigurationRevisionQuery,
   useCreateFeatureFlagMutation,
 } = featureFlagsApi;

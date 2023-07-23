@@ -56,5 +56,5 @@ export interface GetFeatureFlagsForConfigurationRevisionArgs {
   configurationId: string;
   revisionId: string;
   skip: number;
-  limmit: number;
+  limit: number;
 }
