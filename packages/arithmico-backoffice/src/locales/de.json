@@ -154,6 +154,7 @@
   "applications.feature-flags.disabled-since-version": "Entfernt ab",
   "applications.feature-flags.details": "Funktionsdetails anzeigen",
   "applications.feature-flags.details.supported-versions": "Unterstützte Versionen",
+  "applications.feature-flags.update": "Funktion bearbeiten",
 
   "applications.version-tags": "Versiontags",
   "applications.version-tags.id": "ID",

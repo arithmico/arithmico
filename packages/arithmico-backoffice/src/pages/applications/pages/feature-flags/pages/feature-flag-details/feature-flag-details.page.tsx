@@ -29,7 +29,9 @@ export function FeatureFlagDetailsPage() {
             <Heading level={1}>{data.name}</Heading>
             <button className="ml-auto" onClick={() => setIsDialogOpen(true)}>
               <EditIcon className={"h-6 w-6"} />
-              <span className="sr-only">Bearbeiten</span>
+              <span className="sr-only">
+                <FormattedMessage id="applications.feature-flags.update" />
+              </span>
             </button>
           </div>
           <div className="grid grid-cols-2 gap-4">

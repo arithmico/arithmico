@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { FormattedMessage } from "react-intl";
 import { DialogHeader } from "../../../../../../../components/dialog-header/dialog-header";
 import { DialogWithBackdrop } from "../../../../../../../components/dialog-with-backdrop/dialog-with-backdrop";
 import { FormCancelButton } from "../../../../../../../components/form-cancel-button/form-cancel-button";
@@ -66,7 +67,9 @@ export function EditFeatureFlagDialog({
 
   return (
     <DialogWithBackdrop isOpen={isOpen} onClose={internalOnClose}>
-      <DialogHeader onClose={onClose}>Funktion bearbeiten</DialogHeader>
+      <DialogHeader onClose={onClose}>
+        <FormattedMessage id="applications.feature-flags.update" />
+      </DialogHeader>
       <form
         onSubmit={handleSubmit((values) => {
           trigger({
@@ -77,14 +80,16 @@ export function EditFeatureFlagDialog({
         })}
       >
         <FormLabel>
-          Name
+          <FormattedMessage id="applications.feature-flags.name" />
           <FormTextField {...register("name", {})} />
         </FormLabel>
         <FormError error={errors.name} />
 
         <div className="mt-8 flex">
           <FormCancelButton onClick={internalOnClose} />
-          <FormSubmitButton className="ml-auto">Speichern</FormSubmitButton>
+          <FormSubmitButton className="ml-auto">
+            <FormattedMessage id="common.save" />
+          </FormSubmitButton>
         </div>
       </form>
     </DialogWithBackdrop>
