@@ -43,6 +43,49 @@ export class FeatureFlagRepository {
     });
   }
 
+  async updateFeatureFlag(
+    featureFlagId: string,
+    name: string | undefined,
+    disabledSinceVersionTagId: string | undefined,
+  ): Promise<FeatureFlagDocument | null> {
+    if (disabledSinceVersionTagId) {
+      const versionTag = await this.versionTagModel.findById(
+        disabledSinceVersionTagId,
+      );
+      if (!versionTag) {
+        throw new NotFoundException();
+      }
+    }
+    return this.featureFlagModel
+      .findOneAndUpdate(
+        {
+          _id: featureFlagId,
+        },
+        {
+          name,
+          disabledSinceVersionTagId,
+        },
+        { new: true },
+      )
+      .exec();
+  }
+
+  async updateFeatureFlagOrThrow(
+    featureFlagId: string,
+    name: string | undefined,
+    disabledSinceVersionTagId: string | undefined,
+  ): Promise<FeatureFlagDocument> {
+    const featureFlagDocument = await this.updateFeatureFlag(
+      featureFlagId,
+      name,
+      disabledSinceVersionTagId,
+    );
+    if (!featureFlagDocument) {
+      throw new NotFoundException();
+    }
+    return featureFlagDocument;
+  }
+
   async getFeatureFlags(
     skip: number,
     limit: number,

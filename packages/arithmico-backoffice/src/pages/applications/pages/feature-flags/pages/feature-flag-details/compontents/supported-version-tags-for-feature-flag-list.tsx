@@ -33,7 +33,7 @@ export function SupportedVersionTagsForFeatureFlagList({
           {data.items.length > 0 && (
             <BoxedList>
               {data.items.map((versionTag) => (
-                <BoxedList.Item>
+                <BoxedList.Item key={versionTag.id}>
                   <Link
                     className="h-full w-full p-2"
                     to={`/applications/version-tags/${versionTag.id}`}
