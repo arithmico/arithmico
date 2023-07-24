@@ -8,6 +8,7 @@ import {
   GetFeatureFlagsArgs,
   GetFeatureFlagsForConfigurationRevisionArgs,
   GetFeatureFlagsForVersionTagArgs,
+  UpdateFeatureFlagArgs,
 } from "./feature-flags.types";
 
 const featureFlagsApi = api.injectEndpoints({
@@ -109,6 +110,26 @@ const featureFlagsApi = api.injectEndpoints({
       }),
       invalidatesTags: ["FeatureFlag"],
     }),
+
+    updateFeatureFlag: build.mutation<FeatureFlagDto, UpdateFeatureFlagArgs>({
+      query: (arg) => ({
+        url: `/feature-flags/${arg.flagId}`,
+        method: "PATCH",
+        body: {
+          name: arg.name,
+          disabledSinceVersionTagId: arg.disabledSinceVersionTagId,
+        },
+      }),
+      invalidatesTags: (response) =>
+        response
+          ? [
+              {
+                type: "FeatureFlag",
+                id: response.id,
+              },
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -118,4 +139,5 @@ export const {
   useGetFeatureFlagsForVersionTagQuery,
   useGetFeatureFlagsForConfigurationRevisionQuery,
   useCreateFeatureFlagMutation,
+  useUpdateFeatureFlagMutation,
 } = featureFlagsApi;

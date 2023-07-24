@@ -58,3 +58,9 @@ export interface GetFeatureFlagsForConfigurationRevisionArgs {
   skip: number;
   limit: number;
 }
+
+export interface UpdateFeatureFlagArgs {
+  flagId: string;
+  name: string | undefined;
+  disabledSinceVersionTagId: string | undefined;
+}
