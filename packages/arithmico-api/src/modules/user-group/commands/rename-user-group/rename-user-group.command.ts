@@ -1,6 +1,3 @@
 export class RenameUserGroupCommand {
-  constructor(
-    public readonly groupId: string,
-    public readonly name: string,
-  ) {}
+  constructor(public readonly groupId: string, public readonly name: string) {}
 }

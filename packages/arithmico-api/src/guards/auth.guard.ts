@@ -11,10 +11,7 @@ import { AuthService } from '../modules/auth/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(
-    private authService: AuthService,
-    private reflector: Reflector,
-  ) {}
+  constructor(private authService: AuthService, private reflector: Reflector) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const isPublic = this.reflector.get('public', context.getHandler());
