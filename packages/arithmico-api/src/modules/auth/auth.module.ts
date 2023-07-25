@@ -5,6 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from '../../infrastructure/database/database.module';
 import { AuthService } from './auth.service';
 import { commandControllers, commandHandlers } from './commands';
+import { queryControllers, queryHandlers } from './queries';
 
 @Module({
   imports: [
@@ -17,8 +18,8 @@ import { commandControllers, commandHandlers } from './commands';
       }),
     }),
   ],
-  providers: [...commandHandlers, AuthService],
-  controllers: [...commandControllers],
+  providers: [...commandHandlers, AuthService, ...queryHandlers],
+  controllers: [...commandControllers, ...queryControllers],
   exports: [AuthService],
 })
 export class AuthModule {}
