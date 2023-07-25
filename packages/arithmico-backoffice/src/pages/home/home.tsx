@@ -5,7 +5,7 @@ import { PageWithNavbar } from "../../components/page-with-navbar/page-with-navb
 export default function Home() {
   return (
     <PageWithNavbar>
-      <Heading level={1}>
+      <Heading level={1} className="my-4">
         <FormattedMessage id="home.title" />
       </Heading>
       <p>
