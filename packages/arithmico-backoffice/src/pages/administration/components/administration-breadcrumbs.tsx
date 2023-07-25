@@ -20,7 +20,7 @@ export function AdministrationBreadcrumbs({
       {children
         ? [
             <Link key="security" to="/administration">
-              <FormattedMessage id="admin" />
+              <FormattedMessage id="administration.title" />
             </Link>,
             ...Children.toArray(children),
           ]

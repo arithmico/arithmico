@@ -3,13 +3,17 @@ import { FormattedMessage } from "react-intl";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { AdminIcon } from "../../icons/admin.icon";
-//import { HomeIcon } from "../../icons/home.icon";
+import { HomeIcon } from "../../icons/home.icon";
 import { LogoutIcon } from "../../icons/logout.icon";
-//import { MailIcon } from "../../icons/mail.icon";
+import { MailIcon } from "../../icons/mail.icon";
 import { ManagedFolderIcon } from "../../icons/managed-folder.icon";
 import { logout } from "../../store/slices/auth/auth.slice";
 
-export function Navbar() {
+export interface NavbarProps {
+  securityAttributes: string[];
+}
+
+export function Navbar({ securityAttributes }: NavbarProps) {
   return (
     <nav
       className={classNames(
@@ -25,22 +29,43 @@ export function Navbar() {
         <FormattedMessage id="navbar.sr.title" />
       </h1>
       <ul className={classNames("flex", "flex-col", "h-full")}>
-        {/*<NavbarItem
+        <NavbarItem
+          currentSecurityAttributes={securityAttributes}
+          requiredSecurityAttributes={["disabled"]}
+          accessControlMode="every"
           to="/"
           icon={<HomeIcon />}
           description={<FormattedMessage id="navbar.home" />}
         />
         <NavbarItem
+          currentSecurityAttributes={securityAttributes}
+          requiredSecurityAttributes={["disabled"]}
+          accessControlMode="every"
           to="/mails"
           icon={<MailIcon />}
           description={<FormattedMessage id="navbar.mails" />}
-      />*/}
+        />
         <NavbarItem
+          currentSecurityAttributes={securityAttributes}
+          requiredSecurityAttributes={[
+            "feature-flags:read",
+            "configurations:read",
+            "configurations:revisions:read",
+            "version-tags:read",
+          ]}
+          accessControlMode="some"
           to="/applications"
           icon={<ManagedFolderIcon />}
           description={<FormattedMessage id="navbar.applications" />}
         />
         <NavbarItem
+          currentSecurityAttributes={securityAttributes}
+          requiredSecurityAttributes={[
+            "users:read",
+            "user-groups:read",
+            "security-policies:read",
+          ]}
+          accessControlMode="some"
           to="/administration"
           icon={<AdminIcon />}
           description={<FormattedMessage id="navbar.admin" />}
@@ -57,9 +82,33 @@ interface NavbarItemProps {
   description: React.ReactNode;
   to: string;
   className?: string;
+  currentSecurityAttributes: string[];
+  requiredSecurityAttributes: string[];
+  accessControlMode: "every" | "some";
 }
 
-function NavbarItem({ icon, description, to, className }: NavbarItemProps) {
+function NavbarItem({
+  icon,
+  description,
+  to,
+  className,
+  currentSecurityAttributes,
+  requiredSecurityAttributes,
+  accessControlMode,
+}: NavbarItemProps) {
+  const visible =
+    accessControlMode === "every"
+      ? requiredSecurityAttributes.every((securityAttribute) =>
+          currentSecurityAttributes.includes(securityAttribute)
+        )
+      : requiredSecurityAttributes.some((securityAttribute) =>
+          currentSecurityAttributes.includes(securityAttribute)
+        );
+
+  if (!visible) {
+    return <></>;
+  }
+
   return (
     <li className={classNames("w-[80px]", "h-[80px]", className)}>
       <NavLink

@@ -82,7 +82,7 @@ export class SecurityAttributesRepository {
           {
             $lookup: {
               from: this.securityPolicyAttachmentModel.collection.name,
-              localField: '_id',
+              localField: 'groupId',
               foreignField: 'attachedToId',
               as: 'policy',
             },
