@@ -41,11 +41,19 @@ export function RevisionFeatureFlagsCard({
           const featureFlagUrl = `/applications/feature-flags/${featureFlag.id}`;
           return (
             <BoxedList.Item
-              className="p-2"
+              className="grid grid-cols-[2fr_1fr_auto] p-2"
               key={featureFlag.id}
               onClick={() => navigate(featureFlagUrl)}
             >
               {featureFlag.name}
+              <span>
+                (
+                <FormattedMessage
+                  id={`applications.feature-flags.type.${featureFlag.type}`}
+                  defaultMessage={featureFlag.type}
+                />
+                )
+              </span>
               <Link to={featureFlagUrl} className="ml-auto">
                 <span className="sr-only">
                   <FormattedMessage id="applications.configurations.revisions.feature-flags.details" />

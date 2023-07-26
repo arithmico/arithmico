@@ -113,11 +113,18 @@ export function CreateConfigurationRevisionDialog({
                   setSelectedFeatureFlags(newFeatureFlags);
                 }}
               >
-                <div className="grid flex-1 grid-cols-[2fr_1fr]">
+                <div className="grid flex-1 grid-cols-[2fr_1fr_auto]">
                   <span className="min-w-0 max-w-full overflow-clip text-ellipsis">
-                    {item.name}{" "}
+                    {item.name}
                   </span>
-                  <span className="ml-4 text-black/50">({item.type})</span>
+                  <span className="text-black/50">
+                    (
+                    <FormattedMessage
+                      id={`applications.feature-flags.type.${item.type}`}
+                      defaultMessage={item.type}
+                    />
+                    )
+                  </span>
                 </div>
               </BoxedList.CheckableItem>
             );
