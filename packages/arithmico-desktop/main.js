@@ -14,11 +14,12 @@ const createWindow = () => {
   });
 
   win
-    .loadFile(path.join(__dirname, "web-dist/index.html"))
+    .loadFile(path.join(__dirname, "./web-dist/index.html"))
     .catch((e) => console.error(e));
   win.setIcon(path.join(__dirname, "./web-dist/logo512.png"));
   win.setMenu(null);
   win.maximize();
+  win.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {

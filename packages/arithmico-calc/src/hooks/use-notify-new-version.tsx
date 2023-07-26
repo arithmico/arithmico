@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import packageJsonData from "@workspace-package.json";
 import { useNavigate } from "react-router-dom";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const currentVersion = packageJsonData["version"];
 
 export default function useNotifyNewVersion() {
   const [notify, setNotify] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*useEffect(() => {
     fetch("https://cdn.arithmico.com/meta/latest_version.txt")
       .then((res) => res.text())
       .then((text) => {
@@ -20,7 +21,7 @@ export default function useNotifyNewVersion() {
           }
         }
       });
-  }, [setNotify]);
+  }, [setNotify]);*/
 
   useEffect(() => {
     if (notify) {
