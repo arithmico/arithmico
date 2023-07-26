@@ -10,6 +10,11 @@ import {
   AUTHORIZATION_HEADER_NAME,
   baseUrl,
 } from "../../../../../../../../store/api/base-query";
+import {
+  useGetConfigurationByIdQuery,
+  useGetConfigurationRevisionByIdQuery,
+} from "../../../../../../../../store/api/resources/configurations/configurations.api";
+import { RevisionDetailsBreadcrumbs } from "./components/revision-breadcrumbs";
 import { RevisionFeatureFlagsCard } from "./components/revision-feature-flags-card";
 
 function triggerDownload(
@@ -38,10 +43,31 @@ function triggerDownload(
 export function RevisionDetailsPage() {
   const accessToken = useSelector((state: RootState) => state.auth.accessToken);
   const { configurationId, revisionId } = useParams();
+  const { isSuccess: configurationIsSuccess, data: configuration } =
+    useGetConfigurationByIdQuery({
+      configurationId: configurationId!,
+    });
+  const { isSuccess: revisionIsSuccess, data: revision } =
+    useGetConfigurationRevisionByIdQuery({
+      configurationId: configurationId!,
+      revisionId: revisionId!,
+    });
+
+  if (!configurationIsSuccess || !revisionIsSuccess) {
+    return <></>;
+  }
 
   return (
     <>
-      <Heading className="my-4">Revision Details Page</Heading>
+      <RevisionDetailsBreadcrumbs
+        configurationId={configurationId!}
+        configurationName={configuration.name}
+        revisionId={revisionId!}
+        revisionNumber={revision.revision}
+      />
+      <Heading className="my-4">
+        {configuration.name} (Revision {revision.revision})
+      </Heading>
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="flex flex-col gap-4">
           <RevisionFeatureFlagsCard

@@ -4,10 +4,12 @@ import { LinkCardMenu } from "../../components/link-card-menu/link-card-menu";
 import { FunctionIcon } from "../../icons/function.icon";
 import { SettingsIcon } from "../../icons/settings.icon";
 import { TagIcon } from "../../icons/tag.icon";
+import { ApplicationsBreadcrumbs } from "./components/applications-breadcrumbs";
 
 export default function ApplicationsPage() {
   return (
     <>
+      <ApplicationsBreadcrumbs />
       <Heading level={1} className="mt-4">
         <FormattedMessage id="applications" />
       </Heading>

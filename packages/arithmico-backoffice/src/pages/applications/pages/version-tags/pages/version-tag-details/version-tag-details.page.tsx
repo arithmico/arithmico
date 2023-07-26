@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import Heading from "../../../../../../components/heading/heading";
 import { SemanticVersion } from "../../../../../../components/semantic-version/semantic-version";
 import { useGetVersionTagByIdQuery } from "../../../../../../store/api/resources/version-tags/version-tags.api";
+import { VersionTagDetailsBreadcrumbs } from "./components/version-tag-details-breadcrumbs";
 import { VersionTagDetailsCard } from "./components/version-tag-details-card";
 import { VersionTagFeatureFlagList } from "./components/version-tag-feature-flag-list";
 
@@ -17,6 +18,7 @@ export function VersionTagDetailsPage() {
 
   return (
     <>
+      <VersionTagDetailsBreadcrumbs version={data.version} />
       <Heading level={1} className="my-4">
         <SemanticVersion version={data.version} />
       </Heading>

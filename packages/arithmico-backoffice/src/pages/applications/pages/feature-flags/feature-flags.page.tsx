@@ -14,6 +14,7 @@ import { AddIcon } from "../../../../icons/add.icon";
 import { ChevronRightIcon } from "../../../../icons/chevron-right.icon";
 import { useGetFeatureFlagsQuery } from "../../../../store/api/resources/feature-flags/feature-flags.api";
 import { AddFeatureFlagDialog } from "./components/add-feature-flag-dialog";
+import { FeatureFlagsBreadcrumbs } from "./components/feature-flags-breadcrumbs";
 
 export function FeatureFlagsPage() {
   const limit = 10;
@@ -24,6 +25,7 @@ export function FeatureFlagsPage() {
 
   return (
     <>
+      <FeatureFlagsBreadcrumbs />
       <AddFeatureFlagDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}

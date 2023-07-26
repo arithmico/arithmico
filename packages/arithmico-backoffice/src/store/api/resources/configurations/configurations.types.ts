@@ -11,6 +11,12 @@ export interface ConfigurationWithRevisionsDto {
   revisions: number;
 }
 
+export interface ConfigurationRevisionDto {
+  id: string;
+  revision: number;
+  configurationId: string;
+}
+
 export interface CreateConfigurationArgs {
   name: string;
   autoBuild: boolean;
@@ -47,4 +53,9 @@ export interface CreateConfigurationRevisionArgs {
   configurationId: string;
   featureFlagIds: string[];
   minimumVersionTagId: string;
+}
+
+export interface GetConfigurationRevisionByIdArgs {
+  configurationId: string;
+  revisionId: string;
 }
