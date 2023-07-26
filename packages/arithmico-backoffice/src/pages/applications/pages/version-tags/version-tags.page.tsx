@@ -8,6 +8,7 @@ import { PaginationToolbar } from "../../../../components/pagination-toolbar/pag
 import { SemanticVersion } from "../../../../components/semantic-version/semantic-version";
 import { ChevronRightIcon } from "../../../../icons/chevron-right.icon";
 import { useGetVersionTagsQuery } from "../../../../store/api/resources/version-tags/version-tags.api";
+import { VersionTagsBreadcrumbs } from "./components/version-tags-breadcrumbs";
 
 export function VersionTagsPage() {
   const limit = 10;
@@ -17,6 +18,7 @@ export function VersionTagsPage() {
 
   return (
     <>
+      <VersionTagsBreadcrumbs />
       <Heading level={1} className="my-4">
         <FormattedMessage id="applications.version-tags" />
       </Heading>
