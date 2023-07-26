@@ -171,7 +171,7 @@ jobs:
 
       - name: build electron app
         shell: bash
-        run: npm run package -w arithmico-desktop -- --platform win32
+        run: npm run make -w arithmico-desktop -- --platform win32
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
