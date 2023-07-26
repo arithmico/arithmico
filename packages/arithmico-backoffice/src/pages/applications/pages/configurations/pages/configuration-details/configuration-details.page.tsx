@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import Heading from "../../../../../../components/heading/heading";
 import { useGetConfigurationByIdQuery } from "../../../../../../store/api/resources/configurations/configurations.api";
+import { ConfigurationDetailsBreadcrumbs } from "./components/configuration-details-breadcrumbs";
 import { ConfigurationDetailsCard } from "./components/configuration-details-card";
 import { ConfigurationRevisionsCard } from "./components/configuration-revisions-card";
 
@@ -16,6 +17,10 @@ export function ConfigurationDetailsPage() {
 
   return (
     <>
+      <ConfigurationDetailsBreadcrumbs
+        configurationName={data.name}
+        configurationId={data.id}
+      />
       <div className="my-4">
         <Heading level={1}>{data.name}</Heading>
       </div>

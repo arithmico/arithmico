@@ -13,6 +13,7 @@ import { Table } from "../../../../components/table/table";
 import { AddIcon } from "../../../../icons/add.icon";
 import { ChevronRightIcon } from "../../../../icons/chevron-right.icon";
 import { useGetConfigurationsQuery } from "../../../../store/api/resources/configurations/configurations.api";
+import { ConfigurationsBreadcrumbs } from "./components/configuration-breadcrumbs";
 import { CreateConfigurationDialog } from "./components/create-configuration.dialog";
 
 export function ConfigurationsPage() {
@@ -24,6 +25,7 @@ export function ConfigurationsPage() {
 
   return (
     <>
+      <ConfigurationsBreadcrumbs />
       <CreateConfigurationDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
