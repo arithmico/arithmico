@@ -172,7 +172,7 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install wine-stable
-          dpkg --add-architecture i386 && apt-get update && apt-get install wine32
+          sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install wine32
 
       - name: build electron app
         shell: bash
