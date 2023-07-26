@@ -1,5 +1,5 @@
-import { ConfigurationRevisionDto } from '../../common/configuration-revision.dto';
+import { ConfigurationRevisionWithVersionDto } from '../../common/configuration-revision-with-version.dto';
 
-export class GetConfigurationRevisionsResponseDto extends ConfigurationRevisionDto {
+export class GetConfigurationRevisionsResponseDto extends ConfigurationRevisionWithVersionDto {
   associatedFeatureFlags: number;
 }
