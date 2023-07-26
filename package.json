@@ -22,7 +22,14 @@
   ],
   "description": "",
   "workspaces": [
-    "packages/*"
+    "packages/arithmico-api",
+    "packages/arithmico-backoffice",
+    "packages/arithmico-blog",
+    "packages/arithmico-calc",
+    "packages/arithmico-docs",
+    "packages/arithmico-engine",
+    "packages/arithmico-parser",
+    "packages/frontend-components"
   ],
   "scripts": {
     "start:desktop": "npm run build:offline -w @arithmico/calc && cp -r packages/arithmico-calc/dist packages/arithmico-desktop/web-dist && npm run start -w @arithmico/desktop",
