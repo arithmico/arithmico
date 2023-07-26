@@ -164,6 +164,10 @@ jobs:
         shell: bash
         run: npm run build -w @arithmico/calc
 
+      - name: copy files
+        shell: bash
+        run: cp -r packages/arithmico-calc/dist packages/arithmico-desktop/web-dist
+
       - name: install wine
         shell: bash
         run: |
