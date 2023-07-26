@@ -31,5 +31,6 @@
   "homepage": "https://github.com/behrenle/arithmico#readme",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
-  }
+  },
+  "license": "MIT"
 }
