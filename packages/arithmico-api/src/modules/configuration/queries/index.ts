@@ -10,8 +10,11 @@ import { GetConfigurationsController } from './get-configurations/get-configurat
 import { GetConfigurationsHandler } from './get-configurations/get-configurations.handler';
 import { GetFeatureFlagsForConfigurationRevisionController } from './get-feature-flags-for-configuration-revision/get-feature-flags-for-configuration-revision.controller';
 import { GetFeatureFlagsForConfigurationRevisionHandler } from './get-feature-flags-for-configuration-revision/get-feature-flags-for-configuration-revision.handler';
+import { GetLatestConfigurationRevisionFeatureFlagIdsController } from './get-latest-configuration-revision-feature-flag-ids/get-latest-configuration-revision-feature-flag-ids.controller';
+import { GetLatestConfigurationRevisionFeatureFlagIdsHandler } from './get-latest-configuration-revision-feature-flag-ids/get-latest-configuration-revision-feature-flag-ids.handler';
 
 export const queryHandlers = [
+  GetLatestConfigurationRevisionFeatureFlagIdsHandler,
   GetConfigurationsHandler,
   GetConfigurationByIdHandler,
   GetConfigurationRevisionsHandler,
@@ -21,6 +24,7 @@ export const queryHandlers = [
 ];
 
 export const queryControllers = [
+  GetLatestConfigurationRevisionFeatureFlagIdsController,
   GetConfigurationsController,
   GetConfigurationByIdController,
   GetConfigurationRevisionsController,

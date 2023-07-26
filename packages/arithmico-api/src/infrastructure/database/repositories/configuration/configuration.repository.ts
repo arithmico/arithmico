@@ -355,4 +355,30 @@ export class ConfigurationRepository {
 
     return result;
   }
+
+  async getLatestConfigurationRevisionFeatureFlags(
+    configurationId: string,
+  ): Promise<FeatureFlagDocument[]> {
+    return this.revisionModel
+      .aggregate()
+      .match({ configurationId })
+      .sort({ revision: -1 })
+      .limit(1)
+      .lookup({
+        from: this.featureFlagAssociationModel.collection.name,
+        localField: '_id',
+        foreignField: 'configurationRevisionId',
+        as: 'featureFlag',
+      })
+      .unwind('$featureFlag')
+      .replaceRoot('$featureFlag')
+      .lookup({
+        from: this.featureFlagModel.collection.name,
+        localField: 'featureFlagId',
+        foreignField: '_id',
+        as: 'featureFlag',
+      })
+      .unwind('$featureFlag')
+      .replaceRoot('$featureFlag');
+  }
 }
