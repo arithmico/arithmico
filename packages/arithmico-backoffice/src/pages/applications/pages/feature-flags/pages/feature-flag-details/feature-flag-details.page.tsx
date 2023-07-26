@@ -9,6 +9,7 @@ import { SemanticVersion } from "../../../../../../components/semantic-version/s
 import { EditIcon } from "../../../../../../icons/edit.icon";
 import { useGetFeatureFlagByIdQuery } from "../../../../../../store/api/resources/feature-flags/feature-flags.api";
 import { EditFeatureFlagDialog } from "./compontents/edit-feature-flag.dialog";
+import { FeatureFlagDetailsBreadcrumbs } from "./compontents/feature-flag-details-breadcrumbs";
 import { SupportedVersionTagsForFeatureFlagList } from "./compontents/supported-version-tags-for-feature-flag-list";
 
 export function FeatureFlagDetailsPage() {
@@ -16,68 +17,66 @@ export function FeatureFlagDetailsPage() {
   const { isSuccess, data } = useGetFeatureFlagByIdQuery({ flagId: flagId! });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  if (!isSuccess) {
+    return <></>;
+  }
+
   return (
     <>
+      <FeatureFlagDetailsBreadcrumbs flagId={data.id} name={data.name} />
       <EditFeatureFlagDialog
         flagId={flagId!}
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
       />
-      {isSuccess && (
-        <>
-          <div className="my-4 flex">
-            <Heading level={1}>{data.name}</Heading>
-            <button className="ml-auto" onClick={() => setIsDialogOpen(true)}>
-              <EditIcon className={"h-6 w-6"} />
-              <span className="sr-only">
-                <FormattedMessage id="applications.feature-flags.update" />
-              </span>
-            </button>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-start-2 row-start-1 flex flex-col">
-              <Card>
-                <Heading level={2} className="mb-4">
-                  <FormattedMessage id="applications.feature-flags.details-card" />
-                </Heading>
-                <DefinitionList>
-                  <DefinitionListEntry label={"ID"} value={data.id} />
-                  <DefinitionListEntry label={"Name"} value={data.name} />
-                  <DefinitionListEntry label={"Flag"} value={data.flag} />
-                  <DefinitionListEntry
-                    label={"Typ"}
-                    value={
-                      <FormattedMessage
-                        id={`versions.feature-flags.type.${data.type}`}
-                        defaultMessage={data.type}
-                      />
-                    }
+
+      <div className="my-4 flex">
+        <Heading level={1}>{data.name}</Heading>
+        <button className="ml-auto" onClick={() => setIsDialogOpen(true)}>
+          <EditIcon className={"h-6 w-6"} />
+          <span className="sr-only">
+            <FormattedMessage id="applications.feature-flags.update" />
+          </span>
+        </button>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="col-start-2 row-start-1 flex flex-col">
+          <Card>
+            <Heading level={2} className="mb-4">
+              <FormattedMessage id="applications.feature-flags.details-card" />
+            </Heading>
+            <DefinitionList>
+              <DefinitionListEntry label={"ID"} value={data.id} />
+              <DefinitionListEntry label={"Name"} value={data.name} />
+              <DefinitionListEntry label={"Flag"} value={data.flag} />
+              <DefinitionListEntry
+                label={"Typ"}
+                value={
+                  <FormattedMessage
+                    id={`versions.feature-flags.type.${data.type}`}
+                    defaultMessage={data.type}
                   />
-                  <DefinitionListEntry
-                    label={
-                      <FormattedMessage id="applications.feature-flags.enabled-since-version" />
-                    }
-                    value={
-                      <SemanticVersion version={data.enabledSinceVersion} />
-                    }
-                  />
-                  <DefinitionListEntry
-                    label={
-                      <FormattedMessage id="applications.feature-flags.disabled-since-version" />
-                    }
-                    value={
-                      <SemanticVersion version={data.disabledSinceVersion} />
-                    }
-                  />
-                </DefinitionList>
-              </Card>
-            </div>
-            <div className="col-start-1 row-start-1 flex flex-col">
-              <SupportedVersionTagsForFeatureFlagList flagId={flagId!} />
-            </div>
-          </div>
-        </>
-      )}
+                }
+              />
+              <DefinitionListEntry
+                label={
+                  <FormattedMessage id="applications.feature-flags.enabled-since-version" />
+                }
+                value={<SemanticVersion version={data.enabledSinceVersion} />}
+              />
+              <DefinitionListEntry
+                label={
+                  <FormattedMessage id="applications.feature-flags.disabled-since-version" />
+                }
+                value={<SemanticVersion version={data.disabledSinceVersion} />}
+              />
+            </DefinitionList>
+          </Card>
+        </div>
+        <div className="col-start-1 row-start-1 flex flex-col">
+          <SupportedVersionTagsForFeatureFlagList flagId={flagId!} />
+        </div>
+      </div>
     </>
   );
 }
