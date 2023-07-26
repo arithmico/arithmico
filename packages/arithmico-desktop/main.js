@@ -19,7 +19,7 @@ const createWindow = () => {
   win.setIcon(path.join(__dirname, "./web-dist/logo512.png"));
   win.setMenu(null);
   win.maximize();
-  win.webContents.openDevTools();
+  //win.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
