@@ -162,7 +162,7 @@ jobs:
 
       - name: build app
         shell: bash
-        run: npm run build -w @arithmico/calc
+        run: npm run build:offline -w @arithmico/calc
 
       - name: copy files
         shell: bash
