@@ -137,3 +137,47 @@ jobs:
           VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
           WORKSPACE_PATH: packages/arithmico-calc
           APP_NAME: calc
+
+  build-offline-calc:
+    needs: get-version-tag
+    name: build offline calc
+    runs-on: ubuntu-latest
+    env:
+      CI: "true"
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: install dependencies
+        run: |
+          npm ci
+
+      - name: build engine with full features
+        shell: bash
+        run: npm run build:full-features -w @arithmico/engine
+
+      - name: build app
+        shell: bash
+        run: npm run build -w @arithmico/calc
+
+      - name: build electron app
+        shell: bash
+        run: npm run package -w arithmico-desktop -- --platform win32
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Deploy static site to S3 bucket
+        env:
+          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
+        shell: bash
+        run: aws s3 sync ./packages/arithmico-desktop/out/make/squirrel.windows/x64 s3://$(echo $BUCKET_ID)/$(echo $VERSION_TAG)/arithmico-desktop --delete
