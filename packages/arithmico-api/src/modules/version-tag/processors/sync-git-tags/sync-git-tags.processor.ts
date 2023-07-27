@@ -74,6 +74,11 @@ export class SyncGitTagsProcessor {
         FeatureFlagType.Operator,
         latestVersionTag._id,
       ),
+      ...this.batchCreateFeatureFlags(
+        featureList.types,
+        FeatureFlagType.Type,
+        latestVersionTag._id,
+      ),
     ]);
 
     this.logger.log('finished git tag sync');
