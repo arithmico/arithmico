@@ -11,6 +11,8 @@ import {
   CreateConfigurationRevisionArgs,
   ConfigurationRevisionDto,
   GetConfigurationRevisionByIdArgs,
+  GetLatestConfigurationRevisionFeatureFlagIdsArgs,
+  GetLatestConfigurationRevisionFeatureFlagIdsResponse,
 } from "./configurations.types";
 
 export const configurationsApi = api.injectEndpoints({
@@ -94,6 +96,23 @@ export const configurationsApi = api.injectEndpoints({
           : [],
     }),
 
+    getLatestConfigurationRevisionFeatureFlagIds: build.query<
+      GetLatestConfigurationRevisionFeatureFlagIdsResponse,
+      GetLatestConfigurationRevisionFeatureFlagIdsArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions/latest/feature-flag-ids`,
+        method: "GET",
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              { type: "Configuration", id: arg.configurationId },
+              "ConfigurationRevision",
+            ]
+          : [],
+    }),
+
     createConfiguration: build.mutation<
       CreationResponse,
       CreateConfigurationArgs
@@ -137,6 +156,7 @@ export const {
   useGetConfigurationByIdQuery,
   useGetConfigurationRevisionsQuery,
   useGetConfigurationRevisionByIdQuery,
+  useGetLatestConfigurationRevisionFeatureFlagIdsQuery,
   useCreateConfigurationMutation,
   useCreateConfigurationRevisionMutation,
 } = configurationsApi;

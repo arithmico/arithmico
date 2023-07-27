@@ -59,3 +59,11 @@ export interface GetConfigurationRevisionByIdArgs {
   configurationId: string;
   revisionId: string;
 }
+
+export interface GetLatestConfigurationRevisionFeatureFlagIdsArgs {
+  configurationId: string;
+}
+
+export interface GetLatestConfigurationRevisionFeatureFlagIdsResponse {
+  featureFlagIds: string[];
+}

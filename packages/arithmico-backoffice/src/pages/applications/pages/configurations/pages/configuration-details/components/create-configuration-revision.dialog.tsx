@@ -7,7 +7,10 @@ import { DialogWithBackdrop } from "../../../../../../../components/dialog-with-
 import { FormCancelButton } from "../../../../../../../components/form-cancel-button/form-cancel-button";
 import { SmallPaginationToolbar } from "../../../../../../../components/pagination-toolbar/pagination-toolbar";
 import { SemanticVersion } from "../../../../../../../components/semantic-version/semantic-version";
-import { useCreateConfigurationRevisionMutation } from "../../../../../../../store/api/resources/configurations/configurations.api";
+import {
+  useCreateConfigurationRevisionMutation,
+  useGetLatestConfigurationRevisionFeatureFlagIdsQuery,
+} from "../../../../../../../store/api/resources/configurations/configurations.api";
 import { useGetFeatureFlagsQuery } from "../../../../../../../store/api/resources/feature-flags/feature-flags.api";
 import { useGetVersionTagsQuery } from "../../../../../../../store/api/resources/version-tags/version-tags.api";
 
@@ -42,11 +45,19 @@ export function CreateConfigurationRevisionDialog({
       skip: versionTagsSkip,
       limit: versionTagsLimit,
     });
+  const { isSuccess: latestRevisionIsSuccess, data: latestRevision } =
+    useGetLatestConfigurationRevisionFeatureFlagIdsQuery({ configurationId });
+
+  useEffect(() => {
+    if (latestRevisionIsSuccess) {
+      setSelectedFeatureFlags(new Set(latestRevision.featureFlagIds));
+    }
+  }, [latestRevision, latestRevisionIsSuccess]);
 
   const internalOnClose = useCallback(() => {
     setVersionTagsSkip(0);
     setFeatureFlagsSkip(0);
-    setSelectedFeatureFlags(new Set());
+    setSelectedFeatureFlags(new Set(latestRevision?.featureFlagIds ?? []));
     setSelectedVersionTagId(undefined);
     onClose();
   }, [
@@ -54,6 +65,7 @@ export function CreateConfigurationRevisionDialog({
     setFeatureFlagsSkip,
     setSelectedFeatureFlags,
     setSelectedVersionTagId,
+    latestRevision,
     onClose,
   ]);
 
@@ -72,7 +84,11 @@ export function CreateConfigurationRevisionDialog({
     }
   }, [result, internalOnClose]);
 
-  if (!versionTagsIsSuccess || !featureFlagsIsSuccess) {
+  if (
+    !versionTagsIsSuccess ||
+    !featureFlagsIsSuccess ||
+    !latestRevisionIsSuccess
+  ) {
     return <></>;
   }
 
