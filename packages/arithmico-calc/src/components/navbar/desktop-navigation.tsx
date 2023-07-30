@@ -7,7 +7,9 @@ export function DesktopNavigation({ items }: NavigationProps) {
     <nav className={classNames("ml-auto", "hidden", "h-full", "md:flex")}>
       <ul className={classNames("flex", "gap-2")}>
         {items.map(({ label, to }) => (
-          <NavigationLink to={to}>{label}</NavigationLink>
+          <NavigationLink to={to} key={to}>
+            {label}
+          </NavigationLink>
         ))}
       </ul>
     </nav>

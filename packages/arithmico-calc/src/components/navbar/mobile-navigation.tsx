@@ -55,7 +55,7 @@ function MenuContent({ items, close }: DisclosureContentProps) {
           )}
         >
           {items.map(({ label, to }) => (
-            <ul>
+            <ul key={to}>
               <NavigationLink to={to}>{label}</NavigationLink>
             </ul>
           ))}
