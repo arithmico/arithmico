@@ -25,7 +25,7 @@ jobs:
       - name: test all packages
         shell: bash
         run: |
-          npm run test -ws
+          npx --no nx run-many -t test
 
   get-version-tag:
     needs: test-all
@@ -88,10 +88,10 @@ jobs:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
-          WORKSPACE_PATH: packages/arithmico-blog
+          WORKSPACE_PATH: packages/applications/blog
           APP_NAME: blog
 
-  build-docs:
+  build-documentation:
     needs: get-version-tag
     name: build docs
     runs-on: ubuntu-latest
@@ -103,8 +103,8 @@ jobs:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
-          WORKSPACE_PATH: packages/arithmico-docs
-          APP_NAME: docs
+          WORKSPACE_PATH: packages/applications/documentation
+          APP_NAME: documentation
 
   build-backoffice:
     needs: get-version-tag
@@ -120,12 +120,12 @@ jobs:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
-          WORKSPACE_PATH: packages/arithmico-backoffice
+          WORKSPACE_PATH: packages/applications/backoffice
           APP_NAME: backoffice
 
-  build-calc:
+  build-calculator:
     needs: get-version-tag
-    name: build calc
+    name: build calculator
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -135,62 +135,5 @@ jobs:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
-          WORKSPACE_PATH: packages/arithmico-calc
-          APP_NAME: calc
-
-  build-offline-calc:
-    needs: get-version-tag
-    name: build offline calc
-    runs-on: ubuntu-22.04
-    env:
-      CI: "true"
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "npm"
-
-      - name: install dependencies
-        run: |
-          npm ci
-
-      - name: build engine with full features
-        shell: bash
-        run: npm run build:full-features -w engine
-
-      - name: build app
-        shell: bash
-        run: npm run build:offline -w @arithmico/calc
-
-      - name: copy files
-        shell: bash
-        run: cp -r packages/arithmico-calc/dist packages/arithmico-desktop/web-dist
-
-      - name: install wine
-        shell: bash
-        run: |
-          sudo apt-get install wine-stable
-          sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install wine32
-
-      - name: build electron app
-        shell: bash
-        run: |
-          cd packages/arithmico-desktop
-          npm ci
-          npm run make -- --platform win32
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-
-      - name: Deploy static site to S3 bucket
-        env:
-          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
-          VERSION_TAG: ${{ needs.get-version-tag.outputs.tag }}
-        shell: bash
-        run: aws s3 sync ./packages/arithmico-desktop/out/make/squirrel.windows/x64 s3://$(echo $BUCKET_ID)/$(echo $VERSION_TAG)/arithmico-desktop --delete
+          WORKSPACE_PATH: packages/applications/calculator
+          APP_NAME: calculator

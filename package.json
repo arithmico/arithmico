@@ -22,7 +22,7 @@
   ],
   "description": "",
   "workspaces": [
-    "packages/services/arithmico-api",
+    "packages/services/api",
     "packages/applications/backoffice",
     "packages/applications/blog",
     "packages/applications/calculator",

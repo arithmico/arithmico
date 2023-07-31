@@ -11,8 +11,8 @@ RUN npm ci
 FROM builder_base AS builder
 
 COPY . .
-RUN npm ci -w @arithmico/api --install-strategy=nested
-RUN npm run build -w @arithmico/api
+RUN npm ci -w api --install-strategy=nested
+RUN npm run build -w api
 
 # Base for production
 FROM node:18-alpine3.17 AS production_base
@@ -21,9 +21,9 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 COPY --from=builder /app/builder/package*.json ./
-COPY --from=builder /app/builder/packages/arithmico-api/package.json ./packages/arithmico-api/package.json
-COPY --from=builder /app/builder/packages/arithmico-api/dist ./packages/arithmico-api/dist
+COPY --from=builder /app/builder/packages/services/api/package.json ./packages/services/api/package.json
+COPY --from=builder /app/builder/packages/services/api/dist ./packages/services/api/dist
 
-RUN npm ci -w @arithmico/api --install-strategy=nested
+RUN npm ci -w api --install-strategy=nested
 
-CMD ["node", "--max-old-space-size=512", "./packages/arithmico-api/dist/main.js"]
+CMD ["node", "--max-old-space-size=512", "./packages/services/api/dist/main.js"]
