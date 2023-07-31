@@ -1,5 +1,5 @@
 {
-    "name": "arithmico-engine",
+    "name": "engine",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "type": "module",
@@ -16,7 +16,7 @@
         "build:js": "node swc.config.js && swc ./src -d lib"
     },
     "dependencies": {
-        "arithmico-parser": "*"
+        "parser": "*"
     },
     "devDependencies": {
         "@types/jest": "^29.5.3",

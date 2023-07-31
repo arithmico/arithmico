@@ -1,4 +1,4 @@
-import { CloseIcon } from "arithmico-ui-components";
+import { CloseIcon } from "ui-components";
 import classNames from "classnames";
 import { forwardRef, HTMLProps } from "react";
 

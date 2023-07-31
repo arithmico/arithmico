@@ -1,5 +1,5 @@
 {
-  "name": "arithmico-blog",
+  "name": "blog",
   "homepage": ".",
   "scripts": {
     "start": "vite",
@@ -35,7 +35,7 @@
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.4.1",
     "typescript": "^5.1.6",
-    "arithmico-ui-components": "*",
+    "ui-components": "*",
     "@headlessui/react": "^1.7.15",
     "@headlessui/tailwindcss": "^0.1.3",
     "@types/react-dom": "^18.2.7",

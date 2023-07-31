@@ -1,9 +1,5 @@
-import evaluateInput, { getDefaultContext } from "arithmico-engine";
-import {
-  Context,
-  EvaluationResult,
-  TextResult,
-} from "arithmico-engine/lib/types";
+import evaluateInput, { getDefaultContext } from "engine";
+import { Context, EvaluationResult, TextResult } from "engine/lib/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type Output = (

@@ -1,0 +1,22 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "test"]
+      }
+    }
+  },
+  "neverConnectToCloud": true,
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    }
+  },
+  "affected": {
+    "defaultBase": "main"
+  }
+}

@@ -1,4 +1,4 @@
-import { GraphicNode } from "arithmico-engine/lib/types";
+import { GraphicNode } from "engine/lib/types";
 import { GraphicDimensions } from "../../../graphic-renderer.types";
 
 const autoTickSizes = [1, 2, 2.5, 5];

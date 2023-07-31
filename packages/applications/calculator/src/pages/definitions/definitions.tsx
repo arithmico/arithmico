@@ -1,9 +1,9 @@
-import { Context, Options } from "arithmico-engine/lib/types";
+import { Context, Options } from "engine/lib/types";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import DefinitionListItem from "@local-components/definition-list-item/definition-list-item";
-import { createOptions } from "arithmico-engine/lib/utils/context-utils";
-import { getDefaultContext, serializeStack } from "arithmico-engine";
+import { createOptions } from "engine/lib/utils/context-utils";
+import { getDefaultContext, serializeStack } from "engine";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 import { CalculatorRootState } from "../../store/store";

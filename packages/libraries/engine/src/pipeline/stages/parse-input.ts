@@ -1,4 +1,4 @@
-import { parse } from 'arithmico-parser';
+import { parse } from 'parser';
 import { Context, SyntaxTreeNode } from '../../types';
 
 export function parseInput({ input, context }: { input: string; context: Context }) {

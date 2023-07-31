@@ -1,5 +1,5 @@
 import { Context } from '../../types';
-import { parse } from 'arithmico-parser';
+import { parse } from 'parser';
 import normalize from '../../node-operations/normalize-node';
 import serialize from '../../node-operations/serialize-node';
 import globalConsole from 'console';

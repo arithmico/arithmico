@@ -1,4 +1,4 @@
-import { ErrorResult } from "arithmico-engine/lib/types";
+import { ErrorResult } from "engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";

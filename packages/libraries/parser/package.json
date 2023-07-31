@@ -1,5 +1,5 @@
 {
-  "name": "arithmico-parser",
+  "name": "parser",
   "type": "module",
   "main": "lib/main.js",
   "types": "./index.d.ts",

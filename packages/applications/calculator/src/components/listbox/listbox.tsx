@@ -1,6 +1,6 @@
 import { Listbox as HeadlessuiListbox } from "@headlessui/react";
 import classNames from "classnames";
-import { DoneIcon, ExpandMore } from "arithmico-ui-components";
+import { DoneIcon, ExpandMore } from "ui-components";
 
 interface ListboxProps {
   label: string;

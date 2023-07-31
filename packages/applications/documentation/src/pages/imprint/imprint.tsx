@@ -1,4 +1,4 @@
-import { ImprintContent } from "arithmico-ui-components";
+import { ImprintContent } from "ui-components";
 import React from "react";
 import classNames from "classnames";
 import PageContainer from "../../components/page-container/page-container";

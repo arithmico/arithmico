@@ -1,4 +1,4 @@
-import { GraphicNode } from "arithmico-engine/lib/types";
+import { GraphicNode } from "engine/lib/types";
 import { Document, Page, View, Font } from "@react-pdf/renderer";
 import { GraphicDimensions } from "../graphic-renderer/graphic-renderer.types";
 import GraphicFixedSizeHandler from "../graphic-renderer/size-handlers/graphic-fixed-size-handler";

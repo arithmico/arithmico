@@ -1,4 +1,4 @@
-import { getDefaultContext } from "arithmico-engine";
+import { getDefaultContext } from "engine";
 import { CalculatorRootState } from "@stores/calculator-store";
 import { evaluate } from "../store/slices/session.slice";
 import { useDispatch, useSelector } from "react-redux";

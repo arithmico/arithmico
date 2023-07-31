@@ -43,7 +43,7 @@ runs:
       env:
         CI: "true"
       shell: bash
-      run: npm run build:full-features -w arithmico-engine
+      run: npm run build:full-features -w engine
 
     - name: build app
       env:

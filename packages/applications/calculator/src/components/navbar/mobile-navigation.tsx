@@ -1,4 +1,4 @@
-import { MenuIcon } from "arithmico-ui-components";
+import { MenuIcon } from "ui-components";
 import { Menu } from "@headlessui/react";
 import classNames from "classnames";
 import { useEffect } from "react";

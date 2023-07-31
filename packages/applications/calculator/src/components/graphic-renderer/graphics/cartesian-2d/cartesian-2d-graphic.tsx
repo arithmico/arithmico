@@ -1,4 +1,4 @@
-import { GraphicNode } from "arithmico-engine/lib/types";
+import { GraphicNode } from "engine/lib/types";
 import CoordinateGrid from "./components/coordinate-grid";
 import { GraphicDimensions, RenderTarget } from "../../graphic-renderer.types";
 import LinePath from "./components/line-path";

@@ -39,5 +39,9 @@
   "bugs": {
     "url": "https://github.com/behrenle/arithmico/issues"
   },
-  "homepage": "https://github.com/behrenle/arithmico#readme"
+  "homepage": "https://github.com/behrenle/arithmico#readme",
+  "devDependencies": {
+    "nx": "16.5.5",
+    "nx-cloud": "^16.2.0"
+  }
 }

@@ -1,4 +1,4 @@
-import { GraphicNode } from "arithmico-engine/lib/types";
+import { GraphicNode } from "engine/lib/types";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 import GraphicFixedSizeHandler from "./graphic-fixed-size-handler";

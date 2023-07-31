@@ -1,4 +1,4 @@
-import { GraphicResult } from "arithmico-engine/lib/types";
+import { GraphicResult } from "engine/lib/types";
 import classNames from "classnames";
 import { forwardRef } from "react";
 import GraphicDynamicSizeHandler from "../../graphic-renderer/size-handlers/graphic-dynamic-size-handler";

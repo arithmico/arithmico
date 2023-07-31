@@ -1,8 +1,4 @@
-import {
-  ArrowBackIcon,
-  DeleteIcon,
-  DownloadIcon,
-} from "arithmico-ui-components";
+import { ArrowBackIcon, DeleteIcon, DownloadIcon } from "ui-components";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";

@@ -1,5 +1,5 @@
 {
-  "name": "arithmico-calculator",
+  "name": "calculator",
   "homepage": ".",
   "scripts": {
     "start": "vite",
@@ -27,7 +27,7 @@
     ]
   },
   "devDependencies": {
-    "arithmico-engine": "*",
+    "engine": "*",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",
     "eslint": "^8.45.0",
@@ -37,7 +37,7 @@
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.4.1",
     "typescript": "^5.1.6",
-    "arithmico-ui-components": "*",
+    "ui-components": "*",
     "@headlessui/react": "^1.7.15",
     "@headlessui/tailwindcss": "^0.1.3",
     "@types/react-dom": "^18.2.7",

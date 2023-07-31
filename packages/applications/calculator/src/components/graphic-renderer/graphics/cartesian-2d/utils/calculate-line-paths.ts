@@ -1,4 +1,4 @@
-import { Limits, Line2D } from "arithmico-engine/lib/types";
+import { Limits, Line2D } from "engine/lib/types";
 import { GraphicDimensions } from "../../../graphic-renderer.types";
 import { transformToSvgViewport } from "../../../graphic-utils";
 

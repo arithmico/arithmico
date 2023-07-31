@@ -4,7 +4,7 @@ import {
   Language,
   PluginStructure,
   PluginStructureItem,
-} from "arithmico-engine/lib/types";
+} from "engine/lib/types";
 
 function matchDocumentation(
   item: PluginStructureItem,

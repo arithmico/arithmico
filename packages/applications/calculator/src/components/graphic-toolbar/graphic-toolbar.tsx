@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { GraphicNode } from "arithmico-engine/lib/types/graphics.types";
+import { GraphicNode } from "engine/lib/types/graphics.types";
 import { GraphicToolbarExportMenu } from "./graphic-toolbar-export-menu";
 
 interface GraphicOutputToolbarProps {

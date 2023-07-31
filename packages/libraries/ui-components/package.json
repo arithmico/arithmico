@@ -1,5 +1,5 @@
 {
-  "name": "arithmico-ui-components",
+  "name": "ui-components",
   "description": "",
   "main": "dist/index.js",
   "scripts": {

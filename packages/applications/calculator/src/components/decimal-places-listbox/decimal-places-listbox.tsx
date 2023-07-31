@@ -1,6 +1,6 @@
 import { Listbox as HeadlessuiListbox } from "@headlessui/react";
 import classNames from "classnames";
-import { ExpandMore } from "arithmico-ui-components";
+import { ExpandMore } from "ui-components";
 import { useTranslation } from "react-i18next";
 
 interface DecimalPlacesListboxProps {

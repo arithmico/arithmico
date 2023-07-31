@@ -6,6 +6,7 @@ export default defineConfig(() => ({
   base: "./",
   plugins: [react()],
   resolve: {
+    preserveSymlinks: true,
     alias: {
       "@workspace-package.json": path.resolve(
         __dirname,

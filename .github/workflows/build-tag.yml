@@ -158,7 +158,7 @@ jobs:
 
       - name: build engine with full features
         shell: bash
-        run: npm run build:full-features -w arithmico-engine
+        run: npm run build:full-features -w engine
 
       - name: build app
         shell: bash

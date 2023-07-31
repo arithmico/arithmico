@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { getDocumentation } from "arithmico-engine";
+import { getDocumentation } from "engine";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import { useSelector } from "react-redux";
