@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Testing
-        run: nx run-many -t test
+        run: npx --no nx run-many -t test
   check:
     name: lint
     runs-on: ubuntu-latest
@@ -34,4 +34,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Linting
-        run: nx run-many -t lint
+        run: npx --no nx run-many -t lint
