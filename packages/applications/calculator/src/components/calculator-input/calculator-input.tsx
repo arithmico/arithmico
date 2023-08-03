@@ -55,7 +55,7 @@ const CalculatorInput = forwardRef<
         "theme-dark:focus:border-neutral-100",
         className
       )}
-      placeholder={t("common.input")}
+      placeholder={t("common.input") as string}
       value={input}
       onChange={(e) => dispatch(setInput(e.currentTarget.value))}
       onKeyDown={(e) => handleKeyDown(e)}

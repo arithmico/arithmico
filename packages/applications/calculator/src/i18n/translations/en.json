@@ -23,6 +23,9 @@
   "toolbar.definitions": "Definitions",
   "toolbar.history": "History",
 
+  "graphic.dialog.close": "close",
+  "graphic.dialog.toggle-aspect-ratio": "switch aspect ratio",
+
   "settings.interface": "Interface",
   "settings.appearance": "Appearance",
   "settings.calculator": "Calculator",

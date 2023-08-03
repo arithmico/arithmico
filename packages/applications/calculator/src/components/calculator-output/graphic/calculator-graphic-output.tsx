@@ -1,8 +1,7 @@
-import { GraphicResult } from "engine/lib/types";
 import classNames from "classnames";
-import { forwardRef } from "react";
-import GraphicDynamicSizeHandler from "../../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
-import { GraphicToolbar } from "../../graphic-toolbar/graphic-toolbar";
+import { GraphicResult } from "engine/lib/types";
+import { forwardRef, useEffect, useState } from "react";
+import { CalculatorGraphicDialog } from "./calculator-graphic-dialog";
 
 interface CalculatorGraphicOutputProps {
   onEnterPressed: () => void;
@@ -11,37 +10,46 @@ interface CalculatorGraphicOutputProps {
 
 const GraphicOutput = forwardRef<HTMLDivElement, CalculatorGraphicOutputProps>(
   ({ onEnterPressed, output }, ref) => {
-    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
-        onEnterPressed();
-      }
-    };
+    const [isOpen, setIsOpen] = useState(true);
+
+    useEffect(() => {
+      setIsOpen(true);
+    }, [output]);
 
     return (
-      <div
-        tabIndex={0}
-        ref={ref}
-        onKeyDown={onKeyDown}
-        className={classNames(
-          "relative",
-          "border",
-          "h-full",
-          "rounded-sm",
-          "max-h-full",
-          "max-w-full",
-          "flex",
-          "overflow-hidden",
-          "outline-none",
-          "theme-dark:border-neutral-500",
-          "theme-dark:focus:border-neutral-100",
-          "theme-dark:bg-neutral-800",
-          "theme-light:border-neutral-400",
-          "theme-light:focus:border-neutral-600",
-          "theme-light:bg-neutral-100"
-        )}
-      >
-        <GraphicDynamicSizeHandler graphic={output.graphic} braille={false} />
-        {<GraphicToolbar graphic={output.graphic} input={output.input} />}
+      <div ref={ref}>
+        <CalculatorGraphicDialog
+          output={output}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+        <button
+          className={classNames(
+            "w-full",
+            "text-xl",
+            "sm:text-2xl",
+            "md:text-3xl",
+            "lg:text-4xl",
+            "outline-none",
+            "border",
+            "px-4",
+            "py-2",
+            "sm:py-3",
+            "md:py-4",
+            "lg:py-6",
+            "rounded-sm",
+            "bold-font:font-bold",
+            "theme-light:border-neutral-400",
+            "theme-light:focus:border-neutral-600",
+            "theme-light:bg-neutral-100",
+            "theme-dark:bg-neutral-800",
+            "theme-dark:border-neutral-500",
+            "theme-dark:focus:border-neutral-100"
+          )}
+          onClick={() => setIsOpen(true)}
+        >
+          Grafik anzeigen
+        </button>
       </div>
     );
   }

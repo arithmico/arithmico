@@ -83,6 +83,8 @@ export function GraphicToolbarExportMenu({
                     "text-left",
                     "border-b",
                     "rounded-t-sm",
+                    "theme-light:text-black",
+                    "theme-dark:text-white",
                     "theme-light:hover:bg-neutral-300",
                     "theme-dark:hover:bg-neutral-600",
                     "theme-light:border-b-black/5",
@@ -107,6 +109,8 @@ export function GraphicToolbarExportMenu({
                     "rounded-sm",
                     "text-left",
                     "rounded-t-sm",
+                    "theme-light:text-black",
+                    "theme-dark:text-white",
                     "theme-light:hover:bg-neutral-300",
                     "theme-dark:hover:bg-neutral-600"
                   )}

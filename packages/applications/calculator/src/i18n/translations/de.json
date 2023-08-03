@@ -23,6 +23,9 @@
   "toolbar.definitions": "Definitionen",
   "toolbar.history": "Verlauf",
 
+  "graphic.dialog.close": "Schließen",
+  "graphic.dialog.toggle-aspect-ratio": "Seitenverhältnis umkehren",
+
   "settings.interface": "Oberfläche",
   "settings.appearance": "Erscheinungsbild",
   "settings.calculator": "Rechner",
