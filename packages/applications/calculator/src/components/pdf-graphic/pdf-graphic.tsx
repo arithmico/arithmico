@@ -5,6 +5,11 @@ import GraphicFixedSizeHandler from "../graphic-renderer/size-handlers/graphic-f
 import PdfExportTitle from "./components/pdf-export-title";
 import PdfExportWatermark from "./components/pdf-export-watermark";
 
+export const GRAPHIC_LANDSCAPE_WIDTH = 1600;
+export const GRAPHIC_LANDSCAPE_HEIGHT = 850;
+export const GRAPHIC_PORTRAIT_WIDTH = 1000;
+export const GRAPHIC_PORTRAIT_HEIGHT = 1300;
+
 Font.register({
   family: "Apple Braille",
   fonts: [
@@ -19,22 +24,31 @@ export interface PdfGraphicProps {
   graphic: GraphicNode;
   input: string;
   braille: boolean;
+  isLandscape: boolean;
 }
 
 export default function PdfGraphic({
   graphic,
   input,
   braille,
+  isLandscape,
 }: PdfGraphicProps) {
-  const graphicDimensions: GraphicDimensions = {
-    width: 1000,
-    height: 1200,
-  };
+  console.log(isLandscape);
+  const graphicDimensions: GraphicDimensions = isLandscape
+    ? {
+        width: GRAPHIC_LANDSCAPE_WIDTH,
+        height: GRAPHIC_LANDSCAPE_HEIGHT,
+      }
+    : {
+        width: GRAPHIC_PORTRAIT_WIDTH,
+        height: GRAPHIC_PORTRAIT_HEIGHT,
+      };
 
   return (
     <Document>
       <Page
         size="A4"
+        orientation={isLandscape ? "landscape" : "portrait"}
         style={{
           display: "flex",
           flexDirection: "column",

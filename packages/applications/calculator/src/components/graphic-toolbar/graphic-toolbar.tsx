@@ -8,6 +8,7 @@ interface GraphicOutputToolbarProps {
   input: string;
   onClose: () => void;
   toggleAspectRatio: () => void;
+  isLandscape: boolean;
 }
 
 export function GraphicToolbar({
@@ -15,12 +16,17 @@ export function GraphicToolbar({
   input,
   onClose,
   toggleAspectRatio,
+  isLandscape,
 }: GraphicOutputToolbarProps) {
   const [t] = useTranslation();
 
   return (
     <div className="ml-auto grid gap-2 grid-cols-3  ">
-      <GraphicToolbarExportMenu graphic={graphic} input={input} />
+      <GraphicToolbarExportMenu
+        graphic={graphic}
+        input={input}
+        isLandscape={isLandscape}
+      />
       <button
         onClick={toggleAspectRatio}
         className="rounded-sm border border-transparent theme-light:hover:border-neutral-300 theme-dark:hover:border-neutral-500 theme-dark:hover:bg-neutral-700 p-1 theme-light:hover:bg-neutral-200"

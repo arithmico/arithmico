@@ -4,12 +4,25 @@ import { GraphicResult } from "engine/lib/types";
 import { useState } from "react";
 import GraphicDynamicSizeHandler from "../../graphic-renderer/size-handlers/graphic-dynamic-size-handler";
 import { GraphicToolbar } from "../../graphic-toolbar/graphic-toolbar";
+import {
+  GRAPHIC_LANDSCAPE_HEIGHT,
+  GRAPHIC_LANDSCAPE_WIDTH,
+  GRAPHIC_PORTRAIT_HEIGHT,
+  GRAPHIC_PORTRAIT_WIDTH,
+} from "../../pdf-graphic/pdf-graphic";
 
 interface CalculatorGraphicDialogProps {
   output: GraphicResult & { input: string };
   isOpen: boolean;
   onClose: () => void;
 }
+
+const landscapeAspectRatio = `${(
+  GRAPHIC_LANDSCAPE_WIDTH / GRAPHIC_LANDSCAPE_HEIGHT
+).toFixed(2)}/1`;
+const portraitAspectRatio = `1/${
+  GRAPHIC_PORTRAIT_HEIGHT / GRAPHIC_PORTRAIT_WIDTH
+}`;
 
 export function CalculatorGraphicDialog({
   output,
@@ -18,6 +31,8 @@ export function CalculatorGraphicDialog({
 }: CalculatorGraphicDialogProps) {
   const [isLandscape, setIsLandscape] = useState(false);
   const toggleAspectRatio = () => setIsLandscape(!isLandscape);
+
+  const aspectRatio = isLandscape ? landscapeAspectRatio : portraitAspectRatio;
 
   return (
     <Dialog onClose={onClose} open={isOpen} className="absolute inset-0 z-20">
@@ -44,14 +59,15 @@ export function CalculatorGraphicDialog({
                 onClose={onClose}
                 graphic={output.graphic}
                 input={output.input}
+                isLandscape={isLandscape}
               />
             </div>
             <div className="h-full min-h-0 flex justify-center">
               <div
-                className={classNames("min-h-0", "h-full", {
-                  "aspect-[1/1.414]": isLandscape,
-                  "aspect-[1.414/1]": !isLandscape,
-                })}
+                className={classNames("min-h-0", "h-full")}
+                style={{
+                  aspectRatio: aspectRatio,
+                }}
               >
                 <GraphicDynamicSizeHandler
                   graphic={output.graphic}

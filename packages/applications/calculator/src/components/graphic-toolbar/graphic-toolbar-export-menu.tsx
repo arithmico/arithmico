@@ -10,15 +10,24 @@ import { useTranslation } from "react-i18next";
 interface GraphicToolbarExportMenuProps {
   graphic: GraphicNode;
   input: string;
+  isLandscape: boolean;
 }
 
 export function GraphicToolbarExportMenu({
   graphic,
   input,
+  isLandscape,
 }: GraphicToolbarExportMenuProps) {
   const [t] = useTranslation();
   const exportPdf = (braille: boolean) => {
-    pdf(<PdfGraphic graphic={graphic} input={input} braille={braille} />)
+    pdf(
+      <PdfGraphic
+        graphic={graphic}
+        input={input}
+        braille={braille}
+        isLandscape={isLandscape}
+      />
+    )
       .toBlob()
       .then((blob) => FileSaver.saveAs(blob, "export.pdf"));
   };
