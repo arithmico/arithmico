@@ -35,7 +35,7 @@ export function GraphicToolbarExportMenu({
   return (
     <Menu>
       {({ open }) => (
-        <>
+        <div className="relative">
           <Menu.Button
             className={classNames(
               "p-1",
@@ -134,7 +134,7 @@ export function GraphicToolbarExportMenu({
               )}
             </Menu.Item>
           </Menu.Items>
-        </>
+        </div>
       )}
     </Menu>
   );

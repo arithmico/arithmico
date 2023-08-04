@@ -21,7 +21,7 @@ export function GraphicToolbar({
   const [t] = useTranslation();
 
   return (
-    <div className="ml-auto grid gap-2 grid-cols-3  ">
+    <div className="ml-auto grid gap-2 grid-cols-3">
       <GraphicToolbarExportMenu
         graphic={graphic}
         input={input}
