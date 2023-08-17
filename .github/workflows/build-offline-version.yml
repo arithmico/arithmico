@@ -33,6 +33,7 @@ jobs:
           node --version
           npm --version
           npm ci
+          npx --no nx run build:calculator
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
