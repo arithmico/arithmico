@@ -7,6 +7,11 @@ on:
         required: true
         description: "commit hash"
 
+      artifactPath:
+        type: string
+        required: true
+        description: "artifact path"
+
 jobs:
   test-tauri:
     strategy:
@@ -39,3 +44,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           projectPath: "packages/applications/calculator"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: upload debian artefact
+        if: matrix.platform == 'ubuntu-20.04'
+        env:
+          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          ARTIFACT_PATH: ${{ inputs.artifactPath }}
+        run: |
+          FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
+          DEST_PATH="$BUCKET_ID/$ARTIFACT_PATH"
+          aws s3 sync $FROM_PATH $DEST_PATH
