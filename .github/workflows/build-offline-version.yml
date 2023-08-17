@@ -60,5 +60,5 @@ jobs:
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
           FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
-          DEST_PATH="s3://$BUCKET_ID/$ARTIFACT_PATH"
-          aws s3 sync $FROM_PATH $DEST_PATH
+          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH".deb"
+          aws s3 cp $FROM_PATH $DEST_PATH
