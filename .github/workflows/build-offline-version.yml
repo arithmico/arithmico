@@ -54,10 +54,11 @@ jobs:
 
       - name: upload debian artefact
         if: matrix.platform == 'ubuntu-20.04'
+        shell: bash
         env:
           BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
           FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
-          DEST_PATH="$BUCKET_ID/$ARTIFACT_PATH"
+          DEST_PATH="s3://$BUCKET_ID/$ARTIFACT_PATH"
           aws s3 sync $FROM_PATH $DEST_PATH
