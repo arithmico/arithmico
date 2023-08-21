@@ -1,10 +1,13 @@
-import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
+import {FunctionHeaderItem, NumberNode} from '../../../types/nodes.types';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
-import { calculateCNormal, calculateNormal } from '../utils/normal';
-import { calculateBinom, calculateCBinom } from '../utils/binomial';
-import { PluginFragment } from '../../../utils/plugin-builder';
+import {calculateCNormal, calculateNormal} from '../utils/normal';
+import {calculateBinom, calculateCBinom} from '../utils/binomial';
+import {PluginFragment} from '../../../utils/plugin-builder';
 
-const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
+const normalHeader: FunctionHeaderItem[] = [{
+    name: 'x', type: 'number', evaluate: true
+}, {name: 'expectation', type: "number", evaluate: true, optional: true},
+    {name: 'sd', type: "number", evaluate: true, optional: true}]
 const binomHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
     { name: 'p', type: 'number', evaluate: true },
@@ -16,24 +19,38 @@ const distributionFragment = new PluginFragment();
 __FUNCTIONS.normal &&
     distributionFragment.addFunction(
         'normal',
-        singleNumberHeader,
+        normalHeader,
         'standard normal distribution',
         'Standartnormalverteilung',
-        ({ getParameter }) => {
+        ({ getParameter, runtimeError }) => {
             const x = (<NumberNode>getParameter('x')).value;
-            return createNumberNode(calculateNormal(x));
+            const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
+            const sd = (<NumberNode>getParameter('sd', createNumberNode(1))).value;
+
+            if (sd < 0) {
+                throw runtimeError('sd must be greater than or equal to 0');
+            }
+
+            return createNumberNode(calculateNormal(x, expectation, sd));
         },
     );
 
 __FUNCTIONS.cnormal &&
     distributionFragment.addFunction(
         'cnormal',
-        singleNumberHeader,
+        normalHeader,
         'Cumulative standard normal distribution',
         'Kumulative Standartnormalverteilung',
-        ({ getParameter }) => {
+        ({ getParameter, runtimeError }) => {
             const x = (<NumberNode>getParameter('x')).value;
-            return createNumberNode(calculateCNormal(x));
+            const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
+            const sd = (<NumberNode>getParameter('sd', createNumberNode(1))).value;
+
+            if (sd < 0) {
+                throw runtimeError('sd must be greater than or equal to 0');
+            }
+
+            return createNumberNode(calculateCNormal(x, expectation, sd));
         },
     );
 
