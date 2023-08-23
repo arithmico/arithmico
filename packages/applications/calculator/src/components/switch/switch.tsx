@@ -46,9 +46,10 @@ export default function Switch({ label, enabled, onChange }: SwitchProps) {
             "duration-200",
             "ease-in-out",
             "focus:outline-none",
-            "focus-visible:ring-2",
-            "focus-visible:ring-white",
-            "focus-visible:ring-opacity-75"
+            "ui-focus-visible:ring-2",
+            "ui-focus-visible:ring-opacity-75",
+              "ui-focus-visible:theme-dark:ring-white",
+              "ui-focus-visible:theme-light:ring-black",
           )}
         >
           <span className="sr-only">Use setting</span>

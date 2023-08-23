@@ -32,7 +32,9 @@ export default function SettingsMiscellaneousSection() {
             "theme-dark:hover:bg-neutral-600",
             "theme-light:bg-neutral-300",
             "theme-light:hover:bg-neutral-400",
-            "focus-visible:outline"
+              "ui-focus-visible:outline",
+              "outline-3",
+              "outline-current"
           )}
           onClick={() => dispatch(resetSettings())}
         >

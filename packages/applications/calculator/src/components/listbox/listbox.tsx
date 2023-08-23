@@ -52,7 +52,9 @@ export default function Listbox({
               "p-2",
               "bold-font:font-bold",
               "rounded-md",
-              "focus-visible:outline"
+              "ui-focus-visible:outline",
+                "outline-3",
+                "outline-current"
             )}
           >
             {options.find((option) => option.value === value)?.label}

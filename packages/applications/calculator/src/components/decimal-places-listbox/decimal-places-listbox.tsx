@@ -52,7 +52,9 @@ export default function DecimalPlacesListbox({
               "theme-light:hover:bg-neutral-400",
               "p-2",
               "rounded-md",
-              "focus-visible:outline"
+                "ui-focus-visible:outline",
+                "outline-3",
+                "outline-current"
             )}
           >
             {value}
