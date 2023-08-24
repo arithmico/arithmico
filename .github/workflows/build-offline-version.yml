@@ -81,6 +81,6 @@ jobs:
           BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
-          FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/macos/Arithmico Calculator.app"
-          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH".app"
+          FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_x64.dmg"
+          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH".dmg"
           aws s3 cp "$FROM_PATH" $DEST_PATH
