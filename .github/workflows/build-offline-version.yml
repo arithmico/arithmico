@@ -56,7 +56,7 @@ jobs:
         if: matrix.platform == 'ubuntu-20.04'
         shell: bash
         env:
-          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          BUCKET_ID: ${{ secrets.CDN_BUCKET }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
           FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
@@ -67,7 +67,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         env:
-          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          BUCKET_ID: ${{ secrets.CDN_BUCKET }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
           FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/nsis/Arithmico Calculator_0.1.0_x64-setup.exe"
@@ -78,7 +78,7 @@ jobs:
         if: matrix.platform == 'macos-latest'
         shell: bash
         env:
-          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          BUCKET_ID: ${{ secrets.CDN_BUCKET }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
           FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_x64.dmg"
