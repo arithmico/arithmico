@@ -73,3 +73,14 @@ jobs:
           FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/nsis/Arithmico Calculator_0.1.0_x64-setup.exe"
           DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH".exe"
           aws s3 cp "$FROM_PATH" $DEST_PATH
+
+      - name: upload macos artefact
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        env:
+          BUCKET_ID: ${{ secrets.ARTIFACTS_BUCKET }}
+          ARTIFACT_PATH: ${{ inputs.artifactPath }}
+        run: |
+          FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/macos/Arithmico Calculator.app"
+          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH".app"
+          aws s3 cp "$FROM_PATH" $DEST_PATH
