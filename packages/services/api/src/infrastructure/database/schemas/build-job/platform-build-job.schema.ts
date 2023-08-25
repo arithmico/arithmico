@@ -1,14 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export enum BuildJobArtifactPlatform {
+export enum PlatformBuildJobPlatform {
   Windows = 'windows',
   Linux = 'linux',
   Macos = 'macos',
 }
 
-export enum BuildJobArtifactStatus {
-  Created = 'created',
-  Queued = 'queued',
+export enum PlatformBuildJobStatus {
   Running = 'running',
   Succeeded = 'succeeded',
   Failed = 'failed',
@@ -16,14 +14,14 @@ export enum BuildJobArtifactStatus {
 
 @Schema({ _id: false })
 export class PlatformBuildJob {
-  @Prop({ type: String, required: true, enum: BuildJobArtifactStatus })
-  status: BuildJobArtifactStatus;
+  @Prop({ type: String, required: true, enum: PlatformBuildJobStatus })
+  status: PlatformBuildJobStatus;
 
-  @Prop({ type: String, required: true })
-  artifactUrl: string;
+  @Prop({ type: String, required: false })
+  artifactUrl?: string;
 
-  @Prop({ type: String, required: true, enum: BuildJobArtifactPlatform })
-  platform: BuildJobArtifactPlatform;
+  @Prop({ type: String, required: true, enum: PlatformBuildJobPlatform })
+  platform: PlatformBuildJobPlatform;
 }
 
 export const PlatformBuildJobSchema =

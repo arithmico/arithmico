@@ -1,10 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
   BuildJob,
   BuildJobDocument,
 } from '../../schemas/build-job/build-job.schema';
+import {
+  PlatformBuildJobPlatform,
+  PlatformBuildJobStatus,
+} from '../../schemas/build-job/platform-build-job.schema';
 
 @Injectable()
 export class BuildJobRepository {
@@ -38,5 +42,36 @@ export class BuildJobRepository {
       configurationId,
       configurationRevisionId,
     });
+  }
+
+  async addPlatformBuildJob(
+    buildJobId: string,
+    platform: PlatformBuildJobPlatform,
+  ): Promise<BuildJobDocument | null> {
+    return this.buildJobModel.findOneAndUpdate(
+      { _id: buildJobId },
+      {
+        $pull: {
+          platforms: {
+            status: PlatformBuildJobStatus.Running,
+            platform,
+          },
+        },
+      },
+    );
+  }
+
+  async addPlatformBuildJobOrThrow(
+    buildJobId: string,
+    platform: PlatformBuildJobPlatform,
+  ): Promise<BuildJobDocument | null> {
+    const buildJobDocument = await this.addPlatformBuildJob(
+      buildJobId,
+      platform,
+    );
+    if (!buildJobDocument) {
+      throw new NotFoundException();
+    }
+    return buildJobDocument;
   }
 }
