@@ -42,7 +42,14 @@ export class GithubClient {
           mode: 'cors',
           headers,
         },
-      )) as GitRefDto[]
+      )
+        .catch(() => {
+          throw 'failed to fetch version tags from github';
+        })
+        .then((response) => response.json())
+        .catch(() => {
+          throw 'failed to parse version tags from github';
+        })) as GitRefDto[]
     )
       .filter(({ ref, object: { type } }) => {
         if (!ref.startsWith('refs/tags/v')) {
