@@ -23,13 +23,16 @@ on:
         description: "build job ref"
 
 jobs:
-  test-tauri:
+  build-offline-version:
     strategy:
       fail-fast: false
       matrix:
         platform: [macos-latest, ubuntu-20.04, windows-latest]
 
     runs-on: ${{ matrix.platform }}
+    env:
+      ARITHMICO_FEATURES: ${{ inputs.engineFeatures }}
+
     steps:
       - uses: actions/checkout@v3
       - name: setup node
