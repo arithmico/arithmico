@@ -7,11 +7,18 @@ import { FeatureList, GitRefDto } from './github-client.types';
 export class GithubClient {
   constructor(private readonly githubToken?: string) {}
 
-  async getEngineFeatureList(): Promise<FeatureList> {
+  private getHeaders(): Headers {
     const headers = new Headers();
     if (this.githubToken) {
-      headers.append('Authorization', this.githubToken);
+      headers.append('Authorization', `Bearer ${this.githubToken}`);
     }
+    headers.append('X-GitHub-Api-Version', '2022-11-28');
+    headers.append('Accept', 'application/vnd.github+json');
+    return headers;
+  }
+
+  async getEngineFeatureList(): Promise<FeatureList> {
+    const headers = this.getHeaders();
     return (await fetch(
       'https://raw.githubusercontent.com/arithmico/arithmico/main/packages/libraries/engine/features.json',
       {
@@ -30,10 +37,7 @@ export class GithubClient {
   }
 
   async getVersionTags(): Promise<VersionTag[]> {
-    const headers = new Headers();
-    if (this.githubToken) {
-      headers.append('Authorization', this.githubToken);
-    }
+    const headers = this.getHeaders();
     return (
       (await fetch(
         'https://api.github.com/repos/arithmico/arithmico/git/refs/tags',
@@ -79,5 +83,23 @@ export class GithubClient {
           ),
         };
       });
+  }
+
+  async dispatchWorkflow(
+    workflowId: string,
+    inputs: Record<string, string>,
+  ): Promise<void> {
+    const headers = this.getHeaders();
+    await fetch(
+      `https://api.github.com/repos/arithmico/arithmico/actions/workflows/${workflowId}/dispatches`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          ref: 'main',
+          inputs,
+        }),
+      },
+    );
   }
 }
