@@ -29,6 +29,8 @@ export class CronJobsService implements OnApplicationBootstrap {
         repeat: {
           every: repeatEvery,
         },
+        removeOnComplete: true,
+        removeOnFail: true,
       },
     );
   }
