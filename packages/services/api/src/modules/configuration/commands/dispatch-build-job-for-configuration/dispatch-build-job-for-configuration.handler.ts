@@ -42,8 +42,8 @@ export class DispatchBuildJobForConfigurationHandler
       );
 
     const versionString = `${versionTagDocument.version.major}.${versionTagDocument.version.minor}.${versionTagDocument.version.patch}`;
-    const buildJobName = `${configurationDocument.name}-${configurationRevisionDocument.revision}_${versionString}`;
-    const artifactPath = `artifacts/${configurationDocument.name}/${buildJobName}`;
+    const buildJobName = `${configurationDocument.name}-revision-${configurationRevisionDocument.revision}_${versionString}`;
+    const artifactPath = `artifacts/v${versionString}/arithmico-${buildJobName}`;
     const buildJobDocument = await this.buildJobRepository.createBuildJob(
       buildJobName,
       configurationDocument._id,
