@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
@@ -14,41 +14,29 @@ export class BuildJobRepository {
   ) {}
 
   async createBuildJob(
+    name: string,
     configurationId: string,
     configurationRevisionId: string,
+    versionTagId: string,
   ): Promise<BuildJobDocument> {
     const newBuildJob: BuildJob = {
+      name,
       configurationId,
       configurationRevisionId,
+      versionTagId,
       createdAt: new Date(),
       platforms: [],
     };
     return this.buildJobModel.create(newBuildJob);
   }
 
-  async getBuildJobForConfigurationRevision(
+  async getBuildJobsForConfigurationRevision(
     configurationId: string,
     configurationRevisionId: string,
-  ): Promise<BuildJobDocument | null> {
-    return this.buildJobModel.findOne({
+  ): Promise<BuildJobDocument[]> {
+    return this.buildJobModel.find({
       configurationId,
       configurationRevisionId,
     });
-  }
-
-  async getBuildJobForConfigurationRevisionOrThrow(
-    configurationId: string,
-    configurationRevisionId: string,
-  ): Promise<BuildJobDocument> {
-    const buildJobDocument = await this.getBuildJobForConfigurationRevision(
-      configurationId,
-      configurationRevisionId,
-    );
-
-    if (!buildJobDocument) {
-      throw new NotFoundException();
-    }
-
-    return buildJobDocument;
   }
 }

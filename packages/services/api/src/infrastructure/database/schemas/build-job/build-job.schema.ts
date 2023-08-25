@@ -11,6 +11,9 @@ export class BuildJob {
   @Prop({ type: String, default: () => nanoid() })
   _id?: string;
 
+  @Prop({ type: String, required: true })
+  name: string;
+
   @Prop({ type: Date, required: true })
   createdAt: Date;
 
@@ -19,6 +22,9 @@ export class BuildJob {
 
   @Prop({ type: String, required: true })
   configurationRevisionId: string;
+
+  @Prop({ type: String, required: true })
+  versionTagId: string;
 
   @Prop({ type: [PlatformBuildJobSchema], required: true })
   platforms: PlatformBuildJob[];
@@ -31,6 +37,16 @@ BuildJobSchema.index(
   {
     configurationId: 1,
     configurationRevisionId: 1,
+    versionTagId: 1,
   },
   { unique: true },
 );
+
+BuildJobSchema.index({
+  configurationId: 1,
+  configurationRevisionId: 1,
+});
+
+BuildJobSchema.index({
+  configurationId: 1,
+});
