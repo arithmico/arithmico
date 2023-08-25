@@ -1,17 +1,10 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 import { nanoid } from 'nanoid';
 import {
-  BuildJobArtifact,
-  BuildJobArtifactSchema,
-} from './build-job-artifact.schema';
-
-export enum BuildJobStatus {
-  Created = 'created',
-  Queued = 'queued',
-  Running = 'running',
-  Succeeded = 'succeeded',
-  Failed = 'failed',
-}
+  PlatformBuildJob,
+  PlatformBuildJobSchema,
+} from './platform-build-job.schema';
 
 @Schema()
 export class BuildJob {
@@ -27,9 +20,17 @@ export class BuildJob {
   @Prop({ type: String, required: true })
   configurationRevisionId: string;
 
-  @Prop({ type: String, required: true, enum: BuildJobStatus })
-  status: BuildJobStatus;
-
-  @Prop({ type: [BuildJobArtifactSchema], required: true })
-  artifacts: BuildJobArtifact[];
+  @Prop({ type: [PlatformBuildJobSchema], required: true })
+  platforms: PlatformBuildJob[];
 }
+
+export const BuildJobSchema = SchemaFactory.createForClass(BuildJob);
+export type BuildJobDocument = HydratedDocument<BuildJob>;
+
+BuildJobSchema.index(
+  {
+    configurationId: 1,
+    configurationRevisionId: 1,
+  },
+  { unique: true },
+);
