@@ -8,6 +8,7 @@ import { VersionTag } from '../../../../infrastructure/database/schemas/version-
 import { semanticVersionGreaterThanOrEqual } from '../../../../common/utils/compare-versions/compare-versions';
 import { FeatureFlagRepository } from '../../../../infrastructure/database/repositories/feature-flag/feature-flag.repository';
 import { FeatureFlagType } from '../../../../infrastructure/database/schemas/feature-flag/feature-flag.schema';
+import { GithubClient } from '../../../../infrastructure/github-client/github-client';
 
 interface FeatureList {
   types: string[];
@@ -37,13 +38,18 @@ const firstConfigurableVersion: SemanticVersion = {
 @Processor('cron-jobs')
 export class SyncGitTagsProcessor {
   private readonly logger = new Logger(SyncGitTagsProcessor.name);
+  private readonly githubClient: GithubClient;
 
   constructor(
     private httpService: HttpService,
     private configService: ConfigService,
     private versionTagRepository: VersionTagRepository,
     private featureFlagRepository: FeatureFlagRepository,
-  ) {}
+  ) {
+    this.githubClient = new GithubClient(
+      this.configService.get('github.personalAccessToken'),
+    );
+  }
 
   @Process('sync-git-tags')
   async syncGitTags() {
@@ -109,11 +115,7 @@ export class SyncGitTagsProcessor {
   }
 
   async getFeatureListFromGithub(): Promise<FeatureList> {
-    return (
-      await this.httpService.axiosRef.get<any>(
-        'https://raw.githubusercontent.com/arithmico/arithmico/main/packages/libraries/engine/features.json',
-      )
-    ).data;
+    return this.githubClient.getEngineFeatureList();
   }
 
   async createMissingVersionTags(versionTags: VersionTag[]): Promise<void> {
