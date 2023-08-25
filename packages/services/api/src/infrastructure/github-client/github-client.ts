@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { BadRequestException, Logger } from '@nestjs/common';
 import { semanticVersionGreaterThanOrEqual } from '../../common/utils/compare-versions/compare-versions';
 import { firstConfigurableVersion } from '../../modules/version-tag/processors/sync-git-tags/sync-git-tags.processor';
 import { SemanticVersion } from '../database/schemas/sematic-version/semantic-version.schema';
@@ -93,10 +93,6 @@ export class GithubClient {
     inputs: Record<string, string>,
   ): Promise<void> {
     const headers = this.getHeaders();
-    this.logger.log({
-      workflowId,
-      inputs,
-    });
     await fetch(
       `https://api.github.com/repos/arithmico/arithmico/actions/workflows/${workflowId}/dispatches`,
       {
@@ -107,8 +103,8 @@ export class GithubClient {
           inputs,
         }),
       },
-    )
-      .then((response) => this.logger.log({ status: response.status }))
-      .catch((err) => this.logger.error({ err }));
+    ).catch((err) => {
+      throw new BadRequestException(err);
+    });
   }
 }

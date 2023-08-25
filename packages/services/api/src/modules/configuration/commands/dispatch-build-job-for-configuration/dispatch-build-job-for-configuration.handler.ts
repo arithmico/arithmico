@@ -50,11 +50,17 @@ export class DispatchBuildJobForConfigurationHandler
       configurationRevisionDocument._id,
       versionTagDocument._id,
     );
+    const features =
+      await this.configurationRepository.aggregateFeatureFlagsByType(
+        command.configurationId,
+        command.configurationRevisionId,
+      );
 
     await this.githubClient.dispatchWorkflow('build-offline-version.yml', {
       commitHash: versionTagDocument.commit,
       artifactPath,
-      // buildJobRef: buildJobDocument._id,
+      buildJobRef: buildJobDocument._id,
+      engineFeatures: JSON.stringify(features),
     });
 
     return {
