@@ -5,3 +5,14 @@ export interface FeatureList {
   methods: string[];
   operators: string[];
 }
+
+export interface GitRefDto {
+  ref: string;
+  node_id: string;
+  url: string;
+  object: {
+    sha: string;
+    type: string;
+    url: string;
+  };
+}
