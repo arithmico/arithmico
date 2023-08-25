@@ -111,7 +111,7 @@ export class SyncGitTagsProcessor {
   async getFeatureListFromGithub(): Promise<FeatureList> {
     return (
       await this.httpService.axiosRef.get<any>(
-        'https://raw.githubusercontent.com/arithmico/arithmico/main/packages/engine/features.json',
+        'https://raw.githubusercontent.com/arithmico/arithmico/main/packages/libraries/engine/features.json',
       )
     ).data;
   }
