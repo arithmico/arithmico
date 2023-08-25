@@ -12,6 +12,16 @@ on:
         required: true
         description: "artifact path"
 
+      engineFeatures:
+        type: string
+        required: false
+        description: "engine features"
+
+      buildJobRef:
+        type: string
+        required: false
+        description: "build job ref"
+
 jobs:
   test-tauri:
     strategy:
