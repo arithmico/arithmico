@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
+import { createPagedAggregationPipeline } from '../../../../common/utils/paged-aggregation/paged-aggregation';
+import { SemanticVersion } from '../../schemas/sematic-version/semantic-version.schema';
 import {
   VersionTag,
   VersionTagDocument,
@@ -46,6 +48,65 @@ export class VersionTagRepository {
         total: { $arrayElemAt: ['$total.count', 0] },
       })
       .exec();
+
+    return {
+      items: result.at(0).items,
+      total: result.at(0).total,
+      skip,
+      limit,
+    };
+  }
+
+  async getVersionTagsGreaterThanOrEquals(
+    version: SemanticVersion,
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<VersionTagDocument>> {
+    const result = await this.versionTagModel.aggregate(
+      createPagedAggregationPipeline({
+        skip,
+        limit,
+        preProcessingStages: [
+          {
+            $match: {
+              $or: [
+                {
+                  'version.major': {
+                    $gt: version.major,
+                  },
+                },
+                {
+                  'version.major': {
+                    $gte: version.major,
+                  },
+                  'version.minor': {
+                    $gt: version.minor,
+                  },
+                },
+                {
+                  'version.major': {
+                    $gte: version.major,
+                  },
+                  'version.minor': {
+                    $gte: version.minor,
+                  },
+                  'version.patch': {
+                    $gte: version.patch,
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $sort: {
+              'version.major': -1,
+              'version.minor': -1,
+              'version.patch': -1,
+            },
+          },
+        ],
+      }),
+    );
 
     return {
       items: result.at(0).items,

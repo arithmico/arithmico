@@ -14,5 +14,6 @@ export const api = createApi({
     "Configuration",
     "ConfigurationRevision",
     "SecurityAttribute",
+    "BuildJob",
   ],
 });

@@ -13,6 +13,8 @@ import {
   GetConfigurationRevisionByIdArgs,
   GetLatestConfigurationRevisionFeatureFlagIdsArgs,
   GetLatestConfigurationRevisionFeatureFlagIdsResponse,
+  DispatchConfigurationBuildJobResponse,
+  DispatchConfigurationBuildJobArgs,
 } from "./configurations.types";
 
 export const configurationsApi = api.injectEndpoints({
@@ -148,6 +150,34 @@ export const configurationsApi = api.injectEndpoints({
             ]
           : [],
     }),
+
+    dispatchConfigurationBuildJob: build.mutation<
+      DispatchConfigurationBuildJobResponse,
+      DispatchConfigurationBuildJobArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/build-jobs`,
+        method: "POST",
+        body: {
+          configurationRevisionId: arg.configurationRevisionId,
+          versionTagId: arg.versionTagId,
+        },
+      }),
+      invalidatesTags: (response) =>
+        response
+          ? [
+              {
+                type: "BuildJob",
+                id: response.id,
+              },
+              { type: "Configuration", id: response.configurationId },
+              {
+                type: "ConfigurationRevision",
+                id: response.configurationRevisionId,
+              },
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -159,4 +189,5 @@ export const {
   useGetLatestConfigurationRevisionFeatureFlagIdsQuery,
   useCreateConfigurationMutation,
   useCreateConfigurationRevisionMutation,
+  useDispatchConfigurationBuildJobMutation,
 } = configurationsApi;

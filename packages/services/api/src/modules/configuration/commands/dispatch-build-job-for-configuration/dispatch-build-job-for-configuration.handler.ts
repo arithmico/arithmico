@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { BuildJobRepository } from '../../../../infrastructure/database/repositories/build-job/build-job.repository';
 import { ConfigurationRepository } from '../../../../infrastructure/database/repositories/configuration/configuration.repository';
@@ -10,12 +11,18 @@ import { DispatchBuildJobForConfigurationResponseDto } from './dispatch-build-jo
 export class DispatchBuildJobForConfigurationHandler
   implements ICommandHandler<DispatchBuildJobForConfigurationCommand>
 {
+  private readonly githubClient: GithubClient;
+
   constructor(
     private readonly configurationRepository: ConfigurationRepository,
     private readonly versionTagRepository: VersionTagRepository,
     private readonly buildJobRepository: BuildJobRepository,
-    private readonly githubClient: GithubClient,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    this.githubClient = new GithubClient(
+      this.configService.get('github.personalAccessToken'),
+    );
+  }
 
   async execute(
     command: DispatchBuildJobForConfigurationCommand,
@@ -47,7 +54,7 @@ export class DispatchBuildJobForConfigurationHandler
     await this.githubClient.dispatchWorkflow('build-offline-version.yml', {
       commitHash: versionTagDocument.commit,
       artifactPath,
-      buildJobRef: buildJobDocument._id,
+      // buildJobRef: buildJobDocument._id,
     });
 
     return {
