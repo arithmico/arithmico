@@ -88,7 +88,7 @@ export default function CalculatorForm() {
         "overflow-hidden"
       )}
     >
-      <div className={classNames("flex", "mb-4")}>
+      <div className={classNames("flex", "mb-4", "mx-2")}>
         <CalculatorInput
           ref={inputRef}
           className={classNames("peer")}
@@ -101,7 +101,7 @@ export default function CalculatorForm() {
       </div>
 
       {currentOutput.type !== "graphic" ? (
-        <div className={classNames("flex")}>
+        <div className={classNames("flex", "mx-2")}>
           <CalculatorOutput
             ref={outputRef}
             onEnterPressed={() => setFocusNext("input")}

@@ -37,12 +37,16 @@ export default function Manual() {
             "sm:mb-6",
             "md:mb-8",
             "lg:mb-12",
-            "theme-light:border-neutral-400",
-            "theme-light:focus:border-neutral-600",
-            "theme-light:bg-neutral-100",
+              "focus:outline",
+              "focus:outline-4",
+              "theme-light:border-neutral-400",
+              "theme-light:bg-neutral-100",
+            "theme-light:outline-black/70",
             "theme-dark:bg-neutral-800",
             "theme-dark:border-neutral-500",
-            "theme-dark:focus:border-neutral-100"
+            "theme-dark:focus:outline-white/70",
+
+              "theme-light:ring-black"
           )}
           ref={searchRef}
           placeholder={t("manual.search")}

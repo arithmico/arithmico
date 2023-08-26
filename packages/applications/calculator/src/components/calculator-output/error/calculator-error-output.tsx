@@ -26,11 +26,13 @@ const CalculatorErrorOutput = forwardRef<
       className={classNames(
         "peer",
         "pr-14",
+          "focus:outline",
+          "focus:outline-4",
         "theme-dark:bg-red-900",
         "theme-dark:border-red-500",
-        "theme-dark:focus:border-red-400",
+        "theme-dark:focus:outline-red-400",
         "theme-light:border-red-300",
-        "theme-light:focus:border-red-600",
+        "theme-light:focus:outline-red-600",
         "theme-light:text-red-700",
         "theme-light:bg-red-100"
       )}

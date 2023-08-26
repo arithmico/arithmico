@@ -26,11 +26,13 @@ const CalculatorTextOutput = forwardRef<
       className={classNames(
         "peer",
         "pr-14",
+          "focus:outline",
+          "focus:outline-4",
         "theme-dark:border-neutral-500",
-        "theme-dark:focus:border-neutral-100",
+        "theme-dark:focus:outline-white/70",
         "theme-dark:bg-neutral-800",
         "theme-light:border-neutral-400",
-        "theme-light:focus:border-neutral-600",
+        "theme-light:focus:outline-black/70",
         "theme-light:bg-neutral-100"
       )}
       ref={ref}
