@@ -55,28 +55,13 @@ jobs:
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
 
       - name: create ubuntu platform build job
-        if: matrix.platform == 'ubuntu-20.04'
         shell: bash
+        env:
+          PLATFORM: ${{ matrix.platform == "ubuntu-20.04" && "linux" || matrix.platform == "macos-latest" && "macos" || matrix.patform == "windows-latest" && "windows" }}
         run: |
           curl -X POST $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
-          -d '{"platform": "linux", "webhookToken": "'$WEBHOOK_TOKEN'"}'
-
-      - name: create macos platform build job
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          curl -X POST $WEBHOOK_URL \
-          -H 'Content-Type: application/json' \
-          -d '{"platform": "macos", "webhookToken": "'$WEBHOOK_TOKEN'"}'
-
-      - name: create windows platform build job
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          curl -X POST $WEBHOOK_URL \
-          -H 'Content-Type: application/json' \
-          -d '{"platform": "windows", "webhookToken": "'$WEBHOOK_TOKEN'"}'
+          -d '{"platform": "'$PLATFORM'", "webhookToken": "'$WEBHOOK_TOKEN'"}'
 
       - name: install frontend dependencies
         run: |
