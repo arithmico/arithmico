@@ -64,6 +64,7 @@ integrationTest('\\sqrt [3] {8}', '2');
 integrationTest('\\frac {4} {8}', '0.5');
 integrationTest('\\frac {4} {\\sqrt { 4 } }', '2');
 integrationTest('\\log_{4} (8)', '1.5');
+integrationTest('\\lg(100)', '2');
 integrationTest('\\log (10)', '1');
 integrationTest('\\log(10)', '1');
 integrationTest('\\log ( \\sqrt{100} ) ', '1');

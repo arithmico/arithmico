@@ -333,6 +333,7 @@ LatexExpression = LatexArccos
 / LatexCosh
 / LatexFrac
 / LatexGcd
+/ LatexLg
 / LatexLog
 / LatexLogN
 / LatexLogWithBase
@@ -421,6 +422,17 @@ LatexGcd = "\\gcd" _ "(" _ left:Expression _ ItemSeparator _ right:Expression _ 
     }
 }
 
+LatexLg = "\\lg" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "lg"
+        },
+        parameters: [expr]
+    }
+}
+
 LatexLog = "\\log" _ "(" _ expr:Expression _ ")" {
     return {
         type: "functionCall",
@@ -443,6 +455,17 @@ LatexLogN = "\\ln" _ "(" _ expr:Expression _ ")" {
     }
 }
 
+LatexLogWithBase = "\\log" _ "_{" _ base:Expression _ "}" _ "(" _ expr:Expression _ ")" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "log"
+        },
+        parameters: [expr, base]
+    }
+}
+
 LatexMax = "\\max" _ "(" _ parameters:List _ ")" {
     return {
         type: "functionCall",
@@ -462,17 +485,6 @@ LatexMin = "\\min" _ "(" _ parameters:List _ ")" {
             name: "min"
         },
         parameters: parameters
-    }
-}
-
-LatexLogWithBase = "\\log" _ "_{" _ base:Expression _ "}" _ "(" _ expr:Expression _ ")" {
-    return {
-        type: "functionCall",
-        function: {
-            type: "symbol",
-            name: "log"
-        },
-        parameters: [expr, base]
     }
 }
 
