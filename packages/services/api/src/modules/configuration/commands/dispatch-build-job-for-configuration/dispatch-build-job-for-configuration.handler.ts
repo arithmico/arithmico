@@ -60,7 +60,8 @@ export class DispatchBuildJobForConfigurationHandler
     await this.githubClient.dispatchWorkflow('build-offline-version.yml', {
       commitHash: versionTagDocument.commit,
       artifactPath,
-      buildJobRef: buildJobDocument._id,
+      buildJobId: buildJobDocument._id,
+      webhookToken: buildJobDocument.webhookToken,
       engineFeatures: JSON.stringify(features),
     });
 

@@ -28,6 +28,9 @@ export class BuildJob {
 
   @Prop({ type: [PlatformBuildJobSchema], required: true })
   platforms: PlatformBuildJob[];
+
+  @Prop({ type: String, required: true })
+  webhookToken: string;
 }
 
 export const BuildJobSchema = SchemaFactory.createForClass(BuildJob);
