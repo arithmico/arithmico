@@ -17,10 +17,15 @@ on:
         required: false
         description: "engine features"
 
-      buildJobRef:
+      webhookUrl:
         type: string
         required: false
-        description: "build job ref"
+        description: "webhook url"
+
+      webhookToken:
+        type: string
+        required: false
+        description: "webhook token"
 
 jobs:
   build-offline-version:
@@ -32,6 +37,8 @@ jobs:
     runs-on: ${{ matrix.platform }}
     env:
       ARITHMICO_FEATURES: ${{ inputs.engineFeatures }}
+      WEBHOOK_URL: ${{ inputs.webhookUrl }}
+      WEBHOOK_TOKEN: ${{ inputs.webhookToken }}
 
     steps:
       - uses: actions/checkout@v3
@@ -46,6 +53,31 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: create ubuntu platform build job
+        if: matrix.platform == 'ubuntu-20.04'
+        shell: bash
+        run: |
+          curl --location '$WEBHOOK_URL' \
+          --header 'Content-Type: application/json' \
+          --data '{"platform": "linux", "webhookToken": "$WEBHOOK_TOKEN"}'
+
+      - name: create macos platform build job
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          curl --location '$WEBHOOK_URL' \
+          --header 'Content-Type: application/json' \
+          --data '{"platform": "macos", "webhookToken": "$WEBHOOK_TOKEN"}'
+
+      - name: create windows platform build job
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl --location '$WEBHOOK_URL' \
+          --header 'Content-Type: application/json' \
+          --data '{"platform": "windows", "webhookToken": "$WEBHOOK_TOKEN"}'
+
       - name: install frontend dependencies
         run: |
           node --version
