@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { BuildJobRepository } from './repositories/build-job/build-job.repository';
 import { ConfigurationRepository } from './repositories/configuration/configuration.repository';
 import { EmailRepository } from './repositories/email/email.repository';
 import { FeatureFlagVersionTagRelationRepository } from './repositories/feature-flag-version-tag-relation/feature-flag-version-tag-relation.respository';
@@ -12,6 +13,7 @@ import { UserGroupMembershipRepository } from './repositories/user-group-members
 import { UserGroupRepository } from './repositories/user-group/user-group.repository';
 import { UserRepository } from './repositories/user/user.repository';
 import { VersionTagRepository } from './repositories/version-tag/version-tag.repository';
+import { BuildJob, BuildJobSchema } from './schemas/build-job/build-job.schema';
 import {
   ConfigurationRevisionFeatureFlagAssociation,
   ConfigurationRevisionFeatureFlagAssociationSchema,
@@ -108,6 +110,10 @@ import {
         name: ConfigurationRevisionFeatureFlagAssociation.name,
         schema: ConfigurationRevisionFeatureFlagAssociationSchema,
       },
+      {
+        name: BuildJob.name,
+        schema: BuildJobSchema,
+      },
     ]),
   ],
   providers: [
@@ -123,6 +129,7 @@ import {
     FeatureFlagRepository,
     FeatureFlagVersionTagRelationRepository,
     ConfigurationRepository,
+    BuildJobRepository,
   ],
   exports: [
     UserRepository,
@@ -137,6 +144,7 @@ import {
     FeatureFlagRepository,
     FeatureFlagVersionTagRelationRepository,
     ConfigurationRepository,
+    BuildJobRepository,
   ],
 })
 export class DatabaseModule {}

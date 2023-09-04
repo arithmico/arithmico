@@ -22,3 +22,10 @@ export interface GetVersionTagsForFeatureFlagArgs {
 export interface GetVersionTagByIdArgs {
   tagId: string;
 }
+
+export interface GetAvailableVersionTagsForConfigurationRevisionArgs {
+  configurationId: string;
+  configurationRevisionId: string;
+  skip: number;
+  limit: number;
+}

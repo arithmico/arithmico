@@ -26,4 +26,8 @@ export enum SecurityAttribute {
   // configuration revision
   ConfigurationRevisionsRead = 'configurations:revisions:read',
   ConfigurationRevisionsWrite = 'configurations:revisions:write',
+
+  // build job
+  BuildJobWrite = 'build-jobs:write',
+  BuildJobRead = 'build-jobs:read',
 }

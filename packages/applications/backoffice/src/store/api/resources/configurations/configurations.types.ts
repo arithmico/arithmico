@@ -67,3 +67,18 @@ export interface GetLatestConfigurationRevisionFeatureFlagIdsArgs {
 export interface GetLatestConfigurationRevisionFeatureFlagIdsResponse {
   featureFlagIds: string[];
 }
+
+export interface DispatchConfigurationBuildJobArgs {
+  configurationId: string;
+  configurationRevisionId: string;
+  versionTagId: string;
+}
+
+export interface DispatchConfigurationBuildJobResponse {
+  id: string;
+  name: string;
+  configurationId: string;
+  configurationRevisionId: string;
+  versionTagId: string;
+  createdAt: string;
+}

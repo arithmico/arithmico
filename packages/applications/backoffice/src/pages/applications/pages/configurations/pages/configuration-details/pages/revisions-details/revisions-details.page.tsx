@@ -1,4 +1,5 @@
 import FileSaver from "file-saver";
+import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -14,6 +15,7 @@ import {
   useGetConfigurationByIdQuery,
   useGetConfigurationRevisionByIdQuery,
 } from "../../../../../../../../store/api/resources/configurations/configurations.api";
+import { DispatchConfigurationRevisionBuildJob } from "./components/dispatch-configuration-revision-build-job.dialog";
 import { RevisionDetailsBreadcrumbs } from "./components/revision-breadcrumbs";
 import { RevisionFeatureFlagsCard } from "./components/revision-feature-flags-card";
 
@@ -52,6 +54,7 @@ export function RevisionDetailsPage() {
       configurationId: configurationId!,
       revisionId: revisionId!,
     });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   if (!configurationIsSuccess || !revisionIsSuccess) {
     return <></>;
@@ -59,6 +62,12 @@ export function RevisionDetailsPage() {
 
   return (
     <>
+      <DispatchConfigurationRevisionBuildJob
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        configurationId={configurationId!}
+        configurationRevisionId={revisionId!}
+      />
       <RevisionDetailsBreadcrumbs
         configurationId={configurationId!}
         configurationName={configuration.name}
@@ -80,13 +89,16 @@ export function RevisionDetailsPage() {
             <Heading level={2} className="mb-4">
               <FormattedMessage id="applications.configurations.revisions.export" />
             </Heading>
-            <div className="flex">
+            <div className="flex gap-4">
               <ActionButton
                 onClick={() => {
                   triggerDownload(configurationId!, revisionId!, accessToken!);
                 }}
               >
                 <FormattedMessage id="applications.configurations.revisions.export.button" />
+              </ActionButton>
+              <ActionButton onClick={() => setIsDialogOpen(true)}>
+                dispatch build job
               </ActionButton>
             </div>
           </Card>

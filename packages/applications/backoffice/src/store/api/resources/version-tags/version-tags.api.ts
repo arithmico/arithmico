@@ -1,6 +1,7 @@
 import { api } from "../../api";
 import { PagedResponse } from "../../types";
 import {
+  GetAvailableVersionTagsForConfigurationRevisionArgs,
   GetVersionTagByIdArgs,
   GetVersionTagsArgs,
   GetVersionTagsForFeatureFlagArgs,
@@ -64,6 +65,34 @@ const versionTagsApi = api.injectEndpoints({
       providesTags: (response) =>
         response ? [{ type: "VersionTag", id: response.id }] : [],
     }),
+
+    getVersionTagsForConfigurationRevision: build.query<
+      PagedResponse<VersionTagDto>,
+      GetAvailableVersionTagsForConfigurationRevisionArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions/${arg.configurationRevisionId}/available-version-tags`,
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+        method: "GET",
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              ...response.items.map((versionTag) => ({
+                type: "VersionTag" as const,
+                id: versionTag.id,
+              })),
+              { type: "Configuration", id: arg.configurationId },
+              {
+                type: "ConfigurationRevision",
+                id: arg.configurationRevisionId,
+              },
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -71,4 +100,5 @@ export const {
   useGetVersionTagsQuery,
   useGetVersionTagsForFeatureFlagQuery,
   useGetVersionTagByIdQuery,
+  useGetVersionTagsForConfigurationRevisionQuery,
 } = versionTagsApi;
