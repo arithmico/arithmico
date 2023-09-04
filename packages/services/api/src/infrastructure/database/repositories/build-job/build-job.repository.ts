@@ -51,7 +51,7 @@ export class BuildJobRepository {
     return this.buildJobModel.findOneAndUpdate(
       { _id: buildJobId },
       {
-        $pull: {
+        $addToSet: {
           platforms: {
             status: PlatformBuildJobStatus.Running,
             platform,
