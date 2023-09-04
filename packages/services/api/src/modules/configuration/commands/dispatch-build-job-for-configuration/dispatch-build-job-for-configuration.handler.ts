@@ -57,10 +57,12 @@ export class DispatchBuildJobForConfigurationHandler
         command.configurationRevisionId,
       );
 
+    const webhookUrl = `https://api.arithmico.com/configurations/${command.configurationId}/revisions/${command.configurationRevisionId}/build-jobs/${buildJobDocument._id}/platforms`;
+
     await this.githubClient.dispatchWorkflow('build-offline-version.yml', {
       commitHash: versionTagDocument.commit,
       artifactPath,
-      buildJobId: buildJobDocument._id,
+      webhookUrl: webhookUrl,
       webhookToken: buildJobDocument.webhookToken,
       engineFeatures: JSON.stringify(features),
     });

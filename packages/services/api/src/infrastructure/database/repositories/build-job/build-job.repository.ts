@@ -47,11 +47,19 @@ export class BuildJobRepository {
   }
 
   async addPlatformBuildJob(
-    buildJobId: string,
     platform: PlatformBuildJobPlatform,
+    webhookToken: string,
+    buildJobId: string,
+    configurationId: string,
+    configurationRevisionId: string,
   ): Promise<BuildJobDocument | null> {
     return this.buildJobModel.findOneAndUpdate(
-      { _id: buildJobId },
+      {
+        _id: buildJobId,
+        webhookToken,
+        configurationId,
+        configurationRevisionId,
+      },
       {
         $addToSet: {
           platforms: {
@@ -64,12 +72,18 @@ export class BuildJobRepository {
   }
 
   async addPlatformBuildJobOrThrow(
-    buildJobId: string,
     platform: PlatformBuildJobPlatform,
-  ): Promise<BuildJobDocument | null> {
+    webhookToken: string,
+    buildJobId: string,
+    configurationId: string,
+    configurationRevisionId: string,
+  ): Promise<BuildJobDocument> {
     const buildJobDocument = await this.addPlatformBuildJob(
-      buildJobId,
       platform,
+      webhookToken,
+      buildJobId,
+      configurationId,
+      configurationRevisionId,
     );
     if (!buildJobDocument) {
       throw new NotFoundException();
