@@ -90,4 +90,50 @@ export class BuildJobRepository {
     }
     return buildJobDocument;
   }
+
+  async setPlatformBuildJobStatus(
+    platform: PlatformBuildJobPlatform,
+    webhookToken: string,
+    buildJobId: string,
+    configurationId: string,
+    configurationRevisionId: string,
+    status: PlatformBuildJobStatus,
+  ): Promise<BuildJobDocument> {
+    return this.buildJobModel.findOneAndUpdate(
+      {
+        _id: buildJobId,
+        webhookToken,
+        configurationId,
+        configurationRevisionId,
+        'platforms.platform': platform,
+      },
+      {
+        $set: {
+          'platforms.$.platform.status': status,
+        },
+      },
+    );
+  }
+
+  async setPlatformBuildJobStatusOrThrow(
+    platform: PlatformBuildJobPlatform,
+    webhookToken: string,
+    buildJobId: string,
+    configurationId: string,
+    configurationRevisionId: string,
+    status: PlatformBuildJobStatus,
+  ): Promise<BuildJobDocument> {
+    const buildJobDocument = await this.setPlatformBuildJobStatus(
+      platform,
+      webhookToken,
+      buildJobId,
+      configurationId,
+      configurationRevisionId,
+      status,
+    );
+    if (!buildJobDocument) {
+      throw new NotFoundException();
+    }
+    return buildJobDocument;
+  }
 }

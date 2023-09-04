@@ -6,12 +6,15 @@ import { DispatchBuildJobForConfigurationController } from './dispatch-build-job
 import { DispatchBuildJobForConfigurationHandler } from './dispatch-build-job-for-configuration/dispatch-build-job-for-configuration.handler';
 import { AddPlatformBuildJobController } from './add-platform-build-job/add-platform-build-job.controller';
 import { AddPlatformBuildJobHandler } from './add-platform-build-job/add-platform-build-job.handler';
+import { UpdatePlatformBuildJobStatusController } from './update-platform-build-job-status/update-platform-build-job-status.controller';
+import { UpdatePlatformBuildJobStatusHandler } from './update-platform-build-job-status/update-platform-build-job-status.handler';
 
 export const commandHandlers = [
   CreateConfigurationHandler,
   CreateConfigurationRevisionHandler,
   DispatchBuildJobForConfigurationHandler,
   AddPlatformBuildJobHandler,
+  UpdatePlatformBuildJobStatusHandler,
 ];
 
 export const commandControllers = [
@@ -19,4 +22,5 @@ export const commandControllers = [
   CreateConfigurationRevisionController,
   DispatchBuildJobForConfigurationController,
   AddPlatformBuildJobController,
+  UpdatePlatformBuildJobStatusController,
 ];
