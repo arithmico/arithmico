@@ -93,26 +93,27 @@ jobs:
       - name: upload artefact
         shell: bash
         env:
+          PLATFORM: ${{ matrix.platform }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
           if [[ "$PLATFORM" == "ubuntu-20.04" ]]; then 
-            export PLATFORM_NAME="linux"
-            export FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
-            export FILE_SUFFIX=".deb"
+            PLATFORM_NAME="linux"
+            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
+            FILE_SUFFIX=".deb"
           elif [[ "$PLATFORM" == "macos-latest" ]]; then
-            export PLATFORM_NAME="macos"
-            export FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_x64.dmg"
-            export FILE_SUFFIX=".dmg"
+            PLATFORM_NAME="macos"
+            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_x64.dmg"
+            FILE_SUFFIX=".dmg"
           elif [[ "$PLATFORM" == "windows-latest" ]]; then
-            export PLATFORM_NAME="windows"
-            export FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/nsis/Arithmico Calculator_0.1.0_x64-setup.exe"
-            export FILE_SUFFIX=".exe"
+            PLATFORM_NAME="windows"
+            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/nsis/Arithmico Calculator_0.1.0_x64-setup.exe"
+            FILE_SUFFIX=".exe"
           fi
           echo PLATFORM_NAME=$PLATFORM_NAME
           echo FROM_PATH=$FROM_PATH
           echo FILE_SUFFIX=$FILE_SUFFIX
-          export DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH$FILE_SUFFIX
-          export ARTIFACT_URL=$ARTIFACT_PATH$FILE_SUFFIX
+          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH$FILE_SUFFIX
+          ARTIFACT_URL=$ARTIFACT_PATH$FILE_SUFFIX
           aws s3 cp "$FROM_PATH" $DEST_PATH
           curl -X PUT $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
