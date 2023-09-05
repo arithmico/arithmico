@@ -39,6 +39,7 @@ jobs:
       ARITHMICO_FEATURES: ${{ inputs.engineFeatures }}
       WEBHOOK_URL: ${{ inputs.webhookUrl }}
       WEBHOOK_TOKEN: ${{ inputs.webhookToken }}
+      BUCKET_ID: ${{ secrets.CDN_BUCKET }}
 
     steps:
       - uses: actions/checkout@v3
@@ -89,55 +90,31 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
-      - name: upload debian artefact
-        if: matrix.platform == 'ubuntu-20.04'
-        shell: bash
-        env:
-          BUCKET_ID: ${{ secrets.CDN_BUCKET }}
-          ARTIFACT_PATH: ${{ inputs.artifactPath }}
-        run: |
-          FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
-          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH".deb"
-          aws s3 cp $FROM_PATH $DEST_PATH
-
       - name: upload windows artefact
         if: matrix.platform == 'windows-latest'
         shell: bash
         env:
-          BUCKET_ID: ${{ secrets.CDN_BUCKET }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
-        run: |
-          FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/nsis/Arithmico Calculator_0.1.0_x64-setup.exe"
-          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH".exe"
-          aws s3 cp "$FROM_PATH" $DEST_PATH
-
-      - name: upload macos artefact
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        env:
-          BUCKET_ID: ${{ secrets.CDN_BUCKET }}
-          ARTIFACT_PATH: ${{ inputs.artifactPath }}
-        run: |
-          FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_x64.dmg"
-          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH".dmg"
-          aws s3 cp "$FROM_PATH" $DEST_PATH
-
-      - name: set platform build job to succeeded
-        if: ${{ success() }}
-        shell: bash
-        env:
-          PLATFORM: ${{ matrix.platform }}
         run: |
           if [[ "$PLATFORM" == "ubuntu-20.04" ]]; then 
-            export PLATFORM_NAME="linux"
+            PLATFORM_NAME="linux"
+            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
+            FILE_SUFFIX=".deb"
           elif [[ "$PLATFORM" == "macos-latest" ]]; then
-            export PLATFORM_NAME="macos"
+            PLATFORM_NAME="macos"
+            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_x64.dmg"
+            FILE_SUFFIX=".dmg"
           elif [[ "$PLATFORM" == "windows-latest" ]]; then
-            export PLATFORM_NAME="windows"
+            PLATFORM_NAME="windows"
+            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/nsis/Arithmico Calculator_0.1.0_x64-setup.exe"
+            FILE_SUFFIX=".exe"
           fi
+          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH$FILE_SUFFIX
+          ARTIFACT_URL=$ARTIFACT_PATH$FILE_SUFFIX
+          aws s3 cp "$FROM_PATH" $DEST_PATH
           curl -X PUT $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
-          -d '{"platform": "'$PLATFORM_NAME'", "webhookToken": "'$WEBHOOK_TOKEN'", "status": "succeeded"}'
+          -d '{"platform": "'$PLATFORM_NAME'", "webhookToken": "'$WEBHOOK_TOKEN'", "status": "succeeded", "artifactUrl": "'$ARTIFACT_URL'"}'
 
       - name: set platform build job to failed
         if: ${{ failure() }}
