@@ -57,7 +57,7 @@ jobs:
       - name: create platform build job
         shell: bash
         env:
-          PLATFORM: ${{ matrix.platform == "ubuntu-20.04" && "linux" || matrix.platform == "macos-latest" && "macos" || matrix.patform == "windows-latest" && "windows" }}
+          PLATFORM: ${{ matrix.platform == 'ubuntu-20.04' && 'linux' || matrix.platform == 'macos-latest' && 'macos' || matrix.patform == 'windows-latest' && 'windows' }}
         run: |
           curl -X POST $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
@@ -119,7 +119,7 @@ jobs:
         if: ${{ success() }}
         shell: bash
         env:
-          PLATFORM: ${{ matrix.platform == "ubuntu-20.04" && "linux" || matrix.platform == "macos-latest" && "macos" || matrix.patform == "windows-latest" && "windows" }}
+          PLATFORM: ${{ matrix.platform == 'ubuntu-20.04' && 'linux' || matrix.platform == 'macos-latest' && 'macos' || matrix.patform == 'windows-latest' && 'windows' }}
         run: |
           curl -X PUT $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
@@ -129,7 +129,7 @@ jobs:
         if: ${{ success() }}
         shell: bash
         env:
-          PLATFORM: ${{ matrix.platform == "ubuntu-20.04" && "linux" || matrix.platform == "macos-latest" && "macos" || matrix.patform == "windows-latest" && "windows" }}
+          PLATFORM: ${{ matrix.platform == 'ubuntu-20.04' && 'linux' || matrix.platform == 'macos-latest' && 'macos' || matrix.patform == 'windows-latest' && 'windows' }}
         run: |
           curl -X PUT $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
