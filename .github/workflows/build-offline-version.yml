@@ -57,11 +57,18 @@ jobs:
       - name: create platform build job
         shell: bash
         env:
-          PLATFORM: ${{ matrix.platform == 'ubuntu-20.04' && 'linux' || matrix.platform == 'macos-latest' && 'macos' || matrix.patform == 'windows-latest' && 'windows' }}
+          PLATFORM: ${{ matrix.platform }}
         run: |
+          if [[ "$PLATFORM" == "ubuntu-20.04" ]]; then 
+            export PLATFORM_NAME="linux"
+          elif [[ "$PLATFORM" == "macos-latest" ]]; then
+            export PLATFORM_NAME="macos"
+          elif [[ "$PLATFORM" == "windows-latest" ]]; then
+            export PLATFORM_NAME="windows"
+          fi
           curl -X POST $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
-          -d '{"platform": "'$PLATFORM'", "webhookToken": "'$WEBHOOK_TOKEN'"}'
+          -d '{"platform": "'$PLATFORM_NAME'", "webhookToken": "'$WEBHOOK_TOKEN'"}'
 
       - name: install frontend dependencies
         run: |
@@ -119,18 +126,32 @@ jobs:
         if: ${{ success() }}
         shell: bash
         env:
-          PLATFORM: ${{ matrix.platform == 'ubuntu-20.04' && 'linux' || matrix.platform == 'macos-latest' && 'macos' || matrix.patform == 'windows-latest' && 'windows' }}
+          PLATFORM: ${{ matrix.platform }}
         run: |
+          if [[ "$PLATFORM" == "ubuntu-20.04" ]]; then 
+            export PLATFORM_NAME="linux"
+          elif [[ "$PLATFORM" == "macos-latest" ]]; then
+            export PLATFORM_NAME="macos"
+          elif [[ "$PLATFORM" == "windows-latest" ]]; then
+            export PLATFORM_NAME="windows"
+          fi
           curl -X PUT $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
-          -d '{"platform": "'$PLATFORM'", "webhookToken": "'$WEBHOOK_TOKEN'", "status": "succeeded"}'
+          -d '{"platform": "'$PLATFORM_NAME'", "webhookToken": "'$WEBHOOK_TOKEN'", "status": "succeeded"}'
 
       - name: set platform build job to failed
         if: ${{ failure() }}
         shell: bash
         env:
-          PLATFORM: ${{ matrix.platform == 'ubuntu-20.04' && 'linux' || matrix.platform == 'macos-latest' && 'macos' || matrix.patform == 'windows-latest' && 'windows' }}
+          PLATFORM: ${{ matrix.platform }}
         run: |
+          if [[ "$PLATFORM" == "ubuntu-20.04" ]]; then 
+            export PLATFORM_NAME="linux"
+          elif [[ "$PLATFORM" == "macos-latest" ]]; then
+            export PLATFORM_NAME="macos"
+          elif [[ "$PLATFORM" == "windows-latest" ]]; then
+            export PLATFORM_NAME="windows"
+          fi
           curl -X PUT $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
-          -d '{"platform": "'$PLATFORM'", "webhookToken": "'$WEBHOOK_TOKEN'", "status": "failed"}'
+          -d '{"platform": "'$PLATFORM_NAME'", "webhookToken": "'$WEBHOOK_TOKEN'", "status": "failed"}'
