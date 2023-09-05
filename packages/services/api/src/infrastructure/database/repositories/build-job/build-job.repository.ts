@@ -109,7 +109,7 @@ export class BuildJobRepository {
       },
       {
         $set: {
-          'platforms.$.platform.status': status,
+          'platforms.$.status': status,
         },
       },
     );
