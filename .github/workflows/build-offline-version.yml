@@ -126,7 +126,7 @@ jobs:
           -d '{"platform": "'$PLATFORM'", "webhookToken": "'$WEBHOOK_TOKEN'", "status": "succeeded"}'
 
       - name: set platform build job to failed
-        if: ${{ failed() }}
+        if: ${{ failure() }}
         shell: bash
         env:
           PLATFORM: ${{ matrix.platform == 'ubuntu-20.04' && 'linux' || matrix.platform == 'macos-latest' && 'macos' || matrix.patform == 'windows-latest' && 'windows' }}
