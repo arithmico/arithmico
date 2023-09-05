@@ -11,5 +11,6 @@ export class UpdatePlatformBuildJobStatusCommand {
     public readonly platform: PlatformBuildJobPlatform,
     public readonly webhookToken: string,
     public readonly status: PlatformBuildJobStatus,
+    public readonly artifactUrl: string | undefined,
   ) {}
 }

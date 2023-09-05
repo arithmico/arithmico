@@ -25,6 +25,7 @@ export class UpdatePlatformBuildJobStatusController {
         body.platform,
         body.webhookToken,
         body.status,
+        body.artifactUrl,
       ),
     );
   }

@@ -91,13 +91,14 @@ export class BuildJobRepository {
     return buildJobDocument;
   }
 
-  async setPlatformBuildJobStatus(
+  async updatePlatformBuildJob(
     platform: PlatformBuildJobPlatform,
     webhookToken: string,
     buildJobId: string,
     configurationId: string,
     configurationRevisionId: string,
     status: PlatformBuildJobStatus,
+    artifactUrl: string | undefined,
   ): Promise<BuildJobDocument> {
     return this.buildJobModel.findOneAndUpdate(
       {
@@ -110,26 +111,29 @@ export class BuildJobRepository {
       {
         $set: {
           'platforms.$.status': status,
+          'platforms.$.artifactUrl': artifactUrl,
         },
       },
     );
   }
 
-  async setPlatformBuildJobStatusOrThrow(
+  async updatePlatformBuildJobOrThrow(
     platform: PlatformBuildJobPlatform,
     webhookToken: string,
     buildJobId: string,
     configurationId: string,
     configurationRevisionId: string,
     status: PlatformBuildJobStatus,
+    artifactUrl: string | undefined,
   ): Promise<BuildJobDocument> {
-    const buildJobDocument = await this.setPlatformBuildJobStatus(
+    const buildJobDocument = await this.updatePlatformBuildJob(
       platform,
       webhookToken,
       buildJobId,
       configurationId,
       configurationRevisionId,
       status,
+      artifactUrl,
     );
     if (!buildJobDocument) {
       throw new NotFoundException();

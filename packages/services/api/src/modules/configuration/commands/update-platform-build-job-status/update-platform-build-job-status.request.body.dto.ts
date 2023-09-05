@@ -1,4 +1,4 @@
-import { IsEnum, IsString, Length } from 'class-validator';
+import { IsEnum, IsOptional, IsString, Length } from 'class-validator';
 import {
   PlatformBuildJobPlatform,
   PlatformBuildJobStatus,
@@ -16,4 +16,9 @@ export class UpdatePlatformBuildJobStatusRequestBodyDto {
   @IsString()
   @IsEnum(PlatformBuildJobStatus)
   status: PlatformBuildJobStatus;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 2048)
+  artifactUrl?: string;
 }

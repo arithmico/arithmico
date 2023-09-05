@@ -9,13 +9,14 @@ export class UpdatePlatformBuildJobStatusHandler
   constructor(private readonly buildJobRepository: BuildJobRepository) {}
 
   async execute(command: UpdatePlatformBuildJobStatusCommand): Promise<void> {
-    await this.buildJobRepository.setPlatformBuildJobStatus(
+    await this.buildJobRepository.updatePlatformBuildJob(
       command.platform,
       command.webhookToken,
       command.buildJobId,
       command.configurationId,
       command.configurationRevisionId,
       command.status,
+      command.artifactUrl,
     );
   }
 }
