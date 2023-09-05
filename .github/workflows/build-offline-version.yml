@@ -108,6 +108,9 @@ jobs:
             export FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/nsis/Arithmico Calculator_0.1.0_x64-setup.exe"
             export FILE_SUFFIX=".exe"
           fi
+          echo PLATFORM_NAME=$PLATFORM_NAME
+          echo FROM_PATH=$FROM_PATH
+          echo FILE_SUFFIX=$FILE_SUFFIX
           export DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH$FILE_SUFFIX
           export ARTIFACT_URL=$ARTIFACT_PATH$FILE_SUFFIX
           aws s3 cp "$FROM_PATH" $DEST_PATH
