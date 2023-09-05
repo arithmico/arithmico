@@ -6,7 +6,7 @@ import { UpdatePlatformBuildJobStatusRequestBodyDto } from './update-platform-bu
 import { UpdatePlatformBuildJobStatusRequestParamsDto } from './update-platform-build-job-status.request.params.dto';
 
 @Controller(
-  ':configurationId/revisions/:revisionId/build-jobs/:buildJobId/platforms',
+  ':configurationId/revisions/:configurationRevisionId/build-jobs/:buildJobId/platforms',
 )
 export class UpdatePlatformBuildJobStatusController {
   constructor(private commandBus: CommandBus) {}
