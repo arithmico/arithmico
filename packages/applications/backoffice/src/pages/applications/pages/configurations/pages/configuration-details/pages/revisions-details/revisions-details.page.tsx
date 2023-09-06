@@ -17,6 +17,7 @@ import {
 } from "../../../../../../../../store/api/resources/configurations/configurations.api";
 import { DispatchConfigurationRevisionBuildJob } from "./components/dispatch-configuration-revision-build-job.dialog";
 import { RevisionDetailsBreadcrumbs } from "./components/revision-breadcrumbs";
+import { RevisionBuildJobList } from "./components/revision-build-job-list";
 import { RevisionFeatureFlagsCard } from "./components/revision-feature-flags-card";
 
 function triggerDownload(
@@ -84,10 +85,10 @@ export function RevisionDetailsPage() {
             revisionId={revisionId!}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           <Card>
             <Heading level={2} className="mb-4">
-              <FormattedMessage id="applications.configurations.revisions.export" />
+              <FormattedMessage id="applications.configurations.revisions.actions" />
             </Heading>
             <div className="flex gap-4">
               <ActionButton
@@ -95,13 +96,17 @@ export function RevisionDetailsPage() {
                   triggerDownload(configurationId!, revisionId!, accessToken!);
                 }}
               >
-                <FormattedMessage id="applications.configurations.revisions.export.button" />
+                <FormattedMessage id="applications.configurations.revisions.actions.export" />
               </ActionButton>
               <ActionButton onClick={() => setIsDialogOpen(true)}>
-                dispatch build job
+                <FormattedMessage id="applications.configurations.revisions.actions.trigger-build" />
               </ActionButton>
             </div>
           </Card>
+          <RevisionBuildJobList
+            configurationId={configurationId!}
+            configurationRevisionId={revisionId!}
+          />
         </div>
       </div>
     </>

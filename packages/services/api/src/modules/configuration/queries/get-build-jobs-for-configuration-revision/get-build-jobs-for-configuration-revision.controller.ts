@@ -8,7 +8,7 @@ import { GetBuildJobsForConfigurationRevisionQuery } from './get-build-jobs-for-
 import { SecurityAttribute } from '../../../../common/constants/security-attributes.enum';
 import { SecurityAttributes } from '../../../../decorators/security-attributes.decorator';
 
-@Controller(':configurationId/configurationRevisions/:revisionId/build-jobs')
+@Controller(':configurationId/revisions/:configurationRevisionId/build-jobs')
 export class GetBuildJobsForConfigurationRevisionController {
   constructor(private queryBus: QueryBus) {}
 

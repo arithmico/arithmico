@@ -15,6 +15,8 @@ import {
   GetLatestConfigurationRevisionFeatureFlagIdsResponse,
   DispatchConfigurationBuildJobResponse,
   DispatchConfigurationBuildJobArgs,
+  GetBuildJobsForConfigurationRevisionArgs,
+  BuildJobDto,
 } from "./configurations.types";
 
 export const configurationsApi = api.injectEndpoints({
@@ -115,6 +117,33 @@ export const configurationsApi = api.injectEndpoints({
           : [],
     }),
 
+    getBuildJobsForConfigurationRevision: build.query<
+      PagedResponse<BuildJobDto>,
+      GetBuildJobsForConfigurationRevisionArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions/${arg.configurationRevisionId}/build-jobs`,
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              { type: "Configuration", id: arg.configurationId },
+              {
+                type: "ConfigurationRevision",
+                id: arg.configurationRevisionId,
+              },
+              ...response.items.map((buildJob) => ({
+                type: "BuildJob" as const,
+                id: buildJob.id,
+              })),
+            ]
+          : [],
+    }),
+
     createConfiguration: build.mutation<
       CreationResponse,
       CreateConfigurationArgs
@@ -187,6 +216,7 @@ export const {
   useGetConfigurationRevisionsQuery,
   useGetConfigurationRevisionByIdQuery,
   useGetLatestConfigurationRevisionFeatureFlagIdsQuery,
+  useGetBuildJobsForConfigurationRevisionQuery,
   useCreateConfigurationMutation,
   useCreateConfigurationRevisionMutation,
   useDispatchConfigurationBuildJobMutation,
