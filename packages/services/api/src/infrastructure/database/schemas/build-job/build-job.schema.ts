@@ -31,6 +31,9 @@ export class BuildJob {
 
   @Prop({ type: String, required: true })
   webhookToken: string;
+
+  @Prop({ type: Boolean, required: true })
+  isPublic: boolean;
 }
 
 export const BuildJobSchema = SchemaFactory.createForClass(BuildJob);

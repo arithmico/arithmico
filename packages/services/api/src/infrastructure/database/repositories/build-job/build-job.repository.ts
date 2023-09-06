@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
+import { PagedResponse } from '../../../../common/types/paged-response.dto';
+import { createPagedAggregationPipeline } from '../../../../common/utils/paged-aggregation/paged-aggregation';
 import {
   BuildJob,
   BuildJobDocument,
@@ -32,18 +34,9 @@ export class BuildJobRepository {
       createdAt: new Date(),
       platforms: [],
       webhookToken: nanoid(),
+      isPublic: false,
     };
     return this.buildJobModel.create(newBuildJob);
-  }
-
-  async getBuildJobsForConfigurationRevision(
-    configurationId: string,
-    configurationRevisionId: string,
-  ): Promise<BuildJobDocument[]> {
-    return this.buildJobModel.find({
-      configurationId,
-      configurationRevisionId,
-    });
   }
 
   async addPlatformBuildJob(
@@ -139,5 +132,34 @@ export class BuildJobRepository {
       throw new NotFoundException();
     }
     return buildJobDocument;
+  }
+
+  async getBuildJobsForConfigurationRevision(
+    configurationId: string,
+    configurationRevisionId: string,
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<BuildJobDocument>> {
+    const result = await this.buildJobModel.aggregate(
+      createPagedAggregationPipeline({
+        skip,
+        limit,
+        preProcessingStages: [
+          {
+            $match: {
+              configurationId,
+              configurationRevisionId,
+            },
+          },
+        ],
+      }),
+    );
+
+    return {
+      skip,
+      limit,
+      total: result.at(0)!.total,
+      items: result.at(0)!.items,
+    };
   }
 }
