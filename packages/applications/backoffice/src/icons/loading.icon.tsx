@@ -12,7 +12,7 @@ export default function LoadingIcon({ className }: Props) {
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={classNames("animate-spin stroke-white", className)}
+      className={classNames("animate-spin", className)}
       aria-hidden
     >
       <path
