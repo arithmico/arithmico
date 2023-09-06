@@ -3,10 +3,14 @@ import { integrationTest, integrationTestThrow } from '../../utils/integration-t
 // normal
 integrationTest('normal(0.23)', '0.388529');
 integrationTest('normal(-0.23)', '0.388529');
+integrationTest('normal(3, 2, 5)', '0.078209');
+integrationTestThrow('normal(3, 2, -5)');
 
 // cnormal
 integrationTest('cnormal(0.23)', '0.590954');
 integrationTest('cnormal(-0.23)', '0.409046');
+integrationTest('cnormal(3, 2, 5)', '0.57926');
+integrationTestThrow('cnormal(3, 2, -5)');
 
 // binom
 integrationTest('binom(10, 0.87, 9)', '0.371207');
