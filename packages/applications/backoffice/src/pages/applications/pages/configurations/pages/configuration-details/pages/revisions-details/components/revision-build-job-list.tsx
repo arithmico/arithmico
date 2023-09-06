@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { Link, useNavigate } from "react-router-dom";
 import { BoxedList } from "../../../../../../../../../components/boxed-list/boxed-list";
 import { Card } from "../../../../../../../../../components/card/card";
 import Heading from "../../../../../../../../../components/heading/heading";
 import { PaginationToolbar } from "../../../../../../../../../components/pagination-toolbar/pagination-toolbar";
+import { ChevronRightIcon } from "../../../../../../../../../icons/chevron-right.icon";
 import LoadingIcon from "../../../../../../../../../icons/loading.icon";
+import { WarningIcon } from "../../../../../../../../../icons/warning.icon";
 import { useGetBuildJobsForConfigurationRevisionQuery } from "../../../../../../../../../store/api/resources/configurations/configurations.api";
 import { PlatformBuildJobStatus } from "../../../../../../../../../store/api/resources/configurations/configurations.types";
 
@@ -17,6 +20,7 @@ export function RevisionBuildJobList({
   configurationId,
   configurationRevisionId,
 }: RevisionBuildJobListProps) {
+  const navigate = useNavigate();
   const limit = 10;
   const [skip, setSkip] = useState(0);
   const { data, isSuccess, refetch } =
@@ -51,12 +55,33 @@ export function RevisionBuildJobList({
           const running = buildJob.platforms.some(
             (platform) => platform.status === PlatformBuildJobStatus.Running
           );
+          const failed = buildJob.platforms.some(
+            (platform) => platform.status === PlatformBuildJobStatus.Failed
+          );
+          const buildJobUrl = `/applications/configurations/${configurationId}/revisions/${configurationRevisionId}/build-jobs/${buildJob.id}`;
 
           return (
-            <BoxedList.Item className="p-2" key={buildJob.id}>
+            <BoxedList.Item
+              className="p-2"
+              key={buildJob.id}
+              onClick={() => {
+                if (!running && !failed) {
+                  navigate(buildJobUrl);
+                }
+              }}
+            >
               {buildJob.name}
               {running && (
-                <LoadingIcon className="w-8 h-8 stroke-black/30 ml-auto" />
+                <LoadingIcon className="w-6 h-6 stroke-black/30 ml-auto" />
+              )}
+              {failed && (
+                <WarningIcon className="w-6 h-6 ml-auto stroke-black/30" />
+              )}
+
+              {!running && !failed && (
+                <Link to={buildJobUrl} className="ml-auto">
+                  <ChevronRightIcon className="w-6 h-6 stroke-black/30" />
+                </Link>
               )}
             </BoxedList.Item>
           );
