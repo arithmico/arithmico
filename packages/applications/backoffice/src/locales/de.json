@@ -183,5 +183,6 @@
   "applications.configurations.revisions.actions.trigger-build": "Build starten",
   "applications.configurations.revisions.actions.dispatch-build-job.title": "Build-Auftrag starten",
   "applications.configurations.revisions.actions.dispatch-build-job.version": "Version",
-  "applications.configurations.revisions.build": "Builds"
+  "applications.configurations.revisions.build": "Builds",
+  "applications.configurations.revisions.build-job.artifacts": "Artefakte"
 }

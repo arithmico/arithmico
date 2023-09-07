@@ -1,7 +1,9 @@
+import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router-dom";
 import { Card } from "../../../../../../../../../../components/card/card";
 import Heading from "../../../../../../../../../../components/heading/heading";
 import { useGetBuildJobForConfigurationRevisionByIdQuery } from "../../../../../../../../../../store/api/resources/configurations/configurations.api";
+import { PlatformBuildJobStatus } from "../../../../../../../../../../store/api/resources/configurations/configurations.types";
 
 export function BuildJobDetailsPage() {
   const { configurationId, revisionId, buildJobId } = useParams();
@@ -15,6 +17,12 @@ export function BuildJobDetailsPage() {
     return <></>;
   }
 
+  const succeededPlatforms = data.platforms.filter(
+    (platform) =>
+      platform.status === PlatformBuildJobStatus.Succeeded &&
+      platform.artifactUrl
+  );
+
   return (
     <>
       <Heading className="my-4" level={1}>
@@ -23,10 +31,12 @@ export function BuildJobDetailsPage() {
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-4">
           <Card>
-            <Heading level={2}>Artefakte</Heading>
-            {data.platforms.length > 0 && (
+            <Heading level={2}>
+              <FormattedMessage id="applications.configurations.revisions.build-job.artifacts" />
+            </Heading>
+            {succeededPlatforms.length > 0 && (
               <ul className="flex flex-col mt-4 gap-1">
-                {data.platforms.map((platform) => (
+                {succeededPlatforms.map((platform) => (
                   <li
                     key={`${buildJobId}-${platform.platform}`}
                     className="flex w-full"
