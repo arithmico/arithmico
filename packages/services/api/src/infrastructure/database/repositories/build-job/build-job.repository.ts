@@ -162,4 +162,34 @@ export class BuildJobRepository {
       items: result.at(0)!.items,
     };
   }
+
+  async getBuildJobById(
+    configurationId: string,
+    configurationRevisionId: string,
+    buildJobId: string,
+  ): Promise<BuildJobDocument | null> {
+    return this.buildJobModel
+      .findOne({
+        _id: buildJobId,
+        configurationId,
+        configurationRevisionId,
+      })
+      .exec();
+  }
+
+  async getBuildJobByIdOrThrow(
+    configurationId: string,
+    configurationRevisionId: string,
+    buildJobId: string,
+  ): Promise<BuildJobDocument> {
+    const buildJobDocument = await this.getBuildJobById(
+      configurationId,
+      configurationRevisionId,
+      buildJobId,
+    );
+    if (!buildJobDocument) {
+      throw new NotFoundException();
+    }
+    return buildJobDocument;
+  }
 }

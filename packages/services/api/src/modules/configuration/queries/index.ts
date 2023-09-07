@@ -1,5 +1,7 @@
 import { GetAvailableVersionTagsForConfigurationRevisionController } from './get-available-version-tags-for-configuration-revision/get-available-version-tags-for-configuration-revision.controller';
 import { GetAvailableVersionTagsForConfigurationRevisionHandler } from './get-available-version-tags-for-configuration-revision/get-available-version-tags-for-configuration-revision.handler';
+import { GetBuildJobByIdController } from './get-build-job-by-id/get-build-job-by-id.controller';
+import { GetBuildJobByIdHandler } from './get-build-job-by-id/get-build-job-by-id.handler';
 import { GetBuildJobsForConfigurationRevisionController } from './get-build-jobs-for-configuration-revision/get-build-jobs-for-configuration-revision.controller';
 import { GetBuildJobsForConfigurationRevisionHandler } from './get-build-jobs-for-configuration-revision/get-build-jobs-for-configuration-revision.handler';
 import { GetConfigurationByIdController } from './get-configuration-by-id/get-configuration-by-id.controller';
@@ -27,6 +29,7 @@ export const queryHandlers = [
   GetConfigurationRevisionByIdHandler,
   GetAvailableVersionTagsForConfigurationRevisionHandler,
   GetBuildJobsForConfigurationRevisionHandler,
+  GetBuildJobByIdHandler,
 ];
 
 export const queryControllers = [
@@ -39,4 +42,5 @@ export const queryControllers = [
   GetConfigurationRevisionByIdController,
   GetAvailableVersionTagsForConfigurationRevisionController,
   GetBuildJobsForConfigurationRevisionController,
+  GetBuildJobByIdController,
 ];
