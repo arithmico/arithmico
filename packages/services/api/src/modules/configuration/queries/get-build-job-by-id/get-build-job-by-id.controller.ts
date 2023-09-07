@@ -7,7 +7,7 @@ import { SecurityAttributes } from '../../../../decorators/security-attributes.d
 import { GetBuildJobByIdQuery } from './get-build-job-by-id.query';
 
 @Controller(
-  ':configurationId/revisions/configurationRevisionId/build-jobs/:buildJobId',
+  ':configurationId/revisions/:configurationRevisionId/build-jobs/:buildJobId',
 )
 export class GetBuildJobByIdController {
   constructor(private queryBus: QueryBus) {}
