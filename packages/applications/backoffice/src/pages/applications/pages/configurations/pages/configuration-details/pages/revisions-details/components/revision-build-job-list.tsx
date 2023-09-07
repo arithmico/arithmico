@@ -52,9 +52,10 @@ export function RevisionBuildJobList({
       </Heading>
       <BoxedList>
         {data.items.map((buildJob) => {
-          const running = buildJob.platforms.some(
-            (platform) => platform.status === PlatformBuildJobStatus.Running
-          );
+          const running =
+            buildJob.platforms.some(
+              (platform) => platform.status === PlatformBuildJobStatus.Running
+            ) || buildJob.platforms.length === 0;
           const failed = buildJob.platforms.some(
             (platform) => platform.status === PlatformBuildJobStatus.Failed
           );
