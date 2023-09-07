@@ -114,3 +114,9 @@ export interface GetBuildJobsForConfigurationRevisionArgs {
   skip: number;
   limit: number;
 }
+
+export interface GetBuildJobForConfigurationRevisionByIdArgs {
+  configurationId: string;
+  configurationRevisionId: string;
+  buildJobId: string;
+}
