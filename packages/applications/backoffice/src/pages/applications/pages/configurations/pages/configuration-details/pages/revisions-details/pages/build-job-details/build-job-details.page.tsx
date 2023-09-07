@@ -2,8 +2,13 @@ import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router-dom";
 import { Card } from "../../../../../../../../../../components/card/card";
 import Heading from "../../../../../../../../../../components/heading/heading";
-import { useGetBuildJobForConfigurationRevisionByIdQuery } from "../../../../../../../../../../store/api/resources/configurations/configurations.api";
+import {
+  useGetBuildJobForConfigurationRevisionByIdQuery,
+  useGetConfigurationByIdQuery,
+  useGetConfigurationRevisionByIdQuery,
+} from "../../../../../../../../../../store/api/resources/configurations/configurations.api";
 import { PlatformBuildJobStatus } from "../../../../../../../../../../store/api/resources/configurations/configurations.types";
+import { BuildJobDetailsBreadcrumbs } from "./components/build-job-details-breadcrumbs";
 
 export function BuildJobDetailsPage() {
   const { configurationId, revisionId, buildJobId } = useParams();
@@ -12,8 +17,17 @@ export function BuildJobDetailsPage() {
     configurationId: configurationId!,
     configurationRevisionId: revisionId!,
   });
+  const { isSuccess: configurationIsSuccess, data: configuration } =
+    useGetConfigurationByIdQuery({
+      configurationId: configurationId!,
+    });
+  const { isSuccess: revisionIsSuccess, data: revision } =
+    useGetConfigurationRevisionByIdQuery({
+      configurationId: configurationId!,
+      revisionId: revisionId!,
+    });
 
-  if (!isSuccess) {
+  if (!isSuccess || !configurationIsSuccess || !revisionIsSuccess) {
     return <></>;
   }
 
@@ -25,6 +39,13 @@ export function BuildJobDetailsPage() {
 
   return (
     <>
+      <BuildJobDetailsBreadcrumbs
+        configurationId={configurationId!}
+        configurationName={configuration.name}
+        revisionId={revisionId!}
+        revisionNumber={revision.revision}
+        buildJobName={data.name}
+      />
       <Heading className="my-4" level={1}>
         {data.name}
       </Heading>
