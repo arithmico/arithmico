@@ -1,11 +1,15 @@
 import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router-dom";
+import { ActionButton } from "../../../../../../../../../../components/action-button/action-button";
 import { Card } from "../../../../../../../../../../components/card/card";
+import { DefinitionListEntry } from "../../../../../../../../../../components/definition-list-entry/definition-list-entry";
+import { DefinitionList } from "../../../../../../../../../../components/definition-list/definition-list";
 import Heading from "../../../../../../../../../../components/heading/heading";
 import {
   useGetBuildJobForConfigurationRevisionByIdQuery,
   useGetConfigurationByIdQuery,
   useGetConfigurationRevisionByIdQuery,
+  usePublishBuildJobMutation,
 } from "../../../../../../../../../../store/api/resources/configurations/configurations.api";
 import { PlatformBuildJobStatus } from "../../../../../../../../../../store/api/resources/configurations/configurations.types";
 import { BuildJobDetailsBreadcrumbs } from "./components/build-job-details-breadcrumbs";
@@ -26,6 +30,7 @@ export function BuildJobDetailsPage() {
       configurationId: configurationId!,
       revisionId: revisionId!,
     });
+  const [trigger] = usePublishBuildJobMutation();
 
   if (!isSuccess || !configurationIsSuccess || !revisionIsSuccess) {
     return <></>;
@@ -71,6 +76,42 @@ export function BuildJobDetailsPage() {
                   </li>
                 ))}
               </ul>
+            )}
+          </Card>
+        </div>
+        <div className="flex flex-col gap-4">
+          <Card>
+            <Heading className="mb-4" level={2}>
+              Details
+            </Heading>
+            <DefinitionList>
+              <DefinitionListEntry label="ID" value={data.id} />
+              <DefinitionListEntry label="Name" value={data.name} />
+              <DefinitionListEntry
+                label="Veröffentlicht"
+                value={
+                  data.isPublic ? (
+                    <FormattedMessage id="common.yes" />
+                  ) : (
+                    <FormattedMessage id="common.no" />
+                  )
+                }
+              />
+            </DefinitionList>
+            {!data.isPublic && (
+              <div className="flex mt-4">
+                <ActionButton
+                  onClick={() =>
+                    trigger({
+                      buildJobId: buildJobId!,
+                      configurationId: configurationId!,
+                      configurationRevisionId: revisionId!,
+                    })
+                  }
+                >
+                  Veröffentlichen
+                </ActionButton>
+              </div>
             )}
           </Card>
         </div>

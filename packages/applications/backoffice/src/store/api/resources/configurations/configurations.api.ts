@@ -18,6 +18,7 @@ import {
   GetBuildJobsForConfigurationRevisionArgs,
   BuildJobDto,
   GetBuildJobForConfigurationRevisionByIdArgs,
+  PublishBuildJobArgs,
 } from "./configurations.types";
 
 export const configurationsApi = api.injectEndpoints({
@@ -236,6 +237,22 @@ export const configurationsApi = api.injectEndpoints({
             ]
           : [],
     }),
+
+    publishBuildJob: build.mutation<void, PublishBuildJobArgs>({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions/${arg.configurationRevisionId}/build-jobs/${arg.buildJobId}/publish`,
+        method: "POST",
+      }),
+      invalidatesTags: (_, error, arg) =>
+        !error
+          ? [
+              {
+                type: "BuildJob",
+                id: arg.buildJobId,
+              },
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -250,4 +267,5 @@ export const {
   useCreateConfigurationMutation,
   useCreateConfigurationRevisionMutation,
   useDispatchConfigurationBuildJobMutation,
+  usePublishBuildJobMutation,
 } = configurationsApi;

@@ -120,3 +120,9 @@ export interface GetBuildJobForConfigurationRevisionByIdArgs {
   configurationRevisionId: string;
   buildJobId: string;
 }
+
+export interface PublishBuildJobArgs {
+  configurationId: string;
+  configurationRevisionId: string;
+  buildJobId: string;
+}
