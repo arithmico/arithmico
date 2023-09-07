@@ -192,4 +192,37 @@ export class BuildJobRepository {
     }
     return buildJobDocument;
   }
+
+  async publishBuildJob(
+    configurationId: string,
+    configurationRevisionId: string,
+    buildJobId: string,
+  ): Promise<BuildJobDocument | null> {
+    return this.buildJobModel.findOneAndUpdate(
+      {
+        _id: buildJobId,
+        configurationId,
+        configurationRevisionId,
+      },
+      {
+        isPublic: true,
+      },
+    );
+  }
+
+  async publishBuildJobOrThrow(
+    configurationId: string,
+    configurationRevisionId: string,
+    buildJobId: string,
+  ): Promise<BuildJobDocument> {
+    const buildJobDocument = await this.publishBuildJob(
+      configurationId,
+      configurationRevisionId,
+      buildJobId,
+    );
+    if (!buildJobDocument) {
+      throw new NotFoundException();
+    }
+    return buildJobDocument;
+  }
 }
