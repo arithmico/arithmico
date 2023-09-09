@@ -12,6 +12,15 @@ integrationTest('cnormal(-0.23)', '0.409046');
 integrationTest('cnormal(3, 2, 5)', '0.57926');
 integrationTestThrow('cnormal(3, 2, -5)');
 
+// qnormal
+integrationTest('qnormal(0.23)', '-0.738847');
+integrationTest('qnormal(0.78, 2, 5)', '5.860966');
+integrationTest('qnormal(0.94, 2, 5)', '9.773868');
+integrationTest('qnormal(0.9999, 2, 5)', '20.595082');
+integrationTestThrow('qnormal(1.78, 2, 5)');
+integrationTestThrow('qnormal(-0.78, 2, 5)');
+integrationTestThrow('qnormal(0.78, 2, -5)');
+
 // binom
 integrationTest('binom(10, 0.87, 9)', '0.371207');
 integrationTestThrow('binom(-10, 0.87, 9)');

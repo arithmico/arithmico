@@ -3,6 +3,7 @@ import createNumberNode from '../../../node-operations/create-node/create-number
 import { calculateCNormal, calculateNormal } from '../utils/normal';
 import { calculateBinom, calculateCBinom } from '../utils/binomial';
 import { PluginFragment } from '../../../utils/plugin-builder';
+import { calculateQuantileOfStandardNormalCDF } from '../utils/quantile-standard-normal';
 
 const normalHeader: FunctionHeaderItem[] = [
     {
@@ -13,6 +14,17 @@ const normalHeader: FunctionHeaderItem[] = [
     { name: 'expectation', type: 'number', evaluate: true, optional: true },
     { name: 'sd', type: 'number', evaluate: true, optional: true },
 ];
+
+const qnormalHeader: FunctionHeaderItem[] = [
+    {
+        name: 'p',
+        type: 'number',
+        evaluate: true,
+    },
+    { name: 'expectation', type: 'number', evaluate: true, optional: true },
+    { name: 'sd', type: 'number', evaluate: true, optional: true },
+];
+
 const binomHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
     { name: 'p', type: 'number', evaluate: true },
@@ -56,6 +68,29 @@ __FUNCTIONS.cnormal &&
             }
 
             return createNumberNode(calculateCNormal(x, expectation, sd));
+        },
+    );
+
+__FUNCTIONS.qnormal &&
+    distributionFragment.addFunction(
+        'qnormal',
+        qnormalHeader,
+        'Quantile function of the cumulative normal distribution. Calculate the corresponding random variable for the given probability p. The default values are: for expactation 0 and for sd 1 (cumulative standard normal distribution).X',
+        'Quantilsfunktion der kumulierten Normalverteilung. Berechenet zur gegebenen Wahrscheinlichkeit p die entsprechende Zufallsvariable. Die Standardwerte sind: für expactation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
+        ({ getParameter, runtimeError }) => {
+            const p = (<NumberNode>getParameter('p')).value;
+            const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
+            const sd = (<NumberNode>getParameter('sd', createNumberNode(1))).value;
+
+            if (p < 0 || p > 1) {
+                throw runtimeError('p is not between 0 and 1');
+            }
+
+            if (sd < 0) {
+                throw runtimeError('sd must be greater than or equal to 0');
+            }
+
+            return createNumberNode(expectation + sd * calculateQuantileOfStandardNormalCDF(p));
         },
     );
 
