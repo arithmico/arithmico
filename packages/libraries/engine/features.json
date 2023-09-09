@@ -106,6 +106,7 @@
         "cov",
         "corr",
         "erf",
+        "erfinv",
         "regressionsPolynomial",
         "regressionsExponential",
         "regressionsLogistic"

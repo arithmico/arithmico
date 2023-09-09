@@ -86,6 +86,16 @@ integrationTestThrow('corr([18, 2, 42, 14, 22, 35, 45, 8], [22, b, 53, 30, 25, 3
 integrationTest('erf(1)', '0.842701');
 integrationTest('erf(-1)', '-0.842701');
 
+// erfinv
+integrationTest('erfinv(0.9999)', '2.751064');
+integrationTest('erfinv(0.3)', '0.272463');
+integrationTest('erfinv(-0.3)', '-0.272463');
+integrationTestThrow('erfinv(1.1)');
+integrationTestThrow('erfinv(-1.1)');
+
+
+
+
 // regressions:polynomial
 integrationTest('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])', 'y = 0.532609 * x + 0.834783');
 integrationTest(
