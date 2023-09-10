@@ -96,6 +96,7 @@
         "qnormal",
         "binom",
         "cbinom",
+        "qbinom",
         "avg",
         "var",
         "unbiasedVar",

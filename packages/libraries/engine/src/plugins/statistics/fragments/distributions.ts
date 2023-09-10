@@ -31,6 +31,16 @@ const binomHeader: FunctionHeaderItem[] = [
     { name: 'k', type: 'number', evaluate: true },
 ];
 
+const qbinomHeader: FunctionHeaderItem[] = [
+    {
+        name: 'p_q',
+        type: 'number',
+        evaluate: true,
+    },
+    { name: 'n', type: 'number', evaluate: true, optional: true },
+    { name: 'p', type: 'number', evaluate: true, optional: true },
+];
+
 const distributionFragment = new PluginFragment();
 
 __FUNCTIONS.normal &&
@@ -75,8 +85,8 @@ __FUNCTIONS.qnormal &&
     distributionFragment.addFunction(
         'qnormal',
         qnormalHeader,
-        'Quantile function of the cumulative normal distribution. Calculate the corresponding random variable for the given probability p. The default values are: for expactation 0 and for sd 1 (cumulative standard normal distribution).X',
-        'Quantilsfunktion der kumulierten Normalverteilung. Berechenet zur gegebenen Wahrscheinlichkeit p die entsprechende Zufallsvariable. Die Standardwerte sind: für expactation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
+        'Quantile function of the cumulative normal distribution. Calculate the corresponding random variable for the given quantile p. The default values are: for expactation 0 and for sd 1 (cumulative standard normal distribution).',
+        'Quantilsfunktion der kumulierten Normalverteilung. Berechenet zu gegebenen Quantil p die entsprechende Zufallsvariable. Die Standardwerte sind: für expactation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
         ({ getParameter, runtimeError }) => {
             const p = (<NumberNode>getParameter('p')).value;
             const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
@@ -159,6 +169,36 @@ __FUNCTIONS.cbinom &&
             }
 
             return createNumberNode(calculateCBinom(n, p, k));
+        },
+    );
+
+__FUNCTIONS.qbinom &&
+    distributionFragment.addFunction(
+        'qbinom',
+        qbinomHeader,
+        'Quantile function of the cumulative binomial distribution. Calculate the corresponding k for the given quantile p_q. ',
+        'Quantilsfunktion der kumulierten Binomailverteilung. Berechenet zum gegebenen Quantil p_q das entsprechende k. ',
+        ({ getParameter, runtimeError }) => {
+            const p_q = (<NumberNode>getParameter('p_q')).value;
+            const n = (<NumberNode>getParameter('n')).value;
+            const p_success = (<NumberNode>getParameter('p')).value;
+
+            if (p_q < 0 || p_q > 1) {
+                throw runtimeError('p_q is not between 0 and 1');
+            }
+            if (n < 0) {
+                throw runtimeError('n must be greater than or equal to 0');
+            }
+            if (n % 1 !== 0) {
+                throw runtimeError('n has to be an integer');
+            }
+            if (p_success < 0 || p_success > 1) {
+                throw runtimeError('p_q is not between 0 and 1');
+            }
+
+            const k = new Array(n).fill(0).findIndex((_, k) => calculateCBinom(n, p_success, k) >= p_q);
+
+            return createNumberNode(k);
         },
     );
 
