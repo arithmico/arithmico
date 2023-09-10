@@ -1,4 +1,4 @@
-import {integrationTest, integrationTestThrow} from '../../utils/integration-test-utils';
+import { integrationTest, integrationTestThrow } from '../../utils/integration-test-utils';
 
 // normal
 integrationTest('normal(0.23)', '0.388529');
