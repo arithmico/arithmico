@@ -37,8 +37,8 @@ const qbinomHeader: FunctionHeaderItem[] = [
         type: 'number',
         evaluate: true,
     },
-    { name: 'n', type: 'number', evaluate: true, optional: true },
-    { name: 'p', type: 'number', evaluate: true, optional: true },
+    { name: 'n', type: 'number', evaluate: true },
+    { name: 'p', type: 'number', evaluate: true },
 ];
 
 const distributionFragment = new PluginFragment();
