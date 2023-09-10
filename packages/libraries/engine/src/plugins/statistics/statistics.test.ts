@@ -42,6 +42,8 @@ integrationTestThrow('cbinom(10, -0.87, 9)');
 
 // qbinom
 integrationTest('qbinom(0.25, 10, 1/3)', '2');
+integrationTest('qbinom(0.4, 23, 0.99)', '23');
+integrationTest('qbinom(0.4, 23, 0.01)', '0');
 integrationTestThrow('qbinom(1.87, 10, 1/3)');
 integrationTestThrow('qbinom(-1.87, 10, 1/3)');
 integrationTestThrow('qbinom(0.25, -10, 1/3)');

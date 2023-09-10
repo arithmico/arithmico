@@ -196,7 +196,7 @@ __FUNCTIONS.qbinom &&
                 throw runtimeError('p_q is not between 0 and 1');
             }
 
-            const k = new Array(n).fill(0).findIndex((_, k) => calculateCBinom(n, p_success, k) >= p_q);
+            const k = new Array(n + 1).fill(0).findIndex((_, k) => calculateCBinom(n, p_success, k) >= p_q);
 
             return createNumberNode(k);
         },
