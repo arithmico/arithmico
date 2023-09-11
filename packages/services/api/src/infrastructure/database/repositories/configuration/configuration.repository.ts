@@ -4,6 +4,10 @@ import { Model } from 'mongoose';
 import { PagedResponse } from '../../../../common/types/paged-response.dto';
 import { createPagedAggregationPipeline } from '../../../../common/utils/paged-aggregation/paged-aggregation';
 import {
+  BuildJob,
+  BuildJobDocument,
+} from '../../schemas/build-job/build-job.schema';
+import {
   ConfigurationRevisionFeatureFlagAssociation,
   ConfigurationRevisionFeatureFlagAssociationDocument,
 } from '../../schemas/configuration-revision-feature-flag-association/configuration-revision-feature-flag-association';
@@ -24,6 +28,7 @@ import {
   VersionTag,
   VersionTagDocument,
 } from '../../schemas/version-tag/version-tag.schema';
+import { ConfigurationBuildJobsAndVersions } from './configuration.types';
 
 interface ConfigurationFeaturesByType {
   types: string[];
@@ -46,6 +51,8 @@ export class ConfigurationRepository {
     private readonly versionTagModel: Model<VersionTagDocument>,
     @InjectModel(FeatureFlag.name)
     private readonly featureFlagModel: Model<FeatureFlagDocument>,
+    @InjectModel(BuildJob.name)
+    private readonly buildJobModel: Model<BuildJobDocument>,
   ) {}
 
   async createConfiguration(
@@ -380,5 +387,133 @@ export class ConfigurationRepository {
       })
       .unwind('$featureFlag')
       .replaceRoot('$featureFlag');
+  }
+
+  async getPublicConfigurations(
+    skip: number,
+    limit: number,
+  ): Promise<PagedResponse<ConfigurationBuildJobsAndVersions>> {
+    const result = await this.configurationModel.aggregate(
+      createPagedAggregationPipeline({
+        skip,
+        limit,
+        preProcessingStages: [
+          {
+            $sort: {
+              name: -1,
+            },
+          },
+          {
+            $lookup: {
+              from: this.buildJobModel.collection.name,
+              localField: '_id',
+              foreignField: 'configurationId',
+              pipeline: [
+                {
+                  $match: {
+                    isPublic: true,
+                  },
+                },
+                {
+                  $lookup: {
+                    from: this.versionTagModel.collection.name,
+                    localField: 'versionTagId',
+                    foreignField: '_id',
+                    as: 'versionTag',
+                  },
+                },
+                {
+                  $addFields: {
+                    versionTag: {
+                      $arrayElemAt: ['$versionTag', 0],
+                    },
+                  },
+                },
+                {
+                  $lookup: {
+                    from: this.revisionModel.collection.name,
+                    localField: 'configurationRevisionId',
+                    foreignField: '_id',
+                    as: 'configurationRevision',
+                  },
+                },
+                {
+                  $addFields: {
+                    configurationRevision: {
+                      $arrayElemAt: ['$configurationRevision', 0],
+                    },
+                  },
+                },
+                {
+                  $addFields: {
+                    version: '$versionTag.version',
+                    revision: '$configurationRevision.revision',
+                  },
+                },
+                {
+                  $unset: [
+                    'versionTag',
+                    'webhookToken',
+                    'platforms.status',
+                    'configurationRevision',
+                  ],
+                },
+                {
+                  $sort: {
+                    revision: -1,
+                    'version.major': -1,
+                    'version.minor': -1,
+                    'version.patch': -1,
+                  },
+                },
+              ],
+              as: 'buildJobs',
+            },
+          },
+          {
+            $addFields: {
+              buildJobs: {
+                $filter: {
+                  input: '$buildJobs',
+                  as: 'item',
+                  cond: {
+                    $eq: ['$$item.isPublic', true],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $match: {
+              $expr: {
+                $gt: [
+                  {
+                    $size: '$buildJobs',
+                  },
+                  0,
+                ],
+              },
+            },
+          },
+          {
+            $addFields: {
+              latestBuildJob: {
+                $arrayElemAt: ['$buildJobs', 0],
+              },
+            },
+          },
+          {
+            $unset: ['buildJobs'],
+          },
+        ],
+      }),
+    );
+
+    return {
+      skip,
+      limit,
+      total: result.at(0).total,
+      items: result.at(0).items,
+    };
   }
 }

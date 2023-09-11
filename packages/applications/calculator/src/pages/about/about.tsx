@@ -96,7 +96,7 @@ export default function About() {
             </a>
           </li>
           <li>
-            <a href="https://github.com/behrenle/arithmico-calculator/releases">
+            <a href="https://blog.arithmico.com/downloads">
               {t("about.offlineVersion")}
             </a>
           </li>

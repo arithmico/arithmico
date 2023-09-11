@@ -29,15 +29,12 @@ export default function Footer() {
           <FooterExternalLink href="https://docs.arithmico.com">
             Arithmico <span className=" pl-1 text-white/50">Docs</span>
           </FooterExternalLink>
-          <FooterExternalLink href="https://config.arithmico.com">
-            Arithmico <span className=" pl-1 text-white/50">Config</span>
-          </FooterExternalLink>
         </ul>
       </div>
       <div>
         <h2 className="font-semibold text-white/70 mb-1 text-lg">Links</h2>
         <ul className="flex flex-col">
-          <FooterExternalLink href="https://github.com/behrenle/arithmico">
+          <FooterExternalLink href="https://github.com/arithmico/arithmico">
             Github
           </FooterExternalLink>
           <Link className="text-white/40 flex items-center" to="/imprint">
@@ -56,7 +53,7 @@ export default function Footer() {
             {new Date().getFullYear()} Lennard Behrens
           </span>
         </span>
-        <span> Lizenz: MIT</span>
+        <span>Lizenz: MIT</span>
       </div>
     </footer>
   );

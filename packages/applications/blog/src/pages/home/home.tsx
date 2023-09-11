@@ -1,6 +1,3 @@
-import ArticlesPreview from "../../components/articles-preview";
-import ReleasesPreview from "../../components/releases-preview";
-
 interface FigureProps {
   src: string;
   alt: string;
@@ -47,7 +44,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-[1fr_1.1fr_1fr] gap-16 justify-center items-center mt-24 -mx-64">
+        <div className="grid grid-cols-[1fr_1.1fr_1fr] gap-16 justify-center items-center my-24 -mx-64">
           <Figure
             src="/imgs/screenshot-01.png"
             alt="screenshot light"
@@ -64,9 +61,6 @@ export default function Home() {
             imgClassName="-rotate-2"
           />
         </div>
-
-        <ArticlesPreview />
-        <ReleasesPreview />
       </div>
     </>
   );

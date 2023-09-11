@@ -30,9 +30,7 @@ export default function Header() {
       <nav>
         <ul className="flex rounded-full text-sm font-medium border border-white/5 backdrop-blur bg-neutral-800 text-white ">
           <NavItem to="/">Home</NavItem>
-          <NavItem to="/articles">Artikel</NavItem>
-          <NavItem to="/releases">Versionen</NavItem>
-          <NavItem to="/team">Team</NavItem>
+          <NavItem to="/downloads">Downloads</NavItem>
         </ul>
       </nav>
     </header>
