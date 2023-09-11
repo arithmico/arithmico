@@ -11,8 +11,6 @@ export function DownloadsPage() {
     return <></>;
   }
 
-  const items = [...data?.items, ...data?.items, ...data?.items];
-
   return (
     <div className="w-full flex flex-col">
       <h1 className="text-6xl font-semibold mb-8">Versionen</h1>
@@ -23,7 +21,7 @@ export function DownloadsPage() {
         Ihnen die passende Lösung für Ihre individuellen Bedürfnisse zu bieten.
       </p>
       <ul className="grid grid-cols-3 gap-4">
-        {items.map((configuration) => (
+        {data.items.map((configuration) => (
           <ConfigurationPreview
             key={configuration.id}
             configuration={configuration}
