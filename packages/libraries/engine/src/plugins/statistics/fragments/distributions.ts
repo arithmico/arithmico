@@ -1,9 +1,10 @@
 import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import { calculateCNormal, calculateNormal } from '../utils/normal';
-import { calculateBinom, calculateCBinom } from '../utils/binomial';
+import { calculateBinom, calculateCBinom, calculateQuantileOfBinomialCDF } from '../utils/binomial';
 import { PluginFragment } from '../../../utils/plugin-builder';
 import { calculateQuantileOfStandardNormalCDF } from '../utils/quantile-standard-normal';
+import { isInClosedInterval, isInOpenInterval } from '../utils/check-intervals-util';
 
 const normalHeader: FunctionHeaderItem[] = [
     {
@@ -92,7 +93,7 @@ __FUNCTIONS.qnormal &&
             const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
             const sd = (<NumberNode>getParameter('sd', createNumberNode(1))).value;
 
-            if (p < 0 || p > 1) {
+            if (!isInOpenInterval(p, 0, 1)) {
                 throw runtimeError('p is not between 0 and 1');
             }
 
@@ -115,7 +116,7 @@ __FUNCTIONS.binom &&
             const p = (<NumberNode>getParameter('p')).value;
             const k = (<NumberNode>getParameter('k')).value;
 
-            if (p < 0 || p > 1) {
+            if (!isInClosedInterval(p, 0, 1)) {
                 throw runtimeError('p is not between 0 and 1');
             }
             if (n < 0) {
@@ -149,7 +150,7 @@ __FUNCTIONS.cbinom &&
             const p = (<NumberNode>getParameter('p')).value;
             const k = (<NumberNode>getParameter('k')).value;
 
-            if (p < 0 || p > 1) {
+            if (!isInClosedInterval(p, 0, 1)) {
                 throw runtimeError('p is not between 0 and 1');
             }
             if (n < 0) {
@@ -183,7 +184,7 @@ __FUNCTIONS.qbinom &&
             const n = (<NumberNode>getParameter('n')).value;
             const p_success = (<NumberNode>getParameter('p')).value;
 
-            if (p_q < 0 || p_q > 1) {
+            if (!isInClosedInterval(p_q, 0, 1)) {
                 throw runtimeError('p_q is not between 0 and 1');
             }
             if (n < 0) {
@@ -192,13 +193,11 @@ __FUNCTIONS.qbinom &&
             if (n % 1 !== 0) {
                 throw runtimeError('n has to be an integer');
             }
-            if (p_success < 0 || p_success > 1) {
+            if (!isInClosedInterval(p_success, 0, 1)) {
                 throw runtimeError('p_q is not between 0 and 1');
             }
 
-            const k = new Array(n + 1).fill(0).findIndex((_, k) => calculateCBinom(n, p_success, k) >= p_q);
-
-            return createNumberNode(k);
+            return createNumberNode(calculateQuantileOfBinomialCDF(p_q, n, p_success));
         },
     );
 

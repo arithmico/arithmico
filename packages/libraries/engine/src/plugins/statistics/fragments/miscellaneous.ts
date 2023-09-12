@@ -3,6 +3,7 @@ import createNumberNode from '../../../node-operations/create-node/create-number
 import { calculateErf } from '../utils/erf';
 import { PluginFragment } from '../../../utils/plugin-builder';
 import { calculateQuantileOfStandardNormalCDF } from '../utils/quantile-standard-normal';
+import { isInOpenInterval } from '../utils/check-intervals-util';
 
 const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
 
@@ -29,7 +30,7 @@ __FUNCTIONS.erfinv &&
         ({ getParameter, runtimeError }) => {
             const x = (<NumberNode>getParameter('x')).value;
 
-            if (x < -1 || x > 1) {
+            if (!isInOpenInterval(x, -1, 1)) {
                 throw runtimeError('x is not between -1 and 1');
             }
 
