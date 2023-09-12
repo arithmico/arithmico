@@ -29,8 +29,11 @@ const CalculatorToolbarButton = forwardRef<
       "p-2",
       "rounded-sm",
       "text-left",
-      //"outline-none",
-      "focus-visible:outline"
+      "ui-focus-visible:outline",
+      "outline-2",
+      "outline-offset-2",
+      "theme-light:outline-black",
+      "theme-dark:outline-white",
     )}
     {...props}
   >
@@ -42,10 +45,10 @@ export default function CalculatorToolbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentOutput = useSelector(
-    (state: CalculatorRootState) => state.session.output
+    (state: CalculatorRootState) => state.session.output,
   );
   const currentInput = useSelector(
-    (state: CalculatorRootState) => state.session.input
+    (state: CalculatorRootState) => state.session.input,
   );
   const [t] = useTranslation();
   useHotkey("ctrl + alt + m", () => dispatch(resetDefinitions()));

@@ -18,7 +18,7 @@ export default function SettingsMiscellaneousSection() {
           "sm:text-lg",
           "md:text-xl",
           "lg:text-2xl",
-          "bold-font:font-bold"
+          "bold-font:font-bold",
         )}
       >
         {t("settings.resetLabel")}
@@ -32,9 +32,11 @@ export default function SettingsMiscellaneousSection() {
             "theme-dark:hover:bg-neutral-600",
             "theme-light:bg-neutral-300",
             "theme-light:hover:bg-neutral-400",
-              "ui-focus-visible:outline",
-              "outline-3",
-              "outline-current"
+            "ui-focus-visible:outline",
+            "outline-2",
+            "outline-offset-2",
+            "theme-light:outline-black",
+            "theme-dark:outline-white",
           )}
           onClick={() => dispatch(resetSettings())}
         >

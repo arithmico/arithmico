@@ -24,7 +24,7 @@ export default function DecimalPlacesListbox({
         "text-base",
         "sm:text-lg",
         "md:text-xl",
-        "lg:text-2xl"
+        "lg:text-2xl",
       )}
     >
       <HeadlessuiListbox value={value} onChange={onChange}>
@@ -38,7 +38,7 @@ export default function DecimalPlacesListbox({
             "flex",
             "flex-col",
             "[&:hover>li]:outline-none",
-            "[&:hover>div>ul>li]:outline-none"
+            "[&:hover>div>ul>li]:outline-none",
           )}
         >
           <HeadlessuiListbox.Button
@@ -52,9 +52,11 @@ export default function DecimalPlacesListbox({
               "theme-light:hover:bg-neutral-400",
               "p-2",
               "rounded-md",
-                "ui-focus-visible:outline",
-                "outline-3",
-                "outline-current"
+              "ui-focus-visible:outline",
+              "outline-2",
+              "outline-offset-2",
+              "theme-light:outline-black",
+              "theme-dark:outline-white",
             )}
           >
             {value}
@@ -64,7 +66,7 @@ export default function DecimalPlacesListbox({
                 "w-6",
                 "h-6",
                 "theme-dark:fill-white/50",
-                "theme-light:fill-black/50"
+                "theme-light:fill-black/50",
               )}
             />
           </HeadlessuiListbox.Button>
@@ -86,7 +88,7 @@ export default function DecimalPlacesListbox({
                 "[&>*:nth-child(11)]:rounded-bl-md",
                 "[&>*:nth-child(15)]:rounded-br-md",
                 "[&>*:nth-child(11)]:rounded-bl-md",
-                "[&>*:nth-child(5n)]:border-l-0"
+                "[&>*:nth-child(5n)]:border-l-0",
               )}
             >
               {new Array(15).fill(0).map((_, index) => (
@@ -103,7 +105,7 @@ export default function DecimalPlacesListbox({
                     "theme-light:hover:bg-neutral-400",
                     "ui-active:outline",
                     "ui-selected:theme-dark:bg-neutral-600",
-                    "ui-selected:theme-light:bg-neutral-400"
+                    "ui-selected:theme-light:bg-neutral-400",
                   )}
                 >
                   {index}

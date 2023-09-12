@@ -1,6 +1,6 @@
-import { forwardRef, RefObject } from "react";
-import { useSelector } from "react-redux";
-import { CalculatorRootState } from "@stores/calculator-store";
+import {forwardRef, RefObject} from "react";
+import {useSelector} from "react-redux";
+import {CalculatorRootState} from "@stores/calculator-store";
 import CalculatorErrorOutput from "./error/calculator-error-output";
 import CalculatorTextOutput from "./text/calculator-text-output";
 import GraphicOutput from "./graphic/calculator-graphic-output";

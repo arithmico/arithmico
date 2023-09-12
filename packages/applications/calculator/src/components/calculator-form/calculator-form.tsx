@@ -16,7 +16,7 @@ export default function CalculatorForm() {
   const [focusNext, setFocusNext] = useState<"input" | "output" | null>(null);
   const [t] = useTranslation();
   const currentOutput = useSelector(
-    (state: CalculatorRootState) => state.session.output
+    (state: CalculatorRootState) => state.session.output,
   );
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function CalculatorForm() {
         inputRef.current.focus();
       }
     },
-    { enableOnFormTags: ["INPUT"] }
+    { enableOnFormTags: ["INPUT"] },
   );
 
   useHotkeys(
@@ -52,7 +52,7 @@ export default function CalculatorForm() {
         outputRef.current.focus();
       }
     },
-    { enableOnFormTags: ["INPUT"] }
+    { enableOnFormTags: ["INPUT"] },
   );
 
   useHotkeys(
@@ -64,7 +64,7 @@ export default function CalculatorForm() {
         inputRef.current.focus();
       }
     },
-    { enableOnFormTags: ["INPUT"] }
+    { enableOnFormTags: ["INPUT"] },
   );
 
   useHotkeys(
@@ -73,7 +73,7 @@ export default function CalculatorForm() {
       event.preventDefault();
       dispatch(resetOutput());
     },
-    { enableOnFormTags: ["INPUT"] }
+    { enableOnFormTags: ["INPUT"] },
   );
 
   return (
@@ -85,13 +85,12 @@ export default function CalculatorForm() {
         "flex-col",
         "justify-center",
         "max-h-full",
-        "overflow-hidden"
+        "overflow-hidden",
       )}
     >
       <div className={classNames("flex", "mb-4", "mx-2")}>
         <CalculatorInput
           ref={inputRef}
-          className={classNames("peer")}
           onEnterPressed={() => setFocusNext("output")}
         />
         <ResetTextFieldButton

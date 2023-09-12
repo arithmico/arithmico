@@ -25,29 +25,14 @@ export default function Manual() {
   };
 
   const language = useSelector(
-    (state: CalculatorRootState) => state.settings.language
+    (state: CalculatorRootState) => state.settings.language,
   );
 
   return (
     <WithScrollbars>
       <PageContainer className="flex flex-col">
         <ResponsiveTextInput
-          className={classNames(
-            "mb-4",
-            "sm:mb-6",
-            "md:mb-8",
-            "lg:mb-12",
-              "focus:outline",
-              "focus:outline-4",
-              "theme-light:border-neutral-400",
-              "theme-light:bg-neutral-100",
-            "theme-light:outline-black/70",
-            "theme-dark:bg-neutral-800",
-            "theme-dark:border-neutral-500",
-            "theme-dark:focus:outline-white/70",
-
-              "theme-light:ring-black"
-          )}
+          className={classNames("mb-4", "sm:mb-6", "md:mb-8", "lg:mb-12")}
           ref={searchRef}
           placeholder={t("manual.search")}
           value={searchValue}
@@ -63,7 +48,7 @@ export default function Manual() {
           />
         ))}
         <ManualHotkeySection />
-        {/*}
+        {/*
         <a
           href="https://docs.arithmico.com"
           className={classNames(
@@ -75,7 +60,7 @@ export default function Manual() {
         >
           {t("manual.fullDocumentation")}
         </a>
-        {*/}
+        */}
       </PageContainer>
     </WithScrollbars>
   );
