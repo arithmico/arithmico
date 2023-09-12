@@ -28,7 +28,10 @@ import {
   VersionTag,
   VersionTagDocument,
 } from '../../schemas/version-tag/version-tag.schema';
-import { ConfigurationBuildJobsAndVersions } from './configuration.types';
+import {
+  PublicConfigurationDetails,
+  PublicConfigurationPreview,
+} from './configuration.types';
 
 interface ConfigurationFeaturesByType {
   types: string[];
@@ -392,7 +395,7 @@ export class ConfigurationRepository {
   async getPublicConfigurations(
     skip: number,
     limit: number,
-  ): Promise<PagedResponse<ConfigurationBuildJobsAndVersions>> {
+  ): Promise<PagedResponse<PublicConfigurationPreview>> {
     const result = await this.configurationModel.aggregate(
       createPagedAggregationPipeline({
         skip,
@@ -515,5 +518,86 @@ export class ConfigurationRepository {
       total: result.at(0).total,
       items: result.at(0).items,
     };
+  }
+
+  async getPublicConfigurationByIdOrThrow(
+    configurationId: string,
+  ): Promise<PublicConfigurationDetails> {
+    const publicConfigurationDetailsDocument = (
+      await this.configurationModel
+        .aggregate()
+        .match({ _id: configurationId })
+        .lookup({
+          from: this.buildJobModel.collection.name,
+          localField: '_id',
+          foreignField: 'configurationId',
+          as: 'buildJobs',
+          pipeline: [
+            {
+              $match: {
+                isPublic: true,
+              },
+            },
+            {
+              $lookup: {
+                from: this.versionTagModel.collection.name,
+                localField: 'versionTagId',
+                foreignField: '_id',
+                as: 'versionTag',
+              },
+            },
+            {
+              $addFields: {
+                versionTag: {
+                  $arrayElemAt: ['$versionTag', 0],
+                },
+              },
+            },
+            {
+              $lookup: {
+                from: this.revisionModel.collection.name,
+                localField: 'configurationRevisionId',
+                foreignField: '_id',
+                as: 'configurationRevision',
+              },
+            },
+            {
+              $addFields: {
+                configurationRevision: {
+                  $arrayElemAt: ['$configurationRevision', 0],
+                },
+              },
+            },
+            {
+              $addFields: {
+                version: '$versionTag.version',
+                revision: '$configurationRevision.revision',
+              },
+            },
+            {
+              $unset: [
+                'versionTag',
+                'webhookToken',
+                'platforms.status',
+                'configurationRevision',
+              ],
+            },
+            {
+              $sort: {
+                revision: -1,
+                'version.major': -1,
+                'version.minor': -1,
+                'version.patch': -1,
+              },
+            },
+          ],
+        })
+    ).at(0);
+
+    if (!(publicConfigurationDetailsDocument?.buildJobs?.length > 0)) {
+      throw new NotFoundException();
+    }
+
+    return publicConfigurationDetailsDocument;
   }
 }
