@@ -42,6 +42,13 @@ function DT({ children }: ChildProps) {
 
 export default function About() {
   const [t] = useTranslation();
+  const classNamesOutline = classNames(
+    "ui-focus-visible:outline",
+    "outline-2",
+    "outline-offset-2",
+    "theme-light:outline-black",
+    "theme-dark:outline-white",
+  );
 
   return (
     <WithScrollbars>
@@ -53,7 +60,7 @@ export default function About() {
             "grid-cols-[auto_1fr]",
             "gap-x-4",
             "my-4",
-            "pl-8"
+            "pl-8",
           )}
         >
           <DD>{t("about.version")}</DD>
@@ -62,15 +69,30 @@ export default function About() {
           <DT>{packageJson.license}</DT>
           <DD>{t("about.sourceCode")}</DD>
           <DT>
-            <a href={packageJson.homepage}>{packageJson.homepage}</a>
+            <a
+              href={packageJson.homepage}
+              className={classNames(classNamesOutline)}
+            >
+              {packageJson.homepage}
+            </a>
           </DT>
           <DD>{t("about.website")}</DD>
           <DT>
-            <a href="https://blog.arithmico.com">Arithmico Blog</a>
+            <a
+              href="https://blog.arithmico.com"
+              className={classNames(classNamesOutline)}
+            >
+              Arithmico Blog
+            </a>
           </DT>
           <DD>{t("about.contact")}</DD>
           <DT>
-            <a href="mailto:dev.behrenle@posteo.de">dev.behrenle@posteo.de</a>
+            <a
+              href="mailto:dev.behrenle@posteo.de"
+              className={classNames(classNamesOutline)}
+            >
+              dev.behrenle@posteo.de
+            </a>
           </DT>
         </dl>
 
@@ -91,23 +113,41 @@ export default function About() {
         </h2>
         <ul className={classNames("pl-8", "[&>li]:py-2", "[&>li]:text-xl")}>
           <li>
-            <a href="https://cdn.arithmico.com/Arithmico_2.0_Anleitung_LaTeX-Version.docx">
+            <a
+              href="https://cdn.arithmico.com/Arithmico_2.0_Anleitung_LaTeX-Version.docx"
+              className={classNames(classNamesOutline)}
+            >
               {t("about.documentation")}
             </a>
           </li>
           <li>
-            <a href="https://github.com/behrenle/arithmico-calculator/releases">
+            <a
+              href="https://github.com/behrenle/arithmico-calculator/releases"
+              className={classNames(classNamesOutline)}
+            >
               {t("about.offlineVersion")}
             </a>
           </li>
           <li>
-            <Link to="/terms-of-service">{t("about.terms-of-service")}</Link>
+            <Link
+              to="/terms-of-service"
+              className={classNames(classNamesOutline)}
+            >
+              {t("about.terms-of-service")}
+            </Link>
           </li>
           <li>
-            <Link to="/privacy-policy">{t("about.privacy-policy")}</Link>
+            <Link
+              to="/privacy-policy"
+              className={classNames(classNamesOutline)}
+            >
+              {t("about.privacy-policy")}
+            </Link>
           </li>
           <li>
-            <Link to="/imprint">{t("about.imprint")}</Link>
+            <Link to="/imprint" className={classNames(classNamesOutline)}>
+              {t("about.imprint")}
+            </Link>
           </li>
         </ul>
       </PageContainer>
