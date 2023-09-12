@@ -1,8 +1,8 @@
-import {ErrorResult} from "engine/lib/types";
+import { ErrorResult } from "engine/lib/types";
 import classNames from "classnames";
-import {forwardRef} from "react";
-import {useTranslation} from "react-i18next";
-import {ResponsiveTextInput} from "../../responsive-text-input/responsive-text-input";
+import { forwardRef } from "react";
+import { useTranslation } from "react-i18next";
+import { ResponsiveTextInput } from "../../responsive-text-input/responsive-text-input";
 
 interface CalculatorErrorOutputProps {
   output: ErrorResult;

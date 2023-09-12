@@ -4,6 +4,31 @@ export interface ConfigurationDto {
   autoBuild: boolean;
 }
 
+export enum PlatformBuildJobStatus {
+  Running = "running",
+  Succeeded = "succeeded",
+  Failed = "failed",
+}
+
+export enum PlatformBuildJobPlatform {
+  Windows = "windows",
+  Linux = "linux",
+  Macos = "macos",
+}
+
+export interface BuildJobDto {
+  id: string;
+  name: string;
+  isPublic: boolean;
+  configurationId: string;
+  configurationRevisionId: string;
+  platforms: {
+    status: PlatformBuildJobStatus;
+    platform: PlatformBuildJobPlatform;
+    artifactUrl?: string;
+  }[];
+}
+
 export interface ConfigurationWithRevisionsDto {
   id: string;
   name: string;
@@ -66,4 +91,38 @@ export interface GetLatestConfigurationRevisionFeatureFlagIdsArgs {
 
 export interface GetLatestConfigurationRevisionFeatureFlagIdsResponse {
   featureFlagIds: string[];
+}
+
+export interface DispatchConfigurationBuildJobArgs {
+  configurationId: string;
+  configurationRevisionId: string;
+  versionTagId: string;
+}
+
+export interface DispatchConfigurationBuildJobResponse {
+  id: string;
+  name: string;
+  configurationId: string;
+  configurationRevisionId: string;
+  versionTagId: string;
+  createdAt: string;
+}
+
+export interface GetBuildJobsForConfigurationRevisionArgs {
+  configurationId: string;
+  configurationRevisionId: string;
+  skip: number;
+  limit: number;
+}
+
+export interface GetBuildJobForConfigurationRevisionByIdArgs {
+  configurationId: string;
+  configurationRevisionId: string;
+  buildJobId: string;
+}
+
+export interface PublishBuildJobArgs {
+  configurationId: string;
+  configurationRevisionId: string;
+  buildJobId: string;
 }

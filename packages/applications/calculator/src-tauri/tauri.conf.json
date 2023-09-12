@@ -39,7 +39,7 @@
       },
       "resources": [],
       "shortDescription": "",
-      "targets": ["deb", "app", "nsis"],
+      "targets": ["deb", "dmg", "nsis"],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",

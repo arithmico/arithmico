@@ -8,27 +8,9 @@ import { VersionTag } from '../../../../infrastructure/database/schemas/version-
 import { semanticVersionGreaterThanOrEqual } from '../../../../common/utils/compare-versions/compare-versions';
 import { FeatureFlagRepository } from '../../../../infrastructure/database/repositories/feature-flag/feature-flag.repository';
 import { FeatureFlagType } from '../../../../infrastructure/database/schemas/feature-flag/feature-flag.schema';
+import { GithubClient } from '../../../../infrastructure/github-client/github-client';
 
-interface FeatureList {
-  types: string[];
-  constants: string[];
-  functions: string[];
-  methods: string[];
-  operators: string[];
-}
-
-interface GitRefDto {
-  ref: string;
-  node_id: string;
-  url: string;
-  object: {
-    sha: string;
-    type: string;
-    url: string;
-  };
-}
-
-const firstConfigurableVersion: SemanticVersion = {
+export const firstConfigurableVersion: SemanticVersion = {
   major: 2,
   minor: 3,
   patch: 3,
@@ -37,21 +19,30 @@ const firstConfigurableVersion: SemanticVersion = {
 @Processor('cron-jobs')
 export class SyncGitTagsProcessor {
   private readonly logger = new Logger(SyncGitTagsProcessor.name);
+  private readonly githubClient: GithubClient;
 
   constructor(
     private httpService: HttpService,
     private configService: ConfigService,
     private versionTagRepository: VersionTagRepository,
     private featureFlagRepository: FeatureFlagRepository,
-  ) {}
+  ) {
+    this.githubClient = new GithubClient(
+      this.configService.get('github.personalAccessToken'),
+    );
+  }
 
   @Process('sync-git-tags')
   async syncGitTags() {
-    const versionTags = await this.getTagsFromGithub();
+    const versionTags = await (
+      await this.githubClient.getVersionTags()
+    ).filter((tag) =>
+      semanticVersionGreaterThanOrEqual(tag.version, firstConfigurableVersion),
+    );
     await this.createMissingVersionTags(versionTags);
     const latestVersionTag =
       await this.versionTagRepository.getLatestVersionTagOrThrow();
-    const featureList = await this.getFeatureListFromGithub();
+    const featureList = await this.githubClient.getEngineFeatureList();
 
     await Promise.all([
       ...this.batchCreateFeatureFlags(
@@ -89,31 +80,23 @@ export class SyncGitTagsProcessor {
     type: FeatureFlagType,
     versionTagId: string,
   ): Promise<void>[] {
-    return flags.map(async (constant) => {
+    return flags.map(async (flag) => {
       const featureFlag =
         await this.featureFlagRepository.getFeatureFlagByFlagAndType(
-          constant,
+          flag,
           type,
         );
       if (featureFlag) {
         return;
       }
-      this.logger.log(`creating feature flag "${constant}" (${type})`);
+      this.logger.log(`creating feature flag "${flag}" (${type})`);
       await this.featureFlagRepository.createFeatureFlag(
         type,
-        constant,
-        constant,
+        flag,
+        flag,
         versionTagId,
       );
     });
-  }
-
-  async getFeatureListFromGithub(): Promise<FeatureList> {
-    return (
-      await this.httpService.axiosRef.get<any>(
-        'https://raw.githubusercontent.com/arithmico/arithmico/main/packages/engine/features.json',
-      )
-    ).data;
   }
 
   async createMissingVersionTags(versionTags: VersionTag[]): Promise<void> {
@@ -125,60 +108,5 @@ export class SyncGitTagsProcessor {
         }
       }),
     );
-  }
-
-  async getTagsFromGithub(): Promise<VersionTag[]> {
-    this.logger.log('start git tag sync');
-    const personalAccessToken = this.configService.get<string>(
-      'github.personalAccessToken',
-    );
-
-    const headers = personalAccessToken && {
-      Authorization: `token ${personalAccessToken}`,
-    };
-
-    const tags = (
-      await this.httpService.axiosRef.get<GitRefDto[]>(
-        `${this.configService.get<string>(
-          'github.repositoryUrl',
-        )}/git/refs/tags`,
-        {
-          headers,
-        },
-      )
-    ).data;
-
-    return tags
-      .filter(({ ref, object: { type } }) => {
-        if (!ref.startsWith('refs/tags/v')) {
-          return false;
-        }
-        const tag = ref.substring('refs/tags/v'.length);
-        if (!tag.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)$/)) {
-          return false;
-        }
-        if (type !== 'commit' && type !== 'tag') {
-          return false;
-        }
-        return true;
-      })
-      .map(({ ref, object: { sha } }): VersionTag => {
-        const versionString = ref.substring('refs/tags/v'.length);
-        const [major, minor, patch] = versionString
-          .split('.')
-          .map((v) => parseInt(v));
-        const version: SemanticVersion = { major, minor, patch };
-        return {
-          commit: sha,
-          version,
-          configurable: semanticVersionGreaterThanOrEqual(
-            version,
-            firstConfigurableVersion,
-          ),
-        };
-      })
-      .filter(({ version }) =>
-        semanticVersionGreaterThanOrEqual(version, firstConfigurableVersion),
-      );
   }
 }

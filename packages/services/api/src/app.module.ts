@@ -27,6 +27,7 @@ import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
 import { CloudfrontModule } from './modules/cloudfront/cloudfront.module';
 import { HealthModule } from './modules/health/health.module';
 import { ConfigurationModule } from './modules/configuration/configuration.module';
+import { CmsModule } from './modules/cms/cms.module';
 
 @Module({
   imports: [
@@ -106,6 +107,10 @@ import { ConfigurationModule } from './modules/configuration/configuration.modul
         path: 'configurations',
         module: ConfigurationModule,
       },
+      {
+        path: 'cms',
+        module: CmsModule,
+      },
     ]),
     UserModule,
     AuthModule,
@@ -119,6 +124,7 @@ import { ConfigurationModule } from './modules/configuration/configuration.modul
     CloudfrontModule,
     HealthModule,
     ConfigurationModule,
+    CmsModule,
   ],
   controllers: [],
   providers: [

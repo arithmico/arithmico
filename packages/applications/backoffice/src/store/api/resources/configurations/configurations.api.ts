@@ -13,6 +13,12 @@ import {
   GetConfigurationRevisionByIdArgs,
   GetLatestConfigurationRevisionFeatureFlagIdsArgs,
   GetLatestConfigurationRevisionFeatureFlagIdsResponse,
+  DispatchConfigurationBuildJobResponse,
+  DispatchConfigurationBuildJobArgs,
+  GetBuildJobsForConfigurationRevisionArgs,
+  BuildJobDto,
+  GetBuildJobForConfigurationRevisionByIdArgs,
+  PublishBuildJobArgs,
 } from "./configurations.types";
 
 export const configurationsApi = api.injectEndpoints({
@@ -113,6 +119,61 @@ export const configurationsApi = api.injectEndpoints({
           : [],
     }),
 
+    getBuildJobsForConfigurationRevision: build.query<
+      PagedResponse<BuildJobDto>,
+      GetBuildJobsForConfigurationRevisionArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions/${arg.configurationRevisionId}/build-jobs`,
+        method: "GET",
+        params: {
+          skip: arg.skip,
+          limit: arg.limit,
+        },
+      }),
+      providesTags: (response, _, arg) =>
+        response
+          ? [
+              { type: "Configuration", id: arg.configurationId },
+              {
+                type: "ConfigurationRevision",
+                id: arg.configurationRevisionId,
+              },
+              ...response.items.map((buildJob) => ({
+                type: "BuildJob" as const,
+                id: buildJob.id,
+              })),
+            ]
+          : [],
+    }),
+
+    getBuildJobForConfigurationRevisionById: build.query<
+      BuildJobDto,
+      GetBuildJobForConfigurationRevisionByIdArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions/${arg.configurationRevisionId}/build-jobs/${arg.buildJobId}`,
+        method: "GET",
+      }),
+      providesTags: (response) =>
+        response
+          ? [
+              {
+                type: "BuildJob",
+                id: response.id,
+              },
+              {
+                type: "Configuration",
+                id: response.configurationId,
+              },
+              {
+                type: "ConfigurationRevision",
+                id: response.configurationRevisionId,
+              },
+            ]
+          : [],
+    }),
+
     createConfiguration: build.mutation<
       CreationResponse,
       CreateConfigurationArgs
@@ -148,6 +209,50 @@ export const configurationsApi = api.injectEndpoints({
             ]
           : [],
     }),
+
+    dispatchConfigurationBuildJob: build.mutation<
+      DispatchConfigurationBuildJobResponse,
+      DispatchConfigurationBuildJobArgs
+    >({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/build-jobs`,
+        method: "POST",
+        body: {
+          configurationRevisionId: arg.configurationRevisionId,
+          versionTagId: arg.versionTagId,
+        },
+      }),
+      invalidatesTags: (response) =>
+        response
+          ? [
+              {
+                type: "BuildJob",
+                id: response.id,
+              },
+              { type: "Configuration", id: response.configurationId },
+              {
+                type: "ConfigurationRevision",
+                id: response.configurationRevisionId,
+              },
+            ]
+          : [],
+    }),
+
+    publishBuildJob: build.mutation<void, PublishBuildJobArgs>({
+      query: (arg) => ({
+        url: `/configurations/${arg.configurationId}/revisions/${arg.configurationRevisionId}/build-jobs/${arg.buildJobId}/publish`,
+        method: "POST",
+      }),
+      invalidatesTags: (_, error, arg) =>
+        !error
+          ? [
+              {
+                type: "BuildJob",
+                id: arg.buildJobId,
+              },
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -157,6 +262,10 @@ export const {
   useGetConfigurationRevisionsQuery,
   useGetConfigurationRevisionByIdQuery,
   useGetLatestConfigurationRevisionFeatureFlagIdsQuery,
+  useGetBuildJobsForConfigurationRevisionQuery,
+  useGetBuildJobForConfigurationRevisionByIdQuery,
   useCreateConfigurationMutation,
   useCreateConfigurationRevisionMutation,
+  useDispatchConfigurationBuildJobMutation,
+  usePublishBuildJobMutation,
 } = configurationsApi;

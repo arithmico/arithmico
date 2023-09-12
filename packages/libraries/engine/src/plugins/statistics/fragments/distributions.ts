@@ -4,7 +4,15 @@ import { calculateCNormal, calculateNormal } from '../utils/normal';
 import { calculateBinom, calculateCBinom } from '../utils/binomial';
 import { PluginFragment } from '../../../utils/plugin-builder';
 
-const singleNumberHeader: FunctionHeaderItem[] = [{ name: 'x', type: 'number', evaluate: true }];
+const normalHeader: FunctionHeaderItem[] = [
+    {
+        name: 'x',
+        type: 'number',
+        evaluate: true,
+    },
+    { name: 'expectation', type: 'number', evaluate: true, optional: true },
+    { name: 'sd', type: 'number', evaluate: true, optional: true },
+];
 const binomHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
     { name: 'p', type: 'number', evaluate: true },
@@ -16,24 +24,38 @@ const distributionFragment = new PluginFragment();
 __FUNCTIONS.normal &&
     distributionFragment.addFunction(
         'normal',
-        singleNumberHeader,
-        'standard normal distribution',
-        'Standartnormalverteilung',
-        ({ getParameter }) => {
+        normalHeader,
+        'Normal distribution. The default values are: for expactation 0 and for sd 1 (standard normal distribution).)',
+        'Normalverteilung. Die Standardwerte sind: für expactation 0 und für sd 1 (Standardnormalverteilung).',
+        ({ getParameter, runtimeError }) => {
             const x = (<NumberNode>getParameter('x')).value;
-            return createNumberNode(calculateNormal(x));
+            const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
+            const sd = (<NumberNode>getParameter('sd', createNumberNode(1))).value;
+
+            if (sd < 0) {
+                throw runtimeError('sd must be greater than or equal to 0');
+            }
+
+            return createNumberNode(calculateNormal(x, expectation, sd));
         },
     );
 
 __FUNCTIONS.cnormal &&
     distributionFragment.addFunction(
         'cnormal',
-        singleNumberHeader,
-        'Cumulative standard normal distribution',
-        'Kumulative Standartnormalverteilung',
-        ({ getParameter }) => {
+        normalHeader,
+        'Cumulative normal distribution. The default values are: for expactation 0 and for sd 1 (standard cumulative normal distribution).',
+        'Kumulierte Normalverteilung. Die Standardwerte sind: für expactation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
+        ({ getParameter, runtimeError }) => {
             const x = (<NumberNode>getParameter('x')).value;
-            return createNumberNode(calculateCNormal(x));
+            const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
+            const sd = (<NumberNode>getParameter('sd', createNumberNode(1))).value;
+
+            if (sd < 0) {
+                throw runtimeError('sd must be greater than or equal to 0');
+            }
+
+            return createNumberNode(calculateCNormal(x, expectation, sd));
         },
     );
 

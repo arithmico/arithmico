@@ -13,6 +13,7 @@
   "common.yes": "Ja",
   "common.no": "Nein",
   "common.close-dialog": "Dialog schließen",
+  "common.start": "Starten",
 
   "error.title": "Fehler",
   "error.description": "Es ist ein Fehler aufgetregen",
@@ -177,6 +178,11 @@
   "applications.configurations.revisions.feature-flags": "Funktionen",
   "applications.configurations.revisions.minimum-version": "Startversion",
   "applications.configurations.revisions.feature-flags.details": "Funktionsdetails",
-  "applications.configurations.revisions.export": "Exportieren",
-  "applications.configurations.revisions.export.button": "JSON Datei exportieren"
+  "applications.configurations.revisions.actions": "Aktionen",
+  "applications.configurations.revisions.actions.export": "JSON Datei exportieren",
+  "applications.configurations.revisions.actions.trigger-build": "Build starten",
+  "applications.configurations.revisions.actions.dispatch-build-job.title": "Build-Auftrag starten",
+  "applications.configurations.revisions.actions.dispatch-build-job.version": "Version",
+  "applications.configurations.revisions.build": "Builds",
+  "applications.configurations.revisions.build-job.artifacts": "Artefakte"
 }
