@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+  ConfigurationDetailsDto,
   ConfigurationDto,
+  GetConfigurationDetailsArgs,
   GetConfigurationsArgs,
   PagedResponse,
 } from "./api.types";
@@ -27,7 +29,18 @@ export const contentApi = createApi({
         },
       }),
     }),
+
+    getConfigurationDetails: build.query<
+      ConfigurationDetailsDto,
+      GetConfigurationDetailsArgs
+    >({
+      query: (arg) => ({
+        url: `/cms/configurations/${arg.configurationId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetConfigurationsQuery } = contentApi;
+export const { useGetConfigurationsQuery, useGetConfigurationDetailsQuery } =
+  contentApi;

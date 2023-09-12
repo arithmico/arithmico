@@ -22,7 +22,29 @@ export interface ConfigurationDto {
   };
 }
 
+export interface ConfigurationDetailsDto {
+  id: string;
+  name: string;
+  buildJobs: {
+    buildJobId: string;
+    version: {
+      major: number;
+      minor: number;
+      patch: number;
+    };
+    revision: number;
+    platforms: {
+      platform: string;
+      artifactUrl: string;
+    }[];
+  }[];
+}
+
 export interface GetConfigurationsArgs {
   skip: number;
   limit: number;
+}
+
+export interface GetConfigurationDetailsArgs {
+  configurationId: string;
 }

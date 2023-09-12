@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { Platform } from "../../../components/platform";
 import { Version } from "../../../components/version";
+import ArrowRight from "../../../icons/arrow-right";
 import { ConfigurationDto } from "../../../store/api.types";
 
 export interface ReleasePreviewProps {
@@ -33,6 +35,15 @@ export function ConfigurationPreview({ configuration }: ReleasePreviewProps) {
               </li>
             ))}
           </ul>
+        </div>
+        <div className="flex justify-center">
+          <Link
+            to={`/downloads/${configuration.id}`}
+            className="pb-2 pt-4 flex items-center text-white/50 hover:text-white fill-white/50 hover:fill-white"
+          >
+            <span className="text-sm">Ältere Versionen</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
     </li>

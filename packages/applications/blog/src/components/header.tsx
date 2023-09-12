@@ -10,7 +10,7 @@ function NavItem({ to, children }: NavItemProps) {
   return (
     <li className="flex first:pl-2 first:rounded-l-full last:pr-2 last:rounded-r-full hover:bg-white/5">
       <NavLink
-        end
+        end={to === "/"}
         className={({ isActive }) =>
           `relative flex px-3 py-2 transition ${
             isActive ? "text-white" : "text-white/40"
