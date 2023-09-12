@@ -72,7 +72,7 @@ export function DefinitionsHeader() {
           "ml-auto",
           "p-3",
           "mt-1",
-          "ml-1",
+          "ml-1.5",
           "theme-dark:hover:bg-neutral-700",
           "theme-light:hover:bg-neutral-300",
           "rounded-md",

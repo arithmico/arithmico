@@ -38,7 +38,7 @@ export default function Definitions() {
           "theme-light:border-black/10",
           "rounded-md",
           "h-full",
-          "overflow-x-hidden"
+          "overflow-x-hidden",
         )}
       >
         <DefinitionsHeader />
@@ -48,7 +48,7 @@ export default function Definitions() {
               "mt-4",
               "grid",
               "gap-y-8",
-              "grid-cols-[auto_5fr]"
+              "grid-cols-[auto_5fr]",
             )}
           >
             {Object.entries(definitions).map(([name, definition]) => (
