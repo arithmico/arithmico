@@ -90,3 +90,20 @@ export function calculateCofactorMatrix(matrix: number[][]): number[][] {
         row.map((column, j) => ((i + j) % 2 === 0 ? 1 : -1) * det(getSubMatrix(matrix, i, j))),
     );
 }
+
+export function createZeroMatrix(rows: number, columns: number): number[][] {
+    return new Array<number[]>(rows).fill(new Array(columns).fill(0));
+}
+
+export function scalarMultiplication(x: number[], y: number[]) {
+    return x.map((_, index) => x[index] * y[index]).reduce((a, b) => a + b);
+}
+
+// only matrix * vector
+export function multiplyMatrixVector(matrix: number[][], vector: number[]): number[] {
+    if (matrix[0].length !== vector.length) {
+        throw 'Runtime Error: the dimension of the matrix and the vector do not fit  ';
+    }
+
+    return vector.map((_, i) => scalarMultiplication(matrix[i], vector));
+}
