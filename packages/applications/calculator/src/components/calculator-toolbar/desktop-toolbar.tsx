@@ -45,15 +45,7 @@ export default function DesktopToolbar() {
   const [t] = useTranslation();
 
   return (
-    <div
-      className={classNames(
-        "hidden",
-        "md:grid",
-        "grid-cols-1",
-        "grid-cols-3",
-        "gap-2",
-      )}
-    >
+    <div className={classNames("hidden", "md:grid", "grid-cols-3", "gap-2")}>
       <CalculatorToolbarButton onClick={() => navigate("/definitions")}>
         {t("toolbar.definitions")}
       </CalculatorToolbarButton>

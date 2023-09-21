@@ -4,6 +4,7 @@ import useHotkey from "../../hooks/use-hotkey";
 import { resetAll, resetDefinitions } from "../../store/slices/session.slice";
 import DesktopToolbar from "@local-components/calculator-toolbar/desktop-toolbar";
 import MobileToolbar from "@local-components/calculator-toolbar/mobile-toolbar";
+import classNames from "classnames";
 
 export default function CalculatorToolbar() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export default function CalculatorToolbar() {
   });
 
   return (
-    <div>
+    <div className={classNames("bottom-10", "mx-2",)}>
       <DesktopToolbar />
       <MobileToolbar />
     </div>

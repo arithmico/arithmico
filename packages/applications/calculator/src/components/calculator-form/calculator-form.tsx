@@ -84,8 +84,6 @@ export default function CalculatorForm() {
         "flex",
         "flex-col",
         "justify-center",
-        "max-h-full",
-        "overflow-hidden",
       )}
     >
       <div className={classNames("flex", "mb-4", "mx-2")}>
