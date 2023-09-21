@@ -16,13 +16,13 @@
   "nav.settings": "Einstellungen",
   "nav.manual": "Hilfe",
   "nav.about": "Über",
-  "toolbar.functions": "Weitere Funktionen",
 
   "toolbar.resetInput": "Eingabefeld zurücksetzen",
   "toolbar.resetOutput": "Ausgabefeld zurücksetzen",
   "toolbar.resetAll": "Alles zurücksetzen",
   "toolbar.definitions": "Definitionen",
   "toolbar.history": "Verlauf",
+  "toolbar.functions": "Aktionen",
 
   "settings.interface": "Oberfläche",
   "settings.appearance": "Erscheinungsbild",

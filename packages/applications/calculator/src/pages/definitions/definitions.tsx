@@ -29,8 +29,8 @@ export default function Definitions() {
     <PageContainer>
       <div
         className={classNames(
-          "grid",
-          "grid-rows-[auto_1fr]",
+          "flex",
+          "flex-col",
           "theme-dark:bg-neutral-850",
           "theme-light:bg-neutral-100",
           "border",
@@ -38,7 +38,6 @@ export default function Definitions() {
           "theme-light:border-black/10",
           "rounded-md",
           "h-full",
-          "overflow-x-hidden",
         )}
       >
         <DefinitionsHeader />

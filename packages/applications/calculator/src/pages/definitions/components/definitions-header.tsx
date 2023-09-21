@@ -38,8 +38,6 @@ export function DefinitionsHeader() {
             "space-x-2",
             "px-2",
             "sm:px-4",
-            "mt-1",
-            "mr-1",
             "opacity-60",
             "hover:opacity-100",
             "rounded-md",
@@ -71,8 +69,6 @@ export function DefinitionsHeader() {
         className={classNames(
           "ml-auto",
           "p-3",
-          "mt-1",
-          "ml-1.5",
           "theme-dark:hover:bg-neutral-700",
           "theme-light:hover:bg-neutral-300",
           "rounded-md",
