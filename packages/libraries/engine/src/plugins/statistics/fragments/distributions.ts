@@ -1,8 +1,10 @@
 import { FunctionHeaderItem, NumberNode } from '../../../types/nodes.types';
 import createNumberNode from '../../../node-operations/create-node/create-number-node';
 import { calculateCNormal, calculateNormal } from '../utils/normal';
-import { calculateBinom, calculateCBinom } from '../utils/binomial';
+import { calculateBinom, calculateCBinom, calculateQuantileOfBinomialCDF } from '../utils/binomial';
 import { PluginFragment } from '../../../utils/plugin-builder';
+import { calculateQuantileOfStandardNormalCDF } from '../utils/quantile-standard-normal';
+import { isInClosedInterval, isInOpenInterval } from '../utils/check-intervals-util';
 
 const normalHeader: FunctionHeaderItem[] = [
     {
@@ -13,10 +15,31 @@ const normalHeader: FunctionHeaderItem[] = [
     { name: 'expectation', type: 'number', evaluate: true, optional: true },
     { name: 'sd', type: 'number', evaluate: true, optional: true },
 ];
+
+const qnormalHeader: FunctionHeaderItem[] = [
+    {
+        name: 'p',
+        type: 'number',
+        evaluate: true,
+    },
+    { name: 'expectation', type: 'number', evaluate: true, optional: true },
+    { name: 'sd', type: 'number', evaluate: true, optional: true },
+];
+
 const binomHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
     { name: 'p', type: 'number', evaluate: true },
     { name: 'k', type: 'number', evaluate: true },
+];
+
+const qbinomHeader: FunctionHeaderItem[] = [
+    {
+        name: 'p_q',
+        type: 'number',
+        evaluate: true,
+    },
+    { name: 'n', type: 'number', evaluate: true },
+    { name: 'p', type: 'number', evaluate: true },
 ];
 
 const distributionFragment = new PluginFragment();
@@ -59,6 +82,29 @@ __FUNCTIONS.cnormal &&
         },
     );
 
+__FUNCTIONS.qnormal &&
+    distributionFragment.addFunction(
+        'qnormal',
+        qnormalHeader,
+        'Quantile function of the cumulative normal distribution. Calculate the corresponding random variable for the given quantile p. The default values are: for expactation 0 and for sd 1 (cumulative standard normal distribution).',
+        'Quantilsfunktion der kumulierten Normalverteilung. Berechenet zu gegebenen Quantil p die entsprechende Zufallsvariable. Die Standardwerte sind: für expactation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
+        ({ getParameter, runtimeError }) => {
+            const p = (<NumberNode>getParameter('p')).value;
+            const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
+            const sd = (<NumberNode>getParameter('sd', createNumberNode(1))).value;
+
+            if (!isInOpenInterval(p, 0, 1)) {
+                throw runtimeError('p is not between 0 and 1');
+            }
+
+            if (sd < 0) {
+                throw runtimeError('sd must be greater than or equal to 0');
+            }
+
+            return createNumberNode(expectation + sd * calculateQuantileOfStandardNormalCDF(p));
+        },
+    );
+
 __FUNCTIONS.binom &&
     distributionFragment.addFunction(
         'binom',
@@ -70,7 +116,7 @@ __FUNCTIONS.binom &&
             const p = (<NumberNode>getParameter('p')).value;
             const k = (<NumberNode>getParameter('k')).value;
 
-            if (p < 0 || p > 1) {
+            if (!isInClosedInterval(p, 0, 1)) {
                 throw runtimeError('p is not between 0 and 1');
             }
             if (n < 0) {
@@ -104,7 +150,7 @@ __FUNCTIONS.cbinom &&
             const p = (<NumberNode>getParameter('p')).value;
             const k = (<NumberNode>getParameter('k')).value;
 
-            if (p < 0 || p > 1) {
+            if (!isInClosedInterval(p, 0, 1)) {
                 throw runtimeError('p is not between 0 and 1');
             }
             if (n < 0) {
@@ -124,6 +170,34 @@ __FUNCTIONS.cbinom &&
             }
 
             return createNumberNode(calculateCBinom(n, p, k));
+        },
+    );
+
+__FUNCTIONS.qbinom &&
+    distributionFragment.addFunction(
+        'qbinom',
+        qbinomHeader,
+        'Quantile function of the cumulative binomial distribution. Calculate the corresponding k for the given quantile p_q. ',
+        'Quantilsfunktion der kumulierten Binomailverteilung. Berechenet zum gegebenen Quantil p_q das entsprechende k. ',
+        ({ getParameter, runtimeError }) => {
+            const p_q = (<NumberNode>getParameter('p_q')).value;
+            const n = (<NumberNode>getParameter('n')).value;
+            const p_success = (<NumberNode>getParameter('p')).value;
+
+            if (!isInClosedInterval(p_q, 0, 1)) {
+                throw runtimeError('p_q is not between 0 and 1');
+            }
+            if (n < 0) {
+                throw runtimeError('n must be greater than or equal to 0');
+            }
+            if (n % 1 !== 0) {
+                throw runtimeError('n has to be an integer');
+            }
+            if (!isInClosedInterval(p_success, 0, 1)) {
+                throw runtimeError('p_q is not between 0 and 1');
+            }
+
+            return createNumberNode(calculateQuantileOfBinomialCDF(p_q, n, p_success));
         },
     );
 
