@@ -240,10 +240,11 @@ MethodCall = object:Value _ "." _ method:Symbol _ "(" _ parameters:List? _ ")" {
 Value = Boolean
 / FunctionCall 
 / DefineLambdaFunction
+/ Factorial
 / Symbol 
 / Number
 / String
-/ Vector 
+/ Vector
 / SubExpression
 
 SubExpression = "(" _ expr:Expression _ ")" {
@@ -321,6 +322,18 @@ DoubleQuotesStringContent = (StringCharacter / '\\"' / "'")*
 SingleQuotesStringContent = (StringCharacter / "\\'" / '"')*
 
 StringCharacter = [^\'\"\\] / "\\\\"
+
+Factorial = value:Number "!" {
+                return {
+                    type: "functionCall",
+                    function: {
+                        type: "symbol",
+                        name: "fact"
+                    },
+                    parameters: [value]
+                }
+            }
+
 
 // ===============================================================================
 // |             Latex Expressions                                               |
