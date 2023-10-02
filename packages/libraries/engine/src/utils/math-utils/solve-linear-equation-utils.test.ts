@@ -1,4 +1,4 @@
-import { calculateQRFactorization, solveWithBackSubstitution } from './solve-linear-equation-utils';
+import { qrFactorization, solveWithBackSubstitution } from './solve-linear-equation-utils';
 
 test('backSubstitution', () => {
     expect(
@@ -15,7 +15,7 @@ test('backSubstitution', () => {
 
 test('calculateQRFactorization #1', () => {
     expect(
-        calculateQRFactorization([
+        qrFactorization([
             [1, -1, 2],
             [-2, 1, -6],
             [0, 1, -2],
@@ -32,7 +32,7 @@ test('calculateQRFactorization #1', () => {
 
 test('calculateQRFactorization #2', () => {
     expect(
-        calculateQRFactorization([
+        qrFactorization([
             [12, -51, 4],
             [6, 167, -68],
             [-4, 24, 41],

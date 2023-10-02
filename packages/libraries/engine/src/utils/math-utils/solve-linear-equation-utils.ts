@@ -1,12 +1,21 @@
-import { createZeroMatrix, getColumn, multiplyMatrixVector, scalarMultiplication, transpose } from './matrix-utils';
+import {
+    createIdentityMatrix,
+    createZeroMatrix,
+    expandMatrix,
+    getColumn,
+    getSubMatrix,
+    multiplyMatrixMatrix,
+    multiplyMatrixVector,
+    scalarMultiplication,
+    transpose,
+} from './matrix-utils';
 
-/*
+// Algorithm 5: QR Decomposition
+function calculateQRFactorizationWithGramSchmidt(matrixA: number[][]): [number[][], number[][]] {
+    /*
 reference: Chunawala, Quasar (2023). Fast Algorithms for Solving a System of Linear Equations. https://www.baeldung.com/cs/solving-system-linear-equations. Last updated: 06-13-2023.
 following code is inspired by algorithms
  */
-
-// Algorithm 5: QR Decomposition
-export function calculateQRFactorization(matrixA: number[][]): [number[][], number[][]] {
     const n = matrixA.length;
     const matrixU = createZeroMatrix(n, n);
     const matrixR = createZeroMatrix(n, n);
@@ -42,6 +51,44 @@ export function calculateQRFactorization(matrixA: number[][]): [number[][], numb
     return [matrixQ, matrixR];
 }
 
+function computeHouseholderMatrix(v: number[]) {
+    const n = v.length;
+    const matrix = createIdentityMatrix(n);
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            matrix[i][j] = -2 * v[i] * v[j];
+        }
+    }
+
+    return matrix;
+}
+
+function calculateQRFactorizationWithHouseholder(matrixA: number[][]): [number[][], number[][]] {
+    const m = matrixA.length;
+    const n = matrixA[0].length;
+    const householderMatrices = [];
+    let z = matrixA;
+    for (let k = 0; k < n && k < m - 1; k++) {
+        const z1 = getSubMatrix(z, 0, 0);
+        const x_k = getColumn(0, z1);
+
+        const u_k = x_k;
+        u_k[0] = x_k[0] + Math.sign(x_k[0]) * Math.hypot(...x_k);
+        const normOfu_k = Math.hypot(...u_k);
+        const normedVector = u_k.map((x) => x / normOfu_k);
+        householderMatrices.push(expandMatrix(computeHouseholderMatrix(normedVector), n));
+        z = multiplyMatrixMatrix(householderMatrices[k], z);
+    }
+
+    const matrixR = z;
+    const matrixQ = householderMatrices.reduce(
+        (accumulator, currentValue) => multiplyMatrixMatrix(accumulator, currentValue),
+        createIdentityMatrix(m),
+    );
+
+    return [matrixQ, matrixR];
+}
+
 export function solveWithBackSubstitution(upperTriangleMatrix: number[][], coefficients: number[]) {
     const n = coefficients.length;
     const result: number[] = new Array(n).fill(0);
@@ -56,8 +103,11 @@ export function solveWithBackSubstitution(upperTriangleMatrix: number[][], coeff
     return result;
 }
 
+export function qrFactorization(matrixA: number[][]) {
+    return calculateQRFactorizationWithHouseholder(matrixA)
+}
 export function qrDecompositionSolver(coefficients: number[][], constants: number[]): number[] {
-    const [orthonormalMatrix, upperTriangleMatrix] = calculateQRFactorization(coefficients);
+    const [orthonormalMatrix, upperTriangleMatrix] = qrFactorization(coefficients);
     const modifiedConstants = multiplyMatrixVector(transpose(orthonormalMatrix), constants);
 
     return solveWithBackSubstitution(upperTriangleMatrix, modifiedConstants);

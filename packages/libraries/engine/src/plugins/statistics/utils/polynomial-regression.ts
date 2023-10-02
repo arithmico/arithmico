@@ -14,5 +14,5 @@ export function calculatePolynomialRegressionCoefficients(xs: number[], ys: numb
 
     constants.forEach((_, index) => (constants[index] = xs.map((x, i) => x ** index * ys[i]).reduce((a, b) => a + b)));
 
-    return qrDecompositionSolver(coefficients, constants);
+    return cramerSolver(coefficients, constants, det(coefficients));
 }
