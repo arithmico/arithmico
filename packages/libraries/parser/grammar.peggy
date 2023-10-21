@@ -238,14 +238,14 @@ MethodCall = object:Value _ "." _ method:Symbol _ "(" _ parameters:List? _ ")" {
 // |             Primitive and Subexpressions                                    |
 // ===============================================================================
 Value = Boolean
-/ FunctionCall 
+/ FunctionCall
 / DefineLambdaFunction
-/ Factorial
-/ Symbol 
+/ Symbol
 / Number
 / String
 / Vector
 / SubExpression
+/ Factorial
 
 SubExpression = "(" _ expr:Expression _ ")" {
     return expr;
@@ -323,7 +323,8 @@ SingleQuotesStringContent = (StringCharacter / "\\'" / '"')*
 
 StringCharacter = [^\'\"\\] / "\\\\"
 
-Factorial = value:Number "!" {
+
+Factorial = value:(Number / SubExpression) "!" {
                 return {
                     type: "functionCall",
                     function: {
@@ -333,7 +334,6 @@ Factorial = value:Number "!" {
                     parameters: [value]
                 }
             }
-
 
 // ===============================================================================
 // |             Latex Expressions                                               |
