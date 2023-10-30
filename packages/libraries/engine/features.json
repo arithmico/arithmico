@@ -80,6 +80,8 @@
         "lcm",
         "binco",
         "fact",
+        "fraction",
+        "mfraction",
         "fib",
         "mod",
         "idiv",

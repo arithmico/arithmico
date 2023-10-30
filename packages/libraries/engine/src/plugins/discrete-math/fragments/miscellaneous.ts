@@ -6,6 +6,8 @@ import { calculateFact } from '../utils/fact';
 import { binco } from '../../../utils/math-utils/binco';
 import { getLowestFraction } from '../utils/fraction-utils';
 import createDivided from '../../../node-operations/create-node/create-divided';
+import { euclideanDivision } from '../utils/euclidean-division';
+import createPlus from '../../../node-operations/create-node/create-plus';
 
 const bincoHeader: FunctionHeaderItem[] = [
     { name: 'n', type: 'number', evaluate: true },
@@ -46,33 +48,67 @@ __FUNCTIONS.binco &&
     );
 
 __FUNCTIONS.fact &&
-    miscellaneousDiscreteMathFragment
-        .addFunction(
-            'fact',
-            singleNumberHeader,
-            'Calculates the factorial of n.',
-            'Berechnet die Fakultät von n.',
-            ({ getParameter }) => {
-                const n = (<NumberNode>getParameter('n')).value;
-                return createNumberNode(calculateFact(n));
-            },
-        )
-        .addFunction(
-            'fraction',
-            singleNumberHeader,
-            'Calculates the nearest fraction',
-            'Berechnet den nächsten Bruch zu n.',
-            ({ getParameter }) => {
-                const value = (<NumberNode>getParameter('n')).value;
+    miscellaneousDiscreteMathFragment.addFunction(
+        'fact',
+        singleNumberHeader,
+        'Calculates the factorial of n.',
+        'Berechnet die Fakultät von n.',
+        ({ getParameter }) => {
+            const n = (<NumberNode>getParameter('n')).value;
+            return createNumberNode(calculateFact(n));
+        },
+    );
 
-                if (value === 0) {
-                    return createNumberNode(0);
-                }
+__FUNCTIONS.fraction &&
+    miscellaneousDiscreteMathFragment.addFunction(
+        'fraction',
+        singleNumberHeader,
+        'Calculates the nearest fraction',
+        'Berechnet den nächsten Bruch zu n.',
+        ({ getParameter }) => {
+            const value = (<NumberNode>getParameter('n')).value;
 
-                const [left, right] = getLowestFraction(value);
-                return createDivided(createNumberNode(left), createNumberNode(right));
-            },
-        );
+            if (value === 0) {
+                return createNumberNode(0);
+            }
+
+            const [left, right] = getLowestFraction(value);
+            return createDivided(createNumberNode(left), createNumberNode(right));
+        },
+    );
+
+__FUNCTIONS.mfraction &&
+    miscellaneousDiscreteMathFragment.addFunction(
+        'mfraction',
+        singleNumberHeader,
+        'Calculates the nearest mixed fraction if possible',
+        'Berechnet den nächsten gemischten Bruch falls möglich.',
+        ({ getParameter }) => {
+            const value = (<NumberNode>getParameter('n')).value;
+
+            if (value === 0) {
+                return createNumberNode(0);
+            }
+
+            const [numerator, denominator] = getLowestFraction(value);
+            const integer = euclideanDivision(numerator, denominator);
+
+            if (integer === 0) {
+                return createDivided(createNumberNode(numerator), createNumberNode(denominator));
+            }
+
+            if (numerator % denominator === 0) {
+                return createNumberNode(integer);
+            }
+
+            const correctedNumerator = numerator - integer * denominator;
+
+            return createPlus(
+                createNumberNode(integer),
+                createDivided(createNumberNode(correctedNumerator), createNumberNode(denominator)),
+            );
+        },
+    );
 
 __FUNCTIONS.fib &&
     miscellaneousDiscreteMathFragment.addFunction(
