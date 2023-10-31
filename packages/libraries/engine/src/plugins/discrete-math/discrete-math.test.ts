@@ -123,7 +123,7 @@ integrationTest('mfraction(0)', '0');
 integrationTest('mfraction(8/3)', '2 + 2 / 3');
 integrationTest('mfraction(2/3)', '2 / 3');
 integrationTest('mfraction(12/3)', '4');
-integrationTestThrow('fraction(2/0)');
+integrationTestThrow('mfraction(2/0)');
 
 // fib
 integrationTest('fib(1)', '1');
