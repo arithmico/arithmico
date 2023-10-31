@@ -210,12 +210,19 @@ Divided = first:Power rest:DividedItem+ {
     }));
 } / Power
 
-Power = left:Value _ "^" _ right:Negate {
+Power = left:Factorial _ "^" _ right:Factorial {
     return {
         type: "power",
         left, 
         right
     };
+} / Factorial
+
+Factorial = _ value:Negate _ "!" {
+    return {
+         type: "factorial",
+         value
+     };
 } / Negate
 
 Negate = _ "-" _ value:Power {

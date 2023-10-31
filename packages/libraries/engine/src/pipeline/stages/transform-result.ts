@@ -47,6 +47,7 @@ const transformResultLookupFunction = createLookupTableFunction<
         define: createTextResult,
         methodCall: createTextResult,
         graphic: createGraphicResult,
+        factorial: createTextResult,
     },
     (node) => node.type,
 );
