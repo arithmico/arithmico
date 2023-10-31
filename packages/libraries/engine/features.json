@@ -154,6 +154,8 @@
         "dividedVectorNumber",
         "dividedFunctionFunction",
         "powerNumberNumber",
-        "powerFunctionFunction"
+        "powerFunctionFunction",
+        "factorialNumber",
+        "factorialFunction"
     ]
 }

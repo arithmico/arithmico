@@ -25,7 +25,8 @@ export type SyntaxTreeNode =
     | Lambda
     | Define
     | MethodCall
-    | GraphicNode;
+    | GraphicNode
+    | Factorial;
 
 export type BinarySyntaxTreeNode =
     | Or
@@ -180,4 +181,9 @@ export interface MethodCall {
     object: SyntaxTreeNode;
     method: string;
     parameters: SyntaxTreeNode[];
+}
+
+export interface Factorial {
+    type: 'factorial';
+    value: SyntaxTreeNode;
 }

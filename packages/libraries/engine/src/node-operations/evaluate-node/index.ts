@@ -22,6 +22,7 @@ import evaluateDefine from './nodes/eval-define';
 import evaluateString from './nodes/eval-string';
 import evaluateMethodCall from './nodes/eval-method-call';
 import { forEachNode } from '../../utils/for-each-node';
+import evaluateFactorial from './nodes/eval-factorial';
 
 const evaluate = forEachNode<[Context], SyntaxTreeNode>({
     number: evaluateNumber,
@@ -48,6 +49,7 @@ const evaluate = forEachNode<[Context], SyntaxTreeNode>({
     define: evaluateDefine,
     methodCall: evaluateMethodCall,
     graphic: (node) => node,
+    factorial: evaluateFactorial,
 });
 
 export default evaluate;
