@@ -3,6 +3,10 @@ import { integrationTest, integrationTestThrow } from '../../utils/integration-t
 // lsolve
 integrationTest('lsolve(2*x+3*y=-6, -3*x-4*y=7)', '[x = 3, y = -4]');
 integrationTest('lsolve(x=2, x=3-y)', '[x = 2, y = 1]');
+integrationTest(
+    'lsolve(a = 1, a + b = 2, a + b + c = 3, a + b + c + d = 4, a + b + c + d + e_ = 5)',
+    '[a = 1, b = 1, c = 1, d = 1, e_ = 1]',
+);
 integrationTestThrow('lsolve(x + y = 3; 2 * x + 2*y = 4)'); // no solution
 integrationTestThrow('lsolve(-6*x + 4*y = 2; 3*x - 2*y = -1)'); // infinite solutions
 
