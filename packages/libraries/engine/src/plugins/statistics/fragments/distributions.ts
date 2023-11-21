@@ -48,8 +48,8 @@ __FUNCTIONS.normal &&
     distributionFragment.addFunction(
         'normal',
         normalHeader,
-        'Normal distribution. The default values are: for expactation 0 and for sd 1 (standard normal distribution).)',
-        'Normalverteilung. Die Standardwerte sind: für expactation 0 und für sd 1 (Standardnormalverteilung).',
+        'Normal distribution. The default values are: for expectation 0 and for sd 1 (standard normal distribution).',
+        'Normalverteilung. Die Standardwerte sind: für expectation 0 und für sd 1 (Standardnormalverteilung).',
         ({ getParameter, runtimeError }) => {
             const x = (<NumberNode>getParameter('x')).value;
             const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
@@ -67,8 +67,8 @@ __FUNCTIONS.cnormal &&
     distributionFragment.addFunction(
         'cnormal',
         normalHeader,
-        'Cumulative normal distribution. The default values are: for expactation 0 and for sd 1 (standard cumulative normal distribution).',
-        'Kumulierte Normalverteilung. Die Standardwerte sind: für expactation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
+        'Cumulative normal distribution. The default values are: for expectation 0 and for sd 1 (standard cumulative normal distribution).',
+        'Kumulierte Normalverteilung. Die Standardwerte sind: für expectation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
         ({ getParameter, runtimeError }) => {
             const x = (<NumberNode>getParameter('x')).value;
             const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
@@ -86,8 +86,8 @@ __FUNCTIONS.qnormal &&
     distributionFragment.addFunction(
         'qnormal',
         qnormalHeader,
-        'Quantile function of the cumulative normal distribution. Calculate the corresponding random variable for the given quantile p. The default values are: for expactation 0 and for sd 1 (cumulative standard normal distribution).',
-        'Quantilsfunktion der kumulierten Normalverteilung. Berechenet zu gegebenen Quantil p die entsprechende Zufallsvariable. Die Standardwerte sind: für expactation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
+        'Quantile function of the cumulative normal distribution. Calculate the corresponding random variable for the given quantile p. The default values are: for expectation 0 and for sd 1 (cumulative standard normal distribution).',
+        'Quantilsfunktion der kumulierten Normalverteilung. Berechnet zu gegebenen Quantil p die entsprechende Zufallsvariable. Die Standardwerte sind: für expectation 0 und für sd 1 (kumulierte Standardnormalverteilung).',
         ({ getParameter, runtimeError }) => {
             const p = (<NumberNode>getParameter('p')).value;
             const expectation = (<NumberNode>getParameter('expectation', createNumberNode(0))).value;
@@ -177,8 +177,8 @@ __FUNCTIONS.qbinom &&
     distributionFragment.addFunction(
         'qbinom',
         qbinomHeader,
-        'Quantile function of the cumulative binomial distribution. Calculate the corresponding k for the given quantile p_q. ',
-        'Quantilsfunktion der kumulierten Binomailverteilung. Berechenet zum gegebenen Quantil p_q das entsprechende k. ',
+        'Quantile function of the cumulative binomial distribution. Calculate the corresponding k for the given quantile p_q.',
+        'Quantilsfunktion der kumulierten Binomialverteilung. Berechnet zum gegebenen Quantil p_q das entsprechende k.',
         ({ getParameter, runtimeError }) => {
             const p_q = (<NumberNode>getParameter('p_q')).value;
             const n = (<NumberNode>getParameter('n')).value;
