@@ -1,5 +1,5 @@
-export function getLowestFraction(x0: number) {
-    const eps = 1.0e-15;
+export function getLowestFraction(x0: number): [number, number] {
+    const eps = 1.0e-5;
     let h, h1, h2, k, k1, k2, a, x;
 
     x = x0;
