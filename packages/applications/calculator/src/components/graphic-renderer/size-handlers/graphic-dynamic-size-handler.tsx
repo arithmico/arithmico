@@ -1,11 +1,12 @@
 import { GraphicNode } from "engine/lib/types";
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import GraphicFixedSizeHandler from "./graphic-fixed-size-handler";
 
 interface GraphicDynamicSizeHandlerProps {
   graphic: GraphicNode;
   braille: boolean;
+  aspectRatio?: string;
 }
 
 export type Target = "web" | "pdf";
@@ -13,10 +14,18 @@ export type Target = "web" | "pdf";
 export default function GraphicDynamicSizeHandler({
   graphic,
   braille,
+  aspectRatio,
 }: GraphicDynamicSizeHandlerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [viewBoxWidth, setViewBoxWidth] = useState(1);
   const [viewBoxHeight, setViewBoxHeight] = useState(1);
+
+  const setDimensions = useCallback(() => {
+    if (ref.current) {
+      setViewBoxWidth(ref.current.clientWidth);
+      setViewBoxHeight(ref.current.clientHeight);
+    }
+  }, [setViewBoxWidth, setViewBoxHeight, ref]);
 
   useEffect(() => {
     if (ref.current) {
@@ -26,19 +35,17 @@ export default function GraphicDynamicSizeHandler({
   }, []);
 
   useEffect(() => {
-    const setDimensions = () => {
-      if (ref.current) {
-        setViewBoxWidth(ref.current.clientWidth);
-        setViewBoxHeight(ref.current.clientHeight);
-      }
-    };
+    setDimensions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [aspectRatio]);
 
+  useEffect(() => {
     window.addEventListener("resize", setDimensions);
 
     return () => {
       window.removeEventListener("resize", setDimensions);
     };
-  }, [setViewBoxWidth, setViewBoxHeight, ref]);
+  }, [setDimensions]);
 
   return (
     <div
