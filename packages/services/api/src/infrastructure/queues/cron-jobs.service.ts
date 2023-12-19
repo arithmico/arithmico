@@ -12,7 +12,7 @@ export class CronJobsService implements OnApplicationBootstrap {
 
   async onApplicationBootstrap() {
     await this.createCronJob('fetch-emails', 5 * MINUTE);
-    await this.createCronJob('sync-git-tags', 1 * MINUTE);
+    await this.createCronJob('sync-git-tags', 5 * MINUTE);
   }
 
   async createCronJob(jobName: string, repeatEvery: number): Promise<void> {
