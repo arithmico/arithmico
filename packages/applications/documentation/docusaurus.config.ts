@@ -9,16 +9,11 @@ const config: Config = {
 
   // Set the production url of your site here
   url: "https://docs.arithmico.com",
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "de",
     locales: ["de"],
@@ -30,9 +25,6 @@ const config: Config = {
       {
         docs: {
           sidebarPath: "./sidebars.ts",
-        },
-        blog: {
-          showReadingTime: true,
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -53,7 +45,13 @@ const config: Config = {
           type: "docSidebar",
           sidebarId: "tutorialSidebar",
           position: "left",
-          label: "Tutorial",
+          label: "Anleitung",
+        },
+        {
+          type: "docSidebar",
+          sidebarId: "referenceSidebar",
+          position: "left",
+          label: "Referenz",
         },
         {
           href: "https://github.com/arithmico/arithmico",
@@ -86,18 +84,18 @@ const config: Config = {
           title: "Dokumentation",
           items: [
             {
-              label: "Tutorial",
-              to: "/docs/intro",
+              label: "Anleitung",
+              to: "/docs/tutorial",
+            },
+            {
+              label: "Referenz",
+              to: "/docs/reference",
             },
           ],
         },
         {
           title: "Verschiedenes",
           items: [
-            {
-              label: "Blog",
-              href: "https://blog.arithmico.com",
-            },
             {
               label: "GitHub",
               href: "https://github.com/arithmico/arithmico",
