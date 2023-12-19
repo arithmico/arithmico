@@ -18,7 +18,7 @@ export default function Switch({ label, enabled, onChange }: SwitchProps) {
         "text-base",
         "sm:text-lg",
         "md:text-xl",
-        "lg:text-2xl"
+        "lg:text-2xl",
       )}
     >
       <HeadlessuiSwitch.Group>
@@ -45,10 +45,11 @@ export default function Switch({ label, enabled, onChange }: SwitchProps) {
             "transition-colors",
             "duration-200",
             "ease-in-out",
-            "focus:outline-none",
-            "focus-visible:ring-2",
-            "focus-visible:ring-white",
-            "focus-visible:ring-opacity-75"
+            "ui-focus-visible:outline",
+            "outline-2",
+            "outline-offset-4",
+            "theme-light:outline-black",
+            "theme-dark:outline-white",
           )}
         >
           <span className="sr-only">Use setting</span>
@@ -69,7 +70,7 @@ export default function Switch({ label, enabled, onChange }: SwitchProps) {
               "shadow-lg",
               "transition",
               "duration-200",
-              "ease-in-out"
+              "ease-in-out",
             )}
           />
         </HeadlessuiSwitch>

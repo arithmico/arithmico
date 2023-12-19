@@ -12,7 +12,7 @@ interface CalculatorOutputProps {
 const CalculatorOutput = forwardRef<HTMLElement, CalculatorOutputProps>(
   ({ onEnterPressed }, ref) => {
     const output = useSelector(
-      (state: CalculatorRootState) => state.session.output
+      (state: CalculatorRootState) => state.session.output,
     );
 
     switch (output.type) {
@@ -45,7 +45,7 @@ const CalculatorOutput = forwardRef<HTMLElement, CalculatorOutputProps>(
     }
 
     return <div>unknown output type</div>;
-  }
+  },
 );
 
 export default CalculatorOutput;

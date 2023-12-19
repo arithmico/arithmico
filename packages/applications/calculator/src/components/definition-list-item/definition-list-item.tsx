@@ -21,7 +21,7 @@ export default function DefinitionListItem({
           "pl-8",
           "border-b",
           "theme-light:border-black/10",
-          "theme-dark:border-white/5"
+          "theme-dark:border-white/5",
         )}
       >
         {name}
@@ -38,7 +38,7 @@ export default function DefinitionListItem({
           "before:pr-8",
           "border-b",
           "theme-light:border-black/10",
-          "theme-dark:border-white/5"
+          "theme-dark:border-white/5",
         )}
       >
         {definition}
