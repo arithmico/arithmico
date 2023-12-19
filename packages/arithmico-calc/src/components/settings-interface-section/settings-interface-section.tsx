@@ -27,7 +27,6 @@ export default function SettingsInterfaceSection() {
         label={t("settings.language")}
         options={[
           { label: t("settings.language.english"), value: "en" },
-          { label: t("settings.language.french"), value: "fr" },
           { label: t("settings.language.german"), value: "de" },
           { label: t("settings.language.italian"), value: "it" },
         ]}

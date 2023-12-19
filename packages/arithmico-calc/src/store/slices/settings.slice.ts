@@ -24,7 +24,7 @@ export const initialState: SettingsState = {
 
 export const themes = ["light", "dark"];
 export const fontSizes = ["small", "medium", "large"];
-export const languages = ["de", "en", "fr", "it"];
+export const languages = ["de", "en", "it"];
 export const numberFormats = ["de", "en", "default"];
 
 const settingsSlice = createSlice({
