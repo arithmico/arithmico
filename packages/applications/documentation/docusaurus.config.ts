@@ -13,11 +13,6 @@ const config: Config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: "arithmico", // Usually your GitHub org/user name.
-  projectName: "arithmico", // Usually your repo name.
-
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
@@ -47,13 +42,11 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
-    image: "img/docusaurus-social-card.jpg",
     navbar: {
       title: "Arithmico Docs",
       logo: {
         alt: "Arithmico Logo",
-        src: "img/logo.svg",
+        src: "img/logo512.png",
       },
       items: [
         {
@@ -62,9 +55,8 @@ const config: Config = {
           position: "left",
           label: "Tutorial",
         },
-        { to: "/blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/facebook/docusaurus",
+          href: "https://github.com/arithmico/arithmico",
           label: "GitHub",
           position: "right",
         },
@@ -74,7 +66,24 @@ const config: Config = {
       style: "dark",
       links: [
         {
-          title: "Docs",
+          title: "Apps",
+          items: [
+            {
+              label: "Calculator",
+              href: "https://arithmico.com",
+            },
+            {
+              label: "Blog",
+              href: "https://blog.arithmico.com",
+            },
+            {
+              label: "Docs",
+              href: "https://docs.arithmico.com",
+            },
+          ],
+        },
+        {
+          title: "Dokumentation",
           items: [
             {
               label: "Tutorial",
@@ -83,37 +92,24 @@ const config: Config = {
           ],
         },
         {
-          title: "Community",
-          items: [
-            {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
-            },
-            {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
-            },
-            {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
-            },
-          ],
-        },
-        {
-          title: "More",
+          title: "Verschiedenes",
           items: [
             {
               label: "Blog",
-              to: "/blog",
+              href: "https://blog.arithmico.com",
             },
             {
               label: "GitHub",
-              href: "https://github.com/facebook/docusaurus",
+              href: "https://github.com/arithmico/arithmico",
+            },
+            {
+              label: "Impressum",
+              to: "/imprint",
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Arithmico`,
     },
     prism: {
       theme: prismThemes.github,
