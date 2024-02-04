@@ -1,7 +1,12 @@
+import { Editor } from "./components/editor/editor";
+
 function App() {
   return (
     <>
-      <div className={"text-4xl"}>hello world</div>
+      <div>
+        <h1>hello world</h1>
+        <Editor />
+      </div>
     </>
   );
 }
