@@ -27,6 +27,7 @@
     "packages/applications/blog",
     "packages/applications/calculator",
     "packages/applications/documentation",
+    "packages/applications/notebook",
     "packages/libraries/engine",
     "packages/libraries/parser",
     "packages/libraries/ui-components"
