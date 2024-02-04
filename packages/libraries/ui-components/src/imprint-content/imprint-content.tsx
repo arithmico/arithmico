@@ -6,8 +6,9 @@ export function ImprintContent() {
       <p>
         {" "}
         Lennard Behrens <br />
-        Sachsenring 1<br />
-        35041 Marburg <br />
+        Cappeler Straße 130c
+        <br />
+        35039 Marburg <br />
       </p>
       <p>
         {" "}
