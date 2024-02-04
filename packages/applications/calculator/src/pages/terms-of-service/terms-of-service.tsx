@@ -15,7 +15,8 @@ export default function TermsOfService() {
           "[&>h2]:font-bold",
           "[&>h2]:mt-4",
           "[&>h2]:mb-2",
-          "[&>a]:underline",
+          "[&_a]:underline",
+          "[&_p]:py-2",
           "bold-font:font-bold"
         )}
       >
@@ -93,7 +94,7 @@ export default function TermsOfService() {
         <p>
           Arithmico or its suppliers will not be hold accountable for any
           damages that will arise with the use or inability to use the materials
-          on Arithmico’s Website, even if Math Explorer or an authorize
+          on Arithmico’s Website, even if Arithmico or an authorize
           representative of this Website has been notified, orally or written,
           of the possibility of such damage. Some jurisdiction does not allow
           limitations on implied warranties or limitations of liability for

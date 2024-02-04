@@ -10,14 +10,15 @@ export default function PrivacyPolicy() {
       <PageContainer
         className={classNames(
           "text-xl",
-          "[&>h1]:text-3xl",
-          "[&>h2]:text-2xl",
-          "[&>h1]:mb-4",
-          "[&>h1]:font-bold",
-          "[&>h2]:font-bold",
-          "[&>h2]:mt-4",
-          "[&>h2]:mb-2",
-          "[&>a]:underline",
+          "[&_h1]:text-3xl",
+          "[&_h2]:text-2xl",
+          "[&_h1]:mb-4",
+          "[&_h1]:font-bold",
+          "[&_h2]:font-bold",
+          "[&_h2]:mt-4",
+          "[&_h2]:mb-2",
+          "[&_a]:underline",
+          "[&_p]:py-2",
           "bold-font:font-bold"
         )}
       >
