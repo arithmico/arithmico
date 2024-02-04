@@ -41,7 +41,6 @@
   },
   "homepage": "https://github.com/behrenle/arithmico#readme",
   "devDependencies": {
-    "nx": "^16.7.1",
-    "nx-cloud": "^16.2.0"
+    "nx": "18.0.0"
   }
 }
