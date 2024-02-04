@@ -17,8 +17,10 @@ export function Editor() {
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <PlainTextPlugin
-        contentEditable={<ContentEditable />}
-        placeholder={<div>Enter some text...</div>}
+        contentEditable={
+          <ContentEditable className="outline-none border border-black/20 p-2 rounded-md" />
+        }
+        placeholder={null}
         ErrorBoundary={LexicalErrorBoundary}
       />
       <HistoryPlugin />

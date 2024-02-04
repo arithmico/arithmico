@@ -1,12 +1,9 @@
-import { Editor } from "./components/editor/editor";
+import { EditorPage } from "./pages/editor/editor.page";
 
 function App() {
   return (
     <>
-      <div>
-        <h1>hello world</h1>
-        <Editor />
-      </div>
+      <EditorPage />
     </>
   );
 }
