@@ -3,7 +3,7 @@ import { useGetConfigurationsQuery } from "../../store/api";
 import { ConfigurationPreview } from "./components/configuration-preview";
 
 export function DownloadsPage() {
-  const limit = 3;
+  const limit = 64;
   const [skip] = useState(0);
   const { data, isSuccess } = useGetConfigurationsQuery({ skip, limit });
 
