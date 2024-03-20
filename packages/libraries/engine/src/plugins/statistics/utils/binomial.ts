@@ -1,8 +1,5 @@
 import { binco } from '../../../utils/math-utils/binco';
-import {
-    calculateIncompleteBetaFunction,
-    calculateIncompleteBetaFunctionComplementary,
-} from './incomplete-beta-function';
+import { calculateIncompleteBetaFunctionComplementary } from './incomplete-beta-function';
 
 export function calculateBinom(n: number, p: number, k: number) {
     return binco(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
