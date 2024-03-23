@@ -23,14 +23,16 @@ export class UserActivationRepository {
   }
 
   async findAndDelete(activationId: string): Promise<UserActivationDocument> {
-    const result = await this.userActivationModel.findOneAndDelete({
-      _id: activationId,
-    });
+    const result = await this.userActivationModel
+      .findOneAndDelete({
+        _id: activationId,
+      })
+      .exec();
 
-    if (!result) {
+    if (!result.ok) {
       throw new NotFoundException();
     }
 
-    return result;
+    return result.value;
   }
 }
