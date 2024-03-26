@@ -35,10 +35,19 @@ describe('tests for incomplete beta function', () => {
 
     // incomplete beta function trivial cases
     incompleteBetaFunctionTest('I_{0}(3, 2)', 0, 3, 2, 0); //sagemath: 0.0
+    incompleteBetaFunctionComplementaryTest('1 - I_{0}(3, 2)', 0, 3, 2, 1.0); //sagemath: 1.0
+
     incompleteBetaFunctionTest('I_{1}(3, 2)', 1, 3, 2, 1); //sagemath: 1.0
+    incompleteBetaFunctionComplementaryTest('1 - I_{1}(3, 2)', 1, 3, 2, 0.0); //sagemath: 0.0
+
     incompleteBetaFunctionTest('I_{0.2}(3, 0)', 0.2, 3, 0, 0); //sagemath: NaN
+    incompleteBetaFunctionComplementaryTest('1 - 0I_{0.2}(3, 0)', 0.2, 3, 0, 1.0); //sagemath: NaN
+
     incompleteBetaFunctionTest('I_{0.2}(0, 2)', 0.2, 0, 2, 1); //sagemath: NaN
+    incompleteBetaFunctionComplementaryTest('1 - I_{0.2}(0, 2)', 0.2, 0, 2, 0); //sagemath: NaN
+
     incompleteBetaFunctionTest('I_{0.2}(1e-20, 1e-21)', 0.2, 1e-20, 1e-21, 0.0909090909090909); //sagemath: 0.09090909090909065
+    incompleteBetaFunctionComplementaryTest('1 - I_{0.2}(1e-20, 1e-21)', 0.2, 1e-20, 1e-21, 0.9090909090909091); //sagemath: 0.909090909090909
 
     // bratio test cases
     incompleteBetaFunctionTest('I_{0.2}(3, 1e-17)', 0.2, 3, 1e-17, 3.143551314209757e-20); //sagemath: 3.143551314209749e-20
