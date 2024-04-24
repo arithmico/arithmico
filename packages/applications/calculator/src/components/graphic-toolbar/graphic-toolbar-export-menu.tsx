@@ -10,15 +10,24 @@ import { useTranslation } from "react-i18next";
 interface GraphicToolbarExportMenuProps {
   graphic: GraphicNode;
   input: string;
+  isLandscape: boolean;
 }
 
 export function GraphicToolbarExportMenu({
   graphic,
   input,
+  isLandscape,
 }: GraphicToolbarExportMenuProps) {
   const [t] = useTranslation();
   const exportPdf = (braille: boolean) => {
-    pdf(<PdfGraphic graphic={graphic} input={input} braille={braille} />)
+    pdf(
+      <PdfGraphic
+        graphic={graphic}
+        input={input}
+        braille={braille}
+        isLandscape={isLandscape}
+      />
+    )
       .toBlob()
       .then((blob) => FileSaver.saveAs(blob, "export.pdf"));
   };
@@ -26,7 +35,7 @@ export function GraphicToolbarExportMenu({
   return (
     <Menu>
       {({ open }) => (
-        <>
+        <div className="relative">
           <Menu.Button
             className={classNames(
               "p-1",
@@ -83,6 +92,8 @@ export function GraphicToolbarExportMenu({
                     "text-left",
                     "border-b",
                     "rounded-t-sm",
+                    "theme-light:text-black",
+                    "theme-dark:text-white",
                     "theme-light:hover:bg-neutral-300",
                     "theme-dark:hover:bg-neutral-600",
                     "theme-light:border-b-black/5",
@@ -107,6 +118,8 @@ export function GraphicToolbarExportMenu({
                     "rounded-sm",
                     "text-left",
                     "rounded-t-sm",
+                    "theme-light:text-black",
+                    "theme-dark:text-white",
                     "theme-light:hover:bg-neutral-300",
                     "theme-dark:hover:bg-neutral-600"
                   )}
@@ -121,7 +134,7 @@ export function GraphicToolbarExportMenu({
               )}
             </Menu.Item>
           </Menu.Items>
-        </>
+        </div>
       )}
     </Menu>
   );

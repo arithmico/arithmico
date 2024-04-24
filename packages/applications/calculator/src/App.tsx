@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     (
-      document.getElementById("root") as HTMLElement
+      document.getElementsByTagName("body")[0] as HTMLElement
     ).className = `theme-${theme}`;
   }, [theme]);
 
