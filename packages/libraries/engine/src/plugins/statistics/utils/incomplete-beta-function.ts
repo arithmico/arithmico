@@ -315,10 +315,10 @@ function PSI(XX: number) {
                 return 0.0;
             }
 
-            let NQ = Math.trunc(W);
-            W = W - NQ;
-            NQ = Math.trunc(W * 4.0);
-            W = 4.0 * (W - NQ * 0.25);
+            let NQ = Math.trunc(W); // int
+            W = W - NQ; // double
+            NQ = Math.trunc(W * 4.0); // int
+            W = 4.0 * (W - NQ * 0.25); // double
             /*
         W IS NOW RELATED TO THE FRACTIONAL PART OF  4.0 * X.
         ADJUST ARGUMENT TO CORRESPOND TO VALUES IN FIRST
@@ -349,8 +349,9 @@ function PSI(XX: number) {
 
                 // USE COS/SIN AS A SUBSTITUTE FOR COTAN, AND  SIN/COS AS A SUBSTITUTE FOR TAN
                 AUG = SGN * ((Math.cos(Z) / Math.sin(Z)) * 4.0);
+            } else {
+                AUG = SGN * ((Math.sin(Z) / Math.cos(Z)) * 4.0);
             }
-            AUG = SGN * ((Math.sin(Z) / Math.cos(Z)) * 4.0);
         }
         X = 1.0 - X;
     }
@@ -1446,26 +1447,26 @@ function BPSER(A: number, B: number, X: number, EPS: number) {
             if (BPSER === 0.0 || A <= 0.1 * EPS) {
                 return BPSER;
             }
-        }
-
-        //      PROCEDURE FOR A0 .LT. 1 AND B0 .LE. 1
-        BPSER = X ** A;
-        if (BPSER === 0.0) {
-            return BPSER;
-        }
-
-        const APB = A + B;
-        let Z;
-        if (APB > 1.0) {
-            const U = A + B - 1.0;
-            Z = (1.0 + GAM1(U)) / APB;
         } else {
-            Z = 1.0 + GAM1(APB);
-        }
-        const C = ((1.0 + GAM1(A)) * (1.0 + GAM1(B))) / Z;
-        BPSER = BPSER * C * (B / APB);
-        if (BPSER === 0.0 || A <= 0.1 * EPS) {
-            return BPSER;
+            //      PROCEDURE FOR A0 .LT. 1 AND B0 .LE. 1
+            BPSER = X ** A;
+            if (BPSER === 0.0) {
+                return BPSER;
+            }
+
+            const APB = A + B;
+            let Z;
+            if (APB > 1.0) {
+                const U = A + B - 1.0;
+                Z = (1.0 + GAM1(U)) / APB;
+            } else {
+                Z = 1.0 + GAM1(APB);
+            }
+            const C = ((1.0 + GAM1(A)) * (1.0 + GAM1(B))) / Z;
+            BPSER = BPSER * C * (B / APB);
+            if (BPSER === 0.0 || A <= 0.1 * EPS) {
+                return BPSER;
+            }
         }
     }
 
@@ -1710,7 +1711,7 @@ function BRATIO(A: number, B: number, X: number, Y: number): [number, number] {
         return IND === 0 ? [W, W1] : [W1, W];
     }
     if (B0 < 40.0) {
-        let N = B0;
+        let N = Math.trunc(B0);
         B0 = B0 - N;
         if (B0 === 0.0) {
             N = N - 1;
