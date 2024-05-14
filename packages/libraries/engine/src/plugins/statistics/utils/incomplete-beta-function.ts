@@ -859,914 +859,851 @@ function BASYM(A: number, B: number, LAMBDA: number, EPS: number) {
 }
 
 /*
-        EVALUATION OF THE INCOMPLETE GAMMA RATIO FUNCTIONS
-        P(A,X) AND Q(A,X)
+    Evaluation of the incomplete Gamma ratio funcions
+    P(A, X) and Q(A, x)
 
-        IT IS ASSUMED THAT A .LE. 1.  EPS IS THE TOLERANCE TO BE USED.
-        THE INPUT ARGUMENT R HAS THE VALUE E**(-X)*X**A/GAMMA(A).
+    It is assumed that a <= 1. eps is the tolerance to be used.
+    The input argument r has the value e^(-x) * x^a / gamma(a)
  */
-function GRAT1(A: number, X: number, R: number, EPS: number): [number, number] {
-    let J, L;
-    let P, Q;
+function grat1(a: number, x: number, r: number, eps: number): [number, number] {
+    let p, q;
 
-    if (A * X === 0.0) {
-        if (X <= A) {
-            P = 0.0;
-            Q = 1.0;
-            return [P, Q];
-        }
-        P = 1.0;
-        Q = 0.0;
-        return [P, Q];
+    if (a * x === 0.0) {
+        [p, q] = x <= a ? [0.0, 1.0] : [1.0, 0.0];
+        return [p, q];
     }
-    if (A === 0.5) {
-        if (X >= 0.25) {
-            Q = ERFC1(0, Math.sqrt(X));
-            P = 0.5 + (0.5 - Q);
-            return [P, Q];
+    if (a === 0.5) {
+        if (x >= 0.25) {
+            q = ERFC1(0, Math.sqrt(x));
+            p = 0.5 + (0.5 - q);
+            return [p, q];
         }
-        P = ERF(Math.sqrt(X));
-        Q = 0.5 + (0.5 - P);
-        return [P, Q];
+        p = ERF(Math.sqrt(x));
+        q = 0.5 + (0.5 - p);
+        return [p, q];
     }
 
-    if (X < 1.1) {
-        //      TAYLOR SERIES FOR P(A,X)/X**A
-        let AN = 3.0;
-        let C = X;
-        let SUM = X / (A + 3.0);
-        const TOL = (0.1 * EPS) / (A + 1.0);
+    if (x < 1.1) {
+        //    Taylor series for P(a, x) / x^a
+        let an = 3.0;
+        let c = x;
+        let sum = x / (a + 3.0);
+        const tol = (0.1 * eps) / (a + 1.0);
 
-        let T;
+        let t;
         do {
-            AN = AN + 1.0;
-            C = -C * (X / AN);
-            T = C / (A + AN);
-            SUM = SUM + T;
-        } while (Math.abs(T) > TOL);
+            an = an + 1.0;
+            c = -c * (x / an);
+            t = c / (a + an);
+            sum = sum + t;
+        } while (Math.abs(t) > tol);
 
-        J = A * X * ((SUM / 6.0 - 0.5 / (A + 2.0)) * X + 1.0 / (A + 1.0));
+        const j = a * x * ((sum / 6.0 - 0.5 / (a + 2.0)) * x + 1.0 / (a + 1.0));
 
-        const Z = A * Math.log(X);
-        const H = GAM1(A);
-        const G = 1.0 + H;
+        const z = a * Math.log(x);
+        const h = GAM1(a);
+        const g = 1.0 + h;
 
-        if ((X < 0.25 && Z > -0.13394) || (X >= 0.25 && A < X / 2.59)) {
-            L = REXP(Z);
-            const W = 0.5 + (0.5 + L);
-            Q = (W * J - L) * G - H;
-            if (Q < 0.0) {
-                P = 1.0;
-                Q = 0.0;
-                return [P, Q];
+        if ((x < 0.25 && z > -0.13394) || (x >= 0.25 && a < x / 2.59)) {
+            const l = REXP(z);
+            const w = 0.5 + (0.5 + l);
+            q = (w * j - l) * g - h;
+            if (q < 0.0) {
+                p = 1.0;
+                q = 0.0;
+                return [p, q];
             }
-            P = 0.5 + (0.5 - Q);
-            return [P, Q];
+            p = 0.5 + (0.5 - q);
+            return [p, q];
         } else {
-            const W = Math.exp(Z);
-            P = W * G * (0.5 + (0.5 - J));
-            Q = 0.5 + (0.5 - P);
-            return [P, Q];
+            const w = Math.exp(z);
+            p = w * g * (0.5 + (0.5 - j));
+            q = 0.5 + (0.5 - p);
+            return [p, q];
         }
     }
 
-    //      CONTINUED FRACTION EXPANSION
-    let A2NM1 = 1.0;
-    let A2N = 1.0;
-    let B2NM1 = X;
-    let B2N = X + (1.0 - A);
-    let C = 1.0;
+    //    Continued fraction expansion
+    let a2nm1 = 1.0;
+    let a2n = 1.0;
+    let b2nm1 = x;
+    let b2n = x + (1.0 - a);
+    let c = 1.0;
 
-    let AM0;
-    let AN0;
+    let am0;
+    let an0;
     do {
-        A2NM1 = X * A2N + C * A2NM1;
-        B2NM1 = X * B2N + C * B2NM1;
-        AM0 = A2NM1 / B2NM1;
-        C = C + 1.0;
-        const CMA = C - A;
-        A2N = A2NM1 + CMA * A2N;
-        B2N = B2NM1 + CMA * B2N;
-        AN0 = A2N / B2N;
-    } while (Math.abs(AN0 - AM0) > EPS * AN0);
+        a2nm1 = x * a2n + c * a2nm1;
+        b2nm1 = x * b2n + c * b2nm1;
+        am0 = a2nm1 / b2nm1;
+        c = c + 1.0;
+        const CMA = c - a;
+        a2n = a2nm1 + CMA * a2n;
+        b2n = b2nm1 + CMA * b2n;
+        an0 = a2n / b2n;
+    } while (Math.abs(an0 - am0) > eps * an0);
 
-    Q = R * AN0;
-    P = 0.5 + (0.5 - Q);
-    return [P, Q];
+    q = r * an0;
+    p = 0.5 + (0.5 - q);
+    return [p, q];
 }
 
 /*
-        ASYMPTOTIC EXPANSION FOR IX(A,B) WHEN A IS LARGER THAN B.
-        THE RESULT OF THE EXPANSION IS ADDED TO W. IT IS ASSUMED
-        THAT A .GE. 15 AND B .LE. 1.  EPS IS THE TOLERANCE USED.
-        IERR IS A VARIABLE THAT REPORTS THE STATUS OF THE RESULTS.
+    Asymptotic expansion for I_x(a, b) when a is larger than b.
+    The result of the expansion is added to w. It is assumed
+    that a >= 15 and b <= 1. eps is the tolerance used.
+    ierr is a variable that reports the status of the results. (Replaced with throw in this implementation)
  */
-function BGRAT(A: number, B: number, X: number, Y: number, W: number, EPS: number) {
-    let J, LNX, N2;
+function bgrat(a: number, b: number, x: number, y: number, w: number, eps: number) {
+    const bm1 = b - 0.5 - 0.5;
+    const nu = a + 0.5 * bm1;
 
-    const BM1 = B - 0.5 - 0.5;
-    const NU = A + 0.5 * BM1;
-    if (Y > 0.375) {
-        LNX = Math.log(X);
-    } else {
-        LNX = ALNREL(-Y);
-    }
-    const Z = -NU * LNX;
-    if (B * Z === 0.0) {
+    const lnx = y > 0.375 ? Math.log(x) : ALNREL(-y);
+    const z = -nu * lnx;
+
+    if (b * z === 0.0) {
         throw 'bgrat: A OR B IS NEGATIVE';
     }
-    /*
-        COMPUTATION OF THE EXPANSION
-        SET R = EXP(-Z)*Z**B/GAMMA(B)
- */
-    let R = B * (1.0 + GAM1(B)) * Math.exp(B * Math.log(Z));
-    R = R * Math.exp(A * LNX) * Math.exp(0.5 * BM1 * LNX);
-    let U = ALGDIV(B, A) + B * Math.log(NU);
-    U = R * Math.exp(-U);
-    if (U === 0.0) {
+
+    // Computation of the expansion set r = exp(-z) * z^b / gamma(b)
+    let r = b * (1.0 + GAM1(b)) * Math.exp(b * Math.log(z));
+    r = r * Math.exp(a * lnx) * Math.exp(0.5 * bm1 * lnx);
+    let u = ALGDIV(b, a) + b * Math.log(nu);
+    u = r * Math.exp(-u);
+    if (u === 0.0) {
         throw 'bgrat: A OR B IS NEGATIVE';
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [P, Q] = GRAT1(B, Z, R, EPS);
+    const [p, q] = grat1(b, z, r, eps);
 
-    const V = 0.25 * (1.0 / NU) ** 2;
-    const T2 = 0.25 * LNX * LNX;
-    const L = W / U;
-    J = Q / R;
-    let SUM = J;
-    let T = 1.0;
-    let CN = 1.0;
-    N2 = 0.0;
+    const v = 0.25 * (1.0 / nu) ** 2;
+    const t2 = 0.25 * lnx * lnx;
+    const l = w / u;
 
-    const C = new Array(30);
-    const D = new Array(30);
-    for (let N = 1; N <= 30; ++N) {
-        const BP2N = B + N2;
-        J = (BP2N * (BP2N + 1.0) * J + (Z + BP2N + 1.0) * T) * V;
-        N2 = N2 + 2.0;
-        T = T * T2;
-        CN = CN / (N2 * (N2 + 1.0));
-        C[N - 1] = CN;
+    let j = q / r;
+    let sum = j;
+    let t = 1.0;
+    let cn = 1.0;
+    let n2 = 0.0;
+
+    const arrayLength = 30;
+    const C: number[] = new Array(arrayLength);
+    const D: number[] = new Array(arrayLength);
+
+    for (let n = 0; n < arrayLength; n++) {
+        const bp2n = b + n2;
+        j = (bp2n * (bp2n + 1.0) * j + (z + bp2n + 1.0) * t) * v;
+        n2 = n2 + 2.0;
+        t = t * t2;
+        cn = cn / (n2 * (n2 + 1.0));
+        C[n] = cn;
         let S = 0.0;
 
-        if (N !== 1) {
-            const NM1 = N - 1;
-            let COEF = B - N;
-            for (let I = 1; I <= NM1; ++I) {
-                S = S + COEF * C[I - 1] * D[N - I - 1]; //alt: D[NM1 - I]
-                COEF = COEF + B;
+        if (n !== 0) {
+            let coef = b - (n + 1);
+            for (let i = 0; i < n; i++) {
+                S = S + coef * C[i] * D[n - i - 1]; //original: D[N - I - 1]; alt: D[NM1 - I]
+                coef = coef + b;
             }
         }
-        D[N - 1] = BM1 * CN + S / N;
-        const DJ = D[N - 1] * J;
-        SUM = SUM + DJ;
+        D[n] = bm1 * cn + S / (n + 1);
+        const DJ = D[n] * j;
+        sum = sum + DJ;
 
-        if (SUM <= 0.0) {
+        if (sum <= 0.0) {
             throw 'bgrat: A OR B IS NEGATIVE';
         }
-        if (Math.abs(DJ) <= EPS * (SUM + L)) {
+        if (Math.abs(DJ) <= eps * (sum + l)) {
             break;
         }
     }
 
-    //     ADD THE RESULTS TO W
-
-    W = W + U * SUM;
-    return W;
+    //    Add the results to w
+    w = w + u * sum;
+    return w;
 }
 
 /*
-        EVALUATION OF  EXP(MU) * (X**A*Y**B/BETA(A,B))
+    Evaluating of exp(mu) * (x^a * y^b / beta(a, b))
  */
-function BRCMP1(MU: number, A: number, B: number, X: number, Y: number) {
-    let LAMBDA, LNX, LNY;
+function brcmp1(mu: number, a: number, b: number, x: number, y: number) {
     const CONST = 1 / Math.sqrt(2 * Math.PI); // 0.398942280401433
 
-    const A0 = Math.min(A, B);
-    if (A0 < 8.0) {
-        if (X <= 0.375) {
-            LNX = Math.log(X);
-            LNY = ALNREL(-X);
-        } else if (Y <= 0.375) {
-            LNX = ALNREL(-Y);
-            LNY = Math.log(Y);
+    const a0 = Math.min(a, b);
+    if (a0 < 8.0) {
+        let lnx, lny;
+        if (x <= 0.375) {
+            lnx = Math.log(x);
+            lny = ALNREL(-x);
+        } else if (y <= 0.375) {
+            lnx = ALNREL(-y);
+            lny = Math.log(y);
         } else {
-            LNX = Math.log(X);
-            LNY = Math.log(Y);
+            lnx = Math.log(x);
+            lny = Math.log(y);
         }
 
-        let Z = A * LNX + B * LNY;
-        if (A0 >= 1.0) {
-            Z = Z - BETALN(A, B);
-            return ESUM(MU, Z);
+        let z = a * lnx + b * lny;
+        if (a0 >= 1.0) {
+            z = z - BETALN(a, b);
+            return ESUM(mu, z);
         }
 
-        //      PROCEDURE FOR A .LT. 1 OR B .LT. 1
-        let B0 = Math.max(A, B);
-        if (B0 >= 8.0) {
-            //      ALGORITHM FOR B0 .GE. 8
-            const U = GAMLN1(A0) + ALGDIV(A0, B0);
-            return A0 * ESUM(MU, Z - U);
+        //    Procedure for a < 1 or b < 1
+        let b0 = Math.max(a, b);
+        if (b0 >= 8.0) {
+            //    Algorithm for b0 >= 8
+            const u = GAMLN1(a0) + ALGDIV(a0, b0);
+            return a0 * ESUM(mu, z - u);
         }
 
-        if (B0 <= 1.0) {
-            //ALGORITHM FOR B0 .LE. 1
-            const BRCMP1 = ESUM(MU, Z);
-            if (BRCMP1 === 0.0) {
-                return BRCMP1;
+        if (b0 <= 1.0) {
+            //    Algorithm for b0 <= 1
+            const returnValue = ESUM(mu, z);
+            if (returnValue === 0.0) {
+                return returnValue;
             }
 
-            const APB = A + B;
-            if (APB > 1.0) {
-                const U = A + B - 1.0;
-                Z = (1.0 + GAM1(U)) / APB;
+            const apb = a + b;
+            if (apb > 1.0) {
+                const u = a + b - 1.0;
+                z = (1.0 + GAM1(u)) / apb;
             } else {
-                Z = 1.0 + GAM1(APB);
+                z = 1.0 + GAM1(apb);
             }
 
-            const C = ((1.0 + GAM1(A)) * (1.0 + GAM1(B))) / Z;
-            return (BRCMP1 * (A0 * C)) / (1.0 + A0 / B0);
+            const c = ((1.0 + GAM1(a)) * (1.0 + GAM1(b))) / z;
+            return (returnValue * (a0 * c)) / (1.0 + a0 / b0);
         }
 
-        //      ALGORITHM FOR 1 .LT. B0 .LT. 8
-        let U = GAMLN1(A0);
-        const N = B0 - 1.0;
-        if (N >= 1) {
-            let C = 1.0;
-            for (let I = 1; I <= N; ++I) {
-                B0 = B0 - 1.0;
-                C = C * (B0 / (A0 + B0));
+        //    Algorithm for 1 < b0 < 8
+        let u = GAMLN1(a0);
+        const n = b0 - 1.0;
+        if (n >= 1) {
+            let c = 1.0;
+            for (let i = 0; i < n; i++) {
+                b0 = b0 - 1.0;
+                c = c * (b0 / (a0 + b0));
             }
-            U = Math.log(C) + U;
+            u = Math.log(c) + u;
         }
 
-        Z = Z - U;
-        B0 = B0 - 1.0;
-        const APB = A0 + B0;
-        let T;
-        if (APB > 1.0) {
-            U = A0 + B0 - 1.0;
-            T = (1.0 + GAM1(U)) / APB;
+        z = z - u;
+        b0 = b0 - 1.0;
+        const apb = a0 + b0;
+        let t;
+        if (apb > 1.0) {
+            u = a0 + b0 - 1.0;
+            t = (1.0 + GAM1(u)) / apb;
         } else {
-            T = 1.0 + GAM1(APB);
+            t = 1.0 + GAM1(apb);
         }
-        return (A0 * ESUM(MU, Z) * (1.0 + GAM1(B0))) / T;
+        return (a0 * ESUM(mu, z) * (1.0 + GAM1(b0))) / t;
     }
 
-    //      PROCEDURE FOR A .GE. 8 AND B .GE. 8
-    let H, X0, Y0;
-    if (A > B) {
-        H = B / A;
-        X0 = 1.0 / (1.0 + H);
-        Y0 = H / (1.0 + H);
-        LAMBDA = (A + B) * Y - B;
+    //    Procedure for a >= 8 and b >= 8
+    const h = a > b ? b / a : a / b;
+    const x0 = a > b ? 1.0 / (1.0 + h) : h / (1.0 + h);
+    const y0 = a > b ? h / (1.0 + h) : 1.0 / (1.0 + h);
+    const lambda = a > b ? (a + b) * y - b : a - (a + b) * x;
+
+    const e1 = -lambda / a;
+    let u;
+    if (Math.abs(e1) > 0.6) {
+        u = e1 - Math.log(x / x0);
     } else {
-        H = A / B;
-        X0 = H / (1.0 + H);
-        Y0 = 1.0 / (1.0 + H);
-        LAMBDA = A - (A + B) * X;
+        u = RLOG1(e1);
     }
 
-    let E = -LAMBDA / A;
-    let U;
-    if (Math.abs(E) > 0.6) {
-        U = E - Math.log(X / X0);
+    const e2 = lambda / b;
+    let v;
+    if (Math.abs(e2) > 0.6) {
+        v = e2 - Math.log(y / y0);
     } else {
-        U = RLOG1(E);
+        v = RLOG1(e2);
     }
 
-    E = LAMBDA / B;
-    let V;
-    if (Math.abs(E) > 0.6) {
-        V = E - Math.log(Y / Y0);
-    } else {
-        V = RLOG1(E);
-    }
-
-    const Z = ESUM(MU, -(A * U + B * V));
-    return CONST * Math.sqrt(B * X0) * Z * Math.exp(-BCORR(A, B));
+    const z = ESUM(mu, -(a * u + b * v));
+    return CONST * Math.sqrt(b * x0) * z * Math.exp(-BCORR(a, b));
 }
 
 /*
-        EVALUATION OF X**A*Y**B/BETA(A,B)
+    Evaluating of x^a * y^b / beta(a, b)
  */
-function BRCOMP(A: number, B: number, X: number, Y: number) {
-    let LAMBDA, LNX, LNY;
+function brcomp(a: number, b: number, x: number, y: number) {
     const CONST = 1 / Math.sqrt(2 * Math.PI); // 0.398942280401433
-    let BRCOMP = 0.0;
-    if (X === 0.0 || Y === 0.0) {
-        return BRCOMP;
+    let returnValue = 0.0;
+    if (x === 0.0 || y === 0.0) {
+        return returnValue;
     }
 
-    const A0 = Math.min(A, B);
-    if (A0 < 8.0) {
-        if (X <= 0.375) {
-            LNX = Math.log(X);
-            LNY = ALNREL(-X);
-        } else if (Y <= 0.375) {
-            LNX = ALNREL(-Y);
-            LNY = Math.log(Y);
+    const a0 = Math.min(a, b);
+    if (a0 < 8.0) {
+        let lnx, lny;
+        if (x <= 0.375) {
+            lnx = Math.log(x);
+            lny = ALNREL(-x);
+        } else if (y <= 0.375) {
+            lnx = ALNREL(-y);
+            lny = Math.log(y);
         } else {
-            LNX = Math.log(X);
-            LNY = Math.log(Y);
+            lnx = Math.log(x);
+            lny = Math.log(y);
         }
 
-        let Z = A * LNX + B * LNY;
-        if (A0 >= 1.0) {
-            Z = Z - BETALN(A, B);
-            return Math.exp(Z);
+        let z = a * lnx + b * lny;
+        if (a0 >= 1.0) {
+            z = z - BETALN(a, b);
+            return Math.exp(z);
         }
 
-        //      PROCEDURE FOR A .LT. 1 OR B .LT. 1
-        let B0 = Math.max(A, B);
-        if (B0 >= 8.0) {
-            //      ALGORITHM FOR B0 .GE. 8
-            const U = GAMLN1(A0) + ALGDIV(A0, B0);
-            return A0 * Math.exp(Z - U);
+        //    Procedure for a < 1 or b < 1
+        let b0 = Math.max(a, b);
+        if (b0 >= 8.0) {
+            //    Algorithm for b0 >= 8
+            const u = GAMLN1(a0) + ALGDIV(a0, b0);
+            return a0 * Math.exp(z - u);
         }
 
-        if (B0 <= 1.0) {
-            //      ALGORITHM FOR B0 .LE. 1
-            BRCOMP = Math.exp(Z);
-            if (BRCOMP === 0.0) {
-                return BRCOMP;
+        if (b0 <= 1.0) {
+            //    Algorithm for b0 <= 1
+            returnValue = Math.exp(z);
+            if (returnValue === 0.0) {
+                return returnValue;
             }
 
-            const APB = A + B;
-            if (APB > 1.0) {
-                const U = A + B - 1.0;
-                Z = (1.0 + GAM1(U)) / APB;
+            const apb = a + b;
+            if (apb > 1.0) {
+                const u = a + b - 1.0;
+                z = (1.0 + GAM1(u)) / apb;
             } else {
-                Z = 1.0 + GAM1(APB);
+                z = 1.0 + GAM1(apb);
             }
 
-            const C = ((1.0 + GAM1(A)) * (1.0 + GAM1(B))) / Z;
-            return (BRCOMP * (A0 * C)) / (1.0 + A0 / B0);
+            const C = ((1.0 + GAM1(a)) * (1.0 + GAM1(b))) / z;
+            return (returnValue * (a0 * C)) / (1.0 + a0 / b0);
         }
 
-        //      ALGORITHM FOR 1 .LT. B0 .LT. 8
-        let U = GAMLN1(A0);
-        const N = B0 - 1.0;
-        if (N >= 1) {
-            let C = 1.0;
-            for (let I = 1; I <= N; ++I) {
-                B0 = B0 - 1.0;
-                C = C * (B0 / (A0 + B0));
+        //    Algorithm for 1 < b0 < 8
+        let u = GAMLN1(a0);
+        const n = b0 - 1.0;
+        if (n >= 1) {
+            let c = 1.0;
+            for (let i = 0; i < n; i++) {
+                b0 = b0 - 1.0;
+                c = c * (b0 / (a0 + b0));
             }
-            U = Math.log(C) + U;
+            u = Math.log(c) + u;
         }
 
-        Z = Z - U;
-        B0 = B0 - 1.0;
-        const APB = A0 + B0;
-        let T;
-        if (APB > 1.0) {
-            U = A0 + B0 - 1.0;
-            T = (1.0 + GAM1(U)) / APB;
+        z = z - u;
+        b0 = b0 - 1.0;
+        const apb = a0 + b0;
+        let t;
+        if (apb > 1.0) {
+            u = a0 + b0 - 1.0;
+            t = (1.0 + GAM1(u)) / apb;
         } else {
-            T = 1.0 + GAM1(APB);
+            t = 1.0 + GAM1(apb);
         }
 
-        return (A0 * Math.exp(Z) * (1.0 + GAM1(B0))) / T;
+        return (a0 * Math.exp(z) * (1.0 + GAM1(b0))) / t;
     }
 
-    //      PROCEDURE FOR A .GE. 8 AND B .GE. 8
-    let H, X0, Y0;
-    if (A > B) {
-        H = B / A;
-        X0 = 1.0 / (1.0 + H);
-        Y0 = H / (1.0 + H);
-        LAMBDA = (A + B) * Y - B;
+    //    Procedure for a >= 8 and b >= 8
+    const h = a > b ? b / a : a / b;
+    const x0 = a > b ? 1.0 / (1.0 + h) : h / (1.0 + h);
+    const y0 = a > b ? h / (1.0 + h) : 1.0 / (1.0 + h);
+    const lambda = a > b ? (a + b) * y - b : a - (a + b) * x;
+
+    const e1 = -lambda / a;
+    let u;
+    if (Math.abs(e1) > 0.6) {
+        u = e1 - Math.log(x / x0);
     } else {
-        H = A / B;
-        X0 = H / (1.0 + H);
-        Y0 = 1.0 / (1.0 + H);
-        LAMBDA = A - (A + B) * X;
+        u = RLOG1(e1);
     }
 
-    let E = -LAMBDA / A;
-    let U;
-    if (Math.abs(E) > 0.6) {
-        U = E - Math.log(X / X0);
+    const e2 = lambda / b;
+    let v;
+    if (Math.abs(e2) > 0.6) {
+        v = e2 - Math.log(y / y0);
     } else {
-        U = RLOG1(E);
+        v = RLOG1(e2);
     }
 
-    E = LAMBDA / B;
-    let V;
-    if (Math.abs(E) > 0.6) {
-        V = E - Math.log(Y / Y0);
-    } else {
-        V = RLOG1(E);
-    }
-
-    const Z = Math.exp(-(A * U + B * V));
-    return CONST * Math.sqrt(B * X0) * Z * Math.exp(-BCORR(A, B));
+    const z = Math.exp(-(a * u + b * v));
+    return CONST * Math.sqrt(b * x0) * z * Math.exp(-BCORR(a, b));
 }
 
 /*
-        CONTINUED FRACTION EXPANSION FOR IX(A,B) WHEN A,B .GT. 1.
-        IT IS ASSUMED THAT LAMBDA = (A + B)*Y - B.
+    Continued fraction expansion for I_x(a, b) when a, b > 1.
+    It is assumed that lambda = (a + b) * y - b
  */
-function BFRAC(A: number, B: number, X: number, Y: number, LAMBDA: number, EPS: number) {
-    let BFRAC = BRCOMP(A, B, X, Y);
-    if (BFRAC === 0.0) {
-        return BFRAC;
+function bfrac(a: number, b: number, x: number, y: number, lambda: number, eps: number) {
+    const returnValue = brcomp(a, b, x, y);
+    if (returnValue === 0.0) {
+        return returnValue;
     }
 
-    const C = 1.0 + LAMBDA;
-    const C0 = B / A;
-    const C1 = 1.0 + 1.0 / A;
-    const YP1 = Y + 1.0;
+    const c = 1.0 + lambda;
+    const c0 = b / a;
+    const c1 = 1.0 + 1.0 / a;
+    const yp1 = y + 1.0;
 
-    let N = 0.0;
-    let P = 1.0;
-    let S = A + 1.0;
-    let AN = 0.0;
-    let BN = 1.0;
-    let ANP1 = 1.0;
-    let BNP1 = C / C1;
-    let R = C1 / C;
-    let R0;
+    let n = 0.0;
+    let p = 1.0;
+    let s = a + 1.0;
+    let an = 0.0;
+    let bn = 1.0;
+    let anp1 = 1.0;
+    let bnp1 = c / c1;
+    let r = c1 / c;
+    let r0;
 
-    //      CONTINUED FRACTION CALCULATION
+    //    Continued fraction calculation
     do {
-        N = N + 1.0;
-        let T = N / A;
-        const W = N * (B - N) * X;
-        let E = A / S;
-        const ALPHA = P * (P + C0) * E * E * (W * X);
-        E = (1.0 + T) / (C1 + T + T);
-        const BETA = N + W / S + E * (C + N * YP1);
-        P = 1.0 + T;
-        S = S + 2.0;
+        n = n + 1.0;
+        let t = n / a;
+        const w = n * (b - n) * x;
+        const e1 = a / s;
+        const alpha = p * (p + c0) * e1 * e1 * (w * x);
+        const e2 = (1.0 + t) / (c1 + t + t);
+        const beta = n + w / s + e2 * (c + n * yp1);
+        p = 1.0 + t;
+        s = s + 2.0;
 
-        //      UPDATE AN, BN, ANP1, AND BNP1
-        T = ALPHA * AN + BETA * ANP1;
-        AN = ANP1;
-        ANP1 = T;
-        T = ALPHA * BN + BETA * BNP1;
-        BN = BNP1;
-        BNP1 = T;
+        //    Update an, bn, anp1, and bnp1
+        t = alpha * an + beta * anp1;
+        an = anp1;
+        anp1 = t;
+        t = alpha * bn + beta * bnp1;
+        bn = bnp1;
+        bnp1 = t;
 
-        R0 = R;
-        R = ANP1 / BNP1;
-        if (Math.abs(R - R0) <= EPS * R) {
+        r0 = r;
+        r = anp1 / bnp1;
+        if (Math.abs(r - r0) <= eps * r) {
             break;
         }
 
-        //      RESCALE AN, BN, ANP1, AND BNP1
-        AN = AN / BNP1;
-        BN = BN / BNP1;
-        ANP1 = R;
-        BNP1 = 1.0;
-    } while (N < 10_000);
+        //    Rescale an, bn, anp1, and bnp1
+        an = an / bnp1;
+        bn = bn / bnp1;
+        anp1 = r;
+        bnp1 = 1.0;
+    } while (n < 10_000);
 
-    BFRAC = BFRAC * R;
-    return BFRAC;
+    return returnValue * r;
 }
 
 /*
-        EVALUATION OF I_X(A,B) - I_X(A+N,B) WHERE N IS A POSITIVE INTEGER.
-        EPS IS THE TOLERANCE USED.
+    Evaluation of I_x(a, b) - I_x(a * n, b) where n is a positive integer.
+    eps is the tolerance used.
  */
-function BUP(A: number, B: number, X: number, Y: number, N: number, EPS: number) {
-    //      OBTAIN THE SCALING FACTOR EXP(-MU) AND  EXP(MU)*(X**A*Y**B/BETA(A,B))/A
-    const APB = A + B;
-    const AP1 = A + 1.0;
-    let MU = 0;
-    let D = 1.0;
-    if (N !== 1 && A >= 1.0 && APB >= 1.1 * AP1) {
-        MU = Math.abs(EXPARG(1));
-        const K = EXPARG(0);
-        if (K < MU) {
-            MU = K;
+function bup(a: number, b: number, x: number, y: number, n: number, eps: number) {
+    //    Obtain the scaling factor exp(-mu) and exp(mu) * (x ** a * y ** b / beta(a, b)) / a
+    const apb = a + b;
+    const ap1 = a + 1.0;
+    let mu = 0;
+    let d = 1.0;
+    if (n !== 1 && a >= 1.0 && apb >= 1.1 * ap1) {
+        mu = Math.abs(EXPARG(1));
+        const k = EXPARG(0);
+        if (k < mu) {
+            mu = k;
         }
-        const T = MU;
-        D = Math.exp(-T);
+        d = Math.exp(-mu);
     }
 
-    const BUP = BRCMP1(MU, A, B, X, Y) / A;
-    if (N === 1 || BUP === 0.0) {
-        return BUP;
+    const returnValue = brcmp1(mu, a, b, x, y) / a;
+    if (n === 1 || returnValue === 0.0) {
+        return returnValue;
     }
-    const NM1 = N - 1;
-    let W = D;
+    const nm1 = n - 1;
+    let w = d;
 
-    //      LET K BE THE INDEX OF THE MAXIMUM TERM
-    let K = 0;
-    if (B > 1.0) {
-        if (Y > 1e-4) {
-            const R = ((B - 1.0) * X) / Y - A;
-            if (R >= 1.0) {
-                K = R < NM1 ? R : NM1;
+    //    Let k be the index of the maximum term
+    let k = 0;
+    if (b > 1.0) {
+        if (y > 1e-4) {
+            const r = ((b - 1.0) * x) / y - a;
+            if (r >= 1.0) {
+                k = r < nm1 ? r : nm1;
             }
         } else {
-            K = NM1;
+            k = nm1;
         }
 
-        //      ADD THE INCREASING TERMS OF THE SERIES
-        for (let I = 1; I <= K; ++I) {
-            const L = I - 1;
-            D = ((APB + L) / (AP1 + L)) * X * D;
-            W = W + D;
+        //    Add the increasing terms of the series
+        for (let i = 0; i < k; i++) {
+            d = ((apb + i) / (ap1 + i)) * x * d;
+            w = w + d;
         }
-        if (K === NM1) {
-            return BUP * W;
+        if (k === nm1) {
+            return returnValue * w;
         }
     }
 
-    //     ADD THE REMAINING TERMS OF THE SERIES
-    const KP1 = K + 1;
-    for (let I = KP1; I <= NM1; ++I) {
-        const L = I - 1;
-        D = ((APB + L) / (AP1 + L)) * X * D;
-        W = W + D;
-        if (D <= EPS * W) {
+    //    Add the remaining terms of the series
+    for (let i = k; i < nm1; i++) {
+        d = ((apb + i) / (ap1 + i)) * x * d;
+        w = w + d;
+        if (d <= eps * w) {
             break;
         }
     }
 
-    return BUP * W;
+    return returnValue * w;
 }
 
 /*
-    POWER SERIES EXPANSION FOR EVALUATING IX(A,B) WHEN B .LE. 1
-    OR B*X .LE. 0.7.  EPS IS THE TOLERANCE USED.
+    Power series expansion for evaluating I_x(a, b) when b <= 1
+    or b * x <= 0.7
  */
-function BPSER(A: number, B: number, X: number, EPS: number) {
-    let BPSER = 0.0;
-    if (X === 0) {
-        return BPSER;
+function bpser(a: number, b: number, x: number, eps: number) {
+    let returnValue = 0.0;
+    if (x === 0) {
+        return returnValue;
     }
 
-    //    COMPUTE THE FACTOR X**A/(A*BETA(A,B))
-    const A0 = Math.min(A, B);
-    if (A0 >= 1.0) {
-        const Z = A * Math.log(X) - BETALN(A, B);
-        BPSER = Math.exp(Z) / A;
-        if (BPSER === 0.0 || A <= 0.1 * EPS) {
-            return BPSER;
+    //    Compute the factor x ** a / (a * beta(a, b))
+    const a0 = Math.min(a, b);
+    if (a0 >= 1.0) {
+        const z = a * Math.log(x) - BETALN(a, b);
+        returnValue = Math.exp(z) / a;
+        if (returnValue === 0.0 || a <= 0.1 * eps) {
+            return returnValue;
         }
     } else {
-        let B0 = Math.max(A, B);
+        let b0 = Math.max(a, b);
 
-        //    PROCEDURE FOR A0 .LT. 1 AND B0 .GE. 8
-        if (B0 >= 8.0) {
-            const U = GAMLN1(A0) + ALGDIV(A0, B0);
-            const Z = A * Math.log(X) - U;
-            BPSER = (A0 / A) * Math.exp(Z);
-            if (BPSER === 0.0 || A <= 0.1 * EPS) {
-                return BPSER;
+        //    Procedure for a0 < 1 and b0 >= 8
+        if (b0 >= 8.0) {
+            const u = GAMLN1(a0) + ALGDIV(a0, b0);
+            const z = a * Math.log(x) - u;
+            returnValue = (a0 / a) * Math.exp(z);
+            if (returnValue === 0.0 || a <= 0.1 * eps) {
+                return returnValue;
             }
         }
 
-        //    PROCEDURE FOR A0 .LT. 1 AND 1 .LT. B0 .LT. 8
-        if (B0 > 1.0) {
-            let U = GAMLN1(A0);
-            const M = B0 - 1.0;
-            if (M >= 1) {
-                let C = 1.0;
-                for (let i = 1; i <= M; ++i) {
-                    B0 = B0 - 1.0;
-                    C = C * (B0 / (A0 + B0));
+        //    Procedure for a0 < 1 and 1 < b0 < 8
+        if (b0 > 1.0) {
+            let u = GAMLN1(a0);
+            const m = b0 - 1.0;
+            if (m >= 1) {
+                let c = 1.0;
+                for (let i = 1; i <= m; i++) {
+                    b0 = b0 - 1.0;
+                    c = c * (b0 / (a0 + b0));
                 }
-                U = Math.log(C) + U;
+                u = Math.log(c) + u;
             }
-            const Z = A * Math.log(X) - U;
-            B0 = B0 - 1.0;
-            const APB = A0 + B0;
-            let T;
-            if (APB > 1.0) {
-                U = A0 + B0 - 1.0;
-                T = (1.0 + GAM1(U)) / APB;
+            const z = a * Math.log(x) - u;
+            b0 = b0 - 1.0;
+            const apb = a0 + b0;
+            let t;
+            if (apb > 1.0) {
+                u = a0 + b0 - 1.0;
+                t = (1.0 + GAM1(u)) / apb;
             } else {
-                T = 1.0 + GAM1(APB);
+                t = 1.0 + GAM1(apb);
             }
-            BPSER = (Math.exp(Z) * (A0 / A) * (1.0 + GAM1(B0))) / T;
-            if (BPSER === 0.0 || A <= 0.1 * EPS) {
-                return BPSER;
+            returnValue = (Math.exp(z) * (a0 / a) * (1.0 + GAM1(b0))) / t;
+            if (returnValue === 0.0 || a <= 0.1 * eps) {
+                return returnValue;
             }
         } else {
-            //      PROCEDURE FOR A0 .LT. 1 AND B0 .LE. 1
-            BPSER = X ** A;
-            if (BPSER === 0.0) {
-                return BPSER;
+            //    Procedure for a0 < 1 and b0 < 1
+            returnValue = x ** a;
+            if (returnValue === 0.0) {
+                return returnValue;
             }
 
-            const APB = A + B;
-            let Z;
-            if (APB > 1.0) {
-                const U = A + B - 1.0;
-                Z = (1.0 + GAM1(U)) / APB;
+            const apb = a + b;
+            let z;
+            if (apb > 1.0) {
+                const u = a + b - 1.0;
+                z = (1.0 + GAM1(u)) / apb;
             } else {
-                Z = 1.0 + GAM1(APB);
+                z = 1.0 + GAM1(apb);
             }
-            const C = ((1.0 + GAM1(A)) * (1.0 + GAM1(B))) / Z;
-            BPSER = BPSER * C * (B / APB);
-            if (BPSER === 0.0 || A <= 0.1 * EPS) {
-                return BPSER;
+            const c = ((1.0 + GAM1(a)) * (1.0 + GAM1(b))) / z;
+            returnValue = returnValue * c * (b / apb);
+            if (returnValue === 0.0 || a <= 0.1 * eps) {
+                return returnValue;
             }
         }
     }
 
-    //      COMPUTE THE SERIES
-    let SUM = 0.0;
-    let N = 0.0;
-    let C = 1.0;
-    const TOL = EPS / A;
-    let W = C / (A + N);
-    while (Math.abs(W) > TOL) {
-        N = N + 1.0;
-        C = C * (0.5 + (0.5 - B / N)) * X;
-        W = C / (A + N);
-        SUM = SUM + W;
+    //    Computes the series
+    let sum = 0.0;
+    let n = 0.0;
+    let c = 1.0;
+    const tol = eps / a;
+    let w = c / (a + n);
+    while (Math.abs(w) > tol) {
+        n = n + 1.0;
+        c = c * (0.5 + (0.5 - b / n)) * x;
+        w = c / (a + n);
+        sum = sum + w;
     }
 
-    BPSER = BPSER * (1.0 + A * SUM);
-    return BPSER;
+    return returnValue * (1.0 + a * sum);
 }
 
 /*
-    APSER YIELDS THE INCOMPLETE BETA RATIO I(SUB(1-X))(B,A) FOR
-    A .LE. MIN(EPS,EPS*B), B*X .LE. 1, AND X .LE. 0.5. USED WHEN
-    A IS VERY SMALL. USE ONLY IF ABOVE INEQUALITIES ARE SATISFIED.
+    apser yields the incomplete beta ratio I_{1 - x}(b, a) for
+    a <= min(eps, eps * b), b * x <= 1, and x <= 0.5. Used when
+    a is very small. Use only if above inequalities are satisfied.
  */
-function APSER(A: number, B: number, X: number, EPS: number) {
+function apser(a: number, b: number, x: number, eps: number) {
     const G = 0.577215664901533;
 
-    const BX = B * X;
-    let T = X - BX;
+    const bx = b * x;
+    let t = x - bx;
 
-    let C;
-    if (B * EPS > 2e-2) {
-        C = Math.log(BX) + G + T;
+    let c;
+    if (b * eps > 2e-2) {
+        c = Math.log(bx) + G + t;
     } else {
-        C = Math.log(X) + PSI(B) + G + T;
-    }
-    const TOL = 5.0 * EPS * Math.abs(C);
-    let J = 1.0;
-    let S = 0.0;
-    let AJ = T / J;
-    while (Math.abs(AJ) > TOL) {
-        J = J + 1.0;
-        T = T * (X - BX / J);
-        AJ = T / J;
-        S = S + AJ;
+        c = Math.log(x) + PSI(b) + G + t;
     }
 
-    return -A * (C + S);
+    const tol = 5.0 * eps * Math.abs(c);
+    let j = 1.0;
+    let s = 0.0;
+    let aj = t / j;
+
+    while (Math.abs(aj) > tol) {
+        j = j + 1.0;
+        t = t * (x - bx / j);
+        aj = t / j;
+        s = s + aj;
+    }
+
+    return -a * (c + s);
 }
 
 /*
-    EVALUATION OF I_X(A,B) FOR B < MIN(EPS,EPS*A) AND X <= 0.5.
+    Evaluation of I_x(a, b) for b < min(eps, eps * a) and x <= 0.5.
  */
-function FPSER(A: number, B: number, X: number, EPS: number) {
-    let result = 1.0;
-    if (A > 1e-3 * EPS) {
-        result = 0.0;
-        const T = A * Math.log(X);
+function fpser(a: number, b: number, x: number, eps: number) {
+    let returnValue = 1.0;
+    if (a > 1e-3 * eps) {
+        returnValue = 0.0;
+        const T = a * Math.log(x);
         if (T < EXPARG(1)) {
-            return result;
+            return returnValue;
         }
-        result = Math.exp(T);
+        returnValue = Math.exp(T);
     }
 
-    //    NOTE THAT 1/B(A,B) = B
-    result = (B / A) * result;
-    const TOL = EPS / A;
-    let AN = A + 1.0;
-    let T = X;
-    let C = T / AN;
-    let S = T / AN;
+    //    Note that 1 / B(A,B) = B
+    returnValue = (b / a) * returnValue;
+    const tol = eps / a;
+    let an = a + 1.0;
+    let t = x;
+    let c = t / an;
+    let s = t / an;
 
-    while (Math.abs(C) > TOL) {
-        AN = AN + 1.0;
-        T = X * T;
-        C = T / AN;
-        S = S + C;
+    while (Math.abs(c) > tol) {
+        an = an + 1.0;
+        t = x * t;
+        c = t / an;
+        s = s + c;
     }
-    result = result * (1.0 + A * S);
-    return result;
+    return returnValue * (1.0 + a * s);
 }
 
-/* EVALUATION OF THE INCOMPLETE BETA FUNCTION I_X(A,B)
-    COMPUTES THE VALUES W = I_X(A,B)  AND W1 = 1 - I_X(A,B).
-    */
-function BRATIO(A: number, B: number, X: number, Y: number): [number, number] {
-    let EPS = Number.EPSILON;
-    let W = 0.0;
-    let W1 = 0.0;
+/*
+    Evaluation of the incomplete beta function I_x(a, b).
+    Computes the values w = I_x(a, b) and w1 = 1 - I_x(a, b).
+ */
+function bratio(a: number, b: number, x: number, y: number): [number, number] {
+    let eps = Number.EPSILON;
 
-    if (A < 0.0 || B < 0.0) {
+    if (a < 0.0 || b < 0.0) {
         throw 'bratio: A OR B IS NEGATIVE';
     }
-    if (A === 0.0 && B === 0.0) {
+    if (a === 0.0 && b === 0.0) {
         throw 'bratio: A = B = 0';
     }
-    if (X < 0.0 || X > 1.0) {
+    if (x < 0.0 || x > 1.0) {
         throw 'bratio: X < 0 OR X > 1';
     }
-    if (Y < 0.0 || Y > 1.0) {
+    if (y < 0.0 || y > 1.0) {
         throw 'bratio: Y < 0 OR Y > 1';
     }
 
-    const Z = X + Y - 0.5 - 0.5;
-
-    if (Math.abs(Z) > 3.0 * EPS) {
+    let w = 0.0;
+    let w1 = 0.0;
+    const Z = x + y - 0.5 - 0.5;
+    if (Math.abs(Z) > 3.0 * eps) {
         throw 'bratio: X + Y != 1';
     }
 
-    if (X === 0.0) {
-        if (A === 0.0) {
+    if (x === 0.0) {
+        if (a === 0.0) {
             throw 'bratio: X = A = 0';
         }
-        W = 0.0;
-        W1 = 1.0;
-        return [W, W1];
+        [w, w1] = [0.0, 1.0];
+        return [w, w1];
     }
-    if (Y === 0.0) {
-        if (B === 0.0) {
+    if (y === 0.0) {
+        if (b === 0.0) {
             throw 'bratio: Y = B = 0';
         }
-        W = 1.0;
-        W1 = 0.0;
-        return [W, W1];
+        [w, w1] = [1.0, 0.0];
+        return [w, w1];
     }
 
-    if (A === 0.0) {
-        W = 1.0;
-        W1 = 0.0;
-        return [W, W1];
+    if (a === 0.0) {
+        [w, w1] = [1.0, 0.0];
+        return [w, w1];
     }
-    if (B === 0.0) {
-        W = 0.0;
-        W1 = 1.0;
-        return [W, W1];
+    if (b === 0.0) {
+        [w, w1] = [0.0, 1.0];
+        return [w, w1];
     }
 
-    EPS = Math.max(EPS, 1e-15);
-    if (Math.max(A, B) < 1e-3 * EPS) {
-        // PROCEDURE FOR A AND B .LT. 1.E-3*EPS
-        W = B / (A + B);
-        W1 = A / (A + B);
-        return [W, W1];
+    eps = Math.max(eps, 1e-15);
+    if (Math.max(a, b) < 1e-3 * eps) {
+        // Procedure for a and b < 1.E-3*EPS
+        w = b / (a + b);
+        w1 = a / (a + b);
+        return [w, w1];
     }
 
-    let IND = 0;
-    let A0 = A;
-    let B0 = B;
-    let X0 = X;
-    let Y0 = Y;
+    if (Math.min(a, b) <= 1.0) {
+        // Procedure for a0 <= 1 or b0 <= 1
+        const noSwap = x <= 0.5;
+        const a0 = noSwap ? a : b;
+        let b0 = noSwap ? b : a;
+        const x0 = noSwap ? x : y;
+        const y0 = noSwap ? y : x;
 
-    if (Math.min(A0, B0) <= 1.0) {
-        // PROCEDURE FOR A0 <= 1 OR B0 <= 1
-        if (X > 0.5) {
-            IND = 1;
-            A0 = B;
-            B0 = A;
-            X0 = Y;
-            Y0 = X;
+        if (b0 < Math.min(eps, eps * a0)) {
+            w = fpser(a0, b0, x0, eps);
+            w1 = 0.5 + (0.5 - w);
+            return noSwap ? [w, w1] : [w1, w];
         }
 
-        if (B0 < Math.min(EPS, EPS * A0)) {
-            W = FPSER(A0, B0, X0, EPS);
-            W1 = 0.5 + (0.5 - W);
-            return IND === 0 ? [W, W1] : [W1, W];
-        }
-        if (A0 < Math.min(EPS, EPS * B0) && B0 * X0 <= 1.0) {
-            W1 = APSER(A0, B0, X0, EPS);
-            W = 0.5 + (0.5 - W1);
-            return IND === 0 ? [W, W1] : [W1, W];
+        if (a0 < Math.min(eps, eps * b0) && b0 * x0 <= 1.0) {
+            w1 = apser(a0, b0, x0, eps);
+            w = 0.5 + (0.5 - w1);
+            return noSwap ? [w, w1] : [w1, w];
         }
 
-        if (Math.max(A0, B0) > 1.0) {
-            if (B0 <= 1.0) {
-                W = BPSER(A0, B0, X0, EPS);
-                W1 = 0.5 + (0.5 - W);
-                return IND === 0 ? [W, W1] : [W1, W];
+        if (Math.max(a0, b0) > 1.0) {
+            if (b0 <= 1.0) {
+                w = bpser(a0, b0, x0, eps);
+                w1 = 0.5 + (0.5 - w);
+                return noSwap ? [w, w1] : [w1, w];
             }
-            if (X0 >= 0.3) {
+            if (x0 >= 0.3) {
                 // R suggests X0 >= 0.29
-                W1 = BPSER(B0, A0, Y0, EPS);
-                W = 0.5 + (0.5 - W1);
-                return IND === 0 ? [W, W1] : [W1, W];
+                w1 = bpser(b0, a0, y0, eps);
+                w = 0.5 + (0.5 - w1);
+                return noSwap ? [w, w1] : [w1, w];
             }
-            if (X0 < 0.1 && (X0 * B0) ** A0 <= 0.7) {
-                W = BPSER(A0, B0, X0, EPS);
-                W1 = 0.5 + (0.5 - W);
-                return IND === 0 ? [W, W1] : [W1, W];
+            if (x0 < 0.1 && (x0 * b0) ** a0 <= 0.7) {
+                w = bpser(a0, b0, x0, eps);
+                w1 = 0.5 + (0.5 - w);
+                return noSwap ? [w, w1] : [w1, w];
             }
-            if (B0 > 15.0) {
-                W1 = BGRAT(B0, A0, Y0, X0, W1, 15.0 * EPS);
-                W = 0.5 + (0.5 - W1);
-                return IND === 0 ? [W, W1] : [W1, W];
+            if (b0 > 15.0) {
+                w1 = bgrat(b0, a0, y0, x0, w1, 15.0 * eps);
+                w = 0.5 + (0.5 - w1);
+                return noSwap ? [w, w1] : [w1, w];
             }
-            const N = 20;
-            W1 = BUP(B0, A0, Y0, X0, N, EPS);
-            B0 = B0 + N;
-            W1 = BGRAT(B0, A0, Y0, X0, W1, 15.0 * EPS);
-            W = 0.5 + (0.5 - W1);
-            return IND === 0 ? [W, W1] : [W1, W];
+        } else {
+            // min(A0, B0) <= 1.0 and max(A0, B0) <= 1.0
+            if (a0 >= Math.min(0.2, b0)) {
+                w = bpser(a0, b0, x0, eps);
+                w1 = 0.5 + (0.5 - w);
+                return noSwap ? [w, w1] : [w1, w];
+            }
+            if (x0 ** a0 <= 0.9) {
+                w = bpser(a0, b0, x0, eps);
+                w1 = 0.5 + (0.5 - w);
+                return noSwap ? [w, w1] : [w1, w];
+            }
+            if (x0 >= 0.3) {
+                w1 = bpser(b0, a0, y0, eps);
+                w = 0.5 + (0.5 - w1);
+                return noSwap ? [w, w1] : [w1, w];
+            }
         }
-        // min(A0, B0) <= 1.0 && max(A0, B0) <= 1.0
 
-        if (A0 >= Math.min(0.2, B0)) {
-            W = BPSER(A0, B0, X0, EPS);
-            W1 = 0.5 + (0.5 - W);
-            return IND === 0 ? [W, W1] : [W1, W];
-        }
-        if (X0 ** A0 <= 0.9) {
-            W = BPSER(A0, B0, X0, EPS);
-            W1 = 0.5 + (0.5 - W);
-            return IND === 0 ? [W, W1] : [W1, W];
-        }
-        if (X0 >= 0.3) {
-            W1 = BPSER(B0, A0, Y0, EPS);
-            W = 0.5 + (0.5 - W1);
-            return IND === 0 ? [W, W1] : [W1, W];
-        }
-        const N = 20;
-        W1 = BUP(B0, A0, Y0, X0, N, EPS);
-        B0 = B0 + N;
-        W1 = BGRAT(B0, A0, Y0, X0, W1, 15.0 * EPS);
-        W = 0.5 + (0.5 - W1);
-        return IND === 0 ? [W, W1] : [W1, W];
+        const n = 20;
+        w1 = bup(b0, a0, y0, x0, n, eps);
+        b0 = b0 + n;
+        w1 = bgrat(b0, a0, y0, x0, w1, 15.0 * eps);
+        w = 0.5 + (0.5 - w1);
+        return noSwap ? [w, w1] : [w1, w];
     }
 
-    //    PROCEDURE FOR A0 > 1 AND B0 > 1
-    let LAMBDA = A > B ? (A + B) * Y - B : A - (A + B) * X;
-    if (LAMBDA < 0.0) {
-        IND = 1;
-        A0 = B;
-        B0 = A;
-        X0 = Y;
-        Y0 = X;
-        LAMBDA = Math.abs(LAMBDA);
-    }
+    //      Procedure for a0 > 1 and b0 > 1
+    let lambda = a > b ? (a + b) * y - b : a - (a + b) * x;
+    const noSwap = lambda >= 0.0;
+    let a0 = noSwap ? a : b;
+    let b0 = noSwap ? b : a;
+    const x0 = noSwap ? x : y;
+    const y0 = noSwap ? y : x;
+    lambda = noSwap ? lambda : Math.abs(lambda);
 
-    if (B0 < 40.0 && B0 * X0 <= 0.7) {
-        W = BPSER(A0, B0, X0, EPS);
-        W1 = 0.5 + (0.5 - W);
-        return IND === 0 ? [W, W1] : [W1, W];
-    }
-    if (B0 < 40.0) {
-        let N = Math.trunc(B0);
-        B0 = B0 - N;
-        if (B0 === 0.0) {
-            N = N - 1;
-            B0 = 1.0;
-        }
-        W = BUP(B0, A0, Y0, X0, N, EPS);
-        if (X0 <= 0.7) {
-            W = W + BPSER(A0, B0, X0, EPS);
-            W1 = 0.5 + (0.5 - W);
-            return IND === 0 ? [W, W1] : [W1, W];
+    if (b0 < 40.0) {
+        if (b0 * x0 <= 0.7) {
+            w = bpser(a0, b0, x0, eps);
+            w1 = 0.5 + (0.5 - w);
+            return noSwap ? [w, w1] : [w1, w];
         }
 
-        if (A0 <= 15.0) {
-            N = 20;
-            W = W + BUP(A0, B0, X0, Y0, N, EPS);
-            A0 = A0 + N;
+        let n = Math.trunc(b0);
+        b0 = b0 - n;
+        if (b0 === 0.0) {
+            n = n - 1;
+            b0 = 1.0;
         }
-        W = BGRAT(A0, B0, X0, Y0, W, 15.0 * EPS);
-        W1 = 0.5 + (0.5 - W);
-        return IND === 0 ? [W, W1] : [W1, W];
+        w = bup(b0, a0, y0, x0, n, eps);
+        if (x0 <= 0.7) {
+            w = w + bpser(a0, b0, x0, eps);
+            w1 = 0.5 + (0.5 - w);
+            return noSwap ? [w, w1] : [w1, w];
+        }
+
+        if (a0 <= 15.0) {
+            n = 20;
+            w = w + bup(a0, b0, x0, y0, n, eps);
+            a0 = a0 + n;
+        }
+        w = bgrat(a0, b0, x0, y0, w, 15.0 * eps);
+        w1 = 0.5 + (0.5 - w);
+        return noSwap ? [w, w1] : [w1, w];
     }
 
-    if (A0 <= B0) {
-        if (A0 <= 100.0) {
-            W = BFRAC(A0, B0, X0, Y0, LAMBDA, 15.0 * EPS);
-            W1 = 0.5 + (0.5 - W);
-            return IND === 0 ? [W, W1] : [W1, W];
-        }
-        if (LAMBDA > 0.03 * A0) {
-            W = BFRAC(A0, B0, X0, Y0, LAMBDA, 15.0 * EPS);
-            W1 = 0.5 + (0.5 - W);
-            return IND === 0 ? [W, W1] : [W1, W];
-        }
-    } else {
-        if (B0 <= 100.0) {
-            W = BFRAC(A0, B0, X0, Y0, LAMBDA, 15.0 * EPS);
-            W1 = 0.5 + (0.5 - W);
-            return IND === 0 ? [W, W1] : [W1, W];
-        }
-        if (LAMBDA > 0.03 * B0) {
-            W = BFRAC(A0, B0, X0, Y0, LAMBDA, 15.0 * EPS);
-            W1 = 0.5 + (0.5 - W);
-            return IND === 0 ? [W, W1] : [W1, W];
-        }
+    if (a0 <= b0 && (a0 <= 100.0 || lambda > 0.03 * a0)) {
+        w = bfrac(a0, b0, x0, y0, lambda, 15.0 * eps);
+        w1 = 0.5 + (0.5 - w);
+        return noSwap ? [w, w1] : [w1, w];
+    }
+    if (b0 <= 100.0 || lambda > 0.03 * b0) {
+        w = bfrac(a0, b0, x0, y0, lambda, 15.0 * eps);
+        w1 = 0.5 + (0.5 - w);
+        return noSwap ? [w, w1] : [w1, w];
     }
 
-    W = BASYM(A0, B0, LAMBDA, 100.0 * EPS);
-    W1 = 0.5 + (0.5 - W);
-    return IND === 0 ? [W, W1] : [W1, W];
+    w = BASYM(a0, b0, lambda, 100.0 * eps);
+    w1 = 0.5 + (0.5 - w);
+    return noSwap ? [w, w1] : [w1, w];
 }
 
 export function calculateIncompleteBetaFunction(x: number, a: number, b: number) {
-    return BRATIO(a, b, x, 1 - x)[0];
+    return bratio(a, b, x, 1 - x)[0];
 }
 
 export function calculateIncompleteBetaFunctionComplementary(x: number, a: number, b: number) {
-    return BRATIO(a, b, x, 1 - x)[1];
+    return bratio(a, b, x, 1 - x)[1];
 }
