@@ -65,8 +65,6 @@ export default function About() {
         >
           <DD>{t("about.version")}</DD>
           <DT>{version}</DT>
-          <DD>{t("about.license")}</DD>
-          <DT>{packageJson.license}</DT>
           <DD>{t("about.sourceCode")}</DD>
           <DT>
             <a

@@ -1,6 +1,6 @@
 {
   "name": "arithmico",
-  "version": "2.21.0",
+  "version": "2.25.2",
   "author": {
     "name": "Lennard Behrens",
     "email": "dev.behrenle@posteo.de",
@@ -41,7 +41,6 @@
   },
   "homepage": "https://github.com/behrenle/arithmico#readme",
   "devDependencies": {
-    "nx": "^16.7.1",
-    "nx-cloud": "^16.2.0"
+    "nx": "18.0.0"
   }
 }

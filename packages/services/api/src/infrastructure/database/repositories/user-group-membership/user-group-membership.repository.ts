@@ -64,9 +64,11 @@ export class UserGroupMembershipRepository {
     groupId: string,
     userId: string,
   ): Promise<UserGroupMembershipDocument | null> {
-    return this.userGroupMembershipModel
+    const result = await this.userGroupMembershipModel
       .findOneAndDelete({ groupId, userId })
       .exec();
+
+    return result.ok ? result.value : null;
   }
 
   async removeUserFromUserGroupOrThrow(

@@ -43,8 +43,18 @@ __FUNCTIONS.lsolve &&
 
             const variableNames = getVariableNamesFromEquations(equations, context);
 
-            if (variableNames.length !== equations.length) {
-                throw runtimeError('Invalid number of variables');
+            if (variableNames.length < equations.length) {
+                throw runtimeError(
+                    `Not enough variables expected ${equations.length} got ${
+                        variableNames.length
+                    } (${variableNames.join(', ')})`,
+                );
+            } else if (variableNames.length > equations.length) {
+                throw runtimeError(
+                    `Too many variables expected ${equations.length} got ${variableNames.length} (${variableNames.join(
+                        ', ',
+                    )})`,
+                );
             }
 
             const coefficients = getCoefficientMatrix(equations, context);

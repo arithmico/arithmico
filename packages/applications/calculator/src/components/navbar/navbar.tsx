@@ -31,7 +31,7 @@ function NavbarContainer({ children }: NavbarContainerProps) {
 
 interface NavbarTitleProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 function NavbarTitle({ title, subtitle }: NavbarTitleProps) {
@@ -48,7 +48,7 @@ function NavbarTitle({ title, subtitle }: NavbarTitleProps) {
       )}
     >
       <span className={classNames("font-extralight")}>{title}</span>
-      <span className={classNames("md:pl-2")}>{subtitle}</span>
+      {subtitle && <span className={classNames("md:pl-2")}>{subtitle}</span>}
     </h1>
   );
 }
@@ -67,7 +67,7 @@ export default function Navbar() {
 
   return (
     <NavbarContainer>
-      <NavbarTitle title="Arithmico" subtitle="Calc" />
+      <NavbarTitle title="Arithmico" />
       <NavbarNavigation
         items={[
           {

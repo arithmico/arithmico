@@ -12,15 +12,19 @@ export class CronJobsService implements OnApplicationBootstrap {
 
   async onApplicationBootstrap() {
     await this.createCronJob('fetch-emails', 5 * MINUTE);
-    await this.createCronJob('sync-git-tags', 10 * MINUTE);
+    await this.createCronJob('sync-git-tags', 5 * MINUTE);
   }
 
   async createCronJob(jobName: string, repeatEvery: number): Promise<void> {
     const repeatableJobs = await this.cronJobsQueue.getRepeatableJobs();
-    if (repeatableJobs.find((job) => job.name === jobName)) {
-      return;
-    }
-
+    const existingJobsWithSameName = repeatableJobs.filter(
+      (job) => job.name === jobName,
+    );
+    await Promise.all(
+      existingJobsWithSameName.map((job) =>
+        this.cronJobsQueue.removeRepeatableByKey(job.key),
+      ),
+    );
     this.logger.log(`creating new cron job "${jobName}"`);
     await this.cronJobsQueue.add(
       jobName,

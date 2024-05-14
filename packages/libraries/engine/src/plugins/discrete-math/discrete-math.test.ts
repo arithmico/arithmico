@@ -112,9 +112,20 @@ integrationTestThrow('fact(-1)');
 integrationTestThrow('fact(0.1)');
 
 // fraction
+integrationTest('fraction(0)', '0');
 integrationTest('fraction(1/3)', '1 / 3');
 integrationTest('fraction(1/3+1/3)', '2 / 3');
 integrationTest('fraction(1/3-1/3)', '0');
+integrationTest('fraction(20 + 16/24)', '62 / 3');
+integrationTestThrow('fraction(2/0)');
+
+// mfraction
+integrationTest('mfraction(0)', '0');
+integrationTest('mfraction(8/3)', '2 + 2 / 3');
+integrationTest('mfraction(2/3)', '2 / 3');
+integrationTest('mfraction(12/3)', '4');
+integrationTest('mfraction(20 + 16/24)', '20 + 2 / 3');
+integrationTestThrow('mfraction(2/0)');
 
 // fib
 integrationTest('fib(1)', '1');

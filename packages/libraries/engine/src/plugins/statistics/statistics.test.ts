@@ -12,6 +12,16 @@ integrationTest('cnormal(-0.23)', '0.409046');
 integrationTest('cnormal(3, 2, 5)', '0.57926');
 integrationTestThrow('cnormal(3, 2, -5)');
 
+// qnormal
+integrationTest('qnormal(0.23)', '-0.738847');
+integrationTest('qnormal(0.78, 2, 5)', '5.860966');
+integrationTest('qnormal(0.94, 2, 5)', '9.773868');
+integrationTest('qnormal(0.9999, 2, 5)', '20.595082');
+integrationTest('qnormal(10^(-9))', '-5.997807');
+integrationTestThrow('qnormal(1.78, 2, 5)');
+integrationTestThrow('qnormal(-0.78, 2, 5)');
+integrationTestThrow('qnormal(0.78, 2, -5)');
+
 // binom
 integrationTest('binom(10, 0.87, 9)', '0.371207');
 integrationTestThrow('binom(-10, 0.87, 9)');
@@ -29,6 +39,17 @@ integrationTestThrow('cbinom(10.5, 0.87, 9)');
 integrationTestThrow('cbinom(10, 0.87, 9.5)');
 integrationTestThrow('cbinom(10, 1.87, 9)');
 integrationTestThrow('cbinom(10, -0.87, 9)');
+
+// qbinom
+integrationTest('qbinom(0.25, 10, 1/3)', '2');
+integrationTest('qbinom(0.4, 23, 0.99)', '23');
+integrationTest('qbinom(0.4, 23, 0.01)', '0');
+integrationTestThrow('qbinom(1.87, 10, 1/3)');
+integrationTestThrow('qbinom(-1.87, 10, 1/3)');
+integrationTestThrow('qbinom(0.25, -10, 1/3)');
+integrationTestThrow('qbinom(0.25, 10.5, 1/3)');
+integrationTestThrow('qbinom(0.25, 10, 1.87)');
+integrationTestThrow('qbinom(0.25, 10, -1.87)');
 
 // avg
 integrationTest('avg(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)', '9');
@@ -76,6 +97,13 @@ integrationTestThrow('corr([18, 2, 42, 14, 22, 35, 45, 8], [22, b, 53, 30, 25, 3
 // erf
 integrationTest('erf(1)', '0.842701');
 integrationTest('erf(-1)', '-0.842701');
+
+// erfinv
+integrationTest('erfinv(0.3)', '0.272463');
+integrationTest('erfinv(-0.3)', '-0.272463');
+integrationTest('erfinv(0.9999)', '2.751064');
+integrationTestThrow('erfinv(1.1)');
+integrationTestThrow('erfinv(-1.1)');
 
 // regressions:polynomial
 integrationTest('regressions:polynomial([-2, -1, 3, 4, 6], [0, 0.5, 2, 2, 5])', 'y = 0.532609 * x + 0.834783');

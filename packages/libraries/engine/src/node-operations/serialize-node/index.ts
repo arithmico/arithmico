@@ -23,6 +23,7 @@ import serializeStringNode from './nodes/serialize-string-node';
 import serializeSymbol from './nodes/serialize-symbol';
 import serializeTimes from './nodes/serialize-times';
 import serializeVector from './nodes/serialize-vector';
+import serializeFactorial from './nodes/serialize-factorial';
 
 const serializePrecedents: SyntaxTreeNode['type'][] = [
     'define',
@@ -85,6 +86,7 @@ const serialize: (node: SyntaxTreeNode, options: Options) => string = forEachNod
     define: serializeDefine,
     methodCall: serializeMethodCall,
     graphic: () => '{{graphic}}',
+    factorial: serializeFactorial,
 });
 
 export default serialize;
