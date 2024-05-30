@@ -1,11 +1,11 @@
 import { MenuIcon } from "ui-components";
 import { Menu } from "@headlessui/react";
 import classNames from "classnames";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { NavigationProps } from "./types";
-import { NavigationLink } from "./navigation-link";
+import { NavigationLink } from "@local-components/navbar/navigation-link";
 
 interface DisclosureContentProps {
   items: NavigationProps["items"];
@@ -29,7 +29,7 @@ function MenuContent({ items, close }: DisclosureContentProps) {
           "flex",
           "items-center",
           "-mr-4",
-          "px-2"
+          "px-2",
         )}
       >
         <MenuIcon
@@ -37,7 +37,11 @@ function MenuContent({ items, close }: DisclosureContentProps) {
             "theme-light:fill-black",
             "theme-dark:fill-white",
             "w-8",
-            "h-8"
+            "h-8",
+            "ui-focus-visible:outline",
+            "ui-focus-visible:outline-offset-2",
+            "ui-focus-visible:theme-light:outline-black",
+            "ui-focus-visible:theme-dark:outline-white",
           )}
         />
         <span className="sr-only">{t("nav.menu")}</span>
@@ -51,13 +55,17 @@ function MenuContent({ items, close }: DisclosureContentProps) {
             "[&_li]:border-b",
             "[&_li]:border-b-neutral-600",
             "theme-light:bg-neutral-300",
-            "theme-dark:bg-neutral-800"
+            "theme-dark:bg-neutral-800",
           )}
         >
-          {items.map(({ label, to }) => (
-            <ul key={to}>
-              <NavigationLink to={to}>{label}</NavigationLink>
-            </ul>
+          {items.map((link, index) => (
+            <Menu.Item key={link.to} as={Fragment}>
+              {({ active }) => (
+                <div className={active ? "bg-blue-500" : "bg-red-500"}>
+                  <NavigationLink to={link.to}>{link.label}</NavigationLink>
+                </div>
+              )}
+            </Menu.Item>
           ))}
         </nav>
       </Menu.Items>
@@ -74,7 +82,7 @@ export function MobileNavigation({ items }: NavigationProps) {
         "h-full",
         "flex",
         "flex-col",
-        "justify-center"
+        "justify-center",
       )}
     >
       <Menu>
