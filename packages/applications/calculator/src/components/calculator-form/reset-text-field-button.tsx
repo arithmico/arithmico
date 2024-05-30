@@ -20,18 +20,17 @@ export const ResetTextFieldButton = forwardRef<
         "justify-center",
         "hover:opacity-100",
         "focus:opacity-100",
-        "outline-none",
         "border",
         "rounded-r-sm",
+        "ui-focus-visible:outline",
+        "outline-2",
+        "outline-offset-2",
         "theme-light:border-neutral-400",
-        "theme-light:peer-focus:border-neutral-600",
-        "theme-light:focus:border-neutral-600",
+        "theme-light:outline-black",
         "theme-dark:border-neutral-500",
-        "theme-dark:peer-focus:border-neutral-100",
-        "theme-dark:focus:border-neutral-100",
+        "theme-dark:outline-white",
         "[&:focus>*]:opacity-100",
-        "peer-focus:[&>*]:opacity-100",
-        "[&>*]:opacity-50"
+        "[&>*]:opacity-50",
       )}
     >
       <CloseIcon
@@ -39,7 +38,7 @@ export const ResetTextFieldButton = forwardRef<
           "theme-light:fill-black",
           "theme-dark:fill-white",
           "w-8",
-          "h-8"
+          "h-8",
         )}
       />
       <span className="sr-only">{text}</span>
