@@ -22,11 +22,10 @@ function isSummandLinear(summand: SyntaxTreeNode, context: Context): boolean {
             return false;
         }
 
-        if (
-            factor.type === 'power' &&
-            containsVariables(factor.left, context) &&
-            (factor.right.type !== 'number' || factor.right.value !== 1)
-        ) {
+        if (factor.type === 'power') {
+            if (factor.right.type === 'number' && factor.right.value === 1) {
+                return true;
+            }
             return false;
         }
 

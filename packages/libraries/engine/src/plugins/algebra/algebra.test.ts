@@ -9,6 +9,7 @@ integrationTest(
 );
 integrationTestThrow('lsolve(x + y = 3; 2 * x + 2*y = 4)'); // no solution
 integrationTestThrow('lsolve(-6*x + 4*y = 2; 3*x - 2*y = -1)'); // infinite solutions
+integrationTestThrow('lsolve(1 = 100 * 0.87^x)'); // not linear
 
 // length
 integrationTest('length([1,2,2])', '3');
