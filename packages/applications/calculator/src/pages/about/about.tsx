@@ -68,7 +68,7 @@ export default function About() {
           </DT>
           <DD>{t("about.contact")}</DD>
           <DT>
-            <a href="mailto:dev.behrenle@posteo.de">dev.behrenle@posteo.de</a>
+            <a href="mailto:arithmico@blista.de">arithmico@blista.de</a>
           </DT>
         </dl>
 
@@ -108,6 +108,16 @@ export default function About() {
             <Link to="/imprint">{t("about.imprint")}</Link>
           </li>
         </ul>
+
+        <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
+          {t("about.sponsors")}
+        </h2>
+        <div className="grid grid-cols-2">
+          <a className="p-4 bg-white rounded-md" href="https://blista.de" target="_blank" rel="noreferrer">
+            <span className="sr-only">blista Campus</span>
+            <img aria-hidden className="w-full" src="blista-logo.svg" alt="blista Campus Logo"/>
+          </a>
+        </div>
       </PageContainer>
     </WithScrollbars>
   );
