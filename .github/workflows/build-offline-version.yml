@@ -118,7 +118,7 @@ jobs:
             FILE_SUFFIX=".deb"
           elif [[ "$PLATFORM" == "macos-latest" ]]; then
             PLATFORM_NAME="macos"
-            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_x64.dmg"
+            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_aarch64.dmg"
             FILE_SUFFIX=".dmg"
           elif [[ "$PLATFORM" == "windows-latest" ]]; then
             PLATFORM_NAME="windows"
