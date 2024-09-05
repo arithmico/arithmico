@@ -51,10 +51,9 @@ function MenuContent({ items, close }: DisclosureContentProps) {
           "absolute",
           "left-0",
           "right-0",
-          "z-0",
           "mt-[30%]",
           "outline-none",
-          "[&:hover>div>div]:outline-none",
+          "[&:hover>a>div]:outline-none",
           "border",
           "theme-light:bg-neutral-300",
           "theme-light:border-neutral-700",
@@ -63,30 +62,31 @@ function MenuContent({ items, close }: DisclosureContentProps) {
         )}
       >
         {items.map((link) => (
-          <Menu.Item
-            as="div"
-            className={classNames(
-              "block",
-              "p-2",
-              "border-b",
-              "theme-light:border-b-neutral-700",
-              "theme-dark:border-b-neutral-300",
-            )}
-          >
-            <div
+          <Menu.Item>
+            <a
+              key={link.to}
+              href={link.to}
               className={classNames(
-                "mx-1",
-                "pl-1",
-                "ui-active:outline",
-                "outline-offset-2",
-                "theme-light:outline-black",
-                "theme-dark:outline-white",
+                "block",
+                "p-2",
+                "border-b",
+                "theme-light:border-b-neutral-700",
+                "theme-dark:border-b-neutral-300",
               )}
             >
-              <a key={link.to} href={link.to}>
+              <div
+                className={classNames(
+                  "mx-1",
+                  "pl-1",
+                  "ui-active:outline",
+                  "outline-offset-2",
+                  "theme-light:outline-black",
+                  "theme-dark:outline-white",
+                )}
+              >
                 {link.label}
-              </a>
-            </div>
+              </div>
+            </a>
           </Menu.Item>
         ))}
       </Menu.Items>
