@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-20.04, windows-latest]
+        platform: [macos-latest, ubuntu-22.04, windows-latest]
 
     runs-on: ${{ matrix.platform }}
     env:
@@ -42,15 +42,15 @@ jobs:
       BUCKET_ID: ${{ secrets.CDN_BUCKET }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
       - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-20.04'
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
@@ -60,7 +60,7 @@ jobs:
         env:
           PLATFORM: ${{ matrix.platform }}
         run: |
-          if [[ "$PLATFORM" == "ubuntu-20.04" ]]; then 
+          if [[ "$PLATFORM" == "ubuntu-22.04" ]]; then 
             export PLATFORM_NAME="linux"
           elif [[ "$PLATFORM" == "macos-latest" ]]; then
             export PLATFORM_NAME="macos"
@@ -77,7 +77,23 @@ jobs:
           npm --version
           npm ci
           npx --no nx run calculator:build
-      - uses: tauri-apps/tauri-action@v0
+
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+        # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
+        # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
+
+      - name: build offline version
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -96,13 +112,13 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
-          if [[ "$PLATFORM" == "ubuntu-20.04" ]]; then 
+          if [[ "$PLATFORM" == "ubuntu-22.04" ]]; then 
             PLATFORM_NAME="linux"
             FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
             FILE_SUFFIX=".deb"
           elif [[ "$PLATFORM" == "macos-latest" ]]; then
             PLATFORM_NAME="macos"
-            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_x64.dmg"
+            FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/dmg/Arithmico Calculator_0.1.0_aarch64.dmg"
             FILE_SUFFIX=".dmg"
           elif [[ "$PLATFORM" == "windows-latest" ]]; then
             PLATFORM_NAME="windows"
@@ -125,7 +141,7 @@ jobs:
         env:
           PLATFORM: ${{ matrix.platform }}
         run: |
-          if [[ "$PLATFORM" == "ubuntu-20.04" ]]; then 
+          if [[ "$PLATFORM" == "ubuntu-22.04" ]]; then 
             export PLATFORM_NAME="linux"
           elif [[ "$PLATFORM" == "macos-latest" ]]; then
             export PLATFORM_NAME="macos"

@@ -86,10 +86,10 @@ export default function About() {
           <DD>{t("about.contact")}</DD>
           <DT>
             <a
-              href="mailto:dev.behrenle@posteo.de"
+              href="mailto:arithmico@blista.de"
               className={classNames(classNamesOutline)}
             >
-              dev.behrenle@posteo.de
+              arithmico@blista.de
             </a>
           </DT>
         </dl>
@@ -148,6 +148,31 @@ export default function About() {
             </Link>
           </li>
         </ul>
+
+        <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
+          {t("about.sponsors")}
+        </h2>
+        <div className="grid grid-cols-2">
+          <a
+            className={classNames(
+              "p-4",
+              "bg-white",
+              "rounded-md",
+              classNamesOutline,
+            )}
+            href="https://blista.de"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="sr-only">blista Campus</span>
+            <img
+              aria-hidden
+              className="w-full"
+              src="blista-logo.svg"
+              alt="blista Campus Logo"
+            />
+          </a>
+        </div>
       </PageContainer>
     </WithScrollbars>
   );
