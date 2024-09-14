@@ -30,13 +30,17 @@ export function NavigationLink({ to, children }: NavigationLinkProps) {
             "theme-dark:text-neutral-300",
             "theme-dark:hover:bg-neutral-800",
             "bold-font:font-bold",
-            "focus-visible:outline",
+            "ui-focus-visible:outline",
+            "outline-2",
+            "outline-offset-2",
+            "theme-light:outline-black",
+            "theme-dark:outline-white",
             {
               "md:theme-light:bg-neutral-300": isActive,
               "theme-light:bg-neutral-200": isActive,
               "md:theme-dark:bg-neutral-800": isActive,
               "theme-dark:bg-neutral-700": isActive,
-            }
+            },
           )
         }
         to={to}

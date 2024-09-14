@@ -18,12 +18,12 @@ interface CalculatorInputProps {
 const CalculatorInput = forwardRef<
   HTMLInputElement,
   HTMLProps<HTMLInputElement> & CalculatorInputProps
->(({ onEnterPressed, className }, ref) => {
+>(({ onEnterPressed }, ref) => {
   const dispatch = useDispatch();
   const evaluate = useEvaluate();
   const [t] = useTranslation();
   const input = useSelector(
-    (state: CalculatorRootState) => state.session.input
+    (state: CalculatorRootState) => state.session.input,
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -45,16 +45,7 @@ const CalculatorInput = forwardRef<
       type="text"
       autoCapitalize="off"
       inputMode="url"
-      className={classNames(
-        "pr-14",
-        "theme-light:border-neutral-400",
-        "theme-light:focus:border-neutral-600",
-        "theme-light:bg-neutral-100",
-        "theme-dark:bg-neutral-800",
-        "theme-dark:border-neutral-500",
-        "theme-dark:focus:border-neutral-100",
-        className
-      )}
+      className={classNames("pr-14")}
       placeholder={t("common.input")}
       value={input}
       onChange={(e) => dispatch(setInput(e.currentTarget.value))}

@@ -8,15 +8,15 @@ import { ProtocolHeader } from "./components/protocol-header";
 
 export default function Protocol() {
   const protocolItems = useSelector(
-    (state: CalculatorRootState) => state.session.protocol
+    (state: CalculatorRootState) => state.session.protocol,
   );
 
   return (
-    <PageContainer className={classNames("grid")}>
+    <PageContainer>
       <div
         className={classNames(
-          "grid",
-          "grid-rows-[auto_1fr]",
+          "flex",
+          "flex-col",
           "theme-dark:bg-neutral-850",
           "theme-light:bg-neutral-100",
           "border",
@@ -24,7 +24,6 @@ export default function Protocol() {
           "theme-light:border-black/10",
           "rounded-md",
           "h-full",
-          "overflow-x-hidden"
         )}
       >
         <ProtocolHeader />
@@ -36,7 +35,7 @@ export default function Protocol() {
               "2xl:max-w-[60vw]",
               "lg:max-w-[calc(100vw-6rem)]",
               "max-w-[calc(100vw-2rem)]",
-              "text-2xl"
+              "text-2xl",
             )}
           >
             {protocolItems.map((item, index) => (

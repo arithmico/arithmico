@@ -21,7 +21,7 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
         "rounded-md",
         "theme-dark:bg-neutral-850",
         "theme-light:bg-neutral-100",
-        "bold-font:font-bold"
+        "bold-font:font-bold",
       )}
     >
       <h2 className="sr-only">{name}</h2>
@@ -40,10 +40,15 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
                 "py-2",
                 "items-center",
                 "rounded-t-md",
+                "ui-focus-visible:outline",
+                "outline-2",
+                "outline-offset-2",
+                "theme-light:outline-black",
+                "theme-dark:outline-white",
                 {
                   "rounded-b-md": !open,
                   "border-b-0": open,
-                }
+                },
               )}
             >
               <span aria-hidden className={classNames("text-3xl")}>
@@ -59,7 +64,7 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
                   "ml-auto",
                   {
                     "rotate-180": open,
-                  }
+                  },
                 )}
               />
             </Disclosure.Button>
@@ -71,7 +76,7 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
                   "border-x",
                   "border-b",
                   "theme-dark:border-white/5",
-                  "theme-light:border-black/10"
+                  "theme-light:border-black/10",
                 )}
               >
                 {children}

@@ -25,7 +25,7 @@ export default function Listbox({
         "text-base",
         "sm:text-lg",
         "md:text-xl",
-        "lg:text-2xl"
+        "lg:text-2xl",
       )}
     >
       <HeadlessuiListbox value={value} onChange={onChange}>
@@ -37,7 +37,7 @@ export default function Listbox({
             "flex",
             "flex-col",
             "[&:hover>li]:outline-none",
-            "[&:hover>div>ul>li]:outline-none"
+            "[&:hover>div>ul>li]:outline-none",
           )}
         >
           <HeadlessuiListbox.Button
@@ -52,7 +52,11 @@ export default function Listbox({
               "p-2",
               "bold-font:font-bold",
               "rounded-md",
-              "focus-visible:outline"
+              "ui-focus-visible:outline",
+              "outline-2",
+              "outline-offset-2",
+              "theme-light:outline-black",
+              "theme-dark:outline-white",
             )}
           >
             {options.find((option) => option.value === value)?.label}
@@ -62,7 +66,7 @@ export default function Listbox({
                 "w-6",
                 "h-6",
                 "theme-dark:fill-white/50",
-                "theme-light:fill-black/50"
+                "theme-light:fill-black/50",
               )}
             />
           </HeadlessuiListbox.Button>
@@ -73,7 +77,7 @@ export default function Listbox({
                 "w-40",
                 "z-20",
                 "mt-2",
-                "outline-none"
+                "outline-none",
               )}
             >
               {options.map((options, index) => (
@@ -94,7 +98,7 @@ export default function Listbox({
                     "bold-font:font-bold",
                     "first:rounded-t-md",
                     "last:rounded-b-md",
-                    "ui-active:outline"
+                    "ui-active:outline",
                   )}
                 >
                   {options.label}{" "}
@@ -106,7 +110,7 @@ export default function Listbox({
                       "h-6",
                       "ml-auto",
                       "theme-light:fill-black/50",
-                      "theme-dark:fill-white/50"
+                      "theme-dark:fill-white/50",
                     )}
                   />
                 </HeadlessuiListbox.Option>

@@ -23,7 +23,7 @@ export function ProtocolHeader() {
         "items-center",
         "ring-1",
         "theme-dark:ring-white/5",
-        "theme-light:ring-black/10"
+        "theme-light:ring-black/10",
       )}
     >
       <h1
@@ -44,15 +44,21 @@ export function ProtocolHeader() {
             "hover:opacity-100",
             "rounded-md",
             "theme-dark:hover:bg-neutral-700",
-            "theme-light:hover:bg-neutral-300"
+            "theme-light:hover:bg-neutral-300",
+            "ui-focus-visible:outline",
+            "outline-2",
+            "outline-offset-2",
+            "theme-light:outline-black",
+            "theme-dark:outline-white",
           )}
         >
           <DownloadIcon
             className={classNames(
+              "justify-center",
               "w-6",
               "h-6",
               "theme-light:fill-black",
-              "theme-dark:fill-white"
+              "theme-dark:fill-white",
             )}
           />
           <span aria-hidden className={classNames("hidden", "sm:inline-block")}>
@@ -72,15 +78,21 @@ export function ProtocolHeader() {
             "hover:opacity-100",
             "rounded-md",
             "theme-dark:hover:bg-neutral-700",
-            "theme-light:hover:bg-neutral-300"
+            "theme-light:hover:bg-neutral-300",
+            "ui-focus-visible:outline",
+            "outline-2",
+            "outline-offset-2",
+            "theme-light:outline-black",
+            "theme-dark:outline-white",
           )}
         >
           <DeleteIcon
             className={classNames(
+              "justify-center",
               "w-6",
               "h-6",
               "theme-light:fill-black",
-              "theme-dark:fill-white"
+              "theme-dark:fill-white",
             )}
           />
           <span aria-hidden className={classNames("hidden", "sm:inline-block")}>
@@ -92,23 +104,29 @@ export function ProtocolHeader() {
       <button
         className={classNames(
           "ml-auto",
-          "p-3  ",
+          "p-3",
           "theme-dark:hover:bg-neutral-700",
           "theme-light:hover:bg-neutral-300",
           "rounded-md",
           "col-start-1",
           "row-start-1",
           "opacity-60",
-          "hover:opacity-100"
+          "hover:opacity-100",
+          "ui-focus-visible:outline",
+          "outline-2",
+          "outline-offset-2",
+          "theme-light:outline-black",
+          "theme-dark:outline-white",
         )}
         onClick={() => navigate("/")}
       >
         <ArrowBackIcon
           className={classNames(
+            "justify-center",
             "theme-dark:fill-white",
             "theme-light:fill-black",
             "w-6",
-            "h-6"
+            "h-6",
           )}
         />
         <span className="sr-only">{t("common.back")}</span>
