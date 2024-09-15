@@ -112,7 +112,7 @@ export default function About() {
         <ul className={classNames("pl-8", "[&>li]:py-2", "[&>li]:text-xl")}>
           <li>
             <a
-              href="https://cdn.arithmico.com/Arithmico_2.0_Anleitung_LaTeX-Version.docx"
+              href="https://cdn.arithmico.com/Arithmico_2.24_Anleitung_LaTeX-Version.docx"
               className={classNames(classNamesOutline)}
             >
               {t("about.documentation")}
