@@ -16,6 +16,7 @@ export const ResponsiveTextInput = forwardRef<
         "sm:text-2xl",
         "md:text-3xl",
         "lg:text-4xl",
+        "placeholder:text-gray-500",
         "outline-none",
         "border",
         "px-4",
