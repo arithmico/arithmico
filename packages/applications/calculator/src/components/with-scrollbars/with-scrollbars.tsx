@@ -15,7 +15,7 @@ export default function WithScrollbars({
 
   return (
     <OverlayScrollbarsComponent
-      element={"body"}
+      element={"div"}
       options={{
         showNativeOverlaidScrollbars: false,
         scrollbars: {
