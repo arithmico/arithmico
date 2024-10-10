@@ -33,13 +33,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/behrenle/arithmico.git"
+    "url": "git+https://github.com/arithmico/arithmico.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/behrenle/arithmico/issues"
+    "url": "https://github.com/arithmico/arithmico/issues"
   },
-  "homepage": "https://github.com/behrenle/arithmico#readme",
+  "homepage": "https://github.com/arithmico/arithmico",
   "devDependencies": {
     "nx": "18.0.0"
   }
