@@ -101,6 +101,13 @@ export class FeatureFlagRepository {
       createPagedAggregationPipeline({
         skip,
         limit,
+        preProcessingStages: [
+          {
+            $sort: {
+              name: 1,
+            },
+          },
+        ],
         itemProcessingStages: [
           {
             $lookup: {
