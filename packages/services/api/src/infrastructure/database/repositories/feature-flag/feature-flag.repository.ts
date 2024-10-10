@@ -255,6 +255,11 @@ export class FeatureFlagRepository {
                 newRoot: '$featureFlag',
               },
             },
+            {
+              $sort: {
+                name: 1,
+              },
+            },
           ],
         }),
       )
