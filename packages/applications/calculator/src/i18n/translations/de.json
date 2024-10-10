@@ -74,6 +74,9 @@
   "about.terms-of-service": "Nutzungsbedingungen",
   "about.privacy-policy": "Datenschutz",
   "about.contact": "Kontakt",
+  "about.contact.description": "Falls Sie Fragen, Anmerkungen oder Feedback haben, können Sie uns gerne unter <1>{{email}}</1> kontaktieren. Wir freuen uns darauf, von Ihnen zu hören und stehen Ihnen gerne zur Verfügung!",
+  "about.offline-versions": "Offline-Versionen",
+  "about.offline-versions.description": "In unserem <1>Downloadportal</1> stehen Offline-Versionen für verschiedene Bundesländer und Prüfungsordnungen zur Verfügung. Sie können die passenden Versionen ganz einfach herunterladen und jederzeit nutzen.",
   "about.sponsors": "Sponsoren",
 
   "hotkeys.focusInput": "Eingabefeld fokussieren",

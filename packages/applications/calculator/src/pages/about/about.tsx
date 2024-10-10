@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import packageJsonData from "@workspace-package.json";
 import PageContainer from "@local-components/page-container/page-container";
@@ -83,16 +83,40 @@ export default function About() {
               Arithmico Blog
             </a>
           </DT>
-          <DD>{t("about.contact")}</DD>
-          <DT>
+        </dl>
+
+        <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
+          {t("about.contact")}
+        </h2>
+        <p className="lg:w-3/4 text-xl">
+          <Trans i18nKey={"about.contact.description"}>
+            {{
+              email: "arithmico@blista.de",
+            }}  
             <a
               href="mailto:arithmico@blista.de"
-              className={classNames(classNamesOutline)}
+              className={classNames(classNamesOutline, "underline")}
             >
               arithmico@blista.de
             </a>
-          </DT>
-        </dl>
+          </Trans>
+        </p>
+
+        <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
+          {t("about.offline-versions")}
+        </h2>
+        <p className="lg:w-3/4 text-xl">
+          <Trans i18nKey={"about.offline-versions.description"}>
+            {{
+              email: "arithmico@blista.de",
+            }}  
+            <a
+              href="https://blog.arithmico.com/downloads"
+              className={classNames(classNamesOutline, "underline")}
+            >
+            </a>
+          </Trans>
+        </p>
 
         <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
           {t("about.team")}

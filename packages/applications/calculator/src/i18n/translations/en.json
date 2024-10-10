@@ -74,6 +74,9 @@
   "about.terms-of-service": "Terms of Service",
   "about.privacy-policy": "Privacy Policy",
   "about.contact": "Contact",
+  "about.contact.description": "If you have any questions, comments, or feedback, feel free to contact us at <1>{{email}}</1>. We look forward to hearing from you and are happy to assist!",
+  "about.offline-versions": "Offline Versions",
+  "about.offline-versions.description": "In our <1>downloads section</1>, offline versions for different federal states and examination regulations are available. You can easily download the appropriate versions and use them at any time.",
   "about.sponsors": "Sponsors",
 
   "hotkeys.focusInput": "Focus input field",
