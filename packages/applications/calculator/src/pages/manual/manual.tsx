@@ -30,6 +30,7 @@ export default function Manual() {
 
   return (
     <WithScrollbars>
+      <label className={"sr-only"}>{t("manual.search")}</label>
       <PageContainer className="flex flex-col">
         <ResponsiveTextInput
           className={classNames("mb-4", "sm:mb-6", "md:mb-8", "lg:mb-12")}

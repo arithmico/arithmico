@@ -87,6 +87,7 @@ export default function CalculatorForm() {
       )}
     >
       <div className={classNames("flex", "mb-4", "mx-2")}>
+        <label className={"sr-only"}>{t("common.input")}</label>
         <CalculatorInput
           ref={inputRef}
           onEnterPressed={() => setFocusNext("output")}
@@ -99,6 +100,7 @@ export default function CalculatorForm() {
 
       {currentOutput.type !== "graphic" ? (
         <div className={classNames("flex", "mx-2")}>
+          <label className={"sr-only"}>{t("common.output")}</label>
           <CalculatorOutput
             ref={outputRef}
             onEnterPressed={() => setFocusNext("input")}
