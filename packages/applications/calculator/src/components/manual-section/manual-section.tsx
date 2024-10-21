@@ -2,7 +2,6 @@ import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { ExpandMore } from "ui-components";
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
 
 interface ManualSectionProps {
   name: string;
@@ -10,8 +9,6 @@ interface ManualSectionProps {
 }
 
 export default function ManualSection({ name, children }: ManualSectionProps) {
-  const [t] = useTranslation();
-
   return (
     <section
       className={classNames(
@@ -24,7 +21,6 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
         "bold-font:font-bold",
       )}
     >
-      <h2 className="sr-only">{name}</h2>
       <Disclosure defaultOpen>
         {({ open }) => (
           <>
@@ -51,11 +47,8 @@ export default function ManualSection({ name, children }: ManualSectionProps) {
                 },
               )}
             >
-              <span aria-hidden className={classNames("text-3xl")}>
+              <span className={classNames("text-3xl")}>
                 {name}
-              </span>
-              <span className="sr-only">
-                {t(open ? "common.collapse" : "common.expand")}
               </span>
               <ExpandMore
                 className={classNames(
