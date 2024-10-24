@@ -87,10 +87,13 @@ export default function CalculatorForm() {
       )}
     >
       <div className={classNames("flex", "mb-4", "mx-2")}>
-        <CalculatorInput
-          ref={inputRef}
-          onEnterPressed={() => setFocusNext("output")}
-        />
+        <label className={"sr-only"}>
+          {t("common.input")}
+          <CalculatorInput
+            ref={inputRef}
+            onEnterPressed={() => setFocusNext("output")}
+          />
+        </label>
         <ResetTextFieldButton
           text={t("toolbar.resetInput")}
           onClick={() => dispatch(resetInput())}
@@ -99,10 +102,13 @@ export default function CalculatorForm() {
 
       {currentOutput.type !== "graphic" ? (
         <div className={classNames("flex", "mx-2")}>
-          <CalculatorOutput
-            ref={outputRef}
-            onEnterPressed={() => setFocusNext("input")}
-          />
+          <label className={"sr-only"}>
+            {t("common.output")}
+            <CalculatorOutput
+              ref={outputRef}
+              onEnterPressed={() => setFocusNext("input")}
+            />
+          </label>
           <ResetTextFieldButton
             text={t("toolbar.resetOutput")}
             onClick={() => dispatch(resetOutput())}
