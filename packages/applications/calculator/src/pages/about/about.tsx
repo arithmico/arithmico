@@ -92,7 +92,7 @@ export default function About() {
           <Trans i18nKey={"about.contact.description"}>
             {{
               email: "arithmico@blista.de",
-            }}  
+            }}
             <a
               href="mailto:arithmico@blista.de"
               className={classNames(classNamesOutline, "underline")}
@@ -109,12 +109,11 @@ export default function About() {
           <Trans i18nKey={"about.offline-versions.description"}>
             {{
               email: "arithmico@blista.de",
-            }}  
+            }}
             <a
               href="https://blog.arithmico.com/downloads"
               className={classNames(classNamesOutline, "underline")}
-            >
-            </a>
+            ></a>
           </Trans>
         </p>
 
@@ -176,7 +175,7 @@ export default function About() {
         <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
           {t("about.sponsors")}
         </h2>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 gap-1">
           <a
             className={classNames(
               "p-4",
@@ -194,6 +193,25 @@ export default function About() {
               className="w-full"
               src="blista-logo.svg"
               alt="blista Campus Logo"
+            />
+          </a>
+          <a
+            className={classNames(
+              "p-4",
+              "bg-white",
+              "rounded-md",
+              classNamesOutline,
+            )}
+            href="https://math4vip.de"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="sr-only">Math4VIP</span>
+            <img
+              aria-hidden
+              className="w-full"
+              src="math4vip_logo_768x385.png"
+              alt="Math4VIP Logo"
             />
           </a>
         </div>
