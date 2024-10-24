@@ -97,11 +97,15 @@ export default function About() {
             <a
               href="https://www.blista.de/"
               className={classNames(classNamesOutline, "underline")}
-            ></a>
+            >
+              blista.de
+            </a>
             <a
               href="https://www.math4vip.de/"
               className={classNames(classNamesOutline, "underline")}
-            ></a>
+            >
+              math4vip.de
+            </a>
           </Trans>
         </p>
 
@@ -131,7 +135,9 @@ export default function About() {
             <a
               href="https://blog.arithmico.com/downloads"
               className={classNames(classNamesOutline, "underline")}
-            ></a>
+            >
+              downloads
+            </a>
           </Trans>
         </p>
 
