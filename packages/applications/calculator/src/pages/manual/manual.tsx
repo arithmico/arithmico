@@ -30,16 +30,18 @@ export default function Manual() {
 
   return (
     <WithScrollbars>
-      <label className={"sr-only"}>{t("manual.search")}</label>
       <PageContainer className="flex flex-col">
-        <ResponsiveTextInput
-          className={classNames("mb-4", "sm:mb-6", "md:mb-8", "lg:mb-12")}
-          ref={searchRef}
-          placeholder={t("manual.search")}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.currentTarget.value)}
-          onKeyPress={onSearchEnter}
-        />
+        <label className={"sr-only"}>
+          {t("manual.search")}
+          <ResponsiveTextInput
+            className={classNames("mb-4", "sm:mb-6", "md:mb-8", "lg:mb-12")}
+            ref={searchRef}
+            placeholder={t("manual.search")}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.currentTarget.value)}
+            onKeyPress={onSearchEnter}
+          />
+        </label>
         {documentation.map((pluginStructure, index) => (
           <ManualPluginSection
             pluginStructure={pluginStructure}
