@@ -50,6 +50,16 @@ export default function About() {
     "theme-dark:outline-white",
   );
 
+  const teamMembers = [
+    "Tizian Roth",
+    "Knut Büttner",
+    "Ulrich Kalina",
+    "Mirko Melz",
+    "Maike Castorph",
+    "Prof. Dr. habil. Ilka Agricola",
+    "Dr. Kai Kortus",
+  ];
+
   return (
     <WithScrollbars>
       <PageContainer className={classNames("bold-font:font-bold")}>
@@ -81,6 +91,15 @@ export default function About() {
               className={classNames(classNamesOutline)}
             >
               Arithmico Blog
+            </a>
+          </DT>
+          <DD>{t("about.contributors")}</DD>
+          <DT>
+            <a
+              href="https://github.com/arithmico/arithmico/contributors"
+              className={classNames(classNamesOutline)}
+            >
+              https://github.com/arithmico/arithmico/contributors
             </a>
           </DT>
         </dl>
@@ -172,10 +191,7 @@ export default function About() {
           {t("about.team")}
         </h2>
         <ul className={classNames("pl-8")}>
-          {[
-            packageJson.author.name,
-            ...packageJson.contributors.map((c) => c.name),
-          ].map((name) => (
+          {[packageJson.author.name, ...teamMembers].map((name) => (
             <li className={classNames("text-xl", "py-2")}>{name}</li>
           ))}
         </ul>
