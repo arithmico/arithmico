@@ -166,13 +166,14 @@ export default function About() {
         <p className="lg:w-3/4 text-xl">
           {t("about.donationAppeal.description")}
         </p>
-        <div className="lg:w-3/4 text-xl mt-3">
-          <p>
-            {t("about.donationAppeal.iban") + "DE50 5005 0000 0001 0064 44"}
-          </p>
-          <p>{t("about.donationAppeal.bic") + "HELADEFFXXX"}</p>
-          <p>{t("about.donationAppeal.purpose") + "Fondsnummer 81203176"}</p>
-        </div>
+        <dl className="lg:w-3/4 text-xl mt-3 grid grid-cols-[auto_1fr] gap-x-2">
+          <dt>{t("about.donationAppeal.iban")}</dt>
+          <dd>DE50 5005 0000 0001 0064 44</dd>
+          <dt>{t("about.donationAppeal.bic")}</dt>
+          <dd>HELADEFFXXX</dd>
+          <dt>{t("about.donationAppeal.purpose")}</dt>
+          <dd>Fondsnummer 81203176</dd>
+        </dl>
         <p className="lg:w-3/4 text-xl mt-3">
           <Trans i18nKey={"about.donationAppeal.outro"}>
             {{
