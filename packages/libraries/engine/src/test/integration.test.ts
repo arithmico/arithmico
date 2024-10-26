@@ -96,6 +96,7 @@ integrationTest('(2+1)^{2+2}', '81');
 integrationTest('\\gcd(2, 12)', '2');
 integrationTest('\\max(1, 2, 3)', '3');
 integrationTest('\\min(1, 2, 3)', '1');
+integrationTest('-0.5*5/6+2/3*5/8', '0');
 
 integrationTestThrow('1 + true');
 integrationTestThrow('2 + [1,2,3]');
