@@ -31,12 +31,12 @@ export default function Manual() {
   return (
     <WithScrollbars>
       <PageContainer className="flex flex-col">
-        <label className={"sr-only"}>
-          {t("manual.search")}
+        <label className="w-full">
+          <span className="sr-only">{t("manual.search")}</span>
           <ResponsiveTextInput
             className={classNames("mb-4", "sm:mb-6", "md:mb-8", "lg:mb-12")}
             ref={searchRef}
-            placeholder={t("manual.search")}
+            placeholder={t("manual.search") ?? undefined}
             value={searchValue}
             onChange={(e) => setSearchValue(e.currentTarget.value)}
             onKeyPress={onSearchEnter}
@@ -51,19 +51,6 @@ export default function Manual() {
           />
         ))}
         <ManualHotkeySection />
-        {/*
-        <a
-          href="https://docs.arithmico.com"
-          className={classNames(
-            "text-2xl",
-            "mt-8",
-            "text-neutral-500",
-            "underline"
-          )}
-        >
-          {t("manual.fullDocumentation")}
-        </a>
-        */}
       </PageContainer>
     </WithScrollbars>
   );

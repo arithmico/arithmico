@@ -44,9 +44,10 @@ const CalculatorInput = forwardRef<
       ref={ref}
       type="text"
       autoCapitalize="off"
+      autoComplete="off"
       inputMode="url"
       className={classNames("pr-14")}
-      placeholder={t("common.input")}
+      placeholder={t("common.input") ?? undefined}
       value={input}
       onChange={(e) => dispatch(setInput(e.currentTarget.value))}
       onKeyDown={(e) => handleKeyDown(e)}

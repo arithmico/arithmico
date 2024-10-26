@@ -62,7 +62,7 @@ function MenuContent({ items, close }: DisclosureContentProps) {
         )}
       >
         {items.map((link) => (
-          <Menu.Item>
+          <Menu.Item key={link.to}>
             <a
               key={link.to}
               href={link.to}
