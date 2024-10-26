@@ -50,6 +50,16 @@ export default function About() {
     "theme-dark:outline-white",
   );
 
+  const teamMembers = [
+    "Tizian Roth",
+    "Knut Büttner",
+    "Ulrich Kalina",
+    "Mirko Melz",
+    "Maike Castorph",
+    "Prof. Dr. habil. Ilka Agricola",
+    "Dr. Kai Kortus",
+  ];
+
   return (
     <WithScrollbars>
       <PageContainer className={classNames("bold-font:font-bold")}>
@@ -83,7 +93,40 @@ export default function About() {
               Arithmico Blog
             </a>
           </DT>
+          <DD>{t("about.contributors")}</DD>
+          <DT>
+            <a
+              href="https://github.com/arithmico/arithmico/contributors"
+              className={classNames(classNamesOutline)}
+            >
+              https://github.com/arithmico/arithmico/contributors
+            </a>
+          </DT>
         </dl>
+
+        <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
+          {t("about.aboutArithmico")}
+        </h2>
+        <p className="lg:w-3/4 text-xl">
+          {t("about.aboutArithmico.description1")}
+        </p>
+        <p className="lg:w-3/4 text-xl mt-3">
+          <Trans i18nKey={"about.aboutArithmico.description2"}>
+            {{}}
+            <a
+              href="https://www.blista.de/"
+              className={classNames(classNamesOutline, "underline")}
+            >
+              blista.de
+            </a>
+            <a
+              href="https://www.math4vip.de/"
+              className={classNames(classNamesOutline, "underline")}
+            >
+              math4vip.de
+            </a>
+          </Trans>
+        </p>
 
         <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
           {t("about.contact")}
@@ -92,7 +135,7 @@ export default function About() {
           <Trans i18nKey={"about.contact.description"}>
             {{
               email: "arithmico@blista.de",
-            }}  
+            }}
             <a
               href="mailto:arithmico@blista.de"
               className={classNames(classNamesOutline, "underline")}
@@ -107,13 +150,40 @@ export default function About() {
         </h2>
         <p className="lg:w-3/4 text-xl">
           <Trans i18nKey={"about.offline-versions.description"}>
-            {{
-              email: "arithmico@blista.de",
-            }}  
+            {{}}
             <a
               href="https://blog.arithmico.com/downloads"
               className={classNames(classNamesOutline, "underline")}
             >
+              downloads
+            </a>
+          </Trans>
+        </p>
+
+        <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
+          {t("about.donationAppeal")}
+        </h2>
+        <p className="lg:w-3/4 text-xl">
+          {t("about.donationAppeal.description")}
+        </p>
+        <dl className="lg:w-3/4 text-xl mt-3 grid grid-cols-[auto_1fr] gap-x-2">
+          <dt>{t("about.donationAppeal.iban")}</dt>
+          <dd>DE50 5005 0000 0001 0064 44</dd>
+          <dt>{t("about.donationAppeal.bic")}</dt>
+          <dd>HELADEFFXXX</dd>
+          <dt>{t("about.donationAppeal.purpose")}</dt>
+          <dd>Fondsnummer 81203176</dd>
+        </dl>
+        <p className="lg:w-3/4 text-xl mt-3">
+          <Trans i18nKey={"about.donationAppeal.outro"}>
+            {{
+              email: "kontakt@math4vip.de",
+            }}
+            <a
+              href="mailto:kontakt@math4vip.de"
+              className={classNames(classNamesOutline, "underline")}
+            >
+              kontakt@math4vip.de
             </a>
           </Trans>
         </p>
@@ -122,10 +192,7 @@ export default function About() {
           {t("about.team")}
         </h2>
         <ul className={classNames("pl-8")}>
-          {[
-            packageJson.author.name,
-            ...packageJson.contributors.map((c) => c.name),
-          ].map((name) => (
+          {[packageJson.author.name, ...teamMembers].map((name) => (
             <li className={classNames("text-xl", "py-2")}>{name}</li>
           ))}
         </ul>
@@ -176,7 +243,7 @@ export default function About() {
         <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
           {t("about.sponsors")}
         </h2>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 gap-1">
           <a
             className={classNames(
               "p-4",
@@ -194,6 +261,25 @@ export default function About() {
               className="w-full"
               src="blista-logo.svg"
               alt="blista Campus Logo"
+            />
+          </a>
+          <a
+            className={classNames(
+              "p-4",
+              "bg-white",
+              "rounded-md",
+              classNamesOutline,
+            )}
+            href="https://math4vip.de"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="sr-only">Math4VIP</span>
+            <img
+              aria-hidden
+              className="w-full"
+              src="math4vip_logo_768x385.png"
+              alt="Math4VIP Logo"
             />
           </a>
         </div>
