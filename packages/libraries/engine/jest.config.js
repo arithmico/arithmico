@@ -3,5 +3,4 @@ export default {
     transform: {},
     testPathIgnorePatterns: ['./node_modules/', './src/'],
     extensionsToTreatAsEsm: ['.ts'],
-    verbose: true,
 };

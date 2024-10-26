@@ -11,7 +11,12 @@ export default function evaluatePlus(node: Plus, context: Context): SyntaxTreeNo
     const rightChild = evaluate(node.right, context);
 
     if (leftChild.type === 'number' && rightChild.type === 'number' && __OPERATORS.plusNumberNumber) {
-        return createNumberNode(leftChild.value + rightChild.value);
+        const epsilon = Math.max(Math.abs(leftChild.value), Math.abs(rightChild.value)) * Number.EPSILON;
+        const result = leftChild.value + rightChild.value;
+        if (Math.abs(result) <= epsilon) {
+            return createNumberNode(0);
+        }
+        return createNumberNode(result);
     } else if (leftChild.type === 'vector' && rightChild.type === 'vector' && __OPERATORS.plusVectorVector) {
         if (!compareShapesOfVectors(leftChild, rightChild)) {
             throw `ArithmeticError: can not add vectors of incompatible shapes`;
