@@ -166,14 +166,16 @@ export default function About() {
         <p className="lg:w-3/4 text-xl">
           {t("about.donationAppeal.description")}
         </p>
-        <dl className="lg:w-3/4 text-xl mt-3 grid grid-cols-[auto_1fr] gap-x-2">
-          <dt>{t("about.donationAppeal.iban")}</dt>
+        <div className="lg:w-3/4 flex items-center justify-center border-2 p-2 my-2 rounded-md theme-light:border-black theme-dark:border-white">
+        <dl className="text-xl grid grid-cols-[auto_1fr] gap-x-4">
+          <dt className="text-right font-bold">{t("about.donationAppeal.iban")}</dt>
           <dd>DE50 5005 0000 0001 0064 44</dd>
-          <dt>{t("about.donationAppeal.bic")}</dt>
+          <dt className="text-right font-bold">{t("about.donationAppeal.bic")}</dt>
           <dd>HELADEFFXXX</dd>
-          <dt>{t("about.donationAppeal.purpose")}</dt>
+          <dt className="text-right font-bold">{t("about.donationAppeal.reference")}</dt>
           <dd>Fondsnummer 81203176</dd>
         </dl>
+        </div>
         <p className="lg:w-3/4 text-xl mt-3">
           <Trans i18nKey={"about.donationAppeal.outro"}>
             {{
@@ -191,7 +193,7 @@ export default function About() {
         <h2 className={classNames("text-3xl", "mt-16", "mb-4")}>
           {t("about.team")}
         </h2>
-        <ul className={classNames("pl-8")}>
+        <ul className={classNames("pl-8 grid grid-cols-2")}>
           {[packageJson.author.name, ...teamMembers].map((name) => (
             <li className={classNames("text-xl", "py-2")}>{name}</li>
           ))}
