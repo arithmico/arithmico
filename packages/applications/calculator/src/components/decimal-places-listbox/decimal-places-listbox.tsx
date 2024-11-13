@@ -15,7 +15,7 @@ export default function DecimalPlacesListbox({
   const [t] = useTranslation();
 
   return (
-    <div
+    <li
       className={classNames(
         "flex",
         "items-center",
@@ -115,6 +115,6 @@ export default function DecimalPlacesListbox({
           </div>
         </div>
       </HeadlessuiListbox>
-    </div>
+    </li>
   );
 }
