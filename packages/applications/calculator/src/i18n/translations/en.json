@@ -110,5 +110,9 @@
   "graphic.toolbar.download.braille-pdf": "PDF (braille)",
   "sr.graphic.toolbar.download": "download graphic",
   "sr.graphic.toolbar.download.pdf": "download graphic as pdf",
-  "sr.graphic.toolbar.download.braille-pdf": "download grpahic as pdf with braille text"
+  "sr.graphic.toolbar.download.braille-pdf": "download grpahic as pdf with braille text",
+
+  "news.title": "Take Part in the Math4VIP Survey and Shape the Future!",
+  "news.content": "Our partner project Math4VIP warmly invites you to participate in a short survey. Your feedback is essential to better understand the needs of users and to guide the platform’s future development. Participation takes only a few minutes and helps improve mathematical tools and resources to better meet your requirements. Thank you for your support! Click <1>here</1> to take part in the survey.",
+  "news.back": "Back to calculator"
 }

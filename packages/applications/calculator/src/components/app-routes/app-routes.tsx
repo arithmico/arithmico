@@ -10,6 +10,7 @@ import PrivacyPolicy from "@pages/privacy-policy/privacy-policy";
 import Imprint from "../../pages/imprint/imprint";
 import useNotifyNewVersion from "../../hooks/use-notify-new-version";
 import NewVersionAvailable from "../../pages/new-version-available/new-version-available";
+import { NewsPage } from "../../pages/news/news";
 
 export default function AppRoutes() {
   useNotifyNewVersion();
@@ -26,6 +27,7 @@ export default function AppRoutes() {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/imprint" element={<Imprint />} />
       <Route path="/new-version-available" element={<NewVersionAvailable />} />
+      <Route path="/news" element={<NewsPage />} />
     </Routes>
   );
 }
