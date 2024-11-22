@@ -110,5 +110,8 @@
   "graphic.toolbar.download.braille-pdf": "PDF (Braille)",
   "sr.graphic.toolbar.download": "Grafik herunterladen",
   "sr.graphic.toolbar.download.pdf": "Grafik als PDF herunterladen",
-  "sr.graphic.toolbar.download.braille-pdf": "Grafik als PDF mit Braille-Beschriftungen herunterladen"
+  "sr.graphic.toolbar.download.braille-pdf": "Grafik als PDF mit Braille-Beschriftungen herunterladen",
+  "news.title": "Nehmen Sie an der Math4Vip-Umfrage teil und gestalten Sie die Zukunft mit!",
+  "news.content": "Unser Partnerprojekt Math4VIP lädt Sie herzlich ein, an einer kurzen Umfrage teilzunehmen. Ihre Meinung ist wichtig, um die Bedürfnisse der Nutzenden besser zu verstehen und die Weiterentwicklung der Plattform optimal zu gestalten. Die Teilnahme dauert nur wenige Minuten und trägt dazu bei, mathematische Tools und Ressourcen noch besser auf Ihre Anforderungen abzustimmen. Vielen Dank für Ihre Unterstützung! Klicken Sie <1>hier</1>, um an der Umfrage teilzunehmen.",
+  "news.back": "Zurück zum Rechner"
 }
