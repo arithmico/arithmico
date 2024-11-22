@@ -11,6 +11,10 @@ export default function Calculator() {
   useEffect(() => {
     const hideNews = localStorage.getItem("hide_news");
 
+    if (new Date().getTime() > new Date("2024-12-21T00:00:00.000Z").getTime()) {
+      return;
+    }
+
     if (hideNews !== "true") {
       localStorage.setItem("hide_news", "true");
       navigate("/news");
