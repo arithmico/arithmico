@@ -11,7 +11,7 @@ export class UserActivationRepository {
   constructor(
     @InjectModel(UserActivation.name)
     private userActivationModel: Model<UserActivation>,
-  ) {}
+  ) { }
 
   async create(userId: string): Promise<UserActivationDocument> {
     const userActivation: UserActivation = {
@@ -29,10 +29,10 @@ export class UserActivationRepository {
       })
       .exec();
 
-    if (!result.ok) {
+    if (!result) {
       throw new NotFoundException();
     }
 
-    return result.value;
+    return result;
   }
 }

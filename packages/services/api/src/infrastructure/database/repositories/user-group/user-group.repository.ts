@@ -24,7 +24,7 @@ export class UserGroupRepository {
     private userGroupMembershipModel: Model<UserGroupMembershipDocument>,
     @InjectModel(SecurityPolicyAttachment.name)
     private securityPolicyAttachmentModel: Model<SecurityPolicyAttachmentDocument>,
-  ) {}
+  ) { }
 
   async createUserGroup(
     name: string,
@@ -69,7 +69,7 @@ export class UserGroupRepository {
         .find({
           groupId: groupId,
         })
-        .count()
+        .countDocuments()
         .exec()) > 0;
 
     if (hasMembers) {
@@ -90,8 +90,8 @@ export class UserGroupRepository {
 
   async getUserGroupByIdWithDetails(groupId: string): Promise<
     | (UserGroupDocument & {
-        members: number;
-      })
+      members: number;
+    })
     | null
   > {
     return (

@@ -20,7 +20,7 @@ export class UserGroupMembershipRepository {
     private userGroupMembershipModel: Model<UserGroupMembershipDocument>,
     @InjectModel(User.name)
     private userModal: Model<UserDocument>,
-  ) {}
+  ) { }
 
   private async assertUserAndGroupExist(
     groupId: string,
@@ -68,7 +68,7 @@ export class UserGroupMembershipRepository {
       .findOneAndDelete({ groupId, userId })
       .exec();
 
-    return result.ok ? result.value : null;
+    return result;
   }
 
   async removeUserFromUserGroupOrThrow(

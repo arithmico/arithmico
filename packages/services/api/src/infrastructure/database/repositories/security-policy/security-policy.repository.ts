@@ -24,7 +24,7 @@ export class SecurityPolicyRepository {
 
     @InjectModel(SecurityPolicyAttachment.name)
     private securityPolicyAttachmentModel: Model<SecurityPolicyAttachmentDocument>,
-  ) {}
+  ) { }
 
   async createSecurityPolicy(
     name: string,
@@ -46,7 +46,7 @@ export class SecurityPolicyRepository {
         .find({
           policyId: policyId,
         })
-        .count()
+        .countDocuments()
         .exec()) > 0;
 
     if (isStillAttached) {
@@ -298,12 +298,12 @@ export class SecurityPolicyRepository {
 
   async getSecurityPolicyByIdWithPrincipalStatistics(policyId: string): Promise<
     | (SecurityPolicyDocument & {
-        principals: {
-          total: number;
-          users: number;
-          groups: number;
-        };
-      })
+      principals: {
+        total: number;
+        users: number;
+        groups: number;
+      };
+    })
     | null
   > {
     const result = await this.securityPolicyModel
