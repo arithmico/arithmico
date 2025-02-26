@@ -40,7 +40,7 @@
     "mailparser": "^3.7.2",
     "mongodb": "^6.13.1",
     "mongoose": "^8.10.1",
-    "nanoid": "^5.1.2",
+    "nanoid": "^3.3.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "reflect-metadata": "^0.2.2",
