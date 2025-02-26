@@ -1,5 +1,5 @@
 # Builder base with all dependencies
-FROM node:18 as builder_base
+FROM node:22 as builder_base
 
 WORKDIR /app/builder
 
