@@ -60,7 +60,7 @@ jobs:
         env:
           PLATFORM: ${{ matrix.platform }}
         run: |
-          if [[ "$PLATFORM" == "ubuntu-24.04" ]]; then 
+          if [[ "$PLATFORM" == "ubuntu-22.04" ]]; then 
             export PLATFORM_NAME="linux"
           elif [[ "$PLATFORM" == "macos-latest" ]]; then
             export PLATFORM_NAME="macos"
@@ -85,7 +85,7 @@ jobs:
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-24.04' # This must match the platform value defined above.
+        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
@@ -112,7 +112,7 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
           ARTIFACT_PATH: ${{ inputs.artifactPath }}
         run: |
-          if [[ "$PLATFORM" == "ubuntu-24.04" ]]; then 
+          if [[ "$PLATFORM" == "ubuntu-22.04" ]]; then 
             PLATFORM_NAME="linux"
             FROM_PATH="./packages/applications/calculator/src-tauri/target/release/bundle/deb/arithmico-calculator_0.1.0_amd64.deb"
             FILE_SUFFIX=".deb"
@@ -141,7 +141,7 @@ jobs:
         env:
           PLATFORM: ${{ matrix.platform }}
         run: |
-          if [[ "$PLATFORM" == "ubuntu-24.04" ]]; then 
+          if [[ "$PLATFORM" == "ubuntu-22.04" ]]; then 
             export PLATFORM_NAME="linux"
           elif [[ "$PLATFORM" == "macos-latest" ]]; then
             export PLATFORM_NAME="macos"
