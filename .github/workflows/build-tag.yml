@@ -11,7 +11,7 @@ env:
 
 jobs:
   test-all:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: test all packages
     steps:
       - uses: actions/checkout@v3
@@ -29,7 +29,7 @@ jobs:
 
   get-version-tag:
     needs: test-all
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: get version tag
     outputs:
       tag: ${{ steps.get-tag.outputs.tag }}
@@ -46,7 +46,7 @@ jobs:
 
   build-api:
     needs: get-version-tag
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: build api
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -79,7 +79,7 @@ jobs:
   build-blog:
     needs: get-version-tag
     name: build blog
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
       - run: |
@@ -96,7 +96,7 @@ jobs:
   build-documentation:
     needs: get-version-tag
     name: build docs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/build-frontend
@@ -111,7 +111,7 @@ jobs:
   build-backoffice:
     needs: get-version-tag
     name: build backoffice
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
       - run: |
@@ -128,7 +128,7 @@ jobs:
   build-calculator:
     needs: get-version-tag
     name: build calculator
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/actions/build-frontend
