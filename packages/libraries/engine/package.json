@@ -13,7 +13,7 @@
         "prebuild": "node -e \"fs.rm('lib', { recursive: true, force: true }, () => {});\"",
         "build": "npm run build:types && npm run build:js",
         "build:types": "tsc --emitDeclarationOnly",
-        "build:js": "node swc.config.js && swc ./src -d lib"
+        "build:js": "node swc.config.js && swc ./src --strip-leading-paths -d lib --config-file .swcrc"
     },
     "dependencies": {
         "parser": "*",
