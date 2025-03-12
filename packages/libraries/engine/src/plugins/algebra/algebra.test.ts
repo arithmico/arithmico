@@ -7,6 +7,10 @@ integrationTest(
     'lsolve(a = 1, a + b = 2, a + b + c = 3, a + b + c + d = 4, a + b + c + d + e_ = 5)',
     '[a = 1, b = 1, c = 1, d = 1, e_ = 1]',
 );
+integrationTest(
+    'lsolve(a + b + c + d = 2, 2 * b = 0, 9 * a + 2 * sqrt(3) * b + c = 0, d = 0)',
+    '[a = -0.25, b = 0, c = 2.25, d = 0]',
+);
 integrationTestThrow('lsolve(x + y = 3; 2 * x + 2*y = 4)'); // no solution
 integrationTestThrow('lsolve(-6*x + 4*y = 2; 3*x - 2*y = -1)'); // infinite solutions
 integrationTestThrow('lsolve(1 = 100 * 0.87^x)'); // not linear

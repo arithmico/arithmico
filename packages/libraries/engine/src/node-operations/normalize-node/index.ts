@@ -2,6 +2,7 @@ import { Context, SyntaxTreeNode } from '../../types';
 import normalizeBoolean from './nodes/normalize-boolean';
 import normalizeDivided from './nodes/normalize-divided';
 import normalizeEquals from './nodes/normalize-equals';
+import normalizeFunctionCall from './nodes/normalize-function-call';
 import normalizeMinus from './nodes/normalize-minus';
 import normalizeNegate from './nodes/normalize-negate';
 import normalizeNumber from './nodes/normalize-number';
@@ -41,6 +42,9 @@ export default function normalize(node: SyntaxTreeNode, context: Context): Synta
 
         case 'equals':
             return normalizeEquals(node, context);
+
+        case 'functionCall':
+            return normalizeFunctionCall(node, context);
 
         default:
             throw `NormalizationError: unsupported node type "${node.type}"`;
