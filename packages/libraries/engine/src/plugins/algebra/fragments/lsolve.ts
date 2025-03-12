@@ -45,8 +45,7 @@ __FUNCTIONS.lsolve &&
 
             if (variableNames.length < equations.length) {
                 throw runtimeError(
-                    `Not enough variables expected ${equations.length} got ${
-                        variableNames.length
+                    `Not enough variables expected ${equations.length} got ${variableNames.length
                     } (${variableNames.join(', ')})`,
                 );
             } else if (variableNames.length > equations.length) {
