@@ -188,5 +188,5 @@ jobs:
         shell: bash
         run: |
           FROM_PATH="./packages/applications/calculator/dist"
-          DEST_PATH="s3://$BUCKET_ID/$ARTIFACT_PATH/web"
+          DEST_PATH="s3://$BUCKET_ID/$ARTIFACT_PATH"
           aws s3 sync "$FROM_PATH" "$DEST_PATH"
