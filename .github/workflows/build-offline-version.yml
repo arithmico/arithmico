@@ -151,3 +151,42 @@ jobs:
           curl -X PUT $WEBHOOK_URL \
           -H 'Content-Type: application/json' \
           -d '{"platform": "'$PLATFORM_NAME'", "webhookToken": "'$WEBHOOK_TOKEN'", "status": "failed"}'
+
+  build-online-version:
+    runs-on: ubuntu-24.04
+    env:
+      ARITHMICO_FEATURES: ${{ inputs.engineFeatures }}
+      BUCKET_ID: ${{ secrets.CDN_BUCKET }}
+      ARTIFACT_PATH: ${{ inputs.artifactPath }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: install frontend dependencies
+        run: |
+          node --version
+          npm --version
+          npm ci
+          npx --no nx run calculator:build
+
+      - name: build calculator application
+        shell: bash
+        run: npx nx build calculator
+
+      - name: upload artifacts
+        shell: bash
+        run: |
+          FROM_PATH="./packages/applications/calculator/dist"
+          DEST_PATH="s3://"$BUCKET_ID/$ARTIFACT_PATH$/web"
+          aws s3 cp $FROM_PATH $DEST_PATH
