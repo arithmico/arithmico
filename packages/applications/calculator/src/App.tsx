@@ -11,22 +11,21 @@ const Router = import.meta.env.VITE_OFFLINE_MODE ? HashRouter : BrowserRouter;
 
 function App() {
   const fontSize = useSelector(
-    (state: CalculatorRootState) => state.settings.fontSize
+    (state: CalculatorRootState) => state.settings.fontSize,
   );
   const theme = useSelector(
-    (state: CalculatorRootState) => state.settings.theme
+    (state: CalculatorRootState) => state.settings.theme,
   );
   const language = useSelector(
-    (state: CalculatorRootState) => state.settings.language
+    (state: CalculatorRootState) => state.settings.language,
   );
   const boldFont = useSelector(
-    (state: CalculatorRootState) => state.settings.boldFont
+    (state: CalculatorRootState) => state.settings.boldFont,
   );
 
   useEffect(() => {
-    (
-      document.getElementById("root") as HTMLElement
-    ).className = `theme-${theme}`;
+    (document.getElementById("root") as HTMLElement).className =
+      `theme-${theme}`;
   }, [theme]);
 
   useEffect(() => {
@@ -43,6 +42,7 @@ function App() {
     if (language && i18n.language !== language) {
       i18n.changeLanguage(language);
     }
+    document.documentElement.setAttribute("lang", language);
   }, [language]);
 
   return (
@@ -57,7 +57,7 @@ function App() {
         "inset-0",
         "grid",
         "lg:grid-rows-[5rem_1fr]",
-        "grid-rows-[3rem_1fr]"
+        "grid-rows-[3rem_1fr]",
       )}
     >
       <Router>

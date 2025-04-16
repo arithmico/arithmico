@@ -14,16 +14,18 @@ export default function SettingsInterfaceSection() {
   const [t] = useTranslation();
   const dispatch = useDispatch();
   const language = useSelector(
-    (state: CalculatorRootState) => state.settings.language
+    (state: CalculatorRootState) => state.settings.language,
   );
   const copySynopsisOnClick = useSelector(
-    (state: CalculatorRootState) => state.settings.copySynopsisOnClick
+    (state: CalculatorRootState) => state.settings.copySynopsisOnClick,
   );
 
   return (
     <SettingsSection heading={t("settings.interface")}>
       <Listbox
-        onChange={(language: string) => dispatch(setLanguage(language))}
+        onChange={(language: string) => {
+          dispatch(setLanguage(language));
+        }}
         label={t("settings.language")}
         options={[
           { label: t("settings.language.english"), value: "en" },

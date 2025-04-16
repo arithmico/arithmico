@@ -32,11 +32,13 @@ const settingsSlice = createSlice({
   initialState,
   reducers: {
     resetSettings: () => {
+      document.documentElement.setAttribute("lang", initialState.language);
       return initialState;
     },
     setLanguage: (state, action: PayloadAction<string>) => {
       if (languages.includes(action.payload)) {
         state.language = action.payload;
+        document.documentElement.setAttribute("lang", action.payload);
       }
     },
     setNumberFormat: (state, action: PayloadAction<string>) => {
