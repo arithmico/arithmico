@@ -1,8 +1,12 @@
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
 import classNames from "classnames";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function TermsOfService() {
+  const [t] = useTranslation();
+
   return (
     <WithScrollbars>
       <PageContainer
@@ -17,9 +21,10 @@ export default function TermsOfService() {
           "[&>h2]:mb-2",
           "[&_a]:underline",
           "[&_p]:py-2",
-          "bold-font:font-bold"
+          "bold-font:font-bold",
         )}
       >
+        <title>{t("about.terms-of-service").concat(" - Arithmico")}</title>
         <h1>Website Terms and Conditions of Use</h1>
 
         <h2>1. Terms</h2>

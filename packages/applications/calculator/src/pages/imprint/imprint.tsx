@@ -2,8 +2,12 @@ import { ImprintContent } from "ui-components";
 import classNames from "classnames";
 import PageContainer from "../../components/page-container/page-container";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Imprint() {
+  const [t] = useTranslation();
+
   return (
     <WithScrollbars>
       <PageContainer
@@ -21,9 +25,10 @@ export default function Imprint() {
           "[&_h3]:mb-2",
           "[&_h3]:text-xl",
           "[&_a]:underline",
-          "bold-font:font-bold"
+          "bold-font:font-bold",
         )}
       >
+        <title>{t("about.imprint").concat(" - Arithmico")}</title>
         <ImprintContent />
       </PageContainer>
     </WithScrollbars>
