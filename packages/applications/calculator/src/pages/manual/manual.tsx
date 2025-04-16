@@ -31,6 +31,7 @@ export default function Manual() {
   return (
     <WithScrollbars>
       <PageContainer className="flex flex-col">
+        <title>{t("nav.manual").concat(" - Arithmico")}</title>
         <label className="w-full">
           <span className="sr-only">{t("manual.search")}</span>
           <ResponsiveTextInput
