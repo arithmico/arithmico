@@ -14,17 +14,18 @@ import SettingsMiscellaneousSection from "../../components/settings-miscellaneou
 import DecimalPlacesListbox from "../../components/decimal-places-listbox/decimal-places-listbox";
 import SettingsSection from "../../components/settings-section/settings-section";
 import { CalculatorRootState } from "../../store/store";
+import React from "react";
 
 export default function Settings() {
   const dispatch = useDispatch();
   const significantDecimalPlaces = useSelector(
-    (state: CalculatorRootState) => state.settings.decimalPlaces
+    (state: CalculatorRootState) => state.settings.decimalPlaces,
   );
   const numberFormat = useSelector(
-    (state: CalculatorRootState) => state.settings.numberFormat
+    (state: CalculatorRootState) => state.settings.numberFormat,
   );
   const angleUnit = useSelector(
-    (state: CalculatorRootState) => state.settings.angleUnit
+    (state: CalculatorRootState) => state.settings.angleUnit,
   );
 
   const [t] = useTranslation();
@@ -32,6 +33,7 @@ export default function Settings() {
   return (
     <WithScrollbars>
       <PageContainer>
+        <title>{t("nav.settings").concat(" - Arithmico")}</title>
         <InterfaceSettings />
         <AppearanceSettings />
         <SettingsSection heading={t("settings.calculator")}>

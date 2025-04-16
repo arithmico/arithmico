@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import classNames from "classnames";
 import { CalculatorRootState } from "../../store/store";
 import { DefinitionsHeader } from "./components/definitions-header";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Definitions() {
   const context: Context = useSelector((state: CalculatorRootState) => ({
@@ -24,9 +26,11 @@ export default function Definitions() {
     ...context,
     stack: [context.stack.at(-1) ?? new Map()],
   });
+  const [t] = useTranslation();
 
   return (
     <PageContainer>
+      <title>{t("definitions.title").concat(" - Arithmico")}</title>
       <div
         className={classNames(
           "flex",

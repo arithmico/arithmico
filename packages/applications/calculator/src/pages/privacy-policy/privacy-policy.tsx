@@ -3,8 +3,11 @@ import React from "react";
 import PageContainer from "@local-components/page-container/page-container";
 import classNames from "classnames";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
+import { useTranslation } from "react-i18next";
 
 export default function PrivacyPolicy() {
+  const [t] = useTranslation();
+
   return (
     <WithScrollbars>
       <PageContainer
@@ -19,9 +22,10 @@ export default function PrivacyPolicy() {
           "[&_h2]:mb-2",
           "[&_a]:underline",
           "[&_p]:py-2",
-          "bold-font:font-bold"
+          "bold-font:font-bold",
         )}
       >
+        <title>{t("about.privacy-policy").concat(" - Arithmico")}</title>
         <h1>Privacy Policy for Arithmico</h1>
 
         <p>

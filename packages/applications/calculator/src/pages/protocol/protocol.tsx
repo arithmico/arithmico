@@ -5,14 +5,18 @@ import classNames from "classnames";
 import ProtocolListItem from "../../components/protocol-list-item/protocol-list-item";
 import { CalculatorRootState } from "../../store/store";
 import { ProtocolHeader } from "./components/protocol-header";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Protocol() {
   const protocolItems = useSelector(
     (state: CalculatorRootState) => state.session.protocol,
   );
+  const [t] = useTranslation();
 
   return (
     <PageContainer>
+      <title>{t("history.title").concat(" - Arithmico")}</title>
       <div
         className={classNames(
           "flex",

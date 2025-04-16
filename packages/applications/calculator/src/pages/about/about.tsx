@@ -63,6 +63,7 @@ export default function About() {
   return (
     <WithScrollbars>
       <PageContainer className={classNames("bold-font:font-bold")}>
+        <title>{t("nav.about").concat(" - Arithmico")}</title>
         <h2 className={classNames("text-3xl", "mb-4")}>{t("about.general")}</h2>
         <dl
           className={classNames(
@@ -167,14 +168,20 @@ export default function About() {
           {t("about.donationAppeal.description")}
         </p>
         <div className="lg:w-3/4 flex items-center justify-center border-2 p-2 my-2 rounded-md theme-light:border-black theme-dark:border-white">
-        <dl className="text-xl grid grid-cols-[auto_1fr] gap-x-4">
-          <dt className="text-right font-bold">{t("about.donationAppeal.iban")}</dt>
-          <dd>DE50 5005 0000 0001 0064 44</dd>
-          <dt className="text-right font-bold">{t("about.donationAppeal.bic")}</dt>
-          <dd>HELADEFFXXX</dd>
-          <dt className="text-right font-bold">{t("about.donationAppeal.reference")}</dt>
-          <dd>Fondsnummer 81203176</dd>
-        </dl>
+          <dl className="text-xl grid grid-cols-[auto_1fr] gap-x-4">
+            <dt className="text-right font-bold">
+              {t("about.donationAppeal.iban")}
+            </dt>
+            <dd>DE50 5005 0000 0001 0064 44</dd>
+            <dt className="text-right font-bold">
+              {t("about.donationAppeal.bic")}
+            </dt>
+            <dd>HELADEFFXXX</dd>
+            <dt className="text-right font-bold">
+              {t("about.donationAppeal.reference")}
+            </dt>
+            <dd>Fondsnummer 81203176</dd>
+          </dl>
         </div>
         <p className="lg:w-3/4 text-xl mt-3">
           <Trans i18nKey={"about.donationAppeal.outro"}>

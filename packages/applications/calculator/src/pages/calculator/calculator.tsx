@@ -2,11 +2,13 @@ import CalculatorForm from "@local-components/calculator-form/calculator-form";
 import CalculatorToolbar from "@local-components/calculator-toolbar/calculator-toolbar";
 import PageContainer from "@local-components/page-container/page-container";
 import classNames from "classnames";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Calculator() {
   const navigate = useNavigate();
+  const [t] = useTranslation();
 
   useEffect(() => {
     const hideNews = localStorage.getItem("hide_news");
@@ -25,6 +27,7 @@ export default function Calculator() {
     <PageContainer
       className={classNames("grid", "gap-8", "grid-rows-[1fr_auto]")}
     >
+      <title>{t("nav.calculator").concat(" - Arithmico")}</title>
       <CalculatorForm />
       <CalculatorToolbar />
     </PageContainer>
