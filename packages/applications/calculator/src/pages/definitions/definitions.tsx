@@ -10,6 +10,7 @@ import { CalculatorRootState } from "../../store/store";
 import { DefinitionsHeader } from "./components/definitions-header";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import useTitle from "../../hooks/use-title";
 
 export default function Definitions() {
   const context: Context = useSelector((state: CalculatorRootState) => ({
@@ -27,10 +28,10 @@ export default function Definitions() {
     stack: [context.stack.at(-1) ?? new Map()],
   });
   const [t] = useTranslation();
+  useTitle(t("definitions.title").concat(" - Arithmico"));
 
   return (
     <PageContainer>
-      <title>{t("definitions.title").concat(" - Arithmico")}</title>
       <div
         className={classNames(
           "flex",

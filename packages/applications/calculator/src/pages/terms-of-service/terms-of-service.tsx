@@ -3,9 +3,11 @@ import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
 import classNames from "classnames";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import useTitle from "../../hooks/use-title";
 
 export default function TermsOfService() {
   const [t] = useTranslation();
+  useTitle(t("about.terms-of-service").concat(" - Arithmico"));
 
   return (
     <WithScrollbars>
@@ -24,7 +26,6 @@ export default function TermsOfService() {
           "bold-font:font-bold",
         )}
       >
-        <title>{t("about.terms-of-service").concat(" - Arithmico")}</title>
         <h1>Website Terms and Conditions of Use</h1>
 
         <h2>1. Terms</h2>

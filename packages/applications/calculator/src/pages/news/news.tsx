@@ -2,13 +2,14 @@ import { Trans, useTranslation } from "react-i18next";
 import PageContainer from "../../components/page-container/page-container";
 import { Link } from "react-router-dom";
 import React from "react";
+import useTitle from "../../hooks/use-title";
 
 export function NewsPage() {
   const [t] = useTranslation();
+  useTitle(t("news.title").concat(" - Arithmico"));
 
   return (
     <PageContainer className="flex flex-col">
-      <title>{t("news.title").concat(" - Arithmico")}</title>
       <h1 className="text-5xl mb-4">{t("news.title")}</h1>
       <p className="text-2xl my-4">
         <Trans i18nKey={"news.content"}>

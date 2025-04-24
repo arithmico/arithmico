@@ -5,6 +5,7 @@ import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import useTitle from "../../hooks/use-title";
 
 export default function Calculator() {
   const navigate = useNavigate();
@@ -23,11 +24,12 @@ export default function Calculator() {
     }
   });
 
+  useTitle(t("nav.calculator").concat(" - Arithmico"));
+
   return (
     <PageContainer
       className={classNames("grid", "gap-8", "grid-rows-[1fr_auto]")}
     >
-      <title>{t("nav.calculator").concat(" - Arithmico")}</title>
       <CalculatorForm />
       <CalculatorToolbar />
     </PageContainer>

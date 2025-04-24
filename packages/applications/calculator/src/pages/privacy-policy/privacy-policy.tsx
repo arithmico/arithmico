@@ -4,9 +4,11 @@ import PageContainer from "@local-components/page-container/page-container";
 import classNames from "classnames";
 import WithScrollbars from "../../components/with-scrollbars/with-scrollbars";
 import { useTranslation } from "react-i18next";
+import useTitle from "../../hooks/use-title";
 
 export default function PrivacyPolicy() {
   const [t] = useTranslation();
+  useTitle(t("about.privacy-policy").concat(" - Arithmico"));
 
   return (
     <WithScrollbars>
@@ -25,7 +27,6 @@ export default function PrivacyPolicy() {
           "bold-font:font-bold",
         )}
       >
-        <title>{t("about.privacy-policy").concat(" - Arithmico")}</title>
         <h1>Privacy Policy for Arithmico</h1>
 
         <p>

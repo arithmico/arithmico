@@ -15,6 +15,7 @@ import DecimalPlacesListbox from "../../components/decimal-places-listbox/decima
 import SettingsSection from "../../components/settings-section/settings-section";
 import { CalculatorRootState } from "../../store/store";
 import React from "react";
+import useTitle from "../../hooks/use-title";
 
 export default function Settings() {
   const dispatch = useDispatch();
@@ -29,11 +30,11 @@ export default function Settings() {
   );
 
   const [t] = useTranslation();
+  useTitle(t("nav.settings").concat(" - Arithmico"));
 
   return (
     <WithScrollbars>
       <PageContainer>
-        <title>{t("nav.settings").concat(" - Arithmico")}</title>
         <InterfaceSettings />
         <AppearanceSettings />
         <SettingsSection heading={t("settings.calculator")}>

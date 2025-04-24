@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import PageContainer from "../../components/page-container/page-container";
+import useTitle from "../../hooks/use-title";
 
 export default function NewVersionAvailable() {
   const [t] = useTranslation();
@@ -16,9 +17,10 @@ export default function NewVersionAvailable() {
       });
   }, [setLatestVersion]);
 
+  useTitle(t("new-version-available.title").concat(" - Arithmico"));
+
   return (
     <PageContainer className={classNames("flex, flex-col")}>
-      <title>{t("new-version-available.title").concat(" - Arithmico")}</title>
       <h1 className={classNames("text-3xl", "font-medium", "mb-4")}>
         {t("new-version-available.title")}
       </h1>

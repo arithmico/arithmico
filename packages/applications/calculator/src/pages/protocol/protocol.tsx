@@ -7,16 +7,17 @@ import { CalculatorRootState } from "../../store/store";
 import { ProtocolHeader } from "./components/protocol-header";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import useTitle from "../../hooks/use-title";
 
 export default function Protocol() {
   const protocolItems = useSelector(
     (state: CalculatorRootState) => state.session.protocol,
   );
   const [t] = useTranslation();
+  useTitle(t("history.title").concat(" - Arithmico"));
 
   return (
     <PageContainer>
-      <title>{t("history.title").concat(" - Arithmico")}</title>
       <div
         className={classNames(
           "flex",
