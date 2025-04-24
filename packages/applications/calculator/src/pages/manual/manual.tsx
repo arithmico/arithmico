@@ -9,6 +9,7 @@ import ManualHotkeySection from "@local-components/manual-hotkey-section/manual-
 import classNames from "classnames";
 import { ResponsiveTextInput } from "../../components/responsive-text-input/responsive-text-input";
 import { CalculatorRootState } from "../../store/store";
+import useTitle from "../../hooks/use-title";
 
 const documentation = getDocumentation();
 
@@ -17,6 +18,7 @@ export default function Manual() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [t] = useTranslation();
+  useTitle(t("nav.manual").concat(" - Arithmico"));
 
   const onSearchEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -31,7 +33,6 @@ export default function Manual() {
   return (
     <WithScrollbars>
       <PageContainer className="flex flex-col">
-        <title>{t("nav.manual").concat(" - Arithmico")}</title>
         <label className="w-full">
           <span className="sr-only">{t("manual.search")}</span>
           <ResponsiveTextInput

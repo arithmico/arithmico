@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import packageJsonData from "@workspace-package.json";
 import PageContainer from "@local-components/page-container/page-container";
 import WithScrollbars from "@local-components/with-scrollbars/with-scrollbars";
 import classNames from "classnames";
+import useTitle from "../../hooks/use-title";
 
 const version: string = import.meta.env.VITE_DEV_MODE
   ? "dev"
@@ -50,6 +51,8 @@ export default function About() {
     "theme-dark:outline-white",
   );
 
+  useTitle(t("nav.about").concat(" - Arithmico"));
+
   const teamMembers = [
     "Tizian Roth",
     "Knut Büttner",
@@ -63,7 +66,6 @@ export default function About() {
   return (
     <WithScrollbars>
       <PageContainer className={classNames("bold-font:font-bold")}>
-        <title>{t("nav.about").concat(" - Arithmico")}</title>
         <h2 className={classNames("text-3xl", "mb-4")}>{t("about.general")}</h2>
         <dl
           className={classNames(
