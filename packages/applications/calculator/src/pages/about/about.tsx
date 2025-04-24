@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import packageJsonData from "@workspace-package.json";
