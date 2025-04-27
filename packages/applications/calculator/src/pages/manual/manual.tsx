@@ -18,7 +18,7 @@ export default function Manual() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [t] = useTranslation();
-  useTitle(t("nav.manual").concat(" - Arithmico"));
+  useTitle(t("title.manual"));
 
   const onSearchEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

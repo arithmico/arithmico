@@ -14,7 +14,7 @@ export default function Protocol() {
     (state: CalculatorRootState) => state.session.protocol,
   );
   const [t] = useTranslation();
-  useTitle(t("history.title").concat(" - Arithmico"));
+  useTitle(t("title.history"));
 
   return (
     <PageContainer>

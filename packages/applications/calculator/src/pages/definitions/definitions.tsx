@@ -28,7 +28,7 @@ export default function Definitions() {
     stack: [context.stack.at(-1) ?? new Map()],
   });
   const [t] = useTranslation();
-  useTitle(t("definitions.title").concat(" - Arithmico"));
+  useTitle(t("title.definitions"));
 
   return (
     <PageContainer>

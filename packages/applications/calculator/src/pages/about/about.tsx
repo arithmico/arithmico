@@ -51,7 +51,7 @@ export default function About() {
     "theme-dark:outline-white",
   );
 
-  useTitle(t("nav.about").concat(" - Arithmico"));
+  useTitle(t("title.about"));
 
   const teamMembers = [
     "Tizian Roth",

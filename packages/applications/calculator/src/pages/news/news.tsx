@@ -6,7 +6,7 @@ import useTitle from "../../hooks/use-title";
 
 export function NewsPage() {
   const [t] = useTranslation();
-  useTitle(t("news.title").concat(" - Arithmico"));
+  useTitle(t("title.news"));
 
   return (
     <PageContainer className="flex flex-col">

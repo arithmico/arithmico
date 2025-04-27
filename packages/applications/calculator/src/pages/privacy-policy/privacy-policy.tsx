@@ -8,7 +8,7 @@ import useTitle from "../../hooks/use-title";
 
 export default function PrivacyPolicy() {
   const [t] = useTranslation();
-  useTitle(t("about.privacy-policy").concat(" - Arithmico"));
+  useTitle(t("title.privacy-policy"));
 
   return (
     <WithScrollbars>
