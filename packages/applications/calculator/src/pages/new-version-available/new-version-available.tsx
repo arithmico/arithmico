@@ -17,7 +17,7 @@ export default function NewVersionAvailable() {
       });
   }, [setLatestVersion]);
 
-  useTitle(t("new-version-available.title").concat(" - Arithmico"));
+  useTitle(t("title.new-version-available"));
 
   return (
     <PageContainer className={classNames("flex, flex-col")}>

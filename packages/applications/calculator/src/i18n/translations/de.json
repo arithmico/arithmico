@@ -1,4 +1,16 @@
 {
+  "title.about": "Über - Arithmico",
+  "title.calculator": "Rechner - Arithmico",
+  "title.definitions": "Definitionen - Arithmico",
+  "title.imprint": "Impressum - Arithmico",
+  "title.manual": "Hilfe - Arithmico",
+  "title.new-version-available": "Neue Version verfügbar - Arithmico",
+  "title.news": "Neuigkeiten - Arithmico",
+  "title.privacy-policy": "Datenschutz - Arithmico",
+  "title.history": "Verlauf - Arithmico",
+  "title.settings": "Einstellungen - Arithmico",
+  "title.terms-of-service": "Nutzungsbedingungen - Arithmico",
+
   "common.input": "Eingabe",
   "common.output": "Ausgabe",
   "common.back": "Zurück",

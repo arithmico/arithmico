@@ -7,7 +7,7 @@ import useTitle from "../../hooks/use-title";
 
 export default function TermsOfService() {
   const [t] = useTranslation();
-  useTitle(t("about.terms-of-service").concat(" - Arithmico"));
+  useTitle(t("title.terms-of-service"));
 
   return (
     <WithScrollbars>

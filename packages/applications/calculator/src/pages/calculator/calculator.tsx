@@ -24,7 +24,7 @@ export default function Calculator() {
     }
   });
 
-  useTitle(t("nav.calculator").concat(" - Arithmico"));
+  useTitle(t("title.calculator"));
 
   return (
     <PageContainer

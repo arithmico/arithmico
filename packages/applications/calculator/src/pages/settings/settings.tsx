@@ -30,7 +30,7 @@ export default function Settings() {
   );
 
   const [t] = useTranslation();
-  useTitle(t("nav.settings").concat(" - Arithmico"));
+  useTitle(t("title.settings"));
 
   return (
     <WithScrollbars>

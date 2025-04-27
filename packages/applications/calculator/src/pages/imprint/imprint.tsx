@@ -8,7 +8,7 @@ import useTitle from "../../hooks/use-title";
 
 export default function Imprint() {
   const [t] = useTranslation();
-  useTitle(t("about.imprint").concat(" - Arithmico"));
+  useTitle(t("title.imprint"));
 
   return (
     <WithScrollbars>
