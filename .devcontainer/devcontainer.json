@@ -4,7 +4,6 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "rust-lang.rust-analyzer",
                 "vivaxy.vscode-conventional-commits",
                 "ms-playwright.playwright",
                 "github.vscode-github-actions"
