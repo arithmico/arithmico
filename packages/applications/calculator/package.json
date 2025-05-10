@@ -2,7 +2,7 @@
   "name": "calculator",
   "homepage": ".",
   "scripts": {
-    "start": "vite",
+    "start": "vite --host",
     "build": "vite build",
     "build:offline": "VITE_OFFLINE_MODE=true NODE_ENV=production vite build --mode offline",
     "tauri": "tauri",

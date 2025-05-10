@@ -2,7 +2,7 @@
   "name": "documentation",
   "homepage": ".",
   "scripts": {
-    "start": "vite",
+    "start": "vite --host",
     "build": "vite build",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix --max-warnings 0",
     "test": "echo \"Info: no test specified\" && exit 0"
