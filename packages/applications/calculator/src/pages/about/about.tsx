@@ -293,6 +293,25 @@ export default function About() {
               alt="Math4VIP Logo"
             />
           </a>
+          <a
+            className={classNames(
+              "p-4",
+              "bg-white",
+              "rounded-md",
+              classNamesOutline,
+            )}
+            href="http://www.nikolauspflege.de/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="sr-only">Nikolauspflege</span>
+            <img
+              aria-hidden
+              className="w-full"
+              src="nikolauspflege_logo.png"
+              alt="Nikolauspflege Logo"
+            />
+          </a>
         </div>
       </PageContainer>
     </WithScrollbars>
