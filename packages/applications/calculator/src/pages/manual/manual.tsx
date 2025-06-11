@@ -10,6 +10,7 @@ import classNames from "classnames";
 import { ResponsiveTextInput } from "../../components/responsive-text-input/responsive-text-input";
 import { CalculatorRootState } from "../../store/store";
 import useTitle from "../../hooks/use-title";
+import { StartSearchButton } from "@pages/manual/components/start-search-button";
 
 const documentation = getDocumentation();
 
@@ -33,17 +34,34 @@ export default function Manual() {
   return (
     <WithScrollbars>
       <PageContainer className="flex flex-col">
-        <label className="w-full">
-          <span className="sr-only">{t("manual.search")}</span>
+        <div
+          className={classNames(
+            "grid",
+            "grid-cols-[1fr_auto]",
+            "mx-2",
+            "mb-4",
+            "sm:mb-6",
+            "md:mb-8",
+            "lg:mb-12",
+          )}
+        >
+          <label id="search-field-label">
+            <span className="sr-only">{t("manual.search")}</span>
+          </label>
           <ResponsiveTextInput
-            className={classNames("mb-4", "sm:mb-6", "md:mb-8", "lg:mb-12")}
+            className={classNames("col-start-1", "rounded-l-sm")}
+            aria-labelledby="search-field-label"
             ref={searchRef}
             placeholder={t("manual.search") ?? undefined}
             value={searchValue}
             onChange={(e) => setSearchValue(e.currentTarget.value)}
             onKeyPress={onSearchEnter}
           />
-        </label>
+          <StartSearchButton
+            text={t("toolbar.resetInput")} // todo: add lang key
+            onClick={() => setSearchQuery(searchValue)}
+          />
+        </div>
         {documentation.map((pluginStructure, index) => (
           <ManualPluginSection
             pluginStructure={pluginStructure}
