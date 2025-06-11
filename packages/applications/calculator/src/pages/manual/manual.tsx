@@ -58,7 +58,7 @@ export default function Manual() {
             onKeyPress={onSearchEnter}
           />
           <StartSearchButton
-            text={t("toolbar.resetInput")} // todo: add lang key
+            text={t("toolbar.startSearch")}
             onClick={() => setSearchQuery(searchValue)}
           />
         </div>
