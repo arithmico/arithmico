@@ -46,7 +46,7 @@ const CalculatorInput = forwardRef<
       autoCapitalize="off"
       autoComplete="off"
       inputMode="url"
-      className={classNames("pr-14")}
+      className={classNames("pr-14", "rounded-sm")}
       placeholder={t("common.input") ?? undefined}
       value={input}
       onChange={(e) => dispatch(setInput(e.currentTarget.value))}
