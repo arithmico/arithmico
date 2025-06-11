@@ -24,7 +24,6 @@ export const ResponsiveTextInput = forwardRef<
         "sm:py-3",
         "md:py-4",
         "lg:py-6",
-        "rounded-sm",
         "bold-font:font-bold",
         "focus:outline",
         "outline-2",
