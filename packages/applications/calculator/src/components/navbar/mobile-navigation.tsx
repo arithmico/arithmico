@@ -24,15 +24,11 @@ function MenuContent({ items, close }: DisclosureContentProps) {
       <Menu.Button
         className={classNames(
           "h-full",
-          "outline-none",
+          //"outline-none",
           "flex",
           "items-center",
           "-mr-2",
           "px-2",
-          "ui-focus-visible:outline-none",
-          "ui-focus-visible:outline-offset-2",
-          "ui-focus-visible:theme-light:outline-black",
-          "ui-focus-visible:theme-dark:outline-white",
         )}
       >
         <MenuIcon
@@ -53,7 +49,6 @@ function MenuContent({ items, close }: DisclosureContentProps) {
           "right-0",
           "mt-[30%]",
           "outline-none",
-          "[&:hover>a>div]:outline-none",
           "border",
           "theme-light:bg-neutral-300",
           "theme-light:border-neutral-700",
