@@ -24,7 +24,7 @@ function MenuContent({ items, close }: DisclosureContentProps) {
       <Menu.Button
         className={classNames(
           "h-full",
-          //"outline-none",
+          "outline-none",
           "flex",
           "items-center",
           "-mr-2",
