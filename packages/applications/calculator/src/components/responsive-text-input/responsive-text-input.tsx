@@ -25,15 +25,10 @@ export const ResponsiveTextInput = forwardRef<
         "md:py-4",
         "lg:py-6",
         "bold-font:font-bold",
-        "focus:outline",
-        "outline-2",
-        "outline-offset-2",
         "theme-light:bg-neutral-100",
         "theme-light:border-neutral-400",
-        "theme-light:focus:outline-black",
         "theme-dark:bg-neutral-800",
         "theme-dark:border-neutral-500",
-        "theme-dark:focus:outline-white",
         props.className,
       )}
     />
