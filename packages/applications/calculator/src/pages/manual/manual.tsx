@@ -38,18 +38,28 @@ export default function Manual() {
           className={classNames(
             "grid",
             "grid-cols-[1fr_auto]",
-            "mx-2",
             "mb-4",
             "sm:mb-6",
             "md:mb-8",
             "lg:mb-12",
+            "has-[input:focus-visible]:outline",
+            "outline-2",
+            "outline-offset-2",
+            "rounded-sm",
+            "theme-light:outline-black",
+            "theme-dark:outline-white",
           )}
         >
           <label id="search-field-label">
             <span className="sr-only">{t("manual.search")}</span>
           </label>
           <ResponsiveTextInput
-            className={classNames("col-start-1", "rounded-l-sm")}
+            className={classNames(
+              "col-start-1",
+              "peer",
+              "rounded-l-sm",
+              "focus:outline-none",
+            )}
             aria-labelledby="search-field-label"
             ref={searchRef}
             placeholder={t("manual.search") ?? undefined}

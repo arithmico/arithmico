@@ -23,7 +23,12 @@ const CalculatorTextOutput = forwardRef<
 
   return (
     <ResponsiveTextInput
-      className={classNames("pr-14", "rounded-sm")}
+      className={classNames(
+        "pr-14",
+        "rounded-sm",
+        "theme-light:focus-visible:outline-black",
+        "theme-dark:focus-visible:outline-white",
+      )}
       ref={ref}
       placeholder={t("common.output")}
       readOnly
