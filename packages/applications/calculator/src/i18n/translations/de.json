@@ -100,6 +100,8 @@
   "about.donationAppeal.reference": "Verwendungszweck: ",
   "about.donationAppeal.outro": "Bitte geben Sie als weiteren Verwendungszweck „barrierefreier Zugang zur Mathematik Arithmico“ an. Gerne stellen wir Ihnen auch eine Spendenbescheinigung aus, schreiben Sie uns dazu einfach an die Email-Adresse <1>{{email}}</1>.",
   "about.sponsors": "Projektpartner",
+  "about.online-help": "Online-Anleitung",
+  "about.online-help.description": "Link",
 
   "hotkeys.focusInput": "Eingabefeld fokussieren",
   "hotkeys.focusOutput": "Ausgabefeld fokussieren",

@@ -87,6 +87,15 @@ export default function About() {
               {packageJson.homepage}
             </a>
           </DT>
+          <DD>{t("about.online-help")}</DD>
+          <DT>
+            <a
+              href="https://unterrichten.zum.de/wiki/Arithmico"
+              className={classNames(classNamesOutline)}
+            >
+              {t("about.online-help.description")}
+            </a>
+          </DT>
           <DD>{t("about.website")}</DD>
           <DT>
             <a
