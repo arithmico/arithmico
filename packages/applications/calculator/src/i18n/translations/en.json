@@ -100,6 +100,8 @@
   "about.donationAppeal.reference": "Reference: ",
   "about.donationAppeal.outro": "Please also state „barrierefreier Zugang zur Mathematik Arithmico“ as the additional purpose. We would also be happy to issue you with a donation receipt; just write to us at <1>{{email}}</1>.",
   "about.sponsors": "Project partners",
+  "about.online-help": "Online help",
+  "about.online-help.description": "Link (German)",
 
   "hotkeys.focusInput": "Focus input field",
   "hotkeys.focusOutput": "Focus output field",
