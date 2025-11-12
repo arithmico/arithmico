@@ -82,7 +82,7 @@ export default function About() {
           <DT>
             <a
               href={packageJson.homepage}
-              className={classNames(classNamesOutline)}
+              className={classNames(classNamesOutline, "underline")}
             >
               {packageJson.homepage}
             </a>
@@ -91,16 +91,16 @@ export default function About() {
           <DT>
             <a
               href="https://unterrichten.zum.de/wiki/Arithmico"
-              className={classNames(classNamesOutline)}
+              className={classNames(classNamesOutline, "underline")}
             >
-              {t("about.online-help.description")}
+              {"https://unterrichten.zum.de/wiki/Arithmico"}
             </a>
           </DT>
           <DD>{t("about.website")}</DD>
           <DT>
             <a
               href="https://blog.arithmico.com"
-              className={classNames(classNamesOutline)}
+              className={classNames(classNamesOutline, "underline")}
             >
               Arithmico Blog
             </a>
@@ -109,7 +109,7 @@ export default function About() {
           <DT>
             <a
               href="https://github.com/arithmico/arithmico/contributors"
-              className={classNames(classNamesOutline)}
+              className={classNames(classNamesOutline, "underline")}
             >
               https://github.com/arithmico/arithmico/contributors
             </a>
