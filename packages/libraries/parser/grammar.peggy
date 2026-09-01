@@ -353,6 +353,7 @@ LatexExpression = LatexArccos
 / LatexSqrtWithDegree
 / LatexTan
 / LatexTanh
+/ LatexBinco
 / LatexSubExpression
 
 LatexArccos = "\\arccos" _ "(" _ expr:Expression _ ")" {
@@ -565,6 +566,17 @@ LatexTanh = "\\tanh" _ "(" _ expr:Expression _ ")" {
             name: "tanh"
         },
         parameters: [expr]
+    }
+}
+
+LatexBinco = "\\binom" _ "{" _ n:Expression _"}" _ "{" _ k:Expression _"}" {
+    return {
+        type: "functionCall",
+        function: {
+            type: "symbol",
+            name: "binco"
+        },
+        parameters: [n, k]
     }
 }
 
