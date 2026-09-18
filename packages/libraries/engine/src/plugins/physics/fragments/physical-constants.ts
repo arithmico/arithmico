@@ -108,7 +108,7 @@ __CONSTANTS.physicsF &&
         'physics:F',
         'Faraday constant in C/mol is the electric charge of one mole of electrons',
         'Die Faraday-Konstante in C/mol ist die elektrische Ladung eines Mols einfach geladener Ionen',
-        // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+        // eslint-disable-next-line no-loss-of-precision
         createNumberNode(96485.3321233100184),
     );
 

@@ -4,7 +4,7 @@
 	We are using PPND16 for double precision.
 	*/
 
-/* eslint-disable @typescript-eslint/no-loss-of-precision */
+/* eslint-disable no-loss-of-precision */
 // Coefficients for P close to 0.5
 const A0 = 3.387132872796366608,
     A1 = 1.3314166789178437745e2,

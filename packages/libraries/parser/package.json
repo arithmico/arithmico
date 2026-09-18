@@ -10,6 +10,6 @@
     "lint": "echo \"Info: no linter specified\" && exit 0"
   },
   "devDependencies": {
-    "peggy": "^3.0.2"
+    "peggy": "^5.1.0"
   }
 }
