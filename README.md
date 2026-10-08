@@ -1,5 +1,9 @@
 # Arithmico Project
 
+> ⚠️ **Notice: Deprecated Repository**
+> This version of Arithmico is deprecated and is no longer receiving major feature updates or dependency maintenance. We are currently rewriting Arithmico from scratch in Rust!
+> Check out the new repository here: **https://github.com/arithmico/next-arithmico**. Contributions and feedback in the new repo are very welcome!
+
 This repository contains the source code for the Arithmico Engine and the following web applications
 
 - Arithmico Calc
